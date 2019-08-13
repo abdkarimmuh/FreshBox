@@ -1,0 +1,12 @@
+.navbar-bg {
+  background-color: #388E3C;
+}
+
+.main-sidebar .sidebar-menu li.active a {
+  color: #4CAF50;
+}
+
+body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
+  background-color: #4CAF50;
+}
+

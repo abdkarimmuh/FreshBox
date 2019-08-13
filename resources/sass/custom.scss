@@ -1,0 +1,12 @@
+@import 'variables';
+
+.navbar-bg {
+    background-color: $green-dark;
+}
+
+.main-sidebar .sidebar-menu li.active a {
+    color: $green;
+}
+body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
+    background-color: $green;
+}
