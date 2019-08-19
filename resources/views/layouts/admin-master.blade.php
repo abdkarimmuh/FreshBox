@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>@yield('title', 'FreshBox') &mdash; {{ env('APP_NAME') }}</title>
+    <title></title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/img/icon-freshbox.png')}}">
     <!-- General CSS Files -->
@@ -48,6 +48,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="{{ asset('assets/js/stisla.js') }}"></script>
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
+@livewireAssets
 @yield('scripts')
 </body>
 </html>

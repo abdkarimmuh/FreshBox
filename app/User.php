@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\LaravelVueDatatableTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,6 +14,7 @@ class User extends Authenticatable
     use Notifiable;
     use HasRoles;
     use UserTrait;
+    use \JamesDordoy\LaravelVueDatatable\Traits\LaravelVueDatatableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +26,18 @@ class User extends Authenticatable
     ];
 
     protected $appends = ['allPermissions', 'profilelink', 'avatarlink', 'isme'];
+
+    protected $dataTableColumns = [
+        'id' => [
+            'searchable' => false,
+        ],
+        'name' => [
+            'searchable' => true,
+        ],
+        'email' => [
+            'searchable' => true,
+        ]
+    ];
 
     /**
      * The attributes that should be hidden for arrays.

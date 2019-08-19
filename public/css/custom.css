@@ -1,5 +1,6 @@
 .navbar-bg {
   background-color: #388E3C;
+  background-image: linear-gradient(to bottom, #388E3C, #4CAF50);
 }
 
 .main-sidebar .sidebar-menu li.active a {
@@ -8,5 +9,9 @@
 
 body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
   background-color: #4CAF50;
+}
+
+.table-dark {
+  background-color: rgba(0, 0, 0, 0.02);
 }
 

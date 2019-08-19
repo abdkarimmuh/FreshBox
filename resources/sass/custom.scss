@@ -2,6 +2,7 @@
 
 .navbar-bg {
     background-color: $green-dark;
+    background-image: linear-gradient(to bottom, $green-dark , $green);
 }
 
 .main-sidebar .sidebar-menu li.active a {
@@ -9,4 +10,7 @@
 }
 body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
     background-color: $green;
+}
+.table-dark{
+    background-color: rgba(0, 0, 0, 0.02);
 }
