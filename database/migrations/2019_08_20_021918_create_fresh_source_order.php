@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFreshCustomerType extends Migration
+class CreateFreshSourceOrder extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class CreateFreshCustomerType extends Migration
      */
     public function up()
     {
-        Schema::create('fresh_customer_type', function (Blueprint $table) {
+        Schema::create('fresh_source_order', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('customer_type', 100);
-            $table->string('description', 100);
+            $table->string('source_order');
+            $table->string('description_so');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('edited_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('edited_by')->on('users')->references('id')->onDelete('cascade');
-
         });
     }
 
@@ -34,6 +33,6 @@ class CreateFreshCustomerType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fresh_customer_type');
+        Schema::dropIfExists('fresh_source_order');
     }
 }

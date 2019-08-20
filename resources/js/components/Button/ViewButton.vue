@@ -1,11 +1,11 @@
 <template>
     <div>
-        <router-link :to="{ name: data.view_route  ,  params: { id: data.ID }}" class="badge badge-primary"
+        <router-link :to="{ name: data.view_route  ,  params: { id: data.id }}" class="badge badge-primary"
                      title="View">
             View
         </router-link>
 
-        <router-link :to="{ name: data.edit_route  ,  params: { id: data.ID }}" class="badge badge-warning"
+        <router-link :to="{ name: data.edit_route  ,  params: { id: data.id }}" class="badge badge-warning"
                      title="Edit">
             Edit
         </router-link>

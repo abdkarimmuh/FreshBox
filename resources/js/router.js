@@ -5,6 +5,7 @@ import ProfileComponent from './components/ProfileComponent';
 import AdduserComponent from './components/AdduserComponent';
 import FormSalesOrder from './components/marketing/FormSalesOrderComponent';
 import Testing from "./components/Testing";
+import AddSalesOrder from "./components/marketing/AddSalesOrder";
 
 Vue.use(VueRouter);
 
@@ -26,6 +27,12 @@ const router = new VueRouter({
             name: 'form_sales_order',
             meta: {title: 'Home'},
             component: FormSalesOrder
+        },
+        {
+            path: '/admin/marketing/form_sales_order/create',
+            name: 'AddSalesOrder',
+            meta: {title: 'Home'},
+            component: AddSalesOrder
         },
         {
             path: '/admin/marketing/form_sales_order/:id/view',

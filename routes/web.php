@@ -7,11 +7,9 @@ Route::get('home', function () {
     return redirect(route('admin.dashboard'));
 });
 Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
-//    Route::get('/{any}', 'DashboardController')->where('any', '.*');
     Route::get('/{any}', 'DashboardController')->where('any', '.*');
     Route::get('dashboard', 'DashboardController')->name('dashboard');
 
-    Route::get('users/roles', 'UserController@roles')->name('users.roles');
     Route::get('users/list', 'UserController@index')->name('users.roles');
 
     Route::resource('users', 'UserController', [

@@ -88,7 +88,7 @@ export default {
     },
     methods: {
         getRoles() {
-            axios.get(this.$parent.MakeUrl('admin/users/roles')).then((res) => {
+            axios.get(this.$parent.MakeUrl('api/users/roles')).then((res) => {
                 this.roles = res.data;
             }).catch((err) => {
 

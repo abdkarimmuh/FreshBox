@@ -5,8 +5,8 @@
                 <div class="card-header">
                     <h4>Users <span v-if="total">({{ total }})</span></h4>
                     <div class="card-header-action">
-                        <a v-if="$parent.userCan('create-users')" v-bind:href="$parent.MakeUrl('admin/users/create')"
-                           class="btn btn-primary">Add <i class="fas fa-plus"></i></a>
+                        <router-link v-if="$parent.userCan('create-users')" :to="{ name: 'adduser' }"
+                                     class="btn btn-primary">Add <i class="fas fa-plus"></i></router-link>
                     </div>
                 </div>
                 <div class="card-body p-0">

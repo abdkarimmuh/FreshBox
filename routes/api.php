@@ -37,7 +37,14 @@ Route::get('/data ', function (Request $request) {
 
     $query = \App\Testing::dataTableQuery($column, $orderBy, $searchValue);
     $data = $query->paginate(5);
+
     return new \App\Http\Resources\DataCollectionResource($data);
 
 });
 Route::get('/form_sales_order', 'Marketing\FormSalesOrderController@index');
+
+Route::get('/testing', function () {
+    $data = \App\Model\Marketing\SalesOrder::get();
+    return $data;
+});
+Route::get('users/roles', 'UserController@roles')->name('users.roles');

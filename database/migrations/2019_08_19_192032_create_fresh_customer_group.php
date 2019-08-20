@@ -18,9 +18,11 @@ class CreateFreshCustomerGroup extends Migration
             $table->string('customer_group', 100);
             $table->string('description', 100);
             $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('edited_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
+            $table->foreign('edited_by')->on('users')->references('id')->onDelete('cascade');
         });
     }
 

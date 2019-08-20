@@ -5,8 +5,8 @@
                 <div class="card-header">
                     <h4>Users</h4>
                     <div class="card-header-action">
-                        <a v-if="$parent.userCan('create-users')" v-bind:href="$parent.MakeUrl('admin/users/create')"
-                           class="btn btn-primary">Add <i class="fas fa-plus"></i></a>
+                        <router-link v-if="$parent.userCan('create-users')" :to="{ name: 'AddSalesOrder'}"
+                           class="btn btn-primary">Add <i class="fas fa-plus"></i></router-link>
                     </div>
                 </div>
                 <div class="card-body">
@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import ViewButton from "../Button/ViewButton";
+    import ViewButton from "../Button/ViewButton";
+    import Badge from "../Button/Badge";
 
     export default {
         data() {
@@ -43,14 +44,56 @@ import ViewButton from "../Button/ViewButton";
                     },
                     {
                         label: 'Sales Order NO',
-                        name: 'SalesorderNo',
+                        name: 'sales_order_no',
                         filterable: true,
                     },
                     {
-                        label: 'IDCust',
-                        name: 'IDCust',
+                        label: 'Customer',
+                        name: 'customer_name',
                         filterable: true,
-                    }
+                    },
+                    {
+                        label: 'Source Order',
+                        name: 'source_order_name',
+                        filterable: false,
+                    },
+                    {
+                        label: 'Fulfillment Date',
+                        name: 'fulfillment_date',
+                        filterable: true,
+                    },
+                    {
+                        label: 'Remarks',
+                        name: 'remarks',
+                        filterable: true,
+                    },
+                    {
+                        label: 'Status',
+                        filterable: true,
+                        component: Badge,
+
+                    },
+                    {
+                        label: 'Created At',
+                        name: 'created_at',
+                        filterable: true,
+                    },
+                    {
+                        label: 'Created By',
+                        name: 'created_by_name',
+                        filterable: true,
+                    },
+                    {
+                        label: 'Updated At',
+                        name: 'updated_at',
+                        filterable: true,
+                    },
+                    {
+                        label: 'Updated By',
+                        name: 'updated_by_name',
+                        filterable: true,
+                    },
+
                 ],
                 pagination: {
                     limit: 1,

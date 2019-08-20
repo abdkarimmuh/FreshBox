@@ -2,67 +2,73 @@
 
 namespace App\Model\Marketing;
 
+use App\Config;
+use App\Model\MasterData\Customer;
+use App\Model\Etc\SourceOrder;
 use App\Traits\LaravelVueDatatableTrait;
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\SalesOrderTrait;
+use App\User;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SalesOrder extends Model
+class SalesOrder extends Config
 {
+    use SoftDeletes;
     use LaravelVueDatatableTrait;
+    use SalesOrderTrait;
 
-    protected $table = 'trxsalesorder';
-    protected $primaryKey = 'ID';
+    protected $table = 'fresh_sales_order';
     protected $appends = [
         'view_route',
         'edit_route',
-        'delete_route'
+        'delete_route',
+        'customer_name',
+        'source_order_name',
+        'updated_by_name',
+        'created_by_name',
+        'status'
     ];
 
     protected $dataTableColumns = [
-        'ID' => [
+        'id' => [
             'searchable' => false,
         ],
-        'SalesorderNo' => [
+        'sales_order_no' => [
             'searchable' => true,
         ],
-        'IDCust' => [
+        'customer_id' => [
             'searchable' => true,
         ],
-        'SourceID' => [
+        'source_id' => [
+            'searchable' => false,
+        ],
+        'fulfillment_date' => [
             'searchable' => true,
         ],
-        'FullFillmentDate' => [
+        'remarks' => [
             'searchable' => true,
         ],
-        'Remarks' => [
+        'created_at' => [
             'searchable' => true,
         ],
-        'CreatedDate' => [
+        'created_by' => [
             'searchable' => true,
         ],
-        'CreatedUser' => [
+        'do_status' => [
             'searchable' => true,
         ],
-        'ModifiedDate' => [
-            'searchable' => true,
-        ],
-        'Modifieduser' => [
-            'searchable' => true,
-        ],
-        'DOStatus' => [
-            'searchable' => true,
-        ],
-        'SOStatus' => [
+        'so_status' => [
             'searchable' => true,
         ],
     ];
 
-    function getEditRouteAttribute(){
-        return 'editSalesOrder';
+    public function Customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
-    function getViewRouteAttribute(){
-        return 'viewSalesOrder';
+
+    public function SourceOrder()
+    {
+        return $this->belongsTo(SourceOrder::class);
     }
-    function getDeleteRouteAttribute(){
-        return 'deleteSalesOrder';
-    }
+
 }

@@ -16,9 +16,9 @@
             <select
                 v-model="tableData.filters.isAdmin"
                 class="form-control">
-                <option value>All</option>
-                <option value='admin'>Admin</option>
-                <option value='staff'>Staff</option>
+                <option value selected>Pilih Status</option>
+                <option value='admin'>Open</option>
+                <option value='staff'>Delivered</option>
             </select>
         </div>
         <div class="col-md-3 offset-md-3">

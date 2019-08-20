@@ -22,19 +22,20 @@ class CreateFreshCustomer extends Migration
             $table->string('pic_customer', 100);
             $table->string('tlp_pic', 100);
             $table->string('address', 500);
-            $table->unsignedBigInteger('province_id');
-            $table->unsignedBigInteger('residence_id');
-            $table->integer('kodepos');
-            $table->string('longitude', 100);
-            $table->string('latitude', 100);
+            $table->unsignedBigInteger('province_id')->nullable();
+            $table->unsignedBigInteger('residence_id')->nullable();
+            $table->integer('kodepos')->nullable();
+            $table->string('longitude', 100)->nullable();
+            $table->string('latitude', 100)->nullable();
             $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('edited_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('customer_type_id')->on('customer_type')->references('id')->onDelete('cascade');
-            $table->foreign('customer_group_id')->on('users')->references('customer_group')->onDelete('cascade');
-
+            $table->foreign('edited_by')->on('users')->references('id')->onDelete('cascade');
+            $table->foreign('customer_type_id')->on('fresh_customer_type')->references('id')->onDelete('cascade');
+            $table->foreign('customer_group_id')->on('fresh_customer_group')->references('id')->onDelete('cascade');
 //            $table->foreign('province_id')->on('users')->references('province')->onDelete('cascade');
 //            $table->foreign('residence')->on('users')->references('residence')->onDelete('cascade');
 
