@@ -42,9 +42,14 @@ Route::get('/data ', function (Request $request) {
 
 });
 Route::get('/form_sales_order', 'Marketing\FormSalesOrderController@index');
+Route::get('/sales_order_detail/{customer_id}', 'Marketing\FormSalesOrderController@sales_order_detail');
 
 Route::get('/testing', function () {
     $data = \App\Model\Marketing\SalesOrder::get();
     return $data;
 });
 Route::get('users/roles', 'UserController@roles')->name('users.roles');
+
+Route::get('customer', function(){
+    return \App\Model\MasterData\Customer::all();
+});

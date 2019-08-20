@@ -1,15 +1,15 @@
 @import 'variables';
 
 .navbar-bg {
-    background-color: $green-dark;
-    background-image: linear-gradient(to bottom, $green-dark , $green);
+    background-color: $red-new;
+    background-image: linear-gradient(to bottom, $red-new , $red);
 }
 
 .main-sidebar .sidebar-menu li.active a {
-    color: $green;
+    color: $red;
 }
 body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
-    background-color: $green;
+    background-color: $red-new;
 }
 .table-dark{
     background-color: rgba(0, 0, 0, 0.02);

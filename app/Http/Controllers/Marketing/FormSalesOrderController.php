@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Model\Marketing\SalesOrder;
+use App\Model\Marketing\SalesOrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
@@ -20,5 +21,10 @@ class FormSalesOrderController extends Controller
         $data = $query->paginate(5);
 
         return new DataTableCollectionResource($data);
+    }
+
+    public function sales_order_detail($customer_id)
+    {
+        return SalesOrderDetail::where('customer_id', $customer_id)->get();
     }
 }
