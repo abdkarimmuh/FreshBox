@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFreshDriver extends Migration
+class CreateMasterDriver extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateFreshDriver extends Migration
      */
     public function up()
     {
-        Schema::create('fresh_driver', function (Blueprint $table) {
+        Schema::create('master_driver', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('driver_name');
             $table->string('phone_number', 15);
             $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('edited_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
+            $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
+
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('edited_by')->on('users')->references('id')->onDelete('cascade');
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFreshCategory extends Migration
+class CreateMasterCategory extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreateFreshCategory extends Migration
      */
     public function up()
     {
-        Schema::create('fresh_category', function (Blueprint $table) {
+        Schema::create('master_category', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('category_name');
+            $table->string('name');
+
             $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('edited_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
+            $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
+
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('edited_by')->on('users')->references('id')->onDelete('cascade');
         });
     }
 

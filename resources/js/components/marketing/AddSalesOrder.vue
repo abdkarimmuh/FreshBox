@@ -27,7 +27,7 @@
                                 <div>
                                     <model-list-select :list="customers"
                                                        v-model="customer"
-                                                        v-on:input="getData()"
+                                                       v-on:input="getData()"
                                                        option-value="id"
                                                        option-text="customer_name"
                                                        placeholder="Select Customer">
@@ -84,7 +84,11 @@
                                         <td>{{ orders.uom }}</td>
                                         <td style="text-align: right;">{{ orders.qty }}</td>
                                         <td style="text-align: right;">{{ orders.amount_price }}</td>
-                                        <td style="text-align: right;">55,550,000.00</td>
+                                        <td style="text-align: right;">{{ orders.total_amount.toLocaleString('id-ID', {
+                                            currency: 'IDR',
+                                            style: 'currency'
+                                            })}}
+                                        </td>
                                         <td></td>
                                         <td><a href="#" id="delete|sod|94" role="button" title="Delete"
                                                onclick="deleteSalesOrderDetail(94,);"><span
@@ -94,7 +98,7 @@
                                     <tfoot>
                                     <tr>
                                         <td colspan="5" style="text-align: right;">Grand Total</td>
-                                        <td style="text-align: right;">55,600,000.00</td>
+                                        <td style="text-align: right;">{{ totalItem }}</td>
                                         <td></td>
                                         <td></td>
                                     </tr>
@@ -180,10 +184,39 @@
                 this.password = '';
                 this.role = '';
                 this.password_confirmation = '';
+            },
+            formatRupiah(angka, prefix) {
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                // tambahkan titik jika yang di input sudah menjadi angka ribuan
+                if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
             }
         },
         components: {
             ModelListSelect
+        }
+        ,
+        computed: {
+            totalItem: function () {
+                let sum = 0;
+                this.orders_detail.forEach(function (item) {
+                    sum += (parseFloat(item.total_amount));
+                });
+                return sum.toLocaleString('id-ID', {
+                    currency: 'IDR',
+                    style: 'currency'
+                });
+            },
         }
     }
 </script>

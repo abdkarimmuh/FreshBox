@@ -2908,6 +2908,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2967,10 +2971,37 @@ __webpack_require__.r(__webpack_exports__);
       this.password = '';
       this.role = '';
       this.password_confirmation = '';
+    },
+    formatRupiah: function formatRupiah(angka, prefix) {
+      var number_string = angka.replace(/[^,\d]/g, '').toString(),
+          split = number_string.split(','),
+          sisa = split[0].length % 3,
+          rupiah = split[0].substr(0, sisa),
+          ribuan = split[0].substr(sisa).match(/\d{3}/gi); // tambahkan titik jika yang di input sudah menjadi angka ribuan
+
+      if (ribuan) {
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+      }
+
+      rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+      return prefix == undefined ? rupiah : rupiah ? 'Rp. ' + rupiah : '';
     }
   },
   components: {
     ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_0__["ModelListSelect"]
+  },
+  computed: {
+    totalItem: function totalItem() {
+      var sum = 0;
+      this.orders_detail.forEach(function (item) {
+        sum += parseFloat(item.total_amount);
+      });
+      return sum.toLocaleString('id-ID', {
+        currency: 'IDR',
+        style: 'currency'
+      });
+    }
   }
 });
 
@@ -42541,7 +42572,20 @@ var render = function() {
                                 _c(
                                   "td",
                                   { staticStyle: { "text-align": "right" } },
-                                  [_vm._v("55,550,000.00")]
+                                  [
+                                    _vm._v(
+                                      _vm._s(
+                                        orders.total_amount.toLocaleString(
+                                          "id-ID",
+                                          {
+                                            currency: "IDR",
+                                            style: "currency"
+                                          }
+                                        )
+                                      ) +
+                                        "\n                                    "
+                                    )
+                                  ]
                                 ),
                                 _vm._v(" "),
                                 _c("td"),
@@ -42552,7 +42596,28 @@ var render = function() {
                             0
                           ),
                           _vm._v(" "),
-                          _vm._m(5)
+                          _c("tfoot", [
+                            _c("tr", [
+                              _c(
+                                "td",
+                                {
+                                  staticStyle: { "text-align": "right" },
+                                  attrs: { colspan: "5" }
+                                },
+                                [_vm._v("Grand Total")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticStyle: { "text-align": "right" } },
+                                [_vm._v(_vm._s(_vm.totalItem))]
+                              ),
+                              _vm._v(" "),
+                              _c("td"),
+                              _vm._v(" "),
+                              _c("td")
+                            ])
+                          ])
                         ]
                       ),
                       _vm._v(" "),
@@ -42569,9 +42634,9 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm._m(6),
+            _vm._m(5),
             _vm._v(" "),
-            _vm._m(7)
+            _vm._m(6)
           ])
         ])
       ])
@@ -42651,28 +42716,6 @@ var staticRenderFns = [
           ])
         ]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tfoot", [
-      _c("tr", [
-        _c(
-          "td",
-          { staticStyle: { "text-align": "right" }, attrs: { colspan: "5" } },
-          [_vm._v("Grand Total")]
-        ),
-        _vm._v(" "),
-        _c("td", { staticStyle: { "text-align": "right" } }, [
-          _vm._v("55,600,000.00")
-        ]),
-        _vm._v(" "),
-        _c("td"),
-        _vm._v(" "),
-        _c("td")
-      ])
     ])
   },
   function() {
