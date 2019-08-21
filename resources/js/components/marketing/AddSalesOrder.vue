@@ -55,7 +55,7 @@
                                 <div>
                                     <input v-bind:class="{'is-invalid': errors.fulfillment_date}" type="text"
                                            v-model="fulfillment_date"
-                                           class="form-control" placeholder="Fulfillment Date">
+                                           class="form-control date-picker" placeholder="Fulfillment Date">
                                     <div class="invalid-feedback" v-if="errors.fulfillment_date">
                                         <p>{{ errors.fulfillment_date[0] }}</p>
                                     </div>

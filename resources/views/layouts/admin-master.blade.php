@@ -15,6 +15,8 @@
     <!-- CSS Libraries -->
 
     <!-- Template CSS -->
+    <link rel="stylesheet"
+          href="https://demo.getstisla.com/assets/modules/bootstrap-daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/components.css')}}">
     <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
@@ -48,6 +50,33 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="{{ asset('assets/js/stisla.js') }}"></script>
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
+<script src="https://demo.getstisla.com/assets/modules/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script>
+    // Daterangepicker
+    if (jQuery().daterangepicker) {
+        if ($(".datepicker").length) {
+            $('.datepicker').daterangepicker({
+                locale: {format: 'YYYY-MM-DD'},
+                singleDatePicker: true,
+            });
+        }
+        if ($(".datetimepicker").length) {
+            $('.datetimepicker').daterangepicker({
+                locale: {format: 'YYYY-MM-DD hh:mm'},
+                singleDatePicker: true,
+                timePicker: true,
+                timePicker24Hour: true,
+            });
+        }
+        if ($(".daterange").length) {
+            $('.daterange').daterangepicker({
+                locale: {format: 'YYYY-MM-DD'},
+                drops: 'down',
+                opens: 'right'
+            });
+        }
+    }
+</script>
 @livewireAssets
 @yield('scripts')
 </body>

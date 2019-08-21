@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Users</h4>
+                    <h4>Form Sales Order</h4>
                     <div class="card-header-action">
                         <router-link v-if="$parent.userCan('create-users')" :to="{ name: 'AddSalesOrder'}"
                            class="btn btn-primary">Add <i class="fas fa-plus"></i></router-link>
@@ -30,7 +30,7 @@
         data() {
             return {
                 url: "/api/form_sales_order",
-                perPage: ['10', '25', '50'],
+                perPage: ['5','10', '25', '50'],
                 columns: [
                     {
                         label: 'Action',

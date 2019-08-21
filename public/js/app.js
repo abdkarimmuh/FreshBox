@@ -3017,7 +3017,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       url: "/api/form_sales_order",
-      perPage: ['10', '25', '50'],
+      perPage: ['5', '10', '25', '50'],
       columns: [{
         label: 'Action',
         filterable: false,
@@ -42472,7 +42472,7 @@ var render = function() {
                         expression: "fulfillment_date"
                       }
                     ],
-                    staticClass: "form-control",
+                    staticClass: "form-control date-picker",
                     class: { "is-invalid": _vm.errors.fulfillment_date },
                     attrs: { type: "text", placeholder: "Fulfillment Date" },
                     domProps: { value: _vm.fulfillment_date },
@@ -42736,7 +42736,7 @@ var render = function() {
         _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-header" }, [
-              _c("h4", [_vm._v("Users")]),
+              _c("h4", [_vm._v("Form Sales Order")]),
               _vm._v(" "),
               _c(
                 "div",

@@ -18,7 +18,7 @@ class FormSalesOrderController extends Controller
         $searchValue = $request->input('search');
 
         $query = SalesOrder::dataTableQuery($column, $orderBy, $searchValue);
-        $data = $query->paginate(5);
+        $data = $query->paginate($length);
 
         return new DataTableCollectionResource($data);
     }
