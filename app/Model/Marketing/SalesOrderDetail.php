@@ -8,5 +8,5 @@ use App\Config;
 
 class SalesOrderDetail extends Config
 {
-    protected $table = 'fresh_sales_order_detail';
+    protected $table = 'trx_sales_order_detail';
 }

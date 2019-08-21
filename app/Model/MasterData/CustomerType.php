@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CustomerType extends Model
 {
     use SoftDeletes;
-    protected $table = 'fresh_customer_type';
+    protected $table = 'master_customer_type';
 }

@@ -10,7 +10,7 @@ class Customer extends Model
 {
     use LaravelVueDatatableTrait;
     use SoftDeletes;
-    protected $table = 'fresh_customer';
+    protected $table = 'master_customer';
 
     public function CustomerGroup()
     {

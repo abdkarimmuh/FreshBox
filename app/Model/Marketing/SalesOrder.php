@@ -16,7 +16,7 @@ class SalesOrder extends Config
     use LaravelVueDatatableTrait;
     use SalesOrderTrait;
 
-    protected $table = 'fresh_sales_order';
+    protected $table = 'trx_sales_order';
     protected $appends = [
         'view_route',
         'edit_route',
