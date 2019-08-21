@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFreshCustomer extends Migration
+class CreateMasterCustomer extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFreshCustomer extends Migration
      */
     public function up()
     {
-        Schema::create('fresh_customer', function (Blueprint $table) {
+        Schema::create('master_customer', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('customer_code', 15);
             $table->unsignedBigInteger('customer_type_id');
@@ -34,11 +34,10 @@ class CreateFreshCustomer extends Migration
 
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('edited_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('customer_type_id')->on('fresh_customer_type')->references('id')->onDelete('cascade');
-            $table->foreign('customer_group_id')->on('fresh_customer_group')->references('id')->onDelete('cascade');
-//            $table->foreign('province_id')->on('users')->references('province')->onDelete('cascade');
-//            $table->foreign('residence')->on('users')->references('residence')->onDelete('cascade');
-
+            $table->foreign('customer_type_id')->on('master_customer_type')->references('id')->onDelete('cascade');
+            $table->foreign('customer_group_id')->on('master_customer_group')->references('id')->onDelete('cascade');
+            $table->foreign('province_id')->on('master_province')->references('id')->onDelete('cascade');
+            $table->foreign('residence_id')->on('master_residence')->references('id')->onDelete('cascade');
         });
     }
 
@@ -49,6 +48,6 @@ class CreateFreshCustomer extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fresh_customer');
+        Schema::dropIfExists('master_customer');
     }
 }

@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "calebporzio/livewire",
-            "version": "v0.2.4",
+            "version": "v0.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/calebporzio/livewire.git",
-                "reference": "fc25f7edf415bc8304ae3d8bfcdc9ab7d2d984b0"
+                "reference": "3c912fb5fbe2f14a376be56f86829dbc4872bfe0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/calebporzio/livewire/zipball/fc25f7edf415bc8304ae3d8bfcdc9ab7d2d984b0",
-                "reference": "fc25f7edf415bc8304ae3d8bfcdc9ab7d2d984b0",
+                "url": "https://api.github.com/repos/calebporzio/livewire/zipball/3c912fb5fbe2f14a376be56f86829dbc4872bfe0",
+                "reference": "3c912fb5fbe2f14a376be56f86829dbc4872bfe0",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 }
             ],
             "description": "Build and test rich client-side functionality: with only backend code.",
-            "time": "2019-08-13T22:56:17+00:00"
+            "time": "2019-08-19T19:00:36+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -523,16 +523,16 @@
         },
         {
             "name": "jamesdordoy/laravelvuedatatable",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jamesdordoy/Laravel-Vue-Datatables.git",
-                "reference": "070327df87a4f9f3c34ac861bbbe711ef3cdb313"
+                "reference": "402b2f70bc27f18461b989d2c9470bd113f5baaa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jamesdordoy/Laravel-Vue-Datatables/zipball/070327df87a4f9f3c34ac861bbbe711ef3cdb313",
-                "reference": "070327df87a4f9f3c34ac861bbbe711ef3cdb313",
+                "url": "https://api.github.com/repos/jamesdordoy/Laravel-Vue-Datatables/zipball/402b2f70bc27f18461b989d2c9470bd113f5baaa",
+                "reference": "402b2f70bc27f18461b989d2c9470bd113f5baaa",
                 "shasum": ""
             },
             "type": "library",
@@ -551,20 +551,20 @@
                     "email": "jamesdordoy@gmail.com"
                 }
             ],
-            "time": "2019-06-14T18:58:46+00:00"
+            "time": "2019-08-20T13:48:17+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.32",
+            "version": "v5.8.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "ee16d719516dfd77ed6c9538000bca49ded284e2"
+                "reference": "58b81842cbdcfbbd8302790ac0f98119ea1c56e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/ee16d719516dfd77ed6c9538000bca49ded284e2",
-                "reference": "ee16d719516dfd77ed6c9538000bca49ded284e2",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/58b81842cbdcfbbd8302790ac0f98119ea1c56e5",
+                "reference": "58b81842cbdcfbbd8302790ac0f98119ea1c56e5",
                 "shasum": ""
             },
             "require": {
@@ -698,7 +698,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-08-13T14:11:52+00:00"
+            "time": "2019-08-20T15:45:17+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -927,16 +927,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.22.3",
+            "version": "2.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "738fbd8d80b2c5e158fda76c29c2de432fcc6f7e"
+                "reference": "767617a047e5b8b8b3b0b6023a2650847ed7df02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/738fbd8d80b2c5e158fda76c29c2de432fcc6f7e",
-                "reference": "738fbd8d80b2c5e158fda76c29c2de432fcc6f7e",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/767617a047e5b8b8b3b0b6023a2650847ed7df02",
+                "reference": "767617a047e5b8b8b3b0b6023a2650847ed7df02",
                 "shasum": ""
             },
             "require": {
@@ -983,14 +983,14 @@
                     "homepage": "http://github.com/kylekatarnls"
                 }
             ],
-            "description": "A simple API extension for DateTime.",
+            "description": "A API extension for DateTime that supports 281 different languages.",
             "homepage": "http://carbon.nesbot.com",
             "keywords": [
                 "date",
                 "datetime",
                 "time"
             ],
-            "time": "2019-08-07T12:36:44+00:00"
+            "time": "2019-08-17T13:57:34+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -4061,16 +4061,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.14",
+            "version": "7.5.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2834789aeb9ac182ad69bfdf9ae91856a59945ff"
+                "reference": "d79c053d972856b8b941bb233e39dc521a5093f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2834789aeb9ac182ad69bfdf9ae91856a59945ff",
-                "reference": "2834789aeb9ac182ad69bfdf9ae91856a59945ff",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d79c053d972856b8b941bb233e39dc521a5093f0",
+                "reference": "d79c053d972856b8b941bb233e39dc521a5093f0",
                 "shasum": ""
             },
             "require": {
@@ -4141,7 +4141,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-07-15T06:24:08+00:00"
+            "time": "2019-08-21T07:05:16+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
