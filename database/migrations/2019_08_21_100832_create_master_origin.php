@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFreshCustomerType extends Migration
+class CreateMasterOrigin extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateFreshCustomerType extends Migration
      */
     public function up()
     {
-        Schema::create('fresh_customer_type', function (Blueprint $table) {
+        Schema::create('master_origin', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('customer_type', 100);
-            $table->string('description', 100);
+            $table->string('origin_code', 100);
+            $table->string('description');
             $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('edited_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
+            $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
+
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('edited_by')->on('users')->references('id')->onDelete('cascade');
-
         });
     }
 
@@ -34,6 +34,6 @@ class CreateFreshCustomerType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fresh_customer_type');
+        Schema::dropIfExists('master_origin');
     }
 }

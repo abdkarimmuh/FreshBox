@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFreshSalesOrderDetail extends Migration
+class CreateTrxSalesOrderDetail extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateFreshSalesOrderDetail extends Migration
      */
     public function up()
     {
-        Schema::create('fresh_sales_order_detail', function (Blueprint $table) {
+        Schema::create('trx_sales_order_detail', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sales_order_id');
             $table->unsignedBigInteger('customer_id');
-            $table->unsignedBigInteger('sku_id');
-            $table->unsignedBigInteger('uom');
+            $table->string('skuid');
+            $table->string('uom');
             $table->decimal('qty', 18, 2);
             $table->decimal('amount_price', 18, 2);
             $table->decimal('total_amount', 18, 2);
@@ -30,8 +30,10 @@ class CreateFreshSalesOrderDetail extends Migration
 
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('edited_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('customer_id')->on('fresh_customer')->references('id')->onDelete('cascade');
-
+            $table->foreign('sales_order_id')->on('trx_sales_order')->references('id')->onDelete('cascade');
+            $table->foreign('customer_id')->on('master_customer')->references('id')->onDelete('cascade');
+            // $table->foreign('skuid')->on('master_item')->references('skuid')->onDelete('cascade');
+            // $table->foreign('uom')->on('master_uom')->references('name')->onDelete('cascade');
         });
     }
 
@@ -42,6 +44,6 @@ class CreateFreshSalesOrderDetail extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fresh_sales_order_detail');
+        Schema::dropIfExists('trx_sales_order_detail');
     }
 }

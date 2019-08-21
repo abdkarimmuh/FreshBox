@@ -1,4 +1,4 @@
-INSERT INTO `fresh_customer` (`id`, `customer_code`, `customer_type_id`, `customer_group_id`, `customer_name`, `pic_customer`,
+INSERT INTO `master_customer` (`id`, `customer_code`, `customer_type_id`, `customer_group_id`, `customer_name`, `pic_customer`,
                            `tlp_pic`, `address`, `province_id`, `residence_id`, `kodepos`, `is_actived`, `longitude`,
                            `latitude`, `created_by`, `created_at`, `edited_by`, `updated_at`)
 VALUES (1, 'KIT', 1, 1, 'Kitchenette (Plaza Indonesia)', NULL, NULL, '', 0, 0, NULL, '0', NULL, NULL, 1,

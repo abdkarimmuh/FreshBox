@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFreshCustomerGroup extends Migration
+class CreateMasterProvince extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateFreshCustomerGroup extends Migration
      */
     public function up()
     {
-        Schema::create('fresh_customer_group', function (Blueprint $table) {
+        Schema::create('master_province', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('customer_group', 100);
-            $table->string('description', 100);
+            $table->string('name');
+
             $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('edited_by')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('edited_by')->on('users')->references('id')->onDelete('cascade');
+            $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 
@@ -33,6 +33,6 @@ class CreateFreshCustomerGroup extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fresh_customer_group');
+        Schema::dropIfExists('master_province');
     }
 }
