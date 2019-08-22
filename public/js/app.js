@@ -1981,14 +1981,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2018,21 +2010,21 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    'vue-table': _partials_Table_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    'data-table-cell': _partials_DataTableCell_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    'data-table-filters': _partials_DataTableFilters_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    "vue-table": _partials_Table_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    "data-table-cell": _partials_DataTableCell_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    "data-table-filters": _partials_DataTableFilters_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
       data: {},
-      sortKey: 'id',
+      sortKey: "id",
       sortOrders: {},
       draw: 0,
       tableData: {
         length: this.perPage[0],
-        search: '',
+        search: "",
         column: 0,
-        dir: 'asc',
+        dir: "asc",
         filters: this.filters
       }
     };
@@ -2053,25 +2045,25 @@ __webpack_require__.r(__webpack_exports__);
     perPage: {
       type: Array,
       "default": function _default() {
-        return ['10', '25', '50'];
+        return ["10", "25", "50"];
       }
     },
     classes: {
       type: Object,
       "default": function _default() {
         return {
-          'table-container': {
-            'table-responsive': true
+          "table-container": {
+            "table-responsive": true
           },
-          'table': {
-            'table': true,
-            'table-striped': true,
-            'table-dark': true
+          table: {
+            table: true,
+            "table-striped": true,
+            "table-dark": true
           },
-          't-head': {},
-          't-body': {},
-          'td': {},
-          'th': {}
+          "t-head": {},
+          "t-body": {},
+          td: {},
+          th: {}
         };
       }
     },
@@ -2079,7 +2071,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       "default": function _default() {
         return {
-          align: 'right'
+          align: "right"
         };
       }
     },
@@ -2110,8 +2102,8 @@ __webpack_require__.r(__webpack_exports__);
     sortBy: function sortBy(key) {
       this.sortKey = key;
       this.sortOrders[key] = this.sortOrders[key] * -1;
-      this.tableData.column = this.getIndex(this.columns, 'name', key);
-      this.tableData.dir = this.sortOrders[key] === 1 ? 'desc' : 'asc';
+      this.tableData.column = this.getIndex(this.columns, "name", key);
+      this.tableData.dir = this.sortOrders[key] === 1 ? "desc" : "asc";
     },
     getIndex: function getIndex(array, key, value) {
       return array.findIndex(function (i) {
@@ -41455,66 +41447,85 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm.filtersSlot
-        ? _vm._t("filters", null, {
-            url: _vm.url,
-            perPage: _vm.perPage,
-            tableData: _vm.tableData
-          })
-        : _c("data-table-filters", {
-            attrs: { "per-page": _vm.perPage, tableData: _vm.tableData },
-            on: { getData: _vm.getData }
-          }),
-      _vm._v(" "),
-      _c(
-        "vue-table",
-        {
-          attrs: {
-            sortKey: _vm.sortKey,
-            columns: _vm.columns,
-            sortOrders: _vm.sortOrders,
-            "table-classes": _vm.classes.table,
-            "table-header-classes": _vm.classes["t-head"],
-            "table-row-classes": _vm.classes["t-head-tr"],
-            "table-container-classes": _vm.classes["table-container"]
-          },
-          on: { sort: _vm.sortBy }
-        },
-        [
-          _c(
-            "tbody",
-            { class: _vm.classes["t-body"] },
-            _vm._l(_vm.data.data, function(item) {
-              return _c(
-                "tr",
-                { key: item.id, class: _vm.classes["t-body-tr"] },
-                _vm._l(_vm.columns, function(column) {
-                  return _c(
-                    "td",
-                    { key: column.name, class: _vm.classes.td },
-                    [
-                      _c("data-table-cell", {
-                        attrs: {
-                          value: item,
-                          name: column.name,
-                          meta: column.meta,
-                          classes: column.classes,
-                          event: column.event,
-                          handler: column.handler,
-                          comp: column.component
-                        }
-                      })
-                    ],
-                    1
+      _vm.data.data && _vm.data.data.length > 1
+        ? _c(
+            "div",
+            [
+              _vm.filtersSlot
+                ? _vm._t("filters", null, {
+                    url: _vm.url,
+                    perPage: _vm.perPage,
+                    tableData: _vm.tableData
+                  })
+                : _c("data-table-filters", {
+                    attrs: {
+                      "per-page": _vm.perPage,
+                      tableData: _vm.tableData
+                    },
+                    on: { getData: _vm.getData }
+                  }),
+              _vm._v(" "),
+              _c(
+                "vue-table",
+                {
+                  attrs: {
+                    sortKey: _vm.sortKey,
+                    columns: _vm.columns,
+                    sortOrders: _vm.sortOrders,
+                    "table-classes": _vm.classes.table,
+                    "table-header-classes": _vm.classes["t-head"],
+                    "table-row-classes": _vm.classes["t-head-tr"],
+                    "table-container-classes": _vm.classes["table-container"]
+                  },
+                  on: { sort: _vm.sortBy }
+                },
+                [
+                  _c(
+                    "tbody",
+                    { class: _vm.classes["t-body"] },
+                    _vm._l(_vm.data.data, function(item) {
+                      return _c(
+                        "tr",
+                        { key: item.id, class: _vm.classes["t-body-tr"] },
+                        _vm._l(_vm.columns, function(column) {
+                          return _c(
+                            "td",
+                            { key: column.name, class: _vm.classes.td },
+                            [
+                              _c("data-table-cell", {
+                                attrs: {
+                                  value: item,
+                                  name: column.name,
+                                  meta: column.meta,
+                                  classes: column.classes,
+                                  event: column.event,
+                                  handler: column.handler,
+                                  comp: column.component
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        }),
+                        0
+                      )
+                    }),
+                    0
                   )
-                }),
-                0
+                ]
               )
-            }),
-            0
+            ],
+            2
           )
-        ]
-      ),
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.data.data && !_vm.data.data.length
+        ? _c("div", { staticClass: "text-center p-3 text-muted" }, [
+            _c("h5", [_vm._v("No Results")]),
+            _vm._v(" "),
+            _c("p", [_vm._v("Looks like you have not added any data yet!")])
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _vm.paginationSlot
         ? _vm._t("pagination", null, {

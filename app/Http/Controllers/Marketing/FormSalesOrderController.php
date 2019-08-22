@@ -17,7 +17,7 @@ class FormSalesOrderController extends Controller
         $orderBy = $request->input('dir', 'asc');
         $searchValue = $request->input('search');
 
-        $query = SalesOrder::dataTableQuery($column, $orderBy, $searchValue);
+        $query = SalesOrder::dataTableQuery($column, $orderBy, $searchValue)->whereNull('created_at');
         $data = $query->paginate($length);
 
         return new DataTableCollectionResource($data);
