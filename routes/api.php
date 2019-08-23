@@ -53,3 +53,5 @@ Route::get('users/roles', 'UserController@roles')->name('users.roles');
 Route::get('customer', function(){
     return \App\Model\MasterData\Customer::all();
 });
+
+Route::post('/master_uom', 'MasterData\UomController@index');
