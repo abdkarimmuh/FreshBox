@@ -17,7 +17,7 @@ class CustomerController extends Controller
         $searchValue = $request->input('search');
 
         $query = Customer::dataTableQuery($column, $orderBy, $searchValue);
-        $data = $query->paginate(5);
+        $data = $query->paginate($length);
 
         return new DataCollectionResource($data);
     }

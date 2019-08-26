@@ -4,9 +4,9 @@
 namespace App\Model\Marketing;
 
 
-use App\Config;
+use App\MyModel;
 
-class SalesOrderDetail extends Config
+class SalesOrderDetail extends MyModel
 {
     protected $table = 'trx_sales_order_detail';
 }

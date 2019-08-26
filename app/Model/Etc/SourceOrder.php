@@ -2,10 +2,10 @@
 
 namespace App\Model\Etc;
 
-use App\Config;
+use App\MyModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SourceOrder extends Config
+class SourceOrder extends MyModel
 {
     use SoftDeletes;
     protected $table = 'master_source_order';

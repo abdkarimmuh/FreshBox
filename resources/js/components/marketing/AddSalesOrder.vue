@@ -26,14 +26,14 @@
                                 <label>Customer<span style="color: red;">*</span></label>
                                 <div>
                                     <model-list-select :list="customers"
-                                                       v-model="customer"
+                                                       v-model="customer_id"
                                                        v-on:input="getData()"
                                                        option-value="id"
                                                        option-text="customer_name"
                                                        placeholder="Select Customer">
                                     </model-list-select>
-                                    <div class="invalid-feedback" v-if="errors.customer">
-                                        <p>{{ errors.customer[0] }}</p>
+                                    <div class="invalid-feedback" v-if="errors.customers">
+                                        <p>{{ errors.customers[0] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="customer != 0" class="col-12">
+                        <div v-if="customer_id != 0" class="col-12">
                             <div class="table-responsive m-t-40" style="clear: both;">
                                 <table class="table table-hover" id="contentTable" style="font-size: 9pt;">
                                     <thead>
@@ -78,18 +78,20 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="orders in orders_detail">
-                                        <td>{{ orders.sku_id }}</td>
-                                        <td>Kol Putih</td>
+                                    <tr v-for="(orders, index) in orders_detail" :key="orders.id">
+                                        <td>{{ orders.skuid }}</td>
+                                        <td>{{ orders.item_name }}</td>
                                         <td>{{ orders.uom }}</td>
-                                        <td style="text-align: right;">{{ orders.qty }}</td>
-                                        <td style="text-align: right;">{{ orders.amount_price }}</td>
-                                        <td style="text-align: right;">{{ orders.total_amount.toLocaleString('id-ID', {
-                                            currency: 'IDR',
-                                            style: 'currency'
-                                            })}}
+                                        <td style="text-align: right;">
+                                            <input v-model="qty[index]" type="number" placeholder="Qty"
+                                                   class="form-control">
                                         </td>
-                                        <td></td>
+                                        <td style="text-align: right;">{{ orders.amount }}</td>
+                                        <td style="text-align: righ">{{total_amount[index]}}</td>
+                                        <td>
+                                            <input v-model="notes[index]" type="text" placeholder="Notes"
+                                                   class="form-control">
+                                        </td>
                                         <td><a href="#" id="delete|sod|94" role="button" title="Delete"
                                                onclick="deleteSalesOrderDetail(94,);"><span
                                             class="badge badge-pill badge-danger">Delete</span></a></td>
@@ -109,12 +111,12 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Remark</label>
-                                <textarea class="form-control" id="Remarks" name="Remarks"></textarea>
+                                <textarea v-model="remark" class="form-control" id="Remarks" name="Remarks"></textarea>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="card-body">
-                                <button class="btn btn-primary">Submit</button>
+                                <button class="btn btn-primary" v-on:click="submitForm()">Submit</button>
                                 <button type="button" class="btn btn-secondary" onclick="back()">Back</button>
                             </div>
                         </div>
@@ -131,12 +133,16 @@
     export default {
         data() {
             return {
-                source_order: 'PO',
+                qty: [],
+                notes: [],
+                remark: '',
+                total_amount: [],
+                source_order: 1,
                 fulfillment_date: '',
                 sales_order_no: '',
                 message: '',
                 errors: [],
-                customer: '0',
+                customer_id: '0',
                 customers: [],
                 orders_detail: [],
                 loading: false
@@ -148,58 +154,39 @@
         methods: {
             getData() {
                 axios.all([
-                    axios.get(this.$parent.MakeUrl('api/customer')),
-                    axios.get(this.$parent.MakeUrl('api/sales_order_detail/' + this.customer))
+                    axios.get(this.$parent.MakeUrl('api/master_data/customer')),
+                    axios.get(this.$parent.MakeUrl('api/master_data/price_customer/' + this.customer_id))
                 ]).then(axios.spread((customers, orders_detail) => {
                     this.customers = customers.data;
-                    this.orders_detail = orders_detail.data;
+                    this.orders_detail = orders_detail.data.data;
+                    this.qty = [];
+                    this.total_amount = [];
+                    this.notes = [];
                 })).catch((err) => {
-                    console.log(err)
+                    if (err.response.status == 403) {
+                        this.$router.push({name: 'form_sales_order'})
+                    }
                 })
             },
-            addUser() {
-                let _this = this;
-                _this.errors = [];
-                _this.message = '';
-                _this.loading = true;
-                axios.post(this.$parent.MakeUrl('admin/users'), {
-                    'name': this.name,
-                    'role': this.role,
-                    'email': this.email,
-                    'current_password': this.current_password,
-                    'password': this.password,
-                    'password_confirmation': this.password_confirmation
-                }).then((res) => {
-                    _this.loading = false;
-                    _this.resetForm();
-                    _this.message = 'User account has been successfully created!';
-                }).catch((err) => {
-                    _this.errors = err.response.data.errors;
-                    _this.loading = false;
-                });
-            },
-            resetForm() {
-                this.name = '';
-                this.email = '';
-                this.password = '';
-                this.role = '';
-                this.password_confirmation = '';
-            },
-            formatRupiah(angka, prefix) {
-                var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                    split = number_string.split(','),
-                    sisa = split[0].length % 3,
-                    rupiah = split[0].substr(0, sisa),
-                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-                // tambahkan titik jika yang di input sudah menjadi angka ribuan
-                if (ribuan) {
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
+            async submitForm() {
+                const payload = {
+                    customerId: this.customer_id,
+                    remark: this.remark,
+                    fulfillmentDate: this.fulfillment_date,
+                    salesOrderNo: this.sales_order_no,
+                    sourceOrder: this.source_order,
+                    details: this.orders_detail.map((item, idx) => ({
+                        skuid: item.skuid,
+                        qty: this.qty[idx],
+                        notes: this.notes[idx]
+                    }))
                 }
-
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+                try {
+                    const res = await axios.post('/api/sales_order_detail', payload);
+                    console.log('RES SALES ORDER', res)
+                } catch (e) {
+                    console.error(e)
+                }
             }
         },
         components: {
@@ -209,14 +196,20 @@
         computed: {
             totalItem: function () {
                 let sum = 0;
-                this.orders_detail.forEach(function (item) {
-                    sum += (parseFloat(item.total_amount));
+                this.total_amount.forEach(function (item) {
+                    sum += (parseFloat(item));
                 });
+
                 return sum.toLocaleString('id-ID', {
                     currency: 'IDR',
                     style: 'currency'
                 });
             },
+        },
+        watch: {
+            qty: function (newQty, oldQty) {
+                this.total_amount = this.orders_detail.map((item, idx) => item.amount * (newQty[idx] || 0))
+            }
         }
     }
 </script>

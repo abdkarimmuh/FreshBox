@@ -17,39 +17,50 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/users ', function (Request $request) {
-    $length = $request->input('length');
-    $column = $request->input('column'); //Index
-    $orderBy = $request->input('dir', 'asc');
-    $searchValue = $request->input('query');
+  Route::group(['prefix' => 'master_data/'], function () {
 
-    $query = \App\User::dataTableQuery($column, $orderBy, $searchValue);
-    $data = $query->paginate($length);
+        Route::get('customer', function () {
+            return \App\Model\MasterData\Customer::all();
+        });
+        Route::get('price', 'MasterData\MasterPriceController@index');
+        Route::get('price/{id}', 'MasterData\MasterPriceController@show');
+        Route::get('price_customer/{id}', 'MasterData\MasterPriceController@CustomerPrice');
+    });
 
-    return new \JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource($data);
-});
 
-Route::get('/data ', function (Request $request) {
-    $length = $request->input('length');
-    $column = $request->input('column'); //Index
-    $orderBy = $request->input('dir', 'asc');
-    $searchValue = $request->input('search');
+    Route::get('/users ', function (Request $request) {
+        $length = $request->input('length');
+        $column = $request->input('column'); //Index
+        $orderBy = $request->input('dir', 'asc');
+        $searchValue = $request->input('query');
 
-    $query = \App\Testing::dataTableQuery($column, $orderBy, $searchValue);
-    $data = $query->paginate(5);
+        $query = \App\User::dataTableQuery($column, $orderBy, $searchValue);
+        $data = $query->paginate($length);
 
-    return new \App\Http\Resources\DataCollectionResource($data);
+        return new \JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource($data);
+    });
 
-});
-Route::get('/form_sales_order', 'Marketing\FormSalesOrderController@index');
-Route::get('/sales_order_detail/{customer_id}', 'Marketing\FormSalesOrderController@sales_order_detail');
+    Route::get('/data ', function (Request $request) {
+        $length = $request->input('length');
+        $column = $request->input('column'); //Index
+        $orderBy = $request->input('dir', 'asc');
+        $searchValue = $request->input('search');
 
-Route::get('/testing', function () {
-    $data = \App\Model\Marketing\SalesOrder::get();
-    return $data;
-});
-Route::get('users/roles', 'UserController@roles')->name('users.roles');
+        $query = \App\Testing::dataTableQuery($column, $orderBy, $searchValue);
+        $data = $query->paginate(5);
 
-Route::get('customer', function(){
-    return \App\Model\MasterData\Customer::all();
-});
+        return new \App\Http\Resources\DataCollectionResource($data);
+
+    });
+
+
+    Route::get('/form_sales_order', 'Marketing\FormSalesOrderController@index');
+    Route::get('/sales_order_detail/{customer_id}', 'Marketing\FormSalesOrderController@sales_order_detail');
+
+    Route::get('/testing', function () {
+        $data = \App\Model\Marketing\SalesOrder::get();
+        return $data;
+    });
+    Route::get('users/roles', 'UserController@roles')->name('users.roles');
+
+    Route::post('sales_order_detail', 'Marketing\FormSalesOrderController@InsertSalesOrderDetail');

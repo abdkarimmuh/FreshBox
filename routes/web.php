@@ -2,6 +2,12 @@
 Route::get('/', function () {
     return redirect(route('admin.dashboard'));
 });
+Route::get('roles', function () {
+
+    return $user = auth()->user()->getRoleNames();
+
+});
+
 
 Route::get('home', function () {
     return redirect(route('admin.dashboard'));
@@ -55,4 +61,13 @@ Route::get('users/auth', function () {
 });
 Route::get('/assign', function () {
     return auth()->user()->givePermissionTo('manage-users');
+});
+
+/**
+ * Route for API
+ */
+Route::group(['prefix' => 'api/'], function () {
+
+
+
 });

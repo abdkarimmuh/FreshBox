@@ -2,15 +2,15 @@
 
 namespace App\Model\Marketing;
 
-use App\Config;
 use App\Model\MasterData\Customer;
 use App\Model\Etc\SourceOrder;
+use App\MyModel;
 use App\Traits\LaravelVueDatatableTrait;
 use App\Traits\SalesOrderTrait;
 use App\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SalesOrder extends Config
+class SalesOrder extends MyModel
 {
     use SoftDeletes;
     use LaravelVueDatatableTrait;
@@ -26,6 +26,17 @@ class SalesOrder extends Config
         'updated_by_name',
         'created_by_name',
         'status'
+    ];
+    protected $fillable = [
+        'sales_order_no',
+        'customer_id',
+        'source_order_id',
+        'fulfillment_date',
+        'remarks',
+        'do_status',
+        'so_status',
+        'created_by',
+        'created_at'
     ];
 
     protected $dataTableColumns = [
