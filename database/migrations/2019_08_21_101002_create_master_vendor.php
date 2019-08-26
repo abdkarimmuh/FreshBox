@@ -17,7 +17,7 @@ class CreateMasterVendor extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('category_id');
-            $table->string('pic_vendor', 50);
+            $table->string('pic_vendor');
             $table->string('tlp_pic', 20);
             $table->string('bank_account');
             $table->unsignedBigInteger('bank_id');

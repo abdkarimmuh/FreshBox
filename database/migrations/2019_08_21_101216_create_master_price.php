@@ -26,7 +26,7 @@ class CreateMasterPrice extends Migration
             $table->unsignedBigInteger('edited_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
-            // $table->foreign('skuid')->on('master_item')->references('skuid')->onDelete('cascade');
+            $table->foreign('skuid')->on('master_item')->references('id')->onDelete('cascade');
             $table->foreign('uom_id')->on('master_uom')->references('id')->onDelete('cascade');
             $table->foreign('customer_id')->on('master_customer')->references('id')->onDelete('cascade');
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
