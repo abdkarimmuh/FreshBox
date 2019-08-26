@@ -15,7 +15,7 @@ class CreateMasterBank extends Migration
     {
         Schema::create('master_bank', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 100);
+            $table->string('name');
             $table->string('kode_bank', 20);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();

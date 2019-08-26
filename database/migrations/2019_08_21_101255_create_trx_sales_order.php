@@ -20,8 +20,7 @@ class CreateTrxSalesOrder extends Migration
             $table->unsignedBigInteger('source_order_id');
             $table->dateTime('fulfillment_date');
             $table->string('remarks', 200);
-            $table->integer('do_status');
-            $table->integer('so_status');
+            $table->integer('status');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('edited_by')->nullable();
             $table->softDeletes();

@@ -15,8 +15,8 @@ class CreateMasterCustomerType extends Migration
     {
         Schema::create('master_customer_type', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('customer_type', 100);
-            $table->string('description', 100);
+            $table->string('customer_type');
+            $table->string('description');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('edited_by')->nullable();
             $table->softDeletes();
