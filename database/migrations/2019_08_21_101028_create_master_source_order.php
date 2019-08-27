@@ -15,7 +15,7 @@ class CreateMasterSourceOrder extends Migration
     {
         Schema::create('master_source_order', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('source_order');
+            $table->string('name');
             $table->string('description');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('edited_by')->nullable();
