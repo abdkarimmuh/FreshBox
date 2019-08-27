@@ -53,9 +53,9 @@
                             <div class="form-group">
                                 <label>Fulfillment Date</label>
                                 <div>
-                                    <input v-bind:class="{'is-invalid': errors.fulfillment_date}" type="text"
-                                           v-model="fulfillment_date"
-                                           class="form-control date-picker" placeholder="Fulfillment Date">
+                                    <date-picker v-model="fulfillment_date" lang="en" valueType="format"></date-picker>
+                                    <!--                                    <date-picker v-model="fulfillment_date" :lang="lang"></date-picker>-->
+                                    <!--                                    <date-picker v-model="fulfillment_date" :config="datepicker"></date-picker>-->
                                     <div class="invalid-feedback" v-if="errors.fulfillment_date">
                                         <p>{{ errors.fulfillment_date[0] }}</p>
                                     </div>
@@ -74,7 +74,7 @@
                                         <th class="text-center">Amount Price</th>
                                         <th class="text-center">Total Amount</th>
                                         <th class="text-center">Notes</th>
-                                        <th></th>
+                                        <!--                                        <th></th>-->
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -92,9 +92,9 @@
                                             <input v-model="notes[index]" type="text" placeholder="Notes"
                                                    class="form-control">
                                         </td>
-                                        <td><a href="#" id="delete|sod|94" role="button" title="Delete"
-                                               onclick="deleteSalesOrderDetail(94,);"><span
-                                            class="badge badge-pill badge-danger">Delete</span></a></td>
+                                        <!--                                        <td><a href="#" id="delete|sod|94" role="button" title="Delete"-->
+                                        <!--                                               onclick="deleteSalesOrderDetail(94,);"><span-->
+                                        <!--                                            class="badge badge-pill badge-danger">Delete</span></a></td>-->
                                     </tr>
                                     </tbody>
                                     <tfoot>
@@ -137,8 +137,9 @@
                 notes: [],
                 remark: '',
                 total_amount: [],
-                source_order: 1,
-                fulfillment_date: '',
+                source_order:'',
+                source_orders: [],
+                fulfillment_date: new Date(),
                 sales_order_no: '',
                 message: '',
                 errors: [],
@@ -154,11 +155,13 @@
         methods: {
             getData() {
                 axios.all([
-                    axios.get(this.$parent.MakeUrl('api/master_data/customer')),
-                    axios.get(this.$parent.MakeUrl('api/master_data/price_customer/' + this.customer_id))
-                ]).then(axios.spread((customers, orders_detail) => {
+                    axios.get(this.$parent.MakeUrl('api/master_data/list_customer')),
+                    axios.get(this.$parent.MakeUrl('api/master_data/price_customer/' + this.customer_id)),
+                    axios.get(this.$parent.MakeUrl('api/master_data/source_order')),
+                ]).then(axios.spread((customers, orders_detail, source_order) => {
                     this.customers = customers.data;
                     this.orders_detail = orders_detail.data.data;
+                    this.source_orders = source_order.data;
                     this.qty = [];
                     this.total_amount = [];
                     this.notes = [];
@@ -180,7 +183,7 @@
                         qty: this.qty[idx],
                         notes: this.notes[idx]
                     }))
-                }
+                };
                 try {
                     const res = await axios.post('/api/sales_order_detail', payload);
                     console.log('RES SALES ORDER', res)

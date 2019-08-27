@@ -29,7 +29,7 @@
     export default {
         data() {
             return {
-                url: "/api/form_sales_order",
+                url: "/api/marketing/form_sales_order",
                 perPage: ['5','10', '25', '50'],
                 columns: [
                     {

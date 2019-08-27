@@ -21,4 +21,9 @@ class CustomerController extends Controller
 
         return new DataCollectionResource($data);
     }
+
+    public function all()
+    {
+        return Customer::all();
+    }
 }
