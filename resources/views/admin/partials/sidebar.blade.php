@@ -64,7 +64,7 @@
                         <a class="nav-link" href="index-0.html"><span>Modules</span></a>
                     </li>
                     <li class="">
-                        <a class="nav-link" href="index-0.html"><span>Category</span></a>
+                        <router-link :to="{ name: 'categoryMaster' }" class="nav-link"><span>Category</span></router-link>
                     </li>
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>Customer Type</span></a>
