@@ -54,4 +54,7 @@ Route::get('customer', function(){
     return \App\Model\MasterData\Customer::all();
 });
 
-Route::post('/master_uom', 'MasterData\UomController@index');
+Route::post('/master/uom', 'MasterData\UomController@store');
+
+Route::get('/master/category', 'MasterData\CategoryController@index');
+
