@@ -3,7 +3,7 @@
 namespace App\Model\Marketing;
 
 use App\Model\MasterData\Customer;
-use App\Model\Etc\SourceOrder;
+use App\Model\MasterData\SourceOrder;
 use App\MyModel;
 use App\Traits\LaravelVueDatatableTrait;
 use App\Traits\SalesOrderTrait;

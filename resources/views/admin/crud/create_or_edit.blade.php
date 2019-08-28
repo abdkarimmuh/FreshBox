@@ -17,9 +17,11 @@
                                     @if($form['type'] === 'textarea')
                                         <div class="form-group">
                                             <label>{{ $form['label'] }}</label>
-                                            <textarea v-model="remark" class="form-control" id="Remarks"
-                                                      name="{{ $form['name'] }}" rows="4"
-                                                      cols="50">{{ $form['place_holder'] ? $form['place_holder'] : '' }}</textarea>
+                                            <textarea class="form-control"
+                                                      name="{{ $form['name'] }}"
+                                                      placeholder=" {{ $form['place_holder'] ? $form['place_holder'] : '' }}">
+                                          {{ isset($data) ? $data[$form['name']] : '' }}
+                                            </textarea>
                                         </div>
                                     @elseif($form['type'] === 'text')
                                         <div class="form-group">
@@ -27,7 +29,8 @@
                                             <div>
                                                 <input type="{{ $form['type'] }}" name="{{ $form['name'] }}"
                                                        placeholder="{{ isset($form['place_holder']) ? $form['place_holder'] : '' }}"
-                                                       class="form-control">
+                                                       class="form-control"
+                                                       value="{{ isset($data) ? $data[$form['name']] : '' }}">
                                             </div>
                                         </div>
                                     @endif
