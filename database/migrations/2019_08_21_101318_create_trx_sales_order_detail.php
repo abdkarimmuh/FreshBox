@@ -16,7 +16,7 @@ class CreateTrxSalesOrderDetail extends Migration
         Schema::create('trx_sales_order_detail', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sales_order_id');
-            $table->unsignedBigInteger('skuid');
+            $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('uom_id');
             $table->decimal('qty', 18, 2);
             $table->decimal('amount_price', 18, 2);
@@ -30,7 +30,7 @@ class CreateTrxSalesOrderDetail extends Migration
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('edited_by')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('sales_order_id')->on('trx_sales_order')->references('id')->onDelete('cascade');
-            $table->foreign('skuid')->on('master_item')->references('id')->onDelete('cascade');
+            $table->foreign('item_id')->on('master_item')->references('id')->onDelete('cascade');
             $table->foreign('uom_id')->on('master_uom')->references('id')->onDelete('cascade');
         });
     }

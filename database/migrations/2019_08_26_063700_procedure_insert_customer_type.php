@@ -13,9 +13,9 @@ class ProcedureInsertCustomerType extends Migration
      */
     public function up()
     {
-        DB::unprepared('CREATE PROCEDURE insert_customer_type( IN customer_type VARCHAR(191), IN description VARCHAR(191), IN created_by INT )
+        DB::unprepared('CREATE PROCEDURE insert_customer_type( IN name VARCHAR(191), IN description VARCHAR(191), IN created_by INT )
         BEGIN
-        insert into master_customer_type (customer_type, description, created_at, created_by) values (customer_type, description, now(), created_by);
+        insert into master_customer_type (name, description, created_at, created_by) values (name, description, now(), created_by);
         END');
     }
 

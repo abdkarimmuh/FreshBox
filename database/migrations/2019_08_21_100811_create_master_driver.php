@@ -15,7 +15,7 @@ class CreateMasterDriver extends Migration
     {
         Schema::create('master_driver', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('driver_name');
+            $table->string('name');
             $table->string('phone_number', 20);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();

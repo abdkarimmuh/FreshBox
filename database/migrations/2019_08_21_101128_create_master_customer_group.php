@@ -15,7 +15,7 @@ class CreateMasterCustomerGroup extends Migration
     {
         Schema::create('master_customer_group', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('customer_group');
+            $table->string('name');
             $table->string('description');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('edited_by')->nullable();

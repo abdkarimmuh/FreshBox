@@ -18,7 +18,7 @@ class CreateMasterCustomer extends Migration
             $table->string('customer_code', 15);
             $table->unsignedBigInteger('customer_type_id');
             $table->unsignedBigInteger('customer_group_id');
-            $table->string('customer_name');
+            $table->string('name');
             $table->string('pic_customer');
             $table->string('tlp_pic', 20);
             $table->string('address', 500);
