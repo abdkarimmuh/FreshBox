@@ -3,9 +3,10 @@ import VueRouter from 'vue-router';
 import UsersComponent from './components/UsersComponent';
 import ProfileComponent from './components/ProfileComponent';
 import AdduserComponent from './components/AdduserComponent';
-import FormSalesOrder from './components/marketing/FormSalesOrderComponent';
+import FormSalesOrder from './components/Marketing/SalesOrder/IndexSalesOrderComponent';
+import EditSalesOrder from "./components/Marketing/SalesOrder/EditSalesOrder";
 import Testing from "./components/Testing";
-import AddSalesOrder from "./components/marketing/AddSalesOrder";
+import AddSalesOrder from "./components/Marketing/SalesOrder/AddSalesOrder";
 
 Vue.use(VueRouter);
 
@@ -42,7 +43,7 @@ const router = new VueRouter({
         {
             path: '/admin/marketing/form_sales_order/:id/edit',
             name: 'editSalesOrder',
-            component: FormSalesOrder
+            component: EditSalesOrder
         },
         {
             path: '/admin/testing',

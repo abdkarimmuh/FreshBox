@@ -35,16 +35,6 @@ const app = new Vue({
     data() {
         return {
             user: AuthUser,
-            lang: {
-                type:'en',
-                days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-                months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                pickers: ['next 7 days', 'next 30 days', 'previous 7 days', 'previous 30 days'],
-                placeholder: {
-                    date: 'Select Date',
-                    dateRange: 'Select Date Range'
-                }
-            },
         }
     },
     methods: {

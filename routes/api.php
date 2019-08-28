@@ -18,9 +18,14 @@ use Illuminate\Http\Request;
  * Marketing Route
  */
 Route::group(['prefix' => 'marketing/'], function () {
-    Route::get('/form_sales_order', 'Marketing\FormSalesOrderController@index');
-    Route::get('/sales_order_detail/{customer_id}', 'Marketing\FormSalesOrderController@sales_order_detail');
-    Route::post('sales_order_detail', 'Marketing\FormSalesOrderController@InsertSalesOrderDetail');
+    Route::group(['prefix' => 'sales_order'], function () {
+        Route::get('/', 'Marketing\FormSalesOrderController@index');
+        Route::get('/{id}', 'Marketing\FormSalesOrderController@show');
+    });
+    Route::group(['prefix' => 'sales_order_detail'], function () {
+        Route::get('/{customer_id}', 'Marketing\FormSalesOrderController@sales_order_detail');
+        Route::post('/', 'Marketing\FormSalesOrderController@InsertSalesOrderDetail');
+    });
 });
 
 /**
@@ -41,11 +46,21 @@ Route::group(['prefix' => 'finance/'], function () {
  */
 Route::group(['prefix' => 'master_data/'], function () {
 
-    Route::get('customer', 'MasterData\CustomerController@index')->name('api.customer');
-    Route::get('list_customer', 'MasterData\CustomerController@all');
-    Route::get('price', 'MasterData\MasterPriceController@index')->name('api.price');
-    Route::get('price/{id}', 'MasterData\MasterPriceController@show');
-    Route::get('price_customer/{id}', 'MasterData\MasterPriceController@CustomerPrice');
+    Route::group(['prefix' => 'customer'], function () {
+        Route::get('/', 'MasterData\CustomerController@index')->name('api.customer');
+        Route::get('/list', 'MasterData\CustomerController@all');
+    });
+    Route::group(['prefix' => 'price'], function () {
+        Route::get('/', 'MasterData\MasterPriceController@index')->name('api.price');
+        Route::get('/{id}', 'MasterData\MasterPriceController@show');
+        Route::get('customer/{id}', 'MasterData\MasterPriceController@CustomerPrice');
+    });
+    Route::group(['prefix' => 'source_order'], function () {
+        Route::get('/', 'MasterData\MasterPriceController@index');
+        Route::get('/list', 'MasterData\SourceOrderController@all');
+
+    });
+
     Route::get('uom', 'MasterData\UomController@index');
 });
 

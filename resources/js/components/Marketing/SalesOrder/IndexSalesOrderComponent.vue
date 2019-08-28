@@ -23,13 +23,13 @@
 </template>
 
 <script>
-    import ViewButton from "../Button/ViewButton";
-    import Badge from "../Button/Badge";
+    import ViewButton from "../../Button/ViewButton";
+    import Badge from "../../Button/Badge";
 
     export default {
         data() {
             return {
-                url: "/api/marketing/form_sales_order",
+                url: "/api/marketing/sales_order",
                 perPage: ['5','10', '25', '50'],
                 columns: [
                     {

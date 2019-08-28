@@ -1,6 +1,5 @@
 <template>
-    <div v-html="data.status">
-
+    <div v-html="data.status_name">
     </div>
 </template>
 

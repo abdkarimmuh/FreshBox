@@ -25,7 +25,7 @@ class SalesOrder extends MyModel
         'source_order_name',
         'updated_by_name',
         'created_by_name',
-        'status'
+        'status_name'
     ];
     protected $fillable = [
         'sales_order_no',
@@ -33,8 +33,7 @@ class SalesOrder extends MyModel
         'source_order_id',
         'fulfillment_date',
         'remarks',
-        'do_status',
-        'so_status',
+        'status',
         'created_by',
         'created_at'
     ];
@@ -64,17 +63,20 @@ class SalesOrder extends MyModel
         'created_by' => [
             'searchable' => true,
         ],
-        'do_status' => [
+        'status' => [
             'searchable' => true,
-        ],
-        'so_status' => [
-            'searchable' => true,
-        ],
+        ]
     ];
 
     public function Customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function sales_order_details()
+    {
+        return $this->hasMany(SalesOrderDetail::class);
+
     }
 
     public function SourceOrder()

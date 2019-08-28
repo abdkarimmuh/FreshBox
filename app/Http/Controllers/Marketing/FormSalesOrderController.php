@@ -26,9 +26,9 @@ class FormSalesOrderController extends Controller
         return new DataTableCollectionResource($data);
     }
 
-    public function sales_order_detail($customer_id)
+    public function show($id)
     {
-        return SalesOrderDetail::where('customer_id', $customer_id)->get();
+        return SalesOrder::with('sales_order_details.item')->find($id);
     }
 
     public function InsertSalesOrderDetail(Request $request)
@@ -49,8 +49,7 @@ class FormSalesOrderController extends Controller
             'source_order_id' => $source_order_id,
             'fulfillment_date' => $fulfillment_date,
             'remarks' => $remarks,
-            'do_status' => 0,
-            'so_status' => 1,
+            'status' => 1,
             'created_by' => $user,
         ]);
 
@@ -62,23 +61,20 @@ class FormSalesOrderController extends Controller
 //            ];
 //        }
 
-        for ($i = 0; $i < count($request->details); $i++) {
+        for ($i = 0; $i < count($details); $i++) {
             $salesOrderDetails[] = [
                 'sales_order_id' => $sales_order->id,
-                'customer_id' => $customer_id,
-                'skuid' => $request->details[$i]['skuid'],
+                'skuid' => $details[$i]['skuid'],
                 'uom_id' => $item[$i]->uom_id,
-                'qty' => $request->details[$i]['qty'],
+                'qty' => $details[$i]['qty'],
                 'amount_price' => $item[$i]->amount,
-                'total_amount' => $item[$i]->amount * $request->details[$i]['qty'],
-                'notes' => $request->details[$i]['notes'],
+                'total_amount' => $item[$i]->amount * $details[$i]['qty'],
+                'notes' => $details[$i]['notes'],
                 'created_by' => $user,
             ];
         }
 
-//        SalesOrderDetail::insert($salesOrderDetails);
-
-        return $salesOrderDetails;
-//        return response()->json(['sales_order_id' => $salesOrderDetails], 200);
+        SalesOrderDetail::insert($salesOrderDetails);
+        return response()->json(['sales_order_id' => $salesOrderDetails], 200);
     }
 }

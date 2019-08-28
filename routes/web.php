@@ -2,6 +2,24 @@
 Route::get('/', function () {
     return redirect(route('admin.dashboard'));
 });
+
+Route::get('/testing', function () {
+
+    $fields = ['name'];;;;
+    $create = create(\App\Model\MasterData\Category::class, $fields );
+
+    return $create;
+
+    $title = 'Testing';
+    $columns = [
+        array('title' => 'Id', 'field' => 'id'),
+        array('title' => 'Name', 'field' => 'name'),
+        array('title' => 'Created By', 'field' => 'created_by_name'),
+    ];
+    $data = \App\Model\MasterData\Category::paginate(5);
+
+    return view('admin.crud.index', compact('columns', 'data', 'title'));
+});
 Route::get('roles', function () {
 
     return $user = auth()->user()->getRoleNames();
@@ -26,7 +44,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     /**
      * Routing Menu Marketing
      */
-    Route::name('marketing.')->prefix('marketing')->middleware('auth')->group(function () {
+    Route::name('Marketing.')->prefix('Marketing')->middleware('auth')->group(function () {
         Route::get('/form_sales_order', 'Marketing\FormSalesOrderController@index')->name('form_sales_order');
     });
     /**
@@ -67,7 +85,6 @@ Route::get('/assign', function () {
  * Route for API
  */
 Route::group(['prefix' => 'api/'], function () {
-
 
 
 });

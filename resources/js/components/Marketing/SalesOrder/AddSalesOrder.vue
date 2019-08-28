@@ -42,9 +42,12 @@
                             <div class="form-group">
                                 <label>Source Order</label>
                                 <div>
-                                    <input v-bind:class="{'is-invalid': errors.source_order}" type="text"
-                                           v-model="source_order"
-                                           class="form-control" disabled>
+                                    <model-list-select :list="source_orders"
+                                                       v-model="source_order_id"
+                                                       option-value="id"
+                                                       option-text="name"
+                                                       placeholder="Select Source Order">
+                                    </model-list-select>
                                     <div class="invalid-feedback" v-if="errors.source_order">
                                         <p>{{ errors.source_order[0] }}</p>
                                     </div>
@@ -54,8 +57,6 @@
                                 <label>Fulfillment Date</label>
                                 <div>
                                     <date-picker v-model="fulfillment_date" lang="en" valueType="format"></date-picker>
-                                    <!--                                    <date-picker v-model="fulfillment_date" :lang="lang"></date-picker>-->
-                                    <!--                                    <date-picker v-model="fulfillment_date" :config="datepicker"></date-picker>-->
                                     <div class="invalid-feedback" v-if="errors.fulfillment_date">
                                         <p>{{ errors.fulfillment_date[0] }}</p>
                                     </div>
@@ -137,7 +138,7 @@
                 notes: [],
                 remark: '',
                 total_amount: [],
-                source_order:'',
+                source_order_id: 1,
                 source_orders: [],
                 fulfillment_date: new Date(),
                 sales_order_no: '',
@@ -155,9 +156,9 @@
         methods: {
             getData() {
                 axios.all([
-                    axios.get(this.$parent.MakeUrl('api/master_data/list_customer')),
-                    axios.get(this.$parent.MakeUrl('api/master_data/price_customer/' + this.customer_id)),
-                    axios.get(this.$parent.MakeUrl('api/master_data/source_order')),
+                    axios.get(this.$parent.MakeUrl('api/master_data/customer/list')),
+                    axios.get(this.$parent.MakeUrl('api/master_data/price/customer/' + this.customer_id)),
+                    axios.get(this.$parent.MakeUrl('api/master_data/source_order/list')),
                 ]).then(axios.spread((customers, orders_detail, source_order) => {
                     this.customers = customers.data;
                     this.orders_detail = orders_detail.data.data;
@@ -177,7 +178,7 @@
                     remark: this.remark,
                     fulfillmentDate: this.fulfillment_date,
                     salesOrderNo: this.sales_order_no,
-                    sourceOrder: this.source_order,
+                    sourceOrderId: this.source_order_id,
                     details: this.orders_detail.map((item, idx) => ({
                         skuid: item.skuid,
                         qty: this.qty[idx],
@@ -185,8 +186,8 @@
                     }))
                 };
                 try {
-                    const res = await axios.post('/api/sales_order_detail', payload);
-                    console.log('RES SALES ORDER', res)
+                    const res = await axios.post('/api/marketing/sales_order_detail', payload);
+                    console.log('RES SALES ORDERi', res)
                 } catch (e) {
                     console.error(e)
                 }
