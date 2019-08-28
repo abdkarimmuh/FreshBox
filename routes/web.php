@@ -6,7 +6,7 @@ Route::get('/', function () {
 Route::get('/testing', function () {
 
     $fields = ['name'];
-    $create = create(\App\Model\MasterData\Category::class, $fields );
+    $create = create(\App\Model\MasterData\Category::class, $fields);
 
     return $create;
 
@@ -20,6 +20,29 @@ Route::get('/testing', function () {
 
     return view('admin.crud.index', compact('columns', 'data', 'title'));
 });
+
+Route::get('/testing/create', function () {
+
+    //Form Generator
+    $forms = [
+        array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'asdsa'),
+        array('type' => 'textarea', 'label' => 'Remarks', 'name' => 'remarks', 'place_holder' => ''),
+    ];
+    $config = [
+        //Form Title
+        'title' => 'Create Category',
+        //Form Action Using Route Name
+        'action' => 'testing.create',
+        //Form Method
+        'method' => 'POST',
+        //Back Button Using Route Name
+        'back-button' => 'testing.create'
+    ];
+
+    $data = \App\Model\MasterData\Category::paginate(5);
+
+    return view('admin.crud.create', compact('forms', 'data', 'config'));
+})->name('testing.create');
 Route::get('roles', function () {
 
     return $user = auth()->user()->getRoleNames();
