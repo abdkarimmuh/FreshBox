@@ -5,7 +5,7 @@ Route::get('/', function () {
 
 Route::get('/testing', function () {
 
-    $fields = ['name'];;;;
+    $fields = ['name'];
     $create = create(\App\Model\MasterData\Category::class, $fields );
 
     return $create;
