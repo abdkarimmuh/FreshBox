@@ -13,7 +13,7 @@ class ProcedureInsertItem extends Migration
      */
     public function up()
     {
-        DB::unprepared('CREATE PROCEDURE insert_item( IN skuid INT, IN name_item VARCHAR(191), IN name_item_latin VARCHAR(191), IN description VARCHAR(191), IN is_trf_item INT, IN category_id INT, IN uom_id INT, IN origin_id INT, IN created_by INT )
+        DB::unprepared('CREATE PROCEDURE insert_item( IN skuid INT, IN name_item VARCHAR(191), IN name_item_latin VARCHAR(191), IN description VARCHAR(191), IN is_trf_item VARCHAR(191), IN category_id INT, IN uom_id INT, IN origin_id INT, IN created_by INT )
         BEGIN
         insert into master_item (skuid, name_item, name_item_latin, description, is_trf_item, category_id, uom_id, origin_id, created_at, created_by) values (skuid, name_item, name_item_latin, description, is_trf_item, category_id, uom_id, origin_id, now(), created_by);
         END');

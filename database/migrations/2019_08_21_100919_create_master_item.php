@@ -19,7 +19,7 @@ class CreateMasterItem extends Migration
             $table->string('name_item');
             $table->string('name_item_latin')->nullable();
             $table->string('description')->nullable();
-            $table->integer('is_trf_item')->nullable();
+            $table->string('is_trf_item')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('uom_id')->nullable();
             $table->unsignedBigInteger('origin_id')->nullable();
