@@ -17,14 +17,8 @@ class CategoryController extends Controller
     {
         $searchValue = $request->input('search');
 
-
         $columns = [
-            array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
-            array('title' => 'Customer', 'field' => 'customer_name'),
-            array('title' => 'Source Order', 'field' => 'source_order_name'),
-            array('title' => 'Fulfillment Date', 'field' => 'fulfillment_date'),
-            array('title' => 'Remarks', 'field' => 'remarks'),
-            array('title' => 'Status', 'field' => 'status_name'),
+            array('title' => 'Nama', 'field' => 'name'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
 
@@ -32,16 +26,16 @@ class CategoryController extends Controller
 
         $config = [
             //Title Required
-            'title' => 'Categpry',
+            'title' => 'Category',
             /**
              * Route Can Be Null
              */
             //Route For Button Add
-            'route-add' => 'testing.create',
+            'route-add' => 'admin.master_data.category.create',
             //Route For Button Edit
             'route-edit' => 'testing.edit',
-            //Route For Button View
-            'route-view' => 'testing.create',
+            //Route For Button Delete
+            'route-delete' => 'testing.delete',
         ];
 
         $query = Category::dataTableQuery($searchValue);
@@ -57,7 +51,22 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+         //Form Generator
+        $forms = [
+            array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'Category Name')
+        ];
+        $config = [
+            //Form Title
+            'title' => 'Create Category',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.category.store',
+            //Form Method
+            'method' => 'POST',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.category.index'
+        ];
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config'));
     }
 
     /**
@@ -68,7 +77,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::select('call insert_uom(?, ?, ?)', array($request->name, $request->description, $request->created_by));
     }
 
     /**

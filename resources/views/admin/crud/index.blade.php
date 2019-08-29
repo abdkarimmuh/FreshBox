@@ -8,12 +8,6 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                {{--                <div class="card-header">--}}
-                {{--                    <h4></h4>--}}
-                {{--                    <div class="card-header-action">--}}
-
-                {{--                    </div>--}}
-                {{--                </div>--}}
                 <div class="card-header">
                     <div class="col-lg-9">
                         <div class="row">
@@ -22,7 +16,7 @@
                                     class="fas fa-plus"></i></a>
                         </div>
                     </div>
-                    <div class="card-header-action">
+                    <div class="card-header-action ml-0 mt-3 mb-3">
                         <form>
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search">
@@ -41,7 +35,7 @@
                             <table class="table table-bordered table-md">
                                 <tbody>
                                 <tr>
-                                    <th width="140px">Action</th>
+                                    <th width="150px">Action</th>
                                     @foreach ($columns as $column)
                                         <th>{{ capitalize($column['title']) }}</th>
                                     @endforeach
@@ -66,6 +60,13 @@
                                                             Edit
                                                         </a>
                                                     @endisset
+                                                    @isset($config['route-delete'])
+                                                        <a href="{{ route($config['route-delete'], ['id' => $row->id]) }}"
+                                                        class="badge badge-danger"
+                                                        title="Delete">
+                                                            Delete
+                                                        </a>
+                                                @endisset
                                                 @endif
                                             @else
                                                 @isset($config['route-view'])
@@ -81,6 +82,13 @@
                                                         class="badge badge-warning"
                                                         title="Edit">
                                                         Edit
+                                                    </a>
+                                                @endisset
+                                                @isset($config['route-delete'])
+                                                    <a href="{{ route($config['route-delete'], ['id' => $row->id]) }}"
+                                                       class="badge badge-danger"
+                                                       title="Delete">
+                                                        Delete
                                                     </a>
                                                 @endisset
                                             @endisset

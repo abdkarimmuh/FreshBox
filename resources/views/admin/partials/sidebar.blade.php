@@ -63,8 +63,8 @@
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>Modules</span></a>
                     </li>
-                    <li class="{{ request()->route()->getName() == 'admin.master_data.category' ? ' active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin.master_data.category') }}"><span>Category</span></a>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.category.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.category.index') }}"><span>Category</span></a>
                     </li>
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>Customer Type</span></a>

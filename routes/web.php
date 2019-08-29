@@ -39,7 +39,11 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      * Route Menu Master Data
      */
     Route::name('master_data.')->prefix('master_data')->middleware('auth')->group(function () {
-        Route::get('/category', 'Marketing\FormSalesOrderController@index')->name('category');
+        Route::name('category.')->prefix('category')->group(function () {
+            Route::get('/', 'MasterData\CategoryController@index')->name('index');
+            Route::get('/create', 'MasterData\CategoryController@create')->name('create');
+            Route::post('/create', 'MasterData\CategoryController@store')->name('store');
+        });
     });
 });
 
@@ -136,6 +140,29 @@ Route::get('/testing/create', function () {
 
     return view('admin.crud.create_or_edit', compact('forms', 'data', 'config'));
 })->name('testing.create');
+
+Route::get('/testing/delete', function () {
+
+    //Form Generator
+    $forms = [
+        array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'asdsa'),
+        array('type' => 'textarea', 'label' => 'Remarks', 'name' => 'remarks', 'place_holder' => ''),
+    ];
+    $config = [
+        //Form Title
+        'title' => 'Create Category',
+        //Form Action Using Route Name
+        'action' => 'testing.create',
+        //Form Method
+        'method' => 'POST',
+        //Back Button Using Route Name
+        'back-button' => 'testing.create'
+    ];
+
+    $data = \App\Model\MasterData\Category::paginate(5);
+
+    return view('admin.crud.create_or_edit', compact('forms', 'data', 'config'));
+})->name('testing.delete');
 
 Route::get('roles', function () {
 
