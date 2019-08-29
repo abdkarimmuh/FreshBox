@@ -2,13 +2,13 @@
 
 namespace App\Model\MasterData;
 
-use App\Traits\LaravelVueDatatableTrait;
+use App\Traits\SearchTraits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends Model
 {
-    use LaravelVueDatatableTrait;
+    use SearchTraits;
     use SoftDeletes;
     protected $table = 'master_customer';
 

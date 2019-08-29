@@ -40,8 +40,8 @@ Trait SalesOrderTrait
 
     function getSourceOrderNameAttribute()
     {
-        if (isset($this->SourceOrder->source_order)) {
-            return $this->SourceOrder->source_order;
+        if (isset($this->SourceOrder->name)) {
+            return $this->SourceOrder->name;
         } else {
             return 'Source Order NotFound';
         }

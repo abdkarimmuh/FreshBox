@@ -5,7 +5,7 @@ namespace App\Model\Marketing;
 use App\Model\MasterData\Customer;
 use App\Model\MasterData\SourceOrder;
 use App\MyModel;
-use App\Traits\LaravelVueDatatableTrait;
+use App\Traits\SearchTraits;
 use App\Traits\SalesOrderTrait;
 use App\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class SalesOrder extends MyModel
 {
     use SoftDeletes;
-    use LaravelVueDatatableTrait;
+    use SearchTraits;
     use SalesOrderTrait;
 
     protected $table = 'trx_sales_order';
@@ -38,7 +38,7 @@ class SalesOrder extends MyModel
         'created_at'
     ];
 
-    protected $dataTableColumns = [
+    protected $columns = [
         'id' => [
             'searchable' => false,
         ],
@@ -82,6 +82,11 @@ class SalesOrder extends MyModel
     public function SourceOrder()
     {
         return $this->belongsTo(SourceOrder::class);
+    }
+
+    public function getColumns()
+    {
+        return $this->columns;
     }
 
 }

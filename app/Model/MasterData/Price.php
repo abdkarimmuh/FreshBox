@@ -3,14 +3,14 @@
 namespace App\Model\MasterData;
 
 use App\MyModel;
-use App\Traits\LaravelVueDatatableTrait;
+use App\Traits\SearchTraits;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Price extends MyModel
 {
-    use LaravelVueDatatableTrait;
+    use SearchTraits;
     use SoftDeletes;
 
     protected $table = 'master_price';

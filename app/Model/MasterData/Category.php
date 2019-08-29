@@ -3,13 +3,13 @@
 namespace App\Model\MasterData;
 
 use App\MyModel;
-use App\Traits\LaravelVueDatatableTrait;
+use App\Traits\SearchTraits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends MyModel
 {
-    use LaravelVueDatatableTrait;
+    use SearchTraits;
     use SoftDeletes;
 
     protected $table = 'master_category';
