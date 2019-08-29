@@ -14,7 +14,7 @@
             <a class="nav-link" href="{{ route('admin.dashboard') }}">
                 <i class="fas fa-home"></i><span>Dashboard</span></a>
         </li>
-        <li class="dropdown {{ request()->segment(2) == 'Marketing' ? ' active' : '' }}">
+        <li class="dropdown {{ request()->segment(2) == 'marketing' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->route()->getName() == 'admin.marketing.form_sales_order' ? ' active' : '' }}">
@@ -63,8 +63,8 @@
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>Modules</span></a>
                     </li>
-                    <li class="">
-                        <router-link :to="{ name: 'categoryMaster' }" class="nav-link"><span>Category</span></router-link>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.category' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.category') }}"><span>Category</span></a>
                     </li>
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>Customer Type</span></a>
