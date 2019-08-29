@@ -44,6 +44,24 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/create', 'MasterData\CategoryController@create')->name('create');
             Route::post('/create', 'MasterData\CategoryController@store')->name('store');
         });
+
+        Route::name('province.')->prefix('province')->group(function () {
+            Route::get('/', 'MasterData\ProvinceController@index')->name('index');
+            Route::get('/create', 'MasterData\ProvinceController@create')->name('create');
+            Route::post('/create', 'MasterData\ProvinceController@store')->name('store');
+        });
+
+        Route::name('driver.')->prefix('driver')->group(function () {
+            Route::get('/', 'MasterData\DriverController@index')->name('index');
+            Route::get('/create', 'MasterData\DriverController@create')->name('create');
+            Route::post('/create', 'MasterData\DriverController@store')->name('store');
+        });
+
+        Route::name('origin.')->prefix('origin')->group(function () {
+            Route::get('/', 'MasterData\OriginController@index')->name('index');
+            Route::get('/create', 'MasterData\OriginController@create')->name('create');
+            Route::post('/create', 'MasterData\OriginController@store')->name('store');
+        });
     });
 });
 
@@ -90,6 +108,8 @@ Route::get('/testing', function () {
         'route-edit' => 'testing.edit',
         //Route For Button View
         'route-view' => 'testing.create',
+        //Route For Button Search
+        'route-search' => 'admin.master_data.driver.index',
     ];
     $data = \App\Model\MasterData\Category::paginate(5);
 

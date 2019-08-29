@@ -23,8 +23,7 @@
 
                     </div>
                 </div>
-                <div class="card-body p-0">
-
+                <div class="card-body">
                     <div class="table-responsive">
                         @if($data->count() > 0)
                             <table class="table table-bordered table-md">

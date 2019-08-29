@@ -2,15 +2,25 @@
 
 .navbar-bg {
     background-color: $red-new;
-    background-image: linear-gradient(to bottom, $red-new , $red);
+    background-image: linear-gradient(to bottom, $red-new, $red);
 }
 
 .main-sidebar .sidebar-menu li.active a {
     color: $red;
 }
-body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
+
+.main-sidebar .sidebar-menu li ul.dropdown-menu li.active>a {
+    color: $red;
+}
+
+.main-sidebar .sidebar-menu li ul.dropdown-menu li a:hover {
+    color: $red;
+}
+
+body.sidebar-mini .main-sidebar .sidebar-menu>li.active>a {
     background-color: $red-new;
 }
-.table-dark{
+
+.table-dark {
     background-color: rgba(0, 0, 0, 0.02);
 }
