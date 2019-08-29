@@ -1,19 +1,8 @@
 @extends('layouts.admin-master')
-
-@section('title')
-
-@endsection
-
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                {{--                <div class="card-header">--}}
-                {{--                    <h4></h4>--}}
-                {{--                    <div class="card-header-action">--}}
-
-                {{--                    </div>--}}
-                {{--                </div>--}}
                 <div class="card-header">
                     <div class="col-lg-9">
                         <div class="row">
