@@ -13,7 +13,7 @@ class ProcedureInsertSalesOrder extends Migration
      */
     public function up()
     {
-        DB::unprepared('CREATE PROCEDURE insert_sales_order( IN sales_order_no VARCHAR(20), IN source_order_id INT, IN customer_id INT, IN fulfillment_date DATETIME, IN remarks VARCHAR(191), IN status INT, IN created_by INT )
+        DB::unprepared('CREATE PROCEDURE insert_sales_order( IN sales_order_no VARCHAR(20), IN source_order_id INT, IN customer_id INT, IN fulfillment_date DATE, IN remarks VARCHAR(191), IN status INT, IN created_by INT )
         BEGIN
         insert into trx_sales_order (sales_order_no, source_order_id, customer_id, fulfillment_date, remarks, status, created_at, created_by) values (sales_order_no, source_order_id, customer_id, fulfillment_date, remarks, status, now(), created_by);
         END');
