@@ -45,14 +45,23 @@
             <li class="dropdown {{ request()->segment(2) == 'master_data' ? ' active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-server"></i><span>Master Data</span></a>
                 <ul class="dropdown-menu">
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.category.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.category.index') }}"><span>Category</span></a>
+                    </li>
+                    <li class="">
+                        <a class="nav-link" href="index-0.html"><span>Customer Type</span></a>
+                    </li>
+                    <li class="">
+                        <a class="nav-link" href="index-0.html"><span>Customer Group</span></a>
+                    </li>
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>Customer</span></a>
                     </li>
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>Vendor</span></a>
                     </li>
-                    <li class="">
-                        <a class="nav-link" href="index-0.html"><span>Driver</span></a>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.driver.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.driver.index') }}"><span>Driver</span></a>
                     </li>
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>Item</span></a>
@@ -63,23 +72,20 @@
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>Modules</span></a>
                     </li>
-                    <li class="{{ request()->route()->getName() == 'admin.master_data.category' ? ' active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin.master_data.category') }}"><span>Category</span></a>
-                    </li>
-                    <li class="">
-                        <a class="nav-link" href="index-0.html"><span>Customer Type</span></a>
-                    </li>
-                    <li class="">
-                        <a class="nav-link" href="index-0.html"><span>Customer Group</span></a>
-                    </li>
-                    <li class="">
-                        <a class="nav-link" href="index-0.html"><span>Origin</span></a>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.origin.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.origin.index') }}"><span>Origin</span></a>
                     </li>
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>UOM</span></a>
                     </li>
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>Source Order</span></a>
+                    </li>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.province.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.province.index') }}"><span>Province</span></a>
+                    </li>
+                    <li class="">
+                        <a class="nav-link" href="index-0.html"><span>Residence</span></a>
                     </li>
                     <li class="">
                          <router-link :to="{ name: 'users'}" class="nav-link"><span>Users</span></router-link>

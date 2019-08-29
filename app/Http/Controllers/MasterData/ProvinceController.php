@@ -4,10 +4,10 @@ namespace App\Http\Controllers\MasterData;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\MasterData\Category;
+use App\Model\MasterData\Province;
 use Illuminate\Support\Facades\DB;
 
-class CategoryController extends Controller
+class ProvinceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,21 +27,21 @@ class CategoryController extends Controller
 
         $config = [
             //Title Required
-            'title' => 'Category',
+            'title' => 'Province',
             /**
              * Route Can Be Null
              */
             //Route For Button Add
-            'route-add' => 'admin.master_data.category.create',
+            'route-add' => 'admin.master_data.province.create',
             //Route For Button Edit
             'route-edit' => 'testing.edit',
             //Route For Button Delete
             'route-delete' => 'testing.delete',
             //Route For Button Search
-            'route-search' => 'admin.master_data.category.index',
+            'route-search' => 'admin.master_data.province.index',
         ];
 
-        $query = Category::dataTableQuery($searchValue);
+        $query = Province::dataTableQuery($searchValue);
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
@@ -55,18 +55,19 @@ class CategoryController extends Controller
     public function create()
     {
         //Form Generator
-        $forms = [
-            array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'Category Name')
+         $forms = [
+            array('type' => 'text', 'label' => 'Province', 'name' => 'name', 'place_holder' => 'Province'),
+            
         ];
         $config = [
             //Form Title
-            'title' => 'Create Category',
+            'title' => 'Create Province',
             //Form Action Using Route Name
-            'action' => 'admin.master_data.category.store',
+            'action' => 'admin.master_data.province.store',
             //Form Method
             'method' => 'POST',
             //Back Button Using Route Name
-            'back-button' => 'admin.master_data.category.index'
+            'back-button' => 'admin.master_data.province.index'
         ];
 
         return view('admin.crud.create_or_edit', compact('forms', 'config'));
@@ -80,8 +81,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        DB::select('call insert_category(?, ?)', array($request->name, auth()->user()->id));
-        return redirect('admin/master_data/category');
+        DB::select('call insert_province(?, ?)', array($request->name, auth()->user()->id));
+        return redirect('admin/master_data/province');
     }
 
     /**

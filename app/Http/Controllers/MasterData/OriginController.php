@@ -4,10 +4,10 @@ namespace App\Http\Controllers\MasterData;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\MasterData\Category;
+use App\Model\MasterData\Origin;
 use Illuminate\Support\Facades\DB;
 
-class CategoryController extends Controller
+class OriginController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,8 @@ class CategoryController extends Controller
         $searchValue = $request->input('search');
 
         $columns = [
-            array('title' => 'Nama', 'field' => 'name'),
+            array('title' => 'Origin Code', 'field' => 'origin_code'),
+            array('title' => 'Description', 'field' => 'description'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
 
@@ -27,21 +28,21 @@ class CategoryController extends Controller
 
         $config = [
             //Title Required
-            'title' => 'Category',
+            'title' => 'Origin',
             /**
              * Route Can Be Null
              */
             //Route For Button Add
-            'route-add' => 'admin.master_data.category.create',
+            'route-add' => 'admin.master_data.origin.create',
             //Route For Button Edit
             'route-edit' => 'testing.edit',
             //Route For Button Delete
             'route-delete' => 'testing.delete',
             //Route For Button Search
-            'route-search' => 'admin.master_data.category.index',
+            'route-search' => 'admin.master_data.origin.index',
         ];
 
-        $query = Category::dataTableQuery($searchValue);
+        $query = Origin::dataTableQuery($searchValue);
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
@@ -56,17 +57,18 @@ class CategoryController extends Controller
     {
         //Form Generator
         $forms = [
-            array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'Category Name')
+            array('type' => 'text', 'label' => 'Origin Code', 'name' => 'origin_code', 'place_holder' => 'Origin Code'),
+            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description'),
         ];
         $config = [
             //Form Title
-            'title' => 'Create Category',
+            'title' => 'Create Origin',
             //Form Action Using Route Name
-            'action' => 'admin.master_data.category.store',
+            'action' => 'admin.master_data.origin.store',
             //Form Method
             'method' => 'POST',
             //Back Button Using Route Name
-            'back-button' => 'admin.master_data.category.index'
+            'back-button' => 'admin.master_data.origin.index'
         ];
 
         return view('admin.crud.create_or_edit', compact('forms', 'config'));
@@ -80,8 +82,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        DB::select('call insert_category(?, ?)', array($request->name, auth()->user()->id));
-        return redirect('admin/master_data/category');
+        DB::select('call insert_origin(?, ?, ?)', array($request->origin_code, $request->description, auth()->user()->id));
+        return redirect('admin/master_data/origin');
     }
 
     /**

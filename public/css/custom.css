@@ -7,6 +7,14 @@
   color: #e3342f;
 }
 
+.main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a {
+  color: #e3342f;
+}
+
+.main-sidebar .sidebar-menu li ul.dropdown-menu li a:hover {
+  color: #e3342f;
+}
+
 body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
   background-color: #d50000;
 }

@@ -39,7 +39,29 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      * Route Menu Master Data
      */
     Route::name('master_data.')->prefix('master_data')->middleware('auth')->group(function () {
-        Route::get('/category', 'Marketing\FormSalesOrderController@index')->name('category');
+        Route::name('category.')->prefix('category')->group(function () {
+            Route::get('/', 'MasterData\CategoryController@index')->name('index');
+            Route::get('/create', 'MasterData\CategoryController@create')->name('create');
+            Route::post('/create', 'MasterData\CategoryController@store')->name('store');
+        });
+
+        Route::name('province.')->prefix('province')->group(function () {
+            Route::get('/', 'MasterData\ProvinceController@index')->name('index');
+            Route::get('/create', 'MasterData\ProvinceController@create')->name('create');
+            Route::post('/create', 'MasterData\ProvinceController@store')->name('store');
+        });
+
+        Route::name('driver.')->prefix('driver')->group(function () {
+            Route::get('/', 'MasterData\DriverController@index')->name('index');
+            Route::get('/create', 'MasterData\DriverController@create')->name('create');
+            Route::post('/create', 'MasterData\DriverController@store')->name('store');
+        });
+
+        Route::name('origin.')->prefix('origin')->group(function () {
+            Route::get('/', 'MasterData\OriginController@index')->name('index');
+            Route::get('/create', 'MasterData\OriginController@create')->name('create');
+            Route::post('/create', 'MasterData\OriginController@store')->name('store');
+        });
     });
 });
 
@@ -86,6 +108,8 @@ Route::get('/testing', function () {
         'route-edit' => 'testing.edit',
         //Route For Button View
         'route-view' => 'testing.create',
+        //Route For Button Search
+        'route-search' => 'admin.master_data.driver.index',
     ];
     $data = \App\Model\MasterData\Category::paginate(5);
 
@@ -136,6 +160,29 @@ Route::get('/testing/create', function () {
 
     return view('admin.crud.create_or_edit', compact('forms', 'data', 'config'));
 })->name('testing.create');
+
+Route::get('/testing/delete', function () {
+
+    //Form Generator
+    $forms = [
+        array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'asdsa'),
+        array('type' => 'textarea', 'label' => 'Remarks', 'name' => 'remarks', 'place_holder' => ''),
+    ];
+    $config = [
+        //Form Title
+        'title' => 'Create Category',
+        //Form Action Using Route Name
+        'action' => 'testing.create',
+        //Form Method
+        'method' => 'POST',
+        //Back Button Using Route Name
+        'back-button' => 'testing.create'
+    ];
+
+    $data = \App\Model\MasterData\Category::paginate(5);
+
+    return view('admin.crud.create_or_edit', compact('forms', 'data', 'config'));
+})->name('testing.delete');
 
 Route::get('roles', function () {
 
