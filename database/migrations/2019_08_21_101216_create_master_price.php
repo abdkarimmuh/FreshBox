@@ -15,7 +15,7 @@ class CreateMasterPrice extends Migration
     {
         Schema::create('master_price', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('item_id');
+            $table->bigInteger('skuid');
             $table->unsignedBigInteger('uom_id');
             $table->unsignedBigInteger('customer_id');
             $table->decimal('amount', 18, 2);
@@ -26,7 +26,6 @@ class CreateMasterPrice extends Migration
             $table->unsignedBigInteger('edited_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('item_id')->on('master_item')->references('id')->onDelete('cascade');
             $table->foreign('uom_id')->on('master_uom')->references('id')->onDelete('cascade');
             $table->foreign('customer_id')->on('master_customer')->references('id')->onDelete('cascade');
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
