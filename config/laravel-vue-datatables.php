@@ -2,6 +2,6 @@
 
 return [
     'models' => [
-        "search_term" => "searchable"
+        "search_term" => "searchable",
     ]
 ];

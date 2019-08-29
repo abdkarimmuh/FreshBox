@@ -1,9 +1,4 @@
 @extends('layouts.admin-master')
-
-@section('title')
-
-@endsection
-
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -17,9 +12,9 @@
                         </div>
                     </div>
                     <div class="card-header-action ml-0 mt-3 mb-3">
-                        <form>
+                        <form action="{{ route($config['route-search'], request()->all()) }}" method="get">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search">
+                                <input type="text" class="form-control" placeholder="Search" name="search">
                                 <div class="input-group-btn">
                                     <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                 </div>
