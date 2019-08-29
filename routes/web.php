@@ -35,6 +35,12 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     Route::name('finance.')->prefix('finance')->middleware('auth')->group(function () {
         Route::get('/form_invoice_order', 'Marketing\FormSalesOrderController@index')->name('form_invoice_order');
     });
+    /**
+     * Route Menu Master Data
+     */
+    Route::name('master_data.')->prefix('master_data')->middleware('auth')->group(function () {
+        Route::get('/category', 'Marketing\FormSalesOrderController@index')->name('category');
+    });
 });
 
 Route::middleware('auth')->get('logout', function () {
