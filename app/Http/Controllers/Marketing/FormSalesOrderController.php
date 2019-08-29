@@ -37,8 +37,10 @@ class FormSalesOrderController extends Controller
         $config = [
             //Title Required
             'title' => 'Form Sales Order',
+            //Search Route Required
+            'route-search' => 'admin.marketing.form_sales_order',
             /**
-             * Route Can Be Null
+             * Route Can Be Null, Using Route Name
              */
             //Route For Button Add
             'route-add' => 'testing.create',
@@ -49,6 +51,11 @@ class FormSalesOrderController extends Controller
         ];
 
         $query = SalesOrder::dataTableQuery($searchValue);
+//            ->orWhereHas('SourceOrder', function ($q) use ($searchValue) {
+//                $q->where('name', 'like', '%' . $searchValue . '%');
+//            })->orWhereHas('Customer', function ($q) use ($searchValue) {
+//                $q->where('name', 'like', '%' . $searchValue . '%');
+//            });
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));

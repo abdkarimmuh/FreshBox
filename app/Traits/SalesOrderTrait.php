@@ -31,8 +31,8 @@ Trait SalesOrderTrait
 
     function getCustomerNameAttribute()
     {
-        if (isset($this->Customer->customer_name)) {
-            return $this->Customer->customer_name;
+        if (isset($this->Customer->name)) {
+            return $this->Customer->name;
         } else {
             return 'Customer NotFound';
         }
