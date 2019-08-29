@@ -51,18 +51,15 @@ class FormSalesOrderController extends Controller
         ];
 
         $query = SalesOrder::dataTableQuery($searchValue);
-//            ->orWhereHas('SourceOrder', function ($q) use ($searchValue) {
-//                $q->where('name', 'like', '%' . $searchValue . '%');
-//            })->orWhereHas('Customer', function ($q) use ($searchValue) {
-//                $q->where('name', 'like', '%' . $searchValue . '%');
-//            });
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
-
-//        return new DataTableCollectionResource($data);
     }
 
+    public function create()
+    {
+        
+}
     public function show($id)
     {
         return SalesOrder::with('sales_order_details.item')->find($id);
