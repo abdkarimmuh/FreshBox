@@ -56,6 +56,12 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::post('/create', 'MasterData\ProvinceController@store')->name('store');
         });
 
+        Route::name('residence.')->prefix('residence')->group(function () {
+            Route::get('/', 'MasterData\ResidenceController@index')->name('index');
+            Route::get('/create', 'MasterData\ResidenceController@create')->name('create');
+            Route::post('/create', 'MasterData\ResidenceController@store')->name('store');
+        });
+
         Route::name('driver.')->prefix('driver')->group(function () {
             Route::get('/', 'MasterData\DriverController@index')->name('index');
             Route::get('/create', 'MasterData\DriverController@create')->name('create');
@@ -66,6 +72,18 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'MasterData\OriginController@index')->name('index');
             Route::get('/create', 'MasterData\OriginController@create')->name('create');
             Route::post('/create', 'MasterData\OriginController@store')->name('store');
+        });
+
+        Route::name('uom.')->prefix('uom')->group(function () {
+            Route::get('/', 'MasterData\UomController@index')->name('index');
+            Route::get('/create', 'MasterData\UomController@create')->name('create');
+            Route::post('/create', 'MasterData\UomController@store')->name('store');
+        });
+
+        Route::name('item.')->prefix('item')->group(function () {
+            Route::get('/', 'MasterData\ItemController@index')->name('index');
+            Route::get('/create', 'MasterData\ItemController@create')->name('create');
+            Route::post('/create', 'MasterData\ItemController@store')->name('store');
         });
     });
 });

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\MasterData;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\MasterData\Residence;
+use App\Model\MasterData\Item;
 
-class ResidenceController extends Controller
+class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,12 @@ class ResidenceController extends Controller
         $searchValue = $request->input('search');
 
         $columns = [
-            array('title' => 'Province', 'field' => 'province_name'),
-            array('title' => 'Nama', 'field' => 'name'),
+            array('title' => 'SKUID', 'field' => 'skuid'),
+            array('title' => 'Item Name', 'field' => 'name_item'),
+            array('title' => 'Category', 'field' => 'category_name'),
+            array('title' => 'Trf Item', 'field' => 'is_trf_item'),
+            array('title' => 'UOM', 'field' => 'uom_item'),
+            array('title' => 'Origin Code', 'field' => 'origin_code'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
 
@@ -27,25 +31,24 @@ class ResidenceController extends Controller
 
         $config = [
             //Title Required
-            'title' => 'Residence',
+            'title' => 'Item',
             /**
              * Route Can Be Null
              */
             //Route For Button Add
-            'route-add' => 'admin.master_data.residence.create',
+            'route-add' => 'admin.master_data.item.create',
             //Route For Button Edit
             'route-edit' => 'testing.edit',
             //Route For Button Delete
             'route-delete' => 'testing.delete',
             //Route For Button Search
-            'route-search' => 'admin.master_data.residence.index',
+            'route-search' => 'admin.master_data.item.index',
         ];
 
-        $query = Residence::dataTableQuery($searchValue);
+        $query = Item::dataTableQuery($searchValue);
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
-        // return $data;
     }
 
     /**

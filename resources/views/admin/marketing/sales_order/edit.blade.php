@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="col-12">
-        <div class="card">
+        <div class="card col-12">
             <div class="card-header">
                 <h4>Sales Order Details</h4>
             </div>
             <div class="col-12">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label>Sales Order No<span style="color: red;">*</span></label>
                             <div>
@@ -19,6 +19,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label>Customer<span style="color: red;">*</span></label>
                             <div>
@@ -31,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label>Source Order</label>
                             <div>
@@ -43,6 +45,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label>Fulfillment Date</label>
                             <div>
@@ -97,7 +101,7 @@
                                 </tfoot>
                             </table>
                         </div>
-                        <div class="col-6">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Remark</label>
                                 <textarea class="form-control" id="Remarks"
