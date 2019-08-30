@@ -29,7 +29,7 @@
                                                        v-model="customer_id"
                                                        v-on:input="getData()"
                                                        option-value="id"
-                                                       option-text="customer_name"
+                                                       option-text="name"
                                                        placeholder="Select Customer">
                                     </model-list-select>
                                     <div class="invalid-feedback" v-if="errors.customers">
@@ -88,14 +88,11 @@
                                                    class="form-control">
                                         </td>
                                         <td style="text-align: right;">{{ orders.amount }}</td>
-                                        <td style="text-align: righ">{{total_amount[index]}}</td>
+                                        <td style="text-align: right">{{total_amount[index]}}</td>
                                         <td>
                                             <input v-model="notes[index]" type="text" placeholder="Notes"
                                                    class="form-control">
                                         </td>
-                                        <!--                                        <td><a href="#" id="delete|sod|94" role="button" title="Delete"-->
-                                        <!--                                               onclick="deleteSalesOrderDetail(94,);"><span-->
-                                        <!--                                            class="badge badge-pill badge-danger">Delete</span></a></td>-->
                                     </tr>
                                     </tbody>
                                     <tfoot>
@@ -187,7 +184,16 @@
                 };
                 try {
                     const res = await axios.post('/api/marketing/sales_order_detail', payload);
-                    console.log('RES SALES ORDERi', res)
+                    Vue.swal({
+                        type: 'success',
+                        title: 'Success!',
+                        text: 'Successfully Insert Data!'
+                    });
+                    setTimeout(function () {
+                        window.location.href = '/admin/marketing/form_sales_order';
+                    }, 3000);
+
+                    console.log('RES SALES ORDER', res)
                 } catch (e) {
                     console.error(e)
                 }
@@ -195,8 +201,7 @@
         },
         components: {
             ModelListSelect
-        }
-        ,
+        },
         computed: {
             totalItem: function () {
                 let sum = 0;

@@ -7,8 +7,10 @@
                     <div class="col-lg-9">
                         <div class="row">
                             <h4>{{ $config['title'] }}</h4>
-                            <a href="{{ route($config['route-add']) }}" class="btn btn-primary">Add <i
-                                    class="fas fa-plus"></i></a>
+                            @if(isset($config['route-add']))
+                                <a href="{{ route($config['route-add']) }}" class="btn btn-primary">Add <i
+                                        class="fas fa-plus"></i></a>
+                            @endif
                         </div>
                     </div>
                     <div class="card-header-action ml-0 mt-3 mb-3">
@@ -56,11 +58,11 @@
                                                     @endisset
                                                     @isset($config['route-delete'])
                                                         <a href="{{ route($config['route-delete'], ['id' => $row->id]) }}"
-                                                        class="badge badge-danger"
-                                                        title="Delete">
+                                                           class="badge badge-danger"
+                                                           title="Delete">
                                                             Delete
                                                         </a>
-                                                @endisset
+                                                    @endisset
                                                 @endif
                                             @else
                                                 @isset($config['route-view'])
