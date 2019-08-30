@@ -15,6 +15,28 @@
   color: #e3342f;
 }
 
+body.sidebar-mini .main-sidebar .sidebar-menu > li > a .ion,
+body.sidebar-mini .main-sidebar .sidebar-menu > li > a .fas,
+body.sidebar-mini .main-sidebar .sidebar-menu > li > a .far,
+body.sidebar-mini .main-sidebar .sidebar-menu > li > a .fab,
+body.sidebar-mini .main-sidebar .sidebar-menu > li > a .fal {
+  margin: 0;
+  font-size: 16px;
+}
+
+body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
+  box-shadow: 0 4px 8px #f66D9b;
+  background-color: #e3342f;
+  color: #fff;
+}
+
+body.sidebar-mini .main-sidebar .sidebar-menu > li ul.dropdown-menu li > a:focus,
+body.sidebar-mini .main-sidebar .sidebar-menu > li ul.dropdown-menu li.active > a,
+body.sidebar-mini .main-sidebar .sidebar-menu > li ul.dropdown-menu li.active > a:hover {
+  color: #fff;
+  background-color: #e3342f !important;
+}
+
 body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
   background-color: #d50000;
 }

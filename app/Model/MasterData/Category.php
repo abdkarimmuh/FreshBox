@@ -23,7 +23,6 @@ class Category extends MyModel
         'id' => [
             'searchable' => false,
             'search_relation' => false,
-
         ],
         'name' => [
             'searchable' => true,

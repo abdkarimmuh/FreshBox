@@ -42,6 +42,11 @@ class Province extends MyModel
         ]
     ];
 
+    public function Residence()
+    {
+        return $this->belongsTo(Residence::class);
+    }
+
     public function getColumns()
     {
         return $this->columns;

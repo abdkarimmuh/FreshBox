@@ -4,7 +4,7 @@
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
         <a href="{{ route('admin.dashboard') }}">
-            <img src="{{asset('assets/img/icon-freshbox.png')}}" width="40px" height="40px">
+            <img src="{{asset('assets/img/icon-freshbox.png')}}" width="32px" height="32px">
         </a>
     </div>
     <ul class="sidebar-menu">
@@ -63,8 +63,8 @@
                     <li class="{{ request()->route()->getName() == 'admin.master_data.driver.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.driver.index') }}"><span>Driver</span></a>
                     </li>
-                    <li class="">
-                        <a class="nav-link" href="index-0.html"><span>Item</span></a>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.item.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.item.index') }}"><span>Item</span></a>
                     </li>
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>Price</span></a>
@@ -75,8 +75,8 @@
                     <li class="{{ request()->route()->getName() == 'admin.master_data.origin.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.origin.index') }}"><span>Origin</span></a>
                     </li>
-                    <li class="">
-                        <a class="nav-link" href="index-0.html"><span>UOM</span></a>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.uom.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.uom.index') }}"><span>UOM</span></a>
                     </li>
                     <li class="">
                         <a class="nav-link" href="index-0.html"><span>Source Order</span></a>
@@ -84,8 +84,8 @@
                     <li class="{{ request()->route()->getName() == 'admin.master_data.province.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.province.index') }}"><span>Province</span></a>
                     </li>
-                    <li class="">
-                        <a class="nav-link" href="index-0.html"><span>Residence</span></a>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.residence.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.residence.index') }}"><span>Residence</span></a>
                     </li>
                     <li class="">
                          <router-link :to="{ name: 'users'}" class="nav-link"><span>Users</span></router-link>
