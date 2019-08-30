@@ -4,6 +4,7 @@
 namespace App\Model\Marketing;
 
 
+use App\Model\MasterData\Item;
 use App\MyModel;
 
 class SalesOrderDetail extends MyModel

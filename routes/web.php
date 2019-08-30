@@ -20,7 +20,12 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      * Routing Menu Marketing
      */
     Route::name('marketing.')->prefix('marketing')->middleware('auth')->group(function () {
-        Route::get('/form_sales_order', 'Marketing\FormSalesOrderController@index')->name('form_sales_order');
+        Route::name('sales_order.')->prefix('form_sales_order')->group(function () {
+            Route::get('/', 'Marketing\FormSalesOrderController@index')->name('index');
+            Route::get('/create', 'Marketing\FormSalesOrderController@create')->name('create');
+            Route::post('/store', 'Marketing\FormSalesOrderController@store')->name('store');
+            Route::get('/{id}/edit', 'Marketing\FormSalesOrderController@edit')->name('edit');
+        });
     });
     /**
      * Route Menu Warehouse

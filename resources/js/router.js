@@ -40,26 +40,6 @@ const router = new VueRouter({
             },
             component: AddSalesOrder
         },
-        {
-            path: '/admin/marketing/form_sales_order/:id/view',
-            name: 'viewSalesOrder',
-            component: FormSalesOrder
-        },
-        {
-            path: '/admin/marketing/form_sales_order/:id/edit',
-            name: 'editSalesOrder',
-            component: EditSalesOrder
-        },
-        {
-            path: '/admin/master/category',
-            name: 'categoryMaster',
-            component: Category
-        },
-        {
-            path: '/admin/testing',
-            name: 'testing',
-            component: Testing
-        }
     ],
 });
 

@@ -8,8 +8,6 @@ use App\Model\MasterData\Item;
 use App\Model\MasterData\Price;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 class FormSalesOrderController extends Controller
 {
@@ -38,29 +36,34 @@ class FormSalesOrderController extends Controller
             //Title Required
             'title' => 'Form Sales Order',
             //Search Route Required
-            'route-search' => 'admin.marketing.form_sales_order',
+            'route-search' => 'admin.marketing.sales_order.index',
             /**
              * Route Can Be Null, Using Route Name
              */
             //Route For Button Add
-            'route-add' => 'testing.create',
+            'route-add' => 'admin.marketing.sales_order.create',
             //Route For Button Edit
-            'route-edit' => 'testing.edit',
+            'route-edit' => 'admin.marketing.sales_order.edit',
             //Route For Button View
             'route-view' => 'testing.create',
         ];
 
         $query = SalesOrder::dataTableQuery($searchValue);
-//            ->orWhereHas('SourceOrder', function ($q) use ($searchValue) {
-//                $q->where('name', 'like', '%' . $searchValue . '%');
-//            })->orWhereHas('Customer', function ($q) use ($searchValue) {
-//                $q->where('name', 'like', '%' . $searchValue . '%');
-//            });
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
+    }
 
-//        return new DataTableCollectionResource($data);
+    public function create()
+    {
+
+        return view('admin.marketing.sales_order.create');
+    }
+
+    public function edit($id)
+    {
+        $data = SalesOrder::with('sales_order_details')->find($id);
+        return view('admin.marketing.sales_order.edit', compact('data'));
     }
 
     public function show($id)
@@ -72,12 +75,12 @@ class FormSalesOrderController extends Controller
     {
         $customer_id = $request->customerId;
         $sales_order_no = $request->salesOrderNo;
-        $source_order_id = $request->sourceOrder;
+        $source_order_id = $request->sourceOrderId;
         $fulfillment_date = $request->fulfillmentDate;
         $remarks = $request->remark;
         $details = $request->details;
         $user = 1;
-//
+
         $item = Price::where('customer_id', $customer_id)->get();
 
         $sales_order = SalesOrder::create([
@@ -89,14 +92,6 @@ class FormSalesOrderController extends Controller
             'status' => 1,
             'created_by' => $user,
         ]);
-
-//        foreach ($request->details as  $detail) {
-//            $salesOrderDetails[] = [
-//                'skuid' => $detail->skuid,
-//                'qty' => $detail->qty,
-//                'notes' => $detail->notes,
-//            ];
-//        }
 
         for ($i = 0; $i < count($details); $i++) {
             $salesOrderDetails[] = [
@@ -110,8 +105,6 @@ class FormSalesOrderController extends Controller
                 'created_by' => $user,
             ];
         }
-
         SalesOrderDetail::insert($salesOrderDetails);
-        return response()->json(['sales_order_id' => $salesOrderDetails], 200);
     }
 }

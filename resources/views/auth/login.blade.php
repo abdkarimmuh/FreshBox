@@ -1,8 +1,8 @@
 @extends('layouts.auth-master')
 
 @section('content')
-<div class="card card-primary">
-  <div class="card-header"><h4>Login</h4></div>
+<div class="card card-danger">
+  <div class="card-header"><h4 class="text-danger">Login</h4></div>
 
   <div class="card-body">
     <form method="POST" action="{{ route('login') }}">
@@ -48,14 +48,14 @@
       </div>
 
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+        <button type="submit" class="btn btn-danger btn-lg btn-block" tabindex="4">
           Login
         </button>
       </div>
     </form>
   </div>
 </div>
-<div class="mt-5 text-muted text-center">
-  Don't have an account? <a href="{{ route('register') }}">Create One</a>
-</div>
+{{--<div class="mt-5 text-muted text-center">--}}
+{{--  Don't have an account? <a href="{{ route('register') }}">Create One</a>--}}
+{{--</div>--}}
 @endsection

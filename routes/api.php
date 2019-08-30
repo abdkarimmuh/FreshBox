@@ -58,9 +58,7 @@ Route::group(['prefix' => 'master_data/'], function () {
     Route::group(['prefix' => 'source_order'], function () {
         Route::get('/', 'MasterData\MasterPriceController@index');
         Route::get('/list', 'MasterData\SourceOrderController@all');
-
     });
-
     Route::get('customer', 'MasterData\CustomerController@index')->name('api.customer');
     Route::get('list_customer', 'MasterData\CustomerController@all');
     Route::get('price', 'MasterData\MasterPriceController@index')->name('api.price');

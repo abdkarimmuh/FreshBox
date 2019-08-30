@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\MasterData;
 
-use App\Model\Etc\SourceOrder;
+use App\Model\MasterData\SourceOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
