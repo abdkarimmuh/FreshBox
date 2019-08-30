@@ -66,3 +66,22 @@
         ]
     }
 }
+{
+    "customerId": 2,
+    "remark": "asdas",
+    "fulfillmentDate": "2019-08-01",
+    "salesOrderNo": "asdasd",
+    "sourceOrderId": 1,
+    "details": [
+        {
+            "skuid": 10006,
+            "qty": "5",
+            "notes": "ads"
+        },
+        {
+            "skuid": 10012,
+            "qty": "",
+            "notes": ""
+        }
+    ]
+}

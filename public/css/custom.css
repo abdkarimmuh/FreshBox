@@ -1,1 +1,25 @@
-.navbar-bg{background-color:#d50000;background-image:linear-gradient(180deg,#d50000,#e3342f)}.main-sidebar .sidebar-menu li.active a,.main-sidebar .sidebar-menu li ul.dropdown-menu li.active>a,.main-sidebar .sidebar-menu li ul.dropdown-menu li a:hover{color:#e3342f}body.sidebar-mini .main-sidebar .sidebar-menu>li.active>a{background-color:#d50000}.table-dark{background-color:rgba(0,0,0,.02)}
+.navbar-bg {
+  background-color: #d50000;
+  background-image: linear-gradient(to bottom, #d50000, #e3342f);
+}
+
+.main-sidebar .sidebar-menu li.active a {
+  color: #e3342f;
+}
+
+.main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a {
+  color: #e3342f;
+}
+
+.main-sidebar .sidebar-menu li ul.dropdown-menu li a:hover {
+  color: #e3342f;
+}
+
+body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
+  background-color: #d50000;
+}
+
+.table-dark {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+

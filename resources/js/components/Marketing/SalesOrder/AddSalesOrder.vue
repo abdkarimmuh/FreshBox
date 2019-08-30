@@ -56,7 +56,9 @@
                             <div class="form-group">
                                 <label>Fulfillment Date</label>
                                 <div>
-                                    <date-picker v-model="fulfillment_date" lang="en" valueType="format"></date-picker>
+                                    <date-picker v-model="fulfillment_date" lang="en" valueType="format"
+                                              :not-before="new Date()" ></date-picker>
+
                                     <div class="invalid-feedback" v-if="errors.fulfillment_date">
                                         <p>{{ errors.fulfillment_date[0] }}</p>
                                     </div>
@@ -84,7 +86,8 @@
                                         <td>{{ orders.item_name }}</td>
                                         <td>{{ orders.uom }}</td>
                                         <td style="text-align: right;">
-                                            <input v-model="qty[index]" type="number" placeholder="Qty"
+                                            <input v-model="qty[index]" type="number" placeholder="Qty" min="0"
+                                                   oninput="validity.valid||(value='');"
                                                    class="form-control">
                                         </td>
                                         <td style="text-align: right;">{{ orders.amount }}</td>
@@ -137,14 +140,14 @@
                 total_amount: [],
                 source_order_id: 1,
                 source_orders: [],
-                fulfillment_date: new Date(),
+                fulfillment_date: '',
                 sales_order_no: '',
                 message: '',
                 errors: [],
                 customer_id: '0',
                 customers: [],
                 orders_detail: [],
-                loading: false
+                loading: false,
             }
         },
         mounted() {
@@ -189,9 +192,9 @@
                         title: 'Success!',
                         text: 'Successfully Insert Data!'
                     });
-                    setTimeout(function () {
-                        window.location.href = '/admin/marketing/form_sales_order';
-                    }, 3000);
+                    // setTimeout(function () {
+                    //     // window.location.href = '/admin/marketing/form_sales_order';
+                    // }, 3000);
 
                     console.log('RES SALES ORDER', res)
                 } catch (e) {
