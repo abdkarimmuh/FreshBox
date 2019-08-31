@@ -73,6 +73,7 @@ class FormSalesOrderController extends Controller
 
     public function InsertSalesOrderDetail(Request $request)
     {
+
         $customer_id = $request->customerId;
         $sales_order_no = $request->salesOrderNo;
         $source_order_id = $request->sourceOrderId;
@@ -93,18 +94,26 @@ class FormSalesOrderController extends Controller
             'created_by' => $user,
         ]);
 
-        for ($i = 0; $i < count($details); $i++) {
-            $salesOrderDetails[] = [
-                'sales_order_id' => $sales_order->id,
-                'skuid' => $details[$i]['skuid'],
-                'uom_id' => $item[$i]->uom_id,
-                'qty' => $details[$i]['qty'],
-                'amount_price' => $item[$i]->amount,
-                'total_amount' => $item[$i]->amount * $details[$i]['qty'],
-                'notes' => $details[$i]['notes'],
-                'created_by' => $user,
-            ];
+        foreach ($details as $i => $detail) {
+            if (isset($detail['qty'])) {
+                $salesOrderDetails[] = [
+                    'sales_order_id' => $sales_order->id,
+                    'skuid' => $detail['skuid'],
+                    'uom_id' => $item[$i]->uom_id,
+                    'qty' => $detail['qty'],
+                    'amount_price' => $item[$i]->amount,
+                    'total_amount' => $item[$i]->amount * $detail['qty'],
+                    'notes' => $detail['notes'],
+                    'created_by' => $user,
+                ];
+            } else {
+                unset($details[$i]);
+            }
+
         }
         SalesOrderDetail::insert($salesOrderDetails);
+
+        return response()->json(
+            ['status' => 'success'], 200);
     }
 }

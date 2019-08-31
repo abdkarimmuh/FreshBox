@@ -61,7 +61,7 @@
                                 <label>Fulfillment Date</label>
                                 <div>
                                     <date-picker v-model="fulfillment_date" lang="en" valueType="format"
-                                              :not-before="new Date()" ></date-picker>
+                                                 :not-before="new Date()"></date-picker>
 
                                     <div class="invalid-feedback" v-if="errors.fulfillment_date">
                                         <p>{{ errors.fulfillment_date[0] }}</p>
@@ -94,8 +94,10 @@
                                                    oninput="validity.valid||(value='');"
                                                    class="form-control">
                                         </td>
-                                        <td style="text-align: right;">{{ orders.amount }}</td>
-                                        <td style="text-align: right">{{total_amount[index]}}</td>
+                                        <td style="text-align: right;">
+                                            {{ formatPrice(orders.amount) }}
+                                        </td>
+                                        <td style="text-align: right">{{ formatPrice(total_amount[index])}}</td>
                                         <td>
                                             <input v-model="notes[index]" type="text" placeholder="Notes"
                                                    class="form-control">
@@ -158,6 +160,12 @@
             this.getData();
         },
         methods: {
+            formatPrice(value) {
+                return value.toLocaleString('id-ID', {
+                    currency: 'IDR',
+                    style: 'currency'
+                });
+            },
             getData() {
                 axios.all([
                     axios.get(this.$parent.MakeUrl('api/master_data/customer/list')),
@@ -196,9 +204,9 @@
                         title: 'Success!',
                         text: 'Successfully Insert Data!'
                     });
-                    // setTimeout(function () {
-                    //     // window.location.href = '/admin/marketing/form_sales_order';
-                    // }, 3000);
+                    setTimeout(function () {
+                        window.location.href = '/admin/marketing/form_sales_order';
+                    }, 3000);
 
                     console.log('RES SALES ORDER', res)
                 } catch (e) {
@@ -216,10 +224,7 @@
                     sum += (parseFloat(item));
                 });
 
-                return sum.toLocaleString('id-ID', {
-                    currency: 'IDR',
-                    style: 'currency'
-                });
+                return sum.toLocaleString('id-ID');
             },
         },
         watch: {

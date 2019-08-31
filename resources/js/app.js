@@ -27,6 +27,17 @@ Vue.component("data-table", DataTable);
 Vue.component("laravel-pagination", require('laravel-vue-pagination'));
 Vue.use(DatePicker);
 
+Vue.filter('toCurrency', function (value) {
+    if (typeof value !== "number") {
+        return value;
+    }
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0
+    });
+    return formatter.format(value);
+});
 
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',

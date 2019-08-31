@@ -27,7 +27,7 @@ class PriceResource extends JsonResource
             'uom' => $this->uom->name,
             'customer' => $this->customer->customer_name,
             'customer_id' => $this->customer->id,
-            'amount' => $this->amount,
+            'amount' => round($this->amount,2),
             'start_periode' => $this->start_periode,
             'end_periode' => $this->end_periode,
             'remarks' => $this->remarks,
