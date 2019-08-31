@@ -83,8 +83,8 @@
                                             <input type="number" placeholder="Qty"
                                                    class="form-control" value="{{ $order_detail->qty }}">
                                         </td>
-                                        <td>{{ $order_detail->amount_price }}</td>
-                                        <td>{{ $order_detail->total_amount }}</td>
+                                        <td>{{ format_price($order_detail->amount_price) }}</td>
+                                        <td>{{ format_price($order_detail->total_amount) }}</td>
                                         <td>
                                             <input type="text" placeholder="Notes"
                                                    class="form-control" value="{{ $order_detail->notes }}">
@@ -96,7 +96,7 @@
                                 <tfoot>
                                 <tr>
                                     <td colspan="5" style="text-align: right;">Grand Total</td>
-                                    <td style="text-align: right;">{{ $grand_total }}</td>
+                                    <td style="text-align: right;">{{ format_price($grand_total) }}</td>
                                 </tr>
                                 </tfoot>
                             </table>
