@@ -113,7 +113,7 @@
                                     </tr>
                                     </tfoot>
                                 </table>
-                                <input type="hidden" id="grandTotal" name="grandTotal" value="55600000"></div>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -140,7 +140,9 @@
     export default {
         data() {
             return {
-                qty: [],
+                qty: [
+                    0
+                ],
                 notes: [],
                 remark: '',
                 total_amount: [],
@@ -162,8 +164,7 @@
         methods: {
             formatPrice(value) {
                 return value.toLocaleString('id-ID', {
-                    currency: 'IDR',
-                    style: 'currency'
+                    minimumFractionDigits: 2
                 });
             },
             getData() {
@@ -175,7 +176,9 @@
                     this.customers = customers.data;
                     this.orders_detail = orders_detail.data.data;
                     this.source_orders = source_order.data;
-                    this.qty = [];
+                    this.qty = [
+                        0
+                    ];
                     this.total_amount = [];
                     this.notes = [];
                 })).catch((err) => {
@@ -224,7 +227,9 @@
                     sum += (parseFloat(item));
                 });
 
-                return sum.toLocaleString('id-ID');
+                return sum.toLocaleString('id-ID', {
+                    minimumFractionDigits: 2
+                });
             },
         },
         watch: {
