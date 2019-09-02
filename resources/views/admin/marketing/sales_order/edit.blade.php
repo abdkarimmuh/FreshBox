@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Sales Order No<span style="color: red;">*</span></label>
+                            <label><b>Sales Order No</b><span style="color: red;">*</span></label>
                             <div>
                                 <input type="text" class="form-control" name="sales_order_no"
                                        value="{{$data->sales_order_no}}" placeholder="Sales Order No.">
@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Customer<span style="color: red;">*</span></label>
+                            <label><b>Customer</b><span style="color: red;">*</span></label>
                             <div>
                                 <input type="text" class="form-control" name="customer_id"
                                        value="{{ $data->customer->name }}"
@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Source Order</label>
+                            <label><b>Source Order</b><span style="color: red;">*</span></label>
                             <div>
                                 <input type="text" class="form-control" name="source_order_id"
                                        value="{{ $data->source_order_name }}"
@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Fulfillment Date</label>
+                            <label><b>Fulfillment Date</b><span style="color: red;">*</span></label>
                             <div>
                                 <date-picker lang="en"
                                              value="{{ $data->fulfillment_date }}"></date-picker>
@@ -65,8 +65,8 @@
                                 <tr>
                                     <th class="text-center">SKUID</th>
                                     <th class="text-center">Item Name</th>
-                                    <th class="text-center">UOM</th>
                                     <th class="text-center">Qty</th>
+                                    <th class="text-center">UOM</th>
                                     <th class="text-center">Amount Price</th>
                                     <th class="text-center">Total Amount</th>
                                     <th class="text-center">Notes</th>
@@ -78,11 +78,11 @@
                                     <tr>
                                         <td>{{ $order_detail->skuid }}</td>
                                         <td>{{ $order_detail->item->name_item }}</td>
-                                        <td>{{ $order_detail->item->uom->name }}</td>
                                         <td style="text-align: right;">
                                             <input type="number" placeholder="Qty"
                                                    class="form-control" value="{{ $order_detail->qty }}">
                                         </td>
+                                        <td>{{ $order_detail->item->uom->name }}</td>
                                         <td>{{ format_price($order_detail->amount_price) }}</td>
                                         <td>{{ format_price($order_detail->total_amount) }}</td>
                                         <td>
@@ -103,7 +103,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Remark</label>
+                                <label><b>Remarks</b><span style="color: red;">*</span></label>
                                 <textarea class="form-control" id="Remarks"
                                           name="Remarks">{{ $data->remarks }}</textarea>
                             </div>

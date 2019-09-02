@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Sales Order No<span style="color: red;">*</span></label>
+                                <label><b>Sales Order No</b><span style="color: red;">*</span></label>
                                 <div>
                                     <input v-bind:class="{'is-invalid': errors.email}" type="text"
                                            v-model="sales_order_no"
@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Customer<span style="color: red;">*</span></label>
+                                <label><b>Customer</b><span style="color: red;">*</span></label>
                                 <div>
                                     <model-list-select :list="customers"
                                                        v-model="customer_id"
@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Source Order</label>
+                                <label><b>Source Order</b><span style="color: red;">*</span></label>
                                 <div>
                                     <model-list-select :list="source_orders"
                                                        v-model="source_order_id"
@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Fulfillment Date</label>
+                                <label><b>Fulfillment Date</b><span style="color: red;">*</span></label>
                                 <div>
                                     <date-picker v-model="fulfillment_date" lang="en" valueType="format"
                                                  :not-before="new Date()"></date-picker>
@@ -76,8 +76,8 @@
                                     <tr>
                                         <th class="text-center">SKUID</th>
                                         <th class="text-center">Item Name</th>
-                                        <th class="text-center">UOM</th>
                                         <th class="text-center">Qty</th>
+                                        <th class="text-center">UOM</th>
                                         <th class="text-center">Amount Price</th>
                                         <th class="text-center">Total Amount</th>
                                         <th class="text-center">Notes</th>
@@ -88,12 +88,12 @@
                                     <tr v-for="(orders, index) in orders_detail" :key="orders.id">
                                         <td>{{ orders.skuid }}</td>
                                         <td>{{ orders.item_name }}</td>
-                                        <td>{{ orders.uom }}</td>
                                         <td style="text-align: right;">
                                             <input v-model="qty[index]" type="number" placeholder="Qty" min="0"
                                                    oninput="validity.valid||(value='');"
-                                                   class="form-control">
+                                                   class="form-control qty">
                                         </td>
+                                        <td>{{ orders.uom }}</td>
                                         <td style="text-align: right;">
                                             {{ formatPrice(orders.amount) }}
                                         </td>
@@ -117,7 +117,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Remark</label>
+                                <label><b>Remarks</b></label>
                                 <textarea v-model="remark" class="form-control" id="Remarks" name="Remarks"></textarea>
                             </div>
                         </div>
@@ -238,4 +238,6 @@
             }
         }
     }
+
 </script>
+
