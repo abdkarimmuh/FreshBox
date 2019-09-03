@@ -89,7 +89,12 @@
                             </div>
                         </div>
                         <div v-if="customer_id != 0" class="col-12">
-                            <label><b>Items</b><span style="color: red;">*</span></label>
+                            <div class="col-8">
+                                <label><b>Items</b><span style="color: red;">*</span></label>
+                            </div>
+                            <div class="col-4">
+                                <button class="btn btn-primary">Add</button>
+                            </div>
                             <div class="table-responsive m-t-40" style="clear: both;">
                                 <table class="table table-hover" id="contentTable" style="font-size: 9pt;">
                                     <thead>

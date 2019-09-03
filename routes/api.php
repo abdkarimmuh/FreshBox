@@ -47,20 +47,20 @@ Route::group(['prefix' => 'finance/'], function () {
 Route::group(['prefix' => 'master_data/'], function () {
 
     Route::group(['prefix' => 'customer'], function () {
-        Route::get('/', 'MasterData\CustomerController@index')->name('api.customer');
-        Route::get('/list', 'MasterData\CustomerController@all');
+        Route::get('/', 'API\CustomerAPIController@index')->name('api.customer');
+        Route::get('/list', 'API\CustomerAPIController@all');
     });
     Route::group(['prefix' => 'price'], function () {
-        Route::get('/', 'MasterData\MasterPriceController@index')->name('api.price');
-        Route::get('/{id}', 'MasterData\MasterPriceController@show');
-        Route::get('customer/{id}', 'MasterData\MasterPriceController@CustomerPrice');
+        Route::get('/', 'API\MasterPriceController@index')->name('api.price');
+        Route::get('/{id}', 'API\MasterPriceController@show');
+        Route::get('customer/{id}', 'API\MasterPriceController@CustomerPrice');
     });
     Route::group(['prefix' => 'source_order'], function () {
-        Route::get('/', 'MasterData\MasterPriceController@index');
-        Route::get('/list', 'MasterData\SourceOrderController@all');
+        Route::get('/', 'API\MasterPriceController@index');
+        Route::get('/list', 'API\SourceOrderAPIController@all');
     });
-    Route::get('customer', 'MasterData\CustomerController@index')->name('api.customer');
-    Route::get('list_customer', 'MasterData\CustomerController@all');
+    Route::get('customer', 'API\CustomerAPIController@index')->name('api.customer');
+    Route::get('list_customer', 'API\CustomerAPIController@all');
     Route::get('price', 'API\MasterPriceController@index')->name('api.price');
     Route::get('price/{id}', 'API\MasterPriceController@show');
     Route::get('price_customer/{id}', 'API\MasterPriceController@CustomerPrice');
