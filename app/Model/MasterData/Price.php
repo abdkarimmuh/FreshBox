@@ -15,23 +15,122 @@ class Price extends MyModel
 
     protected $table = 'master_price';
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $appends = [
+        'created_by_name',
+        'updated_by_name',
+        'item_name',
+        'uom_name'
+    ];
 
-    public function uom()
+    protected $columns = [
+        'id' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'skuid' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'item_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'Item',
+            'relation_field' => 'name_item'
+        ],
+        'uom_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'Uom',
+            'relation_field' => 'name'
+        ],
+        'customer_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'Customer',
+            'relation_field' => 'name'
+        ],
+        'amount' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'tax_value' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'start_periode' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'end_periode' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'remarks' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'created_at' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+        'created_by_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'create_by',
+            'relation_field' => 'name'
+        ],
+        'updated_by_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'update_by',
+            'relation_field' => 'name'
+        ]
+    ];
+
+    public function Uom()
     {
         return $this->belongsTo(Uom::class);
     }
 
-    public function customer()
+    public function Customer()
     {
         return $this->belongsTo(Customer::class);
     }
 
-    public function item()
+    public function Item()
     {
         return $this->belongsTo(Item::class, 'skuid', 'skuid');
+    }
+
+    public function getItemNameAttribute()
+    {
+        if (isset($this->Item->name_item)) {
+            return $this->Item->name_item;
+        } else {
+            return '';
+        }
+    }
+
+    public function getUomNameAttribute()
+    {
+        if (isset($this->Uom->name)) {
+            return $this->Uom->name;
+        } else {
+            return '';
+        }
+    }
+
+    public function getCustomerNameAttribute()
+    {
+        if (isset($this->Customer->name)) {
+            return $this->Customer->name;
+        } else {
+            return '';
+        }
+    }
+
+    public function getColumns()
+    {
+        return $this->columns;
     }
 }

@@ -35,7 +35,7 @@ class CategoryController extends Controller
             //Route For Button Add
             'route-add' => 'admin.master_data.category.create',
             //Route For Button Edit
-            'route-edit' => 'testing.edit',
+            'route-edit' => 'admin.master_data.category.edit',
             //Route For Button Search
             'route-search' => 'admin.master_data.category.index',
         ];
@@ -55,7 +55,7 @@ class CategoryController extends Controller
     {
         //Form Generator
         $forms = [
-            array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'Category Name')
+            array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'Category Name', 'mandatory' => true)
         ];
         $config = [
             //Form Title
@@ -102,7 +102,24 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Form Generator
+        $forms = [
+            array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'Category Name', 'mandatory' => true)
+        ];
+        $config = [
+            //Form Title
+            'title' => 'Update Category',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.category.update',
+            //Form Method
+            'method' => 'PATCH',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.category.index'
+        ];
+
+        $data = Category::find($id);
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'data'));
     }
 
     /**
@@ -112,9 +129,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        DB::select('call update_category(?, ?, ?)', array($request->id, $request->name, auth()->user()->id));
+        return redirect('admin/master_data/category');
     }
 
     /**

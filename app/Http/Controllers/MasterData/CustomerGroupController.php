@@ -56,8 +56,8 @@ class CustomerGroupController extends Controller
     {
         //Form Generator
         $forms = [
-            array('type' => 'text', 'label' => 'Customer Group', 'name' => 'name', 'place_holder' => 'Customer Group'),
-            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description'),
+            array('type' => 'text', 'label' => 'Customer Group', 'name' => 'name', 'place_holder' => 'Customer Group', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description', 'mandatory' => true),
         ];
         $config = [
             //Form Title

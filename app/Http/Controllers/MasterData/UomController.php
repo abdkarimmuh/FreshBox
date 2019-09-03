@@ -56,8 +56,8 @@ class UomController extends Controller
     {
         //Form Generator
         $forms = [
-            array('type' => 'text', 'label' => 'UOM Name', 'name' => 'name', 'place_holder' => 'UOM Name'),
-            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description')
+            array('type' => 'text', 'label' => 'UOM Name', 'name' => 'name', 'place_holder' => 'UOM Name', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description', 'mandatory' => true)
         ];
         $config = [
             //Form Title

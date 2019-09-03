@@ -25,19 +25,19 @@
         <li class="dropdown {{ request()->segment(2) == 'warehouse' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-warehouse"></i><span>Warehouse</span></a>
             <ul class="dropdown-menu">
-                <li class="{{ request()->route()->getName() == 'admin.warehouse.form_delivery_order' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{route('admin.warehouse.form_delivery_order')}}"><span>Form Delivery Order</span></a>
+                <li class="{{ request()->route()->getName() == 'admin.warehouse.delivery_order.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.warehouse.delivery_order.index')}}"><span>Form Delivery Order</span></a>
                 </li>
-                <li class="{{ request()->route()->getName() == 'admin.warehouse.confirm_delivery_order' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{ route('admin.warehouse.confirm_delivery_order') }}"><span>Confirm Delivery Order</span></a>
+                <li class="{{ request()->route()->getName() == 'admin.warehouse.confirm_delivery_order.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{ route('admin.warehouse.confirm_delivery_order.index') }}"><span>Confirm Delivery Order</span></a>
                 </li>
             </ul>
         </li>
         <li class="dropdown {{ request()->segment(2) == 'finance' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance</span></a>
             <ul class="dropdown-menu">
-                <li class="{{ request()->route()->getName() == 'admin.finance.form_invoice_order' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{ route('admin.finance.form_invoice_order') }}"><span>Form Invoice Order</span></a>
+                <li class="{{ request()->route()->getName() == 'admin.finance.invoice_order.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{ route('admin.finance.invoice_order.index') }}"><span>Form Invoice Order</span></a>
                 </li>
             </ul>
         </li>
@@ -66,8 +66,8 @@
                     <li class="{{ request()->route()->getName() == 'admin.master_data.item.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.item.index') }}"><span>Item</span></a>
                     </li>
-                    <li class="">
-                        <a class="nav-link" href="index-0.html"><span>Modules</span></a>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.modules.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.modules.index') }}"><span>Modules</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.origin.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.origin.index') }}"><span>Origin</span></a>

@@ -36,7 +36,7 @@ class CustomerTypeController extends Controller
             //Route For Button Add
             'route-add' => 'admin.master_data.customer_type.create',
             //Route For Button Edit
-            'route-edit' => 'testing.edit',
+            'route-edit' => 'admin.master_data.customer_type.edit',
             //Route For Button Search
             'route-search' => 'admin.master_data.customer_type.index',
         ];
@@ -56,8 +56,8 @@ class CustomerTypeController extends Controller
     {
         //Form Generator
         $forms = [
-            array('type' => 'text', 'label' => 'Customer Type', 'name' => 'name', 'place_holder' => 'Customer Type'),
-            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description'),
+            array('type' => 'text', 'label' => 'Customer Type', 'name' => 'name', 'place_holder' => 'Customer Type', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description', 'mandatory' => true),
         ];
         $config = [
             //Form Title
@@ -104,7 +104,25 @@ class CustomerTypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Form Generator
+        $forms = [
+            array('type' => 'text', 'label' => 'Customer Type', 'name' => 'name', 'place_holder' => 'Customer Type', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description', 'mandatory' => true),
+        ];
+        $config = [
+            //Form Title
+            'title' => 'Create Customer Type',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.customer_type.update',
+            //Form Method
+            'method' => 'PATCH',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.customer_type.index'
+        ];
+
+        $data = CustomerType::find($id);
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'data'));
     }
 
     /**
@@ -114,9 +132,10 @@ class CustomerTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        DB::select('call update_customer_type(?, ?, ?, ?)', array($request->id, $request->name, $request->description, auth()->user()->id));
+        return redirect('admin/master_data/customer_type');
     }
 
     /**

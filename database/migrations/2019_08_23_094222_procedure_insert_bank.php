@@ -13,9 +13,11 @@ class ProcedureInsertBank extends Migration
      */
     public function up()
     {
+        DB::unprepared('DROP PROCEDURE IF EXISTS insert_bank');
+
         DB::unprepared('CREATE PROCEDURE insert_bank( IN name VARCHAR(191), IN kode_bank VARCHAR(20), IN created_by INT )
         BEGIN
-        insert into master_bank (name, kode_bank, created_at, created_by) values (name, kode_bank, now(), created_by);
+        INSERT INTO master_bank (name, kode_bank, created_at, created_by) VALUES (name, kode_bank, now(), created_by);
         END');
     }
 

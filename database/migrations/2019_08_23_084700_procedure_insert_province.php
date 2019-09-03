@@ -13,9 +13,11 @@ class ProcedureInsertProvince extends Migration
      */
     public function up()
     {
+        DB::unprepared('DROP PROCEDURE IF EXISTS insert_province');
+
         DB::unprepared('CREATE PROCEDURE insert_province( IN name VARCHAR(191), IN created_by INT )
         BEGIN
-        insert into master_province (name, created_at, created_by) values (name, now(), created_by);
+        INSERT INTO master_province (name, created_at, created_by) VALUES (name, now(), created_by);
         END');
     }
 

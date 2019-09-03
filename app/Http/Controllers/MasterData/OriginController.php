@@ -56,8 +56,8 @@ class OriginController extends Controller
     {
         //Form Generator
         $forms = [
-            array('type' => 'text', 'label' => 'Origin Code', 'name' => 'origin_code', 'place_holder' => 'Origin Code'),
-            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description'),
+            array('type' => 'text', 'label' => 'Origin Code', 'name' => 'origin_code', 'place_holder' => 'Origin Code', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description', 'mandatory' => true),
         ];
         $config = [
             //Form Title

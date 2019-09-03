@@ -8,15 +8,19 @@
                     <h4 class="text-danger">{{ $config['title'] }}</h4>
                 </div>
                 <form action="{{ route($config['action']) }}" class="form-group"
-                      method="{{ $config['method'] }}">
-                    @csrf
+                      method="POST">
+                      @csrf
+                      @method($config['method'])
+                    @isset($data)
+                    <input type="hidden" name="id" value="{{ $data['id'] }}">
+                    @endisset
                     <div class="col-12">
                         <div class="row mt-4">
                             @foreach($forms as $form)
                                 @if($form['type'] === 'textarea')
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label><b>{{ $form['label'] }}</b></label>
+                                        <label><b>{{ $form['label'] }}</b>@if($form['mandatory']==true)<span style="color: red;">*</span>@endif</label>
                                         <textarea class="form-control"
                                                   name="{{ $form['name'] }}"
                                                   placeholder=" {{ $form['place_holder'] ? $form['place_holder'] : '' }}"
@@ -28,7 +32,7 @@
                                 @elseif($form['type'] === 'text' || $form['type']  === 'number')
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label><b>{{ $form['label'] }}</b></label>
+                                        <label><b>{{ $form['label'] }}</b>@if($form['mandatory']==true)<span style="color: red;">*</span>@endif</label>
                                         <div>
                                             <input type="{{ $form['type'] }}" name="{{ $form['name'] }}"
                                                    placeholder="{{ isset($form['place_holder']) ? $form['place_holder'] : '' }}"
@@ -42,7 +46,7 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="card-body">
-                                        <button class="btn btn-danger">Submit</button>
+                                        <button class="btn btn-danger mr-1">Submit</button>
                                         <a href="{{ route($config['back-button']) }}" class="btn btn-secondary">Back</a>
                                     </div>
                                 </div>

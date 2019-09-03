@@ -54,8 +54,8 @@ class ProvinceController extends Controller
     public function create()
     {
         //Form Generator
-         $forms = [
-            array('type' => 'text', 'label' => 'Province', 'name' => 'name', 'place_holder' => 'Province'),
+        $forms = [
+            array('type' => 'text', 'label' => 'Province', 'name' => 'name', 'place_holder' => 'Province', 'mandatory' => true),
 
         ];
         $config = [

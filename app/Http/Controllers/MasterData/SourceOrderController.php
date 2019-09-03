@@ -56,8 +56,8 @@ class SourceOrderController extends Controller
     {
         //Form Generator
         $forms = [
-            array('type' => 'text', 'label' => 'Source Order', 'name' => 'name', 'place_holder' => 'Source Order'),
-            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description')
+            array('type' => 'text', 'label' => 'Source Order', 'name' => 'name', 'place_holder' => 'Source Order', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description', 'mandatory' => true)
         ];
         $config = [
             //Form Title

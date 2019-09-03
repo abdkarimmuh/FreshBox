@@ -36,7 +36,7 @@ class BankController extends Controller
             //Route For Button Add
             'route-add' => 'admin.master_data.bank.create',
             //Route For Button Edit
-            'route-edit' => 'testing.edit',
+            'route-edit' => 'admin.master_data.bank.edit',
             //Route For Button Search
             'route-search' => 'admin.master_data.bank.index',
         ];
@@ -57,8 +57,8 @@ class BankController extends Controller
     {
         //Form Generator
         $forms = [
-            array('type' => 'text', 'label' => 'Bank Name', 'name' => 'name', 'place_holder' => 'Bank Name'),
-            array('type' => 'text', 'label' => 'Bank Code', 'name' => 'kode_bank', 'place_holder' => 'Bank Code')
+            array('type' => 'text', 'label' => 'Bank Name', 'name' => 'name', 'place_holder' => 'Bank Name', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Bank Code', 'name' => 'kode_bank', 'place_holder' => 'Bank Code', 'mandatory' => true)
         ];
         $config = [
             //Form Title
@@ -105,7 +105,25 @@ class BankController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Form Generator
+        $forms = [
+            array('type' => 'text', 'label' => 'Bank Name', 'name' => 'name', 'place_holder' => 'Bank Name', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Bank Code', 'name' => 'kode_bank', 'place_holder' => 'Bank Code', 'mandatory' => true)
+        ];
+        $config = [
+            //Form Title
+            'title' => 'Update Bank',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.bank.update',
+            //Form Method
+            'method' => 'PATCH',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.bank.index'
+        ];
+
+        $data = Bank::find($id);
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'data'));
     }
 
     /**
@@ -115,9 +133,10 @@ class BankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        DB::select('call update_bank(?, ?, ?, ?)', array($request->id, $request->name, $request->kode_bank, auth()->user()->id));
+        return redirect('admin/master_data/bank');
     }
 
     /**

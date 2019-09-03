@@ -18,8 +18,15 @@ class PriceController extends Controller
         $searchValue = $request->input('search');
 
         $columns = [
-            array('title' => 'Origin Code', 'field' => 'origin_code'),
-            array('title' => 'Description', 'field' => 'description'),
+            array('title' => 'SKUID', 'field' => 'skuid'),
+            array('title' => 'Item Name', 'field' => 'item_name'),
+            array('title' => 'UOM', 'field' => 'uom_name'),
+            array('title' => 'Customer Name', 'field' => 'customer_name'),
+            array('title' => 'Amount', 'field' => 'amount'),
+            array('title' => 'Tax', 'field' => 'tax_value'),
+            array('title' => 'Start Periode', 'field' => 'start_periode'),
+            array('title' => 'End Periode', 'field' => 'end_periode'),
+            array('title' => 'Remarks', 'field' => 'remarks'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
             array('title' => 'Modified By', 'field' => 'updated_by_name'),
