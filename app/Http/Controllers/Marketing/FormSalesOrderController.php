@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Marketing;
 
+use App\Http\Requests\SalesOrderAddRequest;
 use App\Model\Marketing\SalesOrder;
 use App\Model\Marketing\SalesOrderDetail;
 use App\Model\MasterData\Item;
 use App\Model\MasterData\Price;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class FormSalesOrderController extends Controller
 {
@@ -71,15 +73,15 @@ class FormSalesOrderController extends Controller
         return SalesOrder::with('sales_order_details.item')->find($id);
     }
 
-    public function InsertSalesOrderDetail(Request $request)
+    public function InsertSalesOrderDetail(SalesOrderAddRequest $request)
     {
 
         $customer_id = $request->customerId;
-        $sales_order_no = $request->salesOrderNo;
+        $sales_order_no = 'SO0010232';
         $source_order_id = $request->sourceOrderId;
         $fulfillment_date = $request->fulfillmentDate;
         $remarks = $request->remark;
-        $details = $request->details;
+        $items = $request->items;
         $user = 1;
 
         $item = Price::where('customer_id', $customer_id)->get();
@@ -94,7 +96,7 @@ class FormSalesOrderController extends Controller
             'created_by' => $user,
         ]);
 
-        foreach ($details as $i => $detail) {
+        foreach ($items as $i => $detail) {
             if (isset($detail['qty'])) {
                 $salesOrderDetails[] = [
                     'sales_order_id' => $sales_order->id,
@@ -107,13 +109,12 @@ class FormSalesOrderController extends Controller
                     'created_by' => $user,
                 ];
             } else {
-                unset($details[$i]);
+                unset($items[$i]);
             }
 
         }
         SalesOrderDetail::insert($salesOrderDetails);
 
-        return response()->json(
-            ['status' => 'success'], 200);
+        return response()->json($sales_order);
     }
 }

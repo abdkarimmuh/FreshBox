@@ -12,36 +12,6 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label><b>Sales Order No</b><span style="color: red;">*</span></label>
-                                <div>
-                                    <input v-bind:class="{'is-invalid': errors.email}" type="text"
-                                           v-model="sales_order_no"
-                                           class="form-control" placeholder="Sales Order No.">
-                                    <div class="invalid-feedback" v-if="errors.email">
-                                        <p>{{ errors.email[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label><b>Customer</b><span style="color: red;">*</span></label>
-                                <div>
-                                    <model-list-select :list="customers"
-                                                       v-model="customer_id"
-                                                       v-on:input="getData()"
-                                                       option-value="id"
-                                                       option-text="name"
-                                                       placeholder="Select Customer">
-                                    </model-list-select>
-                                    <div class="invalid-feedback" v-if="errors.customers">
-                                        <p>{{ errors.customers[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
                                 <label><b>Source Order</b><span style="color: red;">*</span></label>
                                 <div>
                                     <model-list-select :list="source_orders"
@@ -50,8 +20,54 @@
                                                        option-text="name"
                                                        placeholder="Select Source Order">
                                     </model-list-select>
-                                    <div class="invalid-feedback" v-if="errors.source_order">
-                                        <p>{{ errors.source_order[0] }}</p>
+                                    <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                         v-if="errors.sourceOrderId">
+                                        <p>{{ errors.sourceOrderId[0] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group" v-if="source_order_id">
+                                <label><b>File</b><span style="color: red;">*</span></label>
+                                <div class="custom-file">
+                                    <input v-bind:class="{'is-invalid': errors.file}" type="file"
+                                           name="site_logo" class="custom-file-input" id="site-logo">
+                                    <label class="custom-file-label">Choose File</label>
+                                    <div class="invalid-feedback" v-if="errors.file">
+                                        <p>{{ errors.file[0] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group" v-if="source_order_id == 1">
+                                <label><b>No PO</b><span style="color: red;">*</span></label>
+                                <div>
+                                    <input type="text"
+                                           placeholder="No PO" class="form-control" v-model="no_po">
+                                    <!--                                    <div class="invalid-feedback" v-if="errors.fulfillmentDate">-->
+                                    <!--                                        <p>{{ errors.fulfillmentDate[0] }}</p>-->
+                                    <!--                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label><b>Customer</b><span style="color: red;">*</span></label>
+                                <div>
+                                    <model-list-select
+                                        v-bind:class="{'is-invalid': errors.customerId}"
+                                        :list="customers"
+                                        v-model="customer_id"
+                                        v-on:input="getData()"
+                                        option-value="id"
+                                        option-text="name"
+                                        placeholder="Select Customer">
+                                    </model-list-select>
+                                    <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                         v-if="errors.customerId">
+                                        <p>{{ errors.customerId[0] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -59,17 +75,21 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label><b>Fulfillment Date</b><span style="color: red;">*</span></label>
-                                <div>
-                                    <date-picker v-model="fulfillment_date" lang="en" valueType="format"
-                                                 :not-before="new Date()"></date-picker>
 
-                                    <div class="invalid-feedback" v-if="errors.fulfillment_date">
-                                        <p>{{ errors.fulfillment_date[0] }}</p>
-                                    </div>
+                                <div>
+                                    <date-picker v-model="fulfillment_date"
+                                                 lang="en" valueType="format"
+                                                 :not-before="new Date()"></date-picker>
                                 </div>
+                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                     v-if="errors.fulfillmentDate">
+                                    <p>{{ errors.fulfillmentDate[0] }}</p>
+                                </div>
+
                             </div>
                         </div>
                         <div v-if="customer_id != 0" class="col-12">
+                            <label><b>Items</b><span style="color: red;">*</span></label>
                             <div class="table-responsive m-t-40" style="clear: both;">
                                 <table class="table table-hover" id="contentTable" style="font-size: 9pt;">
                                     <thead>
@@ -114,11 +134,19 @@
                                     </tfoot>
                                 </table>
                             </div>
+                            <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                 v-if="errors.items">
+                                <p>{{ errors.items[0] }}</p>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label><b>Remarks</b></label>
-                                <textarea v-model="remark" class="form-control" id="Remarks" name="Remarks"></textarea>
+                                <textarea v-bind:class="{'is-invalid': errors.remark}" v-model="remark"
+                                          class="form-control" id="Remarks" name="Remarks"></textarea>
+                                <div class="invalid-feedback" v-if="errors.remark">
+                                    <p>{{ errors.remark[0] }}</p>
+                                </div>
                             </div>
                         </div>
                         <div class="col-12">
@@ -145,14 +173,15 @@
                 ],
                 notes: [],
                 remark: '',
+                no_po: '',
+                file: '',
                 total_amount: [],
                 source_order_id: 1,
                 source_orders: [],
                 fulfillment_date: '',
-                sales_order_no: '',
                 message: '',
                 errors: [],
-                customer_id: '0',
+                customer_id: 0,
                 customers: [],
                 orders_detail: [],
                 loading: false,
@@ -191,10 +220,11 @@
                 const payload = {
                     customerId: this.customer_id,
                     remark: this.remark,
+                    file: this.file,
                     fulfillmentDate: this.fulfillment_date,
-                    salesOrderNo: this.sales_order_no,
                     sourceOrderId: this.source_order_id,
-                    details: this.orders_detail.map((item, idx) => ({
+                    noPO: this.no_po,
+                    items: this.orders_detail.map((item, idx) => ({
                         skuid: item.skuid,
                         qty: this.qty[idx],
                         notes: this.notes[idx]
@@ -210,10 +240,10 @@
                     setTimeout(function () {
                         window.location.href = '/admin/marketing/form_sales_order';
                     }, 3000);
-
                     console.log('RES SALES ORDER', res)
                 } catch (e) {
-                    console.error(e)
+                    this.errors = e.response.data.errors;
+                    console.error(e.response.data.errors)
                 }
             }
         },

@@ -7,7 +7,7 @@ Route::get('home', function () {
     return redirect(route('admin.dashboard'));
 });
 
-Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
+Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
 //    Route::get('/{any}', 'DashboardController')->where('any', '.*');
     Route::get('dashboard', 'DashboardController')->name('dashboard');
     Route::get('users/list', 'UserController@index')->name('users.roles');
@@ -16,6 +16,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             'index' => 'users'
         ]
     ]);
+
     /**
      * Routing Menu Marketing
      */
