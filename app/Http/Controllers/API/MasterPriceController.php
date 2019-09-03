@@ -23,9 +23,9 @@ class MasterPriceController extends Controller
         return new DataCollectionResource($data);
     }
 
-    public function show($id)
+    public function show($customer_id, $skuid)
     {
-        $data = Price::findOrFail($id);
+        $data = Price::where('customer_id', $customer_id)->where('skuid', $skuid)->first();
         return new PriceResource($data);
     }
 

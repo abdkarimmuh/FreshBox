@@ -54,6 +54,7 @@ Route::group(['prefix' => 'master_data/'], function () {
         Route::get('/', 'API\MasterPriceController@index')->name('api.price');
         Route::get('/{id}', 'API\MasterPriceController@show');
         Route::get('customer/{id}', 'API\MasterPriceController@CustomerPrice');
+        Route::get('/{customer_id}/{skuid}', 'API\MasterPriceController@show');
     });
     Route::group(['prefix' => 'source_order'], function () {
         Route::get('/', 'API\MasterPriceController@index');
@@ -61,9 +62,8 @@ Route::group(['prefix' => 'master_data/'], function () {
     });
     Route::get('customer', 'API\CustomerAPIController@index')->name('api.customer');
     Route::get('list_customer', 'API\CustomerAPIController@all');
-    Route::get('price', 'API\MasterPriceController@index')->name('api.price');
-    Route::get('price/{id}', 'API\MasterPriceController@show');
-    Route::get('price_customer/{id}', 'API\MasterPriceController@CustomerPrice');
+
+//    Route::get('price_customer/{id}', 'API\MasterPriceController@CustomerPrice');
     Route::get('uom', 'MasterData\UomController@index');
     Route::post('uom', 'MasterData\UomController@store');
 });

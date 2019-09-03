@@ -14,18 +14,12 @@ class PriceResource extends JsonResource
      */
     public function toArray($request)
     {
-        if (isset($this->edit_by->name)) {
-            $updated_by = $this->edit_by->name;
-        } else {
-            $updated_by = null;
-        }
-
         return [
             'id' => $this->id,
             'skuid' => $this->skuid,
             'uom_id' => $this->uom->id,
             'uom' => $this->uom->name,
-            'customer' => $this->customer->customer_name,
+            'customer' => $this->customer->name,
             'customer_id' => $this->customer->id,
             'amount' => round($this->amount,2),
             'start_periode' => $this->start_periode,

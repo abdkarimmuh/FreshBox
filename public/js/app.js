@@ -2577,20 +2577,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       qty: [0],
-      notes: [],
       remark: '',
       no_po: '',
       file: '',
-      total_amount: [],
+      skuid: '',
+      total_amount: [0],
       source_order_id: 1,
       source_orders: [],
       fulfillment_date: '',
       message: '',
+      item: {},
+      items: [],
+      notes: [],
       errors: [],
       customer_id: 0,
       customers: [],
@@ -2607,19 +2618,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         minimumFractionDigits: 2
       });
     },
-    getData: function getData() {
+    getItem: function getItem() {
       var _this = this;
 
-      axios.all([axios.get(this.$parent.MakeUrl('api/master_data/customer/list')), axios.get(this.$parent.MakeUrl('api/master_data/price/customer/' + this.customer_id)), axios.get(this.$parent.MakeUrl('api/master_data/source_order/list'))]).then(axios.spread(function (customers, orders_detail, source_order) {
-        _this.customers = customers.data;
-        _this.orders_detail = orders_detail.data.data;
-        _this.source_orders = source_order.data;
-        _this.qty = [0];
-        _this.total_amount = [];
-        _this.notes = [];
+      axios.get(this.$parent.MakeUrl('api/master_data/price/' + this.customer_id + '/' + this.skuid)).then(function (res) {
+        _this.item = res.data.data;
+        console.log(_this.item);
+      })["catch"](function (err) {});
+    },
+    pushOrderDetails: function pushOrderDetails() {
+      var index = this.orders_detail.length;
+      this.total_amount[index] = 0;
+      this.qty[index] = 0;
+      return this.orders_detail.push({
+        skuid: this.item.skuid,
+        qty: 0,
+        uom: this.item.uom,
+        item_name: this.item.item_name,
+        amount: this.item.amount,
+        notes: null
+      });
+    },
+    getData: function getData() {
+      var _this2 = this;
+
+      axios.all([axios.get(this.$parent.MakeUrl('api/master_data/customer/list')), axios.get(this.$parent.MakeUrl('api/master_data/source_order/list')), axios.get(this.$parent.MakeUrl('api/master_data/price/customer/' + this.customer_id))]).then(axios.spread(function (customers, source_order, items) {
+        _this2.customers = customers.data;
+        _this2.source_orders = source_order.data;
+        _this2.items = items.data.data;
+        _this2.orders_detail = [];
+        _this2.qty = [0];
+        _this2.total_amount = [0];
+        _this2.notes = [];
       }))["catch"](function (err) {
         if (err.response.status == 403) {
-          _this.$router.push({
+          _this2.$router.push({
             name: 'form_sales_order'
           });
         }
@@ -2629,7 +2662,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this2 = this;
+        var _this3 = this;
 
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -2646,8 +2679,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   items: this.orders_detail.map(function (item, idx) {
                     return {
                       skuid: item.skuid,
-                      qty: _this2.qty[idx],
-                      notes: _this2.notes[idx]
+                      qty: _this3.qty[idx],
+                      notes: _this3.notes[idx]
                     };
                   })
                 };
@@ -46105,10 +46138,57 @@ var render = function() {
             ]),
             _vm._v(" "),
             _vm.customer_id != 0
+              ? _c("div", { staticClass: "col-lg-6" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("model-list-select", {
+                        attrs: {
+                          list: _vm.items,
+                          "option-value": "skuid",
+                          "option-text": "item_name",
+                          placeholder: "Select Item"
+                        },
+                        on: {
+                          input: function($event) {
+                            return _vm.getItem()
+                          }
+                        },
+                        model: {
+                          value: _vm.skuid,
+                          callback: function($$v) {
+                            _vm.skuid = $$v
+                          },
+                          expression: "skuid"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.skuid != ""
+              ? _c("div", { staticClass: "col-md-6 mr-6" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-sm btn-primary",
+                      on: { click: _vm.pushOrderDetails }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Add Items\n                        "
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.customer_id != 0
               ? _c("div", { staticClass: "col-12" }, [
                   _vm._m(6),
-                  _vm._v(" "),
-                  _vm._m(7),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -46125,12 +46205,12 @@ var render = function() {
                           attrs: { id: "contentTable" }
                         },
                         [
-                          _vm._m(8),
+                          _vm._m(7),
                           _vm._v(" "),
                           _c(
                             "tbody",
                             _vm._l(_vm.orders_detail, function(orders, index) {
-                              return _c("tr", { key: orders.id }, [
+                              return _c("tr", { key: index }, [
                                 _c("td", [_vm._v(_vm._s(orders.skuid))]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(orders.item_name))]),
@@ -46278,7 +46358,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(9),
+                _vm._m(8),
                 _vm._v(" "),
                 _c("textarea", {
                   directives: [
@@ -46400,19 +46480,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-8" }, [
-      _c("label", [
-        _c("b", [_vm._v("Items")]),
-        _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-4" }, [
-      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Add")])
+    return _c("label", [
+      _c("b", [_vm._v("Items")]),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])
   },
   function() {

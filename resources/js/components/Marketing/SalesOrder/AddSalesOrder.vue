@@ -46,9 +46,6 @@
                                 <div>
                                     <input type="text"
                                            placeholder="No PO" class="form-control" v-model="no_po">
-                                    <!--                                    <div class="invalid-feedback" v-if="errors.fulfillmentDate">-->
-                                    <!--                                        <p>{{ errors.fulfillmentDate[0] }}</p>-->
-                                    <!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -88,13 +85,24 @@
 
                             </div>
                         </div>
+                        <div class="col-lg-6" v-if="customer_id != 0">
+                            <div class="form-group">
+                                <model-list-select :list="items"
+                                                   v-model="skuid"
+                                                   v-on:input="getItem()"
+                                                   option-value="skuid"
+                                                   option-text="item_name"
+                                                   placeholder="Select Item">
+                                </model-list-select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mr-6" v-if="skuid != ''">
+                            <button class="btn btn-sm btn-primary" @click="pushOrderDetails">
+                                Add Items
+                            </button>
+                        </div>
                         <div v-if="customer_id != 0" class="col-12">
-                            <div class="col-8">
-                                <label><b>Items</b><span style="color: red;">*</span></label>
-                            </div>
-                            <div class="col-4">
-                                <button class="btn btn-primary">Add</button>
-                            </div>
+                            <label><b>Items</b><span style="color: red;">*</span></label>
                             <div class="table-responsive m-t-40" style="clear: both;">
                                 <table class="table table-hover" id="contentTable" style="font-size: 9pt;">
                                     <thead>
@@ -110,7 +118,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(orders, index) in orders_detail" :key="orders.id">
+                                    <tr v-for="(orders, index) in orders_detail" v-bind:key="index">
                                         <td>{{ orders.skuid }}</td>
                                         <td>{{ orders.item_name }}</td>
                                         <td style="text-align: right;">
@@ -122,7 +130,7 @@
                                         <td style="text-align: right;">
                                             {{ formatPrice(orders.amount) }}
                                         </td>
-                                        <td style="text-align: right">{{ formatPrice(total_amount[index])}}</td>
+                                        <td style="text-align: right">{{ formatPrice(total_amount[index]) }}</td>
                                         <td>
                                             <input v-model="notes[index]" type="text" placeholder="Notes"
                                                    class="form-control">
@@ -173,18 +181,19 @@
     export default {
         data() {
             return {
-                qty: [
-                    0
-                ],
-                notes: [],
+                qty: [0],
                 remark: '',
                 no_po: '',
                 file: '',
-                total_amount: [],
+                skuid: '',
+                total_amount: [0],
                 source_order_id: 1,
                 source_orders: [],
                 fulfillment_date: '',
                 message: '',
+                item: {},
+                items: [],
+                notes: [],
                 errors: [],
                 customer_id: 0,
                 customers: [],
@@ -201,19 +210,40 @@
                     minimumFractionDigits: 2
                 });
             },
+            getItem() {
+                axios.get(this.$parent.MakeUrl('api/master_data/price/' + this.customer_id + '/' + this.skuid)).then((res) => {
+                    this.item = res.data.data;
+                    console.log(this.item)
+                }).catch((err) => {
+
+                });
+            },
+            pushOrderDetails() {
+                let index = this.orders_detail.length;
+
+                this.total_amount[index] = 0;
+                this.qty[index] = 0;
+                return this.orders_detail.push({
+                    skuid: this.item.skuid,
+                    qty: 0,
+                    uom: this.item.uom,
+                    item_name: this.item.item_name,
+                    amount: this.item.amount,
+                    notes: null
+                })
+            },
             getData() {
                 axios.all([
                     axios.get(this.$parent.MakeUrl('api/master_data/customer/list')),
-                    axios.get(this.$parent.MakeUrl('api/master_data/price/customer/' + this.customer_id)),
                     axios.get(this.$parent.MakeUrl('api/master_data/source_order/list')),
-                ]).then(axios.spread((customers, orders_detail, source_order) => {
+                    axios.get(this.$parent.MakeUrl('api/master_data/price/customer/' + this.customer_id)),
+                ]).then(axios.spread((customers, source_order, items) => {
                     this.customers = customers.data;
-                    this.orders_detail = orders_detail.data.data;
                     this.source_orders = source_order.data;
-                    this.qty = [
-                        0
-                    ];
-                    this.total_amount = [];
+                    this.items = items.data.data;
+                    this.orders_detail = [];
+                    this.qty = [0];
+                    this.total_amount = [0];
                     this.notes = [];
                 })).catch((err) => {
                     if (err.response.status == 403) {
