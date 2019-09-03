@@ -39,7 +39,7 @@
                     @endif
                     @yield('content')
                     <div class="simple-footer">
-                        Copyright &copy; {{ env('APP_NAME') }} {{ date('Y') }}
+                        Copyright &copy; {{ env('APP_NAME') }} & Tetamba Studio {{ date('Y') }}
                     </div>
                 </div>
             </div>

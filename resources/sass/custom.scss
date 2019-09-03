@@ -1,12 +1,36 @@
 @import 'variables';
 
 .navbar-bg {
-    background-color: $red-new;
-    background-image: linear-gradient(to bottom, $red-new, $red);
+    background-color: $grey;
+}
+
+.navbar .nav-link {
+    color: $red;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    height: 100%;
+}
+
+.navbar .nav-link.nav-link-user {
+    color: $red;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-weight: 600;
+}
+
+.navbar .nav-link:hover {
+    color: $pink;
+}
+
+.main-sidebar {
+    background-color: $grey;
 }
 
 .main-sidebar .sidebar-menu li.active a {
     color: $red;
+    background-color: transparent;
 }
 
 .main-sidebar .sidebar-menu li ul.dropdown-menu li.active>a {
@@ -15,6 +39,10 @@
 
 .main-sidebar .sidebar-menu li ul.dropdown-menu li a:hover {
     color: $red;
+}
+
+body {
+    background-color: #fff;
 }
 
 body.sidebar-mini .main-sidebar .sidebar-menu>li>a .ion,

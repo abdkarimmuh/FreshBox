@@ -23,7 +23,7 @@ class CreateMasterItem extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('uom_id')->nullable();
             $table->unsignedBigInteger('origin_id')->nullable();
-            $table->integer('tax')->nullable();
+            $table->float('tax')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();

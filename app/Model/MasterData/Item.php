@@ -19,7 +19,8 @@ class Item extends MyModel
         'updated_by_name',
         'category_name',
         'uom_name',
-        'origin_code'
+        'origin_code',
+        'tax_percentage'
     ];
 
     protected $columns = [
@@ -47,29 +48,29 @@ class Item extends MyModel
             'searchable' => true,
             'search_relation' => false,
         ],
-        'category' => [
+        'category_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'Category',
             'relation_field' => 'name'
         ],
-        'uom' => [
+        'uom_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'Uom',
             'relation_field' => 'name'
         ],
-        'origin' => [
-            'searchable' => true,
-            'search_relation' => true,
-            'relation_name' => 'Origin',
-            'relation_field' => 'name'
-        ],
-        'created_at' => [
+        'tax' => [
             'searchable' => true,
             'search_relation' => false,
         ],
-        'created_by' => [
+        'origin_code' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'Origin',
+            'relation_field' => 'origin_code'
+        ],
+        'created_at' => [
             'searchable' => true,
             'search_relation' => false,
         ],
@@ -77,6 +78,12 @@ class Item extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'create_by',
+            'relation_field' => 'name'
+        ],
+        'updated_by_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'update_by',
             'relation_field' => 'name'
         ]
     ];
@@ -90,6 +97,15 @@ class Item extends MyModel
     {
         if (isset($this->Category->name)) {
             return $this->Category->name;
+        } else {
+            return '';
+        }
+    }
+
+    public function getTaxPercentageAttribute()
+    {
+        if (isset($this->tax)) {
+            return $this->tax . '%';
         } else {
             return '';
         }

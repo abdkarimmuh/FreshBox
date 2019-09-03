@@ -4,10 +4,10 @@ namespace App\Http\Controllers\MasterData;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\MasterData\Province;
+use App\Model\MasterData\Bank;
 use Illuminate\Support\Facades\DB;
 
-class ProvinceController extends Controller
+class BankController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,8 @@ class ProvinceController extends Controller
         $searchValue = $request->input('search');
 
         $columns = [
-            array('title' => 'Nama', 'field' => 'name'),
+            array('title' => 'Nama Bank', 'field' => 'name'),
+            array('title' => 'Nama Bank', 'field' => 'kode_bank'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
             array('title' => 'Modified By', 'field' => 'updated_by_name'),
@@ -28,22 +29,23 @@ class ProvinceController extends Controller
 
         $config = [
             //Title Required
-            'title' => 'Province',
+            'title' => 'Bank',
             /**
              * Route Can Be Null
              */
             //Route For Button Add
-            'route-add' => 'admin.master_data.province.create',
+            'route-add' => 'admin.master_data.bank.create',
             //Route For Button Edit
             'route-edit' => 'testing.edit',
             //Route For Button Search
-            'route-search' => 'admin.master_data.province.index',
+            'route-search' => 'admin.master_data.bank.index',
         ];
 
-        $query = Province::dataTableQuery($searchValue);
+        $query = Bank::dataTableQuery($searchValue);
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
+        // return $data;
     }
 
     /**
@@ -54,19 +56,19 @@ class ProvinceController extends Controller
     public function create()
     {
         //Form Generator
-         $forms = [
-            array('type' => 'text', 'label' => 'Province', 'name' => 'name', 'place_holder' => 'Province'),
-
+        $forms = [
+            array('type' => 'text', 'label' => 'Bank Name', 'name' => 'name', 'place_holder' => 'Bank Name'),
+            array('type' => 'text', 'label' => 'Bank Code', 'name' => 'kode_bank', 'place_holder' => 'Bank Code')
         ];
         $config = [
             //Form Title
-            'title' => 'Create Province',
+            'title' => 'Create Bank',
             //Form Action Using Route Name
-            'action' => 'admin.master_data.province.store',
+            'action' => 'admin.master_data.bank.store',
             //Form Method
             'method' => 'POST',
             //Back Button Using Route Name
-            'back-button' => 'admin.master_data.province.index'
+            'back-button' => 'admin.master_data.bank.index'
         ];
 
         return view('admin.crud.create_or_edit', compact('forms', 'config'));
@@ -80,8 +82,8 @@ class ProvinceController extends Controller
      */
     public function store(Request $request)
     {
-        DB::select('call insert_province(?, ?)', array($request->name, auth()->user()->id));
-        return redirect('admin/master_data/province');
+        DB::select('call insert_bank(?, ?, ?)', array($request->name, $request->kode_bank, auth()->user()->id));
+        return redirect('admin/master_data/bank');
     }
 
     /**
