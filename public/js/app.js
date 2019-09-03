@@ -2572,6 +2572,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -46103,6 +46108,8 @@ var render = function() {
               ? _c("div", { staticClass: "col-12" }, [
                   _vm._m(6),
                   _vm._v(" "),
+                  _vm._m(7),
+                  _vm._v(" "),
                   _c(
                     "div",
                     {
@@ -46118,7 +46125,7 @@ var render = function() {
                           attrs: { id: "contentTable" }
                         },
                         [
-                          _vm._m(7),
+                          _vm._m(8),
                           _vm._v(" "),
                           _c(
                             "tbody",
@@ -46271,7 +46278,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(8),
+                _vm._m(9),
                 _vm._v(" "),
                 _c("textarea", {
                   directives: [
@@ -46393,9 +46400,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("b", [_vm._v("Items")]),
-      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    return _c("div", { staticClass: "col-8" }, [
+      _c("label", [
+        _c("b", [_vm._v("Items")]),
+        _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-4" }, [
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Add")])
     ])
   },
   function() {
