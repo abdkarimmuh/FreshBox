@@ -114,7 +114,7 @@
                                         <th class="text-center">Amount Price</th>
                                         <th class="text-center">Total Amount</th>
                                         <th class="text-center">Notes</th>
-                                        <!--                                        <th></th>-->
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -134,6 +134,11 @@
                                         <td>
                                             <input v-model="notes[index]" type="text" placeholder="Notes"
                                                    class="form-control">
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-icon btn-sm btn-danger" @click="removeOrderDetails(index)" >
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -231,6 +236,9 @@
                     amount: this.item.amount,
                     notes: null
                 })
+            },
+            removeOrderDetails(index) {
+                this.orders_detail.splice(index)
             },
             getData() {
                 axios.all([

@@ -2585,6 +2585,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2638,6 +2643,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         amount: this.item.amount,
         notes: null
       });
+    },
+    removeOrderDetails: function removeOrderDetails(index) {
+      this.orders_detail.splice(index);
     },
     getData: function getData() {
       var _this2 = this;
@@ -46307,6 +46315,22 @@ var render = function() {
                                       }
                                     }
                                   })
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-icon btn-sm btn-danger",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.removeOrderDetails(index)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-trash" })]
+                                  )
                                 ])
                               ])
                             }),
@@ -46503,7 +46527,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Total Amount")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Notes")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Notes")]),
+        _vm._v(" "),
+        _c("th")
       ])
     ])
   },
