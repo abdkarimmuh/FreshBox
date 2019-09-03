@@ -29,11 +29,13 @@ class Residence extends MyModel
             'searchable' => true,
             'search_relation' => false,
         ],
-        'created_at' => [
+        'province_name' => [
             'searchable' => true,
-            'search_relation' => false,
+            'search_relation' => true,
+            'relation_name' => 'Province',
+            'relation_field' => 'name'
         ],
-        'created_by' => [
+        'created_at' => [
             'searchable' => true,
             'search_relation' => false,
         ],
@@ -43,10 +45,10 @@ class Residence extends MyModel
             'relation_name' => 'create_by',
             'relation_field' => 'name'
         ],
-        'province_name' => [
+        'updated_by_name' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'Province',
+            'relation_name' => 'update_by',
             'relation_field' => 'name'
         ]
     ];

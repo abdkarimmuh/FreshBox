@@ -13,9 +13,11 @@ class ProcedureInsertCustomerGroup extends Migration
      */
     public function up()
     {
+        DB::unprepared('DROP PROCEDURE IF EXISTS insert_customer_group');
+
         DB::unprepared('CREATE PROCEDURE insert_customer_group( IN name VARCHAR(191), IN description VARCHAR(191), IN created_by INT )
         BEGIN
-        insert into master_customer_group (name, description, created_at, created_by) values (name, description, now(), created_by);
+        INSERT INTO master_customer_group (name, description, created_at, created_by) VALUES (name, description, now(), created_by);
         END');
     }
 

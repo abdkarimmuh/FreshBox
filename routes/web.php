@@ -32,14 +32,21 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
      * Route Menu Warehouse
      */
     Route::name('warehouse.')->prefix('warehouse')->middleware('auth')->group(function () {
-        Route::get('/form_delivery_order', 'Marketing\FormSalesOrderController@index')->name('form_delivery_order');
-        Route::get('/confirm_deliver_order', 'Marketing\FormSalesOrderController@index')->name('confirm_delivery_order');
+        Route::name('delivery_order.')->prefix('delivery_order')->group(function () {
+            Route::get('/', 'Warehouse\FormDeliveryOrderController@index')->name('index');
+        });
+
+        Route::name('confirm_delivery_order.')->prefix('confirm_delivery_order')->group(function () {
+            Route::get('/', 'Warehouse\ConfirmDeliveryOrderController@index')->name('index');
+        });
     });
     /**
      * Route Menu Finance
      */
     Route::name('finance.')->prefix('finance')->middleware('auth')->group(function () {
-        Route::get('/form_invoice_order', 'Marketing\FormSalesOrderController@index')->name('form_invoice_order');
+        Route::name('invoice_order.')->prefix('invoice_order')->group(function () {
+            Route::get('/', 'Finance\FormInvoiceOrderController@index')->name('index');
+        });
     });
     /**
      * Route Menu Master Data
@@ -49,6 +56,8 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'MasterData\CategoryController@index')->name('index');
             Route::get('/create', 'MasterData\CategoryController@create')->name('create');
             Route::post('/create', 'MasterData\CategoryController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\CategoryController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\CategoryController@update')->name('update');
         });
 
         Route::name('province.')->prefix('province')->group(function () {
@@ -67,6 +76,8 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'MasterData\DriverController@index')->name('index');
             Route::get('/create', 'MasterData\DriverController@create')->name('create');
             Route::post('/create', 'MasterData\DriverController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\DriverController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\DriverController@update')->name('update');
         });
 
         Route::name('origin.')->prefix('origin')->group(function () {
@@ -85,6 +96,56 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'MasterData\ItemController@index')->name('index');
             Route::get('/create', 'MasterData\ItemController@create')->name('create');
             Route::post('/create', 'MasterData\ItemController@store')->name('store');
+        });
+
+        Route::name('bank.')->prefix('bank')->group(function () {
+            Route::get('/', 'MasterData\BankController@index')->name('index');
+            Route::get('/create', 'MasterData\BankController@create')->name('create');
+            Route::post('/create', 'MasterData\BankController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\BankController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\BankController@update')->name('update');
+        });
+
+        Route::name('vendor.')->prefix('vendor')->group(function () {
+            Route::get('/', 'MasterData\VendorController@index')->name('index');
+            Route::get('/create', 'MasterData\VendorController@create')->name('create');
+            Route::post('/create', 'MasterData\VendorController@store')->name('store');
+        });
+
+        Route::name('source_order.')->prefix('source_order')->group(function () {
+            Route::get('/', 'MasterData\SourceOrderController@index')->name('index');
+            Route::get('/create', 'MasterData\SourceOrderController@create')->name('create');
+            Route::post('/create', 'MasterData\SourceOrderController@store')->name('store');
+        });
+
+        Route::name('customer_type.')->prefix('customer_type')->group(function () {
+            Route::get('/', 'MasterData\CustomerTypeController@index')->name('index');
+            Route::get('/create', 'MasterData\CustomerTypeController@create')->name('create');
+            Route::post('/create', 'MasterData\CustomerTypeController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\CustomerTypeController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\CustomerTypeController@update')->name('update');
+        });
+
+        Route::name('customer_group.')->prefix('customer_group')->group(function () {
+            Route::get('/', 'MasterData\CustomerGroupController@index')->name('index');
+            Route::get('/create', 'MasterData\CustomerGroupController@create')->name('create');
+            Route::post('/create', 'MasterData\CustomerGroupController@store')->name('store');
+        });
+
+        Route::name('customer.')->prefix('customer')->group(function () {
+            Route::get('/', 'MasterData\CustomerController@index')->name('index');
+            Route::get('/create', 'MasterData\CustomerController@create')->name('create');
+            Route::post('/create', 'MasterData\CustomerController@store')->name('store');
+        });
+
+        Route::name('price.')->prefix('price')->group(function () {
+            Route::get('/', 'MasterData\PriceController@index')->name('index');
+            Route::get('/create', 'MasterData\PriceController@create')->name('create');
+            Route::post('/create', 'MasterData\PriceController@store')->name('store');
+        });
+
+        Route::name('modules.')->prefix('modules')->group(function () {
+            Route::get('/', 'MasterData\ModulesController@index')->name('index');
         });
     });
 });
@@ -143,8 +204,8 @@ Route::get('/testing', function () {
 Route::get('/testing/{id}/edit', function ($id) {
     //Form Generator
     $forms = [
-        array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'asdsa'),
-        array('type' => 'textarea', 'label' => 'Remarks', 'name' => 'remarks', 'place_holder' => ''),
+        array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'asdsa', 'mandatory' => true),
+        array('type' => 'textarea', 'label' => 'Remarks', 'name' => 'remarks', 'place_holder' => '', 'mandatory' => false),
     ];
     $config = [
         //Form Title
@@ -166,8 +227,8 @@ Route::get('/testing/create', function () {
 
     //Form Generator
     $forms = [
-        array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'asdsa'),
-        array('type' => 'textarea', 'label' => 'Remarks', 'name' => 'remarks', 'place_holder' => ''),
+        array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'asdsa', 'mandatory' => true),
+        array('type' => 'textarea', 'label' => 'Remarks', 'name' => 'remarks', 'place_holder' => '', 'mandatory' => false),
     ];
     $config = [
         //Form Title
@@ -189,8 +250,8 @@ Route::get('/testing/delete', function () {
 
     //Form Generator
     $forms = [
-        array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'asdsa'),
-        array('type' => 'textarea', 'label' => 'Remarks', 'name' => 'remarks', 'place_holder' => ''),
+        array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'asdsa', 'mandatory' => true),
+        array('type' => 'textarea', 'label' => 'Remarks', 'name' => 'remarks', 'place_holder' => '', 'mandatory' => false),
     ];
     $config = [
         //Form Title

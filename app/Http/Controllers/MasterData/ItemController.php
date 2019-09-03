@@ -22,11 +22,13 @@ class ItemController extends Controller
             array('title' => 'Item Name', 'field' => 'name_item'),
             array('title' => 'Category', 'field' => 'category_name'),
             array('title' => 'Trf Item', 'field' => 'is_trf_item'),
-            array('title' => 'UOM', 'field' => 'uom_item'),
+            array('title' => 'UOM', 'field' => 'uom_name'),
+            array('title' => 'Tax', 'field' => 'tax_percentage'),
             array('title' => 'Origin Code', 'field' => 'origin_code'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
-
+            array('title' => 'Modified By', 'field' => 'updated_by_name'),
+            array('title' => 'Modified At', 'field' => 'updated_at'),
         ];
 
         $config = [
@@ -39,8 +41,6 @@ class ItemController extends Controller
             'route-add' => 'admin.master_data.item.create',
             //Route For Button Edit
             'route-edit' => 'testing.edit',
-            //Route For Button Delete
-            'route-delete' => 'testing.delete',
             //Route For Button Search
             'route-search' => 'admin.master_data.item.index',
         ];

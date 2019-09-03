@@ -23,7 +23,8 @@ class OriginController extends Controller
             array('title' => 'Description', 'field' => 'description'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
-
+            array('title' => 'Modified By', 'field' => 'updated_by_name'),
+            array('title' => 'Modified At', 'field' => 'updated_at'),
         ];
 
         $config = [
@@ -36,8 +37,6 @@ class OriginController extends Controller
             'route-add' => 'admin.master_data.origin.create',
             //Route For Button Edit
             'route-edit' => 'testing.edit',
-            //Route For Button Delete
-            'route-delete' => 'testing.delete',
             //Route For Button Search
             'route-search' => 'admin.master_data.origin.index',
         ];
@@ -57,8 +56,8 @@ class OriginController extends Controller
     {
         //Form Generator
         $forms = [
-            array('type' => 'text', 'label' => 'Origin Code', 'name' => 'origin_code', 'place_holder' => 'Origin Code'),
-            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description'),
+            array('type' => 'text', 'label' => 'Origin Code', 'name' => 'origin_code', 'place_holder' => 'Origin Code', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description', 'mandatory' => true),
         ];
         $config = [
             //Form Title

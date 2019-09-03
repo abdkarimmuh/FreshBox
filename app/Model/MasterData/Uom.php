@@ -36,14 +36,16 @@ class Uom extends MyModel
             'searchable' => true,
             'search_relation' => false,
         ],
-        'created_by' => [
-            'searchable' => true,
-            'search_relation' => false,
-        ],
         'created_by_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'create_by',
+            'relation_field' => 'name'
+        ],
+        'updated_by_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'update_by',
             'relation_field' => 'name'
         ]
     ];

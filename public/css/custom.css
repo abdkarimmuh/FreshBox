@@ -1,10 +1,34 @@
 .navbar-bg {
-  background-color: #d50000;
-  background-image: linear-gradient(to bottom, #d50000, #e3342f);
+  background-color: #f8fafb;
+}
+
+.navbar .nav-link {
+  color: #e3342f;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  height: 100%;
+}
+
+.navbar .nav-link.nav-link-user {
+  color: #e3342f;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-weight: 600;
+}
+
+.navbar .nav-link:hover {
+  color: #f66D9b;
+}
+
+.main-sidebar {
+  background-color: #f8fafb;
 }
 
 .main-sidebar .sidebar-menu li.active a {
   color: #e3342f;
+  background-color: transparent;
 }
 
 .main-sidebar .sidebar-menu li ul.dropdown-menu li.active > a {
@@ -13,6 +37,10 @@
 
 .main-sidebar .sidebar-menu li ul.dropdown-menu li a:hover {
   color: #e3342f;
+}
+
+body {
+  background-color: #fff;
 }
 
 body.sidebar-mini .main-sidebar .sidebar-menu > li > a .ion,

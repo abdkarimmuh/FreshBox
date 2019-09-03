@@ -6,9 +6,9 @@
                 <div class="card-header">
                     <div class="col-lg-9">
                         <div class="row">
-                            <h4>{{ $config['title'] }}</h4>
+                            <h4 class="text-danger">{{ $config['title'] }}</h4>
                             @if(isset($config['route-add']))
-                                <a href="{{ route($config['route-add']) }}" class="btn btn-primary">Add <i
+                                <a href="{{ route($config['route-add']) }}" class="btn btn-danger ml-2">Add <i
                                         class="fas fa-plus"></i></a>
                             @endif
                         </div>
@@ -17,8 +17,8 @@
                         <form action="{{ route($config['route-search'], request()->all()) }}" method="get">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" name="search">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                <div class="input-group-btn ml-1">
+                                    <button class="btn btn-danger"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
                         </form>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\MasterData;
+namespace App\Http\Controllers\API;
 
 use App\Http\Resources\DataCollectionResource;
 use App\Http\Resources\MasterData\PriceResource;

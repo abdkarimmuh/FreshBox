@@ -24,7 +24,7 @@
         <div class="d-block">
             <label for="password" class="control-label">Password</label>
           <div class="float-right">
-            <a href="{{ route('password.request') }}" class="text-small">
+            <a href="{{ route('password.request') }}" class="text-small text-danger">
               Forgot Password?
             </a>
           </div>

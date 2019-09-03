@@ -24,16 +24,16 @@ class CreateTrxDeliveryOrderDetail extends Migration
             $table->integer('returned');
             $table->string('remark')->nullable();
             $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('edited_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
-            
+
             $table->foreign('delivery_order_id')->on('trx_delivery_order')->references('id')->onDelete('cascade');
             $table->foreign('item_id')->on('master_item')->references('id')->onDelete('cascade');
             $table->foreign('sales_order_detail_id')->on('trx_sales_order_detail')->references('id')->onDelete('cascade');
             $table->foreign('uom_id')->on('master_uom')->references('id')->onDelete('cascade');
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('edited_by')->on('users')->references('id')->onDelete('cascade');
+            $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
         });
     }
 

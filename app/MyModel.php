@@ -13,7 +13,7 @@ class MyModel extends Model
 
     public function update_by()
     {
-        return $this->belongsTo(User::class, 'edited_by');
+        return $this->belongsTo(User::class, 'updated_by');
     }
 
 

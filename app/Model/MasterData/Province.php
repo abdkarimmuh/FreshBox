@@ -39,13 +39,14 @@ class Province extends MyModel
             'search_relation' => true,
             'relation_name' => 'create_by',
             'relation_field' => 'name'
+        ],
+        'updated_by_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'update_by',
+            'relation_field' => 'name'
         ]
     ];
-
-    public function Residence()
-    {
-        return $this->belongsTo(Residence::class);
-    }
 
     public function getColumns()
     {

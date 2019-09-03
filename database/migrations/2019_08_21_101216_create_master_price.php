@@ -19,17 +19,18 @@ class CreateMasterPrice extends Migration
             $table->unsignedBigInteger('uom_id');
             $table->unsignedBigInteger('customer_id');
             $table->decimal('amount', 18, 2);
+            $table->decimal('tax_value', 18, 2)->nullable();
             $table->date('start_periode');
             $table->date('end_periode');
             $table->string('remarks');
             $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('edited_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('uom_id')->on('master_uom')->references('id')->onDelete('cascade');
             $table->foreign('customer_id')->on('master_customer')->references('id')->onDelete('cascade');
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('edited_by')->on('users')->references('id')->onDelete('cascade');
+            $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
         });
     }
 

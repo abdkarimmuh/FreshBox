@@ -22,7 +22,8 @@ class ProvinceController extends Controller
             array('title' => 'Nama', 'field' => 'name'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
-
+            array('title' => 'Modified By', 'field' => 'updated_by_name'),
+            array('title' => 'Modified At', 'field' => 'updated_at'),
         ];
 
         $config = [
@@ -35,8 +36,6 @@ class ProvinceController extends Controller
             'route-add' => 'admin.master_data.province.create',
             //Route For Button Edit
             'route-edit' => 'testing.edit',
-            //Route For Button Delete
-            'route-delete' => 'testing.delete',
             //Route For Button Search
             'route-search' => 'admin.master_data.province.index',
         ];
@@ -55,9 +54,9 @@ class ProvinceController extends Controller
     public function create()
     {
         //Form Generator
-         $forms = [
-            array('type' => 'text', 'label' => 'Province', 'name' => 'name', 'place_holder' => 'Province'),
-            
+        $forms = [
+            array('type' => 'text', 'label' => 'Province', 'name' => 'name', 'place_holder' => 'Province', 'mandatory' => true),
+
         ];
         $config = [
             //Form Title
