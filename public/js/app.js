@@ -2653,7 +2653,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     removeOrderDetails: function removeOrderDetails(index) {
-      this.orders_detail.splice(index);
+      this.orders_detail.splice(index, 1);
     },
     getData: function getData() {
       var _this2 = this;

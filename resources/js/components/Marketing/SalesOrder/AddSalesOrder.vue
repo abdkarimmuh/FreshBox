@@ -246,7 +246,7 @@
                 })
             },
             removeOrderDetails(index) {
-                this.orders_detail.splice(index)
+                this.orders_detail.splice(index, 1)
             },
             getData() {
                 axios.all([
