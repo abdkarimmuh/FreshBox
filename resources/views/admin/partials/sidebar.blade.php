@@ -84,12 +84,12 @@
                     <li class="{{ request()->route()->getName() == 'admin.master_data.vendor.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.vendor.index') }}"><span>Vendor</span></a>
                     </li>
-                    {{-- <li class="{{ request()->route()->getName() == 'admin.master_data.province.index' ? ' active' : '' }}">
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.province.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.province.index') }}"><span>Province</span></a>
-                    </li> --}}
-                    {{-- <li class="{{ request()->route()->getName() == 'admin.master_data.residence.index' ? ' active' : '' }}">
+                    </li>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.residence.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.residence.index') }}"><span>Residence</span></a>
-                    </li> --}}
+                    </li>
                     <li class="">
                          <router-link :to="{ name: 'users'}" class="nav-link"><span>Users</span></router-link>
                     </li>

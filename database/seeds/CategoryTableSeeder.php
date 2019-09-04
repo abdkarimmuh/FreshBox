@@ -19,10 +19,7 @@ class CategoryTableSeeder extends Seeder
             (3, 'Buah Import', 1, NULL, NULL, '2019-05-06 19:15:24', NULL),
             (4, 'Bahan Pokok', 1, NULL, NULL, '2019-05-06 19:15:24', NULL),
             (5, 'Bahan Makanan', 1, NULL, NULL, '2019-05-06 19:15:24', NULL),
-            (6, 'Hydroponic', 1, NULL, NULL, '2019-05-07 10:00:00', NULL),
-            (7, 'Ashari', 1, NULL, NULL, '2019-08-27 22:34:53', '2019-08-27 22:34:53'),
-            (8, 'Ashari', 1, NULL, NULL, '2019-08-27 22:35:08', '2019-08-27 22:35:08'),
-            (9, 'Ashari', 1, NULL, NULL, '2019-08-27 22:35:11', '2019-08-27 22:35:11');
+            (6, 'Hydroponic', 1, NULL, NULL, '2019-05-07 10:00:00', NULL);
         ");
     }
 }

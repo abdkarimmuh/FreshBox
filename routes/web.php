@@ -64,6 +64,8 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'MasterData\ProvinceController@index')->name('index');
             Route::get('/create', 'MasterData\ProvinceController@create')->name('create');
             Route::post('/create', 'MasterData\ProvinceController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\ProvinceController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\ProvinceController@update')->name('update');
         });
 
         Route::name('residence.')->prefix('residence')->group(function () {
@@ -84,12 +86,16 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'MasterData\OriginController@index')->name('index');
             Route::get('/create', 'MasterData\OriginController@create')->name('create');
             Route::post('/create', 'MasterData\OriginController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\OriginController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\OriginController@update')->name('update');
         });
 
         Route::name('uom.')->prefix('uom')->group(function () {
             Route::get('/', 'MasterData\UomController@index')->name('index');
             Route::get('/create', 'MasterData\UomController@create')->name('create');
             Route::post('/create', 'MasterData\UomController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\UomController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\UomController@update')->name('update');
         });
 
         Route::name('item.')->prefix('item')->group(function () {
@@ -116,6 +122,8 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'MasterData\SourceOrderController@index')->name('index');
             Route::get('/create', 'MasterData\SourceOrderController@create')->name('create');
             Route::post('/create', 'MasterData\SourceOrderController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\SourceOrderController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\SourceOrderController@update')->name('update');
         });
 
         Route::name('customer_type.')->prefix('customer_type')->group(function () {
@@ -130,6 +138,8 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'MasterData\CustomerGroupController@index')->name('index');
             Route::get('/create', 'MasterData\CustomerGroupController@create')->name('create');
             Route::post('/create', 'MasterData\CustomerGroupController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\CustomerGroupController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\CustomerGroupController@update')->name('update');
         });
 
         Route::name('customer.')->prefix('customer')->group(function () {

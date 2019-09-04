@@ -35,7 +35,7 @@ class ProvinceController extends Controller
             //Route For Button Add
             'route-add' => 'admin.master_data.province.create',
             //Route For Button Edit
-            'route-edit' => 'testing.edit',
+            'route-edit' => 'admin.master_data.province.edit',
             //Route For Button Search
             'route-search' => 'admin.master_data.province.index',
         ];
@@ -80,6 +80,10 @@ class ProvinceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required'
+        ]);
+
         DB::select('call insert_province(?, ?)', array($request->name, auth()->user()->id));
         return redirect('admin/master_data/province');
     }
@@ -103,7 +107,25 @@ class ProvinceController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Form Generator
+        $forms = [
+            array('type' => 'text', 'label' => 'Province', 'name' => 'name', 'place_holder' => 'Province', 'mandatory' => true),
+
+        ];
+        $config = [
+            //Form Title
+            'title' => 'Update Province',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.province.update',
+            //Form Method
+            'method' => 'PATCH',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.province.index'
+        ];
+
+        $data = Province::find($id);
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'data'));
     }
 
     /**
@@ -113,9 +135,14 @@ class ProvinceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        DB::select('call update_province(?, ?, ?)', array($request->id, $request->name, auth()->user()->id));
+        return redirect('admin/master_data/province');
     }
 
     /**
