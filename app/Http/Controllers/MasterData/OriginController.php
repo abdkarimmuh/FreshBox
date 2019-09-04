@@ -36,7 +36,7 @@ class OriginController extends Controller
             //Route For Button Add
             'route-add' => 'admin.master_data.origin.create',
             //Route For Button Edit
-            'route-edit' => 'testing.edit',
+            'route-edit' => 'admin.master_data.origin.edit',
             //Route For Button Search
             'route-search' => 'admin.master_data.origin.index',
         ];
@@ -104,7 +104,25 @@ class OriginController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Form Generator
+        $forms = [
+            array('type' => 'text', 'label' => 'Origin Code', 'name' => 'origin_code', 'place_holder' => 'Origin Code', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description', 'mandatory' => true),
+        ];
+        $config = [
+            //Form Title
+            'title' => 'Update Origin',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.origin.update',
+            //Form Method
+            'method' => 'PATCH',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.origin.index'
+        ];
+
+        $data = Origin::find($id);
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'data'));
     }
 
     /**
@@ -114,9 +132,15 @@ class OriginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'origin_code' => 'required',
+            'description' => 'required'
+        ]);
+
+        DB::select('call update_origin(?, ?, ?, ?)', array($request->id, $request->origin_code, $request->description, auth()->user()->id));
+        return redirect('admin/master_data/origin');
     }
 
     /**

@@ -82,6 +82,11 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'kode_bank' => 'required'
+        ]);
+
         DB::select('call insert_bank(?, ?, ?)', array($request->name, $request->kode_bank, auth()->user()->id));
         return redirect('admin/master_data/bank');
     }
@@ -135,6 +140,11 @@ class BankController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'kode_bank' => 'required'
+        ]);
+
         DB::select('call update_bank(?, ?, ?, ?)', array($request->id, $request->name, $request->kode_bank, auth()->user()->id));
         return redirect('admin/master_data/bank');
     }

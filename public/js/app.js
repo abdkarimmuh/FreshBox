@@ -46398,7 +46398,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "col-md-12" }, [
               _c("div", { staticClass: "form-group" }, [
                 _vm._m(8),
                 _vm._v(" "),
@@ -67443,8 +67443,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /srv/http/freshbox-new/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /srv/http/freshbox-new/resources/sass/custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! /var/www/html/FreshBox/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/FreshBox/resources/sass/custom.scss */"./resources/sass/custom.scss");
 
 
 /***/ })

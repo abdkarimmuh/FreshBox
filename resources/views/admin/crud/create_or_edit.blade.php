@@ -23,10 +23,14 @@
                                         <label><b>{{ $form['label'] }}</b>@if($form['mandatory']==true)<span style="color: red;">*</span>@endif</label>
                                         <textarea class="form-control"
                                                   name="{{ $form['name'] }}"
-                                                  placeholder=" {{ $form['place_holder'] ? $form['place_holder'] : '' }}"
-                                                  rows="3">
-                                      {{ isset($data) ? $data[$form['name']] : '' }}
+                                                  placeholder="{{ $form['place_holder'] ? $form['place_holder'] : '' }}">
+                                        {{ isset($data) ? $data[$form['name']] : old($form['name']) }}
                                         </textarea>
+                                        @error($form['name'])
+                                            <div class="invalid-feedback">
+                                               <p>{{ $message }}</p>
+                                           </div>
+                                       @enderror
                                     </div>
                                 </div>
                                 @elseif($form['type'] === 'text' || $form['type']  === 'number')
@@ -36,8 +40,13 @@
                                         <div>
                                             <input type="{{ $form['type'] }}" name="{{ $form['name'] }}"
                                                    placeholder="{{ isset($form['place_holder']) ? $form['place_holder'] : '' }}"
-                                                   class="form-control"
-                                                   value="{{ isset($data) ? $data[$form['name']] : '' }}">
+                                                   class="form-control @error($form['name']) is-invalid @enderror"
+                                                   value="{{ isset($data) ? $data[$form['name']] : old($form['name']) }}">
+                                            @error($form['name'])
+                                               <div class="invalid-feedback">
+                                                   <p>{{ $message }}</p>
+                                               </div>
+                                           @enderror
                                         </div>
                                     </div>
                                 </div>

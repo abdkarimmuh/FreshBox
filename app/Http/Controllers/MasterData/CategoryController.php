@@ -79,6 +79,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required'
+        ]);
+
         DB::select('call insert_category(?, ?)', array($request->name, auth()->user()->id));
         return redirect('admin/master_data/category');
     }
@@ -131,6 +135,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'name' => 'required'
+        ]);
+
         DB::select('call update_category(?, ?, ?)', array($request->id, $request->name, auth()->user()->id));
         return redirect('admin/master_data/category');
     }

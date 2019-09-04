@@ -81,6 +81,11 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'phone_number' => 'required'
+        ]);
+
         DB::select('call insert_driver(?, ?, ?)', array($request->name, $request->phone_number, auth()->user()->id));
         return redirect('admin/master_data/driver');
     }
@@ -134,6 +139,11 @@ class DriverController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'phone_number' => 'required'
+        ]);
+
         DB::select('call update_driver(?, ?, ?, ?)', array($request->id, $request->name, $request->phone_number, auth()->user()->id));
         return redirect('admin/master_data/driver');
     }

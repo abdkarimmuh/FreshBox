@@ -81,6 +81,11 @@ class CustomerTypeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
         DB::select('call insert_customer_type(?, ?, ?)', array($request->name, $request->description, auth()->user()->id));
         return redirect('admin/master_data/customer_type');
     }
@@ -111,7 +116,7 @@ class CustomerTypeController extends Controller
         ];
         $config = [
             //Form Title
-            'title' => 'Create Customer Type',
+            'title' => 'Update Customer Type',
             //Form Action Using Route Name
             'action' => 'admin.master_data.customer_type.update',
             //Form Method
@@ -134,6 +139,11 @@ class CustomerTypeController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
         DB::select('call update_customer_type(?, ?, ?, ?)', array($request->id, $request->name, $request->description, auth()->user()->id));
         return redirect('admin/master_data/customer_type');
     }

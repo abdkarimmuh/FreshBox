@@ -36,7 +36,7 @@ class CustomerGroupController extends Controller
             //Route For Button Add
             'route-add' => 'admin.master_data.customer_group.create',
             //Route For Button Edit
-            'route-edit' => 'testing.edit',
+            'route-edit' => 'admin.master_data.customer_group.edit',
             //Route For Button Search
             'route-search' => 'admin.master_data.customer_group.index',
         ];
@@ -81,6 +81,11 @@ class CustomerGroupController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
         DB::select('call insert_customer_group(?, ?, ?)', array($request->name, $request->description, auth()->user()->id));
         return redirect('admin/master_data/customer_group');
     }
@@ -105,7 +110,25 @@ class CustomerGroupController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Form Generator
+        $forms = [
+            array('type' => 'text', 'label' => 'Customer Group', 'name' => 'name', 'place_holder' => 'Customer Group', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description', 'mandatory' => true),
+        ];
+        $config = [
+            //Form Title
+            'title' => 'Update Customer Group',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.customer_group.update',
+            //Form Method
+            'method' => 'PATCH',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.customer_group.index'
+        ];
+
+        $data = CustomerGroup::find($id);
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'data'));
     }
 
     /**
@@ -115,9 +138,15 @@ class CustomerGroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        DB::select('call update_customer_group(?, ?, ?, ?)', array($request->id, $request->name, $request->description, auth()->user()->id));
+        return redirect('admin/master_data/customer_group');
     }
 
     /**

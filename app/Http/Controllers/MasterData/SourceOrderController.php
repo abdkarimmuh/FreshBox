@@ -36,7 +36,7 @@ class SourceOrderController extends Controller
             //Route For Button Add
             'route-add' => 'admin.master_data.source_order.create',
             //Route For Button Edit
-            'route-edit' => 'testing.edit',
+            'route-edit' => 'admin.master_data.source_order.edit',
             //Route For Button Search
             'route-search' => 'admin.master_data.source_order.index',
         ];
@@ -81,6 +81,11 @@ class SourceOrderController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
         DB::select('call insert_source_order(?, ?, ?)', array($request->name, $request->description, auth()->user()->id));
         return redirect('admin/master_data/source_order');
     }
@@ -104,7 +109,25 @@ class SourceOrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Form Generator
+        $forms = [
+            array('type' => 'text', 'label' => 'Source Order', 'name' => 'name', 'place_holder' => 'Source Order', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Description', 'name' => 'description', 'place_holder' => 'Description', 'mandatory' => true)
+        ];
+        $config = [
+            //Form Title
+            'title' => 'Create Source Order',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.source_order.update',
+            //Form Method
+            'method' => 'PATCH',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.source_order.index'
+        ];
+
+        $data = SourceOrder::find($id);
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'data'));
     }
 
     /**
@@ -114,9 +137,15 @@ class SourceOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        DB::select('call update_source_order(?, ?, ?, ?)', array($request->id, $request->name, $request->description, auth()->user()->id));
+        return redirect('admin/master_data/source_order');
     }
 
     /**
