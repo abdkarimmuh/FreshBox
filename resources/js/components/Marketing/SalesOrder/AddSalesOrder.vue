@@ -164,7 +164,7 @@
                             </div>
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label><b>Remarks</b></label>
                                 <textarea v-bind:class="{'is-invalid': errors.remark}" v-model="remark"

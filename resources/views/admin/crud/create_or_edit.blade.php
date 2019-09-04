@@ -23,8 +23,7 @@
                                         <label><b>{{ $form['label'] }}</b>@if($form['mandatory']==true)<span style="color: red;">*</span>@endif</label>
                                         <textarea class="form-control"
                                                   name="{{ $form['name'] }}"
-                                                  placeholder=" {{ $form['place_holder'] ? $form['place_holder'] : '' }}"
-                                                  rows="3">
+                                                  placeholder="{{ $form['place_holder'] ? $form['place_holder'] : '' }}">
                                         {{ isset($data) ? $data[$form['name']] : old($form['name']) }}
                                         </textarea>
                                         @error($form['name'])

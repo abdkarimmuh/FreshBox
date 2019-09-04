@@ -73,3 +73,7 @@ body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a {
   background-color: rgba(0, 0, 0, 0.02);
 }
 
+textarea.form-control {
+  height: 128px !important;
+}
+

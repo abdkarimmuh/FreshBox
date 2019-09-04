@@ -61,7 +61,27 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        //Form Generator
+        $forms = [
+            array('type' => 'text', 'label' => 'Customer Code', 'name' => 'customer_code', 'place_holder' => 'Customer Code', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Customer Name', 'name' => 'name', 'place_holder' => 'Customer Name', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'PIC Name', 'name' => 'pic_customer', 'place_holder' => 'PIC Name', 'mandatory' => true),
+            array('type' => 'number', 'label' => 'PIC Contact', 'name' => 'tlp_pic', 'place_holder' => 'PIC Contact', 'mandatory' => true),
+            array('type' => 'textarea', 'label' => 'Alamat', 'name' => 'address', 'place_holder' => 'Alamat', 'mandatory' => true),
+            array('type' => 'number', 'label' => 'Kode Pos', 'name' => 'kodepos', 'place_holder' => 'Kode Pos', 'mandatory' => true),
+        ];
+        $config = [
+            //Form Title
+            'title' => 'Create Customer',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.customer.store',
+            //Form Method
+            'method' => 'POST',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.customer.index'
+        ];
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config'));
     }
 
     /**
