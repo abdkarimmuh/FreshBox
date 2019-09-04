@@ -2590,6 +2590,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2600,7 +2607,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       file: '',
       skuid: '',
       total_amount: [0],
-      source_order_id: 1,
+      source_order_id: 0,
       source_orders: [],
       fulfillment_date: '',
       message: '',
@@ -2635,6 +2642,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var index = this.orders_detail.length;
       this.total_amount[index] = 0;
       this.qty[index] = 0;
+      this.notes[index] = null;
       return this.orders_detail.push({
         skuid: this.item.skuid,
         qty: 0,
@@ -2702,26 +2710,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   type: 'success',
                   title: 'Success!',
                   text: 'Successfully Insert Data!'
-                });
-                setTimeout(function () {
-                  window.location.href = '/admin/marketing/form_sales_order';
-                }, 3000);
+                }); // setTimeout(function () {
+                //     window.location.href = '/admin/marketing/form_sales_order';
+                // }, 3000);
+
                 console.log('RES SALES ORDER', res);
-                _context.next = 14;
+                _context.next = 13;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](1);
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data.errors);
 
-              case 14:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 10]]);
+        }, _callee, this, [[1, 9]]);
       }));
 
       function submitForm() {
@@ -46040,7 +46048,11 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "No PO" },
+                        attrs: {
+                          type: "text",
+                          placeholder: "No PO",
+                          required: ""
+                        },
                         domProps: { value: _vm.no_po },
                         on: {
                           input: function($event) {
@@ -46146,11 +46158,13 @@ var render = function() {
             ]),
             _vm._v(" "),
             _vm.customer_id != 0
-              ? _c("div", { staticClass: "col-lg-6" }, [
+              ? _c("div", { staticClass: "col-md-6" }, [
                   _c(
                     "div",
                     { staticClass: "form-group" },
                     [
+                      _vm._m(6),
+                      _vm._v(" "),
                       _c("model-list-select", {
                         attrs: {
                           list: _vm.items,
@@ -46178,26 +46192,44 @@ var render = function() {
               : _vm._e(),
             _vm._v(" "),
             _vm.skuid != ""
-              ? _c("div", { staticClass: "col-md-6 mr-6" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-sm btn-primary",
-                      on: { click: _vm.pushOrderDetails }
-                    },
-                    [
-                      _vm._v(
-                        "\n                            Add Items\n                        "
-                      )
-                    ]
-                  )
+              ? _c("div", { staticClass: "col-md-6 mt-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label"),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-sm btn-primary",
+                        on: { click: _vm.pushOrderDetails }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Add Items\n                            "
+                        )
+                      ]
+                    )
+                  ])
                 ])
               : _vm._e(),
             _vm._v(" "),
+            _c("div", { staticClass: "col-md-12" }, [
+              _vm.errors.items
+                ? _c(
+                    "div",
+                    {
+                      staticStyle: {
+                        "margin-top": ".25rem",
+                        "font-size": "80%",
+                        color: "#dc3545"
+                      }
+                    },
+                    [_c("p", [_vm._v(_vm._s(_vm.errors.items[0]))])]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
             _vm.customer_id != 0
               ? _c("div", { staticClass: "col-12" }, [
-                  _vm._m(6),
-                  _vm._v(" "),
                   _c(
                     "div",
                     {
@@ -46362,21 +46394,7 @@ var render = function() {
                         ]
                       )
                     ]
-                  ),
-                  _vm._v(" "),
-                  _vm.errors.items
-                    ? _c(
-                        "div",
-                        {
-                          staticStyle: {
-                            "margin-top": ".25rem",
-                            "font-size": "80%",
-                            color: "#dc3545"
-                          }
-                        },
-                        [_c("p", [_vm._v(_vm._s(_vm.errors.items[0]))])]
-                      )
-                    : _vm._e()
+                  )
                 ])
               : _vm._e(),
             _vm._v(" "),

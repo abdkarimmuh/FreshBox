@@ -45,7 +45,7 @@
                                 <label><b>No PO</b><span style="color: red;">*</span></label>
                                 <div>
                                     <input type="text"
-                                           placeholder="No PO" class="form-control" v-model="no_po">
+                                           placeholder="No PO" class="form-control" v-model="no_po" required>
                                 </div>
                             </div>
                         </div>
@@ -85,8 +85,9 @@
 
                             </div>
                         </div>
-                        <div class="col-lg-6" v-if="customer_id != 0">
+                        <div class="col-md-6" v-if="customer_id != 0">
                             <div class="form-group">
+                                <label><b>Items</b><span style="color: red;">*</span></label>
                                 <model-list-select :list="items"
                                                    v-model="skuid"
                                                    v-on:input="getItem()"
@@ -96,13 +97,21 @@
                                 </model-list-select>
                             </div>
                         </div>
-                        <div class="col-md-6 mr-6" v-if="skuid != ''">
-                            <button class="btn btn-sm btn-primary" @click="pushOrderDetails">
-                                Add Items
-                            </button>
+                        <div class="col-md-6 mt-4" v-if="skuid != ''">
+                            <div class="form-group">
+                                <label></label>
+                                <button class="btn btn-sm btn-primary" @click="pushOrderDetails">
+                                    Add Items
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                 v-if="errors.items">
+                                <p>{{ errors.items[0] }}</p>
+                            </div>
                         </div>
                         <div v-if="customer_id != 0" class="col-12">
-                            <label><b>Items</b><span style="color: red;">*</span></label>
                             <div class="table-responsive m-t-40" style="clear: both;">
                                 <table class="table table-hover" id="contentTable" style="font-size: 9pt;">
                                     <thead>
@@ -136,7 +145,8 @@
                                                    class="form-control">
                                         </td>
                                         <td>
-                                            <button class="btn btn-icon btn-sm btn-danger" @click="removeOrderDetails(index)" >
+                                            <button class="btn btn-icon btn-sm btn-danger"
+                                                    @click="removeOrderDetails(index)">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </td>
@@ -152,10 +162,7 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                 v-if="errors.items">
-                                <p>{{ errors.items[0] }}</p>
-                            </div>
+
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -192,7 +199,7 @@
                 file: '',
                 skuid: '',
                 total_amount: [0],
-                source_order_id: 1,
+                source_order_id: 0,
                 source_orders: [],
                 fulfillment_date: '',
                 message: '',
@@ -228,6 +235,7 @@
 
                 this.total_amount[index] = 0;
                 this.qty[index] = 0;
+                this.notes[index] = null;
                 return this.orders_detail.push({
                     skuid: this.item.skuid,
                     qty: 0,
@@ -280,9 +288,9 @@
                         title: 'Success!',
                         text: 'Successfully Insert Data!'
                     });
-                    setTimeout(function () {
-                        window.location.href = '/admin/marketing/form_sales_order';
-                    }, 3000);
+                    // setTimeout(function () {
+                    //     window.location.href = '/admin/marketing/form_sales_order';
+                    // }, 3000);
                     console.log('RES SALES ORDER', res)
                 } catch (e) {
                     this.errors = e.response.data.errors;

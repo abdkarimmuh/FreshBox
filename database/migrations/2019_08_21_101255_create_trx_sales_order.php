@@ -18,8 +18,10 @@ class CreateTrxSalesOrder extends Migration
             $table->string('sales_order_no', 20);
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('source_order_id');
+            $table->string('no_po')->nullable();
             $table->date('fulfillment_date');
-            $table->string('remarks', 200);
+            $table->string('remarks', 200)->nullable();
+            $table->binary('file')->nullable();
             $table->integer('status');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();

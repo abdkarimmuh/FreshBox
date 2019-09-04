@@ -7,6 +7,7 @@ use App\Model\Marketing\SalesOrder;
 use App\Model\Marketing\SalesOrderDetail;
 use App\Model\MasterData\Item;
 use App\Model\MasterData\Price;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -76,12 +77,21 @@ class FormSalesOrderController extends Controller
     public function InsertSalesOrderDetail(SalesOrderAddRequest $request)
     {
 
+        $dt = Carbon::now();
+        $year_month = $dt->format('ym');
+
+        $latest_sales_order = SalesOrder::latest()->first();
+        $last_number = isset($latest_sales_order->id) ? $latest_sales_order->id : 0;
+        $number = $last_number + 1;
+
         $customer_id = $request->customerId;
-        $sales_order_no = 'SO0010232';
+        $sales_order_no = 'SO'.$year_month.'0000'.$number;
         $source_order_id = $request->sourceOrderId;
         $fulfillment_date = $request->fulfillmentDate;
         $remarks = $request->remark;
         $items = $request->items;
+        $no_po = isset($request->noPO) ? $request->noPO : '';
+
         $user = 1;
 
         $item = Price::where('customer_id', $customer_id)->get();
@@ -91,6 +101,7 @@ class FormSalesOrderController extends Controller
             'customer_id' => $customer_id,
             'source_order_id' => $source_order_id,
             'fulfillment_date' => $fulfillment_date,
+            'no_po' => $no_po,
             'remarks' => $remarks,
             'status' => 1,
             'created_by' => $user,

@@ -26,13 +26,10 @@ class SalesOrderAddRequest extends FormRequest
     public function rules()
     {
         return [
-            'remark' => 'required|min:3|max:255',
             'fulfillmentDate' => 'required',
             'customerId' => 'required|not_in:0',
             'sourceOrderId' => 'required',
-            'file' => 'required',
-            'qty' => 'required'
-
+            'items' => 'required'
         ];
     }
 }
