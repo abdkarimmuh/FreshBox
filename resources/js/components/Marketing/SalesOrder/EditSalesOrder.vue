@@ -12,59 +12,82 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Sales Order No<span style="color: red;">*</span></label>
+                                <label><b>Source Order</b><span style="color: red;">*</span></label>
                                 <div>
-                                    <input v-bind:class="{'is-invalid': errors.sales_order_no}" type="text"
-                                           v-model="sales_order_no"
-                                           class="form-control" placeholder="Sales Order No.">
-                                    <div class="invalid-feedback" v-if="errors.sales_order_no">
-                                        <p>{{ errors.sales_order_no[0] }}</p>
+                                    <input type="text" class="form-control" v-model="source_order_name" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group" v-if="source_order_id">
+                                <label><b>File</b><span style="color: red;">*</span></label>
+                                <div class="custom-file">
+                                    <input v-bind:class="{'is-invalid': errors.file}" type="file"
+                                           name="site_logo" class="custom-file-input" id="site-logo">
+                                    <label class="custom-file-label">Choose File</label>
+                                    <div class="invalid-feedback" v-if="errors.file">
+                                        <p>{{ errors.file[0] }}</p>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group" v-if="source_order_id == 1">
+                                <label><b>No PO</b><span style="color: red;">*</span></label>
+                                <div>
+                                    <input type="text"
+                                           placeholder="No PO" class="form-control" v-model="no_po" required>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Customer<span style="color: red;">*</span></label>
+                                <label><b>Customer</b><span style="color: red;">*</span></label>
                                 <div>
-                                    <model-list-select :list="customers"
-                                                       v-model="customer_id"
-                                                       v-on:input="getData()"
-                                                       option-value="id"
-                                                       option-text="customer_name"
-                                                       placeholder="Select Customer">
-                                    </model-list-select>
-                                    <div class="invalid-feedback" v-if="errors.customers">
-                                        <p>{{ errors.customers[0] }}</p>
-                                    </div>
+                                    <input type="text" v-model="customer_name" class="form-control" disabled>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Source Order</label>
+                                <label><b>Fulfillment Date</b><span style="color: red;">*</span></label>
+
                                 <div>
-                                    <model-list-select :list="source_orders"
-                                                       v-model="source_order_id"
-                                                       option-value="id"
-                                                       option-text="name"
-                                                       placeholder="Select Source Order">
-                                    </model-list-select>
-                                    <div class="invalid-feedback" v-if="errors.source_order">
-                                        <p>{{ errors.source_order[0] }}</p>
-                                    </div>
+                                    <date-picker v-model="fulfillment_date"
+                                                 lang="en" valueType="format"
+                                                 :not-before="new Date()"></date-picker>
                                 </div>
+                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                     v-if="errors.fulfillmentDate">
+                                    <p>{{ errors.fulfillmentDate[0] }}</p>
+                                </div>
+
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" v-if="customer_id != 0">
                             <div class="form-group">
-                                <label>Fulfillment Date</label>
-                                <div>
-                                    <date-picker v-model="fulfillment_date" lang="en" valueType="format"></date-picker>
-                                    <div class="invalid-feedback" v-if="errors.fulfillment_date">
-                                        <p>{{ errors.fulfillment_date[0] }}</p>
-                                    </div>
-                                </div>
+                                <label><b>Items</b><span style="color: red;">*</span></label>
+                                <model-list-select :list="items"
+                                                   v-model="skuid"
+                                                   v-on:input="getItem()"
+                                                   option-value="skuid"
+                                                   option-text="item_name"
+                                                   placeholder="Select Item">
+                                </model-list-select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-4" v-if="skuid != ''">
+                            <div class="form-group">
+                                <label></label>
+                                <button class="btn btn-sm btn-primary" @click="pushOrderDetails">
+                                    Add Items
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                 v-if="errors.items">
+                                <p>{{ errors.items[0] }}</p>
                             </div>
                         </div>
                         <div v-if="customer_id != 0" class="col-12">
@@ -74,35 +97,46 @@
                                     <tr>
                                         <th class="text-center">SKUID</th>
                                         <th class="text-center">Item Name</th>
-                                        <th class="text-center">UOM</th>
                                         <th class="text-center">Qty</th>
+                                        <th class="text-center">UOM</th>
                                         <th class="text-center">Amount Price</th>
                                         <th class="text-center">Total Amount</th>
                                         <th class="text-center">Notes</th>
-                                        <!--                                        <th></th>-->
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(orders, index) in sales_order_details"
-                                        :key="orders.id">
+                                    <tr v-for="(orders, index) in orders_detail" v-bind:key="index">
                                         <td>{{ orders.skuid }}</td>
                                         <td>{{ orders.item_name }}</td>
-                                        <td>{{ orders.uom }}</td>
-                                        <td style="text-align: right;">
-                                            <input v-model="sales_order_details[index]['qty']" type="number"
-                                                   placeholder="Qty"
-                                                   class="form-control">
-                                        </td>
-                                        <td style="text-align: right;">{{ orders.amount_price }}</td>
-                                        <td style="text-align: right">{{total_amount[index] }}</td>
                                         <td>
-                                            <input v-model="sales_order_details[index]['notes']" type="text"
+                                            <input v-model="orders.qty" type="number" placeholder="Qty" min="0"
+                                                   oninput="validity.valid||(value='');"
+                                                   class="form-control qty" v-on:input="calculateTotalAmount(index)">
+                                        </td>
+                                        <td>{{ orders.uom_name}}</td>
+                                        <td>{{ formatPrice(orders.amount_price) }}</td>
+                                        <td>{{ formatPrice(orders.total_amount) }}</td>
+                                        <td>
+                                            <input v-model="orders.notes"
+                                                   type="text"
                                                    placeholder="Notes"
                                                    class="form-control">
                                         </td>
-                                        <!--                                        <td><a href="#" id="delete|sod|94" role="button" title="Delete"-->
-                                        <!--                                               onclick="deleteSalesOrderDetail(94,);"><span-->
-                                        <!--                                            class="badge badge-pill badge-danger">Delete</span></a></td>-->
+
+
+                                        <!--                                        <td>{{ orders.uom }}</td>-->
+                                        <!--                                        <td style="text-align: right;">-->
+                                        <!--                                            {{ formatPrice(orders.amount) }}-->
+                                        <!--                                        </td>-->
+                                        <!--                                        <td style="text-align: right">{{ formatPrice(total_amount[index]) }}</td>-->
+
+                                        <td>
+                                            <button class="btn btn-icon btn-sm btn-danger"
+                                                    @click="removeOrderDetails(index)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                     <tfoot>
@@ -115,18 +149,22 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Remark</label>
-                                    <textarea v-model="remark" class="form-control" id="Remarks"
-                                              name="Remarks"></textarea>
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label><b>Remarks</b></label>
+                                <textarea v-bind:class="{'is-invalid': errors.remark}" v-model="remark"
+                                          class="form-control" id="Remarks" name="Remarks"></textarea>
+                                <div class="invalid-feedback" v-if="errors.remark">
+                                    <p>{{ errors.remark[0] }}</p>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="card-body">
-                                    <button class="btn btn-primary" v-on:click="submitForm()">Submit</button>
-                                    <button type="button" class="btn btn-secondary" onclick="back()">Back</button>
-                                </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card-body">
+                                <button class="btn btn-primary" v-on:click="submitForm()">Submit</button>
+                                <button type="button" class="btn btn-secondary" onclick="back()">Back</button>
                             </div>
                         </div>
                     </div>
@@ -140,103 +178,136 @@
     import {ModelListSelect} from 'vue-search-select';
 
     export default {
+        props: ['sales_order'],
         data() {
             return {
-                sales_order_no: '',
-                source_order_id: '',
-                sales_order: {},
-                sales_order_details: [],
-                customer_id: '',
-                fulfillment_date: '',
-                total_amount: [],
-                remark: '',
-                customers: [],
-                orders_detail: [],
+                sales_order_id: this.getSalesOrder('id'),
+                source_order_id: this.getSalesOrder('source_order_id'),
+                source_order_name: this.getSalesOrder('source_order_name'),
+                customer_name: this.getSalesOrder('customer_name'),
+                customer_id: this.getSalesOrder('customer_id'),
+                fulfillment_date: this.getSalesOrder('fulfillment_date'),
+                remark: this.getSalesOrder('remarks'),
+                orders_detail: this.getSalesOrder('sales_order_details'),
+
+                qty: [0],
+                no_po: '',
+                file: '',
+                skuid: '',
+                total_amount: [0],
                 source_orders: [],
-                errors: [],
-                qty: [],
-                notes: [],
                 message: '',
-                loading: false
+                item: {},
+                items: [],
+                notes: [],
+                errors: [],
+                customers: [],
+                loading: false,
             }
         },
         mounted() {
             this.getData();
-            console.log(this.sales_order);
         },
         methods: {
             getData() {
                 axios.all([
-                    axios.get(this.$parent.MakeUrl('api/master_data/customer/list')),
-                    axios.get(this.$parent.MakeUrl('api/marketing/sales_order/' + this.$route.params.id)),
-                    axios.get(this.$parent.MakeUrl('api/master_data/price/customer/1')),
-                    axios.get(this.$parent.MakeUrl('api/master_data/source_order/list'))
-
-                ]).then(axios.spread((customers, sales_order, orders_detail, source_order) => {
-                    this.customers = customers.data;
-
-                    this.sales_order = sales_order.data;
-                    this.sales_order_no = sales_order.data.sales_order_no;
-                    this.customer_id = sales_order.data.customer_id;
-                    this.source_order_id = sales_order.data.source_order_id;
-                    this.fulfillment_date = sales_order.data.fulfillment_date;
-                    this.remark = sales_order.data.remarks;
-
-                    this.orders_detail = orders_detail.data.data;
-                    this.source_orders = source_order.data;
-
-                    this.sales_order_details = sales_order.data.sales_order_details
+                    axios.get(this.$parent.MakeUrl('api/trx/sales_order_details/' + this.sales_order_id)),
+                    axios.get(this.$parent.MakeUrl('api/master_data/price/customer/' + this.customer_id)),
+                ]).then(axios.spread((sales_order_details, items) => {
+                    this.items = items.data.data;
+                    this.qty = [0];
+                    this.total_amount = [0];
+                    this.notes = [];
                 })).catch((err) => {
                     if (err.response.status == 403) {
                         this.$router.push({name: 'form_sales_order'})
                     }
                 })
             },
+            getSalesOrder(key) {
+                return JSON.parse(this.sales_order)[key];
+            },
+            formatPrice(value) {
+                return Number.parseInt(value).toLocaleString('id-ID', {
+                    minimumFractionDigits: 2
+                });
+            },
+            getItem() {
+                axios.get(this.$parent.MakeUrl('api/master_data/price/' + this.customer_id + '/' + this.skuid)).then((res) => {
+                    this.item = res.data.data;
+                }).catch((err) => {
+
+                });
+            },
+            calculateTotalAmount(index) {
+                this.orders_detail[index].total_amount =
+                    this.orders_detail[index].qty * this.orders_detail[index].amount_price
+            },
+            pushOrderDetails() {
+                let index = this.orders_detail.length;
+                // this.total_amount[index] = 0;
+                // this.qty[index] = 0;
+                // this.notes[index] = null;
+                return this.orders_detail.push({
+                    skuid: this.item.skuid,
+                    qty: 0,
+                    total_amount: 0,
+                    uom_name: this.item.uom,
+                    item_name: this.item.item_name,
+                    amount_price: this.item.amount,
+                    notes: null
+                })
+            },
+            removeOrderDetails(index) {
+                this.orders_detail.splice(index, 1)
+            },
+
             async submitForm() {
+
                 const payload = {
                     customerId: this.customer_id,
+                    salesOrderId: this.sales_order_id,
                     remark: this.remark,
+                    file: this.file,
                     fulfillmentDate: this.fulfillment_date,
-                    salesOrderNo: this.sales_order_no,
-                    sourceOrderId: this.source_order_id,
-                    details_id: this.sales_order_details.map((item, idx) => ({
-                        id: item.id
-                    })),
-                    details: this.sales_order_details.map((item, idx) => ({
+                    noPO: this.no_po,
+                    items: this.orders_detail.map((item, idx) => ({
+                        order_details_id: item.id,
                         skuid: item.skuid,
-                        qty: this.qty[idx],
-                        notes: this.notes[idx]
+                        qty: item.qty,
+                        notes: item.notes
                     }))
                 };
                 try {
-                    const res = await axios.post('/api/sales_order_detail', payload);
-                    console.log('RES SALES ORDER', res)
+                    const res = await axios.post('/api/trx/sales_order_details', payload);
+                    Vue.swal({
+                        type: 'success',
+                        title: 'Success!',
+                        text: 'Successfully Insert Data!'
+                    });
+                    console.log(res);
+                    // setTimeout(function () {
+                    //     window.location.href = '/admin/marketing/form_sales_order';
+                    // }, 3000);
                 } catch (e) {
-                    console.error(e)
+                    this.errors = e.response.data.errors;
                 }
             }
         },
         components: {
             ModelListSelect
-        }
-        ,
+        },
         computed: {
             totalItem: function () {
                 let sum = 0;
-                this.total_amount.forEach(function (item) {
-                    sum += (parseFloat(item));
+                this.orders_detail.forEach(function (item) {
+                    sum += (parseFloat(item.total_amount));
                 });
-
                 return sum.toLocaleString('id-ID', {
-                    currency: 'IDR',
-                    style: 'currency'
+                    minimumFractionDigits: 2
                 });
             },
         },
-        watch: {
-            qty: function (newQty, oldQty) {
-                this.total_amount = this.sales_order_details.map((item, idx) => item.amount_price * (newQty[idx] || 0))
-            }
-        }
     }
+
 </script>

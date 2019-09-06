@@ -50,7 +50,7 @@
 <script src="{{ asset('assets/js/stisla.js') }}"></script>
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
 
-@yield('scripts')
+@stack('js')
 </body>
 
 </html>

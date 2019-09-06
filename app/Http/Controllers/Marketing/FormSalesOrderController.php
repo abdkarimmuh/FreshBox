@@ -65,8 +65,10 @@ class FormSalesOrderController extends Controller
 
     public function edit($id)
     {
-        $data = SalesOrder::with('sales_order_details')->find($id);
-        return view('admin.marketing.sales_order.edit', compact('data'));
+        $sales_order = SalesOrder::with('sales_order_details')->find($id);
+        $sales_order_details = SalesOrderDetail::with('item')->where('sales_order_id', $id)->get();
+
+        return view('admin.marketing.sales_order.edit', compact('sales_order', 'sales_order_details'));
     }
 
     public function show($id)
@@ -76,6 +78,7 @@ class FormSalesOrderController extends Controller
 
     public function InsertSalesOrderDetail(SalesOrderAddRequest $request)
     {
+        $request->all();
 
         $dt = Carbon::now();
         $year_month = $dt->format('ym');
@@ -85,7 +88,7 @@ class FormSalesOrderController extends Controller
         $number = $last_number + 1;
 
         $customer_id = $request->customerId;
-        $sales_order_no = 'SO'.$year_month.'0000'.$number;
+        $sales_order_no = 'SO' . $year_month . '0000' . $number;
         $source_order_id = $request->sourceOrderId;
         $fulfillment_date = $request->fulfillmentDate;
         $remarks = $request->remark;
@@ -124,6 +127,93 @@ class FormSalesOrderController extends Controller
             }
 
         }
+        SalesOrderDetail::insert($salesOrderDetails);
+
+        return response()->json($sales_order);
+    }
+
+    public function getSalesOrderDetails($id)
+    {
+        return SalesOrderDetail::with('item')->where('sales_order_id', $id)->get();
+    }
+
+    public function updateSalesOrderDetails(Request $request)
+    {
+//        return $request->all();
+
+        $dt = Carbon::now();
+        $year_month = $dt->format('ym');
+
+        $latest_sales_order = SalesOrder::latest()->first();
+        $last_number = isset($latest_sales_order->id) ? $latest_sales_order->id : 0;
+        $number = $last_number + 1;
+
+        $customer_id = $request->customerId;
+        $sales_order_id = $request->salesOrderId;
+
+        $sales_order_no = 'SO' . $year_month . '0000' . $number;
+        $source_order_id = $request->sourceOrderId;
+        $fulfillment_date = $request->fulfillmentDate;
+        $remarks = $request->remark;
+        $items = $request->items;
+        $no_po = isset($request->noPO) ? $request->noPO : '';
+//
+//        $user = 1;
+//
+//        $item = Price::where('customer_id', $customer_id)->get();
+//
+
+        $collection = collect($items);
+        $hasOrderDetailsID = $collection->filter(function ($value, $key) {
+            if (isset($value['qty']) && isset($value['order_details_id'])) {
+                return true;
+            }
+        });
+        $OnlyOrderDetailsID = $hasOrderDetailsID->pluck('order_details_id')->all();
+
+        $FilterWithoutOrderDetailsID = $collection->filter(function ($value, $key) use ($collection) {
+            if (isset($value['qty']) && !isset($value['order_details_id'])) {
+                return true;
+            }
+        });
+
+
+        foreach ($FilterWithoutOrderDetailsID as $row) {
+            $withoutOrderDetailsID[] = [
+                'sales_order_id' => $sales_order_id,
+                'skuid' => $row['skuid'],
+                'qty' => $row['qty'],
+                'notes' => $row['notes'],
+            ];
+        }
+        return $withoutOrderDetailsID;
+
+//        foreach ($items as $i => $detail) {
+//            if (isset($detail['qty']) && isset($detail['order_details_id'])) {
+//                $order_details_id[] =
+//                    $detail['order_details_id'];
+//                $salesOrderDetails[] = [
+//                    'sales_order_id' => $sales_order_id,
+//                    'skuid' => $detail['skuid'],
+//                    'qty' => $detail['qty'],
+////                    'amount_price' => $item[$i]->amount,
+////                    'total_amount' => $item[$i]->amount * $detail['qty'],
+//                    'notes' => $detail['notes'],
+//                ];
+//            } else {
+//                $insertSalesOrderDetails[] = [
+//                    'sales_order_id' => $sales_order_id,
+//                    'skuid' => $detail['skuid'],
+//                    'qty' => $detail['qty'],
+////                    'amount_price' => $item[$i]->amount,
+////                    'total_amount' => $item[$i]->amount * $detail['qty'],
+//                    'notes' => $detail['notes'],
+//                ];
+//            }
+//
+//        }
+
+        return $order_details_id;
         SalesOrderDetail::insert($salesOrderDetails);
 
         return response()->json($sales_order);

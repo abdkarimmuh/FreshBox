@@ -2710,26 +2710,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   type: 'success',
                   title: 'Success!',
                   text: 'Successfully Insert Data!'
-                }); // setTimeout(function () {
-                //     window.location.href = '/admin/marketing/form_sales_order';
-                // }, 3000);
-
+                });
+                setTimeout(function () {
+                  window.location.href = '/admin/marketing/form_sales_order';
+                }, 3000);
                 console.log('RES SALES ORDER', res);
-                _context.next = 13;
+                _context.next = 14;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](1);
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data.errors);
 
-              case 13:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 9]]);
+        }, _callee, this, [[1, 10]]);
       }));
 
       function submitForm() {
@@ -2921,47 +2921,84 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['sales_order'],
   data: function data() {
     return {
-      sales_order_no: '',
-      source_order_id: '',
-      sales_order: {},
-      sales_order_details: [],
-      customer_id: '',
-      fulfillment_date: '',
-      total_amount: [],
-      remark: '',
-      customers: [],
-      orders_detail: [],
+      sales_order_id: this.getSalesOrder('id'),
+      source_order_id: this.getSalesOrder('source_order_id'),
+      source_order_name: this.getSalesOrder('source_order_name'),
+      customer_name: this.getSalesOrder('customer_name'),
+      customer_id: this.getSalesOrder('customer_id'),
+      fulfillment_date: this.getSalesOrder('fulfillment_date'),
+      remark: this.getSalesOrder('remarks'),
+      orders_detail: this.getSalesOrder('sales_order_details'),
+      qty: [0],
+      no_po: '',
+      file: '',
+      skuid: '',
+      total_amount: [0],
       source_orders: [],
-      errors: [],
-      qty: [],
-      notes: [],
       message: '',
+      item: {},
+      items: [],
+      notes: [],
+      errors: [],
+      customers: [],
       loading: false
     };
   },
   mounted: function mounted() {
     this.getData();
-    console.log(this.sales_order);
   },
   methods: {
     getData: function getData() {
       var _this = this;
 
-      axios.all([axios.get(this.$parent.MakeUrl('api/master_data/customer/list')), axios.get(this.$parent.MakeUrl('api/marketing/sales_order/' + this.$route.params.id)), axios.get(this.$parent.MakeUrl('api/master_data/price/customer/1')), axios.get(this.$parent.MakeUrl('api/master_data/source_order/list'))]).then(axios.spread(function (customers, sales_order, orders_detail, source_order) {
-        _this.customers = customers.data;
-        _this.sales_order = sales_order.data;
-        _this.sales_order_no = sales_order.data.sales_order_no;
-        _this.customer_id = sales_order.data.customer_id;
-        _this.source_order_id = sales_order.data.source_order_id;
-        _this.fulfillment_date = sales_order.data.fulfillment_date;
-        _this.remark = sales_order.data.remarks;
-        _this.orders_detail = orders_detail.data.data;
-        _this.source_orders = source_order.data;
-        _this.sales_order_details = sales_order.data.sales_order_details;
+      axios.all([axios.get(this.$parent.MakeUrl('api/trx/sales_order_details/' + this.sales_order_id)), axios.get(this.$parent.MakeUrl('api/master_data/price/customer/' + this.customer_id))]).then(axios.spread(function (sales_order_details, items) {
+        _this.items = items.data.data;
+        _this.qty = [0];
+        _this.total_amount = [0];
+        _this.notes = [];
       }))["catch"](function (err) {
         if (err.response.status == 403) {
           _this.$router.push({
@@ -2970,12 +3007,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       });
     },
+    getSalesOrder: function getSalesOrder(key) {
+      return JSON.parse(this.sales_order)[key];
+    },
+    formatPrice: function formatPrice(value) {
+      return Number.parseInt(value).toLocaleString('id-ID', {
+        minimumFractionDigits: 2
+      });
+    },
+    getItem: function getItem() {
+      var _this2 = this;
+
+      axios.get(this.$parent.MakeUrl('api/master_data/price/' + this.customer_id + '/' + this.skuid)).then(function (res) {
+        _this2.item = res.data.data;
+      })["catch"](function (err) {});
+    },
+    calculateTotalAmount: function calculateTotalAmount(index) {
+      this.orders_detail[index].total_amount = this.orders_detail[index].qty * this.orders_detail[index].amount_price;
+    },
+    pushOrderDetails: function pushOrderDetails() {
+      var index = this.orders_detail.length; // this.total_amount[index] = 0;
+      // this.qty[index] = 0;
+      // this.notes[index] = null;
+
+      return this.orders_detail.push({
+        skuid: this.item.skuid,
+        qty: 0,
+        total_amount: 0,
+        uom_name: this.item.uom,
+        item_name: this.item.item_name,
+        amount_price: this.item.amount,
+        notes: null
+      });
+    },
+    removeOrderDetails: function removeOrderDetails(index) {
+      this.orders_detail.splice(index, 1);
+    },
     submitForm: function () {
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this2 = this;
-
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -2983,44 +3054,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 payload = {
                   customerId: this.customer_id,
+                  salesOrderId: this.sales_order_id,
                   remark: this.remark,
+                  file: this.file,
                   fulfillmentDate: this.fulfillment_date,
-                  salesOrderNo: this.sales_order_no,
-                  sourceOrderId: this.source_order_id,
-                  details_id: this.sales_order_details.map(function (item, idx) {
+                  noPO: this.no_po,
+                  items: this.orders_detail.map(function (item, idx) {
                     return {
-                      id: item.id
-                    };
-                  }),
-                  details: this.sales_order_details.map(function (item, idx) {
-                    return {
+                      order_details_id: item.id,
                       skuid: item.skuid,
-                      qty: _this2.qty[idx],
-                      notes: _this2.notes[idx]
+                      qty: item.qty,
+                      notes: item.notes
                     };
                   })
                 };
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.post('/api/sales_order_detail', payload);
+                return axios.post('/api/trx/sales_order_details', payload);
 
               case 4:
                 res = _context.sent;
-                console.log('RES SALES ORDER', res);
-                _context.next = 11;
+                Vue.swal({
+                  type: 'success',
+                  title: 'Success!',
+                  text: 'Successfully Insert Data!'
+                });
+                console.log(res); // setTimeout(function () {
+                //     window.location.href = '/admin/marketing/form_sales_order';
+                // }, 3000);
+
+                _context.next = 12;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](1);
-                console.error(_context.t0);
+                this.errors = _context.t0.response.data.errors;
 
-              case 11:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 8]]);
+        }, _callee, this, [[1, 9]]);
       }));
 
       function submitForm() {
@@ -3036,19 +3112,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     totalItem: function totalItem() {
       var sum = 0;
-      this.total_amount.forEach(function (item) {
-        sum += parseFloat(item);
+      this.orders_detail.forEach(function (item) {
+        sum += parseFloat(item.total_amount);
       });
       return sum.toLocaleString('id-ID', {
-        currency: 'IDR',
-        style: 'currency'
-      });
-    }
-  },
-  watch: {
-    qty: function qty(newQty, oldQty) {
-      this.total_amount = this.sales_order_details.map(function (item, idx) {
-        return item.amount_price * (newQty[idx] || 0);
+        minimumFractionDigits: 2
       });
     }
   }
@@ -46602,115 +46670,135 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.sales_order_no,
-                        expression: "sales_order_no"
+                        value: _vm.source_order_name,
+                        expression: "source_order_name"
                       }
                     ],
                     staticClass: "form-control",
-                    class: { "is-invalid": _vm.errors.sales_order_no },
-                    attrs: { type: "text", placeholder: "Sales Order No." },
-                    domProps: { value: _vm.sales_order_no },
+                    attrs: { type: "text", disabled: "" },
+                    domProps: { value: _vm.source_order_name },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.sales_order_no = $event.target.value
+                        _vm.source_order_name = $event.target.value
                       }
                     }
-                  }),
-                  _vm._v(" "),
-                  _vm.errors.sales_order_no
-                    ? _c("div", { staticClass: "invalid-feedback" }, [
-                        _c("p", [_vm._v(_vm._s(_vm.errors.sales_order_no[0]))])
-                      ])
-                    : _vm._e()
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _vm.source_order_id
+                ? _c("div", { staticClass: "form-group" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "custom-file" }, [
+                      _c("input", {
+                        staticClass: "custom-file-input",
+                        class: { "is-invalid": _vm.errors.file },
+                        attrs: {
+                          type: "file",
+                          name: "site_logo",
+                          id: "site-logo"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label", { staticClass: "custom-file-label" }, [
+                        _vm._v("Choose File")
+                      ]),
+                      _vm._v(" "),
+                      _vm.errors.file
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _c("p", [_vm._v(_vm._s(_vm.errors.file[0]))])
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _vm.source_order_id == 1
+                ? _c("div", { staticClass: "form-group" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.no_po,
+                            expression: "no_po"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          placeholder: "No PO",
+                          required: ""
+                        },
+                        domProps: { value: _vm.no_po },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.no_po = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _c("div", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.customer_name,
+                        expression: "customer_name"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", disabled: "" },
+                    domProps: { value: _vm.customer_name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.customer_name = $event.target.value
+                      }
+                    }
+                  })
                 ])
               ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-6" }, [
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(2),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  [
-                    _c("model-list-select", {
-                      attrs: {
-                        list: _vm.customers,
-                        "option-value": "id",
-                        "option-text": "customer_name",
-                        placeholder: "Select Customer"
-                      },
-                      on: {
-                        input: function($event) {
-                          return _vm.getData()
-                        }
-                      },
-                      model: {
-                        value: _vm.customer_id,
-                        callback: function($$v) {
-                          _vm.customer_id = $$v
-                        },
-                        expression: "customer_id"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.customers
-                      ? _c("div", { staticClass: "invalid-feedback" }, [
-                          _c("p", [_vm._v(_vm._s(_vm.errors.customers[0]))])
-                        ])
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Source Order")]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  [
-                    _c("model-list-select", {
-                      attrs: {
-                        list: _vm.source_orders,
-                        "option-value": "id",
-                        "option-text": "name",
-                        placeholder: "Select Source Order"
-                      },
-                      model: {
-                        value: _vm.source_order_id,
-                        callback: function($$v) {
-                          _vm.source_order_id = $$v
-                        },
-                        expression: "source_order_id"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.source_order
-                      ? _c("div", { staticClass: "invalid-feedback" }, [
-                          _c("p", [_vm._v(_vm._s(_vm.errors.source_order[0]))])
-                        ])
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Fulfillment Date")]),
+                _vm._m(5),
                 _vm._v(" "),
                 _c(
                   "div",
                   [
                     _c("date-picker", {
-                      attrs: { lang: "en", valueType: "format" },
+                      attrs: {
+                        lang: "en",
+                        valueType: "format",
+                        "not-before": new Date()
+                      },
                       model: {
                         value: _vm.fulfillment_date,
                         callback: function($$v) {
@@ -46718,19 +46806,96 @@ var render = function() {
                         },
                         expression: "fulfillment_date"
                       }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.fulfillment_date
-                      ? _c("div", { staticClass: "invalid-feedback" }, [
-                          _c("p", [
-                            _vm._v(_vm._s(_vm.errors.fulfillment_date[0]))
-                          ])
-                        ])
-                      : _vm._e()
+                    })
                   ],
                   1
-                )
+                ),
+                _vm._v(" "),
+                _vm.errors.fulfillmentDate
+                  ? _c(
+                      "div",
+                      {
+                        staticStyle: {
+                          "margin-top": ".25rem",
+                          "font-size": "80%",
+                          color: "#dc3545"
+                        }
+                      },
+                      [_c("p", [_vm._v(_vm._s(_vm.errors.fulfillmentDate[0]))])]
+                    )
+                  : _vm._e()
               ])
+            ]),
+            _vm._v(" "),
+            _vm.customer_id != 0
+              ? _c("div", { staticClass: "col-md-6" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("model-list-select", {
+                        attrs: {
+                          list: _vm.items,
+                          "option-value": "skuid",
+                          "option-text": "item_name",
+                          placeholder: "Select Item"
+                        },
+                        on: {
+                          input: function($event) {
+                            return _vm.getItem()
+                          }
+                        },
+                        model: {
+                          value: _vm.skuid,
+                          callback: function($$v) {
+                            _vm.skuid = $$v
+                          },
+                          expression: "skuid"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.skuid != ""
+              ? _c("div", { staticClass: "col-md-6 mt-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label"),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-sm btn-primary",
+                        on: { click: _vm.pushOrderDetails }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Add Items\n                            "
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-12" }, [
+              _vm.errors.items
+                ? _c(
+                    "div",
+                    {
+                      staticStyle: {
+                        "margin-top": ".25rem",
+                        "font-size": "80%",
+                        color: "#dc3545"
+                      }
+                    },
+                    [_c("p", [_vm._v(_vm._s(_vm.errors.items[0]))])]
+                  )
+                : _vm._e()
             ]),
             _vm._v(" "),
             _vm.customer_id != 0
@@ -46750,74 +46915,15 @@ var render = function() {
                           attrs: { id: "contentTable" }
                         },
                         [
-                          _vm._m(3),
+                          _vm._m(7),
                           _vm._v(" "),
                           _c(
                             "tbody",
-                            _vm._l(_vm.sales_order_details, function(
-                              orders,
-                              index
-                            ) {
-                              return _c("tr", { key: orders.id }, [
+                            _vm._l(_vm.orders_detail, function(orders, index) {
+                              return _c("tr", { key: index }, [
                                 _c("td", [_vm._v(_vm._s(orders.skuid))]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(orders.item_name))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(orders.uom))]),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  { staticStyle: { "text-align": "right" } },
-                                  [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value:
-                                            _vm.sales_order_details[index][
-                                              "qty"
-                                            ],
-                                          expression:
-                                            "sales_order_details[index]['qty']"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "number",
-                                        placeholder: "Qty"
-                                      },
-                                      domProps: {
-                                        value:
-                                          _vm.sales_order_details[index]["qty"]
-                                      },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            _vm.sales_order_details[index],
-                                            "qty",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  { staticStyle: { "text-align": "right" } },
-                                  [_vm._v(_vm._s(orders.amount_price))]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  { staticStyle: { "text-align": "right" } },
-                                  [_vm._v(_vm._s(_vm.total_amount[index]))]
-                                ),
                                 _vm._v(" "),
                                 _c("td", [
                                   _c("input", {
@@ -46825,12 +46931,60 @@ var render = function() {
                                       {
                                         name: "model",
                                         rawName: "v-model",
-                                        value:
-                                          _vm.sales_order_details[index][
-                                            "notes"
-                                          ],
-                                        expression:
-                                          "sales_order_details[index]['notes']"
+                                        value: orders.qty,
+                                        expression: "orders.qty"
+                                      }
+                                    ],
+                                    staticClass: "form-control qty",
+                                    attrs: {
+                                      type: "number",
+                                      placeholder: "Qty",
+                                      min: "0",
+                                      oninput: "validity.valid||(value='');"
+                                    },
+                                    domProps: { value: orders.qty },
+                                    on: {
+                                      input: [
+                                        function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            orders,
+                                            "qty",
+                                            $event.target.value
+                                          )
+                                        },
+                                        function($event) {
+                                          return _vm.calculateTotalAmount(index)
+                                        }
+                                      ]
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(orders.uom_name))]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(_vm.formatPrice(orders.amount_price))
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(_vm.formatPrice(orders.total_amount))
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: orders.notes,
+                                        expression: "orders.notes"
                                       }
                                     ],
                                     staticClass: "form-control",
@@ -46838,23 +46992,36 @@ var render = function() {
                                       type: "text",
                                       placeholder: "Notes"
                                     },
-                                    domProps: {
-                                      value:
-                                        _vm.sales_order_details[index]["notes"]
-                                    },
+                                    domProps: { value: orders.notes },
                                     on: {
                                       input: function($event) {
                                         if ($event.target.composing) {
                                           return
                                         }
                                         _vm.$set(
-                                          _vm.sales_order_details[index],
+                                          orders,
                                           "notes",
                                           $event.target.value
                                         )
                                       }
                                     }
                                   })
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-icon btn-sm btn-danger",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.removeOrderDetails(index)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-trash" })]
+                                  )
                                 ])
                               ])
                             }),
@@ -46886,63 +47053,70 @@ var render = function() {
                         ]
                       )
                     ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", [_vm._v("Remark")]),
-                      _vm._v(" "),
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.remark,
-                            expression: "remark"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { id: "Remarks", name: "Remarks" },
-                        domProps: { value: _vm.remark },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.remark = $event.target.value
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-12" }, [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          on: {
-                            click: function($event) {
-                              return _vm.submitForm()
-                            }
-                          }
-                        },
-                        [_vm._v("Submit")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-secondary",
-                          attrs: { type: "button", onclick: "back()" }
-                        },
-                        [_vm._v("Back")]
-                      )
-                    ])
-                  ])
+                  )
                 ])
-              : _vm._e()
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(8),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.remark,
+                      expression: "remark"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: { "is-invalid": _vm.errors.remark },
+                  attrs: { id: "Remarks", name: "Remarks" },
+                  domProps: { value: _vm.remark },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.remark = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.errors.remark
+                  ? _c("div", { staticClass: "invalid-feedback" }, [
+                      _c("p", [_vm._v(_vm._s(_vm.errors.remark[0]))])
+                    ])
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.submitForm()
+                      }
+                    }
+                  },
+                  [_vm._v("Submit")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", onclick: "back()" }
+                  },
+                  [_vm._v("Back")]
+                )
+              ])
+            ])
           ])
         ])
       ])
@@ -46963,7 +47137,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _vm._v("Sales Order No"),
+      _c("b", [_vm._v("Source Order")]),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])
   },
@@ -46972,7 +47146,43 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _vm._v("Customer"),
+      _c("b", [_vm._v("File")]),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("No PO")]),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Customer")]),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Fulfillment Date")]),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Items")]),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])
   },
@@ -46986,17 +47196,25 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Item Name")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("UOM")]),
-        _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("UOM")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Amount Price")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Total Amount")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Notes")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Notes")]),
+        _vm._v(" "),
+        _c("th")
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("b", [_vm._v("Remarks")])])
   }
 ]
 render._withStripped = true
@@ -66277,7 +66495,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_AdduserComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/AdduserComponent */ "./resources/js/components/AdduserComponent.vue");
 /* harmony import */ var _components_DataTable_DataTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/DataTable/DataTable */ "./resources/js/components/DataTable/DataTable.vue");
 /* harmony import */ var _components_Marketing_SalesOrder_AddSalesOrder__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Marketing/SalesOrder/AddSalesOrder */ "./resources/js/components/Marketing/SalesOrder/AddSalesOrder.vue");
-/* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-sweetalert2 */ "./node_modules/vue-sweetalert2/dist/index.js");
+/* harmony import */ var _components_Marketing_SalesOrder_EditSalesOrder__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Marketing/SalesOrder/EditSalesOrder */ "./resources/js/components/Marketing/SalesOrder/EditSalesOrder.vue");
+/* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue-sweetalert2 */ "./node_modules/vue-sweetalert2/dist/index.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -66292,12 +66511,14 @@ Vue.use(vue_ios_alertview__WEBPACK_IMPORTED_MODULE_0___default.a);
 
 
 
-Vue.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_9__["default"]);
+
+Vue.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_10__["default"]);
 Vue.component('vue-headful', vue_headful__WEBPACK_IMPORTED_MODULE_3___default.a);
 Vue.component('users-component', _components_UsersComponent__WEBPACK_IMPORTED_MODULE_4__["default"]);
 Vue.component('profile-component', _components_ProfileComponent__WEBPACK_IMPORTED_MODULE_5__["default"]);
 Vue.component('adduser-component', _components_AdduserComponent__WEBPACK_IMPORTED_MODULE_6__["default"]);
 Vue.component('addsalesorder-component', _components_Marketing_SalesOrder_AddSalesOrder__WEBPACK_IMPORTED_MODULE_8__["default"]);
+Vue.component('editsalesorder-component', _components_Marketing_SalesOrder_EditSalesOrder__WEBPACK_IMPORTED_MODULE_9__["default"]);
 Vue.component("data-table", _components_DataTable_DataTable__WEBPACK_IMPORTED_MODULE_7__["default"]);
 Vue.component("laravel-pagination", __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 Vue.use(vue2_datepicker__WEBPACK_IMPORTED_MODULE_2___default.a);
@@ -67443,8 +67664,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/FreshBox/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/FreshBox/resources/sass/custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! /srv/http/freshbox-new/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /srv/http/freshbox-new/resources/sass/custom.scss */"./resources/sass/custom.scss");
 
 
 /***/ })

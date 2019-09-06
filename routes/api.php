@@ -68,6 +68,11 @@ Route::group(['prefix' => 'master_data/'], function () {
     Route::post('uom', 'MasterData\UomController@store');
 });
 
+Route::group(['prefix' => 'trx'], function () {
+    Route::get('sales_order_details/{id}', 'Marketing\FormSalesOrderController@getSalesOrderDetails');
+    Route::post('sales_order_details', 'Marketing\FormSalesOrderController@updateSalesOrderDetails');
+
+});
 /**
  * Testing Route
  */
