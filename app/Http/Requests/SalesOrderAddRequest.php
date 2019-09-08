@@ -29,7 +29,8 @@ class SalesOrderAddRequest extends FormRequest
             'fulfillmentDate' => 'required',
             'customerId' => 'required|not_in:0',
             'sourceOrderId' => 'required',
-            'items' => 'required'
+            'items' => 'required',
+//            'file' =>'mimes:jpeg,bmp,png,pdf'
         ];
     }
 }

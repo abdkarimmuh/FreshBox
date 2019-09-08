@@ -2638,19 +2638,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         console.log(_this.item);
       })["catch"](function (err) {});
     },
-    pushOrderDetails: function pushOrderDetails() {
-      var index = this.orders_detail.length;
-      this.total_amount[index] = 0;
-      this.qty[index] = 0;
-      this.notes[index] = null;
-      return this.orders_detail.push({
-        skuid: this.item.skuid,
-        qty: 0,
-        uom: this.item.uom,
-        item_name: this.item.item_name,
-        amount: this.item.amount,
-        notes: null
+    pushOrderDetails: function pushOrderDetails(skuid) {
+      var indexItem = this.orders_detail.findIndex(function (x) {
+        return x.skuid === skuid;
       });
+
+      if (indexItem >= 0) {
+        Vue.swal({
+          type: 'error',
+          title: 'ERROR!',
+          text: 'Item Already Added!'
+        });
+        console.log('GAGAL');
+      } else {
+        var index = this.orders_detail.length;
+        this.total_amount[index] = 0;
+        this.qty[index] = 0;
+        this.notes[index] = null;
+        return this.orders_detail.push({
+          skuid: this.item.skuid,
+          qty: 0,
+          uom: this.item.uom,
+          item_name: this.item.item_name,
+          amount: this.item.amount,
+          notes: null
+        });
+      }
     },
     removeOrderDetails: function removeOrderDetails(index) {
       this.orders_detail.splice(index, 1);
@@ -46268,7 +46281,11 @@ var render = function() {
                       "button",
                       {
                         staticClass: "btn btn-sm btn-primary",
-                        on: { click: _vm.pushOrderDetails }
+                        on: {
+                          click: function($event) {
+                            return _vm.pushOrderDetails(_vm.skuid)
+                          }
+                        }
                       },
                       [
                         _vm._v(

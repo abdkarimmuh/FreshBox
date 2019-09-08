@@ -100,7 +100,7 @@
                         <div class="col-md-6 mt-4" v-if="skuid != ''">
                             <div class="form-group">
                                 <label></label>
-                                <button class="btn btn-sm btn-primary" @click="pushOrderDetails">
+                                <button class="btn btn-sm btn-primary" @click="pushOrderDetails(skuid)">
                                     Add Items
                                 </button>
                             </div>
@@ -230,20 +230,31 @@
 
                 });
             },
-            pushOrderDetails() {
-                let index = this.orders_detail.length;
+            pushOrderDetails(skuid) {
+                const indexItem = this.orders_detail.findIndex(x => x.skuid === skuid);
+                if (indexItem >= 0) {
+                    Vue.swal({
+                        type: 'error',
+                        title: 'ERROR!',
+                        text: 'Item Already Added!'
+                    });
+                    console.log('GAGAL');
+                } else {
+                    let index = this.orders_detail.length;
+                    this.total_amount[index] = 0;
+                    this.qty[index] = 0;
+                    this.notes[index] = null;
+                    return this.orders_detail.push({
+                        skuid: this.item.skuid,
+                        qty: 0,
+                        uom: this.item.uom,
+                        item_name: this.item.item_name,
+                        amount: this.item.amount,
+                        notes: null
+                    });
+                }
 
-                this.total_amount[index] = 0;
-                this.qty[index] = 0;
-                this.notes[index] = null;
-                return this.orders_detail.push({
-                    skuid: this.item.skuid,
-                    qty: 0,
-                    uom: this.item.uom,
-                    item_name: this.item.item_name,
-                    amount: this.item.amount,
-                    notes: null
-                })
+
             },
             removeOrderDetails(index) {
                 this.orders_detail.splice(index, 1)
@@ -314,6 +325,7 @@
             },
         },
         watch: {
+
             qty: function (newQty, oldQty) {
                 this.total_amount = this.orders_detail.map((item, idx) => item.amount * (newQty[idx] || 0))
             }
