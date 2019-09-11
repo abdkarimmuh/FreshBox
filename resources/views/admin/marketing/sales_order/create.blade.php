@@ -1,7 +1,7 @@
 @extends('layouts.admin-master')
 
 @section('content')
-<addsalesorder-component></addsalesorder-component>
+<addsalesorder-component :user_id="{{ auth()->user()->id }}"></addsalesorder-component>
 @endsection
 @push('js')
     <script>

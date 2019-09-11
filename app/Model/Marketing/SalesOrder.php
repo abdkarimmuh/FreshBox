@@ -18,18 +18,17 @@ class SalesOrder extends MyModel
 
     protected $table = 'trx_sales_order';
     protected $appends = [
-        'view_route',
-        'edit_route',
-        'delete_route',
         'customer_name',
         'source_order_name',
         'updated_by_name',
         'created_by_name',
-        'status_name'
+        'status_name',
     ];
     protected $fillable = [
         'sales_order_no',
         'customer_id',
+        'no_po',
+        'file',
         'source_order_id',
         'fulfillment_date',
         'remarks',
@@ -42,12 +41,10 @@ class SalesOrder extends MyModel
         'id' => [
             'searchable' => false,
             'search_relation' => false,
-
         ],
         'sales_order_no' => [
             'searchable' => true,
             'search_relation' => false,
-
         ],
         'customer_name' => [
             'searchable' => true,
@@ -55,7 +52,6 @@ class SalesOrder extends MyModel
             'relation_name' => 'Customer',
             'relation_field' => 'name'
         ],
-
         'source_order_name' => [
             'searchable' => true,
             'search_relation' => true,
@@ -65,22 +61,18 @@ class SalesOrder extends MyModel
         'fulfillment_date' => [
             'searchable' => true,
             'search_relation' => false,
-
         ],
         'remarks' => [
             'searchable' => true,
             'search_relation' => false,
-
         ],
         'created_at' => [
             'searchable' => true,
             'search_relation' => false,
-
         ],
         'created_by' => [
             'searchable' => true,
             'search_relation' => false,
-
         ],
         'status' => [
             'searchable' => true,

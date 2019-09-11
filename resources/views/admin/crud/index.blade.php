@@ -93,6 +93,8 @@
                                         @foreach($columns as $column)
                                             @if($column['field'] === 'status_name')
                                                 <td>{!! $row[$column['field']] !!}</td>
+                                            @elseif($column['field']  === 'file')
+                                                <td><a href="{{ route('admin.marketing.sales_order.download', $row[$column['field']]) }}">Download</a></td>
                                             @else
                                                 <td>{{ $row[$column['field']] }}</td>
                                             @endif

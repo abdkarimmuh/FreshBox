@@ -12,6 +12,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                <input type="hidden" v-model="user_id">
                                 <label><b>Source Order</b><span style="color: red;">*</span></label>
                                 <div>
                                     <model-list-select :list="source_orders"
@@ -32,8 +33,9 @@
                                 <label><b>File</b><span style="color: red;">*</span></label>
                                 <div class="custom-file">
                                     <input v-bind:class="{'is-invalid': errors.file}" type="file"
-                                           name="site_logo" class="custom-file-input" id="site-logo">
-                                    <label class="custom-file-label">Choose File</label>
+                                           name="site_logo" class="custom-file-input" id="site-logo"
+                                           v-on:change="onFileChange">
+                                    <label class="custom-file-label">{{ fileName ? fileName : 'Choose File'}}</label>
                                     <div class="invalid-feedback" v-if="errors.file">
                                         <p>{{ errors.file[0] }}</p>
                                     </div>
@@ -44,8 +46,11 @@
                             <div class="form-group" v-if="source_order_id == 1">
                                 <label><b>No PO</b><span style="color: red;">*</span></label>
                                 <div>
-                                    <input type="text"
+                                    <input type="text" v-bind:class="{'is-invalid': errors.no_po}"
                                            placeholder="No PO" class="form-control" v-model="no_po" required>
+                                    <div class="invalid-feedback" v-if="errors.no_po">
+                                        <p>{{ errors.no_po[0] }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +167,10 @@
                                     </tfoot>
                                 </table>
                             </div>
-
+                            <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                 v-if="errors['items.0.qty']">
+                                <p>{{ errors['items.0.qty'][0] }}</p>
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -191,6 +199,7 @@
     import {ModelListSelect} from 'vue-search-select';
 
     export default {
+        props: ['user_id'],
         data() {
             return {
                 qty: [0],
@@ -203,6 +212,8 @@
                 source_orders: [],
                 fulfillment_date: '',
                 message: '',
+                fileName: '',
+                file: '',
                 item: {},
                 items: [],
                 notes: [],
@@ -217,6 +228,52 @@
             this.getData();
         },
         methods: {
+            async submitForm() {
+                const payload = {
+                    user_id: this.user_id,
+                    customerId: this.customer_id,
+                    remark: this.remark,
+                    file: this.file,
+                    fulfillmentDate: this.fulfillment_date,
+                    sourceOrderId: this.source_order_id,
+                    no_po: this.no_po,
+                    items: this.orders_detail.map((item, idx) => ({
+                        skuid: item.skuid,
+                        qty: this.qty[idx],
+                        notes: this.notes[idx]
+                    }))
+                };
+                try {
+                    const res = await axios.post('/api/marketing/sales_order_detail', payload);
+                    Vue.swal({
+                        type: 'success',
+                        title: 'Success!',
+                        text: 'Successfully Insert Data!'
+                    });
+                    // setTimeout(function () {
+                    //     window.location.href = '/admin/marketing/form_sales_order';
+                    // }, 3000);
+                    console.log('RES SALES ORDER', res)
+                } catch (e) {
+                    this.errors = e.response.data.errors;
+                    console.error(e.response.data)
+                }
+            },
+            onFileChange(e) {
+                var fileData = e.target.files || e.dataTransfer.files;
+                this.fileName = fileData[0].name;
+                if (!fileData.length)
+                    return;
+                this.createFile(fileData[0]);
+                // console.log(fileData);
+            },
+            createFile(file) {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    this.file = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            },
             formatPrice(value) {
                 return value.toLocaleString('id-ID', {
                     minimumFractionDigits: 2
@@ -253,8 +310,6 @@
                         notes: null
                     });
                 }
-
-
             },
             removeOrderDetails(index) {
                 this.orders_detail.splice(index, 1)
@@ -278,36 +333,6 @@
                     }
                 })
             },
-            async submitForm() {
-                const payload = {
-                    customerId: this.customer_id,
-                    remark: this.remark,
-                    file: this.file,
-                    fulfillmentDate: this.fulfillment_date,
-                    sourceOrderId: this.source_order_id,
-                    noPO: this.no_po,
-                    items: this.orders_detail.map((item, idx) => ({
-                        skuid: item.skuid,
-                        qty: this.qty[idx],
-                        notes: this.notes[idx]
-                    }))
-                };
-                try {
-                    const res = await axios.post('/api/marketing/sales_order_detail', payload);
-                    Vue.swal({
-                        type: 'success',
-                        title: 'Success!',
-                        text: 'Successfully Insert Data!'
-                    });
-                    setTimeout(function () {
-                        window.location.href = '/admin/marketing/form_sales_order';
-                    }, 3000);
-                    console.log('RES SALES ORDER', res)
-                } catch (e) {
-                    this.errors = e.response.data.errors;
-                    console.error(e.response.data.errors)
-                }
-            }
         },
         components: {
             ModelListSelect
@@ -322,7 +347,7 @@
                 return sum.toLocaleString('id-ID', {
                     minimumFractionDigits: 2
                 });
-            },
+            }
         },
         watch: {
 
