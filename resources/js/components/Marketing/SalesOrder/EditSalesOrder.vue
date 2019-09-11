@@ -21,13 +21,8 @@
                         <div class="col-md-3">
                             <div class="form-group" v-if="source_order_id">
                                 <label><b>File</b><span style="color: red;">*</span></label>
-                                <div class="custom-file">
-                                    <input v-bind:class="{'is-invalid': errors.file}" type="file"
-                                           name="site_logo" class="custom-file-input" id="site-logo">
-                                    <label class="custom-file-label">Choose File</label>
-                                    <div class="invalid-feedback" v-if="errors.file">
-                                        <p>{{ errors.file[0] }}</p>
-                                    </div>
+                                <div>
+                                    <a v-bind:href="file_url">{{ file }}</a>
                                 </div>
                             </div>
                         </div>
@@ -35,8 +30,7 @@
                             <div class="form-group" v-if="source_order_id == 1">
                                 <label><b>No PO</b><span style="color: red;">*</span></label>
                                 <div>
-                                    <input type="text"
-                                           placeholder="No PO" class="form-control" v-model="no_po" required>
+                                    <input type="text" class="form-control" v-model="no_po" disabled>
                                 </div>
                             </div>
                         </div>
@@ -51,17 +45,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label><b>Fulfillment Date</b><span style="color: red;">*</span></label>
-
                                 <div>
-                                    <date-picker v-model="fulfillment_date"
-                                                 lang="en" valueType="format"
-                                                 :not-before="new Date()"></date-picker>
+                                    <input type="text" disabled v-model="fulfillment_date" class="form-control">
                                 </div>
-                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                     v-if="errors.fulfillmentDate">
-                                    <p>{{ errors.fulfillmentDate[0] }}</p>
-                                </div>
-
                             </div>
                         </div>
                         <div class="col-md-6" v-if="customer_id != 0">
@@ -123,14 +109,6 @@
                                                    placeholder="Notes"
                                                    class="form-control">
                                         </td>
-
-
-                                        <!--                                        <td>{{ orders.uom }}</td>-->
-                                        <!--                                        <td style="text-align: right;">-->
-                                        <!--                                            {{ formatPrice(orders.amount) }}-->
-                                        <!--                                        </td>-->
-                                        <!--                                        <td style="text-align: right">{{ formatPrice(total_amount[index]) }}</td>-->
-
                                         <td>
                                             <button class="btn btn-icon btn-sm btn-danger"
                                                     @click="removeOrderDetails(index)">
@@ -149,16 +127,12 @@
                                     </tfoot>
                                 </table>
                             </div>
-
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label><b>Remarks</b></label>
                                 <textarea v-bind:class="{'is-invalid': errors.remark}" v-model="remark"
                                           class="form-control" id="Remarks" name="Remarks"></textarea>
-                                <div class="invalid-feedback" v-if="errors.remark">
-                                    <p>{{ errors.remark[0] }}</p>
-                                </div>
                             </div>
                         </div>
                         <div class="col-12">
@@ -188,11 +162,11 @@
                 customer_id: this.getSalesOrder('customer_id'),
                 fulfillment_date: this.getSalesOrder('fulfillment_date'),
                 remark: this.getSalesOrder('remarks'),
+                file: this.getSalesOrder('file'),
+                no_po: this.getSalesOrder('no_po'),
                 orders_detail: this.getSalesOrder('sales_order_details'),
-
+                file_url: this.$parent.MakeUrl('admin/marketing/form_sales_order/download/' +  this.getSalesOrder('file')),
                 qty: [0],
-                no_po: '',
-                file: '',
                 skuid: '',
                 total_amount: [0],
                 source_orders: [],
@@ -261,9 +235,7 @@
             removeOrderDetails(index) {
                 this.orders_detail.splice(index, 1)
             },
-
             async submitForm() {
-
                 const payload = {
                     customerId: this.customer_id,
                     salesOrderId: this.sales_order_id,

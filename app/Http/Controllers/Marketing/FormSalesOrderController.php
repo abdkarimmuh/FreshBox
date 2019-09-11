@@ -86,19 +86,18 @@ class FormSalesOrderController extends Controller
             $validation_po = [];
             $no_po = '';
         }
+        //List Validasi
         $rules = [
             'fulfillmentDate' => 'required',
             'customerId' => 'required|not_in:0',
             'sourceOrderId' => 'required',
-            'file' => 'required',
+            'file' => 'required|file64:jpeg,jpg,png,pdf',
             'items' => 'required',
             'items.*.qty' => 'required|not_in:0',
 
         ];
-
         //Validasi Inputan
         $request->validate(array_merge($validation_po, $rules));
-
 
         $dt = Carbon::now();
         $year_month = $dt->format('ym');
@@ -214,7 +213,6 @@ class FormSalesOrderController extends Controller
                 return true;
             }
         });
-
 
         foreach ($FilterWithoutOrderDetailsID as $row) {
             $withoutOrderDetailsID[] = [
