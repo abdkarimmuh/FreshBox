@@ -2408,8 +2408,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
 //
 //
 //
@@ -2615,21 +2614,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user_id'],
   data: function data() {
-    var _ref;
-
-    return _ref = {
+    return {
       qty: [0],
       remark: '',
       no_po: '',
-      file: '',
       skuid: '',
       total_amount: [0],
       source_order_id: 0,
       source_orders: [],
       fulfillment_date: '',
       message: '',
-      fileName: ''
-    }, _defineProperty(_ref, "file", ''), _defineProperty(_ref, "item", {}), _defineProperty(_ref, "items", []), _defineProperty(_ref, "notes", []), _defineProperty(_ref, "errors", []), _defineProperty(_ref, "customer_id", 0), _defineProperty(_ref, "customers", []), _defineProperty(_ref, "orders_detail", []), _defineProperty(_ref, "loading", false), _ref;
+      fileName: '',
+      file: '',
+      item: {},
+      items: [],
+      notes: [],
+      errors: [],
+      customer_id: 0,
+      customers: [],
+      orders_detail: [],
+      loading: false
+    };
   },
   mounted: function mounted() {
     this.getData();
@@ -2672,26 +2677,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   type: 'success',
                   title: 'Success!',
                   text: 'Successfully Insert Data!'
-                }); // setTimeout(function () {
-                //     window.location.href = '/admin/marketing/form_sales_order';
-                // }, 3000);
-
+                });
+                setTimeout(function () {
+                  window.location.href = '/admin/marketing/form_sales_order';
+                }, 3000);
                 console.log('RES SALES ORDER', res);
-                _context.next = 13;
+                _context.next = 14;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](1);
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
 
-              case 13:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 9]]);
+        }, _callee, this, [[1, 10]]);
       }));
 
       function submitForm() {
@@ -3041,20 +3046,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     calculateTotalAmount: function calculateTotalAmount(index) {
       this.orders_detail[index].total_amount = this.orders_detail[index].qty * this.orders_detail[index].amount_price;
     },
-    pushOrderDetails: function pushOrderDetails() {
-      var index = this.orders_detail.length; // this.total_amount[index] = 0;
-      // this.qty[index] = 0;
-      // this.notes[index] = null;
-
-      return this.orders_detail.push({
-        skuid: this.item.skuid,
-        qty: 0,
-        total_amount: 0,
-        uom_name: this.item.uom,
-        item_name: this.item.item_name,
-        amount_price: this.item.amount,
-        notes: null
+    pushOrderDetails: function pushOrderDetails(skuid) {
+      var index = this.orders_detail.length;
+      var indexItem = this.orders_detail.findIndex(function (x) {
+        return x.skuid === skuid;
       });
+
+      if (indexItem >= 0) {
+        Vue.swal({
+          type: 'error',
+          title: 'ERROR!',
+          text: 'Item Already Added!'
+        });
+        console.log('GAGAL');
+      } else {
+        return this.orders_detail.push({
+          skuid: this.item.skuid,
+          qty: 0,
+          total_amount: 0,
+          uom_name: this.item.uom,
+          item_name: this.item.item_name,
+          amount_price: this.item.amount,
+          notes: null
+        });
+      }
     },
     removeOrderDetails: function removeOrderDetails(index) {
       this.orders_detail.splice(index, 1);
@@ -46376,6 +46391,8 @@ var render = function() {
                                 index
                               ) {
                                 return _c("tr", { key: index }, [
+                                  _c("td", [_vm._v(_vm._s(index))]),
+                                  _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(orders.skuid))]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(orders.item_name))]),
@@ -46527,7 +46544,7 @@ var render = function() {
                     _vm._v(" "),
                     _vm._l(_vm.orders_detail, function(orders, index) {
                       return _c("div", { key: index }, [
-                        _vm.errors["items.0.qty"]
+                        _vm.errors["items." + index + ".qty"]
                           ? _c(
                               "div",
                               {
@@ -46539,7 +46556,11 @@ var render = function() {
                               },
                               [
                                 _c("p", [
-                                  _vm._v(_vm._s(_vm.errors["items.0.qty"][0]))
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.errors["items." + index + ".qty"][0]
+                                    )
+                                  )
                                 ])
                               ]
                             )
@@ -46591,7 +46612,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary",
+                    staticClass: "btn btn-danger",
                     on: {
                       click: function($event) {
                         return _vm.submitForm()
@@ -46623,7 +46644,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h4", [_vm._v("Sales Order Details")])
+      _c("h4", { staticClass: "text-danger" }, [_vm._v("Sales Order Details")])
     ])
   },
   function() {
@@ -46924,7 +46945,11 @@ var render = function() {
                       "button",
                       {
                         staticClass: "btn btn-sm btn-primary",
-                        on: { click: _vm.pushOrderDetails }
+                        on: {
+                          click: function($event) {
+                            return _vm.pushOrderDetails(_vm.skuid)
+                          }
+                        }
                       },
                       [
                         _vm._v(
