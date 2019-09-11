@@ -256,7 +256,7 @@
                     });
                     setTimeout(function () {
                         window.location.href = '/admin/marketing/form_sales_order';
-                    }, 3000);
+                    }, 2500);
                     console.log('RES SALES ORDER', res)
                 } catch (e) {
                     this.errors = e.response.data.errors;

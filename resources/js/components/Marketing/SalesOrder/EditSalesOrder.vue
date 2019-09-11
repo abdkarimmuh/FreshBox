@@ -265,9 +265,9 @@
                         text: 'Successfully Insert Data!'
                     });
                     console.log(res);
-                    // setTimeout(function () {
-                    //     window.location.href = '/admin/marketing/form_sales_order';
-                    // }, 3000);
+                    setTimeout(function () {
+                        window.location.href = '/admin/marketing/form_sales_order';
+                    }, 2500);
                 } catch (e) {
                     this.errors = e.response.data.errors;
                 }
