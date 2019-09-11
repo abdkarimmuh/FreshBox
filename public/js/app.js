@@ -3087,9 +3087,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   customerId: this.customer_id,
                   salesOrderId: this.sales_order_id,
                   remark: this.remark,
-                  file: this.file,
-                  fulfillmentDate: this.fulfillment_date,
-                  noPO: this.no_po,
+                  // file: this.file,
+                  // fulfillmentDate: this.fulfillment_date,
+                  // noPO: this.no_po,
                   items: this.orders_detail.map(function (item, idx) {
                     return {
                       order_details_id: item.id,
@@ -3101,7 +3101,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.post('/api/trx/sales_order_details', payload);
+                return axios.patch('/api/trx/sales_order_details', payload);
 
               case 4:
                 res = _context.sent;

@@ -247,9 +247,9 @@
                     customerId: this.customer_id,
                     salesOrderId: this.sales_order_id,
                     remark: this.remark,
-                    file: this.file,
-                    fulfillmentDate: this.fulfillment_date,
-                    noPO: this.no_po,
+                    // file: this.file,
+                    // fulfillmentDate: this.fulfillment_date,
+                    // noPO: this.no_po,
                     items: this.orders_detail.map((item, idx) => ({
                         order_details_id: item.id,
                         skuid: item.skuid,
@@ -258,7 +258,7 @@
                     }))
                 };
                 try {
-                    const res = await axios.post('/api/trx/sales_order_details', payload);
+                    const res = await axios.patch('/api/trx/sales_order_details', payload);
                     Vue.swal({
                         type: 'success',
                         title: 'Success!',
@@ -288,5 +288,4 @@
             },
         },
     }
-
 </script>
