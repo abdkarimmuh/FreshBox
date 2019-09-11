@@ -167,10 +167,14 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                 v-if="errors['items.0.qty']">
-                                <p>{{ errors['items.0.qty'][0] }}</p>
+
+                            <div v-for="(orders, index) in orders_detail" v-bind:key="index">
+                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                     v-if="errors['items.0.qty']">
+                                    <p>{{errors['items.0.qty'][0] }}</p>
+                                </div>
                             </div>
+
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
