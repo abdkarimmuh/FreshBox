@@ -101,10 +101,18 @@ class FormSalesOrderController extends Controller
 
         $dt = Carbon::now();
         $year_month = $dt->format('ym');
-        $latest_sales_order = SalesOrder::latest()->first();
+        $latest_sales_order = SalesOrder::where()->latest()->first();
         $last_number = isset($latest_sales_order->id) ? $latest_sales_order->id : 0;
         $number = $last_number + 1;
-        $sales_order_no = 'SO' . $year_month . '0000' . $number;
+        $year_month_plus = $year_month . '00000';
+        $lastNumber = $year_month_plus + $number;
+
+        $cut_string_so = str_replace("SO","",$latest_sales_order->sales_order_no);
+
+        $last_sales_order = $cut_string_so + 1;
+
+        $sales_order_no = 'SO'.$last_sales_order;
+
 
         $customer_id = $request->customerId;
         $items = $request->items;
@@ -148,20 +156,20 @@ class FormSalesOrderController extends Controller
             ->get();
         //Untuk Menggabungkan Sales Order Details Menjadi Data Array
         foreach ($items as $i => $detail) {
-            if (isset($detail['qty'])) {
-                $salesOrderDetails[] = [
-                    'sales_order_id' => $sales_order->id,
-                    'skuid' => $detail['skuid'],
-                    'uom_id' => $listItems[$i]->uom_id,
-                    'qty' => $detail['qty'],
-                    'amount_price' => $listItems[$i]->amount,
-                    'total_amount' => $listItems[$i]->amount * $detail['qty'],
-                    'notes' => $detail['notes'],
-                    'created_by' => $user,
-                ];
-            } else {
-                unset($items[$i]);
-            }
+                if (isset($detail['qty'])) {
+                    $salesOrderDetails[] = [
+                        'sales_order_id' => $sales_order->id,
+                        'skuid' => $detail['skuid'],
+                        'uom_id' => $listItems[$i]->uom_id,
+                        'qty' => $detail['qty'],
+                        'amount_price' => $listItems[$i]->amount,
+                        'total_amount' => $listItems[$i]->amount * $detail['qty'],
+                        'notes' => $detail['notes'],
+                        'created_by' => $user,
+                    ];
+                } else {
+                    unset($items[$i]);
+                }
         }
         //Untuk Menginput Data Array Sales Order Details
         SalesOrderDetail::insert($salesOrderDetails);

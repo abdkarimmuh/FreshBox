@@ -8,7 +8,7 @@ Route::get('home', function () {
 });
 
 Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
-//    Route::get('/{any}', 'DashboardController')->where('any', '.*');
+    //    Route::get('/{any}', 'DashboardController')->where('any', '.*');
     Route::get('dashboard', 'DashboardController')->name('dashboard');
     Route::get('users/list', 'UserController@index')->name('users.roles');
     Route::resource('users', 'UserController', [
@@ -27,7 +27,6 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::post('/store', 'Marketing\FormSalesOrderController@store')->name('store');
             Route::get('/{id}/edit', 'Marketing\FormSalesOrderController@edit')->name('edit');
             Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile')->name('download');
-
         });
     });
     /**
@@ -36,10 +35,15 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
     Route::name('warehouse.')->prefix('warehouse')->middleware('auth')->group(function () {
         Route::name('delivery_order.')->prefix('delivery_order')->group(function () {
             Route::get('/', 'Warehouse\FormDeliveryOrderController@index')->name('index');
+            Route::get('/create', 'Warehouse\FormDeliveryOrderController@create')->name('create');
+            Route::post('/store', 'Warehouse\FormDeliveryOrderController@store')->name('store');
+            Route::get('/{id}/edit', 'Warehouse\FormDeliveryOrderController@edit')->name('edit');
         });
 
         Route::name('confirm_delivery_order.')->prefix('confirm_delivery_order')->group(function () {
             Route::get('/', 'Warehouse\ConfirmDeliveryOrderController@index')->name('index');
+            Route::get('/create', 'Warehouse\ConfirmDeliveryOrderController@create')->name('create');
+            Route::post('/store', 'Warehouse\ConfirmDeliveryOrderController@store')->name('store');
         });
     });
     /**
@@ -284,5 +288,4 @@ Route::get('/testing/delete', function () {
 Route::get('roles', function () {
 
     return $user = auth()->user()->getRoleNames();
-
 });
