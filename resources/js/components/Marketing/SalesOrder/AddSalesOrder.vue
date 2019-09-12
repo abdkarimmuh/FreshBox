@@ -133,7 +133,6 @@
                                     </thead>
                                     <tbody>
                                     <tr v-for="(orders, index) in orders_detail" v-bind:key="index">
-                                        <td>{{ index }}</td>
                                         <td>{{ orders.skuid }}</td>
                                         <td>{{ orders.item_name }}</td>
                                         <td style="text-align: right;">
