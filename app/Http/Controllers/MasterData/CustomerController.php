@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\MasterData;
 
+use App\Model\MasterData\CustomerGroup;
+use App\Model\MasterData\CustomerType;
+use App\Model\MasterData\Province;
+use App\Model\MasterData\Residence;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\MasterData\Customer;
@@ -62,7 +66,18 @@ class CustomerController extends Controller
     public function create()
     {
         //Form Generator
+        $customerType = CustomerType::all();
+        $customerGroup = CustomerGroup::all();
+        $residence = Residence::all();
+        $province = Province::all();
+
         $forms = [
+            array('type' => 'select_option', 'label' => 'Customer Type', 'name' => 'customer_type', 'variable' => 'customerType', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Customer Group', 'name' => 'customer_group', 'variable' => 'customerGroup','option_value'=> 'id', 'option_text' => 'name', 'mandatory' => true),
+
+            array('type' => 'select_option', 'label' => 'Province', 'name' => 'province', 'variable' => 'province', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Residence', 'name' => 'residence', 'variable' => 'residence', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+
             array('type' => 'text', 'label' => 'Customer Code', 'name' => 'customer_code', 'place_holder' => 'Customer Code', 'mandatory' => true),
             array('type' => 'text', 'label' => 'Customer Name', 'name' => 'name', 'place_holder' => 'Customer Name', 'mandatory' => true),
             array('type' => 'text', 'label' => 'PIC Name', 'name' => 'pic_customer', 'place_holder' => 'PIC Name', 'mandatory' => true),
@@ -81,13 +96,13 @@ class CustomerController extends Controller
             'back-button' => 'admin.master_data.customer.index'
         ];
 
-        return view('admin.crud.create_or_edit', compact('forms', 'config'));
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'customerType', 'customerGroup', 'province', 'residence'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -98,7 +113,7 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -109,7 +124,7 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -120,8 +135,8 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -132,7 +147,7 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
