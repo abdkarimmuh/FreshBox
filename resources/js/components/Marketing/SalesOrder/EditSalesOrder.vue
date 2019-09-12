@@ -65,7 +65,7 @@
                         <div class="col-md-6 mt-4" v-if="skuid != ''">
                             <div class="form-group">
                                 <label></label>
-                                <button class="btn btn-sm btn-primary" @click="pushOrderDetails">
+                                <button class="btn btn-sm btn-primary" @click="pushOrderDetails(skuid)">
                                     Add Items
                                 </button>
                             </div>
@@ -217,20 +217,27 @@
                 this.orders_detail[index].total_amount =
                     this.orders_detail[index].qty * this.orders_detail[index].amount_price
             },
-            pushOrderDetails() {
+            pushOrderDetails(skuid) {
                 let index = this.orders_detail.length;
-                // this.total_amount[index] = 0;
-                // this.qty[index] = 0;
-                // this.notes[index] = null;
-                return this.orders_detail.push({
-                    skuid: this.item.skuid,
-                    qty: 0,
-                    total_amount: 0,
-                    uom_name: this.item.uom,
-                    item_name: this.item.item_name,
-                    amount_price: this.item.amount,
-                    notes: null
-                })
+                const indexItem = this.orders_detail.findIndex(x => x.skuid === skuid);
+                if (indexItem >= 0) {
+                    Vue.swal({
+                        type: 'error',
+                        title: 'ERROR!',
+                        text: 'Item Already Added!'
+                    });
+                    console.log('GAGAL');
+                } else {
+                    return this.orders_detail.push({
+                        skuid: this.item.skuid,
+                        qty: 0,
+                        total_amount: 0,
+                        uom_name: this.item.uom,
+                        item_name: this.item.item_name,
+                        amount_price: this.item.amount,
+                        notes: null
+                    });
+                }
             },
             removeOrderDetails(index) {
                 this.orders_detail.splice(index, 1)
@@ -240,9 +247,9 @@
                     customerId: this.customer_id,
                     salesOrderId: this.sales_order_id,
                     remark: this.remark,
-                    file: this.file,
-                    fulfillmentDate: this.fulfillment_date,
-                    noPO: this.no_po,
+                    // file: this.file,
+                    // fulfillmentDate: this.fulfillment_date,
+                    // noPO: this.no_po,
                     items: this.orders_detail.map((item, idx) => ({
                         order_details_id: item.id,
                         skuid: item.skuid,
@@ -251,16 +258,16 @@
                     }))
                 };
                 try {
-                    const res = await axios.post('/api/trx/sales_order_details', payload);
+                    const res = await axios.patch('/api/trx/sales_order_details', payload);
                     Vue.swal({
                         type: 'success',
                         title: 'Success!',
                         text: 'Successfully Insert Data!'
                     });
                     console.log(res);
-                    // setTimeout(function () {
-                    //     window.location.href = '/admin/marketing/form_sales_order';
-                    // }, 3000);
+                    setTimeout(function () {
+                        window.location.href = '/admin/marketing/form_sales_order';
+                    }, 2500);
                 } catch (e) {
                     this.errors = e.response.data.errors;
                 }
@@ -281,5 +288,4 @@
             },
         },
     }
-
 </script>

@@ -176,83 +176,99 @@ class FormSalesOrderController extends Controller
 
     public function updateSalesOrderDetails(Request $request)
     {
-        //        return $request->all();
-
-        $dt = Carbon::now();
-        $year_month = $dt->format('ym');
-
-        $latest_sales_order = SalesOrder::latest()->first();
-        $last_number = isset($latest_sales_order->id) ? $latest_sales_order->id : 0;
-        $number = $last_number + 1;
-
         $customer_id = $request->customerId;
-        $sales_order_id = $request->salesOrderId;
-
-        $sales_order_no = 'SO' . $year_month . '0000' . $number;
-        $source_order_id = $request->sourceOrderId;
-        $fulfillment_date = $request->fulfillmentDate;
         $remarks = $request->remark;
+        $sales_order_id = $request->salesOrderId;
         $items = $request->items;
-        $no_po = isset($request->noPO) ? $request->noPO : '';
-        //
-        //        $user = 1;
-        //
-        //        $item = Price::where('customer_id', $customer_id)->get();
-        //
+        $user = 1;
+
+        /**
+         * Proses Update Data Order Details
+         */
+        SalesOrder::where('id', $sales_order_id)->update(['remarks' => $remarks]);
 
         $collection = collect($items);
-        $hasOrderDetailsID = $collection->filter(function ($value, $key) {
+        //Filter Data Untuk Di Update
+        $FilterHasOrderDetailsID = $collection->filter(function ($value, $key) {
             if (isset($value['qty']) && isset($value['order_details_id'])) {
                 return true;
             }
         });
-        $OnlyOrderDetailsID = $hasOrderDetailsID->pluck('order_details_id')->all();
+        //Mengambil List Order Details ID Yang Sudah Di Filter
+        $OnlyOrderDetailsID = $FilterHasOrderDetailsID->pluck('order_details_id')->all();
 
+        $OrderDetailsIDStr = implode(',', $OnlyOrderDetailsID);
+
+        $OrderDetailLists = SalesOrderDetail::whereIn('id', $OnlyOrderDetailsID)
+            ->orderByRaw(DB::raw("FIND_IN_SET(id, '$OrderDetailsIDStr')"))
+            ->get();
+
+        foreach ($FilterHasOrderDetailsID as $i => $row) {
+            SalesOrderDetail::where('id', $row['order_details_id'])
+                ->update([
+                    'qty' => $row['qty'],
+                    'amount_price' => $OrderDetailLists[$i]->amount_price,
+                    'total_amount' => $OrderDetailLists[$i]->amount_price * $row['qty'],
+                    'notes' => $row['notes'],
+                    'updated_by' => $user
+                ]);
+        }
+
+        /**
+         * Proses Insert Baru Jika Ada Penambahan Items
+         */
+
+        //Untuk Memfilter Data Yang Baru Di Tambah
         $FilterWithoutOrderDetailsID = $collection->filter(function ($value, $key) use ($collection) {
             if (isset($value['qty']) && !isset($value['order_details_id'])) {
                 return true;
             }
         });
+        if (isset($FilterWithoutOrderDetailsID)) {
+            //Merapihkan Posisi Index Data Yang Baru Di Tambah
+            foreach ($FilterWithoutOrderDetailsID as $row) {
+                $withoutOrderDetailsID[] = [
+                    'sales_order_id' => $sales_order_id,
+                    'skuid' => $row['skuid'],
+                    'qty' => $row['qty'],
+                    'notes' => $row['notes'],
+                    'created_by' => $user
+                ];
+            }
+            if (isset($withoutOrderDetailsID)) {
+                //Memindahkan Ke Collection
+                $withoutOrderDetailsID = collect($withoutOrderDetailsID);
+                //Mengambil Semua SKUID Data Yang Baru di Tambah
+                $OnlySKUIDs = $withoutOrderDetailsID->pluck('skuid')->all();
+                //Merubah Array SKUID ke String
+                $OnlySKUIDStr = implode(',', $OnlySKUIDs);
+                //Mengambil List Data Di Table Price
+                //Untuk Perhitungan Total Amount Via Backend
+                $PriceLists = Price::where('customer_id', $customer_id)
+                    ->whereIn('skuid', $OnlySKUIDs)
+                    ->orderByRaw(DB::raw("FIND_IN_SET(skuid, '$OnlySKUIDStr')"))
+                    ->get();
 
-        foreach ($FilterWithoutOrderDetailsID as $row) {
-            $withoutOrderDetailsID[] = [
-                'sales_order_id' => $sales_order_id,
-                'skuid' => $row['skuid'],
-                'qty' => $row['qty'],
-                'notes' => $row['notes'],
-            ];
+                //Merapihkan Posisi Index Data Yang Baru Di Tambah
+                foreach ($withoutOrderDetailsID as $i => $row) {
+                    $FinalWithoutOrderDetailsID[] = [
+                        'sales_order_id' => $sales_order_id,
+                        'skuid' => $row['skuid'],
+                        'qty' => $row['qty'],
+                        'amount_price' => $PriceLists[$i]->amount,
+                        'total_amount' => $PriceLists[$i]->amount * $row['qty'],
+                        'uom_id' => $PriceLists[$i]->uom_id,
+                        'notes' => $row['notes'],
+                        'created_by' => $user
+
+                    ];
+                }
+                SalesOrderDetail::insert($FinalWithoutOrderDetailsID);
+            }
         }
-        return $withoutOrderDetailsID;
-
-        //        foreach ($items as $i => $detail) {
-        //            if (isset($detail['qty']) && isset($detail['order_details_id'])) {
-        //                $order_details_id[] =
-        //                    $detail['order_details_id'];
-        //                $salesOrderDetails[] = [
-        //                    'sales_order_id' => $sales_order_id,
-        //                    'skuid' => $detail['skuid'],
-        //                    'qty' => $detail['qty'],
-        ////                    'amount_price' => $item[$i]->amount,
-        ////                    'total_amount' => $item[$i]->amount * $detail['qty'],
-        //                    'notes' => $detail['notes'],
-        //                ];
-        //            } else {
-        //                $insertSalesOrderDetails[] = [
-        //                    'sales_order_id' => $sales_order_id,
-        //                    'skuid' => $detail['skuid'],
-        //                    'qty' => $detail['qty'],
-        ////                    'amount_price' => $item[$i]->amount,
-        ////                    'total_amount' => $item[$i]->amount * $detail['qty'],
-        //                    'notes' => $detail['notes'],
-        //                ];
-        //            }
-        //
-        //        }
-
-        return $order_details_id;
-        SalesOrderDetail::insert($salesOrderDetails);
-
-        return response()->json($sales_order);
+        return response()->json([
+            'status' => 'success'
+        ], 200);
     }
 
     public function DownloadFile($file)

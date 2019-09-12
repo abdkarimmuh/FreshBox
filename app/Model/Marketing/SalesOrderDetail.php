@@ -12,6 +12,15 @@ class SalesOrderDetail extends MyModel
 {
     protected $table = 'trx_sales_order_detail';
     protected $appends = ['item_name', 'uom_name'];
+    protected $fillable = [
+        'sales_order_id',
+        'qty',
+        'skuid',
+        'amount_price',
+        'total_amount',
+        'notes',
+        'created_by'
+    ];
 
     public function item()
     {

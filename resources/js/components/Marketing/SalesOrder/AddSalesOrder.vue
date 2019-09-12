@@ -6,7 +6,7 @@
             </div>
             <div class="card col-12">
                 <div class="card-header">
-                    <h4>Sales Order Details</h4>
+                    <h4 class="text-danger">Sales Order Details</h4>
                 </div>
                 <div class="col-12">
                     <div class="row">
@@ -133,6 +133,7 @@
                                     </thead>
                                     <tbody>
                                     <tr v-for="(orders, index) in orders_detail" v-bind:key="index">
+                                        <td>{{ index }}</td>
                                         <td>{{ orders.skuid }}</td>
                                         <td>{{ orders.item_name }}</td>
                                         <td style="text-align: right;">
@@ -170,8 +171,8 @@
 
                             <div v-for="(orders, index) in orders_detail" v-bind:key="index">
                                 <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                     v-if="errors['items.0.qty']">
-                                    <p>{{errors['items.0.qty'][0] }}</p>
+                                     v-if="errors[`items.${index}.qty`]">
+                                    <p>{{errors[`items.${index}.qty`][0] }}</p>
                                 </div>
                             </div>
 
@@ -188,7 +189,7 @@
                         </div>
                         <div class="col-12">
                             <div class="card-body">
-                                <button class="btn btn-primary" v-on:click="submitForm()">Submit</button>
+                                <button class="btn btn-danger" v-on:click="submitForm()">Submit</button>
                                 <button type="button" class="btn btn-secondary" onclick="back()">Back</button>
                             </div>
                         </div>
@@ -209,7 +210,6 @@
                 qty: [0],
                 remark: '',
                 no_po: '',
-                file: '',
                 skuid: '',
                 total_amount: [0],
                 source_order_id: 0,
@@ -254,9 +254,9 @@
                         title: 'Success!',
                         text: 'Successfully Insert Data!'
                     });
-                    // setTimeout(function () {
-                    //     window.location.href = '/admin/marketing/form_sales_order';
-                    // }, 3000);
+                    setTimeout(function () {
+                        window.location.href = '/admin/marketing/form_sales_order';
+                    }, 2500);
                     console.log('RES SALES ORDER', res)
                 } catch (e) {
                     this.errors = e.response.data.errors;

@@ -17,16 +17,7 @@ use Illuminate\Http\Request;
 /**
  * Marketing Route
  */
-Route::group(['prefix' => 'marketing/'], function () {
-    Route::group(['prefix' => 'sales_order'], function () {
-        Route::get('/', 'Marketing\FormSalesOrderController@index');
-        Route::get('/{id}', 'Marketing\FormSalesOrderController@show');
-    });
-    Route::group(['prefix' => 'sales_order_detail'], function () {
-        Route::get('/{customer_id}', 'Marketing\FormSalesOrderController@sales_order_detail');
-        Route::post('/', 'Marketing\FormSalesOrderController@InsertSalesOrderDetail');
-    });
-});
+
 
 /**
  * Warehouse Route
@@ -68,9 +59,20 @@ Route::group(['prefix' => 'master_data/'], function () {
     Route::post('uom', 'MasterData\UomController@store');
 });
 
+
+Route::group(['prefix' => 'marketing/'], function () {
+    Route::group(['prefix' => 'sales_order'], function () {
+        Route::get('/', 'Marketing\FormSalesOrderController@index');
+        Route::get('/{id}', 'Marketing\FormSalesOrderController@show');
+    });
+    Route::group(['prefix' => 'sales_order_detail'], function () {
+        Route::get('/{customer_id}', 'Marketing\FormSalesOrderController@sales_order_detail');
+        Route::post('/', 'Marketing\FormSalesOrderController@InsertSalesOrderDetail');
+    });
+});
 Route::group(['prefix' => 'trx'], function () {
     Route::get('sales_order_details/{id}', 'Marketing\FormSalesOrderController@getSalesOrderDetails');
-    Route::post('sales_order_details', 'Marketing\FormSalesOrderController@updateSalesOrderDetails');
+    Route::patch('sales_order_details', 'Marketing\FormSalesOrderController@updateSalesOrderDetails');
 
 });
 /**
