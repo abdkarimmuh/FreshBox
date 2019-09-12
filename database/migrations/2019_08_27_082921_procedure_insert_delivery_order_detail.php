@@ -17,7 +17,7 @@ class ProcedureInsertDeliveryOrderDetail extends Migration
 
         DB::unprepared('CREATE PROCEDURE insert_delivery_order_detail( IN delivery_order_id INT, IN item_id INT, IN sales_order_detail_id INT, IN qty_do DECIMAL(18, 2), IN uom_id INT, IN created_by INT )
         BEGIN
-        INSERT INTO master_delivery_order_detail (delivery_order_id, item_id, sales_order_detail_id, qty_do, uom_id, returned, created_at, created_by) VALUES (delivery_order_id, item_id, sales_order_detail_id, qty_do, uom_id, 0, now(), created_by);
+        INSERT INTO trx_delivery_order_detail (delivery_order_id, item_id, sales_order_detail_id, qty_do, uom_id, returned, created_at, created_by) VALUES (delivery_order_id, item_id, sales_order_detail_id, qty_do, uom_id, 0, now(), created_by);
         END');
     }
 
