@@ -97,21 +97,21 @@ class FormSalesOrderController extends Controller
 
         ];
         //Validasi Inputan
-        $request->validate(array_merge($validation_po, $rules));
+        // $request->validate(array_merge($validation_po, $rules));
 
         $dt = Carbon::now();
         $year_month = $dt->format('ym');
-        $latest_sales_order = SalesOrder::where()->latest()->first();
-        $last_number = isset($latest_sales_order->id) ? $latest_sales_order->id : 0;
-        $number = $last_number + 1;
-        $year_month_plus = $year_month . '00000';
-        $lastNumber = $year_month_plus + $number;
-
-        $cut_string_so = str_replace("SO","",$latest_sales_order->sales_order_no);
-
-        $last_sales_order = $cut_string_so + 1;
-
-        $sales_order_no = 'SO'.$last_sales_order;
+        //Untuk Mendapatkan Data Terakhir Sales Order di Bulan Tahun Berjalan
+        $latest_sales_order = SalesOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+        //Cek jika ada data sales order maka di ambil sales_order_no
+        //Kalau Tidak ada maka di buat sales_order_no baru
+        $get_last_so_no = isset($latest_sales_order->sales_order_no) ? $latest_sales_order->sales_order_no : 'SO' . $year_month . '00000';
+        //Mereplace Text SO ke String Kosong
+        $cut_string_so = str_replace("SO", "", $get_last_so_no);
+        //Menjumlahkan
+        $sum_so_no = $cut_string_so + 1;
+        //Hasil Akhir Sales Order No
+        $sales_order_no = 'SO' . $sum_so_no;
 
 
         $customer_id = $request->customerId;
@@ -122,11 +122,15 @@ class FormSalesOrderController extends Controller
         $user = $request->user_id;
 
         //Untuk Mengupload File Ke Storage
-        $file = $request->file;
-        @list($type, $file_data) = explode(';', $file);
-        @list(, $file_data) = explode(',', $file_data);
-        $file_name = $sales_order_no . '-' . time() . '-' . $source_order_id . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-        Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
+        if ($request->file) {
+            $file = $request->file;
+            @list($type, $file_data) = explode(';', $file);
+            @list(, $file_data) = explode(',', $file_data);
+            $file_name = $sales_order_no . '-' . time() . '-' . $source_order_id . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
+        } else {
+            $file_name = '';
+        }
 
         //Untuk Menginput Sales Order
         $sales_order = SalesOrder::create([
@@ -156,20 +160,20 @@ class FormSalesOrderController extends Controller
             ->get();
         //Untuk Menggabungkan Sales Order Details Menjadi Data Array
         foreach ($items as $i => $detail) {
-                if (isset($detail['qty'])) {
-                    $salesOrderDetails[] = [
-                        'sales_order_id' => $sales_order->id,
-                        'skuid' => $detail['skuid'],
-                        'uom_id' => $listItems[$i]->uom_id,
-                        'qty' => $detail['qty'],
-                        'amount_price' => $listItems[$i]->amount,
-                        'total_amount' => $listItems[$i]->amount * $detail['qty'],
-                        'notes' => $detail['notes'],
-                        'created_by' => $user,
-                    ];
-                } else {
-                    unset($items[$i]);
-                }
+            if (isset($detail['qty'])) {
+                $salesOrderDetails[] = [
+                    'sales_order_id' => $sales_order->id,
+                    'skuid' => $detail['skuid'],
+                    'uom_id' => $listItems[$i]->uom_id,
+                    'qty' => $detail['qty'],
+                    'amount_price' => $listItems[$i]->amount,
+                    'total_amount' => $listItems[$i]->amount * $detail['qty'],
+                    'notes' => $detail['notes'],
+                    'created_by' => $user,
+                ];
+            } else {
+                unset($items[$i]);
+            }
         }
         //Untuk Menginput Data Array Sales Order Details
         SalesOrderDetail::insert($salesOrderDetails);
