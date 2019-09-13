@@ -37,7 +37,7 @@ class FormDeliveryOrderController extends Controller
              * Route Can Be Null, Using Route Name
              */
             //Route For Button Add
-            'route-add' => 'admin.marketing.sales_order.create',
+            'route-add' => 'admin.warehouse.delivery_order.create',
             //Route For Button Edit
             'route-edit' => 'admin.marketing.sales_order.edit',
             //Route For Button View
@@ -57,7 +57,7 @@ class FormDeliveryOrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.warehouse.create_delivery_order');
     }
 
     /**

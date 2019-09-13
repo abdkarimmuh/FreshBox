@@ -16,6 +16,7 @@ import DataTable from "./components/DataTable/DataTable";
 import AddSalesOrder from "./components/Marketing/SalesOrder/AddSalesOrder";
 import EditSalesOrder from "./components/Marketing/SalesOrder/EditSalesOrder";
 import VueSweetalert2 from 'vue-sweetalert2';
+import AddDeliveryOrder from './components/Warehouse/AddDeliveryOrder';
 
 Vue.use(VueSweetalert2);
 Vue.component('vue-headful', vueHeadful);
@@ -25,21 +26,12 @@ Vue.component('adduser-component', AdduserComponent);
 Vue.component('addsalesorder-component', AddSalesOrder);
 Vue.component('editsalesorder-component', EditSalesOrder);
 
+Vue.component('add_deliver_order-component', AddDeliveryOrder);
+// Vue.component('editsalesorder-component', EditSalesOrder);
+
 Vue.component("data-table", DataTable);
 Vue.component("laravel-pagination", require('laravel-vue-pagination'));
 Vue.use(DatePicker);
-
-Vue.filter('toCurrency', function (value) {
-    if (typeof value !== "number") {
-        return value;
-    }
-    var formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0
-    });
-    return formatter.format(value);
-});
 
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
