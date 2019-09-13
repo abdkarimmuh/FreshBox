@@ -126,7 +126,7 @@ class FormSalesOrderController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $sales_order_no . '-' . time() . '-' . $source_order_id . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            $file_name = $sales_order_no . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
             Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
