@@ -88,7 +88,6 @@ class SalesOrder extends MyModel
     public function sales_order_details()
     {
         return $this->hasMany(SalesOrderDetail::class);
-
     }
 
     public function SourceOrder()
@@ -100,5 +99,4 @@ class SalesOrder extends MyModel
     {
         return $this->columns;
     }
-
 }

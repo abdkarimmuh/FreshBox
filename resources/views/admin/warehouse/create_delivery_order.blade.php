@@ -1,7 +1,7 @@
 @extends('layouts.admin-master')
 
 @section('content')
-<add_deliver_order-component :user_id="{{ auth()->user()->id }}"></add_deliver_order-component>
+<adddelieryorder-component :user_id="{{ auth()->user()->id }}"></adddelieryorder-component>
 @endsection
 @push('js')
     <script>

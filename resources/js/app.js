@@ -26,7 +26,7 @@ Vue.component('adduser-component', AdduserComponent);
 Vue.component('addsalesorder-component', AddSalesOrder);
 Vue.component('editsalesorder-component', EditSalesOrder);
 
-Vue.component('add_deliver_order-component', AddDeliveryOrder);
+Vue.component('adddelieryorder-component', AddDeliveryOrder);
 // Vue.component('editsalesorder-component', EditSalesOrder);
 
 Vue.component("data-table", DataTable);

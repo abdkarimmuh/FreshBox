@@ -22,16 +22,12 @@ use Illuminate\Http\Request;
 /**
  * Warehouse Route
  */
-Route::group(['prefix' => 'warehouse/'], function () {
-
-});
+Route::group(['prefix' => 'warehouse/'], function () { });
 
 /**
  * Finance Route
  */
-Route::group(['prefix' => 'finance/'], function () {
-
-});
+Route::group(['prefix' => 'finance/'], function () { });
 /**
  * Master Data Route
  */
@@ -51,10 +47,17 @@ Route::group(['prefix' => 'master_data/'], function () {
         Route::get('/', 'API\MasterPriceController@index');
         Route::get('/list', 'API\SourceOrderAPIController@all');
     });
+    Route::group(['prefix' => 'driver'], function () {
+        Route::get('/', 'API\DriverAPIController@index');
+    });
+
+
     Route::get('customer', 'API\CustomerAPIController@index')->name('api.customer');
     Route::get('list_customer', 'API\CustomerAPIController@all');
 
-//    Route::get('price_customer/{id}', 'API\MasterPriceController@CustomerPrice');
+
+
+    //    Route::get('price_customer/{id}', 'API\MasterPriceController@CustomerPrice');
     Route::get('uom', 'MasterData\UomController@index');
     Route::post('uom', 'MasterData\UomController@store');
 });
@@ -62,8 +65,8 @@ Route::group(['prefix' => 'master_data/'], function () {
 
 Route::group(['prefix' => 'marketing/'], function () {
     Route::group(['prefix' => 'sales_order'], function () {
-        Route::get('/', 'Marketing\FormSalesOrderController@index');
-        Route::get('/{id}', 'Marketing\FormSalesOrderController@show');
+        Route::get('/', 'API\FormSalesOrderAPIController@index');
+        Route::get('/{so_no}', 'API\FormSalesOrderAPIController@show');
     });
     Route::group(['prefix' => 'sales_order_detail'], function () {
         Route::get('/{customer_id}', 'Marketing\FormSalesOrderController@sales_order_detail');
@@ -73,7 +76,6 @@ Route::group(['prefix' => 'marketing/'], function () {
 Route::group(['prefix' => 'trx'], function () {
     Route::get('sales_order_details/{id}', 'Marketing\FormSalesOrderController@getSalesOrderDetails');
     Route::patch('sales_order_details', 'Marketing\FormSalesOrderController@updateSalesOrderDetails');
-
 });
 /**
  * Testing Route
