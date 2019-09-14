@@ -22,7 +22,7 @@ class CreateTrxSalesOrder extends Migration
             $table->date('fulfillment_date');
             $table->string('remarks', 200)->nullable();
             $table->binary('file')->nullable();
-            $table->integer('status');
+            $table->tinyInteger('status')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
