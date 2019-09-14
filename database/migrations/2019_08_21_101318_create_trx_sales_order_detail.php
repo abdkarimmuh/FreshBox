@@ -23,7 +23,7 @@ class CreateTrxSalesOrderDetail extends Migration
             $table->decimal('tax_value', 18, 2)->nullable();
             $table->decimal('total_amount', 18, 2);
             $table->string('notes', 200)->nullable();
-            $table->tinyInteger('status')->detault(0);
+            $table->tinyInteger('status')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
