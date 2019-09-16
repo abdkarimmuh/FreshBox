@@ -287,4 +287,15 @@ class FormSalesOrderController extends Controller
     {
         return Storage::download('public/files/' . $file);
     }
+
+    public function deleteOrderDetails($id)
+    {
+        $so_detail = SalesOrderDetail::find($id);
+        $so_detail->delete();
+
+        return response()->json([
+            'status' => 'Success!'
+        ], 200);
+
+    }
 }

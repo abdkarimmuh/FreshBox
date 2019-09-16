@@ -92,26 +92,26 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(orders, index) in orders_detail" v-bind:key="index">
-                                        <td>{{ orders.skuid }}</td>
-                                        <td>{{ orders.item_name }}</td>
+                                    <tr v-for="(order, index) in orders_detail" v-bind:key="index">
+                                        <td>{{ order.skuid }}</td>
+                                        <td>{{ order.item_name }}</td>
                                         <td>
-                                            <input v-model="orders.qty" type="number" placeholder="Qty" min="0"
+                                            <input v-model="order.qty" type="number" placeholder="Qty" min="0"
                                                    oninput="validity.valid||(value='');"
                                                    class="form-control qty" v-on:input="calculateTotalAmount(index)">
                                         </td>
-                                        <td>{{ orders.uom_name}}</td>
-                                        <td>{{ formatPrice(orders.amount_price) }}</td>
-                                        <td>{{ formatPrice(orders.total_amount) }}</td>
+                                        <td>{{ order.uom_name}}</td>
+                                        <td>{{ formatPrice(order.amount_price) }}</td>
+                                        <td>{{ formatPrice(order.total_amount) }}</td>
                                         <td>
-                                            <input v-model="orders.notes"
+                                            <input v-model="order.notes"
                                                    type="text"
                                                    placeholder="Notes"
                                                    class="form-control">
                                         </td>
                                         <td>
                                             <button class="btn btn-icon btn-sm btn-danger"
-                                                    @click="removeOrderDetails(index)">
+                                                    @click="removeOrderDetails(order.id, index)">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </td>
@@ -165,7 +165,7 @@
                 file: this.getSalesOrder('file'),
                 no_po: this.getSalesOrder('no_po'),
                 orders_detail: this.getSalesOrder('sales_order_details'),
-                file_url: this.$parent.MakeUrl('admin/marketing/form_sales_order/download/' +  this.getSalesOrder('file')),
+                file_url: this.$parent.MakeUrl('admin/marketing/form_sales_order/download/' + this.getSalesOrder('file')),
                 qty: [0],
                 skuid: '',
                 total_amount: [0],
@@ -239,8 +239,28 @@
                     });
                 }
             },
-            removeOrderDetails(index) {
-                this.orders_detail.splice(index, 1)
+            removeOrderDetails(orderId, index) {
+                // this.orders_detail.splice(index, 1)
+                // const res = axios.delete('/api/trx/sales_order_details', +id);
+                // console.log(res);
+
+                let _this = this;
+                this.$iosConfirm({
+                    title: 'Are you sure?',
+                    text: 'The item and their associated data will be permanently deleted. Proceed?'
+                }).then(function () {
+                    axios.delete(_this.$parent.MakeUrl('/api/trx/sales_order_details/' + orderId)).then((res) => {
+                        _this.orders_detail.splice(index, 1);
+                        _this.getData();
+                        console.log(res.data);
+                    }).catch(error => {
+                        _this.$iosAlert({
+                            'title': 'Error',
+                            'text': error.response.data.message
+                        });
+                    });
+                });
+
             },
             async submitForm() {
                 const payload = {

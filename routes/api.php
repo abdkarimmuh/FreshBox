@@ -76,6 +76,7 @@ Route::group(['prefix' => 'marketing/'], function () {
 Route::group(['prefix' => 'trx'], function () {
     Route::get('sales_order_details/{id}', 'Marketing\FormSalesOrderController@getSalesOrderDetails');
     Route::patch('sales_order_details', 'Marketing\FormSalesOrderController@updateSalesOrderDetails');
+    Route::delete('sales_order_details/{id}', 'Marketing\FormSalesOrderController@deleteOrderDetails');
 });
 /**
  * Testing Route
