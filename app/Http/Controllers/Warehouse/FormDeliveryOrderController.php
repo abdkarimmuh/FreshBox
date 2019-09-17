@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Warehouse;
 
+use App\Model\Warehouse\DeliveryOrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Marketing\SalesOrder;
 use App\Model\Warehouse\DeliveryOrder;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class FormDeliveryOrderController extends Controller
 {
@@ -38,8 +42,6 @@ class FormDeliveryOrderController extends Controller
              */
             //Route For Button Add
             'route-add' => 'admin.warehouse.delivery_order.create',
-            //Route For Button Edit
-            'route-edit' => 'admin.marketing.sales_order.edit',
             //Route For Button View
             'route-view' => 'testing.create',
         ];
@@ -77,7 +79,7 @@ class FormDeliveryOrderController extends Controller
 
         ];
         //Validasi Inputan
-        // $request->validate(array_merge($validation_po, $rules));
+        $request->validate($rules);
 
         $dt = Carbon::now();
         $year_month = $dt->format('ym');
@@ -102,7 +104,7 @@ class FormDeliveryOrderController extends Controller
         $so_details = $request->so_details;
 
         //Untuk Menginput Sales Order
-        $sales_order = SalesOrder::create([
+        $delivery_order = DeliveryOrder::create([
             'delivery_order_no' => $delivery_order_no,
             'sales_order_id' => $sales_order_id,
             'customer_id' => $customer_id,
@@ -111,29 +113,27 @@ class FormDeliveryOrderController extends Controller
             'remark' => $remark,
             'created_by' => $user,
         ]);
-        SalesOrder::find($sales_order_id)->update(['status' => 2]);
+
+        SalesOrder::find($sales_order_id)->update(['status' => 4]);
+
+        $delivery_order_id = $delivery_order->id;
+
 
         //Untuk Menggabungkan Sales Order Details Menjadi Data Array
         foreach ($so_details as $i => $detail) {
-            if (isset($detail['qty'])) {
-                $salesOrderDetails[] = [
-                    'sales_order_id' => $sales_order->id,
-                    'skuid' => $detail['skuid'],
-                    'uom_id' => $listItems[$i]->uom_id,
-                    'qty' => $detail['qty'],
-                    'amount_price' => $listItems[$i]->amount,
-                    'total_amount' => $listItems[$i]->amount * $detail['qty'],
-                    'notes' => $detail['notes'],
-                    'created_by' => $user,
-                ];
-            } else {
-                unset($items[$i]);
-            }
+            $salesOrderDetails[] = [
+                'delivery_order_id' => $delivery_order_id,
+                'sales_order_detail_id' => $detail['id'],
+                'skuid' => $detail['skuid'],
+                'uom_id' => $detail['uom_id'],
+                'qty_do' => $detail['qty_do'],
+                'created_by' => $user,
+            ];
         }
         //Untuk Menginput Data Array Sales Order Details
-        SalesOrderDetail::insert($salesOrderDetails);
+        DeliveryOrderDetail::insert($salesOrderDetails);
 
-        return response()->json($sales_order);
+        return response()->json($salesOrderDetails);
     }
 
     /**

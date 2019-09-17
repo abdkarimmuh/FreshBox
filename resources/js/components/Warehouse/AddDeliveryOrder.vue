@@ -26,7 +26,8 @@
                                     ></model-list-select>
                                     <div
                                         style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.sales_order_id">
+                                        v-if="errors.sales_order_id"
+                                    >
                                         <p>{{ errors.sales_order_id[0] }}</p>
                                     </div>
                                 </div>
@@ -48,8 +49,10 @@
                                         option-text="name"
                                         placeholder="Select Driver"
                                     ></model-list-select>
-                                    <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                         v-if="errors.driver_id">
+                                    <div
+                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                        v-if="errors.driver_id"
+                                    >
                                         <p>{{ errors.driver_id[0] }}</p>
                                     </div>
                                 </div>
@@ -78,11 +81,14 @@
                                     <date-picker
                                         v-model="do_date"
                                         lang="en"
+                                        valueType="format"
                                         :not-before="new Date()"
                                     ></date-picker>
                                 </div>
-                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                     v-if="errors.do_date">
+                                <div
+                                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                    v-if="errors.do_date"
+                                >
                                     <p>{{ errors.do_date[0] }}</p>
                                 </div>
                             </div>
@@ -106,8 +112,9 @@
                                         <td>{{ orders.item_name }}</td>
                                         <td>{{ orders.qty }}</td>
                                         <td>{{ orders.uom_name }}</td>
-                                        <td><input v-model="orders.qty_do" type="text" placeholder="Qty DO"
-                                                   class="form-control"/>
+                                        <td>
+                                            <input v-model="qty_do[index].qty" v-on:change="validateQtyDO(index)"
+                                                   type="number" class="form-control" :max="orders.qty"/>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -139,15 +146,15 @@
     import {ModelListSelect} from "vue-search-select";
 
     export default {
-        props: ['user_id'],
+        props: ["user_id"],
         data() {
             return {
-                sales_order_id: '',
-                customer_id: '',
-                customer_name: '',
-                do_date: '',
-                driver_id: '',
-                remark: '',
+                sales_order_id: "",
+                customer_id: "",
+                customer_name: "",
+                do_date: "",
+                driver_id: "",
+                remark: "",
                 sales_order: {},
                 sales_orders: [],
                 sales_order_details: [],
@@ -160,18 +167,32 @@
             this.getData();
         },
         methods: {
+            validateQtyDO(idx) {
+                let qty_do = parseFloat(this.qty_do[idx].qty);
+                let qty_so = parseFloat(this.sales_order_details[idx].qty) + (this.sales_order_details[idx].qty * 0.1);
+                console.log(qty_so);
+                if (qty_do > qty_so) {
+                    this.qty_do[idx].qty = qty_so;
+                }
+            },
             getDataCustomer() {
-                axios.get(
-                    this.$parent.MakeUrl(
-                        "api/marketing/sales_order/" + this.sales_order_id
+                axios
+                    .get(
+                        this.$parent.MakeUrl(
+                            "api/marketing/sales_order/" + this.sales_order_id
+                        )
                     )
-                ).then(res => {
-                    this.sales_order = res.data.data;
-                    this.sales_order_details = this.sales_order.sales_order_details;
-                    this.customer_name = this.sales_order.customer_name;
-                    console.log(this.sales_order);
-                }).catch(err => {
-                });
+                    .then(res => {
+                        this.sales_order = res.data.data;
+                        this.sales_order_details = this.sales_order.sales_order_details;
+                        this.customer_name = this.sales_order.customer_name;
+                        this.customer_id = this.sales_order.customer_id;
+                        this.qty_do = this.sales_order_details.map((item, idx) => ({
+                            qty: item.qty
+                        }));
+                    })
+                    .catch(err => {
+                    });
             },
             async submitForm() {
                 const payload = {
@@ -183,22 +204,21 @@
                     remark: this.remark,
                     so_details: this.sales_order_details.map((item, idx) => ({
                         id: item.id,
-                        qty_do: item.qty_do
+                        skuid: item.skuid,
+                        uom_id: item.uom_id,
+                        qty_do: this.qty_do[idx].qty
                     }))
                 };
                 try {
-                    const res = await axios.post(
-                        "/api/marketing/sales_order_detail",
-                        payload
-                    );
+                    const res = await axios.post("/api/warehouse/delivery_order", payload);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     });
-                    setTimeout(function () {
-                        window.location.href = "/admin/marketing/form_sales_order";
-                    }, 2500);
+                    // setTimeout(function() {
+                    //   window.location.href = "/admin/warehouse/delivery_order";
+                    // }, 2500);
                     console.log("RES SALES ORDER", res);
                 } catch (e) {
                     this.errors = e.response.data.errors;

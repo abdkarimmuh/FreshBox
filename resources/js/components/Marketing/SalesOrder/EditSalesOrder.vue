@@ -122,7 +122,6 @@
                                         <td colspan="5" style="text-align: right;">Grand Total</td>
                                         <td style="text-align: right;">{{ totalItem }}</td>
                                         <td></td>
-                                        <td></td>
                                     </tr>
                                     </tfoot>
                                 </table>

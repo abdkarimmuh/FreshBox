@@ -79,6 +79,13 @@ Route::group(['prefix' => 'trx'], function () {
     Route::delete('sales_order_details/{id}', 'Marketing\FormSalesOrderController@deleteOrderDetails');
 });
 /**
+ * Route API Warehouse
+ */
+Route::group(['prefix' => 'warehouse/'], function () {
+    Route::get('delivery_order', function ($id) { });
+    Route::post('delivery_order', 'Warehouse\FormDeliveryOrderController@store');
+});
+/**
  * Testing Route
  */
 

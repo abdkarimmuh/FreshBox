@@ -97,7 +97,7 @@ class FormSalesOrderController extends Controller
 
         ];
         //Validasi Inputan
-        // $request->validate(array_merge($validation_po, $rules));
+        $request->validate(array_merge($validation_po, $rules));
 
         $dt = Carbon::now();
         $year_month = $dt->format('ym');
@@ -296,6 +296,5 @@ class FormSalesOrderController extends Controller
         return response()->json([
             'status' => 'Success!'
         ], 200);
-
     }
 }

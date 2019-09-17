@@ -19,8 +19,8 @@ class CreateTrxDeliveryOrder extends Migration
             $table->unsignedBigInteger('sales_order_id');
             $table->unsignedBigInteger('customer_id');
             $table->date('do_date');
-            $table->date('confirm_date');
-            $table->string('remark', 200);
+            $table->date('confirm_date')->nullable();
+            $table->string('remark', 200)->nullable();
             $table->unsignedBigInteger('driver_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();

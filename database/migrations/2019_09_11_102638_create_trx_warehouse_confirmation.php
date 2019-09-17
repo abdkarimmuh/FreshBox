@@ -17,8 +17,8 @@ class CreateTrxWarehouseConfirmation extends Migration
             $table->bigIncrements('id');
             $table->string('procurement_no');
             $table->date('fulfillment_date');
-            $table->integer('status');
             $table->string('remark');
+            $table->integer('status')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
 
