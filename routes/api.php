@@ -82,7 +82,7 @@ Route::group(['prefix' => 'trx'], function () {
  * Route API Warehouse
  */
 Route::group(['prefix' => 'warehouse/'], function () {
-    Route::get('delivery_order', function ($id) { });
+    Route::get('delivery_order', '');
     Route::post('delivery_order', 'Warehouse\FormDeliveryOrderController@store');
 });
 /**

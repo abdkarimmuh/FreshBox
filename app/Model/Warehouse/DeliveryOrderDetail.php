@@ -41,5 +41,5 @@ class DeliveryOrderDetail extends Model
     {
         return $this->belongsTo(Uom::class, 'uom_id');
     }
-    
+
 }

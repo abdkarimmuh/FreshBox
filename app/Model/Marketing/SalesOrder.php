@@ -7,7 +7,6 @@ use App\Model\MasterData\SourceOrder;
 use App\MyModel;
 use App\Traits\SearchTraits;
 use App\Traits\SalesOrderTrait;
-use App\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SalesOrder extends MyModel

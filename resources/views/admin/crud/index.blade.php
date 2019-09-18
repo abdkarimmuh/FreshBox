@@ -87,6 +87,13 @@
                                                         Delete
                                                     </a>
                                                 @endisset
+                                                @isset($config['route-confirm'])
+                                                    <a href="{{ route($config['route-confirm'], ['id' => $row->id]) }}"
+                                                       class="badge badge-warning"
+                                                       title="Confirm">
+                                                        Confirm
+                                                    </a>
+                                                @endisset
                                             @endisset
 
                                         </td>
@@ -94,7 +101,9 @@
                                             @if($column['field'] === 'status_name')
                                                 <td>{!! $row[$column['field']] !!}</td>
                                             @elseif($column['field']  === 'file')
-                                                <td><a href="{{ route('admin.marketing.sales_order.download', $row[$column['field']]) }}">Download</a></td>
+                                                <td>
+                                                    <a href="{{ route('admin.marketing.sales_order.download', $row[$column['field']]) }}">Download</a>
+                                                </td>
                                             @else
                                                 <td>{{ $row[$column['field']] }}</td>
                                             @endif

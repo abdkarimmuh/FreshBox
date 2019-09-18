@@ -29,7 +29,7 @@ class DeliveryOrder extends MyModel
      */
     protected $fillable = ['delivery_order_no', 'sales_order_id', 'customer_id', 'do_date', 'confirm_date', 'remark', 'driver_id', 'created_by', 'created_at'];
 
-    protected $appends = ['customer_name','sales_order_no','status_name'];
+    protected $appends = ['customer_name','sales_order_no','status_name','driver_name'];
 
 
     public function sales_order()
@@ -47,6 +47,15 @@ class DeliveryOrder extends MyModel
         return $this->belongsTo(Driver::class, 'driver_id');
     }
 
+    public function delivery_order_details()
+    {
+        return $this->hasMany(DeliveryOrderDetail::class);
+    }
+
+    public function getDriverNameAttribute()
+    {
+        return $this->driver->name;
+    }
     public function getCustomerNameAttribute()
     {
         return $this->customer->name;
@@ -59,6 +68,20 @@ class DeliveryOrder extends MyModel
 
     public function getStatusNameAttribute()
     {
-        return $this->sales_order->status_name;
+        if ($this->sales_order->status === 4) {
+            return '<span class="badge badge-info">Open</span>';
+        } elseif ($this->sales_order->status === 5) {
+            return '<span class="badge badge-warning">Confirmed</span>';
+        } elseif ($this->sales_order->status === 6) {
+            return '<span class="badge badge-success">Invoiced</span>';
+        } elseif ($this->sales_order->status === 7) {
+            return '<span class="badge badge-success">Invoicing</span>';
+        } elseif ($this->sales_order->status === 8) {
+            return '<span class="badge badge-success">Paid</span>';
+        } elseif ($this->sales_order->status === 9) {
+            return '<span class="badge badge-danger">Returned</span>';
+        } else {
+            return 'Status NotFound';
+        }
     }
 }
