@@ -22,6 +22,7 @@ class SalesOrder extends MyModel
         'updated_by_name',
         'created_by_name',
         'status_name',
+        'so_no_with_cust_name'
     ];
     protected $fillable = [
         'sales_order_no',
@@ -78,6 +79,11 @@ class SalesOrder extends MyModel
             'search_relation' => false,
         ]
     ];
+
+    public function getSoNoWithCustNameAttribute()
+    {
+        return $this->sales_order_no . ' - ' . $this->customer->name;
+    }
 
     public function Customer()
     {

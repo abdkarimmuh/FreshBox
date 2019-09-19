@@ -7,75 +7,30 @@
         </div>
         <div class="col-12">
           <div class="row">
-            <!-- Sales Order No -->
+            <!-- Delivery Order No -->
             <div class="col-md-6">
               <div class="form-group">
                 <label>
-                  <b>Sales Order No</b>
-                  <span style="color: red;">*</span>
-                </label>
-                <div>
-                  <model-list-select
-                    v-bind:class="{'is-invalid': errors.sales_order_id}"
-                    :list="sales_orders"
-                    v-model="delivery_order.sales_order_id"
-                    v-on:input="getDataCustomer()"
-                    option-value="id"
-                    option-text="so_no_with_cust_name"
-                    placeholder="Select Sales Order No"
-                  ></model-list-select>
-                  <div
-                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                    v-if="errors.sales_order_id"
-                  >
-                    <p>{{ errors.sales_order_id[0] }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Driver -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>
-                  <b>Driver</b>
-                  <span style="color: red;">*</span>
-                </label>
-                <div>
-                  <model-list-select
-                    v-bind:class="{'is-invalid': errors.driver_id}"
-                    :list="drivers"
-                    v-model="delivery_order.driver_id"
-                    option-value="id"
-                    option-text="name"
-                    placeholder="Select Driver"
-                  ></model-list-select>
-                  <div
-                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                    v-if="errors.driver_id"
-                  >
-                    <p>{{ errors.driver_id[0] }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Customer -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>
-                  <b>Customer</b>
+                  <b>Delivery Order No</b>
                   <span style="color: red;">*</span>
                 </label>
                 <div>
                   <input
                     type="text"
                     class="form-control"
-                    v-model="delivery_order.customer_name"
-                    disabled
-                  />
+                    v-model="delivery_order.no"
+                  >
+                  <div
+                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                    v-if="errors.delivery_order_no"
+                  >
+                    <p>{{ errors.delivery_order_no[0] }}</p>
+                  </div>
                 </div>
               </div>
             </div>
-            <!-- DO Date -->
+
+            <!-- Confirm DateP -->
             <div class="col-md-6">
               <div class="form-group">
                 <label>
@@ -84,7 +39,7 @@
                 </label>
                 <div>
                   <date-picker
-                    v-model="delivery_order.do_date"
+                    v-model="delivery_order.confirm_date"
                     lang="en"
                     valueType="format"
                     :not-before="new Date()"
@@ -181,20 +136,10 @@ import { ModelListSelect } from "vue-search-select";
 export default {
   data () {
     return {
-      delivery_order: {
-        sales_order_id: "",
-        customer_id: "",
-        customer_name: "",
-        do_date: "",
-        driver_id: "",
-        remark: "",
-        user_id: UserID
-      },
-      sales_order: {},
-      sales_orders: [],
-      sales_order_details: [],
-      drivers: [],
-      qty_do: [],
+      confirm_date: "",
+      delivery_order: {},
+      do_details: [],
+      qty_confirm: [],
       errors: []
     };
   },
@@ -261,16 +206,17 @@ export default {
     },
     getData () {
       axios
-        .all([
-          axios.get(this.$parent.MakeUrl("api/marketing/sales_order")),
-          axios.get(this.$parent.MakeUrl("api/master_data/driver"))
-        ])
-        .then(
-          axios.spread((sales_order, driver) => {
-            this.sales_orders = sales_order.data.data;
-            this.drivers = driver.data;
-          })
+        .get(
+          this.$parent.MakeUrl(
+            "api/warehouse/delivery_order/show/" + UriSegment3)
         )
+        .then(res => {
+          this.delivery_order = res.data.data;
+          this.do_details = res.data.data.do_details;
+          this.qty_do = this.sales_order_details.map((item, idx) => ({
+            qty: item.qty
+          }));
+        })
         .catch(err => {
         });
     }

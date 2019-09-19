@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MasterData\PriceResource;
+use App\Http\Resources\SalesOrderResource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -57,16 +59,36 @@ class FormSalesOrderController extends Controller
 
     public function create()
     {
+        $config = [
+            'vue-component' => '<addsalesorder-component></addsalesorder-component>'
+        ];
 
-        return view('admin.marketing.sales_order.create');
+        return view('layouts.vue-view', compact('config'));
     }
 
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        $sales_order = SalesOrder::with('sales_order_details')->find($id);
-        $sales_order_details = SalesOrderDetail::with('item')->where('sales_order_id', $id)->get();
+        if ($request->ajax()) {
+            $sales_order = new SalesOrderResource(SalesOrder::findOrFail($id));
 
-        return view('admin.marketing.sales_order.edit', compact('sales_order', 'sales_order_details'));
+            $price = Price::where('customer_id', $sales_order->customer_id)->get();
+            if (isset($price)) {
+                $price = PriceResource::collection($price);
+            } else {
+                $price = 'empty';
+            }
+
+            return response()->json([
+                'data' => $sales_order,
+                'items' => $price
+            ], 200);
+        }
+
+        $config = [
+            'vue-component' => "<editsalesorder-component :sales_order_id='" . $id . "'>" . "</editsalesorder-component>"
+        ];
+
+        return view('layouts.vue-view', compact('sales_order', 'sales_order_details', 'config'));
     }
 
     public function show($id)

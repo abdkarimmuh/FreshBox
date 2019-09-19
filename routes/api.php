@@ -51,11 +51,8 @@ Route::group(['prefix' => 'master_data/'], function () {
         Route::get('/', 'API\DriverAPIController@index');
     });
 
-
     Route::get('customer', 'API\CustomerAPIController@index')->name('api.customer');
     Route::get('list_customer', 'API\CustomerAPIController@all');
-
-
 
     //    Route::get('price_customer/{id}', 'API\MasterPriceController@CustomerPrice');
     Route::get('uom', 'MasterData\UomController@index');
@@ -66,7 +63,7 @@ Route::group(['prefix' => 'master_data/'], function () {
 Route::group(['prefix' => 'marketing/'], function () {
     Route::group(['prefix' => 'sales_order'], function () {
         Route::get('/', 'API\FormSalesOrderAPIController@index');
-        Route::get('/{so_no}', 'API\FormSalesOrderAPIController@show');
+        Route::get('/{id}', 'API\FormSalesOrderAPIController@show');
     });
     Route::group(['prefix' => 'sales_order_detail'], function () {
         Route::get('/{customer_id}', 'Marketing\FormSalesOrderController@sales_order_detail');
@@ -82,8 +79,11 @@ Route::group(['prefix' => 'trx'], function () {
  * Route API Warehouse
  */
 Route::group(['prefix' => 'warehouse/'], function () {
-    Route::get('delivery_order', '');
-    Route::post('delivery_order', 'Warehouse\FormDeliveryOrderController@store');
+
+    Route::group(['prefix' => 'delivery_order'], function () {
+        Route::get('/show/{id}', 'API\DeliveryOrderAPIController@show');
+        Route::post('/', 'Warehouse\FormDeliveryOrderController@store');
+    });
 });
 /**
  * Testing Route
@@ -93,6 +93,8 @@ Route::get('/testing', function () {
     $data = \App\Model\Marketing\SalesOrder::get();
     return $data;
 });
+
+Route::get('/bidding', function () { });
 Route::get('users/roles', 'UserController@roles')->name('users.roles');
 
 

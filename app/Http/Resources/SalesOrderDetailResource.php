@@ -23,6 +23,7 @@ class SalesOrderDetailResource extends JsonResource
             'taxt_value' => $this->taxt_value,
             'amount_price' => $this->amount_price,
             'total_amount' => $this->total_amount,
+            'notes' => $this->notes,
             'status' => $this->status,
             'item_name' => $this->item_name,
             'uom_name' => $this->uom_name,

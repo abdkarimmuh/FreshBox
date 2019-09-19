@@ -11,11 +11,18 @@ class FormSalesOrderAPIController extends Controller
 {
     public function index()
     {
-        return SalesOrder::where('status', 1)->get();
+        return SalesOrderResource::collection(SalesOrder::where('status', 1)->get());
     }
 
     public function show($id)
     {
-        return new SalesOrderResource(SalesOrder::findOrFail($id));
+        $sales_order = new SalesOrderResource(SalesOrder::findOrFail($id));
+
+        return response()->json(
+            [
+                'data' =>  $sales_order,
+            ],
+            200
+        );
     }
 }
