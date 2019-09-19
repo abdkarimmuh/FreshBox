@@ -88,7 +88,7 @@ class FormSalesOrderController extends Controller
             'vue-component' => "<editsalesorder-component :sales_order_id='" . $id . "'>" . "</editsalesorder-component>"
         ];
 
-        return view('layouts.vue-view', compact('sales_order', 'sales_order_details', 'config'));
+        return view('layouts.vue-view', compact('config'));
     }
 
     public function show($id)
