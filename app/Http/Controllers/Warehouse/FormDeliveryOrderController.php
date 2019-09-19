@@ -59,7 +59,12 @@ class FormDeliveryOrderController extends Controller
      */
     public function create()
     {
-        return view('admin.warehouse.create_delivery_order');
+
+        $config = [
+            'vue-component' => "<adddelieryorder-component></adddelieryorder-component>"
+        ];
+
+        return view('layouts.vue-view', compact('config'));
     }
 
     /**
