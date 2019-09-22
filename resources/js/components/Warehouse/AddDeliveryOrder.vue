@@ -250,9 +250,9 @@ export default {
           title: "Success!",
           text: "Successfully Insert Data!"
         });
-        // setTimeout(function() {
-        //   window.location.href = "/admin/warehouse/delivery_order";
-        // }, 2500);
+        setTimeout(function () {
+          window.location.href = "/admin/warehouse/delivery_order";
+        }, 2500);
         console.log("RES SALES ORDER", res);
       } catch (e) {
         this.errors = e.response.data.errors;
