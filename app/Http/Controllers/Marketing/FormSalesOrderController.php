@@ -48,7 +48,7 @@ class FormSalesOrderController extends Controller
             //Route For Button Edit
             'route-edit' => 'admin.marketing.sales_order.edit',
             //Route For Button View
-            'route-view' => 'testing.create',
+            'route-view' => 'admin.marketing.sales_order.pdf',
         ];
 
         $query = SalesOrder::dataTableQuery($searchValue);
@@ -68,21 +68,19 @@ class FormSalesOrderController extends Controller
 
     public function edit($id, Request $request)
     {
-        if ($request->ajax()) {
-            $sales_order = new SalesOrderResource(SalesOrder::findOrFail($id));
+        $sales_order = new SalesOrderResource(SalesOrder::findOrFail($id));
 
-            $price = Price::where('customer_id', $sales_order->customer_id)->get();
-            if (isset($price)) {
-                $price = PriceResource::collection($price);
-            } else {
-                $price = 'empty';
-            }
-
-            return response()->json([
-                'data' => $sales_order,
-                'items' => $price
-            ], 200);
+        $price = Price::where('customer_id', $sales_order->customer_id)->get();
+        if (isset($price)) {
+            $price = PriceResource::collection($price);
+        } else {
+            $price = 'empty';
         }
+
+        return response()->json([
+            'data' => $sales_order,
+            'items' => $price
+        ], 200);
 
         $config = [
             'vue-component' => "<editsalesorder-component :sales_order_id='" . $id . "'>" . "</editsalesorder-component>"
@@ -318,5 +316,20 @@ class FormSalesOrderController extends Controller
         return response()->json([
             'status' => 'Success!'
         ], 200);
+    }
+
+    public function pdf($id)
+    {
+        if (request()->ajax()) {
+            $sales_order = new SalesOrderResource(SalesOrder::findOrFail($id));
+            return response()->json($sales_order, 200);
+        }
+        $title = "Sales Order";
+
+        $config = [
+            'vue-component' => "<pdf-component id='$id' title='$title'></pdf-component>"
+        ];
+
+        return view('layouts.vue-view', compact('config', 'title', 'id'));
     }
 }

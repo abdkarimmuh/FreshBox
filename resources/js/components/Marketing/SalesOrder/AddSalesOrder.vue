@@ -7,6 +7,7 @@
         </div>
         <div class="col-12">
           <div class="row">
+
             <div class="col-md-6">
               <div class="form-group">
                 <label>
@@ -142,6 +143,7 @@
                   <b>Items</b>
                   <span style="color: red;">*</span>
                 </label>
+
                 <model-list-select
                   :list="items"
                   v-model="skuid"
@@ -151,6 +153,7 @@
                   placeholder="Select Item"
                 >
                 </model-list-select>
+                
               </div>
             </div>
             <div

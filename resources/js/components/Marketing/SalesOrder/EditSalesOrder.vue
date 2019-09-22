@@ -35,6 +35,7 @@
                 </div>
               </div>
             </div>
+            
             <div class="col-md-3">
               <div
                 class="form-group"
@@ -270,11 +271,10 @@ export default {
         this.loading = true;
 
       }).catch((err) => {
-        console.log(err.response.status === 500);
+        console.error(err);
         if (err.response.status === 500) {
           this.getData();
         }
-
       });
 
     },
