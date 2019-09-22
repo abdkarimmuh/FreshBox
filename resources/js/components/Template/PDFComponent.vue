@@ -3,7 +3,7 @@
 
     <div
       class="card card-body printableArea"
-      id="pdf"
+      id="printMe"
     >
       <br>
       <br>
@@ -104,9 +104,8 @@
                     <td>{{ item.item_name }}</td>
                     <td>{{ item.uom_name }}</td>
                     <td style="text-align: right;">{{ item.qty }}</td>
-                    <td style="text-align: right;">{{ item.price }}</td>
-                    <td style="text-align: right;">{{ item.total_amount }}</td>
-
+                    <td style="text-align: right;">{{ item.amount_price_formated }}</td>
+                    <td style="text-align: right;">{{ item.total_amount_formated }}</td>
                   </tr>
                   <tr>
                     <td></td>
@@ -122,11 +121,11 @@
           </div>
           <div class="col-md-12">
             <div class="pull-right m-t-30 text-right">
-              <p>Sub - Total : 80,000.00</p>
+              <p>Sub - Total : {{ sales_order.total_price }}</p>
               <p>PPN : </p>
               <p>PPh : - </p>
               <hr>
-              <h3><b>Total :</b> 80,000.00</h3>
+              <h3><b>Total :</b> {{ sales_order.total_price }}</h3>
             </div>
             <div class="clearfix"></div>
             <hr>
@@ -233,7 +232,7 @@
       > Return </button>
       <button
         class="btn btn-success"
-        id="printSalesOrder"
+        @click="print"
       > Print </button>
     </div>
   </div>
@@ -269,8 +268,30 @@ export default {
           }
           console.error(err);
         })
+    },
+    print () {
+      // Pass the element id here
+      this.$htmlToPaper('printMe');
+    },
+    formatPrice (value) {
+      return value.toLocaleString("id-ID", {
+        minimumFractionDigits: 2
+      });
+    },
+
+  },
+  computed: {
+    totalItem: function () {
+      let sum = 0;
+      this.total_amount.forEach(function (item) {
+        sum += parseFloat(item);
+      });
+
+      return sum.toLocaleString("id-ID", {
+        minimumFractionDigits: 2
+      });
     }
-  }
+  },
 }
 </script>
 

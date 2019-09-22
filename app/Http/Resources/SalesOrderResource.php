@@ -14,13 +14,17 @@ class SalesOrderResource extends JsonResource
      */
     public function toArray($request)
     {
+        $total_price = 0;
+        foreach($this->sales_order_details as $so_detail){
+            $total_price += $so_detail->total_amount;
+        }
+
         return [
             'id' => $this->id,
             'sales_order_no' => $this->sales_order_no,
             'no_po' => $this->no_po,
             'customer_name' => $this->customer->name,
             'source_order_name' => $this->SourceOrder->name,
-
             'fulfillment_date' => $this->fulfillment_date,
             'file' => $this->file,
             'file_url' => url('admin/marketing/form_sales_order/download/' . $this->file),
@@ -31,7 +35,7 @@ class SalesOrderResource extends JsonResource
             'source_order_id' => $this->source_order_id,
             'status_name' => $this->status_name,
             'sales_order_details' => SalesOrderDetailResource::collection($this->sales_order_details),
-
+            'total_price' => number_format($total_price, 2),
             "updated_by_name" => $this->updated_by_name,
             "created_by_name" => $this->created_by_name,
             'created_at' => $this->created_at,

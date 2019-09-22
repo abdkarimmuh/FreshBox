@@ -23,6 +23,8 @@ class SalesOrderDetailResource extends JsonResource
             'taxt_value' => $this->taxt_value,
             'amount_price' => $this->amount_price,
             'total_amount' => $this->total_amount,
+            'amount_price_formated' => number_format($this->amount_price, 2),
+            'total_amount_formated' => number_format($this->total_amount, 2),
             'notes' => $this->notes,
             'status' => $this->status,
             'item_name' => $this->item_name,
