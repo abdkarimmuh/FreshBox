@@ -11,19 +11,14 @@
             class="row"
             v-if="loading"
           >
-            <div class="col-md-6">
-              <div class="form-group">
-                <label><b>Source Order</b><span style="color: red;">*</span></label>
-                <div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="sales_order.source_order_name"
-                    disabled
-                  >
-                </div>
-              </div>
-            </div>
+            <s-form-input
+              :model="sales_order.source_order_name"
+              col="6"
+              title="Source Order"
+              type="text"
+              :disabled="true"
+            ></s-form-input>
+
             <div class="col-md-3">
               <div
                 class="form-group"
@@ -36,48 +31,31 @@
               </div>
             </div>
 
-            <div class="col-md-3">
-              <div
-                class="form-group"
-                v-if="sales_order.source_order_id == 1"
-              >
-                <label><b>No PO</b><span style="color: red;">*</span></label>
-                <div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="sales_order.no_po"
-                    disabled
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label><b>Customer</b><span style="color: red;">*</span></label>
-                <div>
-                  <input
-                    type="text"
-                    v-model="sales_order.customer_name"
-                    class="form-control"
-                    disabled
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label><b>Fulfillment Date</b><span style="color: red;">*</span></label>
-                <div>
-                  <input
-                    type="text"
-                    disabled
-                    v-model="sales_order.fulfillment_date"
-                    class="form-control"
-                  >
-                </div>
-              </div>
-            </div>
+            <s-form-input
+              v-if="sales_order.source_order_id == 1"
+              :model="sales_order.no_po"
+              col="3"
+              title="No PO"
+              type="text"
+              :disabled="true"
+            ></s-form-input>
+
+            <s-form-input
+              :model="sales_order.customer_name"
+              col="6"
+              title="Customer"
+              type="text"
+              :disabled="true"
+            ></s-form-input>
+
+            <s-form-input
+              :model="sales_order.fulfillment_date"
+              col="6"
+              title="Fulfillment Date"
+              type="text"
+              :disabled="true"
+            ></s-form-input>
+
             <div
               class="col-md-6"
               v-if="sales_order.customer_id != 0"
@@ -95,6 +73,7 @@
                 </model-list-select>
               </div>
             </div>
+
             <div
               class="col-md-6 mt-4"
               v-if="sales_order.skuid != ''"
@@ -109,6 +88,7 @@
                 </button>
               </div>
             </div>
+
             <div class="col-md-12">
               <div
                 style="margin-top: .25rem; font-size: 80%;color: #dc3545"
@@ -117,6 +97,7 @@
                 <p>{{ errors.items[0] }}</p>
               </div>
             </div>
+
             <div
               v-if="sales_order.customer_id != 0"
               class="col-12"
@@ -161,8 +142,8 @@
                         >
                       </td>
                       <td>{{ order.uom_name}}</td>
-                      <td>{{ formatPrice(order.amount_price) }}</td>
-                      <td>{{ formatPrice(order.total_amount) }}</td>
+                      <td style="text-align: right;">{{ formatPrice(order.amount_price) }}</td>
+                      <td style="text-align: right;">{{ formatPrice(order.total_amount) }}</td>
                       <td>
                         <input
                           v-model="order.notes"
@@ -194,6 +175,7 @@
                 </table>
               </div>
             </div>
+
             <div class="col-md-12">
               <div class="form-group">
                 <label><b>Remarks</b></label>
@@ -205,6 +187,7 @@
                   name="Remarks"
                 ></textarea>
               </div>
+              
             </div>
             <div class="col-12">
               <div class="card-body">
