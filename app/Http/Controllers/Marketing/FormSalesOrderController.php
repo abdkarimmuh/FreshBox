@@ -70,18 +70,19 @@ class FormSalesOrderController extends Controller
     {
         $sales_order = new SalesOrderResource(SalesOrder::findOrFail($id));
 
-        $price = Price::where('customer_id', $sales_order->customer_id)->get();
-        if (isset($price)) {
-            $price = PriceResource::collection($price);
-        } else {
-            $price = 'empty';
+        if ($request->ajax()) {
+            $price = Price::where('customer_id', $sales_order->customer_id)->get();
+            if (isset($price)) {
+                $price = PriceResource::collection($price);
+            } else {
+                $price = 'empty';
+            }
+
+            return response()->json([
+                'data' => $sales_order,
+                'items' => $price
+            ], 200);
         }
-
-        return response()->json([
-            'data' => $sales_order,
-            'items' => $price
-        ], 200);
-
         $config = [
             'vue-component' => "<editsalesorder-component :sales_order_id='" . $id . "'>" . "</editsalesorder-component>"
         ];

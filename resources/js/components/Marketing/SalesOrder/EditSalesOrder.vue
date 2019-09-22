@@ -35,7 +35,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="col-md-3">
               <div
                 class="form-group"
@@ -341,9 +341,6 @@ export default {
         customerId: this.sales_order.customer_id,
         salesOrderId: this.sales_order_id,
         remark: this.sales_order.remark,
-        // file: this.file,
-        // fulfillmentDate: this.fulfillment_date,
-        // noPO: this.no_po,
         items: this.orders_detail.map((item, idx) => ({
           order_details_id: item.id,
           skuid: item.skuid,
@@ -358,10 +355,9 @@ export default {
           title: 'Success!',
           text: 'Successfully Insert Data!'
         });
-        console.log(res);
-        // setTimeout(function () {
-        //   window.location.href = '/admin/marketing/form_sales_order';
-        // }, 2500);
+        setTimeout(function () {
+          window.location.href = '/admin/marketing/form_sales_order';
+        }, 2500);
       } catch (e) {
         this.errors = e.response.data.errors;
       }
