@@ -3,6 +3,7 @@
 namespace App\Model\Warehouse;
 
 use App\Http\Resources\SalesOrderDetailResource;
+use App\Model\Marketing\SalesOrderDetail;
 use App\Model\MasterData\Item;
 use App\Model\MasterData\Uom;
 use Illuminate\Database\Eloquent\Model;
@@ -34,12 +35,11 @@ class DeliveryOrderDetail extends Model
 
     public function sales_order_detail()
     {
-        return $this->belongsTo(SalesOrderDetailResource, 'sales_order_detail_id');
+        return $this->belongsTo(SalesOrderDetail::class, 'sales_order_detail_id');
     }
 
     public function uom()
     {
         return $this->belongsTo(Uom::class, 'uom_id');
     }
-
 }

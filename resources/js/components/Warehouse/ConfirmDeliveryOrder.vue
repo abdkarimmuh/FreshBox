@@ -3,43 +3,29 @@
     <div class="col-12">
       <div class="card col-12">
         <div class="card-header">
-          <h4 class="text-danger">Add Delivery Order</h4>
+          <h4 class="text-danger">Confirm Delivery Order</h4>
         </div>
         <div class="col-12">
           <div class="row">
             <!-- Delivery Order No -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>
-                  <b>Delivery Order No</b>
-                  <span style="color: red;">*</span>
-                </label>
-                <div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="delivery_order.no"
-                  >
-                  <div
-                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                    v-if="errors.delivery_order_no"
-                  >
-                    <p>{{ errors.delivery_order_no[0] }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <s-form-input
+              :model="delivery_order.delivery_order_no"
+              col="6"
+              title="Delivery Order No"
+              type="text"
+              :disabled="true"
+            ></s-form-input>
 
-            <!-- Confirm DateP -->
+            <!-- Confirm Date -->
             <div class="col-md-6">
               <div class="form-group">
                 <label>
-                  <b>DO Date</b>
+                  <b>Confirm Date</b>
                   <span style="color: red;">*</span>
                 </label>
                 <div>
                   <date-picker
-                    v-model="delivery_order.confirm_date"
+                    v-model="confirm_date"
                     lang="en"
                     valueType="format"
                     :not-before="new Date()"
@@ -47,9 +33,9 @@
                 </div>
                 <div
                   style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                  v-if="errors.do_date"
+                  v-if="errors.confirm_date"
                 >
-                  <p>{{ errors.do_date[0] }}</p>
+                  <p>{{ errors.confirm_date[0] }}</p>
                 </div>
               </div>
             </div>
@@ -71,32 +57,65 @@
                     <tr>
                       <th class="text-center">SKUID</th>
                       <th class="text-center">Item Name</th>
-                      <th class="text-center">Qty</th>
                       <th class="text-center">UOM</th>
+                      <th class="text-center">Qty Order</th>
                       <th class="text-center">Qty Do</th>
+                      <th class="text-center">Qty Confirm</th>
+                      <th class="text-center">Remark Confirm</th>
+                      <th class="text-center">Returned</th>
+
                     </tr>
                   </thead>
                   <tbody>
                     <tr
-                      v-for="(orders, index) in sales_order_details"
+                      v-for="(orders, index) in do_details"
                       v-bind:key="index"
                     >
                       <td>{{ orders.skuid }}</td>
                       <td>{{ orders.item_name }}</td>
-                      <td>{{ orders.qty }}</td>
                       <td>{{ orders.uom_name }}</td>
+                      <td>{{ orders.qty_order }}</td>
+                      <td>{{ orders.qty_do }}</td>
                       <td>
                         <input
-                          v-model="qty_do[index].qty"
-                          v-on:change="validateQtyDO(index)"
+                          v-model="qty_confirm[index].qty"
                           type="number"
                           class="form-control"
                           :max="orders.qty"
                         />
                       </td>
+                      <td>
+                        <input
+                          v-model="orders.remark"
+                          type="text"
+                          class="form-control"
+                          placeholder="Remark Confirm"
+                        />
+                      </td>
+                      <td>
+                        <div class="form-check">
+                          <input
+                            v-model="orders.returned"
+                            class="form-check-input"
+                            type="checkbox"
+                            value="1"
+                          >
+                        </div>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
+              </div>
+              <div
+                v-for="(orders, index) in do_details"
+                v-bind:key="index"
+              >
+                <div
+                  style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                  v-if="errors[`do_details.${index}.qty_confirm`]"
+                >
+                  <p>The {{  do_details[index].item_name }} of qty confirm field is required.</p>
+                </div>
               </div>
             </div>
             <div class="col-md-12">
@@ -131,9 +150,9 @@
 </template>
 
 <script>
-import { ModelListSelect } from "vue-search-select";
 
 export default {
+  props: ['do_id'],
   data () {
     return {
       confirm_date: "",
@@ -147,57 +166,36 @@ export default {
     this.getData();
   },
   methods: {
-    validateQtyDO (idx) {
-      let qty_do = parseFloat(this.qty_do[idx].qty);
-      let qty_so = parseFloat(this.sales_order_details[idx].qty) + (this.sales_order_details[idx].qty * 0.1);
-      if (qty_do > qty_so) {
-        this.qty_do[idx].qty = qty_so;
-      }
-    },
-    getDataCustomer () {
-      axios
-        .get(
-          this.$parent.MakeUrl(
-            "api/marketing/sales_order/" + this.delivery_order.sales_order_id
-          )
-        )
-        .then(res => {
-          this.sales_order = res.data.data;
-          this.sales_order_details = this.sales_order.sales_order_details;
-          this.delivery_order.customer_name = this.sales_order.customer_name;
-          this.delivery_order.customer_id = this.sales_order.customer_id;
-          this.qty_do = this.sales_order_details.map((item, idx) => ({
-            qty: item.qty
-          }));
-        })
-        .catch(err => {
-        });
-    },
+    // validateQtyDO (idx) {
+    //   let qty_do = parseFloat(this.qty_confirm[idx].qty);
+    //   let qty_so = parseFloat(this.sales_order_details[idx].qty) + (this.sales_order_details[idx].qty * 0.1);
+    //   if (qty_do > qty_so) {
+    //     this.qty_do[idx].qty = qty_so;
+    //   }
+    // },
+
     async submitForm () {
       const payload = {
-        user_id: this.delivery_order.user_id,
+        id: this.delivery_order.id,
         sales_order_id: this.delivery_order.sales_order_id,
-        customer_id: this.delivery_order.customer_id,
-        do_date: this.delivery_order.do_date,
-        driver_id: this.delivery_order.driver_id,
-        remark: this.delivery_order.remark,
-        so_details: this.sales_order_details.map((item, idx) => ({
+        confirm_date: this.confirm_date,
+        do_details: this.do_details.map((item, idx) => ({
           id: item.id,
-          skuid: item.skuid,
-          uom_id: item.uom_id,
-          qty_do: this.qty_do[idx].qty
+          remark: item.remark,
+          qty_confirm: this.qty_confirm[idx].qty,
+          returned: item.returned
         }))
       };
       try {
-        const res = await axios.post("/api/warehouse/delivery_order", payload);
+        const res = await axios.patch(this.$parent.MakeUrl("admin/warehouse/confirm_delivery_order/update"), payload);
         Vue.swal({
           type: "success",
           title: "Success!",
-          text: "Successfully Insert Data!"
+          text: "Successfully Confirm Delivery Order!"
         });
-        // setTimeout(function() {
-        //   window.location.href = "/admin/warehouse/delivery_order";
-        // }, 2500);
+        setTimeout(function () {
+          window.location.href = "/admin/warehouse/delivery_order";
+        }, 2500);
         console.log("RES SALES ORDER", res);
       } catch (e) {
         this.errors = e.response.data.errors;
@@ -208,21 +206,19 @@ export default {
       axios
         .get(
           this.$parent.MakeUrl(
-            "api/warehouse/delivery_order/show/" + UriSegment3)
+            "admin/warehouse/confirm_delivery_order/" + this.do_id + "/create")
         )
         .then(res => {
+          console.log(res);
           this.delivery_order = res.data.data;
           this.do_details = res.data.data.do_details;
-          this.qty_do = this.sales_order_details.map((item, idx) => ({
-            qty: item.qty
+          this.qty_confirm = this.do_details.map((item, idx) => ({
+            qty: item.qty_do
           }));
         })
         .catch(err => {
         });
     }
-  },
-  components: {
-    ModelListSelect
   }
 };
 </script>

@@ -44,7 +44,7 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
         Route::name('confirm_delivery_order.')->prefix('confirm_delivery_order')->group(function () {
             Route::get('/', 'Warehouse\ConfirmDeliveryOrderController@index')->name('index');
             Route::get('/{id}/create', 'Warehouse\ConfirmDeliveryOrderController@create')->name('create');
-            Route::post('/store', 'Warehouse\ConfirmDeliveryOrderController@store')->name('store');
+            Route::patch('/update', 'Warehouse\ConfirmDeliveryOrderController@update')->name('update');
         });
     });
     /**

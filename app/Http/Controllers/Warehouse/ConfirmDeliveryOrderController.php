@@ -7,6 +7,8 @@ use App\Http\Resources\Warehouse\DeliveryOrderResource;
 use App\Model\Warehouse\DeliveryOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Marketing\SalesOrder;
+use App\Model\Warehouse\DeliveryOrderDetail;
 
 class ConfirmDeliveryOrderController extends Controller
 {
@@ -41,7 +43,9 @@ class ConfirmDeliveryOrderController extends Controller
             'route-confirm' => 'admin.warehouse.confirm_delivery_order.create',
         ];
 
-        $query = DeliveryOrder::dataTableQuery($searchValue);
+        $query = DeliveryOrder::whereHas('sales_order', function ($q) {
+            $q->where('status', 4);
+        })->dataTableQuery($searchValue);
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
@@ -54,16 +58,18 @@ class ConfirmDeliveryOrderController extends Controller
      */
     public function create($id)
     {
-        $delivery_order = DeliveryOrder::where('id', $id)
-            ->whereHas('sales_order', function ($q) {
-                $q->where('status', 4);
-            })->first();
+        if (request()->ajax()) {
+            $delivery_order = DeliveryOrder::where('id', $id)
+                ->whereHas('sales_order', function ($q) {
+                    $q->where('status', 4);
+                })->first();
 
-//        return $delivery_order;
-
-        return  new DeliveryOrderResource($delivery_order);
-
-
+            return  new DeliveryOrderResource($delivery_order);
+        }
+        $config = [
+            'vue-component' => "<confirm_delivery_order-component :do_id='" . $id . "'>" . "</confirm_delivery_order-component>"
+        ];
+        return view('layouts.vue-view', compact('config'));
     }
 
     /**
@@ -72,9 +78,40 @@ class ConfirmDeliveryOrderController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        //
+        //List Validasi
+        $rules = [
+            'confirm_date' => 'required',
+            'do_details.*.qty_confirm' => 'required|not_in:0',
+
+        ];
+        //Validasi Inputan
+        $request->validate($rules);
+        $do_id = $request->id;
+        $confirm_date = $request->confirm_date;
+        $so_id = $request->sales_order_id;
+        $do_details = $request->do_details;
+
+        //Update DO Details
+        foreach ($do_details as $i => $detail) {
+            DeliveryOrderDetail::where('id', $detail['id'])->update([
+                'remark' => $detail['remark'],
+                'qty_confirm' => $detail['qty_confirm'],
+                'returned' => $detail['returned']
+            ]);
+        }
+
+        $sales_order = SalesOrder::find($so_id);
+        $sales_order->update([
+            'status' => 5,
+
+        ]);
+
+        $delivery_order = DeliveryOrder::find($do_id);
+        $delivery_order->update([
+            'confirm_date' => $confirm_date,
+        ]);
     }
 
     /**
@@ -84,40 +121,6 @@ class ConfirmDeliveryOrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
     {
         //
     }
