@@ -25,7 +25,7 @@ class SalesOrderResource extends JsonResource
             'no_po' => $this->no_po,
             'customer_name' => $this->customer->name,
             'source_order_name' => $this->SourceOrder->name,
-            'fulfillment_date' => $this->fulfillment_date,
+            'fulfillment_date' => $this->fulfillment_date->formatLocalized('%d %B %Y'),
             'file' => $this->file,
             'file_url' => url('admin/marketing/form_sales_order/download/' . $this->file),
             'status' => $this->status,
@@ -38,7 +38,7 @@ class SalesOrderResource extends JsonResource
             'total_price' => number_format($total_price, 2),
             "updated_by_name" => $this->updated_by_name,
             "created_by_name" => $this->created_by_name,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
 
