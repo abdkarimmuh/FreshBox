@@ -60,7 +60,7 @@ class FormSalesOrderController extends Controller
     public function create()
     {
         $config = [
-            'vue-component' => '<addsalesorder-component></addsalesorder-component>'
+            'vue-component' => '<add-sales-order></add-sales-order>'
         ];
 
         return view('layouts.vue-view', compact('config'));
@@ -84,7 +84,7 @@ class FormSalesOrderController extends Controller
             ], 200);
         }
         $config = [
-            'vue-component' => "<editsalesorder-component :sales_order_id='" . $id . "'>" . "</editsalesorder-component>"
+            'vue-component' => "<edit-sales-order :sales_order_id='" . $id . "'>" . "</edit-sales-order>"
         ];
 
         return view('layouts.vue-view', compact('config'));

@@ -17,8 +17,8 @@ import AddInvoice from './components/Finance/Invoice/AddInvoice';
 Vue.component('users-component', UsersComponent);
 Vue.component('profile-component', ProfileComponent);
 Vue.component('adduser-component', AdduserComponent);
-Vue.component('addsalesorder-component', AddSalesOrder);
-Vue.component('editsalesorder-component', EditSalesOrder);
+Vue.component('add-sales-order', AddSalesOrder);
+Vue.component('edit-sales-order', EditSalesOrder);
 Vue.component('add-delivery-order', AddDeliveryOrder);
 Vue.component('add-invoice', AddInvoice);
 
