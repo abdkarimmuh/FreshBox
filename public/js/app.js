@@ -2080,29 +2080,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      do_id: "",
+      invoice_date: "",
+      user_id: UserID,
       delivery_order: {},
-      sales_order: {},
-      sales_orders: [],
-      sales_order_details: [],
-      drivers: [],
-      qty_do: [],
+      list_delivery_order: [],
+      do_details: [],
       errors: []
     };
   },
@@ -2110,59 +2097,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getData();
   },
   methods: {
-    validateQtyDO: function validateQtyDO(idx) {
-      var qty_do = parseFloat(this.qty_do[idx].qty);
-      var qty_so = parseFloat(this.sales_order_details[idx].qty) + this.sales_order_details[idx].qty * 0.1;
-
-      if (qty_do > qty_so) {
-        this.qty_do[idx].qty = qty_so;
-      }
-    },
-    getDataCustomer: function getDataCustomer() {
+    getDataDO: function getDataDO() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl("api/marketing/sales_order/" + this.delivery_order.sales_order_id)).then(function (res) {
-        _this.sales_order = res.data.data;
-        _this.sales_order_details = _this.sales_order.sales_order_details;
-        _this.delivery_order.customer_name = _this.sales_order.customer_name;
-        _this.delivery_order.customer_id = _this.sales_order.customer_id;
-        _this.qty_do = _this.sales_order_details.map(function (item, idx) {
-          return {
-            qty: item.qty
-          };
-        });
+      axios.get(this.$parent.MakeUrl("admin/warehouse/delivery_order/" + this.do_id + "/show")).then(function (res) {
+        _this.delivery_order = res.data.data;
+        _this.do_details = res.data.data.do_details;
+        console.log(res.data.data);
       })["catch"](function (err) {});
+    },
+    getData: function getData() {
+      var _this2 = this;
+
+      axios.get(this.$parent.MakeUrl("admin/finance/invoice_order/create")).then(function (res) {
+        _this2.list_delivery_order = res.data.data;
+        console.log(res.data.data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     },
     submitForm: function () {
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this2 = this;
-
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 payload = {
-                  user_id: this.delivery_order.user_id,
-                  sales_order_id: this.delivery_order.sales_order_id,
-                  customer_id: this.delivery_order.customer_id,
-                  do_date: this.delivery_order.do_date,
-                  driver_id: this.delivery_order.driver_id,
-                  remark: this.delivery_order.remark,
-                  so_details: this.sales_order_details.map(function (item, idx) {
-                    return {
-                      id: item.id,
-                      skuid: item.skuid,
-                      uom_id: item.uom_id,
-                      qty_do: _this2.qty_do[idx].qty
-                    };
-                  })
+                  so_id: this.delivery_order.sales_order_id,
+                  user_id: this.user_id,
+                  do_id: this.do_id,
+                  invoice_date: this.invoice_date
                 };
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.post("/api/warehouse/delivery_order", payload);
+                return axios.post(this.$parent.MakeUrl("admin/finance/invoice_order/store"), payload);
 
               case 4:
                 res = _context.sent;
@@ -2172,7 +2143,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   text: "Successfully Insert Data!"
                 });
                 setTimeout(function () {
-                  window.location.href = "/admin/warehouse/delivery_order";
+                  window.location.href = "/admin/finance/invoice_order";
                 }, 2500);
                 console.log("RES SALES ORDER", res);
                 _context.next = 14;
@@ -2197,15 +2168,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return submitForm;
-    }(),
-    getData: function getData() {
-      var _this3 = this;
-
-      axios.all([axios.get(this.$parent.MakeUrl("api/marketing/sales_order")), axios.get(this.$parent.MakeUrl("api/master_data/driver"))]).then(axios.spread(function (sales_order, driver) {
-        _this3.sales_orders = sales_order.data.data;
-        _this3.drivers = driver.data;
-      }))["catch"](function (err) {});
-    }
+    }()
   },
   components: {
     ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__["ModelListSelect"]
@@ -46040,28 +46003,28 @@ var render = function() {
                     "div",
                     [
                       _c("model-list-select", {
-                        class: { "is-invalid": _vm.errors.sales_order_id },
+                        class: { "is-invalid": _vm.errors.do_id },
                         attrs: {
-                          list: _vm.sales_orders,
+                          list: _vm.list_delivery_order,
                           "option-value": "id",
-                          "option-text": "so_no_with_cust_name",
-                          placeholder: "Select Sales Order No"
+                          "option-text": "do_no_with_cust_name",
+                          placeholder: "Select Delivery Order No"
                         },
                         on: {
                           input: function($event) {
-                            return _vm.getDataCustomer()
+                            return _vm.getDataDO()
                           }
                         },
                         model: {
-                          value: _vm.delivery_order.sales_order_id,
+                          value: _vm.do_id,
                           callback: function($$v) {
-                            _vm.$set(_vm.delivery_order, "sales_order_id", $$v)
+                            _vm.do_id = $$v
                           },
-                          expression: "delivery_order.sales_order_id"
+                          expression: "do_id"
                         }
                       }),
                       _vm._v(" "),
-                      _vm.errors.sales_order_id
+                      _vm.errors.do_id
                         ? _c(
                             "div",
                             {
@@ -46071,11 +46034,7 @@ var render = function() {
                                 color: "#dc3545"
                               }
                             },
-                            [
-                              _c("p", [
-                                _vm._v(_vm._s(_vm.errors.sales_order_id[0]))
-                              ])
-                            ]
+                            [_c("p", [_vm._v(_vm._s(_vm.errors.do_id[0]))])]
                           )
                         : _vm._e()
                     ],
@@ -46097,7 +46056,7 @@ var render = function() {
                 attrs: {
                   col: "6",
                   title: "Customer Name",
-                  model: _vm.delivery_order.sales_order_no,
+                  model: _vm.delivery_order.customer_name,
                   disabled: "true"
                 }
               }),
@@ -46116,11 +46075,11 @@ var render = function() {
                           "not-before": new Date()
                         },
                         model: {
-                          value: _vm.delivery_order.do_date,
+                          value: _vm.invoice_date,
                           callback: function($$v) {
-                            _vm.$set(_vm.delivery_order, "do_date", $$v)
+                            _vm.invoice_date = $$v
                           },
-                          expression: "delivery_order.do_date"
+                          expression: "invoice_date"
                         }
                       })
                     ],
@@ -46143,7 +46102,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm.delivery_order.sales_order_id != ""
+              _vm.do_id != ""
                 ? _c("div", { staticClass: "col-12" }, [
                     _c(
                       "div",
@@ -46164,95 +46123,62 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "tbody",
-                              _vm._l(_vm.sales_order_details, function(
-                                orders,
-                                index
-                              ) {
+                              _vm._l(_vm.do_details, function(orders, index) {
                                 return _c("tr", { key: index }, [
                                   _c("td", [_vm._v(_vm._s(orders.skuid))]),
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(orders.item_name))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(orders.qty))]),
-                                  _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(orders.uom_name))]),
                                   _vm._v(" "),
                                   _c("td", [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.qty_do[index].qty,
-                                          expression: "qty_do[index].qty"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "number",
-                                        max: orders.qty
-                                      },
-                                      domProps: {
-                                        value: _vm.qty_do[index].qty
-                                      },
-                                      on: {
-                                        change: function($event) {
-                                          return _vm.validateQtyDO(index)
-                                        },
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            _vm.qty_do[index],
-                                            "qty",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ])
+                                    _vm._v(_vm._s(orders.qty_confirm))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    { staticStyle: { "text-align": "right" } },
+                                    [_vm._v(_vm._s(orders.amount_price))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    { staticStyle: { "text-align": "right" } },
+                                    [_vm._v(_vm._s(orders.total_amount))]
+                                  )
                                 ])
                               }),
                               0
-                            )
+                            ),
+                            _vm._v(" "),
+                            _c("tfoot", [
+                              _c("tr", [
+                                _c(
+                                  "td",
+                                  {
+                                    staticStyle: { "text-align": "right" },
+                                    attrs: { colspan: "5" }
+                                  },
+                                  [_vm._v("Grand Total")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  { staticStyle: { "text-align": "right" } },
+                                  [
+                                    _vm._v(
+                                      _vm._s(_vm.delivery_order.total_amount)
+                                    )
+                                  ]
+                                )
+                              ])
+                            ])
                           ]
                         )
                       ]
                     )
                   ])
                 : _vm._e(),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-12" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _vm._m(4),
-                  _vm._v(" "),
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.delivery_order.remark,
-                        expression: "delivery_order.remark"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    domProps: { value: _vm.delivery_order.remark },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.delivery_order,
-                          "remark",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-12" }, [
                 _c("div", { staticClass: "card-body" }, [
@@ -46326,19 +46252,15 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Item Name")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
-        _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("UOM")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Qty Do")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Qty Confirm")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Amount Price")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Total Amount")])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [_c("b", [_vm._v("Remark")])])
   }
 ]
 render._withStripped = true

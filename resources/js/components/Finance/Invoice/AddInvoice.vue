@@ -16,19 +16,19 @@
                                 </label>
                                 <div>
                                     <model-list-select
-                                        v-bind:class="{'is-invalid': errors.sales_order_id}"
-                                        :list="sales_orders"
-                                        v-model="delivery_order.sales_order_id"
-                                        v-on:input="getDataCustomer()"
+                                        v-bind:class="{'is-invalid': errors.do_id}"
+                                        :list="list_delivery_order"
+                                        v-model="do_id"
+                                        v-on:input="getDataDO()"
                                         option-value="id"
-                                        option-text="so_no_with_cust_name"
-                                        placeholder="Select Sales Order No"
+                                        option-text="do_no_with_cust_name"
+                                        placeholder="Select Delivery Order No"
                                     ></model-list-select>
                                     <div
                                         style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.sales_order_id"
+                                        v-if="errors.do_id"
                                     >
-                                        <p>{{ errors.sales_order_id[0] }}</p>
+                                        <p>{{ errors.do_id[0] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -39,15 +39,13 @@
                             title="Sales Order No"
                             :model="delivery_order.sales_order_no"
                             disabled="true"
-
                         ></s-form-input>
                         <!--Customer Name-->
                         <s-form-input
                             col="6"
                             title="Customer Name"
-                            :model="delivery_order.sales_order_no"
+                            :model="delivery_order.customer_name"
                             disabled="true"
-
                         ></s-form-input>
                         <!-- DO Date -->
                         <div class="col-md-6">
@@ -58,7 +56,7 @@
                                 </label>
                                 <div>
                                     <date-picker
-                                        v-model="delivery_order.do_date"
+                                        v-model="invoice_date"
                                         lang="en"
                                         valueType="format"
                                         :not-before="new Date()"
@@ -74,7 +72,7 @@
                         </div>
 
                         <div
-                            v-if="delivery_order.sales_order_id != ''"
+                            v-if="do_id != ''"
                             class="col-12"
                         >
                             <div
@@ -90,43 +88,32 @@
                                     <tr>
                                         <th class="text-center">SKUID</th>
                                         <th class="text-center">Item Name</th>
-                                        <th class="text-center">Qty</th>
                                         <th class="text-center">UOM</th>
-                                        <th class="text-center">Qty Do</th>
+                                        <th class="text-center">Qty Confirm</th>
+                                        <th class="text-center">Amount Price</th>
+                                        <th class="text-center">Total Amount</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr
-                                        v-for="(orders, index) in sales_order_details"
+                                        v-for="(orders, index) in do_details"
                                         v-bind:key="index"
                                     >
                                         <td>{{ orders.skuid }}</td>
                                         <td>{{ orders.item_name }}</td>
-                                        <td>{{ orders.qty }}</td>
                                         <td>{{ orders.uom_name }}</td>
-                                        <td>
-                                            <input
-                                                v-model="qty_do[index].qty"
-                                                v-on:change="validateQtyDO(index)"
-                                                type="number"
-                                                class="form-control"
-                                                :max="orders.qty"
-                                            />
-                                        </td>
+                                        <td>{{ orders.qty_confirm }}</td>
+                                        <td style="text-align: right;">{{ orders.amount_price }}</td>
+                                        <td style="text-align: right;">{{ orders.total_amount }}</td>
                                     </tr>
                                     </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="5" style="text-align: right;">Grand Total</td>
+                                        <td style="text-align: right;">{{ delivery_order.total_amount }}</td>
+                                    </tr>
+                                    </tfoot>
                                 </table>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>
-                                    <b>Remark</b>
-                                </label>
-                                <textarea
-                                    v-model="delivery_order.remark"
-                                    class="form-control"
-                                ></textarea>
                             </div>
                         </div>
                         <div class="col-12">
@@ -157,12 +144,12 @@
     export default {
         data() {
             return {
+                do_id: "",
+                invoice_date: "",
+                user_id: UserID,
                 delivery_order: {},
-                sales_order: {},
-                sales_orders: [],
-                sales_order_details: [],
-                drivers: [],
-                qty_do: [],
+                list_delivery_order: [],
+                do_details: [],
                 errors: []
             };
         },
@@ -170,56 +157,40 @@
             this.getData();
         },
         methods: {
-            validateQtyDO(idx) {
-                let qty_do = parseFloat(this.qty_do[idx].qty);
-                let qty_so = parseFloat(this.sales_order_details[idx].qty) + (this.sales_order_details[idx].qty * 0.1);
-                if (qty_do > qty_so) {
-                    this.qty_do[idx].qty = qty_so;
-                }
-            },
-            getDataCustomer() {
-                axios
-                    .get(
-                        this.$parent.MakeUrl(
-                            "api/marketing/sales_order/" + this.delivery_order.sales_order_id
-                        )
-                    )
+            getDataDO() {
+                axios.get(this.$parent.MakeUrl("admin/warehouse/delivery_order/" + this.do_id + "/show"))
                     .then(res => {
-                        this.sales_order = res.data.data;
-                        this.sales_order_details = this.sales_order.sales_order_details;
-                        this.delivery_order.customer_name = this.sales_order.customer_name;
-                        this.delivery_order.customer_id = this.sales_order.customer_id;
-                        this.qty_do = this.sales_order_details.map((item, idx) => ({
-                            qty: item.qty
-                        }));
+                        this.delivery_order = res.data.data;
+                        this.do_details = res.data.data.do_details;
+                        console.log(res.data.data);
                     })
                     .catch(err => {
                     });
             },
+            getData() {
+                axios.get(this.$parent.MakeUrl("admin/finance/invoice_order/create")).then(res => {
+                    this.list_delivery_order = res.data.data;
+                    console.log(res.data.data);
+                }).catch(err => {
+                    console.log(err);
+                });
+            },
             async submitForm() {
                 const payload = {
-                    user_id: this.delivery_order.user_id,
-                    sales_order_id: this.delivery_order.sales_order_id,
-                    customer_id: this.delivery_order.customer_id,
-                    do_date: this.delivery_order.do_date,
-                    driver_id: this.delivery_order.driver_id,
-                    remark: this.delivery_order.remark,
-                    so_details: this.sales_order_details.map((item, idx) => ({
-                        id: item.id,
-                        skuid: item.skuid,
-                        uom_id: item.uom_id,
-                        qty_do: this.qty_do[idx].qty
-                    }))
+                    so_id: this.delivery_order.sales_order_id,
+                    user_id: this.user_id,
+                    do_id: this.do_id,
+                    invoice_date: this.invoice_date
                 };
                 try {
-                    const res = await axios.post("/api/warehouse/delivery_order", payload);
+                    const res = await axios.post(this.$parent.MakeUrl("admin/finance/invoice_order/store"), payload);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     });
                     setTimeout(function () {
-                        window.location.href = "/admin/warehouse/delivery_order";
+                        window.location.href = "/admin/finance/invoice_order";
                     }, 2500);
                     console.log("RES SALES ORDER", res);
                 } catch (e) {
@@ -227,21 +198,7 @@
                     console.error(e.response.data);
                 }
             },
-            getData() {
-                axios
-                    .all([
-                        axios.get(this.$parent.MakeUrl("api/marketing/sales_order")),
-                        axios.get(this.$parent.MakeUrl("api/master_data/driver"))
-                    ])
-                    .then(
-                        axios.spread((sales_order, driver) => {
-                            this.sales_orders = sales_order.data.data;
-                            this.drivers = driver.data;
-                        })
-                    )
-                    .catch(err => {
-                    });
-            }
+
         },
         components: {
             ModelListSelect

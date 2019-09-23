@@ -41,6 +41,7 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'Warehouse\FormDeliveryOrderController@index')->name('index');
             Route::get('/create', 'Warehouse\FormDeliveryOrderController@create')->name('create');
             Route::post('/store', 'Warehouse\FormDeliveryOrderController@store')->name('store');
+            Route::get('/{id}/show', 'Warehouse\FormDeliveryOrderController@show')->name('show');
             Route::get('/{id}/edit', 'Warehouse\FormDeliveryOrderController@edit')->name('edit');
         });
 

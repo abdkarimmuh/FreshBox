@@ -49,7 +49,7 @@ class DeliveryOrder extends MyModel
 
     public function delivery_order_details()
     {
-        return $this->hasMany(DeliveryOrderDetail::class);
+        return $this->hasMany(DeliveryOrderDetail::class)->where('returned', 0);
     }
 
     public function getDriverNameAttribute()

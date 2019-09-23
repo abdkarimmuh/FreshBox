@@ -16,14 +16,13 @@ class CreateTrxInvoiceTable extends Migration
         Schema::create('trx_invoice', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('invoice_no');
-            $table->unsignedBigInteger('id_so');
-            $table->unsignedBigInteger('id_do');
+            $table->unsignedBigInteger('do_id');
             $table->date('invoice_date');
-            $table->tinyInteger('status');
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
 
-            $table->foreign('id_so')->on('trx_sales_order')->references('id')->onDelete('cascade');
-            $table->foreign('id_do')->on('trx_delivery_order')->references('id')->onDelete('cascade');
+            $table->foreign('do_id')->on('trx_delivery_order')->references('id')->onDelete('cascade');
+            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
 
         });
     }

@@ -11,17 +11,12 @@ class InvoiceOrder extends MyModel
 {
     use SearchTraits;
     protected $table = 'trx_invoice';
-    protected $fillable = ['invoice_no', 'id_so', 'id_do', 'invoice_date', 'status'];
+    protected $fillable = ['invoice_no', 'do_id', 'invoice_date','created_by'];
     protected $appends = ['delivery_order_no', 'sales_order_no', 'customer_name', 'total_amount'];
-
-    public function sales_order()
-    {
-        return $this->belongsTo(SalesOrder::class, 'id_so');
-    }
 
     public function delivery_order()
     {
-        return $this->belongsTo(DeliveryOrder::class, 'id_do')->whereHas('delivery_order_details', function ($q) {
+        return $this->belongsTo(DeliveryOrder::class, 'do_id')->whereHas('delivery_order_details', function ($q) {
             $q->where('returned', 0);
         });
     }
@@ -33,12 +28,12 @@ class InvoiceOrder extends MyModel
 
     public function getSalesOrderNoAttribute()
     {
-        return $this->sales_order->sales_order_no;
+        return $this->delivery_order->sales_order->sales_order_no;
     }
 
     public function getCustomerNameAttribute()
     {
-        return $this->sales_order->customer_name;
+        return $this->delivery_order->sales_order->customer_name;
     }
 
     public function getTotalAmountAttribute()
@@ -52,13 +47,13 @@ class InvoiceOrder extends MyModel
 
     public function getStatusNameAttribute()
     {
-        if ($this->sales_order->status === 6) {
+        if ($this->delivery_order->sales_order->status === 6) {
             return '<span class="badge badge-info">Open</span>';
-        } elseif ($this->sales_order->status === 7) {
+        } elseif ($this->delivery_order->sales_order->status === 7) {
             return '<span class="badge badge-warning">Printed</span>';
-        } elseif ($this->sales_order->status === 8) {
+        } elseif ($this->delivery_order->sales_order->status === 8) {
             return '<span class="badge badge-success">Paid</span>';
-        } elseif ($this->sales_order->status === 9) {
+        } elseif ($this->delivery_order->sales_order->status === 9) {
             return '<span class="badge badge-danger">Returned</span>';
         } else {
             return 'Status NotFound';

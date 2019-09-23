@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Warehouse;
 
+use App\Http\Resources\Warehouse\DeliveryOrderResource;
 use App\Model\Warehouse\DeliveryOrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -88,10 +89,10 @@ class FormDeliveryOrderController extends Controller
 
         $dt = Carbon::now();
         $year_month = $dt->format('ym');
-        //Untuk Mendapatkan Data Terakhir Sales Order di Bulan Tahun Berjalan
+        //Untuk Mendapatkan Data Terakhir Delivery Order di Bulan Tahun Berjalan
         $latest_delivery_order = DeliveryOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        //Cek jika ada data sales order maka di ambil sales_order_no
-        //Kalau Tidak ada maka di buat sales_order_no baru
+        //Cek jika ada data sales order maka di ambil delivery_order_no
+        //Kalau Tidak ada maka di buat delivery_order_no baru
         $get_last_do_no = isset($latest_delivery_order->delivery_order_no) ? $latest_delivery_order->delivery_order_no : 'DO' . $year_month . '00000';
         //Mereplace Text DO ke String Kosong
         $cut_string_do = str_replace("DO", "", $get_last_do_no);
@@ -149,7 +150,7 @@ class FormDeliveryOrderController extends Controller
      */
     public function show($id)
     {
-        //
+        return new DeliveryOrderResource(DeliveryOrder::find($id));
     }
 
     /**
