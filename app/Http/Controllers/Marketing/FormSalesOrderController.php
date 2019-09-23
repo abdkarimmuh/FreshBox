@@ -117,22 +117,7 @@ class FormSalesOrderController extends Controller
             'items.*.qty' => 'required|not_in:0',
 
         ];
-        //Validasi Inputan
         $request->validate(array_merge($validation_po, $rules));
-
-        $dt = Carbon::now();
-        $year_month = $dt->format('ym');
-        //Untuk Mendapatkan Data Terakhir Sales Order di Bulan Tahun Berjalan
-        $latest_sales_order = SalesOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        //Cek jika ada data sales order maka di ambil sales_order_no
-        //Kalau Tidak ada maka di buat sales_order_no baru
-        $get_last_so_no = isset($latest_sales_order->sales_order_no) ? $latest_sales_order->sales_order_no : 'SO' . $year_month . '00000';
-        //Mereplace Text SO ke String Kosong
-        $cut_string_so = str_replace("SO", "", $get_last_so_no);
-        //Menjumlahkan
-        $sum_so_no = $cut_string_so + 1;
-        //Hasil Akhir Sales Order No
-        $sales_order_no = 'SO' . $sum_so_no;
 
 
         $customer_id = $request->customerId;
@@ -147,7 +132,7 @@ class FormSalesOrderController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $sales_order_no . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            $file_name = $this->generateSalesOrderNo() . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
             Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
@@ -155,7 +140,7 @@ class FormSalesOrderController extends Controller
 
         //Untuk Menginput Sales Order
         $sales_order = SalesOrder::create([
-            'sales_order_no' => $sales_order_no,
+            'sales_order_no' => $this->generateSalesOrderNo(),
             'customer_id' => $customer_id,
             'source_order_id' => $source_order_id,
             'fulfillment_date' => $fulfillment_date,
@@ -196,7 +181,7 @@ class FormSalesOrderController extends Controller
                 unset($items[$i]);
             }
         }
-        //Untuk Menginput Data Array Sales Order Details
+        //Insert Data Array Sales Order Details
         SalesOrderDetail::insert($salesOrderDetails);
 
         return response()->json($sales_order);
@@ -302,6 +287,15 @@ class FormSalesOrderController extends Controller
         return response()->json([
             'status' => 'success'
         ], 200);
+    }
+
+    public function generateSalesOrderNo()
+    {
+        $year_month = Carbon::now()->format('ym');
+        $latest_sales_order = SalesOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+        $get_last_so_no = isset($latest_sales_order->sales_order_no) ? $latest_sales_order->sales_order_no : 'SO' . $year_month . '00000';
+        $cut_string_so = str_replace("SO", "", $get_last_so_no);
+        return 'SO' . ($cut_string_so + 1);
     }
 
     public function DownloadFile($file)
