@@ -13,6 +13,7 @@ import ConfirmDeliveryOrder from './components/Warehouse/ConfirmDeliveryOrder';
 import PDFComponent from './components/Template/PDFComponent';
 import StislaFromInput from './components/Template/Etc/s-form-input';
 import AddInvoice from './components/Finance/Invoice/AddInvoice';
+import PrintDeliveryOrder from "./components/Template/PrintDeliveryOrder";
 
 Vue.component('users-component', UsersComponent);
 Vue.component('profile-component', ProfileComponent);
@@ -25,6 +26,8 @@ Vue.component('add-invoice', AddInvoice);
 Vue.component('confirm-delivery-order', ConfirmDeliveryOrder);
 
 Vue.component('pdf-component', PDFComponent);
+Vue.component('print-delivery-order', PrintDeliveryOrder);
+
 Vue.component('s-form-input', StislaFromInput);
 
 // Vue.component("data-table", DataTable);
