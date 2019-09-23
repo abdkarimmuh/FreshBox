@@ -58,7 +58,7 @@ class FormInvoiceOrderController extends Controller
         if ($request->ajax()) { }
 
         $config = [
-            'vue-component' => ''
+            'vue-component' => '<add-invoice></add-invoice>'
         ];
         return view('layouts.vue-view', compact('config'));
     }
