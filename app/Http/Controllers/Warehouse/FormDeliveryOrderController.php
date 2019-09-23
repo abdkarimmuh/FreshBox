@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Marketing\SalesOrder;
 use App\Model\Warehouse\DeliveryOrder;
 use Carbon\Carbon;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class FormDeliveryOrderController extends Controller
@@ -16,7 +17,8 @@ class FormDeliveryOrderController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -56,7 +58,7 @@ class FormDeliveryOrderController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -71,8 +73,8 @@ class FormDeliveryOrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -84,84 +86,59 @@ class FormDeliveryOrderController extends Controller
             'so_details.*.qty_do' => 'required|not_in:0',
 
         ];
-        //Validasi Inputan
         $request->validate($rules);
 
-        $dt = Carbon::now();
-        $year_month = $dt->format('ym');
-        //Untuk Mendapatkan Data Terakhir Delivery Order di Bulan Tahun Berjalan
-        $latest_delivery_order = DeliveryOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        //Cek jika ada data sales order maka di ambil delivery_order_no
-        //Kalau Tidak ada maka di buat delivery_order_no baru
-        $get_last_do_no = isset($latest_delivery_order->delivery_order_no) ? $latest_delivery_order->delivery_order_no : 'DO' . $year_month . '00000';
-        //Mereplace Text DO ke String Kosong
-        $cut_string_do = str_replace("DO", "", $get_last_do_no);
-        //Menjumlahkan
-        $sum_do_no = $cut_string_do + 1;
-        //Hasil Akhir Delivery Order No
-        $delivery_order_no = 'DO' . $sum_do_no;
+        $data = [
+            'delivery_order_no' => $this->generateDeliveryOrderNo(),
+            'sales_order_id' => $request->sales_order_id,
+            'customer_id' => $request->customer_id,
+            'do_date' => $request->do_date,
+            'driver_id' => $request->driver_id,
+            'remark' => $request->remark,
+            'created_by' => $request->user_id,
+        ];
+        $delivery_order = DeliveryOrder::create($data);
+        SalesOrder::find($data['sales_order_id'])->update(['status' => 4]);
 
-        $user = $request->user_id;
-        $sales_order_id = $request->sales_order_id;
-        $customer_id = $request->customer_id;
-        $do_date = $request->do_date;
-        $driver_id = $request->driver_id;
-        $remark = $request->remark;
         $so_details = $request->so_details;
-
-        //Untuk Menginput Sales Order
-        $delivery_order = DeliveryOrder::create([
-            'delivery_order_no' => $delivery_order_no,
-            'sales_order_id' => $sales_order_id,
-            'customer_id' => $customer_id,
-            'do_date' => $do_date,
-            'driver_id' => $driver_id,
-            'remark' => $remark,
-            'created_by' => $user,
-        ]);
-
-        SalesOrder::find($sales_order_id)->update(['status' => 4]);
-
-        $delivery_order_id = $delivery_order->id;
-
-
-        //Untuk Menggabungkan Sales Order Details Menjadi Data Array
         foreach ($so_details as $i => $detail) {
             $salesOrderDetails[] = [
-                'delivery_order_id' => $delivery_order_id,
+                'delivery_order_id' => $delivery_order->id,
                 'sales_order_detail_id' => $detail['id'],
                 'skuid' => $detail['skuid'],
                 'uom_id' => $detail['uom_id'],
                 'qty_do' => $detail['qty_do'],
-                'created_by' => $user,
+                'created_by' => $data['created_by'],
             ];
         }
-        //Untuk Menginput Data Array Sales Order Details
         DeliveryOrderDetail::insert($salesOrderDetails);
+        return response()->json([
+            'status' => 'success'
+        ], 200);
+    }
 
-        return response()->json($salesOrderDetails);
+    /**
+     * Generate Delivery Order No.
+     *
+     * @return string delivery order no
+     */
+    public function generateDeliveryOrderNo()
+    {
+        $year_month = Carbon::now()->format('ym');
+        $latest_delivery_order = DeliveryOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+        $get_last_do_no = isset($latest_delivery_order->delivery_order_no) ? $latest_delivery_order->delivery_order_no : 'DO' . $year_month . '00000';
+        $cut_string_do = str_replace("DO", "", $get_last_do_no);
+        return 'DO' . ($cut_string_do + 1);
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return DeliveryOrderResource
      */
     public function show($id)
     {
         return new DeliveryOrderResource(DeliveryOrder::find($id));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 }
