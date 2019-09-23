@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Marketing;
 
-use App\Http\Requests\SalesOrderAddRequest;
 use App\Model\Marketing\SalesOrder;
 use App\Model\Marketing\SalesOrderDetail;
-use App\Model\MasterData\Item;
 use App\Model\MasterData\Price;
 use Carbon\Carbon;
-use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MasterData\PriceResource;
 use App\Http\Resources\SalesOrderResource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class FormSalesOrderController extends Controller
 {
