@@ -36,6 +36,7 @@ class SalesOrder extends MyModel
         'created_by',
         'created_at'
     ];
+    protected $dates = ['fulfillment_date'];
 
     protected $columns = [
         'id' => [
