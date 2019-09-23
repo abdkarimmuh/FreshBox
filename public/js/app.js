@@ -48141,13 +48141,23 @@ var render = function() {
                             _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "40%" } }, [
-                              _vm._v("20 June 2019")
+                              _vm._v(_vm._s(_vm.sales_order.created_at))
                             ]),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "40%" } })
                           ]),
                           _vm._v(" "),
-                          _vm._m(2)
+                          _c("tr", [
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
+                            _vm._v(" "),
+                            _c("td", { attrs: { width: "40%" } }, [
+                              _vm._v(_vm._s(_vm.sales_order.fulfillment_date))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { attrs: { width: "40%" } })
+                          ])
                         ])
                       ])
                     ]
@@ -48294,16 +48304,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { attrs: { width: "13%" } }, [
-        _c("b", [_vm._v("Fullfilment Date")])
-      ]),
-      _vm._v(" "),
-      _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-      _vm._v(" "),
-      _c("td", { attrs: { width: "40%" } }, [_vm._v("21 June 2019")]),
-      _vm._v(" "),
-      _c("td", { attrs: { width: "40%" } })
+    return _c("td", { attrs: { width: "13%" } }, [
+      _c("b", [_vm._v("Fullfilment Date")])
     ])
   },
   function() {

@@ -61,7 +61,7 @@
                   <tr>
                     <td width="13%"><b>{{ title }} Date</b></td>
                     <td width="2%">:</td>
-                    <td width="40%">20 June 2019</td>
+                    <td width="40%">{{ sales_order.created_at }}</td>
                     <td width="40%"></td>
 
                   </tr>
@@ -69,7 +69,7 @@
                   <tr>
                     <td width="13%"><b>Fullfilment Date</b></td>
                     <td width="2%">:</td>
-                    <td width="40%">21 June 2019</td>
+                    <td width="40%">{{ sales_order.fulfillment_date }}</td>
                     <td width="40%"></td>
 
                   </tr>
