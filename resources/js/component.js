@@ -17,12 +17,12 @@ import AddInvoice from './components/Finance/Invoice/AddInvoice';
 Vue.component('users-component', UsersComponent);
 Vue.component('profile-component', ProfileComponent);
 Vue.component('adduser-component', AdduserComponent);
+
 Vue.component('add-sales-order', AddSalesOrder);
 Vue.component('edit-sales-order', EditSalesOrder);
 Vue.component('add-delivery-order', AddDeliveryOrder);
 Vue.component('add-invoice', AddInvoice);
-
-Vue.component('confirm_delivery_order-component', ConfirmDeliveryOrder);
+Vue.component('confirm-delivery-order', ConfirmDeliveryOrder);
 
 Vue.component('pdf-component', PDFComponent);
 Vue.component('s-form-input', StislaFromInput);

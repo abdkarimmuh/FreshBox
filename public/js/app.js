@@ -68369,7 +68369,7 @@ Vue.component('add-sales-order', _components_Marketing_SalesOrder_AddSalesOrder_
 Vue.component('edit-sales-order', _components_Marketing_SalesOrder_EditSalesOrder__WEBPACK_IMPORTED_MODULE_4__["default"]);
 Vue.component('add-delivery-order', _components_Warehouse_AddDeliveryOrder__WEBPACK_IMPORTED_MODULE_5__["default"]);
 Vue.component('add-invoice', _components_Finance_Invoice_AddInvoice__WEBPACK_IMPORTED_MODULE_9__["default"]);
-Vue.component('confirm_delivery_order-component', _components_Warehouse_ConfirmDeliveryOrder__WEBPACK_IMPORTED_MODULE_6__["default"]);
+Vue.component('confirm-delivery-order', _components_Warehouse_ConfirmDeliveryOrder__WEBPACK_IMPORTED_MODULE_6__["default"]);
 Vue.component('pdf-component', _components_Template_PDFComponent__WEBPACK_IMPORTED_MODULE_7__["default"]);
 Vue.component('s-form-input', _components_Template_Etc_s_form_input__WEBPACK_IMPORTED_MODULE_8__["default"]); // Vue.component("data-table", DataTable);
 

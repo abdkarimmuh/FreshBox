@@ -67,7 +67,7 @@ class ConfirmDeliveryOrderController extends Controller
             return  new DeliveryOrderResource($delivery_order);
         }
         $config = [
-            'vue-component' => "<confirm_delivery_order-component :do_id='" . $id . "'>" . "</confirm_delivery_order-component>"
+            'vue-component' => "<confirm-delivery-order :do_id='" . $id . "'>" . "</confirm-delivery-order>"
         ];
         return view('layouts.vue-view', compact('config'));
     }
