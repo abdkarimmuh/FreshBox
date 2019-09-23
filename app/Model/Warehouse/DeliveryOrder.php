@@ -29,7 +29,7 @@ class DeliveryOrder extends MyModel
      */
     protected $fillable = ['delivery_order_no', 'sales_order_id', 'customer_id', 'do_date', 'confirm_date', 'remark', 'driver_id', 'created_by', 'created_at'];
 
-    protected $appends = ['customer_name','sales_order_no','status_name','driver_name'];
+    protected $appends = ['customer_name', 'sales_order_no', 'status_name', 'driver_name'];
 
 
     public function sales_order()
@@ -73,7 +73,7 @@ class DeliveryOrder extends MyModel
         } elseif ($this->sales_order->status === 5) {
             return '<span class="badge badge-warning">Confirmed</span>';
         } elseif ($this->sales_order->status === 6) {
-            return '<span class="badge badge-success">Invoiced</span>';
+            return '<span class="badge badge-success">Submit Invoice</span>';
         } elseif ($this->sales_order->status === 7) {
             return '<span class="badge badge-success">Invoicing</span>';
         } elseif ($this->sales_order->status === 8) {

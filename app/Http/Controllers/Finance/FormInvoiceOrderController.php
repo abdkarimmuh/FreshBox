@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Finance;
 
+use App\Model\Finance\InvoiceOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,12 +17,12 @@ class FormInvoiceOrderController extends Controller
     {
         $searchValue = $request->input('search');
         $columns = [
-            array('title' => 'Invoice Order No', 'field' => 'invoice_order_no'),
+            array('title' => 'Invoice Order No', 'field' => 'invoice_no'),
             array('title' => 'Delivery Order No', 'field' => 'delivery_order_no'),
             array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
             array('title' => 'Customer', 'field' => 'customer_name'),
-            array('title' => 'Invoice Date', 'field' => 'fulfillment_date'),
-            array('title' => 'Total Amount', 'field' => 'remarks'),
+            array('title' => 'Invoice Date', 'field' => 'invoice_date'),
+            array('title' => 'Total Amount', 'field' => 'total_amount'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
             array('title' => 'Status', 'field' => 'status_name'),
@@ -36,14 +37,12 @@ class FormInvoiceOrderController extends Controller
              * Route Can Be Null, Using Route Name
              */
             //Route For Button Add
-            'route-add' => 'admin.marketing.sales_order.create',
-            //Route For Button Edit
-            'route-edit' => 'admin.marketing.sales_order.edit',
+            'route-add' => 'admin.finance.invoice_order.create',
             //Route For Button View
-            'route-view' => 'admin.marketing.sales_order.pdf',
+            'route-view' => 'admin.finance.invoice_order.show',
         ];
 
-        $query = Invoice::dataTableQuery($searchValue);
+        $query = InvoiceOrder::dataTableQuery($searchValue);
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
@@ -54,9 +53,14 @@ class FormInvoiceOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        if ($request->ajax()) { }
+
+        $config = [
+            'vue-component' => ''
+        ];
+        return view('layouts.vue-view', compact('config'));
     }
 
     /**

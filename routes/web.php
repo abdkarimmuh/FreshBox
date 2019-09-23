@@ -1,4 +1,7 @@
 <?php
+
+use App\Model\Finance\InvoiceOrder;
+
 Route::get('/', function () {
     return redirect(route('admin.dashboard'));
 });
@@ -53,8 +56,12 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
     Route::name('finance.')->prefix('finance')->middleware('auth')->group(function () {
         Route::name('invoice_order.')->prefix('invoice_order')->group(function () {
             Route::get('/', 'Finance\FormInvoiceOrderController@index')->name('index');
+            Route::get('/create', 'Finance\FormInvoiceOrderController@create')->name('create');
+            Route::get('/view', 'Finance\FormInvoiceOrderController@show')->name('show');
+            Route::post('/store', 'Finance\FormInvoiceOrderController@store')->name('store');
         });
     });
+
     /**
      * Route Menu Master Data
      */
@@ -166,7 +173,10 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
         });
     });
 });
-\Route::middleware('auth')->get('logout', function () {
+Route::get('/invoice', function () {
+    return InvoiceOrder::all();
+});
+Route::middleware('auth')->get('logout', function () {
     Auth::logout();
     return redirect(route('login'))->withInfo('You have successfully logged out!');
 })->name('logout');
