@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Warehouse;
 
 use App\Http\Resources\Warehouse\DeliveryOrderResource;
 use App\Model\Warehouse\DeliveryOrderDetail;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Marketing\SalesOrder;
@@ -11,6 +12,7 @@ use App\Model\Warehouse\DeliveryOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class FormDeliveryOrderController extends Controller
 {
@@ -140,5 +142,19 @@ class FormDeliveryOrderController extends Controller
     public function show($id)
     {
         return new DeliveryOrderResource(DeliveryOrder::find($id));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param $id
+     * @return View
+     */
+    public function print($id)
+    {
+        $config = [
+            'vue-component' => "<print-delivery-order :id='$id'></print-delivery-order>"
+        ];
+        return view('layouts.vue-view', compact('config'));
     }
 }
