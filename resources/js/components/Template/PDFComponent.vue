@@ -18,7 +18,6 @@
             alt="homepage"
             class="light-logo"
           >
-
         </span>
       </h3>
 
