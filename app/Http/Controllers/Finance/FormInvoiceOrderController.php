@@ -9,6 +9,8 @@ use App\Model\Warehouse\DeliveryOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use function foo\func;
 
@@ -17,7 +19,8 @@ class FormInvoiceOrderController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -57,7 +60,8 @@ class FormInvoiceOrderController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return AnonymousResourceCollection
      */
     public function create(Request $request)
     {
@@ -76,8 +80,8 @@ class FormInvoiceOrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -88,35 +92,27 @@ class FormInvoiceOrderController extends Controller
 
         $request->validate($rules);
 
-        $dt = Carbon::now();
-        $year_month = $dt->format('ym');
-        //Untuk Mendapatkan Data Terakhir Invoice Order di Bulan Tahun Berjalan
-        $latest_invoice_order = InvoiceOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        //Cek jika ada data sales order maka di ambil invoice_no
-        //Kalau Tidak ada maka di buat invoice_no baru
-        $get_last_inv_no = isset($latest_invoice_order->invoice_no) ? $latest_invoice_order->invoice_no : 'INV' . $year_month . '00000';
-        //Mereplace Text INV ke String Kosong
-        $cut_string_inv_no = str_replace("INV", "", $get_last_inv_no);
-        //Hasil Akhir Delivery Order No
-        $invoice_order_no = 'INV' . ($cut_string_inv_no + 1);
-
         $so_id = $request->so_id;
         $invoice_order = [
             'do_id' => $request->do_id,
             'user_id' => $request->user_id,
             'invoice_date' => $request->invoice_date,
-            'invoice_no' => $invoice_order_no,
+            'invoice_no' => $this->generateInvoiceNo(),
             'created_by' => $request->user_id
         ];
         InvoiceOrder::create($invoice_order);
         SalesOrder::find($so_id)->update(['status' => 6]);
+
+        return response()->json([
+            'status' => 'success'
+        ], 200);
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -124,36 +120,17 @@ class FormInvoiceOrderController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Generate Invoice No.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return string
      */
-    public function edit($id)
+    public function generateInvoiceNo()
     {
-        //
+        $year_month = Carbon::now()->format('ym');
+        $latest_invoice_order = InvoiceOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+        $get_last_inv_no = isset($latest_invoice_order->invoice_no) ? $latest_invoice_order->invoice_no : 'INV' . $year_month . '00000';
+        $cut_string_inv_no = str_replace("INV", "", $get_last_inv_no);
+        return 'INV' . ($cut_string_inv_no + 1);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
