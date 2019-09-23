@@ -19,7 +19,7 @@ Vue.component('profile-component', ProfileComponent);
 Vue.component('adduser-component', AdduserComponent);
 Vue.component('addsalesorder-component', AddSalesOrder);
 Vue.component('editsalesorder-component', EditSalesOrder);
-Vue.component('adddelieryorder-component', AddDeliveryOrder);
+Vue.component('add-delivery-order', AddDeliveryOrder);
 Vue.component('add-invoice', AddInvoice);
 
 Vue.component('confirm_delivery_order-component', ConfirmDeliveryOrder);

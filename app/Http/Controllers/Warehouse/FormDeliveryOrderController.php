@@ -61,7 +61,7 @@ class FormDeliveryOrderController extends Controller
     {
 
         $config = [
-            'vue-component' => "<adddelieryorder-component></adddelieryorder-component>"
+            'vue-component' => "<add-delivery-order></add-delivery-order>"
         ];
 
         return view('layouts.vue-view', compact('config'));

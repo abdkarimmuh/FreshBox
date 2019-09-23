@@ -68367,7 +68367,7 @@ Vue.component('profile-component', _components_ProfileComponent__WEBPACK_IMPORTE
 Vue.component('adduser-component', _components_AdduserComponent__WEBPACK_IMPORTED_MODULE_2__["default"]);
 Vue.component('addsalesorder-component', _components_Marketing_SalesOrder_AddSalesOrder__WEBPACK_IMPORTED_MODULE_3__["default"]);
 Vue.component('editsalesorder-component', _components_Marketing_SalesOrder_EditSalesOrder__WEBPACK_IMPORTED_MODULE_4__["default"]);
-Vue.component('adddelieryorder-component', _components_Warehouse_AddDeliveryOrder__WEBPACK_IMPORTED_MODULE_5__["default"]);
+Vue.component('add-delivery-order', _components_Warehouse_AddDeliveryOrder__WEBPACK_IMPORTED_MODULE_5__["default"]);
 Vue.component('add-invoice', _components_Finance_Invoice_AddInvoice__WEBPACK_IMPORTED_MODULE_9__["default"]);
 Vue.component('confirm_delivery_order-component', _components_Warehouse_ConfirmDeliveryOrder__WEBPACK_IMPORTED_MODULE_6__["default"]);
 Vue.component('pdf-component', _components_Template_PDFComponent__WEBPACK_IMPORTED_MODULE_7__["default"]);
