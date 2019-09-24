@@ -30,7 +30,7 @@ class FormInvoiceOrderController extends Controller
             array('title' => 'Delivery Order No', 'field' => 'delivery_order_no'),
             array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
             array('title' => 'Customer', 'field' => 'customer_name'),
-            array('title' => 'Invoice Date', 'field' => 'invoice_date'),
+            array('title' => 'Invoice Date', 'field' => 'invoice_date_formatted'),
             array('title' => 'Total Amount', 'field' => 'total_price'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),

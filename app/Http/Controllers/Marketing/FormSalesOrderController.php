@@ -45,6 +45,7 @@ class FormSalesOrderController extends Controller
             'route-edit' => 'admin.marketing.sales_order.edit',
             //Route For Button View
             'route-view' => 'admin.marketing.sales_order.print',
+            'route-multiple-print' => 'admin.marketing.sales_order.multiplePrint'
         ];
 
         $query = SalesOrder::dataTableQuery($searchValue);
@@ -304,9 +305,23 @@ class FormSalesOrderController extends Controller
         $so_detail = SalesOrderDetail::find($id);
         $so_detail->delete();
 
-    return response()->json([
+        return response()->json([
             'status' => 'Success!'
         ], 200);
+    }
+
+    public function multiplePrint(Request $request)
+    {
+        $id = $request->id;
+        if ($request->ajax()) {
+            $sales_order = SalesOrderResource::collection(SalesOrder::whereIn('id', $id)->get());
+            return response()->json($sales_order, 200);
+        }
+        $config = [
+            'vue-component' => " <multiple-print-sales-order id='" . json_encode($id) . "'></multiple-print-sales-order>"
+        ];
+
+        return view('layouts.vue-view', compact('config', 'title'));
     }
 
     public function print($id)
@@ -315,11 +330,12 @@ class FormSalesOrderController extends Controller
             $sales_order = new SalesOrderResource(SalesOrder::findOrFail($id));
             return response()->json($sales_order, 200);
         }
-
         $config = [
             'vue-component' => "<print-sales-order id='$id'></print-sales-order>"
         ];
 
         return view('layouts.vue-view', compact('config', 'title', 'id'));
     }
+
+
 }

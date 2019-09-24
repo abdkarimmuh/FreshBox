@@ -31,6 +31,7 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/{id}/edit', 'Marketing\FormSalesOrderController@edit')->name('edit');
             Route::get('/{id}/print', 'Marketing\FormSalesOrderController@print')->name('print');
             Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile')->name('download');
+            Route::get('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint')->name('multiplePrint');
         });
     });
     /**
@@ -49,6 +50,14 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'Warehouse\ConfirmDeliveryOrderController@index')->name('index');
             Route::get('/{id}/create', 'Warehouse\ConfirmDeliveryOrderController@create')->name('create');
             Route::patch('/update', 'Warehouse\ConfirmDeliveryOrderController@update')->name('update');
+        });
+
+        Route::name('returned.')->prefix('returned')->group(function () {
+            Route::get('/', 'Warehouse\ReturnedOrderController@index')->name('index');
+            Route::get('/create', 'Warehouse\ReturnedOrderController@create')->name('create');
+            Route::post('/store', 'Warehouse\ReturnedOrderController@store')->name('store');
+            Route::get('/{id}/show', 'Warehouse\ReturnedOrderController@show')->name('show');
+
         });
     });
     /**

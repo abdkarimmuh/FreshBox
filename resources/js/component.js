@@ -15,6 +15,7 @@ import AddInvoice from './components/Finance/Invoice/AddInvoice';
 import PrintSalesOrder from './components/Template/PrintSalesOrder';
 import PrintDeliveryOrder from "./components/Template/PrintDeliveryOrder";
 import PrintInvoiceOrder from "./components/Template/PrintInvoiceOrder";
+import MultiplePrintSalesOrder from "./components/Template/MultiplePrintSalesOrder";
 
 Vue.component('users-component', UsersComponent);
 Vue.component('profile-component', ProfileComponent);
@@ -26,6 +27,7 @@ Vue.component('add-delivery-order', AddDeliveryOrder);
 Vue.component('add-invoice', AddInvoice);
 Vue.component('confirm-delivery-order', ConfirmDeliveryOrder);
 
+Vue.component('multiple-print-sales-order', MultiplePrintSalesOrder);
 Vue.component('print-sales-order', PrintSalesOrder);
 Vue.component('print-delivery-order', PrintDeliveryOrder);
 Vue.component('print-invoice-order', PrintInvoiceOrder);
