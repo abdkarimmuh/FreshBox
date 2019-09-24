@@ -97,6 +97,7 @@
                                     <th class="text-center">UOM</th>
                                     <th class="text-center">Qty SO</th>
                                     <th class="text-center">Qty DO</th>
+                                    <th class="text-center">Remark</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -109,6 +110,7 @@
                                     <td>{{ item.uom_name }}</td>
                                     <td>{{ item.qty_order }}</td>
                                     <td>{{ item.qty_do }}</td>
+                                    <td>{{ item.remark }}</td>
                                 </tr>
                                 <tr>
                                     <td></td>

@@ -3726,6 +3726,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
@@ -48479,7 +48481,9 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(item.qty_order))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.qty_do))])
+                                _c("td", [_vm._v(_vm._s(item.qty_do))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(item.remark))])
                               ])
                             }),
                             _vm._v(" "),
@@ -48587,7 +48591,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Qty SO")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Qty DO")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Qty DO")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Remark")])
       ])
     ])
   },
