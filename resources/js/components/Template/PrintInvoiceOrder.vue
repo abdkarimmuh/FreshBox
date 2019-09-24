@@ -279,7 +279,7 @@
                 this.$htmlToPaper('printMe');
             },
             back() {
-                return window.location.href = this.$parent.MakeUrl('/admin/warehouse/delivery_order');
+                return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
             }
         }
     }

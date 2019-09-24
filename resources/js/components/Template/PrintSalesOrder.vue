@@ -266,7 +266,7 @@
                 this.$htmlToPaper('printMe');
             },
             back() {
-                return window.location.href = this.$parent.MakeUrl('/admin/marketing/form_sales_order');
+                return window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
             }
         }
     }

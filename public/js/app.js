@@ -3758,7 +3758,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$htmlToPaper('printMe');
     },
     back: function back() {
-      return window.location.href = this.$parent.MakeUrl('/admin/warehouse/delivery_order');
+      return window.location.href = this.$parent.MakeUrl('admin/warehouse/delivery_order');
     }
   }
 });
@@ -4054,7 +4054,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$htmlToPaper('printMe');
     },
     back: function back() {
-      return window.location.href = this.$parent.MakeUrl('/admin/warehouse/delivery_order');
+      return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
     }
   }
 });
@@ -4337,7 +4337,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$htmlToPaper('printMe');
     },
     back: function back() {
-      return window.location.href = this.$parent.MakeUrl('/admin/marketing/form_sales_order');
+      return window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
     }
   }
 });
