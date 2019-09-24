@@ -16,9 +16,7 @@ class InvoiceOrder extends MyModel
 
     public function delivery_order()
     {
-        return $this->belongsTo(DeliveryOrder::class, 'do_id')->whereHas('delivery_order_details', function ($q) {
-            $q->where('returned', 0);
-        });
+        return $this->belongsTo(DeliveryOrder::class, 'do_id');
     }
 
     public function getDeliveryOrderNoAttribute()
@@ -39,7 +37,7 @@ class InvoiceOrder extends MyModel
     public function getTotalAmountAttribute()
     {
         $total_amount = 0;
-        foreach ($this->delivery_order->delivery_order_details as $do_details) {
+        foreach ($this->delivery_order->do_details_not_returned as $do_details) {
             $total_amount += $do_details->sales_order_detail->total_amount;
         }
         return number_format($total_amount, 2);

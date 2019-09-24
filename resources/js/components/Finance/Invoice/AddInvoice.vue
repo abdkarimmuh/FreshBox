@@ -89,6 +89,8 @@
                                         <th class="text-center">SKUID</th>
                                         <th class="text-center">Item Name</th>
                                         <th class="text-center">UOM</th>
+                                        <th class="text-center">Qty So</th>
+                                        <th class="text-center">Qty Do</th>
                                         <th class="text-center">Qty Confirm</th>
                                         <th class="text-center">Amount Price</th>
                                         <th class="text-center">Total Amount</th>
@@ -102,6 +104,8 @@
                                         <td>{{ orders.skuid }}</td>
                                         <td>{{ orders.item_name }}</td>
                                         <td>{{ orders.uom_name }}</td>
+                                        <td>{{ orders.qty_order }}</td>
+                                        <td>{{ orders.qty_do }}</td>
                                         <td>{{ orders.qty_confirm }}</td>
                                         <td style="text-align: right;">{{ orders.amount_price }}</td>
                                         <td style="text-align: right;">{{ orders.total_amount }}</td>
@@ -161,7 +165,7 @@
                 axios.get(this.$parent.MakeUrl("admin/warehouse/delivery_order/" + this.do_id + "/show"))
                     .then(res => {
                         this.delivery_order = res.data.data;
-                        this.do_details = res.data.data.do_details;
+                        this.do_details = res.data.data.do_details_not_returned;
                         console.log(res.data.data);
                     })
                     .catch(err => {

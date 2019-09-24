@@ -14,9 +14,17 @@ class DeliveryOrderResource extends JsonResource
      */
     public function toArray($request)
     {
-        $total_amount = 0;
+        $total_price = 0;
         foreach ($this->delivery_order_details as $do_detail) {
-            $total_amount += $do_detail->sales_order_detail->amount_price * $do_detail->qty_confirm;
+            $total_price += $do_detail->sales_order_detail->amount_price * $do_detail->qty_do;
+        }
+        $total_price_returned = 0;
+        foreach ($this->do_details_returned as $do_detail) {
+            $total_price_returned += $do_detail->sales_order_detail->amount_price * $do_detail->qty_confirm;
+        }
+        $total_price_not_returned = 0;
+        foreach ($this->do_details_not_returned as $do_detail) {
+            $total_price_not_returned += $do_detail->sales_order_detail->amount_price * $do_detail->qty_confirm;
         }
         return [
             'id' => $this->id,
@@ -30,7 +38,9 @@ class DeliveryOrderResource extends JsonResource
             'remark' => $this->remark,
             'driver_id' => $this->driver_id,
             'driver_name' => $this->driver->name,
-            'total_amount' => number_format($total_amount, 2),
+            'total_price' => number_format($total_price, 2),
+            'total_price_returned' => number_format($total_price_returned, 2),
+            'total_price_not_returned' => number_format($total_price_not_returned, 2),
             'do_details' => DeliveryOrderDetailResource::collection($this->delivery_order_details),
             'do_details_returned' => DeliveryOrderDetailResource::collection($this->do_details_returned),
             'do_details_not_returned' => DeliveryOrderDetailResource::collection($this->do_details_not_returned),

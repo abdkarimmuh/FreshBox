@@ -2080,6 +2080,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2102,7 +2106,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       axios.get(this.$parent.MakeUrl("admin/warehouse/delivery_order/" + this.do_id + "/show")).then(function (res) {
         _this.delivery_order = res.data.data;
-        _this.do_details = res.data.data.do_details;
+        _this.do_details = res.data.data.do_details_not_returned;
         console.log(res.data.data);
       })["catch"](function (err) {});
     },
@@ -46394,6 +46398,10 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [_vm._v(_vm._s(orders.uom_name))]),
                                   _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(orders.qty_order))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(orders.qty_do))]),
+                                  _vm._v(" "),
                                   _c("td", [
                                     _vm._v(_vm._s(orders.qty_confirm))
                                   ]),
@@ -46516,6 +46524,10 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Item Name")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("UOM")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Qty So")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Qty Do")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Qty Confirm")]),
         _vm._v(" "),
