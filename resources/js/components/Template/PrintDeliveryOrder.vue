@@ -61,7 +61,7 @@
                                 <tr>
                                     <td width="13%"><b>Sales Order No</b></td>
                                     <td width="2%">:</td>
-                                    <td width="40%">{{ delivery_order.created_at }}</td>
+                                    <td width="40%">{{ delivery_order.sales_order_no }}</td>
                                     <td width="40%"></td>
 
                                 </tr>
@@ -69,7 +69,7 @@
                                 <tr>
                                     <td width="13%"><b>Delivery Order No</b></td>
                                     <td width="2%">:</td>
-                                    <td width="40%">{{ delivery_order.created_at }}</td>
+                                    <td width="40%">{{ delivery_order.delivery_order_no }}</td>
                                     <td width="40%"></td>
 
                                 </tr>
@@ -77,7 +77,7 @@
                                 <tr>
                                     <td width="13%"><b>Delivery Order Date</b></td>
                                     <td width="2%">:</td>
-                                    <td width="40%">{{ delivery_order.fulfillment_date }}</td>
+                                    <td width="40%">{{ delivery_order.do_date }}</td>
                                     <td width="40%"></td>
 
                                 </tr>
@@ -109,7 +109,7 @@
                                     <td>{{ item.skuid }}</td>
                                     <td>{{ item.item_name }}</td>
                                     <td>{{ item.uom_name }}</td>
-                                    <td>{{ item.qty }}</td>
+                                    <td>{{ item.qty_order }}</td>
                                     <td>{{ item.qty_do }}</td>
                                 </tr>
                                 <tr>
@@ -238,26 +238,24 @@
 
 <script>
     export default {
-        props: ['id', 'title'],
+        props: ['id'],
         data() {
             return {
-                sales_order: {},
+                delivery_order: {},
                 details: [],
                 loading: false,
             }
         },
         mounted() {
             this.getData();
-
         },
         methods: {
             getData() {
-                axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.id + '/print'))
+                axios.get(this.$parent.MakeUrl('admin/warehouse/delivery_order/' + this.id + '/show'))
                     .then(res => {
-                        this.sales_order = res.data;
-                        this.details = res.data.sales_order_details;
+                        this.delivery_order = res.data.data;
+                        this.details = res.data.data.do_details;
                         this.loading = true;
-                        console.log(res)
                     })
                     .catch(err => {
                         if (err.response.status == 500) {
@@ -267,28 +265,9 @@
                     })
             },
             print() {
-                // Pass the element id here
                 this.$htmlToPaper('printMe');
             },
-            formatPrice(value) {
-                return value.toLocaleString("id-ID", {
-                    minimumFractionDigits: 2
-                });
-            },
-
-        },
-        computed: {
-            totalItem: function () {
-                let sum = 0;
-                this.total_amount.forEach(function (item) {
-                    sum += parseFloat(item);
-                });
-
-                return sum.toLocaleString("id-ID", {
-                    minimumFractionDigits: 2
-                });
-            }
-        },
+        }
     }
 </script>
 

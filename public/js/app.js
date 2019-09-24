@@ -4028,10 +4028,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'title'],
+  props: ['id'],
   data: function data() {
     return {
-      sales_order: {},
+      delivery_order: {},
       details: [],
       loading: false
     };
@@ -4043,11 +4043,10 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.id + '/print')).then(function (res) {
-        _this.sales_order = res.data;
-        _this.details = res.data.sales_order_details;
+      axios.get(this.$parent.MakeUrl('admin/warehouse/delivery_order/' + this.id + '/show')).then(function (res) {
+        _this.delivery_order = res.data.data;
+        _this.details = res.data.data.do_details;
         _this.loading = true;
-        console.log(res);
       })["catch"](function (err) {
         if (err.response.status == 500) {
           _this.getData();
@@ -4057,24 +4056,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     print: function print() {
-      // Pass the element id here
       this.$htmlToPaper('printMe');
-    },
-    formatPrice: function formatPrice(value) {
-      return value.toLocaleString("id-ID", {
-        minimumFractionDigits: 2
-      });
-    }
-  },
-  computed: {
-    totalItem: function totalItem() {
-      var sum = 0;
-      this.total_amount.forEach(function (item) {
-        sum += parseFloat(item);
-      });
-      return sum.toLocaleString("id-ID", {
-        minimumFractionDigits: 2
-      });
     }
   }
 });
@@ -48861,7 +48843,7 @@ var render = function() {
                             _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "40%" } }, [
-                              _vm._v(_vm._s(_vm.delivery_order.created_at))
+                              _vm._v(_vm._s(_vm.delivery_order.sales_order_no))
                             ]),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "40%" } })
@@ -48873,7 +48855,9 @@ var render = function() {
                             _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "40%" } }, [
-                              _vm._v(_vm._s(_vm.delivery_order.created_at))
+                              _vm._v(
+                                _vm._s(_vm.delivery_order.delivery_order_no)
+                              )
                             ]),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "40%" } })
@@ -48885,9 +48869,7 @@ var render = function() {
                             _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "40%" } }, [
-                              _vm._v(
-                                _vm._s(_vm.delivery_order.fulfillment_date)
-                              )
+                              _vm._v(_vm._s(_vm.delivery_order.do_date))
                             ]),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "40%" } })
@@ -48922,7 +48904,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(item.uom_name))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.qty))]),
+                                _c("td", [_vm._v(_vm._s(item.qty_order))]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(item.qty_do))])
                               ])

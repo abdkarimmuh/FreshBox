@@ -30,6 +30,7 @@ class DeliveryOrder extends MyModel
     protected $fillable = ['delivery_order_no', 'sales_order_id', 'customer_id', 'do_date', 'confirm_date', 'remark', 'driver_id', 'created_by', 'created_at'];
 
     protected $appends = ['customer_name', 'sales_order_no', 'status_name', 'driver_name'];
+    protected $dates = ['do_date'];
 
 
     public function sales_order()
@@ -49,6 +50,16 @@ class DeliveryOrder extends MyModel
 
     public function delivery_order_details()
     {
+        return $this->hasMany(DeliveryOrderDetail::class);
+    }
+
+    public function do_details_returned()
+    {
+        return $this->hasMany(DeliveryOrderDetail::class)->where('returned', 1);
+    }
+
+    public function do_details_not_returned()
+    {
         return $this->hasMany(DeliveryOrderDetail::class)->where('returned', 0);
     }
 
@@ -56,6 +67,7 @@ class DeliveryOrder extends MyModel
     {
         return $this->driver->name;
     }
+
     public function getCustomerNameAttribute()
     {
         return $this->customer->name;

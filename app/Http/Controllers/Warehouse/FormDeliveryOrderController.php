@@ -48,7 +48,7 @@ class FormDeliveryOrderController extends Controller
             //Route For Button Add
             'route-add' => 'admin.warehouse.delivery_order.create',
             //Route For Button View
-            'route-view' => 'testing.create',
+            'route-view' => 'admin.warehouse.delivery_order.print',
         ];
 
         $query = DeliveryOrder::dataTableQuery($searchValue);
