@@ -10,9 +10,9 @@ import AddSalesOrder from "./components/Marketing/SalesOrder/AddSalesOrder";
 import EditSalesOrder from "./components/Marketing/SalesOrder/EditSalesOrder";
 import AddDeliveryOrder from './components/Warehouse/AddDeliveryOrder';
 import ConfirmDeliveryOrder from './components/Warehouse/ConfirmDeliveryOrder';
-import PDFComponent from './components/Template/PDFComponent';
 import StislaFromInput from './components/Template/Etc/s-form-input';
 import AddInvoice from './components/Finance/Invoice/AddInvoice';
+import PrintSalesOrder from './components/Template/PrintSalesOrder';
 import PrintDeliveryOrder from "./components/Template/PrintDeliveryOrder";
 
 Vue.component('users-component', UsersComponent);
@@ -25,7 +25,7 @@ Vue.component('add-delivery-order', AddDeliveryOrder);
 Vue.component('add-invoice', AddInvoice);
 Vue.component('confirm-delivery-order', ConfirmDeliveryOrder);
 
-Vue.component('pdf-component', PDFComponent);
+Vue.component('print-sales-order', PrintSalesOrder);
 Vue.component('print-delivery-order', PrintDeliveryOrder);
 
 Vue.component('s-form-input', StislaFromInput);

@@ -29,7 +29,7 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/create', 'Marketing\FormSalesOrderController@create')->name('create');
             Route::post('/store', 'Marketing\FormSalesOrderController@store')->name('store');
             Route::get('/{id}/edit', 'Marketing\FormSalesOrderController@edit')->name('edit');
-            Route::get('/{id}/pdf', 'Marketing\FormSalesOrderController@pdf')->name('pdf');
+            Route::get('/{id}/print', 'Marketing\FormSalesOrderController@print')->name('print');
             Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile')->name('download');
         });
     });
