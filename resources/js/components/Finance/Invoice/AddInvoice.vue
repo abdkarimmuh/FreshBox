@@ -64,9 +64,9 @@
                                 </div>
                                 <div
                                     style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                    v-if="errors.do_date"
+                                    v-if="errors.invoice_date"
                                 >
-                                    <p>{{ errors.do_date[0] }}</p>
+                                    <p>{{ errors.invoice_date[0] }}</p>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,8 @@
                                     <tfoot>
                                     <tr>
                                         <td colspan="5" style="text-align: right;">Grand Total</td>
-                                        <td style="text-align: right;">{{ delivery_order.total_amount }}</td>
+                                        <td style="text-align: right;">{{ delivery_order.total_price_not_returned }}
+                                        </td>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -166,17 +167,16 @@
                     .then(res => {
                         this.delivery_order = res.data.data;
                         this.do_details = res.data.data.do_details_not_returned;
-                        console.log(res.data.data);
                     })
-                    .catch(err => {
+                    .catch(e => {
+                        console.log(e);
                     });
             },
             getData() {
                 axios.get(this.$parent.MakeUrl("admin/finance/invoice_order/create")).then(res => {
                     this.list_delivery_order = res.data.data;
-                    console.log(res.data.data);
-                }).catch(err => {
-                    console.log(err);
+                }).catch(e => {
+                    console.log(e);
                 });
             },
             async submitForm() {
@@ -196,13 +196,11 @@
                     setTimeout(function () {
                         window.location.href = "/admin/finance/invoice_order";
                     }, 2500);
-                    console.log("RES SALES ORDER", res);
                 } catch (e) {
                     this.errors = e.response.data.errors;
-                    console.error(e.response.data);
+                    console.log(e);
                 }
             },
-
         },
         components: {
             ModelListSelect

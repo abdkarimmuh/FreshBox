@@ -2084,6 +2084,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2107,17 +2108,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get(this.$parent.MakeUrl("admin/warehouse/delivery_order/" + this.do_id + "/show")).then(function (res) {
         _this.delivery_order = res.data.data;
         _this.do_details = res.data.data.do_details_not_returned;
-        console.log(res.data.data);
-      })["catch"](function (err) {});
+      })["catch"](function (e) {
+        console.log(e);
+      });
     },
     getData: function getData() {
       var _this2 = this;
 
       axios.get(this.$parent.MakeUrl("admin/finance/invoice_order/create")).then(function (res) {
         _this2.list_delivery_order = res.data.data;
-        console.log(res.data.data);
-      })["catch"](function (err) {
-        console.log(err);
+      })["catch"](function (e) {
+        console.log(e);
       });
     },
     submitForm: function () {
@@ -2149,22 +2150,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 setTimeout(function () {
                   window.location.href = "/admin/finance/invoice_order";
                 }, 2500);
-                console.log("RES SALES ORDER", res);
-                _context.next = 14;
+                _context.next = 13;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](1);
                 this.errors = _context.t0.response.data.errors;
-                console.error(_context.t0.response.data);
+                console.log(_context.t0);
 
-              case 14:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 10]]);
+        }, _callee, this, [[1, 9]]);
       }));
 
       function submitForm() {
@@ -46355,7 +46355,7 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _vm.errors.do_date
+                  _vm.errors.invoice_date
                     ? _c(
                         "div",
                         {
@@ -46365,7 +46365,7 @@ var render = function() {
                             color: "#dc3545"
                           }
                         },
-                        [_c("p", [_vm._v(_vm._s(_vm.errors.do_date[0]))])]
+                        [_c("p", [_vm._v(_vm._s(_vm.errors.invoice_date[0]))])]
                       )
                     : _vm._e()
                 ])
@@ -46440,7 +46440,11 @@ var render = function() {
                                   { staticStyle: { "text-align": "right" } },
                                   [
                                     _vm._v(
-                                      _vm._s(_vm.delivery_order.total_amount)
+                                      _vm._s(
+                                        _vm.delivery_order
+                                          .total_price_not_returned
+                                      ) +
+                                        "\n                                    "
                                     )
                                   ]
                                 )
