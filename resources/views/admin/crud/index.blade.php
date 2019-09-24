@@ -12,7 +12,8 @@
                                         class="fas fa-plus"></i></a>
                             @endif
                             @isset($config['route-multiple-print'])
-                                <a class="btn btn-info ml-2" onclick="document.getElementById('checked-form').submit()" style="color: white">Print <i class="fas fa-print"></i></a>
+                                <a class="btn btn-info ml-2" onclick="document.getElementById('checked-form').submit()"
+                                   style="color: white">Print <i class="fas fa-print"></i></a>
                             @endisset
                         </div>
                     </div>
@@ -37,7 +38,9 @@
                                         <tbody>
                                         <tr>
                                             @isset($config['route-multiple-print'])
-                                                <th><input type="checkbox"></th>
+                                                <th>
+                                                    <input type="checkbox" id="checked_all">
+                                                </th>
                                             @endisset
                                             <th width="150px">Action</th>
                                             @foreach ($columns as $column)
@@ -48,7 +51,8 @@
                                             <tr>
                                                 @isset($config['route-multiple-print'])
                                                     <td>
-                                                        <input type="checkbox" name="id[]" value="{{ $row->id }}">
+                                                        <input type="checkbox" name="id[]" class="custom-checkbox"
+                                                               value="{{ $row->id }}">
                                                     </td>
                                                 @endisset
                                                 <td>
@@ -148,4 +152,17 @@
         </div>
     </div>
 @endsection
+@isset($config['route-multiple-print'])
+    @push('js')
+        <script>
+            $('#checked_all').on('click', function (e) {
+                if ($(this).is(':checked', true)) {
+                    $(".custom-checkbox").prop('checked', true);
+                } else {
+                    $(".custom-checkbox").prop('checked', false);
+                }
+            });
+        </script>
+    @endpush
+@endisset
 
