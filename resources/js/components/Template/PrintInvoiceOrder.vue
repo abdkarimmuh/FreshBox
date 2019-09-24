@@ -18,7 +18,6 @@
           >
         </span>
             </h3>
-
             <hr>
             <div
                 class="row"
@@ -27,7 +26,8 @@
                 <div class="col-md-12">
                     <div class="pull-right text-right">
                         <address>
-                            <h4><b class="text-danger">Sales Order<span class="pull-right">#{{ sales_order.sales_order_no }}</span></b>
+                            <h4><b class="text-danger">Invoice<span
+                                class="pull-right">#{{ invoice_order.invoice_no }}</span></b>
                             </h4>
 
                         </address>
@@ -44,7 +44,7 @@
                                 <tr>
                                     <td width="13%"><b>Supplier</b></td>
                                     <td width="2%">:</td>
-                                    <td width="40%">{{ sales_order.customer_name }}</td>
+                                    <td width="40%">{{ invoice_order.customer_name }}</td>
                                     <td width="40%"></td>
 
                                 </tr>
@@ -52,23 +52,31 @@
                                 <tr>
                                     <td width="13%"><b>Address</b></td>
                                     <td width="2%">:</td>
-                                    <td width="40%">{{ sales_order.customer_address}}</td>
+                                    <td width="40%">{{ invoice_order.customer_address }}</td>
                                     <td width="40%"></td>
 
                                 </tr>
 
                                 <tr>
-                                    <td width="13%"><b>Sales Order Date</b></td>
+                                    <td width="13%"><b>Sales Order No</b></td>
                                     <td width="2%">:</td>
-                                    <td width="40%">{{ sales_order.created_at }}</td>
+                                    <td width="40%">{{ invoice_order.sales_order_no }}</td>
                                     <td width="40%"></td>
 
                                 </tr>
 
                                 <tr>
-                                    <td width="13%"><b>Fullfilment Date</b></td>
+                                    <td width="13%"><b>Delivery Order No</b></td>
                                     <td width="2%">:</td>
-                                    <td width="40%">{{ sales_order.fulfillment_date }}</td>
+                                    <td width="40%">{{ invoice_order.delivery_order_no }}</td>
+                                    <td width="40%"></td>
+
+                                </tr>
+
+                                <tr>
+                                    <td width="13%"><b>Invoice Date</b></td>
+                                    <td width="2%">:</td>
+                                    <td width="40%">{{ invoice_order.invoice_date }}</td>
                                     <td width="40%"></td>
 
                                 </tr>
@@ -101,9 +109,9 @@
                                     <td>{{ item.skuid }}</td>
                                     <td>{{ item.item_name }}</td>
                                     <td>{{ item.uom_name }}</td>
-                                    <td style="text-align: right;">{{ item.qty }}</td>
-                                    <td style="text-align: right;">{{ item.amount_price_formated }}</td>
-                                    <td style="text-align: right;">{{ item.total_amount_formated }}</td>
+                                    <td>{{ item.qty_confirm }}</td>
+                                    <td>{{ item.amount_price }}</td>
+                                    <td>{{ item.total_amount }}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -119,11 +127,11 @@
                     </div>
                     <div class="col-md-12">
                         <div class="pull-right m-t-30 text-right">
-                            <p>Sub - Total : {{ sales_order.total_price }}</p>
+                            <p>Sub - Total : {{ invoice_order.total_price }}</p>
                             <p>PPN : </p>
                             <p>PPh : - </p>
                             <hr>
-                            <h3><b>Total :</b> {{ sales_order.total_price }}</h3>
+                            <h3><b>Total :</b> {{ invoice_order.total_price }}</h3>
                         </div>
                         <div class="clearfix"></div>
                         <hr>
@@ -188,12 +196,15 @@
                                             </tr>
                                             <tr>
                                                 <td height="78">&nbsp;</td>
+
                                             </tr>
+
                                             <tr>
                                                 <td
                                                     height="23"
                                                     class="text-center"
                                                 ></td>
+
                                             </tr>
                                             </tbody>
                                         </table>
@@ -212,7 +223,9 @@
                 <h5>Loading</h5>
                 <p>Please wait, data is being loaded...</p>
             </div>
+
         </div>
+
         <div class="text-right">
             <button
                 class="btn btn-secondary"
@@ -240,7 +253,7 @@
         props: ['id'],
         data() {
             return {
-                sales_order: {},
+                invoice_order: {},
                 details: [],
                 loading: false,
             }
@@ -250,10 +263,10 @@
         },
         methods: {
             getData() {
-                axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.id + '/print'))
+                axios.get(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print'))
                     .then(res => {
-                        this.sales_order = res.data;
-                        this.details = res.data.sales_order_details;
+                        this.invoice_order = res.data.data;
+                        this.details = res.data.data.delivery_orders;
                         this.loading = true;
                     })
                     .catch(err => {
@@ -266,7 +279,7 @@
                 this.$htmlToPaper('printMe');
             },
             back() {
-                return window.location.href = this.$parent.MakeUrl('/admin/marketing/form_sales_order');
+                return window.location.href = this.$parent.MakeUrl('/admin/warehouse/delivery_order');
             }
         }
     }

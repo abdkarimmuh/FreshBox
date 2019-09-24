@@ -60,6 +60,7 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/create', 'Finance\FormInvoiceOrderController@create')->name('create');
             Route::get('/view', 'Finance\FormInvoiceOrderController@show')->name('show');
             Route::post('/store', 'Finance\FormInvoiceOrderController@store')->name('store');
+            Route::get('/{id}/print', 'Finance\FormInvoiceOrderController@print')->name('print');
         });
     });
 

@@ -14,6 +14,7 @@ import StislaFromInput from './components/Template/Etc/s-form-input';
 import AddInvoice from './components/Finance/Invoice/AddInvoice';
 import PrintSalesOrder from './components/Template/PrintSalesOrder';
 import PrintDeliveryOrder from "./components/Template/PrintDeliveryOrder";
+import PrintInvoiceOrder from "./components/Template/PrintInvoiceOrder";
 
 Vue.component('users-component', UsersComponent);
 Vue.component('profile-component', ProfileComponent);
@@ -27,6 +28,7 @@ Vue.component('confirm-delivery-order', ConfirmDeliveryOrder);
 
 Vue.component('print-sales-order', PrintSalesOrder);
 Vue.component('print-delivery-order', PrintDeliveryOrder);
+Vue.component('print-invoice-order', PrintInvoiceOrder);
 
 Vue.component('s-form-input', StislaFromInput);
 
