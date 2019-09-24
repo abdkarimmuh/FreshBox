@@ -11,7 +11,6 @@
             <br>
             <h3>
         <span class="logo-text">
-          <!-- dark Logo text -->
           <img
               v-bind:src="$parent.MakeUrl('assets/img/logo-frbox.png')"
               alt="homepage"
@@ -19,7 +18,6 @@
           >
         </span>
             </h3>
-
             <hr>
             <div
                 class="row"
@@ -218,14 +216,14 @@
             <button
                 class="btn btn-secondary"
                 type="button"
-                onclick="back()"
+                @click="back()"
             > Back
             </button>
-            <button
-                class="btn btn-warning"
-                id="returnSalesOrder"
-            > Return
-            </button>
+            <!--            <button-->
+            <!--                class="btn btn-warning"-->
+            <!--                id="returnSalesOrder"-->
+            <!--            > Return-->
+            <!--            </button>-->
             <button
                 class="btn btn-success"
                 @click="print"
@@ -261,12 +259,14 @@
                         if (err.response.status == 500) {
                             this.getData();
                         }
-                        console.error(err);
                     })
             },
             print() {
                 this.$htmlToPaper('printMe');
             },
+            back() {
+                return window.location.href = this.$parent.MakeUrl('/admin/warehouse/delivery_order');
+            }
         }
     }
 </script>

@@ -3722,8 +3722,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
@@ -3748,12 +3746,13 @@ __webpack_require__.r(__webpack_exports__);
         if (err.response.status == 500) {
           _this.getData();
         }
-
-        console.error(err);
       });
     },
     print: function print() {
       this.$htmlToPaper('printMe');
+    },
+    back: function back() {
+      return window.location.href = this.$parent.MakeUrl('/admin/warehouse/delivery_order');
     }
   }
 });
@@ -48497,15 +48496,14 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-secondary",
-          attrs: { type: "button", onclick: "back()" }
+          attrs: { type: "button" },
+          on: {
+            click: function($event) {
+              return _vm.back()
+            }
+          }
         },
         [_vm._v(" Back\n        ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-warning", attrs: { id: "returnSalesOrder" } },
-        [_vm._v(" Return\n        ")]
       ),
       _vm._v(" "),
       _c(
