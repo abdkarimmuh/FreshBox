@@ -9,6 +9,7 @@ use App\Model\MasterData\Residence;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\MasterData\Customer;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -74,16 +75,14 @@ class CustomerController extends Controller
         $forms = [
             array('type' => 'select_option', 'label' => 'Customer Type', 'name' => 'customer_type', 'variable' => 'customerType', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
             array('type' => 'select_option', 'label' => 'Customer Group', 'name' => 'customer_group', 'variable' => 'customerGroup','option_value'=> 'id', 'option_text' => 'name', 'mandatory' => true),
-
-            array('type' => 'select_option', 'label' => 'Province', 'name' => 'province', 'variable' => 'province', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
-            array('type' => 'select_option', 'label' => 'Residence', 'name' => 'residence', 'variable' => 'residence', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
-
             array('type' => 'text', 'label' => 'Customer Code', 'name' => 'customer_code', 'place_holder' => 'Customer Code', 'mandatory' => true),
             array('type' => 'text', 'label' => 'Customer Name', 'name' => 'name', 'place_holder' => 'Customer Name', 'mandatory' => true),
             array('type' => 'text', 'label' => 'PIC Name', 'name' => 'pic_customer', 'place_holder' => 'PIC Name', 'mandatory' => true),
             array('type' => 'number', 'label' => 'PIC Contact', 'name' => 'tlp_pic', 'place_holder' => 'PIC Contact', 'mandatory' => true),
-            array('type' => 'textarea', 'label' => 'Alamat', 'name' => 'address', 'place_holder' => 'Alamat', 'mandatory' => true),
-            array('type' => 'number', 'label' => 'Kode Pos', 'name' => 'kodepos', 'place_holder' => 'Kode Pos', 'mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Province', 'name' => 'province', 'variable' => 'province', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Residence', 'name' => 'residence', 'variable' => 'residence', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+            array('type' => 'number', 'label' => 'Kode Pos', 'name' => 'kodepos', 'place_holder' => 'Kode Pos', 'mandatory' => false),
+            array('type' => 'textarea', 'label' => 'Alamat', 'name' => 'address', 'place_holder' => 'Alamat', 'mandatory' => false),
         ];
         $config = [
             //Form Title
@@ -107,7 +106,19 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'customer_code' => 'required',
+            'customer_type' => 'required',
+            'customer_group' => 'required',
+            'name' => 'required',
+            'pic_customer' => 'required',
+            'tlp_pic' => 'required',
+            'province' => 'required',
+            'residence' => 'required',
+        ]);
+
+        DB::select('call insert_customer(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->customer_code, $request->customer_type, $request->customer_group, $request->name, $request->pic_customer, $request->tlp_pic, $request->address, $request->province, $request->residence, $request->kodepos, auth()->user()->id));
+        return redirect('admin/master_data/customer');
     }
 
     /**

@@ -22,7 +22,7 @@ class CreateMasterPrice extends Migration
             $table->decimal('tax_value', 18, 2)->nullable();
             $table->date('start_periode');
             $table->date('end_periode');
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
