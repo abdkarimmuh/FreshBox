@@ -29,8 +29,11 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/create', 'Marketing\FormSalesOrderController@create')->name('create');
             Route::post('/store', 'Marketing\FormSalesOrderController@store')->name('store');
             Route::get('/{id}/edit', 'Marketing\FormSalesOrderController@edit')->name('edit');
-            Route::get('/{id}/print', 'Marketing\FormSalesOrderController@print')->name('print');
             Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile')->name('download');
+            Route::get('/{id}/print', 'Marketing\FormSalesOrderController@print')->name('print');
+            Route::get('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint')->name('multiplePrint');
+            Route::post('/{id}/print', 'Marketing\FormSalesOrderController@print');
+            Route::post('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint');
         });
     });
     /**
@@ -43,12 +46,22 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::post('/store', 'Warehouse\FormDeliveryOrderController@store')->name('store');
             Route::get('/{id}/show', 'Warehouse\FormDeliveryOrderController@show')->name('show');
             Route::get('/{id}/print', 'Warehouse\FormDeliveryOrderController@print')->name('print');
+            Route::get('/multiplePrint', 'Warehouse\FormDeliveryOrderController@multiplePrint')->name('multiplePrint');
+
         });
 
         Route::name('confirm_delivery_order.')->prefix('confirm_delivery_order')->group(function () {
             Route::get('/', 'Warehouse\ConfirmDeliveryOrderController@index')->name('index');
             Route::get('/{id}/create', 'Warehouse\ConfirmDeliveryOrderController@create')->name('create');
             Route::patch('/update', 'Warehouse\ConfirmDeliveryOrderController@update')->name('update');
+        });
+
+        Route::name('returned.')->prefix('returned')->group(function () {
+            Route::get('/', 'Warehouse\ReturnedOrderController@index')->name('index');
+            Route::get('/create', 'Warehouse\ReturnedOrderController@create')->name('create');
+            Route::post('/store', 'Warehouse\ReturnedOrderController@store')->name('store');
+            Route::get('/{id}/show', 'Warehouse\ReturnedOrderController@show')->name('show');
+
         });
     });
     /**
@@ -60,6 +73,10 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/create', 'Finance\FormInvoiceOrderController@create')->name('create');
             Route::get('/view', 'Finance\FormInvoiceOrderController@show')->name('show');
             Route::post('/store', 'Finance\FormInvoiceOrderController@store')->name('store');
+            Route::get('/{id}/print', 'Finance\FormInvoiceOrderController@print')->name('print');
+            Route::post('/{id}/print', 'Finance\FormInvoiceOrderController@print');
+            Route::get('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint')->name('multiplePrint');
+            Route::post('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint');
         });
     });
 

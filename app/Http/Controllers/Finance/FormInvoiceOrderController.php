@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Finance;
 
+use App\Http\Resources\Finance\InvoiceOrderResource;
 use App\Http\Resources\Warehouse\DeliveryOrderResource;
 use App\Model\Finance\InvoiceOrder;
 use App\Model\Marketing\SalesOrder;
@@ -12,7 +13,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use function foo\func;
 
 class FormInvoiceOrderController extends Controller
 {
@@ -30,8 +30,8 @@ class FormInvoiceOrderController extends Controller
             array('title' => 'Delivery Order No', 'field' => 'delivery_order_no'),
             array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
             array('title' => 'Customer', 'field' => 'customer_name'),
-            array('title' => 'Invoice Date', 'field' => 'invoice_date'),
-            array('title' => 'Total Amount', 'field' => 'total_amount'),
+            array('title' => 'Invoice Date', 'field' => 'invoice_date_formatted'),
+            array('title' => 'Total Amount', 'field' => 'total_price'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
             array('title' => 'Status', 'field' => 'status_name'),
@@ -41,14 +41,15 @@ class FormInvoiceOrderController extends Controller
             //Title Required
             'title' => 'List Invoice Order',
             //Search Route Required
-            'route-search' => 'admin.marketing.sales_order.index',
+            'route-search' => 'admin.finance.invoice_order.index',
             /**
              * Route Can Be Null, Using Route Name
              */
             //Route For Button Add
             'route-add' => 'admin.finance.invoice_order.create',
             //Route For Button View
-            'route-view' => 'admin.finance.invoice_order.show',
+            'route-view' => 'admin.finance.invoice_order.print',
+            'route-multiple-print' => 'admin.finance.invoice_order.multiplePrint'
         ];
 
         $query = InvoiceOrder::dataTableQuery($searchValue);
@@ -131,6 +132,49 @@ class FormInvoiceOrderController extends Controller
         $get_last_inv_no = isset($latest_invoice_order->invoice_no) ? $latest_invoice_order->invoice_no : 'INV' . $year_month . '00000';
         $cut_string_inv_no = str_replace("INV", "", $get_last_inv_no);
         return 'INV' . ($cut_string_inv_no + 1);
+    }
+
+    /**
+     * Generate Invoice No.
+     *
+     * @param $id
+     * @return InvoiceOrderResource
+     */
+    public function print($id)
+    {
+        if (request()->ajax()) {
+            if (request()->isMethod('POST')) {
+                SalesOrder::where('id', $id)->update(['status' => 7]);
+            } else {
+                return new InvoiceOrderResource(InvoiceOrder::find($id));
+            }
+        }
+        $config = [
+            'vue-component' => "<print-invoice-order :id='$id'></print-invoice-order>"
+        ];
+        return view('layouts.vue-view', compact('config'));
+    }
+
+    public function multiplePrint(Request $request)
+    {
+        if ($request->id) {
+            $id = $request->id;
+            if ($request->ajax()) {
+                if ($request->isMethod('POST')) {
+                    SalesOrder::whereIn('id', $id)->update(['status' => 7]);
+                } else {
+                    $invoice_order = InvoiceOrderResource::collection(InvoiceOrder::whereIn('id', $id)->get());
+                    return response()->json($invoice_order, 200);
+                }
+            }
+            $config = [
+                'vue-component' => " <multiple-print-invoice-order id='" . json_encode($id) . "'></multiple-print-invoice-order>"
+            ];
+
+            return view('layouts.vue-view', compact('config'));
+        } else {
+            return back();
+        }
     }
 
 }
