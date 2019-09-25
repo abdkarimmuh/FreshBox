@@ -315,15 +315,19 @@ class FormSalesOrderController extends Controller
         if ($request->id) {
             $id = $request->id;
             if ($request->ajax()) {
-                $sales_order = SalesOrderResource::collection(SalesOrder::whereIn('id', $id)->get());
-                return response()->json($sales_order, 200);
+                if ($request->isMethod('POST')) {
+                    SalesOrder::whereIn('id', $id)->update(['is_printed' => 1]);
+                } else {
+                    $sales_order = SalesOrderResource::collection(SalesOrder::whereIn('id', $id)->get());
+                    return response()->json($sales_order, 200);
+                }
             }
             $config = [
                 'vue-component' => " <multiple-print-sales-order id='" . json_encode($id) . "'></multiple-print-sales-order>"
             ];
 
             return view('layouts.vue-view', compact('config', 'title'));
-        }else{
+        } else {
             return back();
         }
     }
@@ -331,8 +335,12 @@ class FormSalesOrderController extends Controller
     public function print($id)
     {
         if (request()->ajax()) {
-            $sales_order = new SalesOrderResource(SalesOrder::findOrFail($id));
-            return response()->json($sales_order, 200);
+            if (request()->isMethod('POST')) {
+                SalesOrder::where('id', $id)->update(['is_printed' => 1]);
+            } else {
+                $sales_order = new SalesOrderResource(SalesOrder::findOrFail($id));
+                return response()->json($sales_order, 200);
+            }
         }
         $config = [
             'vue-component' => "<print-sales-order id='$id'></print-sales-order>"

@@ -23,6 +23,7 @@ class InvoiceOrderResource extends JsonResource
             'invoice_no' => $this->invoice_no,
             'delivery_order_no' => $this->delivery_order_no,
             'sales_order_no' => $this->sales_order_no,
+            'sales_order_id' => $this->delivery_order->sales_order_id,
             'total_price' => $this->total_price,
             'delivery_orders' => DeliveryOrderDetailResource::collection($this->delivery_order->do_details_not_returned),
             'invoice_date' => $this->invoice_date->formatLocalized('%d %B %Y'),

@@ -249,7 +249,9 @@
                         this.delivery_order = res.data;
                         this.loading = true;
                     }).catch(e => {
-
+                        if (e.response.status == 500){
+                            this.getData()
+                        }
                 });
                 this.sales_order = this.data;
             },

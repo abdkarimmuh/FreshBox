@@ -23,6 +23,7 @@ class CreateTrxSalesOrder extends Migration
             $table->string('remarks', 200)->nullable();
             $table->binary('file')->nullable();
             $table->tinyInteger('status');
+            $table->tinyInteger('is_printed')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();

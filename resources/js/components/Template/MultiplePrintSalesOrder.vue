@@ -251,12 +251,35 @@
                         this.sales_order = res.data;
                         this.loading = true;
                     }).catch(e => {
-
+                    if (e.response.status == 500) {
+                        this.getData()
+                    }
                 });
-                this.sales_order = this.data;
             },
             print() {
-                this.$htmlToPaper('printMe');
+                const id = JSON.parse(this.id).map(Number);
+                const payload = {
+                    id: id,
+                };
+                Vue.swal({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Print it!'
+                }).then((result) => {
+                    if (result.value) {
+                        this.$htmlToPaper('printMe');
+                        axios.post(this.$parent.MakeUrl('admin/marketing/form_sales_order/multiplePrint'), payload);
+                        // Swal.fire(
+                        //     'Printed!',
+                        //     'This Sales Order has been Printed.',
+                        //     'success'
+                        // )
+                    }
+                })
             },
             back() {
                 return window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');

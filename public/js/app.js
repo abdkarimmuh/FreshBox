@@ -3457,6 +3457,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -3720,16 +3728,62 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         _this.invoice_order = res.data;
         _this.loading = true;
-        console.log(res.data);
-      })["catch"](function (err) {
-        if (err.response.status == 500) {
+      })["catch"](function (e) {
+        if (e.response.status == 500) {
           _this.getData();
         }
       });
     },
-    print: function print() {
-      this.$htmlToPaper('printMe');
-    },
+    print: function () {
+      var _print = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this2 = this;
+
+        var payload;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                payload = {
+                  id: this.invoice_order.map(function (item) {
+                    return item.sales_order_id;
+                  })
+                };
+                Vue.swal({
+                  title: 'Are you sure?',
+                  text: "You won't be able to revert this!",
+                  type: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, Print it!'
+                }).then(function (result) {
+                  if (result.value) {
+                    _this2.$htmlToPaper('printMe');
+
+                    axios.post(_this2.$parent.MakeUrl('admin/finance/invoice_order/multiplePrint'), payload); // Swal.fire(
+                    //     'Printed!',
+                    //     'This Sales Order has been Printed.',
+                    //     'success'
+                    // )
+                  }
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function print() {
+        return _print.apply(this, arguments);
+      }
+
+      return print;
+    }(),
     back: function back() {
       return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
     }
@@ -4031,7 +4085,11 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         _this.delivery_order = res.data;
         _this.loading = true;
-      })["catch"](function (e) {});
+      })["catch"](function (e) {
+        if (e.response.status == 500) {
+          _this.getData();
+        }
+      });
       this.sales_order = this.data;
     },
     print: function print() {
@@ -4307,11 +4365,38 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         _this.sales_order = res.data;
         _this.loading = true;
-      })["catch"](function (e) {});
-      this.sales_order = this.data;
+      })["catch"](function (e) {
+        if (e.response.status == 500) {
+          _this.getData();
+        }
+      });
     },
     print: function print() {
-      this.$htmlToPaper('printMe');
+      var _this2 = this;
+
+      var id = JSON.parse(this.id).map(Number);
+      var payload = {
+        id: id
+      };
+      Vue.swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Print it!'
+      }).then(function (result) {
+        if (result.value) {
+          _this2.$htmlToPaper('printMe');
+
+          axios.post(_this2.$parent.MakeUrl('admin/marketing/form_sales_order/multiplePrint'), payload); // Swal.fire(
+          //     'Printed!',
+          //     'This Sales Order has been Printed.',
+          //     'success'
+          // )
+        }
+      });
     },
     back: function back() {
       return window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
@@ -4886,7 +4971,27 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     print: function print() {
-      this.$htmlToPaper('printMe');
+      var _this2 = this;
+
+      Vue.swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Print it!'
+      }).then(function (result) {
+        if (result.value) {
+          _this2.$htmlToPaper('printMe');
+
+          axios.post(_this2.$parent.MakeUrl('admin/finance/invoice_order/' + _this2.id + '/print')); // Swal.fire(
+          //     'Printed!',
+          //     'This Sales Order has been Printed.',
+          //     'success'
+          // )
+        }
+      });
     },
     back: function back() {
       return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
@@ -5152,7 +5257,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getData();
-    this.print();
   },
   methods: {
     getData: function getData() {
@@ -5169,9 +5273,27 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     print: function print() {
-      if (this.loading) {
-        this.$htmlToPaper('printMe');
-      }
+      var _this2 = this;
+
+      Vue.swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Print it!'
+      }).then(function (result) {
+        if (result.value) {
+          _this2.$htmlToPaper('printMe');
+
+          axios.post(_this2.$parent.MakeUrl('admin/marketing/form_sales_order/' + _this2.id + '/print')); // Swal.fire(
+          //     'Printed!',
+          //     'This Sales Order has been Printed.',
+          //     'success'
+          // )
+        }
+      });
     },
     back: function back() {
       return window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');

@@ -64,7 +64,7 @@
                                                                 View
                                                             </a>
                                                         @endisset
-                                                        @if($row['status'] == 1)
+                                                        @if($row['status'] == 1 && $row['is_printed'] == 0)
                                                             @isset($config['route-edit'])
                                                                 <a
                                                                     href="{{ route($config['route-edit'], ['id' => $row->id]) }}"

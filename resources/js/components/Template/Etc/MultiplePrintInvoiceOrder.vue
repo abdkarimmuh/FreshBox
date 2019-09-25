@@ -251,7 +251,6 @@
         },
         methods: {
             getData() {
-
                 const id = JSON.parse(this.id).map(Number);
                 const payload = {
                     id: id,
@@ -261,16 +260,38 @@
                     .then(res => {
                         this.invoice_order = res.data;
                         this.loading = true;
-                        console.log(res.data)
                     })
-                    .catch(err => {
-                        if (err.response.status == 500) {
+                    .catch(e => {
+                        if (e.response.status == 500) {
                             this.getData();
                         }
                     })
             },
-            print() {
-                this.$htmlToPaper('printMe');
+            async print() {
+                const payload = {
+                    id: this.invoice_order.map(item => item.sales_order_id),
+                };
+                Vue.swal({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Print it!'
+                }).then((result) => {
+                    if (result.value) {
+                        this.$htmlToPaper('printMe');
+                        axios.post(this.$parent.MakeUrl('admin/finance/invoice_order/multiplePrint'), payload);
+                        // Swal.fire(
+                        //     'Printed!',
+                        //     'This Sales Order has been Printed.',
+                        //     'success'
+                        // )
+                    }
+                })
+
+
             },
             back() {
                 return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');

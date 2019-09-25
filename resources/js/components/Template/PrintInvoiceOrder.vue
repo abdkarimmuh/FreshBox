@@ -276,7 +276,25 @@
                     })
             },
             print() {
-                this.$htmlToPaper('printMe');
+                 Vue.swal({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Print it!'
+                }).then((result) => {
+                    if (result.value) {
+                        this.$htmlToPaper('printMe');
+                        axios.post(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print'))
+                        // Swal.fire(
+                        //     'Printed!',
+                        //     'This Sales Order has been Printed.',
+                        //     'success'
+                        // )
+                    }
+                })
             },
             back() {
                 return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
