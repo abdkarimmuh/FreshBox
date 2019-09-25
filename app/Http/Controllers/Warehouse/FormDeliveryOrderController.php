@@ -49,6 +49,7 @@ class FormDeliveryOrderController extends Controller
             'route-add' => 'admin.warehouse.delivery_order.create',
             //Route For Button View
             'route-view' => 'admin.warehouse.delivery_order.print',
+            'route-multiple-print' => 'admin.warehouse.delivery_order.multiplePrint'
         ];
 
         $query = DeliveryOrder::dataTableQuery($searchValue);
@@ -156,5 +157,23 @@ class FormDeliveryOrderController extends Controller
             'vue-component' => "<print-delivery-order :id='$id'></print-delivery-order>"
         ];
         return view('layouts.vue-view', compact('config'));
+    }
+
+    public function multiplePrint(Request $request)
+    {
+        if ($request->id) {
+            $id = $request->id;
+            if ($request->ajax()) {
+                $delivery_order = DeliveryOrderResource::collection(DeliveryOrder::whereIn('id', $id)->get());
+                return response()->json($delivery_order, 200);
+            }
+            $config = [
+                'vue-component' => " <multiple-print-delivery-order id='" . json_encode($id) . "'></multiple-print-delivery-order>"
+            ];
+
+            return view('layouts.vue-view', compact('config'));
+        } else {
+            return back();
+        }
     }
 }

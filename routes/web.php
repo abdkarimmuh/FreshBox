@@ -44,6 +44,8 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::post('/store', 'Warehouse\FormDeliveryOrderController@store')->name('store');
             Route::get('/{id}/show', 'Warehouse\FormDeliveryOrderController@show')->name('show');
             Route::get('/{id}/print', 'Warehouse\FormDeliveryOrderController@print')->name('print');
+            Route::get('/multiplePrint', 'Warehouse\FormDeliveryOrderController@multiplePrint')->name('multiplePrint');
+
         });
 
         Route::name('confirm_delivery_order.')->prefix('confirm_delivery_order')->group(function () {

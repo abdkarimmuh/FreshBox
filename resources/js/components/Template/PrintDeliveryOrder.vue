@@ -221,11 +221,6 @@
                 @click="back()"
             > Back
             </button>
-            <!--            <button-->
-            <!--                class="btn btn-warning"-->
-            <!--                id="returnSalesOrder"-->
-            <!--            > Return-->
-            <!--            </button>-->
             <button
                 class="btn btn-success"
                 @click="print"
