@@ -5140,6 +5140,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
@@ -51705,30 +51706,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "card card-body" }, [
-      _c("div", { staticClass: "text-right" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-secondary",
-            attrs: { type: "button" },
-            on: {
-              click: function($event) {
-                return _vm.back()
-              }
-            }
-          },
-          [_vm._v(" Back\n            ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-success", on: { click: _vm.print } },
-          [_vm._v(" Print\n            ")]
-        )
-      ])
-    ]),
-    _vm._v(" "),
     _c("div", { attrs: { id: "printMe" } }, [
       _c(
         "div",
@@ -51936,6 +51913,30 @@ var render = function() {
               ])
         ]
       )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card card-body" }, [
+      _c("div", { staticClass: "text-right" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-secondary",
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                return _vm.back()
+              }
+            }
+          },
+          [_vm._v(" Back\n            ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-success", on: { click: _vm.print } },
+          [_vm._v(" Print\n            ")]
+        )
+      ])
     ])
   ])
 }

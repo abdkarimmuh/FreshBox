@@ -1,20 +1,6 @@
 <template>
     <div>
-        <div class="card card-body">
-            <div class="text-right">
-                <button
-                    class="btn btn-secondary"
-                    type="button"
-                    @click="back()"
-                > Back
-                </button>
-                <button
-                    class="btn btn-success"
-                    @click="print"
-                > Print
-                </button>
-            </div>
-        </div>
+
         <div id="printMe">
             <div
                 class="card card-body printableArea" style="page-break-after: always"
@@ -227,6 +213,21 @@
                     <h5>Loading</h5>
                     <p>Please wait, data is being loaded...</p>
                 </div>
+            </div>
+        </div>
+        <div class="card card-body">
+            <div class="text-right">
+                <button
+                    class="btn btn-secondary"
+                    type="button"
+                    @click="back()"
+                > Back
+                </button>
+                <button
+                    class="btn btn-success"
+                    @click="print"
+                > Print
+                </button>
             </div>
         </div>
     </div>
