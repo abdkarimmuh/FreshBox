@@ -49,6 +49,7 @@ class FormInvoiceOrderController extends Controller
             'route-add' => 'admin.finance.invoice_order.create',
             //Route For Button View
             'route-view' => 'admin.finance.invoice_order.print',
+            'route-multiple-print' => 'admin.finance.invoice_order.multiplePrint'
         ];
 
         $query = InvoiceOrder::dataTableQuery($searchValue);
@@ -148,6 +149,24 @@ class FormInvoiceOrderController extends Controller
             'vue-component' => "<print-invoice-order :id='$id'></print-invoice-order>"
         ];
         return view('layouts.vue-view', compact('config'));
+    }
+
+    public function multiplePrint(Request $request)
+    {
+        if ($request->id) {
+            $id = $request->id;
+            if ($request->ajax()) {
+                $invoice_order = InvoiceOrderResource::collection(InvoiceOrder::whereIn('id', $id)->get());
+                return response()->json($invoice_order, 200);
+            }
+            $config = [
+                'vue-component' => " <multiple-print-invoice-order id='" . json_encode($id) . "'></multiple-print-invoice-order>"
+            ];
+
+            return view('layouts.vue-view', compact('config'));
+        } else {
+            return back();
+        }
     }
 
 }
