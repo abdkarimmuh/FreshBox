@@ -12,12 +12,13 @@ import AddDeliveryOrder from './components/Warehouse/AddDeliveryOrder';
 import ConfirmDeliveryOrder from './components/Warehouse/ConfirmDeliveryOrder';
 import StislaFromInput from './components/Template/Etc/s-form-input';
 import AddInvoice from './components/Finance/Invoice/AddInvoice';
-import PrintSalesOrder from './components/Template/PrintSalesOrder';
-import PrintDeliveryOrder from "./components/Template/PrintDeliveryOrder";
-import PrintInvoiceOrder from "./components/Template/PrintInvoiceOrder";
-import MultiplePrintSalesOrder from "./components/Template/MultiplePrintSalesOrder";
-import MultiplePrintDeliveryOrder from "./components/Template/MultiplePrintDeliveryOrder";
-import MultiplePrintInvoiceOrder from "./components/Template/Etc/MultiplePrintInvoiceOrder";
+import PrintInvoiceOrder from "./components/Finance/Invoice/PrintInvoiceOrder";
+import PrintDeliveryOrder from "./components/Warehouse/PrintDeliveryOrder";
+import PrintRecapInvoice from "./components/Finance/Invoice/PrintRecapInvoice";
+import PrintSalesOrder from "./components/Marketing/SalesOrder/PrintSalesOrder";
+import MultiplePrintDeliveryOrder from "./components/Warehouse/MultiplePrintDeliveryOrder";
+import MultiplePrintInvoiceOrder from "./components/Finance/Invoice/MultiplePrintInvoiceOrder";
+import MultiplePrintSalesOrder from "./components/Marketing/SalesOrder/MultiplePrintSalesOrder";
 
 Vue.component('users-component', UsersComponent);
 Vue.component('profile-component', ProfileComponent);
@@ -37,6 +38,7 @@ Vue.component('print-sales-order', PrintSalesOrder);
 Vue.component('print-delivery-order', PrintDeliveryOrder);
 Vue.component('print-invoice-order', PrintInvoiceOrder);
 
+Vue.component('print-recap-invoice', PrintRecapInvoice);
 Vue.component('s-form-input', StislaFromInput);
 
 // Vue.component("data-table", DataTable);

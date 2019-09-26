@@ -182,6 +182,7 @@
             async submitForm() {
                 const payload = {
                     so_id: this.delivery_order.sales_order_id,
+                    customer_id: this.delivery_order.customer_id,
                     user_id: this.user_id,
                     do_id: this.do_id,
                     invoice_date: this.invoice_date

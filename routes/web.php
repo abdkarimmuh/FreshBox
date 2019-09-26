@@ -77,6 +77,8 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::post('/{id}/print', 'Finance\FormInvoiceOrderController@print');
             Route::get('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint')->name('multiplePrint');
             Route::post('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint');
+            Route::get('/printRecap', 'Finance\FormInvoiceOrderController@printRecap')->name('printRecap');
+
         });
     });
 
