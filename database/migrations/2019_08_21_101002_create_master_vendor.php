@@ -21,7 +21,7 @@ class CreateMasterVendor extends Migration
             $table->string('tlp_pic', 20);
             $table->string('bank_account');
             $table->unsignedBigInteger('bank_id');
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('category_id')->on('master_category')->references('id')->onDelete('cascade');

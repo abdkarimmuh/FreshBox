@@ -4,7 +4,10 @@ namespace App\Http\Controllers\MasterData;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\MasterData\Bank;
+use App\Model\MasterData\Category;
 use App\Model\MasterData\Vendor;
+use Illuminate\Support\Facades\DB;
 
 class VendorController extends Controller
 {
@@ -40,7 +43,7 @@ class VendorController extends Controller
             //Route For Button Add
             'route-add' => 'admin.master_data.vendor.create',
             //Route For Button Edit
-            'route-edit' => 'testing.edit',
+            'route-edit' => 'admin.master_data.vendor.edit',
             //Route For Button Search
             'route-search' => 'admin.master_data.vendor.index',
         ];
@@ -58,7 +61,32 @@ class VendorController extends Controller
      */
     public function create()
     {
-        //
+        //Form Generator
+        $category = Category::all();
+        $bank = Bank::all();
+
+        $forms = [
+            array('type' => 'text', 'label' => 'Nama', 'name' => 'name', 'place_holder' => 'Nama', 'mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Category', 'name' => 'category', 'variable' => 'category', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+            array('type' => 'text', 'label' => 'PIC Vendor', 'name' => 'pic_vendor', 'place_holder' => 'PIC Vendor', 'mandatory' => true),
+            array('type' => 'number', 'label' => 'PIC Contact', 'name' => 'tlp_pic', 'place_holder' => 'PIC Contact', 'mandatory' => true),
+            array('type' => 'number', 'label' => 'No Rekening', 'name' => 'bank_account', 'place_holder' => 'No Rekening', 'mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Bank Name', 'name' => 'bank', 'variable' => 'bank', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+            array('type' => 'textarea', 'label' => 'Remarks', 'name' => 'remarks', 'place_holder' => 'Remarks', 'mandatory' => false),
+        ];
+
+        $config = [
+            //Form Title
+            'title' => 'Create Vendor',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.vendor.store',
+            //Form Method
+            'method' => 'POST',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.vendor.index'
+        ];
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'category', 'bank'));
     }
 
     /**
@@ -69,7 +97,17 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'category' => 'required',
+            'pic_vendor' => 'required',
+            'tlp_pic' => 'required',
+            'bank_account' => 'required',
+            'bank' => 'required'
+        ]);
+
+        DB::select('call insert_vendor(?, ?, ?, ?, ?, ?, ?, ?)', array($request->name, $request->category, $request->pic_vendor, $request->tlp_pic, $request->bank_account, $request->bank, $request->remarks, auth()->user()->id));
+        return redirect('admin/master_data/vendor');
     }
 
     /**
@@ -91,7 +129,34 @@ class VendorController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Form Generator
+        $category = Category::all();
+        $bank = Bank::all();
+
+        $forms = [
+            array('type' => 'text', 'label' => 'Nama', 'name' => 'name', 'place_holder' => 'Nama', 'mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Category', 'name' => 'category', 'variable' => 'category', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+            array('type' => 'text', 'label' => 'PIC Vendor', 'name' => 'pic_vendor', 'place_holder' => 'PIC Vendor', 'mandatory' => true),
+            array('type' => 'number', 'label' => 'PIC Contact', 'name' => 'tlp_pic', 'place_holder' => 'PIC Contact', 'mandatory' => true),
+            array('type' => 'number', 'label' => 'No Rekening', 'name' => 'bank_account', 'place_holder' => 'No Rekening', 'mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Bank Name', 'name' => 'bank', 'variable' => 'bank', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+            array('type' => 'textarea', 'label' => 'Remarks', 'name' => 'remarks', 'place_holder' => 'Remarks', 'mandatory' => false),
+        ];
+
+        $config = [
+            //Form Title
+            'title' => 'Update Vendor',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.vendor.update',
+            //Form Method
+            'method' => 'PATCH',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.vendor.index'
+        ];
+
+        $data = Vendor::find($id);
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'category', 'bank', 'data'));
     }
 
     /**
@@ -101,9 +166,19 @@ class VendorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'category' => 'required',
+            'pic_vendor' => 'required',
+            'tlp_pic' => 'required',
+            'bank_account' => 'required',
+            'bank' => 'required'
+        ]);
+
+        DB::select('call update_vendor(?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->id, $request->name, $request->category, $request->pic_vendor, $request->tlp_pic, $request->bank_account, $request->bank, $request->remarks, auth()->user()->id));
+        return redirect('admin/master_data/vendor');
     }
 
     /**

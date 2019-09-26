@@ -106,6 +106,8 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'MasterData\ResidenceController@index')->name('index');
             Route::get('/create', 'MasterData\ResidenceController@create')->name('create');
             Route::post('/create', 'MasterData\ResidenceController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\ResidenceController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\ResidenceController@update')->name('update');
         });
 
         Route::name('driver.')->prefix('driver')->group(function () {
@@ -150,6 +152,8 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'MasterData\VendorController@index')->name('index');
             Route::get('/create', 'MasterData\VendorController@create')->name('create');
             Route::post('/create', 'MasterData\VendorController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\VendorController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\VendorController@update')->name('update');
         });
 
         Route::name('source_order.')->prefix('source_order')->group(function () {
