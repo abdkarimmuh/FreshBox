@@ -25,7 +25,7 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
-    protected $appends = ['allPermissions', 'profilelink', 'avatarlink', 'isme'];
+    protected $appends = ['allPermissions', 'profilelink', 'avatarlink', 'isme','all_roles'];
 
     protected $dataTableColumns = [
         'id' => [
@@ -58,10 +58,20 @@ class User extends Authenticatable
     ];
 
     public function getAllpermissionsAttribute()
-    {   $res = [];
+    {
+        $res = [];
         $allPermissions = $this->getAllPermissions();
-        foreach($allPermissions as $p)
-        {
+        foreach ($allPermissions as $p) {
+            $res[] = $p->name;
+        }
+        return $res;
+    }
+
+    public function getAllRolesAttribute()
+    {
+        $res = [];
+        $roles = $this->roles;
+        foreach ($roles as $p) {
             $res[] = $p->name;
         }
         return $res;

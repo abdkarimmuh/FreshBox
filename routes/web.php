@@ -1,9 +1,14 @@
 <?php
 
 use App\Model\Finance\InvoiceOrder;
+use App\Model\Marketing\SalesOrder;
 
 Route::get('/', function () {
     return redirect(route('admin.dashboard'));
+});
+
+Route::get('/so', function () {
+    return response()->json(SalesOrder::paginate(2), 200);
 });
 
 Route::get('home', function () {
@@ -11,7 +16,7 @@ Route::get('home', function () {
 });
 
 Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
-    //    Route::get('/{any}', 'DashboardController')->where('any', '.*');
+    Route::get('/{any}', 'DashboardController')->where('any', '.*');
     Route::get('dashboard', 'DashboardController')->name('dashboard');
     Route::get('users/list', 'UserController@index')->name('users.roles');
     Route::resource('users', 'UserController', [
@@ -20,6 +25,9 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
         ]
     ]);
 
+});
+
+Route::name('admin.')->middleware('auth')->group(function () {
     /**
      * Routing Menu Marketing
      */

@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MasterData\PriceResource;
 use App\Http\Resources\SalesOrderResource;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,41 +20,54 @@ class FormSalesOrderController extends Controller
 {
     public function index(Request $request)
     {
-        $searchValue = $request->input('search');
-        $columns = [
-            array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
-            array('title' => 'Customer', 'field' => 'customer_name'),
-            array('title' => 'Source Order', 'field' => 'source_order_name'),
-            array('title' => 'NO PO', 'field' => 'no_po'),
-            array('title' => 'Fulfillment Date', 'field' => 'fulfillment_date'),
-            array('title' => 'Remarks', 'field' => 'remarks'),
-            array('title' => 'File', 'field' => 'file'),
-            array('title' => 'Status', 'field' => 'status_name'),
-            array('title' => 'Created By', 'field' => 'created_by_name'),
-            array('title' => 'Created At', 'field' => 'created_at'),
-        ];
-
-        $config = [
-            //Title Required
-            'title' => 'Form Sales Order',
-            //Search Route Required
-            'route-search' => 'admin.marketing.sales_order.index',
-            /**
-             * Route Can Be Null, Using Route Name
-             */
-            //Route For Button Add
-            'route-add' => 'admin.marketing.sales_order.create',
-            //Route For Button Edit
-            'route-edit' => 'admin.marketing.sales_order.edit',
-            //Route For Button View
-            'route-view' => 'admin.marketing.sales_order.print',
-            'route-multiple-print' => 'admin.marketing.sales_order.multiplePrint'
-        ];
-
-        $query = SalesOrder::dataTableQuery($searchValue);
-        $data = $query->paginate(10);
-
-        return view('admin.crud.index', compact('columns', 'data', 'config'));
+        if ($request->ajax()) {
+            $searchValue = $request->input('query');
+            $perPage = $request->perPage;
+            $query = SalesOrder::dataTableQuery($searchValue);
+            if ($request->start && $request->end) {
+                $query->whereBetween('sales_order_no', [$request->start, $request->end]);
+            }
+            if ($searchValue) {
+                $query = $query->take(20)->paginate(20);
+            } else {
+                $query = $query->paginate($perPage);
+            }
+            $data = SalesOrderResource::collection($query);
+            return $data;
+        } else {
+            return redirect()->back();
+        }
+//        $columns = [
+//            array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
+//            array('title' => 'Customer', 'field' => 'customer_name'),
+//            array('title' => 'Source Order', 'field' => 'source_order_name'),
+//            array('title' => 'NO PO', 'field' => 'no_po'),
+//            array('title' => 'Fulfillment Date', 'field' => 'fulfillment_date'),
+//            array('title' => 'Remarks', 'field' => 'remarks'),
+//            array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
+//            array('title' => 'Created By', 'field' => 'created_by_name'),
+//            array('title' => 'Created At', 'field' => 'created_at'),
+//        ];
+//
+//        $config = [
+//            'base_url' => 'form_sales_order',
+//            'title' => 'Form Sales Order',
+//            'route_search' => 'admin.marketing.sales_order.index',
+//            'route_add' => 'form_sales_order/create',
+//            'route_edit' => 'admin.marketing.sales_order.edit',
+//            'route_view' => 'form_sales_order/',
+//            'url_multiple_print' => 'form_sales_order/multiplePrint',
+//
+//        ];
+//
+//        $config = json_encode($config);
+//        $columns = json_encode($columns);
+//
+//        $config = [
+//            'vue-component' => "<s-testing></s-testing>"
+//        ];
+//
+//        return view('layouts.vue-view', compact('config'));
     }
 
     public function create()
@@ -347,6 +363,13 @@ class FormSalesOrderController extends Controller
         ];
 
         return view('layouts.vue-view', compact('config', 'title', 'id'));
+    }
+
+    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
 

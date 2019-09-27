@@ -101,36 +101,4 @@ class Price extends MyModel
     {
         return $this->belongsTo(Item::class, 'skuid', 'skuid');
     }
-
-    public function getItemNameAttribute()
-    {
-        if (isset($this->Item->name_item)) {
-            return $this->Item->name_item;
-        } else {
-            return '';
-        }
-    }
-
-    public function getUomNameAttribute()
-    {
-        if (isset($this->Uom->name)) {
-            return $this->Uom->name;
-        } else {
-            return '';
-        }
-    }
-
-    public function getCustomerNameAttribute()
-    {
-        if (isset($this->Customer->name)) {
-            return $this->Customer->name;
-        } else {
-            return '';
-        }
-    }
-
-    public function getColumns()
-    {
-        return $this->columns;
-    }
 }

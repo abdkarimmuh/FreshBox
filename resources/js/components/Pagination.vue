@@ -3,7 +3,7 @@
         <span class="pull-left" style="min-height: 40px;">Page {{current_page}} from {{last_page}}  </span>
         <span class="pull-right">
       <ul class="pagination" style="margin-top:-10px">
-        <li v-for="n in last_page" v-bind:class="{ active: current_page==n }">
+        <li v-for="n in last_page" v-bind:class="{ active: current_page===n }">
           <a href="#" class="links" @click.prevent="goPage(n)">{{n}}</a>
         </li>
       </ul>
@@ -13,10 +13,10 @@
         <span class="pull-left" style="min-height: 40px;">Page {{current_page}} from {{last_page}} </span>
         <span class="pull-right">
       <ul class="pagination" style="margin-top:-10px">
-      <li v-bind:class="{ disabled: current_page==1 }">
+      <li v-bind:class="{ disabled: current_page===1 }">
         <a href="#" class="links" @click.prevent="goPage(1)"><i class="fa fa-fast-backward"></i></a>
       </li>
-      <li v-bind:class="{ disabled: current_page==1}">
+      <li v-bind:class="{ disabled: current_page===1}">
          <a href="#" class="links" @click.prevent="goPage(current_page-1)"><i class="fa fa-backward"></i></a>
       </li>
 
@@ -24,10 +24,10 @@
          <a href="#" class="links" @click.prevent="goPage(n)">{{n}}</a>
       </li>
 
-      <li v-bind:class="{ disabled: current_page==last_page }">
+      <li v-bind:class="{ disabled: current_page===last_page }">
          <a href="#" class="links" @click.prevent="goPage(current_page+1)"><i class="fa fa-forward"></i></a>
       </li>
-      <li v-bind:class="{ disabled: current_page==last_page }">
+      <li v-bind:class="{ disabled: current_page===last_page }">
         <a href="#" class="links" @click.prevent="goPage(last_page)"><i class="fa fa-fast-forward"></i></a>
       </li>
       </ul>

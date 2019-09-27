@@ -18,7 +18,7 @@
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->route()->getName() == 'admin.marketing.sales_order.index' ? ' active' : '' }}">
-                    <a href="{{ route('admin.marketing.sales_order.index') }}" class="nav-link"><span>Form Sales Order</span></a>
+                    <router-link  :to="{ name:'form_sales_order' }" class="nav-link"><span>Form Sales Order</span></router-link>
                 </li>
             </ul>
         </li>

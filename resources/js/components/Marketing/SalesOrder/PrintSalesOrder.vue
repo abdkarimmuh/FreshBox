@@ -249,7 +249,7 @@
         },
         methods: {
             getData() {
-                axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.id + '/print'))
+                axios.get(this.$parent.MakeUrl('marketing/form_sales_order/' + this.$route.params.id + '/print'))
                     .then(res => {
                         this.sales_order = res.data;
                         this.details = res.data.sales_order_details;
@@ -273,17 +273,12 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$htmlToPaper('printMe');
-                        axios.post(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.id + '/print'))
-                        // Swal.fire(
-                        //     'Printed!',
-                        //     'This Sales Order has been Printed.',
-                        //     'success'
-                        // )
+                        axios.post(this.$parent.MakeUrl('marketing/form_sales_order/' + this.$route.params.id + '/print'))
                     }
                 })
             },
             back() {
-                return window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
+                this.$router.push({ name: 'form_sales_order'});
             }
         }
     }

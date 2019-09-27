@@ -229,7 +229,6 @@
 
 <script>
     export default {
-        props: ['id'],
         data() {
             return {
                 sales_order: [],
@@ -238,15 +237,15 @@
         },
         mounted() {
             this.getData();
-
+            console.log(this.$route.query.id);
         },
         methods: {
             getData() {
-                const id = JSON.parse(this.id).map(Number);
+                // const id = JSON.parse(this.$route.query.id).map(Number);
                 const payload = {
-                    id: id,
+                    id: this.$route.query.id,
                 };
-                axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/multiplePrint'), {params: payload})
+                axios.get(this.$parent.MakeUrl('marketing/form_sales_order/multiplePrint'), {params: payload})
                     .then(res => {
                         this.sales_order = res.data;
                         this.loading = true;
@@ -257,9 +256,8 @@
                 });
             },
             print() {
-                const id = JSON.parse(this.id).map(Number);
                 const payload = {
-                    id: id,
+                    id: this.$route.query.id,
                 };
                 Vue.swal({
                     title: 'Are you sure?',
@@ -272,7 +270,7 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$htmlToPaper('printMe');
-                        axios.post(this.$parent.MakeUrl('admin/marketing/form_sales_order/multiplePrint'), payload);
+                        axios.post(this.$parent.MakeUrl('marketing/form_sales_order/multiplePrint'), payload);
                         // Swal.fire(
                         //     'Printed!',
                         //     'This Sales Order has been Printed.',
@@ -282,7 +280,8 @@
                 })
             },
             back() {
-                return window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
+                this.$router.push({ name: 'form_sales_order'})
+                // return window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
             }
         }
     }

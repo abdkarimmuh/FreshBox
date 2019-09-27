@@ -248,6 +248,7 @@
                     .then(res => {
                         this.delivery_order = res.data;
                         this.loading = true;
+                        console.log(res);
                     }).catch(e => {
                         if (e.response.status == 500){
                             this.getData()
