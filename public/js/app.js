@@ -3412,13 +3412,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return this.getToken();
-
-            case 2:
-              _context.next = 4;
               return this.getData();
 
-            case 4:
+            case 2:
             case "end":
               return _context.stop();
           }
@@ -3440,7 +3436,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this = this;
 
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list"), this.header), axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list"), this.header), axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId), this.header)]).then(axios.spread(function (customers, source_order, items) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId))]).then(axios.spread(function (customers, source_order, items) {
         _this.customers = customers.data;
         _this.source_orders = source_order.data;
         _this.items = items.data.data;
@@ -3490,7 +3486,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context2.prev = 1;
                 _context2.next = 4;
-                return axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order_detail"), payload, this.header);
+                return axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order_detail"), payload);
 
               case 4:
                 res = _context2.sent;
@@ -3548,7 +3544,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getItems: function getItems() {
       var _this4 = this;
 
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid), this.header).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid)).then(function (res) {
         _this4.item = res.data.data;
         console.log(_this4.item);
       })["catch"](function (err) {});
@@ -3585,17 +3581,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           notes: null
         });
       }
-    },
-
-    /**
-     * Get Token
-     */
-    getToken: function getToken() {
-      this.header = {
-        headers: {
-          'Authorization': "Bearer " + this.$parent.getToken()
-        }
-      };
     },
 
     /**
@@ -77658,8 +77643,8 @@ __webpack_require__(/*! ./library */ "./resources/js/library.js");
 
 axios.defaults.headers.common = {
   'X-Requested-With': 'XMLHttpRequest',
-  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // 'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')
-
+  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+  'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
 };
 var app = new Vue({
   el: '#app',
@@ -77686,9 +77671,6 @@ var app = new Vue({
     },
     MakeUrl: function MakeUrl(path) {
       return BaseUrl(path);
-    },
-    getToken: function getToken() {
-      return localStorage.getItem('accessToken');
     }
   }
 });

@@ -341,7 +341,6 @@
             };
         },
         async mounted() {
-            await this.getToken();
             await this.getData();
         },
         methods: {
@@ -352,9 +351,9 @@
             getData() {
                 axios
                     .all([
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list"), this.header),
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list"), this.header),
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId), this.header)
+                        axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list")),
+                        axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list")),
+                        axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId))
                     ])
                     .then(
                         axios.spread((customers, source_order, items) => {
@@ -398,7 +397,7 @@
                 };
 
                 try {
-                    const res = await axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order_detail"), payload, this.header);
+                    const res = await axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order_detail"), payload);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
@@ -432,7 +431,7 @@
              * @returns {number}
              */
             getItems() {
-                axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid), this.header)
+                axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid))
                     .then(res => {
                         this.item = res.data.data;
                         console.log(this.item);
@@ -468,14 +467,6 @@
                         notes: null
                     });
                 }
-            },
-            /**
-             * Get Token
-             */
-            getToken() {
-                this.header = {
-                    headers: {'Authorization': "Bearer " + this.$parent.getToken()}
-                };
             },
             /**
              * Delete Item

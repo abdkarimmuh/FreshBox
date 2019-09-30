@@ -10,7 +10,7 @@ import Router from './router';
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-    // 'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')
+    'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')
 };
 
 const app = new Vue({
@@ -36,9 +36,6 @@ const app = new Vue({
         },
         MakeUrl(path) {
             return BaseUrl(path);
-        },
-        getToken(){
-            return localStorage.getItem('accessToken');
         }
     }
 });
