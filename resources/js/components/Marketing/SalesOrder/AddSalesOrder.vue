@@ -7,7 +7,6 @@
                 </div>
                 <div class="col-12">
                     <div class="row">
-
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
@@ -148,7 +147,7 @@
                                 <model-list-select
                                     :list="items"
                                     v-model="skuid"
-                                    v-on:input="getItem()"
+                                    v-on:input="getItems()"
                                     option-value="skuid"
                                     option-text="item_name"
                                     placeholder="Select Item"
@@ -221,8 +220,8 @@
                                             />
                                         </td>
                                         <td>{{ orders.uom }}</td>
-                                        <td style="text-align: right;">{{ formatPrice(orders.amount) }}</td>
-                                        <td style="text-align: right">{{ formatPrice(total_amount[index]) }}</td>
+                                        <td style="text-align: right;">{{ orders.amount | price }}</td>
+                                        <td style="text-align: right">{{ total_amount[index] | price }}</td>
                                         <td>
                                             <input
                                                 v-model="notes[index]"
@@ -337,14 +336,51 @@
                 notes: [],
                 errors: [],
                 customers: [],
-                loading: false
+                loading: false,
+                header: {}
             };
         },
-        mounted() {
-            this.getData();
+        async mounted() {
+            await this.getToken();
+            await this.getData();
         },
         methods: {
-           async submitForm() {
+            /**
+             * Get All Data
+             * Customer | Source Order | Price
+             */
+            getData() {
+                axios
+                    .all([
+                        axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list"), this.header),
+                        axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list"), this.header),
+                        axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId), this.header)
+                    ])
+                    .then(
+                        axios.spread((customers, source_order, items) => {
+                            this.customers = customers.data;
+                            this.source_orders = source_order.data;
+                            this.items = items.data.data;
+                            this.orders_detail = [];
+                            this.qty = [0];
+                            this.total_amount = [0];
+                            this.notes = [];
+                            this.skuid = "";
+                        })
+                    )
+                    .catch(err => {
+                        if (err.response.status === 403) {
+                            this.$router.push({
+                                name: "form_sales_order"
+                            });
+                        }
+                    });
+            },
+            /**
+             * Insert Sales Order
+             */
+            async submitForm() {
+
                 const payload = {
                     user_id: this.sales_order.user_id,
                     customerId: this.sales_order.customerId,
@@ -357,14 +393,12 @@
                         skuid: item.skuid,
                         qty: this.qty[idx],
                         notes: this.notes[idx]
-                    }))
+                    })),
+
                 };
 
                 try {
-                    const res = await axios.post(
-                        "/api/marketing/sales_order_detail",
-                        payload
-                    );
+                    const res = await axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order_detail"), payload, this.header);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
@@ -377,13 +411,14 @@
                     this.errors = e.response.data.errors;
                 }
             },
+
             onFileChange(e) {
                 let fileData = e.target.files || e.dataTransfer.files;
                 this.sales_order.fileName = fileData[0].name;
                 if (!fileData.length) return;
                 this.createFile(fileData[0]);
-                // console.log(fileData);
             },
+
             createFile(file) {
                 let reader = new FileReader();
                 reader.onload = e => {
@@ -391,18 +426,13 @@
                 };
                 reader.readAsDataURL(file);
             },
-            formatPrice(value) {
-                return value.toLocaleString("id-ID", {
-                    minimumFractionDigits: 2
-                });
-            },
-            getItem() {
-                axios
-                    .get(
-                        this.$parent.MakeUrl(
-                            "api/master_data/price/" + this.sales_order.customerId + "/" + this.skuid
-                        )
-                    )
+
+            /**
+             * Get List Items
+             * @returns {number}
+             */
+            getItems() {
+                axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid), this.header)
                     .then(res => {
                         this.item = res.data.data;
                         console.log(this.item);
@@ -410,6 +440,11 @@
                     .catch(err => {
                     });
             },
+            /**
+             *
+             * @param skuid
+             * @returns {number}
+             */
             pushOrderDetails(skuid) {
                 const indexItem = this.orders_detail.findIndex(x => x.skuid === skuid);
                 if (indexItem >= 0) {
@@ -434,45 +469,30 @@
                     });
                 }
             },
+            /**
+             * Get Token
+             */
+            getToken() {
+                this.header = {
+                    headers: {'Authorization': "Bearer " + this.$parent.getToken()}
+                };
+            },
+            /**
+             * Delete Item
+             * @param index
+             */
             removeOrderDetails(index) {
                 this.orders_detail.splice(index, 1);
-            },
-            getData() {
-                axios
-                    .all([
-                        axios.get(this.$parent.MakeUrl("api/master_data/customer/list")),
-                        axios.get(this.$parent.MakeUrl("api/master_data/source_order/list")),
-                        axios.get(
-                            this.$parent.MakeUrl(
-                                "api/master_data/price/customer/" + this.sales_order.customerId
-                            )
-                        )
-                    ])
-                    .then(
-                        axios.spread((customers, source_order, items) => {
-                            this.customers = customers.data;
-                            this.source_orders = source_order.data;
-                            this.items = items.data.data;
-                            this.orders_detail = [];
-                            this.qty = [0];
-                            this.total_amount = [0];
-                            this.notes = [];
-                            this.skuid = "";
-                        })
-                    )
-                    .catch(err => {
-                        if (err.response.status === 403) {
-                            this.$router.push({
-                                name: "form_sales_order"
-                            });
-                        }
-                    });
             }
         },
         components: {
             ModelListSelect
         },
         computed: {
+            /**
+             * Calculate Total Item
+             * @returns {string}
+             */
             totalItem: function () {
                 let sum = 0;
                 this.total_amount.forEach(function (item) {
@@ -485,11 +505,29 @@
             }
         },
         watch: {
+            /**
+             * Calculate Total Amount Price
+             * @param newQty
+             * @param oldQty
+             */
             qty: function (newQty, oldQty) {
                 this.total_amount = this.orders_detail.map(
                     (item, idx) => item.amount * (newQty[idx] || 0)
                 );
             }
+        },
+        filters: {
+            /**
+             * Formatting Price Number
+             * @param value
+             * @returns {string}
+             */
+            price: function (value) {
+                if (!value) return ''
+                return value.toLocaleString("id-ID", {
+                    minimumFractionDigits: 2
+                });
+            },
         }
     };
 

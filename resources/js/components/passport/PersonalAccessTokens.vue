@@ -245,6 +245,7 @@
                             this.tokens.push(response.data.token);
 
                             this.showAccessToken(response.data.accessToken);
+                            localStorage.setItem('accessToken', response.data.accessToken);
                         })
                         .catch(error => {
                             if (typeof error.response.data === 'object') {
@@ -291,6 +292,7 @@
                 axios.delete('/oauth/personal-access-tokens/' + token.id)
                         .then(response => {
                             this.getTokens();
+                            localStorage.removeItem('accessToken');
                         });
             }
         }

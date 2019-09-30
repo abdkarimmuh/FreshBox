@@ -71,7 +71,7 @@ class FormSalesOrderController extends Controller
     public function create()
     {
         $config = [
-            'vue-component' => "<passport-personal-access-tokens></passport-personal-access-tokens>"
+            'vue-component' => "<router-view></router-view>"
         ];
         return view('layouts.vue-view', compact('config'));
     }
