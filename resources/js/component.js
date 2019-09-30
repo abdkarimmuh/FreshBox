@@ -47,3 +47,17 @@ Vue.component('s-testing', Testing);
 Vue.component('s-error-page', ErrorPage);
 
 // Vue.component("data-table", DataTable);
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue').default
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue').default
+);

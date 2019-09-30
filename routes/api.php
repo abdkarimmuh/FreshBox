@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::group(['prefix' => 'v1'], function () {
+    Route::post('login', 'API\AuthAPIController@login');
+    Route::post('register', 'API\AuthAPIController@register');
+
+});
+
 
 /**
  * Marketing Route
@@ -22,12 +28,14 @@ use Illuminate\Http\Request;
 /**
  * Warehouse Route
  */
-Route::group(['prefix' => 'warehouse/'], function () { });
+Route::group(['prefix' => 'warehouse/'], function () {
+});
 
 /**
  * Finance Route
  */
-Route::group(['prefix' => 'finance/'], function () { });
+Route::group(['prefix' => 'finance/'], function () {
+});
 /**
  * Master Data Route
  */
@@ -60,7 +68,7 @@ Route::group(['prefix' => 'master_data/'], function () {
 });
 
 
-Route::group(['prefix' => 'marketing/'], function () {
+Route::group(['prefix' => 'marketing/', 'middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'sales_order'], function () {
         Route::get('/', 'API\FormSalesOrderAPIController@index');
         Route::get('/{id}', 'API\FormSalesOrderAPIController@show');
@@ -70,6 +78,7 @@ Route::group(['prefix' => 'marketing/'], function () {
         Route::post('/', 'Marketing\FormSalesOrderController@InsertSalesOrderDetail');
     });
 });
+
 Route::group(['prefix' => 'trx'], function () {
     Route::get('sales_order_details/{id}', 'Marketing\FormSalesOrderController@getSalesOrderDetails');
     Route::patch('sales_order_details', 'Marketing\FormSalesOrderController@updateSalesOrderDetails');
@@ -94,7 +103,8 @@ Route::get('/testing', function () {
     return $data;
 });
 
-Route::get('/bidding', function () { });
+Route::get('/bidding', function () {
+});
 Route::get('users/roles', 'UserController@roles')->name('users.roles');
 
 

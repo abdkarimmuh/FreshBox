@@ -249,7 +249,7 @@
         },
         methods: {
             getData() {
-                axios.get(this.$parent.MakeUrl('marketing/form_sales_order/' + this.$route.params.id + '/print'))
+                axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.$route.params.id + '/print'))
                     .then(res => {
                         this.sales_order = res.data;
                         this.details = res.data.sales_order_details;
@@ -273,7 +273,7 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$htmlToPaper('printMe');
-                        axios.post(this.$parent.MakeUrl('marketing/form_sales_order/' + this.$route.params.id + '/print'))
+                        axios.post(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.$route.params.id + '/print'))
                     }
                 })
             },

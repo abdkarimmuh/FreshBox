@@ -35,13 +35,14 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
         Route::name('sales_order.')->prefix('form_sales_order')->group(function () {
             Route::get('/', 'Marketing\FormSalesOrderController@index')->name('index');
             Route::get('/create', 'Marketing\FormSalesOrderController@create')->name('create');
-            Route::post('/store', 'Marketing\FormSalesOrderController@store')->name('store');
             Route::get('/{id}/edit', 'Marketing\FormSalesOrderController@edit')->name('edit');
-            Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile')->name('download');
             Route::get('/{id}/print', 'Marketing\FormSalesOrderController@print')->name('print');
             Route::get('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint')->name('multiplePrint');
+            Route::post('/store', 'Marketing\FormSalesOrderController@store')->name('store');
+            Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile')->name('download');
             Route::post('/{id}/print', 'Marketing\FormSalesOrderController@print');
             Route::post('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint');
+
         });
     });
     /**

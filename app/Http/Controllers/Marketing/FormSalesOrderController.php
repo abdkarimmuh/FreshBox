@@ -71,9 +71,8 @@ class FormSalesOrderController extends Controller
     public function create()
     {
         $config = [
-            'vue-component' => '<add-sales-order></add-sales-order>'
+            'vue-component' => "<passport-personal-access-tokens></passport-personal-access-tokens>"
         ];
-
         return view('layouts.vue-view', compact('config'));
     }
 
@@ -95,9 +94,8 @@ class FormSalesOrderController extends Controller
             ], 200);
         }
         $config = [
-            'vue-component' => "<edit-sales-order :sales_order_id='" . $id . "'>" . "</edit-sales-order>"
+            'vue-component' => "<router-view></router-view>"
         ];
-
         return view('layouts.vue-view', compact('config'));
     }
 
@@ -337,10 +335,9 @@ class FormSalesOrderController extends Controller
                 }
             }
             $config = [
-                'vue-component' => " <multiple-print-sales-order id='" . json_encode($id) . "'></multiple-print-sales-order>"
+                'vue-component' => "<router-view></router-view>"
             ];
-
-            return view('layouts.vue-view', compact('config', 'title'));
+            return view('layouts.vue-view', compact('config'));
         } else {
             return back();
         }
@@ -357,10 +354,9 @@ class FormSalesOrderController extends Controller
             }
         }
         $config = [
-            'vue-component' => "<print-sales-order id='$id'></print-sales-order>"
+            'vue-component' => "<router-view></router-view>"
         ];
-
-        return view('layouts.vue-view', compact('config', 'title', 'id'));
+        return view('layouts.vue-view', compact('config'));
     }
 
     public function paginate($items, $perPage = 15, $page = null, $options = [])
