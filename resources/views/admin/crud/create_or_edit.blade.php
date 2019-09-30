@@ -58,12 +58,58 @@
                                         <option value="">--- Please Select ---</option>
                                         @foreach(${$form['variable']} as $row)
                                         <option value="{{ $row[$form['option_value']] }}"
-                                        @isset($data)
-                                            @if($data[$form['name']]['id'] == $row[$form['option_value']]) selected @endif
-                                        @endisset>
+                                            @isset($data)
+                                            @if($data[$form['name']]['id']==$row[$form['option_value']]) selected @endif
+                                            @endisset
+                                            >
                                             {{ $row[$form['option_text']] }}</option>
                                         @endforeach
                                     </select>
+                                    @error($form['name'])
+                                    <div class="invalid-feedback">
+                                        <p>{{ $message }}</p>
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            @elseif($form['type'] === 'radio')
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><b>{{ $form['label'] }}</b>@if($form['mandatory']==true)<span
+                                            style="color: red;">*</span>@endif</label>
+                                    @foreach(${$form['variable']} as $row)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="{{ $form['name'] }}"
+                                            value="{{ $row['value'] }}" id="{{ $row[$form['option_value']] }}"
+                                            @isset($data)
+                                            @if($data[$form['name']]==$row[$form['option_value']]) checked @endif
+                                            @endisset>
+                                        <label class="form-check-label">
+                                            {{ $row['label'] }}
+                                        </label>
+                                    </div>
+                                    @endforeach
+                                    @error($form['name'])
+                                    <div class="invalid-feedback">
+                                        <p>{{ $message }}</p>
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            @elseif($form['type'] === 'percentage')
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label><b>{{ $form['label'] }}</b>@if($form['mandatory']==true)<span
+                                            style="color: red;">*</span>@endif</label>
+                                    <div class="input-group">
+                                        <input name="{{ $form['name'] }}" type="number" step="0.01"
+                                            placeholder="{{ isset($form['place_holder']) ? $form['place_holder'] : '' }}"
+                                            class="form-control @error($form['name']) is-invalid @enderror"
+                                            value="{{ isset($data) ? $data[$form['name']] : 0.00 }}">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">%</div>
+                                        </div>
+                                    </div>
                                     @error($form['name'])
                                     <div class="invalid-feedback">
                                         <p>{{ $message }}</p>

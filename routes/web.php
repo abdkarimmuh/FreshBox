@@ -143,6 +143,8 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'MasterData\ItemController@index')->name('index');
             Route::get('/create', 'MasterData\ItemController@create')->name('create');
             Route::post('/create', 'MasterData\ItemController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\ItemController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\ItemController@update')->name('update');
         });
 
         Route::name('bank.')->prefix('bank')->group(function () {
@@ -189,6 +191,8 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
             Route::get('/', 'MasterData\CustomerController@index')->name('index');
             Route::get('/create', 'MasterData\CustomerController@create')->name('create');
             Route::post('/create', 'MasterData\CustomerController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\CustomerController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\CustomerController@update')->name('update');
         });
 
         Route::name('price.')->prefix('price')->group(function () {
