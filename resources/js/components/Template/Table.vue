@@ -36,19 +36,19 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group row mb-4">
+                <label class="col-form-label ml-5">Show</label>
+                <div class="ml-3">
+                    <label>
+                        <select class="form-control" v-model="params.perPage" v-on:change="getData">
+                            <option v-for="(perPage, index) in perPages" :value="perPage">{{ perPage }}</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
             <div class="card-body p-0">
                 <div class="table-responsive" v-if="loading">
-                    <div class="form-group row mb-4">
-                        <label class="col-form-label ml-5">Show</label>
-                        <div class="ml-3">
-                            <label>
-                                <select class="form-control" v-model="params.perPage" v-on:change="getData">
-                                    <option v-for="(perPage, index) in perPages" :value="perPage">{{ perPage }}</option>
-                                </select>
-                            </label>
-                        </div>
-                    </div>
-                    <table class="table table-bordered table-md" v-if="data.length">
+                    <table class="table table-bordered" v-if="data.length">
                         <tbody>
                         <tr>
                             <th>
@@ -69,11 +69,17 @@
                                            v-model="selected" :id="'checkbox-'+ index">
                                     <label :for="'checkbox-'+index" class="custom-control-label">&nbsp;</label>
                                 </div>
+
                             </td>
                             <!--Button-->
+
                             <td>
-                                <router-link v-if="config.route_view" class="badge badge-primary ml-2"
+                                <router-link v-if="config.route_view" class="badge badge-primary"
                                              :to="{ name: config.route_view , params: { id: item.id }}">View
+                                </router-link>
+
+                                <router-link v-if="config.route_edit && item.status === 1" class="badge badge-warning"
+                                             :to="{ name: config.route_edit , params: { id: item.id }}">Edit
                                 </router-link>
                             </td>
                             <td v-for="column in columns">

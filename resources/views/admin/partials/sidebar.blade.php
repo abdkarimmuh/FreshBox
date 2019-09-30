@@ -7,9 +7,9 @@
             <img src="{{asset('assets/img/icon-freshbox.png')}}" width="32px" height="32px">
         </a>
     </div>
+    <br>
+    <br>
     <ul class="sidebar-menu">
-        <li class="menu-header"></li>
-        <li class="menu-header"></li>
         <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
             <a class="nav-link" href="{{ route('admin.dashboard') }}">
                 <i class="fas fa-home"></i><span>Dashboard</span></a>
@@ -17,8 +17,8 @@
         <li class="dropdown {{ request()->segment(2) == 'marketing' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
             <ul class="dropdown-menu">
-                <li class="{{ request()->route()->getName() == 'admin.marketing.sales_order.index' ? ' active' : '' }}">
-                    <router-link  :to="{ name:'form_sales_order' }" class="nav-link"><span>Form Sales Order</span></router-link>
+                <li class="{{ request()->segment(3) == 'form_sales_order' ? ' active' : '' }}">
+                    <a  href="{{ url('admin/marketing/form_sales_order') }}" class="nav-link"><span>Form Sales Order</span></a>
                 </li>
             </ul>
         </li>

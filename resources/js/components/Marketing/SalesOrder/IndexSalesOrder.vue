@@ -12,11 +12,11 @@
             return {
                 config: {
                     title: 'Form Sales Order',
-                    base_url: this.$parent.MakeUrl('marketing/form_sales_order'),
+                    base_url: this.$parent.MakeUrl('admin/marketing/form_sales_order'),
                     // route_search: 'admin.marketing.sales_order.index',
                     route_create: 'form_sales_order.create',
                     route_view: 'form_sales_order.print',
-                    route_edit: 'form.sales_order.edit',
+                    route_edit: 'form_sales_order.edit',
                     route_multiple_print: 'form_sales_order.multiplePrint',
                 },
                 columns: [

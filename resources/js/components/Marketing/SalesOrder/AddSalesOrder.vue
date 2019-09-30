@@ -370,8 +370,7 @@
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(result => {
-                        let route = this.$router;
-                        route.push({ name: 'form_sales_order' });
+                        window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
                     });
 
                 } catch (e) {
@@ -458,6 +457,7 @@
                             this.qty = [0];
                             this.total_amount = [0];
                             this.notes = [];
+                            this.skuid = "";
                         })
                     )
                     .catch(err => {

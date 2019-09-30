@@ -34,9 +34,8 @@ class FormSalesOrderController extends Controller
             }
             $data = SalesOrderResource::collection($query);
             return $data;
-        } else {
-            return redirect()->back();
         }
+//        return view
 //        $columns = [
 //            array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
 //            array('title' => 'Customer', 'field' => 'customer_name'),
@@ -63,11 +62,10 @@ class FormSalesOrderController extends Controller
 //        $config = json_encode($config);
 //        $columns = json_encode($columns);
 //
-//        $config = [
-//            'vue-component' => "<s-testing></s-testing>"
-//        ];
-//
-//        return view('layouts.vue-view', compact('config'));
+        $config = [
+            'vue-component' => "<router-view></router-view>"
+        ];
+        return view('layouts.vue-view', compact('config'));
     }
 
     public function create()

@@ -187,7 +187,7 @@
                   name="Remarks"
                 ></textarea>
               </div>
-              
+
             </div>
             <div class="col-12">
               <div class="card-body">
@@ -221,7 +221,6 @@
 import { ModelListSelect } from 'vue-search-select';
 
 export default {
-  props: ['sales_order_id'],
   data () {
     return {
       sales_order: {},
@@ -244,7 +243,7 @@ export default {
   },
   methods: {
     getData () {
-      axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.sales_order_id + '/edit')).then((res) => {
+      axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.$route.params.id + '/edit')).then((res) => {
         this.sales_order = res.data.data;
         this.orders_detail = res.data.data.sales_order_details;
         this.items = res.data.items;
@@ -286,7 +285,6 @@ export default {
           title: 'ERROR!',
           text: 'Item Already Added!'
         });
-        console.log('GAGAL');
       } else {
         return this.orders_detail.push({
           skuid: this.item.skuid,

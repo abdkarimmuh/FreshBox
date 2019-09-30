@@ -7,7 +7,7 @@ import iosAlertView from 'vue-ios-alertview';
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueHtmlToPaper from 'vue-html-to-paper';
 import ModelListSelect from 'vue-search-select';
-
+import 'vue-search-select/dist/VueSearchSelect.css'
 const options = {
     name: '_blank',
     specs: [

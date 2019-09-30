@@ -16,7 +16,7 @@ Route::get('home', function () {
 });
 
 Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
-    Route::get('/{any}', 'DashboardController')->where('any', '.*');
+//    Route::get('/{any}', 'DashboardController')->where('any', '.*');
     Route::get('dashboard', 'DashboardController')->name('dashboard');
     Route::get('users/list', 'UserController@index')->name('users.roles');
     Route::resource('users', 'UserController', [
@@ -27,7 +27,7 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
 
 });
 
-Route::name('admin.')->middleware('auth')->group(function () {
+Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
     /**
      * Routing Menu Marketing
      */
@@ -89,7 +89,6 @@ Route::name('admin.')->middleware('auth')->group(function () {
 
         });
     });
-
     /**
      * Route Menu Master Data
      */
@@ -204,7 +203,10 @@ Route::name('admin.')->middleware('auth')->group(function () {
             Route::get('/', 'MasterData\ModulesController@index')->name('index');
         });
     });
+
 });
+
+
 Route::get('/invoice', function () {
     return InvoiceOrder::all();
 });
