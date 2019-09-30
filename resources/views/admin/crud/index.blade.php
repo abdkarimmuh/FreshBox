@@ -48,7 +48,7 @@
                                             @endisset
                                             <th width="150px">Action</th>
                                             @foreach ($columns as $column)
-                                                <th>{{ capitalize($column['title']) }}</th>
+                                                <th style="overflow:hidden; white-space:nowrap">{{ capitalize($column['title']) }}</th>
                                             @endforeach
                                         </tr>
                                         @foreach($data as $row)
@@ -125,8 +125,10 @@
                                                         <td>
                                                             <a href="{{ route('admin.marketing.sales_order.download', $row[$column['field']]) }}">Download</a>
                                                         </td>
-                                                    @else
+                                                    @elseif($column['field'] === 'description' || $column['field'] === 'remarks' )
                                                         <td>{{ $row[$column['field']] }}</td>
+                                                    @else
+                                                        <td style="overflow:hidden; white-space:nowrap">{{ $row[$column['field']] }}</td>
                                                     @endif
                                                 @endforeach
 
@@ -169,4 +171,3 @@
         </script>
     @endpush
 @endisset
-

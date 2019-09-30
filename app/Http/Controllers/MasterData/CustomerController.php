@@ -48,7 +48,7 @@ class CustomerController extends Controller
             //Route For Button Add
             'route-add' => 'admin.master_data.customer.create',
             //Route For Button Edit
-            'route-edit' => 'testing.edit',
+            'route-edit' => 'admin.master_data.customer.edit',
             //Route For Button Search
             'route-search' => 'admin.master_data.customer.index',
         ];
@@ -73,8 +73,8 @@ class CustomerController extends Controller
         $province = Province::all();
 
         $forms = [
-            array('type' => 'select_option', 'label' => 'Customer Type', 'name' => 'customer_type', 'variable' => 'customerType', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
-            array('type' => 'select_option', 'label' => 'Customer Group', 'name' => 'customer_group', 'variable' => 'customerGroup','option_value'=> 'id', 'option_text' => 'name', 'mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Customer Type', 'name' => 'customerType', 'variable' => 'customerType', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Customer Group', 'name' => 'customerGroup', 'variable' => 'customerGroup','option_value'=> 'id', 'option_text' => 'name', 'mandatory' => true),
             array('type' => 'text', 'label' => 'Customer Code', 'name' => 'customer_code', 'place_holder' => 'Customer Code', 'mandatory' => true),
             array('type' => 'text', 'label' => 'Customer Name', 'name' => 'name', 'place_holder' => 'Customer Name', 'mandatory' => true),
             array('type' => 'text', 'label' => 'PIC Name', 'name' => 'pic_customer', 'place_holder' => 'PIC Name', 'mandatory' => true),
@@ -82,7 +82,7 @@ class CustomerController extends Controller
             array('type' => 'select_option', 'label' => 'Province', 'name' => 'province', 'variable' => 'province', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
             array('type' => 'select_option', 'label' => 'Residence', 'name' => 'residence', 'variable' => 'residence', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
             array('type' => 'number', 'label' => 'Kode Pos', 'name' => 'kodepos', 'place_holder' => 'Kode Pos', 'mandatory' => false),
-            array('type' => 'textarea', 'label' => 'Alamat', 'name' => 'address', 'place_holder' => 'Alamat', 'mandatory' => false),
+            array('type' => 'textarea', 'label' => 'Alamat', 'name' => 'address', 'place_holder' => 'Alamat', 'mandatory' => true),
         ];
         $config = [
             //Form Title
@@ -108,16 +108,17 @@ class CustomerController extends Controller
     {
         $request->validate([
             'customer_code' => 'required',
-            'customer_type' => 'required',
-            'customer_group' => 'required',
+            'customerType' => 'required',
+            'customerGroup' => 'required',
             'name' => 'required',
             'pic_customer' => 'required',
             'tlp_pic' => 'required',
             'province' => 'required',
             'residence' => 'required',
+            'address' => 'required',
         ]);
 
-        DB::select('call insert_customer(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->customer_code, $request->customer_type, $request->customer_group, $request->name, $request->pic_customer, $request->tlp_pic, $request->address, $request->province, $request->residence, $request->kodepos, auth()->user()->id));
+        DB::select('call insert_customer(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->customer_code, $request->customerType, $request->customerGroup, $request->name, $request->pic_customer, $request->tlp_pic, $request->address, $request->province, $request->residence, $request->kodepos, null, null, auth()->user()->id));
         return redirect('admin/master_data/customer');
     }
 
@@ -140,7 +141,39 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Form Generator
+        $customerType = CustomerType::all();
+        $customerGroup = CustomerGroup::all();
+        $residence = Residence::all();
+        $province = Province::all();
+
+        $forms = [
+            array('type' => 'select_option', 'label' => 'Customer Type', 'name' => 'customerType', 'variable' => 'customerType', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Customer Group', 'name' => 'customerGroup', 'variable' => 'customerGroup', 'option_value'=> 'id', 'option_text' => 'name', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Customer Code', 'name' => 'customer_code', 'place_holder' => 'Customer Code', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Customer Name', 'name' => 'name', 'place_holder' => 'Customer Name', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'PIC Name', 'name' => 'pic_customer', 'place_holder' => 'PIC Name', 'mandatory' => true),
+            array('type' => 'number', 'label' => 'PIC Contact', 'name' => 'tlp_pic', 'place_holder' => 'PIC Contact', 'mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Province', 'name' => 'province', 'variable' => 'province', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Residence', 'name' => 'residence', 'variable' => 'residence', 'option_value'=> 'id', 'option_text' => 'name','mandatory' => true),
+            array('type' => 'number', 'label' => 'Kode Pos', 'name' => 'kodepos', 'place_holder' => 'Kode Pos', 'mandatory' => false),
+            array('type' => 'textarea', 'label' => 'Alamat', 'name' => 'address', 'place_holder' => 'Alamat', 'mandatory' => true),
+        ];
+        $config = [
+            //Form Title
+            'title' => 'Update Customer',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.customer.update',
+            //Form Method
+            'method' => 'PATCH',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.customer.index'
+        ];
+
+        $data = Customer::find($id);
+
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'customerType', 'customerGroup', 'province', 'residence', 'data'));
     }
 
     /**
@@ -150,9 +183,22 @@ class CustomerController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'customer_code' => 'required',
+            'customerType' => 'required',
+            'customerGroup' => 'required',
+            'name' => 'required',
+            'pic_customer' => 'required',
+            'tlp_pic' => 'required',
+            'province' => 'required',
+            'residence' => 'required',
+            'address' => 'required',
+        ]);
+
+        DB::select('call update_customer(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->id ,$request->customer_code, $request->customerType, $request->customerGroup, $request->name, $request->pic_customer, $request->tlp_pic, $request->address, $request->province, $request->residence, $request->kodepos, null, null, auth()->user()->id));
+        return redirect('admin/master_data/customer');
     }
 
     /**
