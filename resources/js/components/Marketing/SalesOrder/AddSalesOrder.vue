@@ -296,7 +296,7 @@
                                 <button
                                     type="button"
                                     class="btn btn-secondary"
-                                    onclick="back()"
+                                    @click="back()"
                                 >Back
                                 </button>
                             </div>
@@ -474,6 +474,9 @@
              */
             removeOrderDetails(index) {
                 this.orders_detail.splice(index, 1);
+            },
+            back() {
+                this.$router.push({ name:'form_sales_order'});
             }
         },
         components: {

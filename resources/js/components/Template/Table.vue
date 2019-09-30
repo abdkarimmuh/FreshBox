@@ -22,8 +22,7 @@
                             <input type="text" class="form-control ml-2" placeholder="Start"
                                    v-model="params.start">
                             <input type="text" class="form-control ml-2" placeholder="End" v-model="params.end">
-                            <input type="text" class="form-control ml-2" placeholder="Search"
-                                   v-model="params.query">
+                            <input type="text" class="form-control ml-2" placeholder="Search" v-model="params.query">
                             <div class="input-group-btn ml-1">
                                 <button class="btn btn-danger" v-on:click="search" :disabled="!loading">
                                     <i class="fas fa-search" v-if="loading"></i>
@@ -84,6 +83,7 @@
                             </td>
                             <td v-for="column in columns">
                                 <span v-html="item[column.field]" v-if="column.type === 'html'"></span>
+                                <a v-bind:href="item[column.field_url]" v-else-if="column.type === 'link'">{{ item[column.field] }}</a>
                                 <p v-else>
                                     {{ item[column.field] }}
                                 </p>
@@ -202,6 +202,7 @@
             async getData() {
                 await axios.get(this.config.base_url, {params: this.params}).then(res => {
                     this.data = res.data.data;
+
                     this.pagination = {
                         first: res.data.links.first,
                         last: res.data.links.last,
@@ -213,8 +214,10 @@
                         current_page: res.data.meta.current_page,
                         last_page: res.data.meta.last_page,
                         path: res.data.meta.path,
+
                     };
                     this.loading = true;
+
                 }).catch(e => {
                     if (e.response.status === 500) {
                         this.getData();

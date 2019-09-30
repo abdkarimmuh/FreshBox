@@ -24,13 +24,19 @@ Route::group(['prefix' => 'v1'], function () {
     /**
      * Marketing Route
      */
-    Route::group(['prefix' => 'marketing/', 'middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => 'marketing/'], function () {
         Route::group(['prefix' => 'sales_order'], function () {
             Route::get('/', 'API\FormSalesOrderAPIController@index');
-            Route::get('/{id}', 'API\FormSalesOrderAPIController@show');
+            Route::get('/show', 'API\FormSalesOrderAPIController@show');
+            Route::get('/{id}/edit', 'API\FormSalesOrderAPIController@edit');
+            Route::post('/store', 'API\FormSalesOrderAPIController@store');
+            Route::delete('detail/{id}', 'API\FormSalesOrderAPIController@deleteOrderDetails');
+            Route::patch('/update', 'API\FormSalesOrderAPIController@updateSalesOrderDetails');
+            Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile');
+
+//            Route::get('/{id}/edit', 'API\FormSalesOrderController@edit');
+
             Route::get('sales_order_details/{id}', 'Marketing\FormSalesOrderController@getSalesOrderDetails');
-            Route::patch('sales_order_details', 'Marketing\FormSalesOrderController@updateSalesOrderDetails');
-            Route::delete('sales_order_details/{id}', 'Marketing\FormSalesOrderController@deleteOrderDetails');
         });
         Route::group(['prefix' => 'sales_order_detail'], function () {
             Route::post('/', 'Marketing\FormSalesOrderController@InsertSalesOrderDetail');
@@ -42,7 +48,7 @@ Route::group(['prefix' => 'v1'], function () {
     /**
      * Master Data Route
      */
-    Route::group(['prefix' => 'master_data/','middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => 'master_data/', 'middleware' => 'auth:api'], function () {
 
         Route::group(['prefix' => 'customer'], function () {
             Route::get('/', 'API\CustomerAPIController@index')->name('api.customer');

@@ -3589,6 +3589,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      */
     removeOrderDetails: function removeOrderDetails(index) {
       this.orders_detail.splice(index, 1);
+    },
+    back: function back() {
+      this.$router.push({
+        name: 'form_sales_order'
+      });
     }
   },
   components: {
@@ -3901,9 +3906,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this2 = this;
 
-      axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.$route.params.id + '/edit')).then(function (res) {
-        _this2.sales_order = res.data.data;
-        _this2.orders_detail = res.data.data.sales_order_details;
+      axios.get(this.$parent.MakeUrl('api/v1/marketing/sales_order/' + this.$route.params.id + '/edit')).then(function (res) {
+        _this2.sales_order = res.data.sales_order;
+        _this2.orders_detail = res.data.sales_order.sales_order_details;
         _this2.items = res.data.items;
         _this2.qty = [0];
         _this2.total_amount = [0];
@@ -3924,7 +3929,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getItem: function getItem() {
       var _this3 = this;
 
-      axios.get(this.$parent.MakeUrl('api/master_data/price/' + this.sales_order.customer_id + '/' + this.skuid)).then(function (res) {
+      axios.get(this.$parent.MakeUrl('api/v1/master_data/price/' + this.sales_order.customer_id + '/' + this.skuid)).then(function (res) {
         _this3.item = res.data.data;
       })["catch"](function (err) {});
     },
@@ -3963,7 +3968,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         title: 'Are you sure?',
         text: 'The item and their associated data will be permanently deleted. Proceed?'
       }).then(function () {
-        axios["delete"](_this.$parent.MakeUrl('/api/trx/sales_order_details/' + orderId)).then(function (res) {
+        axios["delete"](_this.$parent.MakeUrl('api/v1/marketing/sales_order/detail/' + orderId)).then(function (res) {
           _this.orders_detail.splice(index, 1);
 
           _this.getData();
@@ -3988,7 +3993,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 payload = {
                   customerId: this.sales_order.customer_id,
-                  salesOrderId: this.sales_order_id,
+                  salesOrderId: this.sales_order.id,
                   remark: this.sales_order.remark,
                   items: this.orders_detail.map(function (item, idx) {
                     return {
@@ -4001,7 +4006,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.patch('/api/trx/sales_order_details', payload);
+                return axios.patch(this.$parent.MakeUrl('api/v1/marketing/sales_order/update'), payload);
 
               case 4:
                 res = _context.sent;
@@ -4011,7 +4016,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   text: 'Successfully Insert Data!'
                 });
                 setTimeout(function () {
-                  window.location.href = '/admin/marketing/form_sales_order';
+                  window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
                 }, 2500);
                 _context.next = 12;
                 break;
@@ -4076,7 +4081,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       config: {
         title: 'Form Sales Order',
-        base_url: this.$parent.MakeUrl('admin/marketing/form_sales_order'),
+        base_url: this.$parent.MakeUrl('api/v1/marketing/sales_order'),
         // route_search: 'admin.marketing.sales_order.index',
         route_create: 'form_sales_order.create',
         route_view: 'form_sales_order.print',
@@ -4098,6 +4103,11 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Fulfillment Date',
         field: 'fulfillment_date',
+        filterable: true
+      }, {
+        title: 'File',
+        field: 'file',
+        field_url: 'file_url',
         filterable: true
       }, {
         title: 'Remarks',
@@ -4130,9 +4140,6 @@ __webpack_require__.r(__webpack_exports__);
         description: 'You do not have access to this page'
       }
     };
-  },
-  mounted: function mounted() {
-    console.log('Component mounted.');
   }
 });
 
@@ -4385,7 +4392,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getData();
-    console.log(this.$route.query.id);
   },
   methods: {
     getData: function getData() {
@@ -4395,7 +4401,7 @@ __webpack_require__.r(__webpack_exports__);
       var payload = {
         id: this.$route.query.id
       };
-      axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/multiplePrint'), {
+      axios.get(this.$parent.MakeUrl('api/v1/marketing/sales_order/show'), {
         params: payload
       }).then(function (res) {
         _this.sales_order = res.data;
@@ -4424,7 +4430,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           _this2.$htmlToPaper('printMe');
 
-          axios.post(_this2.$parent.MakeUrl('admin/marketing/form_sales_order/multiplePrint'), payload); // Swal.fire(
+          axios.post(_this2.$parent.MakeUrl('api/v1/marketing/sales_order/multiplePrint'), payload); // Swal.fire(
           //     'Printed!',
           //     'This Sales Order has been Printed.',
           //     'success'
@@ -4688,7 +4694,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id'],
   data: function data() {
     return {
       sales_order: {},
@@ -4703,7 +4708,7 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.$route.params.id + '/print')).then(function (res) {
+      axios.get(this.$parent.MakeUrl('api/v1/marketing/sales_order/show?id=' + this.$route.params.id)).then(function (res) {
         _this.sales_order = res.data;
         _this.details = res.data.sales_order_details;
         _this.loading = true;
@@ -4728,7 +4733,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           _this2.$htmlToPaper('printMe');
 
-          axios.post(_this2.$parent.MakeUrl('admin/marketing/form_sales_order/' + _this2.$route.params.id + '/print'));
+          axios.post(_this2.$parent.MakeUrl('admin/marketing/form_sales_order/print/' + _this2.$route.params.id));
         }
       });
     },
@@ -51738,7 +51743,12 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-secondary",
-                    attrs: { type: "button", onclick: "back()" }
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.back()
+                      }
+                    }
                   },
                   [_vm._v("Back\n                            ")]
                 )
@@ -54342,6 +54352,16 @@ var render = function() {
                                           innerHTML: _vm._s(item[column.field])
                                         }
                                       })
+                                    : column.type === "link"
+                                    ? _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: item[column.field_url]
+                                          }
+                                        },
+                                        [_vm._v(_vm._s(item[column.field]))]
+                                      )
                                     : _c("p", [
                                         _vm._v(
                                           "\n                                " +

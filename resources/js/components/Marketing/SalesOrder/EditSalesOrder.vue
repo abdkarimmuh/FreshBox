@@ -243,9 +243,9 @@ export default {
   },
   methods: {
     getData () {
-      axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.$route.params.id + '/edit')).then((res) => {
-        this.sales_order = res.data.data;
-        this.orders_detail = res.data.data.sales_order_details;
+      axios.get(this.$parent.MakeUrl('api/v1/marketing/sales_order/' + this.$route.params.id + '/edit')).then((res) => {
+        this.sales_order = res.data.sales_order;
+        this.orders_detail = res.data.sales_order.sales_order_details;
         this.items = res.data.items;
 
         this.qty = [0];
@@ -266,7 +266,7 @@ export default {
       });
     },
     getItem () {
-      axios.get(this.$parent.MakeUrl('api/master_data/price/' + this.sales_order.customer_id + '/' + this.skuid)).then((res) => {
+      axios.get(this.$parent.MakeUrl('api/v1/master_data/price/' + this.sales_order.customer_id + '/' + this.skuid)).then((res) => {
         this.item = res.data.data;
       }).catch((err) => {
 
@@ -304,7 +304,7 @@ export default {
         title: 'Are you sure?',
         text: 'The item and their associated data will be permanently deleted. Proceed?'
       }).then(function () {
-        axios.delete(_this.$parent.MakeUrl('/api/trx/sales_order_details/' + orderId)).then((res) => {
+        axios.delete(_this.$parent.MakeUrl('api/v1/marketing/sales_order/detail/' + orderId)).then((res) => {
           _this.orders_detail.splice(index, 1);
           _this.getData();
           console.log(res.data);
@@ -315,12 +315,12 @@ export default {
           });
         });
       });
-
     },
+
     async submitForm () {
       const payload = {
         customerId: this.sales_order.customer_id,
-        salesOrderId: this.sales_order_id,
+        salesOrderId: this.sales_order.id,
         remark: this.sales_order.remark,
         items: this.orders_detail.map((item, idx) => ({
           order_details_id: item.id,
@@ -330,14 +330,14 @@ export default {
         }))
       };
       try {
-        const res = await axios.patch('/api/trx/sales_order_details', payload);
+        const res = await axios.patch(this.$parent.MakeUrl('api/v1/marketing/sales_order/update'), payload);
         Vue.swal({
           type: 'success',
           title: 'Success!',
           text: 'Successfully Insert Data!'
         });
         setTimeout(function () {
-          window.location.href = '/admin/marketing/form_sales_order';
+          window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
         }, 2500);
       } catch (e) {
         this.errors = e.response.data.errors;

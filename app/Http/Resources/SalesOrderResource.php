@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\MasterData\PriceResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SalesOrderResource extends JsonResource
@@ -27,7 +28,7 @@ class SalesOrderResource extends JsonResource
             'source_order_name' => $this->SourceOrder->name,
             'fulfillment_date' => $this->fulfillment_date->formatLocalized('%d %B %Y'),
             'file' => $this->file,
-            'file_url' => url('admin/marketing/form_sales_order/download/' . $this->file),
+            'file_url' => url('api/v1/marketing/sales_order/download/' . $this->file),
             'status' => $this->status,
             'remarks' => $this->remarks,
             'so_no_with_cust_name' => $this->so_no_with_cust_name,
@@ -41,7 +42,6 @@ class SalesOrderResource extends JsonResource
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
-
         ];
     }
 }

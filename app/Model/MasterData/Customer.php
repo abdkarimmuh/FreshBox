@@ -89,7 +89,7 @@ class Customer extends MyModel
             'relation_field' => 'name'
         ]
     ];
-    
+
     public function CustomerGroup()
     {
         return $this->belongsTo(CustomerGroup::class);
@@ -103,7 +103,7 @@ class Customer extends MyModel
             return '';
         }
     }
-    
+
     public function CustomerType()
     {
         return $this->belongsTo(CustomerType::class);
@@ -131,7 +131,7 @@ class Customer extends MyModel
             return '';
         }
     }
-    
+
     public function Residence()
     {
         return $this->belongsTo(Residence::class);
@@ -145,9 +145,14 @@ class Customer extends MyModel
             return '';
         }
     }
-    
+
+    public function Price()
+    {
+        return $this->hasMany(Price::class);
+    }
     public function getColumns()
     {
         return $this->columns;
     }
+
 }

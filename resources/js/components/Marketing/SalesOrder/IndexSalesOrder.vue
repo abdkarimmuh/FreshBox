@@ -12,7 +12,7 @@
             return {
                 config: {
                     title: 'Form Sales Order',
-                    base_url: this.$parent.MakeUrl('admin/marketing/form_sales_order'),
+                    base_url: this.$parent.MakeUrl('api/v1/marketing/sales_order'),
                     // route_search: 'admin.marketing.sales_order.index',
                     route_create: 'form_sales_order.create',
                     route_view: 'form_sales_order.print',
@@ -38,6 +38,12 @@
                     {
                         title: 'Fulfillment Date',
                         field: 'fulfillment_date',
+                        filterable: true,
+                    },
+                    {
+                        title: 'File',
+                        field: 'file',
+                        field_url:'file_url',
                         filterable: true,
                     },
                     {
@@ -79,9 +85,6 @@
                     description: 'You do not have access to this page'
                 }
             }
-        },
-        mounted() {
-            console.log('Component mounted.')
         },
     }
 </script>
