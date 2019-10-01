@@ -23,8 +23,33 @@
                 </li>
             </ul>
         </li>
+        <li class="dropdown {{ request()->segment(2) == 'procurement' ? ' active' : '' }}">
+            <a href="#" class="nav-link has-dropdown"><i class="fas fa-box-open"></i><span>Procurement</span></a>
+            <ul class="dropdown-menu">
+                <li class="{{ request()->route()->getName() == 'admin.procurement.user_procurement.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.procurement.user_procurement.index')}}"><span>User Procurement</span></a>
+                </li>
+                <li class="{{ request()->route()->getName() == 'admin.procurement.assign_procurement.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{ route('admin.procurement.assign_procurement.index') }}"><span>Assign Procurement</span></a>
+                </li>
+                <li class="{{ request()->route()->getName() == 'admin.procurement.list_procurement.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{ route('admin.procurement.list_procurement.index') }}"><span>List Procurement</span></a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown {{ request()->segment(2) == 'warehouse_in' ? ' active' : '' }}">
+            <a href="#" class="nav-link has-dropdown"><i class="fas fa-warehouse"></i><span>Warehouse In</span></a>
+            <ul class="dropdown-menu">
+                <li class="{{ request()->route()->getName() == 'admin.warehouse_in.confirm.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.warehouse_in.confirm.index')}}"><span>Confirm Incoming Items</span></a>
+                </li>
+                <li class="{{ request()->route()->getName() == 'admin.warehouse_in.conversion.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{ route('admin.warehouse_in.conversion.index') }}"><span>UOM Conversion</span></a>
+                </li>
+            </ul>
+        </li>
         <li class="dropdown {{ request()->segment(2) == 'warehouse' ? ' active' : '' }}">
-            <a href="#" class="nav-link has-dropdown"><i class="fas fa-warehouse"></i><span>Warehouse</span></a>
+            <a href="#" class="nav-link has-dropdown"><i class="fas fa-truck"></i><span>Warehouse Out</span></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->route()->getName() == 'admin.warehouse.delivery_order.index' ? ' active' : '' }}">
                     <a class="nav-link" href="{{route('admin.warehouse.delivery_order.index')}}"><span>Form Delivery Order</span></a>
@@ -87,13 +112,12 @@
                     <li class="{{ request()->route()->getName() == 'admin.master_data.vendor.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.vendor.index') }}"><span>Vendor</span></a>
                     </li>
-                    <li class="{{ request()->route()->getName() == 'admin.master_data.province.index' ? ' active' : '' }}">
+                    {{-- <li class="{{ request()->route()->getName() == 'admin.master_data.province.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.province.index') }}"><span>Province</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.residence.index' ? ' active' : '' }}">
-                        <a class="nav-link"
-                           href="{{ route('admin.master_data.residence.index') }}"><span>Residence</span></a>
-                    </li>
+                        <a class="nav-link" href="{{ route('admin.master_data.residence.index') }}"><span>Residence</span></a>
+                    </li> --}}
                     <li class="">
                         <router-link :to="{ name: 'users'}" class="nav-link"><span>Users</span></router-link>
                     </li>
