@@ -61,7 +61,7 @@ class User extends Authenticatable
 
     public function procurement()
     {
-        return $this->belongsTo(UserProc::class);
+        return $this->belongsTo(UserProc::class,'id','user_id');
     }
 
     public function getAllpermissionsAttribute()
