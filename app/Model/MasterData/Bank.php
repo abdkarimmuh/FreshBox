@@ -4,7 +4,6 @@ namespace App\Model\MasterData;
 
 use App\MyModel;
 use App\Traits\SearchTraits;
-use Illuminate\Database\Eloquent\Model;
 
 class Bank extends MyModel
 {

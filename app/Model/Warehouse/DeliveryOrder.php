@@ -7,7 +7,6 @@ use App\Model\MasterData\Customer;
 use App\Model\MasterData\Driver;
 use App\MyModel;
 use App\Traits\SearchTraits;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DeliveryOrder extends MyModel

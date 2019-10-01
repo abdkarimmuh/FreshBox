@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateTrxWarehouseConfirmation extends Migration
+class CreateTrxAssignProcurement extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateTrxWarehouseConfirmation extends Migration
      */
     public function up()
     {
-        Schema::create('trx_warehouse_confirmation', function (Blueprint $table) {
+        Schema::create('trx_assign_procurement', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('procurement_no');
-            $table->date('fulfillment_date');
-            $table->string('remark');
-            $table->integer('status')->default(0);
+            $table->unsignedBigInteger('sales_order_detail_id');
+            $table->unsignedBigInteger('user_proc_id');
+
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
 
+            $table->foreign('sales_order_detail_id')->on('trx_sales_order_detail')->references('id')->onDelete('cascade');
+            $table->foreign('user_proc_id')->on('user_proc')->references('id')->onDelete('cascade');
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
 
@@ -37,6 +38,6 @@ class CreateTrxWarehouseConfirmation extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trx_warehouse_confirmation');
+        Schema::dropIfExists('trx_assign_procurement');
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateTrxWarehouseKonversi extends Migration
+class CreateTrxWarehouseConversion extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateTrxWarehouseKonversi extends Migration
      */
     public function up()
     {
-        Schema::create('trx_warehouse_konversi', function (Blueprint $table) {
+        Schema::create('trx_warehouse_conversion', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('trx_proc_detail_id');
+            $table->unsignedBigInteger('list_proc_detail_id');
             $table->string('procurement_no');
             $table->decimal('qty_proc', 18, 2);
             $table->unsignedBigInteger('uom_proc');
@@ -24,7 +24,7 @@ class CreateTrxWarehouseKonversi extends Migration
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
 
-            $table->foreign('trx_proc_detail_id')->on('trx_procurement_detail')->references('id')->onDelete('cascade');
+            $table->foreign('list_proc_detail_id')->on('trx_list_procurement_detail')->references('id')->onDelete('cascade');
             $table->foreign('uom_proc')->on('master_uom')->references('id')->onDelete('cascade');
             $table->foreign('uom_konversi')->on('master_uom')->references('id')->onDelete('cascade');
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
@@ -42,6 +42,6 @@ class CreateTrxWarehouseKonversi extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trx_warehouse_konversi');
+        Schema::dropIfExists('trx_warehouse_conversion');
     }
 }
