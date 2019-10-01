@@ -43,7 +43,7 @@ class InvoiceOrder extends MyModel
     public function getTotalPriceAttribute()
     {
         $total_amount = 0;
-        foreach ($this->delivery_order->do_details_not_returned as $do_details) {
+        foreach ($this->delivery_order->delivery_order_details as $do_details) {
             $total_amount += $do_details->sales_order_detail->total_amount;
         }
         return $total_amount;
