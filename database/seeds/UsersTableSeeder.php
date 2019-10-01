@@ -1,5 +1,6 @@
 <?php
 
+use App\UserProc;
 use Illuminate\Database\Seeder;
 use App\User;
 use Spatie\Permission\Models\Role;
@@ -28,17 +29,27 @@ class UsersTableSeeder extends Seeder
         ]);
         $adminUser->assignRole($adminRole);
 
-        $procRole = Role::create(['name' => 'Procurement']);
-        $procurementUser = User::create([
-            'name' => 'Procurement',
-            'email' => 'procurement@example.com',
+        $editorRole = Role::create(['name' => 'Editor']);
+        $editorPermissions = ['manage-users', 'view-users'];
+        foreach ($editorPermissions as $ep) {
+            $permission = Permission::firstOrCreate(['name' => $ep]);
+            $editorRole->givePermissionTo($permission);
+        }
+        $editorUser = User::create([
+            'name' => 'Editor',
+            'email' => 'editor@example.com',
             'password' => Hash::make('1234')
         ]);
-        UserProc::create([
-            'user_id' => $procurementUser->id,
-            'saldo' => 1000,
+        $editorUser->assignRole($editorRole);
 
+        $userRole = Role::create(['name' => 'User']);
+        $generalUser = User::create([
+            'name' => 'User',
+            'email' => 'user@example.com',
+            'password' => Hash::make('1234')
         ]);
-        $procurementUser->assignRole($procRole);
+        $generalUser->assignRole($userRole);
+
+
     }
 }
