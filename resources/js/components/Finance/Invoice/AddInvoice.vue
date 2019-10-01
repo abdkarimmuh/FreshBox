@@ -194,9 +194,10 @@
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     });
-                    setTimeout(function () {
-                        window.location.href = "/admin/finance/invoice_order";
-                    }, 2500);
+                    console.log(res);
+                    // setTimeout(function () {
+                    //     window.location.href = "/admin/finance/invoice_order";
+                    // }, 2500);
                 } catch (e) {
                     this.errors = e.response.data.errors;
                     console.log(e);

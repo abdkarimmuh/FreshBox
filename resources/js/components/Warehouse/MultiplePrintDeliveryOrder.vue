@@ -94,11 +94,8 @@
                         </div>
                         <br>
                         <div class="col-md-12">
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
-                                <table class="table table-hover">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-md">
                                     <thead>
                                     <tr>
                                         <th class="text-center">SKUID</th>
@@ -227,7 +224,7 @@
 
 <script>
     export default {
-              props: ['id'],
+        props: ['id'],
         data() {
             return {
                 delivery_order: [],
@@ -250,9 +247,9 @@
                         this.loading = true;
                         console.log(res);
                     }).catch(e => {
-                        if (e.response.status == 500){
-                            this.getData()
-                        }
+                    if (e.response.status == 500) {
+                        this.getData()
+                    }
                 });
                 this.sales_order = this.data;
             },

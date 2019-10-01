@@ -25,10 +25,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('register', 'API\AuthAPIController@register');
     Route::get('logout', 'API\AuthAPIController@logout');
 
-    Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function (){
-       Route::get('proc', function (){
-           return new UserProcResource(auth()->user());
-       });
+    Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
+        Route::get('proc', function () {
+            return new UserProcResource(auth()->user());
+        });
     });
     /**
      * Marketing Route
@@ -43,20 +43,30 @@ Route::group(['prefix' => 'v1'], function () {
             Route::patch('/update', 'API\FormSalesOrderAPIController@updateSalesOrderDetails');
             Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile');
 
-//            Route::get('/{id}/edit', 'API\FormSalesOrderController@edit');
-
             Route::get('sales_order_details/{id}', 'Marketing\FormSalesOrderController@getSalesOrderDetails');
         });
-//        Route::group(['prefix' => 'sales_order_detail'], function () {
-//            Route::post('/', 'Marketing\FormSalesOrderController@InsertSalesOrderDetail');
-//            Route::get('/{customer_id}', 'Marketing\FormSalesOrderController@sales_order_detail');
-//        });
 
     });
+    /**
+     * Route API Warehouse
+     */
+    Route::group(['prefix' => 'warehouse/'], function () {
 
+        Route::group(['prefix' => 'delivery_order'], function () {
+            Route::get('/create', 'API\DeliveryOrderAPIController@create');
+            Route::get('/show/{id}', 'API\DeliveryOrderAPIController@show');
+            Route::post('/', 'Warehouse\FormDeliveryOrderController@store');
+        });
+    });
+
+    /**
+     * Route API Route
+     */
     Route::group(['prefix' => 'finance'], function () {
         Route::group(['prefix' => 'invoice'], function () {
             Route::get('/printRecap/{customer_id}', 'API\InvoiceAPIController@printRecap');
+            Route::post('/store', 'API\InvoiceAPIController@store');
+
         });
     });
 
@@ -95,28 +105,6 @@ Route::group(['prefix' => 'v1'], function () {
 });
 
 
-/**
- * Marketing Route
- */
-
-
-/**
- * Warehouse Route
- */
-Route::group(['prefix' => 'warehouse/'], function () {
-});
-
-
-/**
- * Route API Warehouse
- */
-Route::group(['prefix' => 'warehouse/'], function () {
-
-    Route::group(['prefix' => 'delivery_order'], function () {
-        Route::get('/show/{id}', 'API\DeliveryOrderAPIController@show');
-        Route::post('/', 'Warehouse\FormDeliveryOrderController@store');
-    });
-});
 /**
  * Testing Route
  */
