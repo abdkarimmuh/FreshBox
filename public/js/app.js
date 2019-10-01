@@ -3502,8 +3502,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   type: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
-                }).then(function (result) {
-                  window.location.href = _this2.$parent.MakeUrl('admin/marketing/form_sales_order');
+                }).then(function (next) {
+                  _this2.$router.push({
+                    name: 'form_sales_order'
+                  });
                 });
                 _context2.next = 11;
                 break;
@@ -4020,10 +4022,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this4.$router.push({
                     name: 'form_sales_order'
                   });
-                }); // setTimeout(function () {
-                //   window.location.href = this.$rou.MakeUrl('admin/marketing/form_sales_order');
-                // }, 2500);
-
+                });
                 _context.next = 11;
                 break;
 

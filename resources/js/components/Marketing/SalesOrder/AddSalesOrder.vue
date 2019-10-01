@@ -402,8 +402,8 @@
                         type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
-                    }).then(result => {
-                        window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
+                    }).then(next => {
+                        this.$router.push({name: 'form_sales_order'});
                     });
 
                 } catch (e) {
@@ -445,7 +445,7 @@
              * @returns {number}
              */
             pushOrderDetails(skuid) {
-                  if (!skuid) return;
+                if (!skuid) return;
                 const indexItem = this.orders_detail.findIndex(x => x.skuid === skuid);
                 if (indexItem >= 0) {
                     Vue.swal({
@@ -477,7 +477,7 @@
                 this.orders_detail.splice(index, 1);
             },
             back() {
-                this.$router.push({ name:'form_sales_order'});
+                this.$router.push({name: 'form_sales_order'});
             }
         },
         components: {

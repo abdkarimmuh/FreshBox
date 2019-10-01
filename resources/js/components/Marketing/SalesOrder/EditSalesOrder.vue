@@ -342,9 +342,6 @@
                     }).then(next => {
                         this.$router.push({name: 'form_sales_order'});
                     });
-                    // setTimeout(function () {
-                    //   window.location.href = this.$rou.MakeUrl('admin/marketing/form_sales_order');
-                    // }, 2500);
                 } catch (e) {
                     this.errors = e.response.data.errors;
                 }
