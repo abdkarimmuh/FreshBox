@@ -41,7 +41,7 @@ class AssignProcurementController extends Controller
             //Route For Button Add
             'route-add' => 'admin.procurement.assign_procurement.create',
             //Route For Button Edit
-            'route-edit' => 'admin.procurement.assign_procurement.edit',
+            // 'route-edit' => 'admin.procurement.assign_procurement.edit',
             //Route For Button Search
             'route-search' => 'admin.procurement.assign_procurement.index',
         ];
