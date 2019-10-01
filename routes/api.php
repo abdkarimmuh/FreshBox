@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Resources\Mobile\AssignListResource;
 use App\Http\Resources\Mobile\UserProcResource;
 use App\User;
 use Illuminate\Http\Request;
@@ -26,6 +27,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('logout', 'API\AuthAPIController@logout');
 
     Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
+        Route::get('assign', function () {
+            return auth()->user()->procurement->assign_proc;
+        });
         Route::get('proc', function () {
             return new UserProcResource(auth()->user());
         });
@@ -123,14 +127,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::get('/users ', function (Request $request) {
-//    $length = $request->input('length');
-//    $column = $request->input('column'); //Index
-//    $orderBy = $request->input('dir', 'asc');
-//    $searchValue = $request->input('query');
-//
-//    $query = \App\User::dataTableQuery($column, $orderBy, $searchValue);
-//    $data = $query->paginate($length);
-//
-//    return new \JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource($data);
-//});
+Route::get('/users ', function (Request $request) {
+    $length = $request->input('length');
+    $column = $request->input('column'); //Index
+    $orderBy = $request->input('dir', 'asc');
+    $searchValue = $request->input('query');
+
+    $query = \App\User::dataTableQuery($column, $orderBy, $searchValue);
+    $data = $query->paginate($length);
+
+    return new \JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource($data);
+});

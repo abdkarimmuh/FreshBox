@@ -5903,6 +5903,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5980,7 +5982,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.post("/api/warehouse/delivery_order", payload);
+                return axios.post("/api/v1/warehouse/delivery_order", payload);
 
               case 4:
                 res = _context.sent;
@@ -5988,26 +5990,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   type: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
-                });
-                setTimeout(function () {
+                }).then(function (next) {
                   window.location.href = "/admin/warehouse/delivery_order";
-                }, 2500);
-                console.log("RES SALES ORDER", res);
-                _context.next = 14;
+                });
+                _context.next = 12;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](1);
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
 
-              case 14:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 10]]);
+        }, _callee, this, [[1, 8]]);
       }));
 
       function submitForm() {
@@ -55391,7 +55391,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Submit")]
+                  [_vm._v("Submit\n                            ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -55400,7 +55400,7 @@ var render = function() {
                     staticClass: "btn btn-secondary",
                     attrs: { type: "button", onclick: "back()" }
                   },
-                  [_vm._v("Back")]
+                  [_vm._v("Back\n                            ")]
                 )
               ])
             ])

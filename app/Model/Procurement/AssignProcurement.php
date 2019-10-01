@@ -18,7 +18,8 @@ class AssignProcurement extends MyModel
         'sales_order_no',
         'proc_name',
         'item_name',
-        'origin_code'
+        'origin_code',
+        'uom'
     ];
 
     protected $columns = [

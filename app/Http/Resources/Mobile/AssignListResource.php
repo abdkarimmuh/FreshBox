@@ -4,7 +4,7 @@ namespace App\Http\Resources\Mobile;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserProcResource extends JsonResource
+class AssignListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,12 +14,11 @@ class UserProcResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        return[
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'saldo' => $this->procurement->saldo,
-            'assign' => AssignListResource::collection($this->procurement->assign_proc)
+            'name' => $this->item_name,
+            'qty' => $this->qty,
+            'uom' => $this->uom
         ];
     }
 }
