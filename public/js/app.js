@@ -6200,6 +6200,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['do_id'],
   data: function data() {
@@ -55819,7 +55821,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Submit")]
+                    [_vm._v("Submit\n                            ")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -55828,7 +55830,7 @@ var render = function() {
                       staticClass: "btn btn-secondary",
                       attrs: { type: "button", onclick: "back()" }
                     },
-                    [_vm._v("Back")]
+                    [_vm._v("Back\n                            ")]
                   )
                 ])
               ])
