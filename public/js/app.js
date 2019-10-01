@@ -2139,7 +2139,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       axios.get(this.$parent.MakeUrl("admin/warehouse/delivery_order/" + this.do_id + "/show")).then(function (res) {
         _this.delivery_order = res.data.data;
-        _this.do_details = res.data.data.do_details_not_returned;
+        _this.do_details = res.data.data.do_details;
       })["catch"](function (e) {
         console.log(e);
       });
@@ -2857,7 +2857,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print')).then(function (res) {
         _this.invoice_order = res.data.data;
-        _this.details = res.data.data.delivery_orders;
+        _this.details = res.data.data.do_details;
         _this.loading = true;
       })["catch"](function (err) {
         if (err.response.status == 500) {
@@ -6202,6 +6202,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['do_id'],
   data: function data() {
@@ -6209,7 +6213,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       confirm_date: "",
       delivery_order: {},
       do_details: [],
-      qty_confirm: [],
+      qty_minus: [],
       errors: []
     };
   },
@@ -6224,11 +6228,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //     this.qty_do[idx].qty = qty_so;
     //   }
     // },
+    getData: function getData() {
+      var _this = this;
+
+      axios.get(this.$parent.MakeUrl("admin/warehouse/confirm_delivery_order/" + this.do_id + "/create")).then(function (res) {
+        console.log(res);
+        _this.delivery_order = res.data.data;
+        _this.do_details = res.data.data.do_details;
+        _this.qty_confirm = _this.do_details.map(function (item, idx) {
+          return {
+            qty: item.qty_do
+          };
+        });
+        _this.qty_minus = _this.do_details.map(function (item, idx) {
+          return {
+            qty: 0
+          };
+        });
+      })["catch"](function (err) {});
+    },
     submitForm: function () {
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this = this;
+        var _this2 = this;
 
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -6243,8 +6266,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return {
                       id: item.id,
                       remark: item.remark,
-                      qty_confirm: _this.qty_confirm[idx].qty,
-                      returned: item.returned
+                      qty_confirm: _this2.qty_confirm[idx].qty,
+                      qty_minus: _this2.qty_minus[idx].qty
                     };
                   })
                 };
@@ -6258,26 +6281,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   type: "success",
                   title: "Success!",
                   text: "Successfully Confirm Delivery Order!"
+                }).then(function (next) {// window.location.href = "/admin/warehouse/delivery_order";
                 });
-                setTimeout(function () {
-                  window.location.href = "/admin/warehouse/delivery_order";
-                }, 2500);
-                console.log("RES SALES ORDER", res);
-                _context.next = 14;
+                console.log(res);
+                _context.next = 13;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](1);
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
 
-              case 14:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 10]]);
+        }, _callee, this, [[1, 9]]);
       }));
 
       function submitForm() {
@@ -6285,21 +6306,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return submitForm;
-    }(),
-    getData: function getData() {
-      var _this2 = this;
-
-      axios.get(this.$parent.MakeUrl("admin/warehouse/confirm_delivery_order/" + this.do_id + "/create")).then(function (res) {
-        console.log(res);
-        _this2.delivery_order = res.data.data;
-        _this2.do_details = res.data.data.do_details;
-        _this2.qty_confirm = _this2.do_details.map(function (item, idx) {
-          return {
-            qty: item.qty_do
-          };
-        });
-      })["catch"](function (err) {});
-    }
+    }()
   }
 });
 
@@ -55647,6 +55654,36 @@ var render = function() {
                                           {
                                             name: "model",
                                             rawName: "v-model",
+                                            value: _vm.qty_minus[index].qty,
+                                            expression: "qty_minus[index].qty"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: { type: "number", min: "0" },
+                                        domProps: {
+                                          value: _vm.qty_minus[index].qty
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              _vm.qty_minus[index],
+                                              "qty",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
                                             value: orders.remark,
                                             expression: "orders.remark"
                                           }
@@ -55670,72 +55707,6 @@ var render = function() {
                                           }
                                         }
                                       })
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _c("div", { staticClass: "form-check" }, [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: orders.returned,
-                                              expression: "orders.returned"
-                                            }
-                                          ],
-                                          staticClass: "form-check-input",
-                                          attrs: {
-                                            type: "checkbox",
-                                            value: "1"
-                                          },
-                                          domProps: {
-                                            checked: Array.isArray(
-                                              orders.returned
-                                            )
-                                              ? _vm._i(orders.returned, "1") >
-                                                -1
-                                              : orders.returned
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              var $$a = orders.returned,
-                                                $$el = $event.target,
-                                                $$c = $$el.checked
-                                                  ? true
-                                                  : false
-                                              if (Array.isArray($$a)) {
-                                                var $$v = "1",
-                                                  $$i = _vm._i($$a, $$v)
-                                                if ($$el.checked) {
-                                                  $$i < 0 &&
-                                                    _vm.$set(
-                                                      orders,
-                                                      "returned",
-                                                      $$a.concat([$$v])
-                                                    )
-                                                } else {
-                                                  $$i > -1 &&
-                                                    _vm.$set(
-                                                      orders,
-                                                      "returned",
-                                                      $$a
-                                                        .slice(0, $$i)
-                                                        .concat(
-                                                          $$a.slice($$i + 1)
-                                                        )
-                                                    )
-                                                }
-                                              } else {
-                                                _vm.$set(
-                                                  orders,
-                                                  "returned",
-                                                  $$c
-                                                )
-                                              }
-                                            }
-                                          }
-                                        })
-                                      ])
                                     ])
                                   ])
                                 }),
@@ -55881,9 +55852,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Qty Confirm")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Remark Confirm")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Qty Minus")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Returned")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Remark Confirm")])
       ])
     ])
   },

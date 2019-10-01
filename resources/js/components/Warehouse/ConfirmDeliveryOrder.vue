@@ -61,8 +61,9 @@
                                         <th class="text-center">Qty Order</th>
                                         <th class="text-center">Qty Do</th>
                                         <th class="text-center">Qty Confirm</th>
+                                        <th class="text-center">Qty Minus</th>
                                         <th class="text-center">Remark Confirm</th>
-                                        <th class="text-center">Returned</th>
+                                        <!--                                        <th class="text-center">Returned</th>-->
 
                                     </tr>
                                     </thead>
@@ -86,34 +87,37 @@
                                         </td>
                                         <td>
                                             <input
+                                                v-model="qty_minus[index].qty"
+                                                type="number"
+                                                min="0"
+                                                class="form-control"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
                                                 v-model="orders.remark"
                                                 type="text"
                                                 class="form-control"
                                                 placeholder="Remark Confirm"
                                             />
                                         </td>
-                                        <td>
-                                            <div class="form-check">
-                                                <input
-                                                    v-model="orders.returned"
-                                                    class="form-check-input"
-                                                    type="checkbox"
-                                                    value="1"
-                                                >
-                                            </div>
-                                        </td>
+                                        <!--                                        <td>-->
+                                        <!--                                            <div class="form-check">-->
+                                        <!--                                                <input-->
+                                        <!--                                                    v-model="orders.returned"-->
+                                        <!--                                                    class="form-check-input"-->
+                                        <!--                                                    type="checkbox"-->
+                                        <!--                                                    value="1"-->
+                                        <!--                                                >-->
+                                        <!--                                            </div>-->
+                                        <!--                                        </td>-->
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div
-                                v-for="(orders, index) in do_details"
-                                v-bind:key="index"
-                            >
-                                <div
-                                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                    v-if="errors[`do_details.${index}.qty_confirm`]"
-                                >
+                            <div v-for="(orders, index) in do_details" v-bind:key="index">
+                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                     v-if="errors[`do_details.${index}.qty_confirm`]">
                                     <p>The {{ do_details[index].item_name }} of qty confirm field is required.</p>
                                 </div>
                             </div>
@@ -159,7 +163,7 @@
                 confirm_date: "",
                 delivery_order: {},
                 do_details: [],
-                qty_confirm: [],
+                qty_minus: [],
                 errors: []
             };
         },
@@ -174,34 +178,6 @@
             //     this.qty_do[idx].qty = qty_so;
             //   }
             // },
-            async submitForm() {
-                const payload = {
-                    id: this.delivery_order.id,
-                    sales_order_id: this.delivery_order.sales_order_id,
-                    confirm_date: this.confirm_date,
-                    do_details: this.do_details.map((item, idx) => ({
-                        id: item.id,
-                        remark: item.remark,
-                        qty_confirm: this.qty_confirm[idx].qty,
-                        returned: item.returned
-                    }))
-                };
-                try {
-                    const res = await axios.patch(this.$parent.MakeUrl("admin/warehouse/confirm_delivery_order/update"), payload);
-                    Vue.swal({
-                        type: "success",
-                        title: "Success!",
-                        text: "Successfully Confirm Delivery Order!"
-                    });
-                    setTimeout(function () {
-                        window.location.href = "/admin/warehouse/delivery_order";
-                    }, 2500);
-                    console.log("RES SALES ORDER", res);
-                } catch (e) {
-                    this.errors = e.response.data.errors;
-                    console.error(e.response.data);
-                }
-            },
             getData() {
                 axios.get(this.$parent.MakeUrl("admin/warehouse/confirm_delivery_order/" + this.do_id + "/create"))
                     .then(res => {
@@ -211,10 +187,41 @@
                         this.qty_confirm = this.do_details.map((item, idx) => ({
                             qty: item.qty_do
                         }));
+                        this.qty_minus = this.do_details.map((item, idx) => ({
+                            qty: 0
+                        }));
                     })
                     .catch(err => {
                     });
-            }
+            },
+            async submitForm() {
+                const payload = {
+                    id: this.delivery_order.id,
+                    sales_order_id: this.delivery_order.sales_order_id,
+                    confirm_date: this.confirm_date,
+                    do_details: this.do_details.map((item, idx) => ({
+                        id: item.id,
+                        remark: item.remark,
+                        qty_confirm: this.qty_confirm[idx].qty,
+                        qty_minus: this.qty_minus[idx].qty
+                    }))
+                };
+                try {
+                    const res = await axios.patch(this.$parent.MakeUrl("admin/warehouse/confirm_delivery_order/update"), payload);
+                    Vue.swal({
+                        type: "success",
+                        title: "Success!",
+                        text: "Successfully Confirm Delivery Order!"
+                    }).then(next => {
+                        // window.location.href = "/admin/warehouse/delivery_order";
+                    });
+                    console.log(res);
+                } catch (e) {
+                    this.errors = e.response.data.errors;
+                    console.error(e.response.data);
+                }
+            },
+
         }
     };
 </script>

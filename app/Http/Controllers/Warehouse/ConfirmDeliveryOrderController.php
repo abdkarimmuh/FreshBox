@@ -54,7 +54,7 @@ class ConfirmDeliveryOrderController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return DeliveryOrderResource
      */
     public function create($id)
     {
@@ -98,7 +98,7 @@ class ConfirmDeliveryOrderController extends Controller
             DeliveryOrderDetail::where('id', $detail['id'])->update([
                 'remark' => $detail['remark'],
                 'qty_confirm' => $detail['qty_confirm'],
-                'returned' => $detail['returned']
+                'qty_minus' => $detail['qty_minus']
             ]);
         }
 

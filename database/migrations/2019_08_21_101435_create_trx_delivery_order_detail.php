@@ -22,7 +22,6 @@ class CreateTrxDeliveryOrderDetail extends Migration
             $table->decimal('qty_confirm', 18, 2)->default(0);
             $table->decimal('qty_minus', 18, 2)->default(0);
             $table->unsignedBigInteger('uom_id');
-            $table->integer('returned')->default(0);
             $table->string('remark')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();

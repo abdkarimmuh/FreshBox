@@ -54,12 +54,12 @@ class DeliveryOrder extends MyModel
 
     public function do_details_returned()
     {
-        return $this->hasMany(DeliveryOrderDetail::class)->where('returned', 1);
+        return $this->hasMany(DeliveryOrderDetail::class)->where('qty_minus', '<>',0);
     }
 
     public function do_details_not_returned()
     {
-        return $this->hasMany(DeliveryOrderDetail::class)->where('returned', 0);
+        return $this->hasMany(DeliveryOrderDetail::class);
     }
 
     public function getDriverNameAttribute()

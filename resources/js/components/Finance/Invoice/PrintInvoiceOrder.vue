@@ -288,7 +288,7 @@
                 axios.get(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print'))
                     .then(res => {
                         this.invoice_order = res.data.data;
-                        this.details = res.data.data.delivery_orders;
+                        this.details = res.data.data.do_details;
                         this.loading = true;
                     })
                     .catch(err => {

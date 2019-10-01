@@ -166,7 +166,7 @@
                 axios.get(this.$parent.MakeUrl("admin/warehouse/delivery_order/" + this.do_id + "/show"))
                     .then(res => {
                         this.delivery_order = res.data.data;
-                        this.do_details = res.data.data.do_details_not_returned;
+                        this.do_details = res.data.data.do_details;
                     })
                     .catch(e => {
                         console.log(e);
