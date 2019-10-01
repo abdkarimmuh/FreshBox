@@ -193,11 +193,10 @@
                         type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
+                    }).then(next => {
+                        window.location.href = "/admin/finance/invoice_order";
                     });
                     console.log(res);
-                    // setTimeout(function () {
-                    //     window.location.href = "/admin/finance/invoice_order";
-                    // }, 2500);
                 } catch (e) {
                     this.errors = e.response.data.errors;
                     console.log(e);

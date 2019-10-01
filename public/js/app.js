@@ -2179,11 +2179,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   type: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
+                }).then(function (next) {
+                  window.location.href = "/admin/finance/invoice_order";
                 });
-                console.log(res); // setTimeout(function () {
-                //     window.location.href = "/admin/finance/invoice_order";
-                // }, 2500);
-
+                console.log(res);
                 _context.next = 13;
                 break;
 
@@ -6281,7 +6280,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   type: "success",
                   title: "Success!",
                   text: "Successfully Confirm Delivery Order!"
-                }).then(function (next) {// window.location.href = "/admin/warehouse/delivery_order";
+                }).then(function (next) {
+                  window.location.href = "/admin/warehouse/delivery_order";
                 });
                 console.log(res);
                 _context.next = 13;
