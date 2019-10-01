@@ -1,14 +1,9 @@
 <?php
 
 use App\Model\Finance\InvoiceOrder;
-use App\Model\Marketing\SalesOrder;
 
 Route::get('/', function () {
     return redirect(route('admin.dashboard'));
-});
-
-Route::get('/so', function () {
-    return response()->json(SalesOrder::paginate(2), 200);
 });
 
 Route::get('home', function () {
@@ -18,6 +13,8 @@ Route::get('home', function () {
 Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
 //    Route::get('/{any}', 'DashboardController')->where('any', '.*');
     Route::get('dashboard', 'DashboardController')->name('dashboard');
+    Route::get('passport', 'DashboardController@passport')->name('passport');
+
     Route::get('users/list', 'UserController@index')->name('users.roles');
     Route::resource('users', 'UserController', [
         'names' => [
@@ -27,21 +24,24 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
 
 });
 
-Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
+Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     /**
      * Routing Menu Marketing
      */
-    Route::name('marketing.')->prefix('marketing')->middleware('auth')->group(function () {
+    Route::name('marketing.')->prefix('marketing')->group(function () {
         Route::name('sales_order.')->prefix('form_sales_order')->group(function () {
-            Route::get('/', 'Marketing\FormSalesOrderController@index')->name('index');
-            Route::get('/create', 'Marketing\FormSalesOrderController@create')->name('create');
-            Route::get('/{id}/edit', 'Marketing\FormSalesOrderController@edit')->name('edit');
-            Route::get('/{id}/print', 'Marketing\FormSalesOrderController@print')->name('print');
-            Route::get('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint')->name('multiplePrint');
-            Route::post('/store', 'Marketing\FormSalesOrderController@store')->name('store');
-            Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile')->name('download');
-            Route::post('/{id}/print', 'Marketing\FormSalesOrderController@print');
-            Route::post('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint');
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+
+//            Route::get('/', 'Marketing\FormSalesOrderController@index')->name('index');
+//            Route::get('/create', 'Marketing\FormSalesOrderController@create')->name('create');
+//            Route::get('/{id}/edit', 'Marketing\FormSalesOrderController@edit')->name('edit');
+//            Route::get('/{id}/print', 'Marketing\FormSalesOrderController@print')->name('print');
+//            Route::get('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint')->name('multiplePrint');
+//            Route::post('/store', 'Marketing\FormSalesOrderController@store')->name('store');
+//            Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile')->name('download');
+//            Route::post('/{id}/print', 'Marketing\FormSalesOrderController@print');
+//            Route::post('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint');
 
         });
     });

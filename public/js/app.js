@@ -3375,7 +3375,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3400,23 +3399,74 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       notes: [],
       errors: [],
       customers: [],
-      loading: false
+      loading: false,
+      header: {}
     };
   },
-  mounted: function mounted() {
-    this.getData();
-  },
+  mounted: function () {
+    var _mounted = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return this.getData();
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function mounted() {
+      return _mounted.apply(this, arguments);
+    }
+
+    return mounted;
+  }(),
   methods: {
+    /**
+     * Get All Data
+     * Customer | Source Order | Price
+     */
+    getData: function getData() {
+      var _this = this;
+
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId))]).then(axios.spread(function (customers, source_order, items) {
+        _this.customers = customers.data;
+        _this.source_orders = source_order.data;
+        _this.items = items.data.data;
+        _this.orders_detail = [];
+        _this.qty = [0];
+        _this.total_amount = [0];
+        _this.notes = [];
+        _this.skuid = "";
+      }))["catch"](function (err) {
+        if (err.response.status === 403) {
+          _this.$router.push({
+            name: "form_sales_order"
+          });
+        }
+      });
+    },
+
+    /**
+     * Insert Sales Order
+     */
     submitForm: function () {
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this = this;
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var _this2 = this;
 
         var payload, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 payload = {
                   user_id: this.sales_order.user_id,
@@ -3429,38 +3479,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   items: this.orders_detail.map(function (item, idx) {
                     return {
                       skuid: item.skuid,
-                      qty: _this.qty[idx],
-                      notes: _this.notes[idx]
+                      qty: _this2.qty[idx],
+                      notes: _this2.notes[idx]
                     };
                   })
                 };
-                _context.prev = 1;
-                _context.next = 4;
-                return axios.post("/api/marketing/sales_order_detail", payload);
+                _context2.prev = 1;
+                _context2.next = 4;
+                return axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order_detail"), payload);
 
               case 4:
-                res = _context.sent;
+                res = _context2.sent;
                 Vue.swal({
                   type: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (result) {
-                  window.location.href = _this.$parent.MakeUrl('admin/marketing/form_sales_order');
+                  window.location.href = _this2.$parent.MakeUrl('admin/marketing/form_sales_order');
                 });
-                _context.next = 11;
+                _context2.next = 11;
                 break;
 
               case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](1);
-                this.errors = _context.t0.response.data.errors;
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](1);
+                this.errors = _context2.t0.response.data.errors;
 
               case 11:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this, [[1, 8]]);
+        }, _callee2, this, [[1, 8]]);
       }));
 
       function submitForm() {
@@ -3473,32 +3523,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var fileData = e.target.files || e.dataTransfer.files;
       this.sales_order.fileName = fileData[0].name;
       if (!fileData.length) return;
-      this.createFile(fileData[0]); // console.log(fileData);
+      this.createFile(fileData[0]);
     },
     createFile: function createFile(file) {
-      var _this2 = this;
+      var _this3 = this;
 
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        _this2.sales_order.file = e.target.result;
+        _this3.sales_order.file = e.target.result;
       };
 
       reader.readAsDataURL(file);
     },
-    formatPrice: function formatPrice(value) {
-      return value.toLocaleString("id-ID", {
-        minimumFractionDigits: 2
-      });
-    },
-    getItem: function getItem() {
-      var _this3 = this;
 
-      axios.get(this.$parent.MakeUrl("api/master_data/price/" + this.sales_order.customerId + "/" + this.skuid)).then(function (res) {
-        _this3.item = res.data.data;
-        console.log(_this3.item);
+    /**
+     * Get List Items
+     * @returns {number}
+     */
+    getItems: function getItems() {
+      var _this4 = this;
+
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid)).then(function (res) {
+        _this4.item = res.data.data;
+        console.log(_this4.item);
       })["catch"](function (err) {});
     },
+
+    /**
+     *
+     * @param skuid
+     * @returns {number}
+     */
     pushOrderDetails: function pushOrderDetails(skuid) {
       var indexItem = this.orders_detail.findIndex(function (x) {
         return x.skuid === skuid;
@@ -3526,27 +3582,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
       }
     },
+
+    /**
+     * Delete Item
+     * @param index
+     */
     removeOrderDetails: function removeOrderDetails(index) {
       this.orders_detail.splice(index, 1);
     },
-    getData: function getData() {
-      var _this4 = this;
-
-      axios.all([axios.get(this.$parent.MakeUrl("api/master_data/customer/list")), axios.get(this.$parent.MakeUrl("api/master_data/source_order/list")), axios.get(this.$parent.MakeUrl("api/master_data/price/customer/" + this.sales_order.customerId))]).then(axios.spread(function (customers, source_order, items) {
-        _this4.customers = customers.data;
-        _this4.source_orders = source_order.data;
-        _this4.items = items.data.data;
-        _this4.orders_detail = [];
-        _this4.qty = [0];
-        _this4.total_amount = [0];
-        _this4.notes = [];
-        _this4.skuid = "";
-      }))["catch"](function (err) {
-        if (err.response.status === 403) {
-          _this4.$router.push({
-            name: "form_sales_order"
-          });
-        }
+    back: function back() {
+      this.$router.push({
+        name: 'form_sales_order'
       });
     }
   },
@@ -3554,6 +3600,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__["ModelListSelect"]
   },
   computed: {
+    /**
+     * Calculate Total Item
+     * @returns {string}
+     */
     totalItem: function totalItem() {
       var sum = 0;
       this.total_amount.forEach(function (item) {
@@ -3565,9 +3615,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   watch: {
+    /**
+     * Calculate Total Amount Price
+     * @param newQty
+     * @param oldQty
+     */
     qty: function qty(newQty, oldQty) {
       this.total_amount = this.orders_detail.map(function (item, idx) {
         return item.amount * (newQty[idx] || 0);
+      });
+    }
+  },
+  filters: {
+    /**
+     * Formatting Price Number
+     * @param value
+     * @returns {string}
+     */
+    price: function price(value) {
+      if (!value) return '';
+      return value.toLocaleString("id-ID", {
+        minimumFractionDigits: 2
       });
     }
   }
@@ -3838,9 +3906,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this2 = this;
 
-      axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.$route.params.id + '/edit')).then(function (res) {
-        _this2.sales_order = res.data.data;
-        _this2.orders_detail = res.data.data.sales_order_details;
+      axios.get(this.$parent.MakeUrl('api/v1/marketing/sales_order/' + this.$route.params.id + '/edit')).then(function (res) {
+        _this2.sales_order = res.data.sales_order;
+        _this2.orders_detail = res.data.sales_order.sales_order_details;
         _this2.items = res.data.items;
         _this2.qty = [0];
         _this2.total_amount = [0];
@@ -3861,7 +3929,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getItem: function getItem() {
       var _this3 = this;
 
-      axios.get(this.$parent.MakeUrl('api/master_data/price/' + this.sales_order.customer_id + '/' + this.skuid)).then(function (res) {
+      axios.get(this.$parent.MakeUrl('api/v1/master_data/price/' + this.sales_order.customer_id + '/' + this.skuid)).then(function (res) {
         _this3.item = res.data.data;
       })["catch"](function (err) {});
     },
@@ -3900,7 +3968,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         title: 'Are you sure?',
         text: 'The item and their associated data will be permanently deleted. Proceed?'
       }).then(function () {
-        axios["delete"](_this.$parent.MakeUrl('/api/trx/sales_order_details/' + orderId)).then(function (res) {
+        axios["delete"](_this.$parent.MakeUrl('api/v1/marketing/sales_order/detail/' + orderId)).then(function (res) {
           _this.orders_detail.splice(index, 1);
 
           _this.getData();
@@ -3925,7 +3993,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 payload = {
                   customerId: this.sales_order.customer_id,
-                  salesOrderId: this.sales_order_id,
+                  salesOrderId: this.sales_order.id,
                   remark: this.sales_order.remark,
                   items: this.orders_detail.map(function (item, idx) {
                     return {
@@ -3938,7 +4006,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.patch('/api/trx/sales_order_details', payload);
+                return axios.patch(this.$parent.MakeUrl('api/v1/marketing/sales_order/update'), payload);
 
               case 4:
                 res = _context.sent;
@@ -3948,7 +4016,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   text: 'Successfully Insert Data!'
                 });
                 setTimeout(function () {
-                  window.location.href = '/admin/marketing/form_sales_order';
+                  window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
                 }, 2500);
                 _context.next = 12;
                 break;
@@ -4013,7 +4081,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       config: {
         title: 'Form Sales Order',
-        base_url: this.$parent.MakeUrl('admin/marketing/form_sales_order'),
+        base_url: this.$parent.MakeUrl('api/v1/marketing/sales_order'),
         // route_search: 'admin.marketing.sales_order.index',
         route_create: 'form_sales_order.create',
         route_view: 'form_sales_order.print',
@@ -4035,6 +4103,11 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Fulfillment Date',
         field: 'fulfillment_date',
+        filterable: true
+      }, {
+        title: 'File',
+        field: 'file',
+        field_url: 'file_url',
         filterable: true
       }, {
         title: 'Remarks',
@@ -4067,9 +4140,6 @@ __webpack_require__.r(__webpack_exports__);
         description: 'You do not have access to this page'
       }
     };
-  },
-  mounted: function mounted() {
-    console.log('Component mounted.');
   }
 });
 
@@ -4322,7 +4392,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getData();
-    console.log(this.$route.query.id);
   },
   methods: {
     getData: function getData() {
@@ -4332,7 +4401,7 @@ __webpack_require__.r(__webpack_exports__);
       var payload = {
         id: this.$route.query.id
       };
-      axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/multiplePrint'), {
+      axios.get(this.$parent.MakeUrl('api/v1/marketing/sales_order/show'), {
         params: payload
       }).then(function (res) {
         _this.sales_order = res.data;
@@ -4361,7 +4430,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           _this2.$htmlToPaper('printMe');
 
-          axios.post(_this2.$parent.MakeUrl('admin/marketing/form_sales_order/multiplePrint'), payload); // Swal.fire(
+          axios.post(_this2.$parent.MakeUrl('api/v1/marketing/sales_order/multiplePrint'), payload); // Swal.fire(
           //     'Printed!',
           //     'This Sales Order has been Printed.',
           //     'success'
@@ -4625,7 +4694,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id'],
   data: function data() {
     return {
       sales_order: {},
@@ -4640,7 +4708,7 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.$route.params.id + '/print')).then(function (res) {
+      axios.get(this.$parent.MakeUrl('api/v1/marketing/sales_order/show?id=' + this.$route.params.id)).then(function (res) {
         _this.sales_order = res.data;
         _this.details = res.data.sales_order_details;
         _this.loading = true;
@@ -4665,7 +4733,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           _this2.$htmlToPaper('printMe');
 
-          axios.post(_this2.$parent.MakeUrl('admin/marketing/form_sales_order/' + _this2.$route.params.id + '/print'));
+          axios.post(_this2.$parent.MakeUrl('admin/marketing/form_sales_order/print/' + _this2.$route.params.id));
         }
       });
     },
@@ -7369,6 +7437,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         _this3.tokens.push(response.data.token);
 
         _this3.showAccessToken(response.data.accessToken);
+
+        localStorage.setItem('accessToken', response.data.accessToken);
       })["catch"](function (error) {
         if (_typeof(error.response.data) === 'object') {
           _this3.form.errors = _.flatten(_.toArray(error.response.data.errors));
@@ -7415,6 +7485,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       axios["delete"]('/oauth/personal-access-tokens/' + token.id).then(function (response) {
         _this4.getTokens();
+
+        localStorage.removeItem('accessToken');
       });
     }
   }
@@ -51355,7 +51427,7 @@ var render = function() {
                         },
                         on: {
                           input: function($event) {
-                            return _vm.getItem()
+                            return _vm.getItems()
                           }
                         },
                         model: {
@@ -51486,7 +51558,7 @@ var render = function() {
                                     { staticStyle: { "text-align": "right" } },
                                     [
                                       _vm._v(
-                                        _vm._s(_vm.formatPrice(orders.amount))
+                                        _vm._s(_vm._f("price")(orders.amount))
                                       )
                                     ]
                                   ),
@@ -51497,7 +51569,7 @@ var render = function() {
                                     [
                                       _vm._v(
                                         _vm._s(
-                                          _vm.formatPrice(
+                                          _vm._f("price")(
                                             _vm.total_amount[index]
                                           )
                                         )
@@ -51671,7 +51743,12 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-secondary",
-                    attrs: { type: "button", onclick: "back()" }
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.back()
+                      }
+                    }
                   },
                   [_vm._v("Back\n                            ")]
                 )
@@ -54275,6 +54352,16 @@ var render = function() {
                                           innerHTML: _vm._s(item[column.field])
                                         }
                                       })
+                                    : column.type === "link"
+                                    ? _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: item[column.field_url]
+                                          }
+                                        },
+                                        [_vm._v(_vm._s(item[column.field]))]
+                                      )
                                     : _c("p", [
                                         _vm._v(
                                           "\n                                " +
@@ -77576,7 +77663,8 @@ __webpack_require__(/*! ./library */ "./resources/js/library.js");
 
 axios.defaults.headers.common = {
   'X-Requested-With': 'XMLHttpRequest',
-  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+  'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
 };
 var app = new Vue({
   el: '#app',

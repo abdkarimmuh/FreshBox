@@ -237,7 +237,6 @@
         },
         mounted() {
             this.getData();
-            console.log(this.$route.query.id);
         },
         methods: {
             getData() {
@@ -245,7 +244,7 @@
                 const payload = {
                     id: this.$route.query.id,
                 };
-                axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/multiplePrint'), {params: payload})
+                axios.get(this.$parent.MakeUrl('api/v1/marketing/sales_order/show'), {params: payload})
                     .then(res => {
                         this.sales_order = res.data;
                         this.loading = true;
@@ -270,7 +269,7 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$htmlToPaper('printMe');
-                        axios.post(this.$parent.MakeUrl('admin/marketing/form_sales_order/multiplePrint'), payload);
+                        axios.post(this.$parent.MakeUrl('api/v1/marketing/sales_order/multiplePrint'), payload);
                         // Swal.fire(
                         //     'Printed!',
                         //     'This Sales Order has been Printed.',

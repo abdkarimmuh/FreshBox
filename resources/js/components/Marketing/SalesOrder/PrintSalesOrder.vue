@@ -236,7 +236,6 @@
 
 <script>
     export default {
-        props: ['id'],
         data() {
             return {
                 sales_order: {},
@@ -249,7 +248,7 @@
         },
         methods: {
             getData() {
-                axios.get(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.$route.params.id + '/print'))
+                axios.get(this.$parent.MakeUrl('api/v1/marketing/sales_order/show?id=' + this.$route.params.id))
                     .then(res => {
                         this.sales_order = res.data;
                         this.details = res.data.sales_order_details;
@@ -273,7 +272,7 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$htmlToPaper('printMe');
-                        axios.post(this.$parent.MakeUrl('admin/marketing/form_sales_order/' + this.$route.params.id + '/print'))
+                        axios.post(this.$parent.MakeUrl('admin/marketing/form_sales_order/print/' + this.$route.params.id))
                     }
                 })
             },
