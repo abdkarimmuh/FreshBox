@@ -1,6 +1,5 @@
 <?php
 
-use App\UserProc;
 use Illuminate\Database\Seeder;
 use App\User;
 use Spatie\Permission\Models\Role;
@@ -49,18 +48,5 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('1234')
         ]);
         $generalUser->assignRole($userRole);
-
-        $procRole = Role::create(['name' => 'Procurement']);
-        $procurementUser = User::create([
-            'name' => 'Procurement',
-            'email' => 'procurement@example.com',
-            'password' => Hash::make('1234')
-        ]);
-        UserProc::create([
-            'user_id' => $procurementUser->id,
-            'saldo' => 1000,
-
-        ]);
-        $procurementUser->assignRole($procRole);
     }
 }
