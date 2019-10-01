@@ -1,10 +1,28 @@
 <template>
     <div>
         <div id="printMe">
-            <br>
-            <br>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="text-left">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td><b>PT BERKAH TANI SEJAHTERA</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Rukan Greenlake Ruko Greatwall B60 - B61</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Cipondoh - Tangerang 15147</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>Telp : 012-54315198</b></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="text-right">
                         <img v-bind:src="$parent.MakeUrl('assets/img/logo-frbox.png')">
                     </div>

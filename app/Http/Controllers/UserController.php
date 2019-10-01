@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(User::class);
+//        $this->authorizeResource(User::class);
     }
 
     /**
@@ -23,7 +23,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize(User::class, 'index');
+//        $this->authorize(User::class, 'index');
         if ($request->ajax()) {
             $users = new User;
             if ($request->q) {

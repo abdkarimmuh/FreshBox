@@ -2812,6 +2812,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -5543,7 +5561,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -50610,12 +50627,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { attrs: { id: "printMe" } }, [
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
           _c("div", { staticClass: "text-right" }, [
             _c("img", {
               attrs: { src: _vm.$parent.MakeUrl("assets/img/logo-frbox.png") }
@@ -50653,7 +50668,7 @@ var render = function() {
                     _c("table", { attrs: { width: "100%" } }, [
                       _c("tbody", [
                         _c("tr", [
-                          _vm._m(0),
+                          _vm._m(1),
                           _vm._v(" "),
                           _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
                           _vm._v(" "),
@@ -50665,7 +50680,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("tr", [
-                          _vm._m(1),
+                          _vm._m(2),
                           _vm._v(" "),
                           _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
                           _vm._v(" "),
@@ -50677,7 +50692,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("tr", [
-                          _vm._m(2),
+                          _vm._m(3),
                           _vm._v(" "),
                           _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
                           _vm._v(" "),
@@ -50689,7 +50704,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("tr", [
-                          _vm._m(3),
+                          _vm._m(4),
                           _vm._v(" "),
                           _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
                           _vm._v(" "),
@@ -50709,7 +50724,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-md-12" }, [
                 _c("table", { attrs: { width: "100%" } }, [
-                  _vm._m(4),
+                  _vm._m(5),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -50776,9 +50791,9 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _vm._m(5),
-                      _vm._v(" "),
                       _vm._m(6),
+                      _vm._v(" "),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c("tr", [
                         _c("td", { attrs: { width: "70%" } }),
@@ -50826,10 +50841,10 @@ var render = function() {
                           _c("td", { attrs: { width: "60%" } }, [
                             _c("table", { attrs: { width: "100%" } }, [
                               _c("tbody", [
-                                _vm._m(7),
+                                _vm._m(8),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _vm._m(8),
+                                  _vm._m(9),
                                   _vm._v(" "),
                                   _c("td", { attrs: { width: "2%" } }, [
                                     _vm._v(":")
@@ -50843,7 +50858,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _vm._m(9),
+                                  _vm._m(10),
                                   _vm._v(" "),
                                   _c("td", { attrs: { width: "2%" } }, [
                                     _vm._v(":")
@@ -50857,7 +50872,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _vm._m(10),
+                                  _vm._m(11),
                                   _vm._v(" "),
                                   _c("td", { attrs: { width: "2%" } }, [
                                     _vm._v(":")
@@ -50870,14 +50885,14 @@ var render = function() {
                                   _c("td", { attrs: { width: "8%" } })
                                 ]),
                                 _vm._v(" "),
-                                _vm._m(11),
+                                _vm._m(12),
                                 _vm._v(" "),
-                                _vm._m(12)
+                                _vm._m(13)
                               ])
                             ])
                           ]),
                           _vm._v(" "),
-                          _vm._m(13)
+                          _vm._m(14)
                         ])
                       ])
                     ])
@@ -50919,6 +50934,34 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "text-left" }, [
+        _c("table", [
+          _c("tbody", [
+            _c("tr", [
+              _c("td", [_c("b", [_vm._v("PT BERKAH TANI SEJAHTERA")])])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", [
+                _c("b", [_vm._v("Rukan Greenlake Ruko Greatwall B60 - B61")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", [_c("b", [_vm._v("Cipondoh - Tangerang 15147")])])
+            ]),
+            _vm._v(" "),
+            _c("tr", [_c("td", [_c("b", [_vm._v("Telp : 012-54315198")])])])
+          ])
+        ])
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -54875,7 +54918,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.$parent.userCan("manage-users")
+  return _vm.$parent.userRole("Admin")
     ? _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card" }, [
@@ -54887,26 +54930,20 @@ var render = function() {
                   : _vm._e()
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "card-header-action" },
-                [
-                  _vm.$parent.userCan("create-users")
-                    ? _c(
-                        "router-link",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: { to: { name: "adduser" } }
-                        },
-                        [
-                          _vm._v("Add "),
-                          _c("i", { staticClass: "fas fa-plus" })
-                        ]
-                      )
-                    : _vm._e()
-                ],
-                1
-              )
+              _c("div", { staticClass: "card-header-action" }, [
+                _vm.$parent.userCan("create-users")
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: {
+                          href: this.$parent.MakeUrl("admin/users/create")
+                        }
+                      },
+                      [_vm._v("Add "), _c("i", { staticClass: "fas fa-plus" })]
+                    )
+                  : _vm._e()
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body p-0" }, [

@@ -124,7 +124,7 @@
                         <a class="nav-link" href="{{ route('admin.master_data.residence.index') }}"><span>Residence</span></a>
                     </li> --}}
                     <li class="">
-                        <router-link :to="{ name: 'users'}" class="nav-link"><span>Users</span></router-link>
+                        <a href="{{ route('admin.users') }}"  class="nav-link"><span>Users</span></a>
                     </li>
                 </ul>
             </li>

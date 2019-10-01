@@ -1,12 +1,11 @@
 <template>
-    <div class="row" v-if="$parent.userCan('manage-users')">
+    <div class="row" v-if="$parent.userRole('Admin')">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h4>Users <span v-if="total">({{ total }})</span></h4>
                     <div class="card-header-action">
-                        <router-link v-if="$parent.userCan('create-users')" :to="{ name: 'adduser' }"
-                                     class="btn btn-primary">Add <i class="fas fa-plus"></i></router-link>
+                        <a v-if="$parent.userCan('create-users')" v-bind:href="this.$parent.MakeUrl('admin/users/create')" class="btn btn-primary">Add <i class="fas fa-plus"></i></a>
                     </div>
                 </div>
                 <div class="card-body p-0">

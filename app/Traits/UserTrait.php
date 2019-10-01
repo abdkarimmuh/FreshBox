@@ -25,4 +25,12 @@ trait UserTrait {
         }
         return false;
     }
+
+    public function getIsProcurementAttribute()
+    {
+        if(isset($this->procurement->saldo)){
+            return true;
+        }
+        return false;
+    }
 }

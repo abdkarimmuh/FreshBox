@@ -55,7 +55,11 @@ class AuthAPIController extends Controller
             $user = Auth::user();
             $success = 'Success Login!';
             $token = $user->createToken($user->email)->accessToken;
-            return response()->json(['access_token' => $token, 'message' => $success], 200);
+            if (auth()->user()->is_procurement) {
+                return response()->json(['access_token' => $token, 'message' => $success], 200);
+            } else {
+                return response()->json(['error' => 'Account Invalid'], 401);
+            }
         } else {
             return response()->json(['error' => 'Email or Password Invalid'], 401);
         }

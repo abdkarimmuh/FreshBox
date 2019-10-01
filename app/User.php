@@ -27,7 +27,7 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
-    protected $appends = ['allPermissions', 'profilelink', 'avatarlink', 'isme','all_roles'];
+    protected $appends = ['allPermissions', 'profilelink', 'avatarlink', 'isme','all_roles','is_procurement'];
 
     protected $dataTableColumns = [
         'id' => [
