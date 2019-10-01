@@ -6,7 +6,7 @@ import DatePicker from 'vue2-datepicker';
 import iosAlertView from 'vue-ios-alertview';
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueHtmlToPaper from 'vue-html-to-paper';
-import ModelListSelect from 'vue-search-select';
+import {ModelListSelect} from 'vue-search-select';
 import 'vue-search-select/dist/VueSearchSelect.css'
 
 const options = {
@@ -17,7 +17,8 @@ const options = {
         'scrollbars=yes'
     ],
     styles: [
-        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+        'https://demo.getstisla.com/assets/modules/bootstrap/css/bootstrap.min.css',
+        ''
     ]
 }
 

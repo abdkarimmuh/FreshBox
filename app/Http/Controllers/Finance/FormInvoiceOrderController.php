@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Finance;
 
 use App\Http\Resources\Finance\InvoiceOrderResource;
+use App\Http\Resources\Finance\RekapInvoiceResource;
 use App\Http\Resources\Warehouse\DeliveryOrderResource;
 use App\Model\Finance\InvoiceOrder;
 use App\Model\Marketing\SalesOrder;
+use App\Model\MasterData\Customer;
 use App\Model\Warehouse\DeliveryOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -181,17 +183,9 @@ class FormInvoiceOrderController extends Controller
 
     public function printRecap(Request $request)
     {
-        $id = $request->id;
-        if ($request->ajax()) {
-            if ($request->isMethod('POST')) {
-                SalesOrder::whereIn('id', $id)->update(['status' => 7]);
-            } else {
-                $invoice_order = InvoiceOrderResource::collection(InvoiceOrder::whereIn('id', $id)->get());
-                return response()->json($invoice_order, 200);
-            }
-        }
+
         $config = [
-            'vue-component' => " <print-recap-invoice id='" . json_encode($id) . "'></print-recap-invoice>"
+            'vue-component' => " <print-recap-invoice/>"
         ];
 
         return view('layouts.vue-view', compact('config'));

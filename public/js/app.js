@@ -2986,37 +2986,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
     return {
-      invoice_order: {},
-      details: [],
-      errors: [],
+      customer_id: "",
+      customer: {},
+      customers: [],
+      invoices: [],
       loading: false
     };
   },
   mounted: function mounted() {
-    this.getData();
+    this.getDataCustomer();
   },
   methods: {
-    getData: function getData() {
+    getInvoiceList: function getInvoiceList() {
       var _this = this;
 
-      axios.all;
-      axios.get(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print')).then(function (res) {
-        _this.invoice_order = res.data.data;
-        _this.details = res.data.data.delivery_orders;
-        _this.loading = true;
+      axios.get(this.$parent.MakeUrl('api/v1/finance/invoice/printRecap/' + this.customer_id)).then(function (res) {
+        _this.customer = res.data.data;
+        _this.invoices = res.data.data.invoices;
+        _this.customer.tanggal = new Date();
+        console.log(_this.customer);
+      })["catch"](function (e) {});
+    },
+    getDataCustomer: function getDataCustomer() {
+      var _this2 = this;
+
+      axios.get(this.$parent.MakeUrl('api/v1/master_data/customer/list_has_recap')).then(function (res) {
+        _this2.customers = res.data.data;
+        _this2.loading = true;
       })["catch"](function (err) {
         if (err.response.status == 500) {
-          _this.loading = true;
+          _this2.loading = true;
         }
       });
     },
     print: function print() {
-      var _this2 = this;
+      var _this3 = this;
 
       Vue.swal({
         title: 'Are you sure?',
@@ -3028,9 +3036,9 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, Print it!'
       }).then(function (result) {
         if (result.value) {
-          _this2.$htmlToPaper('printMe');
+          _this3.$htmlToPaper('printMe');
 
-          axios.post(_this2.$parent.MakeUrl('admin/finance/invoice_order/' + _this2.id + '/print')); // Swal.fire(
+          axios.post(_this3.$parent.MakeUrl('admin/finance/invoice_order/' + _this3.id + '/print')); // Swal.fire(
           //     'Printed!',
           //     'This Sales Order has been Printed.',
           //     'success'
@@ -3623,19 +3631,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     qty: function qty(newQty, oldQty) {
       this.total_amount = this.orders_detail.map(function (item, idx) {
         return item.amount * (newQty[idx] || 0);
-      });
-    }
-  },
-  filters: {
-    /**
-     * Formatting Price Number
-     * @param value
-     * @returns {string}
-     */
-    price: function price(value) {
-      if (!value) return '';
-      return value.toLocaleString("id-ID", {
-        minimumFractionDigits: 2
       });
     }
   }
@@ -50542,7 +50537,8 @@ var render = function() {
                   _c("div", { staticClass: "pull-right m-t-30 text-right" }, [
                     _c("p", [
                       _vm._v(
-                        "Sub - Total : " + _vm._s(_vm.invoice_order.total_price)
+                        "Sub - Total : " +
+                          _vm._s(_vm._f("toIDR")(_vm.invoice_order.total_price))
                       )
                     ]),
                     _vm._v(" "),
@@ -50554,7 +50550,10 @@ var render = function() {
                     _vm._v(" "),
                     _c("h3", [
                       _c("b", [_vm._v("Total :")]),
-                      _vm._v(" " + _vm._s(_vm.invoice_order.total_price))
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm._f("toIDR")(_vm.invoice_order.total_price))
+                      )
                     ])
                   ]),
                   _vm._v(" "),
@@ -50816,6 +50815,41 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { staticClass: "text-left" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            [
+              _c("model-list-select", {
+                attrs: {
+                  list: _vm.customers,
+                  "option-value": "id",
+                  "option-text": "name",
+                  placeholder: "Select Customer"
+                },
+                on: {
+                  input: function($event) {
+                    return _vm.getInvoiceList()
+                  }
+                },
+                model: {
+                  value: _vm.customer_id,
+                  callback: function($$v) {
+                    _vm.customer_id = $$v
+                  },
+                  expression: "customer_id"
+                }
+              })
+            ],
+            1
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "text-right" }, [
       _c(
         "button",
@@ -50869,7 +50903,7 @@ var render = function() {
         _vm.loading
           ? _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-md-12" }, [
-                _vm._m(0),
+                _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12" }, [
                   _c(
@@ -50882,24 +50916,12 @@ var render = function() {
                       _c("table", { attrs: { width: "100%" } }, [
                         _c("tbody", [
                           _c("tr", [
-                            _vm._m(1),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "40%" } }, [
-                              _vm._v(_vm._s(_vm.invoice_order.customer_name))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "40%" } })
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
                             _vm._m(2),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "40%" } }, [
-                              _vm._v(_vm._s(_vm.invoice_order.customer_address))
+                              _vm._v(_vm._s(_vm.customer.customer_name))
                             ]),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "40%" } })
@@ -50911,15 +50933,19 @@ var render = function() {
                             _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "40%" } }, [
-                              _vm._v(_vm._s(_vm.invoice_order.sales_order_no))
+                              _vm._v(
+                                _vm._s(_vm._f("toDate")(_vm.customer.tanggal))
+                              )
                             ]),
                             _vm._v(" "),
                             _c("td", { attrs: { width: "40%" } })
                           ]),
                           _vm._v(" "),
+                          _vm._m(4),
+                          _vm._v(" "),
                           _c("br"),
                           _vm._v(" "),
-                          _vm._m(4)
+                          _vm._m(5)
                         ])
                       ])
                     ]
@@ -50937,49 +50963,80 @@ var render = function() {
                         attrs: { border: "1" }
                       },
                       [
-                        _vm._m(5),
+                        _vm._m(6),
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          [
-                            _vm._m(6),
-                            _vm._v(" "),
-                            _vm._l(_vm.details, function(item, index) {
-                              return _c("tr", { key: index }, [
-                                _c("td", [_vm._v(_vm._s(item.skuid))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.item_name))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.uom_name))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.qty_confirm))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.amount_price))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.total_amount))])
-                              ])
-                            })
-                          ],
-                          2
+                          _vm._l(_vm.invoices, function(item, index) {
+                            return _c("tr", [
+                              _c("td", [_vm._v(_vm._s(index + 1))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.invoice_no))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.invoice_date))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(_vm._f("toIDR")(item.total_price))
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td")
+                            ])
+                          }),
+                          0
                         ),
                         _vm._v(" "),
-                        _vm._m(7)
+                        _c("tfoot", [
+                          _c("tr", [
+                            _c("td"),
+                            _vm._v(" "),
+                            _c("td"),
+                            _vm._v(" "),
+                            _c("td"),
+                            _vm._v(" "),
+                            _c("td"),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(_vm._f("toIDR")(_vm.customer.subtotal))
+                              )
+                            ])
+                          ])
+                        ])
                       ]
                     )
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(8),
+                _vm._m(7),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(9),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _vm._m(8),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "text-right mr-4" }, [
+                        _c("h6", [
+                          _vm._v(
+                            "Jakarta, " +
+                              _vm._s(_vm._f("toDate")(_vm.customer.tanggal))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("h6", [_vm._v("Dibuat oleh,")])
+                      ])
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(10)
+                _vm._m(9)
               ])
             ])
           : _c("div", { staticClass: "text-center p-4 text-muted" }, [
@@ -50996,22 +51053,36 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Customer")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "text-center" }, [
-      _c("table", { staticClass: "table-centered", attrs: { border: "1" } }, [
-        _c("tr", { staticStyle: { "text-align": "center" } }, [
-          _c(
-            "td",
-            { staticStyle: { padding: "15px", "text-align": "center" } },
-            [
-              _c("h4", [
-                _c("b", { staticStyle: { color: "black" } }, [
-                  _vm._v("REKAPAN INVOICE")
+      _c(
+        "table",
+        { staticStyle: { margin: "0 auto" }, attrs: { border: "1" } },
+        [
+          _c("tr", { staticStyle: { "text-align": "center" } }, [
+            _c(
+              "td",
+              { staticStyle: { padding: "15px", "text-align": "center" } },
+              [
+                _c("h4", [
+                  _c("b", { staticStyle: { color: "black" } }, [
+                    _vm._v("REKAPAN\n                                INVOICE")
+                  ])
                 ])
-              ])
-            ]
-          )
-        ])
-      ])
+              ]
+            )
+          ])
+        ]
+      )
     ])
   },
   function() {
@@ -51030,7 +51101,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "13%" } }, [_c("b", [_vm._v("Up")])])
+    return _c("tr", [
+      _c("td", { attrs: { width: "13%" } }, [_c("b", [_vm._v("Up")])]),
+      _vm._v(" "),
+      _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
+      _vm._v(" "),
+      _c("td", { attrs: { width: "40%" } }),
+      _vm._v(" "),
+      _c("td", { attrs: { width: "40%" } })
+    ])
   },
   function() {
     var _vm = this
@@ -51068,40 +51147,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", [_vm._v("1")]),
-      _vm._v(" "),
-      _c("td", [_vm._v("111")]),
-      _vm._v(" "),
-      _c("td", [_vm._v("20-12-2019")]),
-      _vm._v(" "),
-      _c("td", [_vm._v("12121")]),
-      _vm._v(" "),
-      _c("td", [_vm._v("121212")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tfoot", [
-      _c("tr", [
-        _c("td"),
-        _vm._v(" "),
-        _c("td"),
-        _vm._v(" "),
-        _c("td"),
-        _vm._v(" "),
-        _c("td"),
-        _vm._v(" "),
-        _c("td", [_vm._v("100000")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
       _c("div", { staticClass: "clearfix" }),
       _vm._v(" "),
@@ -51112,21 +51157,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "text-left" }, [
-            _c("h6", [_vm._v("Diterima Oleh,")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "text-right" }, [
-            _c("h6", [_vm._v("Jakarta, 20 Juni 2019")]),
-            _vm._v(" "),
-            _c("h6", [_vm._v("Dibuat oleh,")])
-          ])
-        ])
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "text-left ml-4" }, [
+        _c("h6", [_vm._v("Diterima Oleh,")])
       ])
     ])
   },
@@ -51136,27 +51169,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-10" }, [
-          _c("div", { staticClass: "text-left" }, [
-            _c("tr", [
-              _c("td", [_vm._v("(")]),
-              _vm._v(" "),
-              _c("td", { attrs: { width: "120px" } }),
-              _vm._v(" "),
-              _c("td", [_vm._v(")")])
-            ])
-          ])
+        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(
+            "\n                            (........................................)\n                        "
+          )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-2" }, [
+        _c("div", { staticClass: "col-md-6" }, [
           _c("div", { staticClass: "text-right" }, [
-            _c("tr", [
-              _c("td", [_vm._v("(")]),
-              _vm._v(" "),
-              _c("td", { attrs: { width: "120px" } }),
-              _vm._v(" "),
-              _c("td", [_vm._v(")")])
-            ])
+            _vm._v(
+              "\n                                (........................................)\n                            "
+            )
           ])
         ])
       ])
@@ -51558,7 +51581,7 @@ var render = function() {
                                     { staticStyle: { "text-align": "right" } },
                                     [
                                       _vm._v(
-                                        _vm._s(_vm._f("price")(orders.amount))
+                                        _vm._s(_vm._f("toIDR")(orders.amount))
                                       )
                                     ]
                                   ),
@@ -51569,7 +51592,7 @@ var render = function() {
                                     [
                                       _vm._v(
                                         _vm._s(
-                                          _vm._f("price")(
+                                          _vm._f("toIDR")(
                                             _vm.total_amount[index]
                                           )
                                         )
@@ -77660,6 +77683,8 @@ __webpack_require__(/*! ./component */ "./resources/js/component.js");
 
 __webpack_require__(/*! ./library */ "./resources/js/library.js");
 
+__webpack_require__(/*! ./filters */ "./resources/js/filters.js");
+
 
 axios.defaults.headers.common = {
   'X-Requested-With': 'XMLHttpRequest',
@@ -77691,6 +77716,19 @@ var app = new Vue({
     },
     MakeUrl: function MakeUrl(path) {
       return BaseUrl(path);
+    }
+  },
+  filters: {
+    /**
+     * Formatting Price Number
+     * @param value
+     * @returns {string}
+     */
+    price: function price(value) {
+      if (!value) return '';
+      return value.toLocaleString("id-ID", {
+        minimumFractionDigits: 2
+      });
     }
   }
 });
@@ -79555,6 +79593,30 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/filters.js":
+/*!*********************************!*\
+  !*** ./resources/js/filters.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+Vue.filter('toIDR', function (value) {
+  if (!value) return '';
+  return value.toLocaleString("id-ID", {
+    minimumFractionDigits: 2
+  });
+});
+Vue.filter('toDate', function (value) {
+  if (!value) return '';
+  return value.toLocaleDateString('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/library.js":
 /*!*********************************!*\
   !*** ./resources/js/library.js ***!
@@ -79590,14 +79652,14 @@ __webpack_require__.r(__webpack_exports__);
 var options = {
   name: '_blank',
   specs: ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
-  styles: ['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css']
+  styles: ['https://demo.getstisla.com/assets/modules/bootstrap/css/bootstrap.min.css', '']
 };
 Vue.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_3__["default"]);
 Vue.use(vue_html_to_paper__WEBPACK_IMPORTED_MODULE_4___default.a, options);
 Vue.use(vue_ios_alertview__WEBPACK_IMPORTED_MODULE_2___default.a);
 Vue.use(vue2_datepicker__WEBPACK_IMPORTED_MODULE_1___default.a);
 Vue.component('vue-headful', vue_headful__WEBPACK_IMPORTED_MODULE_0___default.a);
-Vue.component('model-list-select', vue_search_select__WEBPACK_IMPORTED_MODULE_5___default.a);
+Vue.component('model-list-select', vue_search_select__WEBPACK_IMPORTED_MODULE_5__["ModelListSelect"]);
 Vue.component("laravel-pagination", __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 
 /***/ }),

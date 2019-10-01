@@ -35,7 +35,7 @@ class ConfirmDeliveryOrderController extends Controller
             //Title Required
             'title' => 'Confirm Delivery Order',
             //Search Route Required
-            'route-search' => 'admin.marketing.sales_order.index',
+            'route-search' => 'admin.warehouse.confirm_delivery_order.index',
             /**
              * Route Can Be Null, Using Route Name
              */

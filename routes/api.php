@@ -45,6 +45,12 @@ Route::group(['prefix' => 'v1'], function () {
 
     });
 
+    Route::group(['prefix' => 'finance'], function () {
+        Route::group(['prefix' => 'invoice'], function () {
+            Route::get('/printRecap/{customer_id}', 'API\InvoiceAPIController@printRecap');
+        });
+    });
+
     /**
      * Master Data Route
      */
@@ -53,6 +59,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['prefix' => 'customer'], function () {
             Route::get('/', 'API\CustomerAPIController@index')->name('api.customer');
             Route::get('/list', 'API\CustomerAPIController@all');
+            Route::get('/list_has_recap', 'API\CustomerAPIController@ListCustomerHasRecap');
+
         });
         Route::group(['prefix' => 'price'], function () {
             Route::get('/', 'API\MasterPriceController@index')->name('api.price');
@@ -87,12 +95,6 @@ Route::group(['prefix' => 'v1'], function () {
  * Warehouse Route
  */
 Route::group(['prefix' => 'warehouse/'], function () {
-});
-
-/**
- * Finance Route
- */
-Route::group(['prefix' => 'finance/'], function () {
 });
 
 

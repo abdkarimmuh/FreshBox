@@ -2,6 +2,7 @@
 
 namespace App\Model\MasterData;
 
+use App\Model\Finance\InvoiceOrder;
 use App\MyModel;
 use App\Traits\SearchTraits;
 use Illuminate\Database\Eloquent\Model;
@@ -149,6 +150,11 @@ class Customer extends MyModel
     public function Price()
     {
         return $this->hasMany(Price::class);
+    }
+
+    public function Invoices()
+    {
+        return $this->hasMany(InvoiceOrder::class);
     }
     public function getColumns()
     {

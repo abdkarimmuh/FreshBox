@@ -127,11 +127,11 @@
                     </div>
                     <div class="col-md-12">
                         <div class="pull-right m-t-30 text-right">
-                            <p>Sub - Total : {{ invoice_order.total_price }}</p>
+                            <p>Sub - Total : {{ invoice_order.total_price | toIDR }}</p>
                             <p>PPN : </p>
                             <p>PPh : - </p>
                             <hr>
-                            <h3><b>Total :</b> {{ invoice_order.total_price }}</h3>
+                            <h3><b>Total :</b> {{ invoice_order.total_price | toIDR }}</h3>
                         </div>
                         <div class="clearfix"></div>
                         <hr>

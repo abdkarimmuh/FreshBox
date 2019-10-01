@@ -1,5 +1,26 @@
 <template>
     <div>
+        <div class="text-left">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>
+                        <b>Customer</b>
+                        <span style="color: red;">*</span>
+                    </label>
+                    <div>
+                        <model-list-select
+                            :list="customers"
+                            v-model="customer_id"
+                            v-on:input="getInvoiceList()"
+                            option-value="id"
+                            option-text="name"
+                            placeholder="Select Customer"
+                        ></model-list-select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         <div class="text-right">
             <button
                 class="btn btn-secondary"
@@ -34,11 +55,11 @@
                 v-if="loading"
             >
                 <div class="col-md-12">
-
                     <div class="text-center">
-                        <table border="1" class="table-centered">
+                        <table border="1" style="margin: 0 auto">
                             <tr style="text-align: center">
-                                <td style="padding: 15px; text-align: center"><h4><b style="color: black">REKAPAN INVOICE</b></h4></td>
+                                <td style="padding: 15px; text-align: center"><h4><b style="color: black">REKAPAN
+                                    INVOICE</b></h4></td>
                             </tr>
                         </table>
                     </div>
@@ -54,7 +75,7 @@
                                 <tr>
                                     <td width="13%"><b>Kepada</b></td>
                                     <td width="2%">:</td>
-                                    <td width="40%">{{ invoice_order.customer_name }}</td>
+                                    <td width="40%">{{ customer.customer_name }}</td>
                                     <td width="40%"></td>
 
                                 </tr>
@@ -62,7 +83,7 @@
                                 <tr>
                                     <td width="13%"><b>Tanggal</b></td>
                                     <td width="2%">:</td>
-                                    <td width="40%">{{ invoice_order.customer_address }}</td>
+                                    <td width="40%">{{ customer.tanggal | toDate }}</td>
                                     <td width="40%"></td>
 
                                 </tr>
@@ -70,7 +91,7 @@
                                 <tr>
                                     <td width="13%"><b>Up</b></td>
                                     <td width="2%">:</td>
-                                    <td width="40%">{{ invoice_order.sales_order_no }}</td>
+                                    <td width="40%"></td>
                                     <td width="40%"></td>
 
                                 </tr>
@@ -98,25 +119,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>111</td>
-                                    <td>20-12-2019</td>
-                                    <td>12121</td>
-                                    <td>121212</td>
+                                <tr v-for="(item, index) in invoices">
+                                    <td>{{ index + 1}}</td>
+                                    <td>{{ item.invoice_no }}</td>
+                                    <td>{{ item.invoice_date}}</td>
+                                    <td>{{ item.total_price | toIDR }}</td>
+                                    <td></td>
                                 </tr>
-                                <tr
-                                    v-for="(item, index) in details"
-                                    :key="index"
-                                >
-                                    <td>{{ item.skuid }}</td>
-                                    <td>{{ item.item_name }}</td>
-                                    <td>{{ item.uom_name }}</td>
-                                    <td>{{ item.qty_confirm }}</td>
-                                    <td>{{ item.amount_price }}</td>
-                                    <td>{{ item.total_amount }}</td>
-                                </tr>
-
                                 </tbody>
                                 <tfoot>
                                 <tr>
@@ -124,7 +133,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>100000</td>
+                                    <td>{{ customer.subtotal | toIDR}}</td>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -139,13 +148,13 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="text-left">
+                                <div class="text-left ml-4">
                                     <h6>Diterima Oleh,</h6>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="text-right">
-                                    <h6>Jakarta, 20 Juni 2019</h6>
+                                <div class="text-right mr-4">
+                                    <h6>Jakarta, {{ customer.tanggal | toDate }}</h6>
                                     <h6>Dibuat oleh,</h6>
                                 </div>
                             </div>
@@ -155,22 +164,12 @@
                     <br>
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-10">
-                                <div class="text-left">
-                                    <tr>
-                                        <td>(</td>
-                                        <td width="120px"></td>
-                                        <td>)</td>
-                                    </tr>
-                                </div>
+                            <div class="col-md-6">
+                                (........................................)
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-6">
                                 <div class="text-right">
-                                    <tr>
-                                        <td>(</td>
-                                        <td width="120px"></td>
-                                        <td>)</td>
-                                    </tr>
+                                    (........................................)
                                 </div>
                             </div>
                         </div>
@@ -198,22 +197,32 @@
         props: ['id'],
         data() {
             return {
-                invoice_order: {},
-                details: [],
-                errors:[],
+                customer_id:"",
+                customer:{},
+                customers: [],
+                invoices: [],
                 loading: false,
             }
         },
         mounted() {
-            this.getData();
+            this.getDataCustomer();
         },
         methods: {
-            getData() {
-                axios.all
-                axios.get(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print'))
+            getInvoiceList() {
+                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice/printRecap/' + this.customer_id))
                     .then(res => {
-                        this.invoice_order = res.data.data;
-                        this.details = res.data.data.delivery_orders;
+                        this.customer = res.data.data;
+                        this.invoices = res.data.data.invoices;
+                        this.customer.tanggal = new Date();
+                        console.log(this.customer);
+                    }).catch(e => {
+
+                })
+            },
+            getDataCustomer() {
+                axios.get(this.$parent.MakeUrl('api/v1/master_data/customer/list_has_recap'))
+                    .then(res => {
+                        this.customers = res.data.data;
                         this.loading = true;
                     })
                     .catch(err => {
