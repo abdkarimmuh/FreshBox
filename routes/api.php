@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Resources\MasterData\UomResource;
 use App\Http\Resources\Mobile\AssignListResource;
 use App\Http\Resources\Mobile\UserProcResource;
+use App\Model\MasterData\Uom;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -99,12 +101,18 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/', 'API\DriverAPIController@index');
         });
 
+        Route::group(['prefix' => 'uom'], function () {
+            Route::get('/', function (){
+                return UomResource::collection(Uom::all());
+            });
+        });
+
         Route::get('customer', 'API\CustomerAPIController@index')->name('api.customer');
         Route::get('list_customer', 'API\CustomerAPIController@all');
 
         //    Route::get('price_customer/{id}', 'API\MasterPriceController@CustomerPrice');
-        Route::get('uom', 'MasterData\UomController@index');
-        Route::post('uom', 'MasterData\UomController@store');
+//        Route::get('uom', 'MasterData\UomController@index');
+//        Route::post('uom', 'MasterData\UomController@store');
     });
 });
 
