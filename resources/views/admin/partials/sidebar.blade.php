@@ -41,10 +41,6 @@
                     <a class="nav-link"
                        href="{{ route('admin.finance.invoice_order.index') }}"><span>Form Invoice Order</span></a>
                 </li>
-                <li class="{{ request()->route()->getName() == 'admin.finance.invoice_order.index' ? ' active' : '' }}">
-                    <a class="nav-link"
-                       href="{{ route('admin.finance.invoice_order.index') }}"><span>Submit Invoice</span></a>
-                </li>
             </ul>
         </li>
         @if(Auth::user()->can('view-users'))

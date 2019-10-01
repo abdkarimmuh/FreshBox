@@ -47,10 +47,10 @@ Route::group(['prefix' => 'v1'], function () {
 
             Route::get('sales_order_details/{id}', 'Marketing\FormSalesOrderController@getSalesOrderDetails');
         });
-        Route::group(['prefix' => 'sales_order_detail'], function () {
-            Route::post('/', 'Marketing\FormSalesOrderController@InsertSalesOrderDetail');
-            Route::get('/{customer_id}', 'Marketing\FormSalesOrderController@sales_order_detail');
-        });
+//        Route::group(['prefix' => 'sales_order_detail'], function () {
+//            Route::post('/', 'Marketing\FormSalesOrderController@InsertSalesOrderDetail');
+//            Route::get('/{customer_id}', 'Marketing\FormSalesOrderController@sales_order_detail');
+//        });
 
     });
 

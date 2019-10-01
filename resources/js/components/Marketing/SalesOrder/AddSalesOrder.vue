@@ -397,7 +397,7 @@
                 };
 
                 try {
-                    const res = await axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order_detail"), payload);
+                    const res = await axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order/store"), payload);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
@@ -445,6 +445,7 @@
              * @returns {number}
              */
             pushOrderDetails(skuid) {
+                  if (!skuid) return;
                 const indexItem = this.orders_detail.findIndex(x => x.skuid === skuid);
                 if (indexItem >= 0) {
                     Vue.swal({

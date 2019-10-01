@@ -3494,7 +3494,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context2.prev = 1;
                 _context2.next = 4;
-                return axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order_detail"), payload);
+                return axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order/store"), payload);
 
               case 4:
                 res = _context2.sent;
@@ -3564,6 +3564,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * @returns {number}
      */
     pushOrderDetails: function pushOrderDetails(skuid) {
+      if (!skuid) return;
       var indexItem = this.orders_detail.findIndex(function (x) {
         return x.skuid === skuid;
       });
@@ -3876,6 +3877,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3932,6 +3936,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.orders_detail[index].total_amount = this.orders_detail[index].qty * this.orders_detail[index].amount_price;
     },
     pushOrderDetails: function pushOrderDetails(skuid) {
+      if (!skuid) return;
       var index = this.orders_detail.length;
       var indexItem = this.orders_detail.findIndex(function (x) {
         return x.skuid === skuid;
@@ -3981,6 +3986,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this4 = this;
+
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -4009,24 +4016,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   type: 'success',
                   title: 'Success!',
                   text: 'Successfully Insert Data!'
-                });
-                setTimeout(function () {
-                  window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
-                }, 2500);
-                _context.next = 12;
+                }).then(function (next) {
+                  _this4.$router.push({
+                    name: 'form_sales_order'
+                  });
+                }); // setTimeout(function () {
+                //   window.location.href = this.$rou.MakeUrl('admin/marketing/form_sales_order');
+                // }, 2500);
+
+                _context.next = 11;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](1);
                 this.errors = _context.t0.response.data.errors;
 
-              case 12:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 9]]);
+        }, _callee, this, [[1, 8]]);
       }));
 
       function submitForm() {
@@ -52101,7 +52112,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                Add Items\n              "
+                                "\n                                Add Items\n                            "
                               )
                             ]
                           )
@@ -52300,7 +52311,11 @@ var render = function() {
                                         staticStyle: { "text-align": "right" },
                                         attrs: { colspan: "5" }
                                       },
-                                      [_vm._v("Grand Total")]
+                                      [
+                                        _vm._v(
+                                          "Grand Total\n                                    "
+                                        )
+                                      ]
                                     ),
                                     _vm._v(" "),
                                     _c(
@@ -52366,7 +52381,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Submit")]
+                        [_vm._v("Submit\n                            ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -52375,7 +52390,7 @@ var render = function() {
                           staticClass: "btn btn-secondary",
                           attrs: { type: "button", onclick: "back()" }
                         },
-                        [_vm._v("Back")]
+                        [_vm._v("Back\n                            ")]
                       )
                     ])
                   ])
