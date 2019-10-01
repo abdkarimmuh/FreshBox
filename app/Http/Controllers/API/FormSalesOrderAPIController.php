@@ -245,7 +245,7 @@ class FormSalesOrderAPIController extends Controller
                     ->get();
 
                 //Merapihkan Posisi Index Data Yang Baru Di Tambah
-                foreach ($withoutOrderDetailsID as $i => $row) {
+            foreach ($withoutOrderDetailsID as $i => $row) {
                     $FinalWithoutOrderDetailsID[] = [
                         'sales_order_id' => $sales_order_id,
                         'skuid' => $row['skuid'],

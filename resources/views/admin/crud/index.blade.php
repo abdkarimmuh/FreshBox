@@ -68,6 +68,7 @@
                                                                 View
                                                             </a>
                                                         @endisset
+
                                                         @if($row['status'] == 1 && $row['is_printed'] == 0)
                                                             @isset($config['route-edit'])
                                                                 <a
@@ -92,6 +93,9 @@
                                                                title="View">
                                                                 View
                                                             </a>
+                                                        @endisset
+                                                        @isset($config['confirm-button'])
+                                                            {!! $config['confirm-button'] !!}
                                                         @endisset
                                                         @isset($config['route-edit'])
                                                             <a
@@ -171,3 +175,6 @@
         </script>
     @endpush
 @endisset
+@push('js')
+    <script src="https://demo.getstisla.com/assets/modules/bootstrap-daterangepicker/daterangepicker.js">
+@endpush

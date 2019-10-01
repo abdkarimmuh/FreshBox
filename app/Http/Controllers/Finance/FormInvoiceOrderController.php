@@ -51,6 +51,8 @@ class FormInvoiceOrderController extends Controller
             'route-add' => 'admin.finance.invoice_order.create',
             //Route For Button View
             'route-view' => 'admin.finance.invoice_order.print',
+            'confirm-button' => '<s-btn-confirm/>',
+
             'route-multiple-print' => 'admin.finance.invoice_order.multiplePrint',
             'route-print-recap' => 'admin.finance.invoice_order.printRecap'
 

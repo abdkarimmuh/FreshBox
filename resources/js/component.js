@@ -19,7 +19,9 @@ import MultiplePrintInvoiceOrder from "./components/Finance/Invoice/MultiplePrin
 import Table from "./components/Template/Table";
 import Pagination from "./components/Template/Pagination";
 import Testing from "./components/Testing";
-import ErrorPage from "./components/Template/ErrorPage"
+import ErrorPage from "./components/Template/ErrorPage";
+import ConfirmButton from "./components/Template/ConfirmButton";
+
 
 Vue.component('users-component', UsersComponent);
 Vue.component('profile-component', ProfileComponent);
@@ -45,6 +47,7 @@ Vue.component('s-table', Table);
 Vue.component('s-pagination', Pagination);
 Vue.component('s-testing', Testing);
 Vue.component('s-error-page', ErrorPage);
+Vue.component('s-btn-confirm', ConfirmButton);
 
 // Vue.component("data-table", DataTable);
 Vue.component(
