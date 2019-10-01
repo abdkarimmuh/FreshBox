@@ -5,7 +5,6 @@ namespace App\Model\MasterData;
 use App\Model\Finance\InvoiceOrder;
 use App\MyModel;
 use App\Traits\SearchTraits;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends MyModel

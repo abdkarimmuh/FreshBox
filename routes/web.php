@@ -52,12 +52,24 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     Route::name('procurement.')->prefix('procurement')->middleware('auth')->group(function () {
         Route::name('user_procurement.')->prefix('user_procurement')->group(function () {
             Route::get('/', 'Procurement\UserProcurementController@index')->name('index');
+            Route::get('/create', 'Procurement\UserProcurementController@create')->name('create');
+            Route::post('/create', 'Procurement\UserProcurementController@store')->name('store');
+            Route::get('/{id}/edit', 'Procurement\UserProcurementController@edit')->name('edit');
+            Route::patch('/edit', 'Procurement\UserProcurementController@update')->name('update');
         });
         Route::name('assign_procurement.')->prefix('assign_procurement')->group(function () {
             Route::get('/', 'Procurement\AssignProcurementController@index')->name('index');
+            Route::get('/create', 'Procurement\AssignProcurementController@create')->name('create');
+            Route::post('/create', 'Procurement\AssignProcurementController@store')->name('store');
+            Route::get('/{id}/edit', 'Procurement\AssignProcurementController@edit')->name('edit');
+            Route::patch('/edit', 'Procurement\AssignProcurementController@update')->name('update');
         });
         Route::name('list_procurement.')->prefix('list_procurement')->group(function () {
             Route::get('/', 'Procurement\ListProcurementController@index')->name('index');
+            Route::get('/create', 'Procurement\ListProcurementController@create')->name('create');
+            Route::post('/create', 'Procurement\ListProcurementController@store')->name('store');
+            Route::get('/{id}/edit', 'Procurement\ListProcurementController@edit')->name('edit');
+            Route::patch('/edit', 'Procurement\ListProcurementController@update')->name('update');
         });
     });
 

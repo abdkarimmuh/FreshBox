@@ -27,6 +27,11 @@ class SalesOrderDetail extends MyModel
         return $this->belongsTo(Item::class, 'skuid', 'skuid');
     }
 
+    public function SalesOrder()
+    {
+        return $this->belongsTo(SalesOrder::class);
+    }
+
     public function uom()
     {
         return $this->belongsTo(Uom::class, 'uom_id', 'id');
@@ -34,11 +39,15 @@ class SalesOrderDetail extends MyModel
 
     public function getItemNameAttribute()
     {
-        return $this->item->name_item;
+        if(isset($this->item->name_item)) {
+            return $this->item->name_item;
+        };
     }
 
     public function getUomNameAttribute()
     {
-        return $this->uom->name;
+        if(isset($this->uom->name)) {
+            return $this->uom->name;
+        }
     }
 }

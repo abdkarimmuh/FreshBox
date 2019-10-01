@@ -1,25 +1,23 @@
 <?php
 
-namespace App\Model\MasterData;
+namespace App\Model\Procurement;
 
+use App\Model\MasterData\Bank;
+use App\Model\MasterData\Category;
+use App\Model\MasterData\Origin;
 use App\MyModel;
 use App\Traits\SearchTraits;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\User;
 
-class Item extends MyModel
+class UserProcurement extends MyModel
 {
     use SearchTraits;
-    use SoftDeletes;
 
-    protected $table = 'master_item';
+    protected $table = 'user_proc';
 
     protected $appends = [
         'created_by_name',
-        'updated_by_name',
-        'category_name',
-        'uom_name',
-        'origin_code',
-        'tax_percentage'
+        'updated_by_name'
     ];
 
     protected $columns = [
@@ -27,41 +25,27 @@ class Item extends MyModel
             'searchable' => false,
             'search_relation' => false,
         ],
-        'skuid' => [
-            'searchable' => true,
-            'search_relation' => false,
-        ],
-        'name_item' => [
-            'searchable' => true,
-            'search_relation' => false,
-        ],
-        'name_item_latin' => [
-            'searchable' => true,
-            'search_relation' => false,
-        ],
-        'is_trf_item' => [
-            'searchable' => true,
-            'search_relation' => false,
-        ],
-        'description' => [
-            'searchable' => true,
-            'search_relation' => false,
-        ],
-        'category_name' => [
+        'name' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'Category',
+            'relation_name' => 'User',
             'relation_field' => 'name'
         ],
-        'uom_name' => [
+        'email' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'Uom',
-            'relation_field' => 'name'
+            'relation_name' => 'User',
+            'relation_field' => 'email'
         ],
-        'tax' => [
+        'bank_account' => [
             'searchable' => true,
             'search_relation' => false,
+        ],
+        'bank_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'Bank',
+            'relation_field' => 'name'
         ],
         'origin_code' => [
             'searchable' => true,
@@ -69,7 +53,25 @@ class Item extends MyModel
             'relation_name' => 'Origin',
             'relation_field' => 'origin_code'
         ],
+        'category_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'Category',
+            'relation_field' => 'name'
+        ],
+        'saldo' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
         'created_at' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+        'created_at' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+        'updated_at' => [
             'searchable' => true,
             'search_relation' => false,
         ],
@@ -87,6 +89,43 @@ class Item extends MyModel
         ]
     ];
 
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getNameAttribute()
+    {
+        if (isset($this->User->name)) {
+            return $this->User->name;
+        } else {
+            return '';
+        }
+    }
+
+    public function getEmailAttribute()
+    {
+        if (isset($this->User->email)) {
+            return $this->User->email;
+        } else {
+            return '';
+        }
+    }
+
+    public function Bank()
+    {
+        return $this->belongsTo(Bank::class);
+    }
+
+    public function getBankNameAttribute()
+    {
+        if (isset($this->Bank->name)) {
+            return $this->Bank->name;
+        } else {
+            return '';
+        }
+    }
+
     public function Category()
     {
         return $this->belongsTo(Category::class);
@@ -96,29 +135,6 @@ class Item extends MyModel
     {
         if (isset($this->Category->name)) {
             return $this->Category->name;
-        } else {
-            return '';
-        }
-    }
-
-    public function getTaxPercentageAttribute()
-    {
-        if (isset($this->tax)) {
-            return $this->tax . '%';
-        } else {
-            return '';
-        }
-    }
-
-    public function Uom()
-    {
-        return $this->belongsTo(Uom::class);
-    }
-
-    public function getUomNameAttribute()
-    {
-        if (isset($this->Uom->name)) {
-            return $this->Uom->name;
         } else {
             return '';
         }
@@ -143,3 +159,4 @@ class Item extends MyModel
         return $this->columns;
     }
 }
+

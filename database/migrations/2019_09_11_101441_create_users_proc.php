@@ -13,7 +13,7 @@ class CreateUsersProc extends Migration
      */
     public function up()
     {
-        Schema::create('users_proc', function (Blueprint $table) {
+        Schema::create('user_proc', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('bank_account')->nullable();
@@ -43,6 +43,6 @@ class CreateUsersProc extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_proc');
+        Schema::dropIfExists('user_proc');
     }
 }

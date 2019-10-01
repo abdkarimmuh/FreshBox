@@ -22,7 +22,7 @@ class VendorController extends Controller
 
         $columns = [
             array('title' => 'Nama', 'field' => 'name'),
-            array('title' => 'Categori', 'field' => 'category_name'),
+            array('title' => 'Category', 'field' => 'category_name'),
             array('title' => 'PIC Vendor', 'field' => 'pic_vendor'),
             array('title' => 'PIC Contact', 'field' => 'tlp_pic'),
             array('title' => 'No Rekening', 'field' => 'bank_account'),

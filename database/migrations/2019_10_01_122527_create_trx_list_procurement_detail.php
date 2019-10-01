@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateTrxProcurementDetail extends Migration
+class CreateTrxListProcurementDetail extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateTrxProcurementDetail extends Migration
      */
     public function up()
     {
-        Schema::create('trx_procurement_detail', function (Blueprint $table) {
+        Schema::create('trx_list_procurement_detail', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('trx_procurement_id');
             $table->unsignedBigInteger('trx_list_procurement_id');
+            $table->unsignedBigInteger('trx_assign_procurement_id');
             $table->decimal('qty', 18, 2);
             $table->unsignedBigInteger('uom_id');
             $table->decimal('amount', 18, 2);
@@ -24,8 +24,8 @@ class CreateTrxProcurementDetail extends Migration
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
 
-            $table->foreign('trx_procurement_id')->on('trx_procurement')->references('id')->onDelete('cascade');
             $table->foreign('trx_list_procurement_id')->on('trx_list_procurement')->references('id')->onDelete('cascade');
+            $table->foreign('trx_assign_procurement_id')->on('trx_assign_procurement')->references('id')->onDelete('cascade');
             $table->foreign('uom_id')->on('master_uom')->references('id')->onDelete('cascade');
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
@@ -42,6 +42,6 @@ class CreateTrxProcurementDetail extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trx_procurement_detail');
+        Schema::dropIfExists('trx_list_procurement_detail');
     }
 }

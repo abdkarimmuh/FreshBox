@@ -4,12 +4,11 @@ namespace App\Model\MasterData;
 
 use App\MyModel;
 use App\Traits\SearchTraits;
-use Illuminate\Database\Eloquent\Model;
 
 class Province extends MyModel
 {
     use SearchTraits;
-    
+
     protected $table = 'master_province';
 
     protected $appends = [

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Procurement;
 
 use App\Http\Controllers\Controller;
+use App\Model\Procurement\UserProcurement;
 use Illuminate\Http\Request;
 
 class UserProcurementController extends Controller
@@ -12,9 +13,42 @@ class UserProcurementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $searchValue = $request->input('search');
+
+        $columns = [
+            array('title' => 'Nama', 'field' => 'name'),
+            array('title' => 'Email', 'field' => 'email'),
+            array('title' => 'Saldo', 'field' => 'saldo'),
+            array('title' => 'Category', 'field' => 'category_name'),
+            array('title' => 'Bank Account', 'field' => 'bank_account'),
+            array('title' => 'Bank Name', 'field' => 'bank_name'),
+            array('title' => 'Origin Code', 'field' => 'origin_code'),
+            array('title' => 'Created By', 'field' => 'created_by_name'),
+            array('title' => 'Created At', 'field' => 'created_at'),
+            array('title' => 'Modified By', 'field' => 'updated_by_name'),
+            array('title' => 'Modified At', 'field' => 'updated_at'),
+        ];
+
+        $config = [
+            //Title Required
+            'title' => 'User Procurement',
+            /**
+             * Route Can Be Null
+             */
+            //Route For Button Add
+            'route-add' => 'admin.procurement.user_procurement.create',
+            //Route For Button Edit
+            'route-edit' => 'admin.procurement.user_procurement.edit',
+            //Route For Button Search
+            'route-search' => 'admin.procurement.user_procurement.index',
+        ];
+
+        $query = UserProcurement::dataTableQuery($searchValue);
+        $data = $query->paginate(10);
+
+        return view('admin.crud.index', compact('columns', 'data', 'config'));
     }
 
     /**
