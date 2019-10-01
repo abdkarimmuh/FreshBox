@@ -111,7 +111,7 @@
                                     </thead>
                                     <tbody>
                                     <tr
-                                        v-for="(row, index) in item.delivery_orders"
+                                        v-for="(row, index) in item.do_details"
                                         :key="index"
                                     >
                                         <td>{{ row.skuid }}</td>
@@ -135,11 +135,11 @@
                         </div>
                         <div class="col-md-12">
                             <div class="pull-right m-t-30 text-right">
-                                <p>Sub - Total : {{ item.total_price }}</p>
+                                <p>Sub - Total : {{ item.total_price | toIDR }}</p>
                                 <p>PPN : </p>
                                 <p>PPh : - </p>
                                 <hr>
-                                <h3><b>Total :</b> {{ item.total_price }}</h3>
+                                <h3><b>Total :</b> {{ item.total_price | toIDR }}</h3>
                             </div>
                             <div class="clearfix"></div>
                             <hr>

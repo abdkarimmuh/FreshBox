@@ -50333,7 +50333,7 @@ var render = function() {
                                 _c(
                                   "tbody",
                                   [
-                                    _vm._l(item.delivery_orders, function(
+                                    _vm._l(item.do_details, function(
                                       row,
                                       index
                                     ) {
@@ -50378,7 +50378,8 @@ var render = function() {
                             [
                               _c("p", [
                                 _vm._v(
-                                  "Sub - Total : " + _vm._s(item.total_price)
+                                  "Sub - Total : " +
+                                    _vm._s(_vm._f("toIDR")(item.total_price))
                                 )
                               ]),
                               _vm._v(" "),
@@ -50390,7 +50391,10 @@ var render = function() {
                               _vm._v(" "),
                               _c("h3", [
                                 _c("b", [_vm._v("Total :")]),
-                                _vm._v(" " + _vm._s(item.total_price))
+                                _vm._v(
+                                  " " +
+                                    _vm._s(_vm._f("toIDR")(item.total_price))
+                                )
                               ])
                             ]
                           ),
