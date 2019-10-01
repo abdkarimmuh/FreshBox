@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Resources\MasterData\UomResource;
+use App\Http\Resources\MasterData\VendorResource;
 use App\Http\Resources\Mobile\AssignListResource;
 use App\Http\Resources\Mobile\UserProcResource;
 use App\Model\MasterData\Uom;
+use App\Model\MasterData\Vendor;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -102,8 +104,13 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         Route::group(['prefix' => 'uom'], function () {
-            Route::get('/', function (){
+            Route::get('/', function () {
                 return UomResource::collection(Uom::all());
+            });
+        });
+        Route::group(['prefix' => 'vendor'], function () {
+            Route::get('/', function () {
+                return VendorResource::collection(Vendor::all());
             });
         });
 
