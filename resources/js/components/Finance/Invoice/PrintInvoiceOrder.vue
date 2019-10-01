@@ -3,23 +3,16 @@
         <div id="printMe">
             <br>
             <br>
-            <br>
-            <br>
-            <br>
-            <h3>
-        <span class="logo-text">
-          <img
-              v-bind:src="$parent.MakeUrl('assets/img/logo-frbox.png')"
-              alt="homepage"
-              class="light-logo"
-          >
-        </span>
-            </h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-right">
+                        <img v-bind:src="$parent.MakeUrl('assets/img/logo-frbox.png')">
+                    </div>
+                </div>
+            </div>
             <hr>
-            <div
-                class="row"
-                v-if="loading"
-            >
+            <div class="row" v-if="loading">
+
                 <div class="col-md-12">
                     <div class="pull-right text-right">
                         <address>
@@ -82,43 +75,64 @@
                     </div>
                     <br>
                     <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">SKUID</th>
-                                    <th class="text-center">Item Name</th>
-                                    <th class="text-center">Qty</th>
-                                    <th class="text-center">UOM</th>
-                                    <th class="text-center">Amount Price</th>
-                                    <th class="text-center">Total Amount</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr
-                                    v-for="(item, index) in details"
-                                    :key="index"
-                                >
-                                    <td>{{ item.skuid }}</td>
-                                    <td>{{ item.item_name }}</td>
-                                    <td>{{ item.qty_confirm }}</td>
-                                    <td>{{ item.uom_name }}</td>
-                                    <td>{{ item.amount_price }}</td>
-                                    <td>{{ item.total_amount }}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <table width="100%">
+                            <thead>
+                            <tr style="border-bottom: 1px solid black; border-top: 1px solid black">
+                                <th>No</th>
+                                <th>Item No</th>
+                                <th>Item Name</th>
+                                <th>Qty</th>
+                                <th>UOM</th>
+                                <th>Price</th>
+                                <th>Total Amount</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr style="border-bottom: 0px" v-for="(item, index) in details" :key="index">
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ item.skuid }}</td>
+                                <td>{{ item.item_name }}</td>
+                                <td>{{ item.qty_confirm }}</td>
+                                <td>{{ item.uom_name }}</td>
+                                <td>{{ item.amount_price }}</td>
+                                <td>{{ item.total_amount }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="col-md-12">
-                        <div class="pull-right m-t-30 text-right">
-                            <p>Sub - Total : {{ invoice_order.total_price | toIDR }}</p>
-                            <p>PPN : </p>
-                            <p>PPh : - </p>
-                            <hr>
-                            <h3><b>Total :</b> {{ invoice_order.total_price | toIDR }}</h3>
-                        </div>
-                        <div class="clearfix"></div>
+                        <table width="100%" style="border-top: 1px solid black">
+                            <tbody>
+                            <tr>
+                                <td width="70%">Keterangan :</td>
+                                <td style="border-bottom: 1px solid black;">Subtotal</td>
+                                <td style="border-bottom: 1px solid black;">{{ invoice_order.total_price | toIDR }}</td>
+                            </tr>
+                            <tr>
+                                <td width="70%"></td>
+                                <td style="border-bottom: 1px solid black;">Discount</td>
+                                <td style="border-bottom: 1px solid black;"></td>
+                            </tr>
+                            <tr>
+                                <td width="70%"></td>
+                                <td style="border-bottom: 1px solid black;">Pajak</td>
+                                <td style="border-bottom: 1px solid black;"></td>
+                            </tr>
+                            <tr>
+                                <td width="70%"></td>
+                                <td style="border-bottom: 1px solid black;">Total</td>
+                                <td style="border-bottom: 1px solid black;">{{ invoice_order.total_price | toIDR }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--                        <div class="pull-right m-t-30 text-right">-->
+                        <!--                            <p>Sub - Total : {{ invoice_order.total_price | toIDR }}</p>-->
+                        <!--                            <p>PPN : </p>-->
+                        <!--                            <p>PPh : - </p>-->
+                        <!--                            <hr>-->
+                        <!--                            <h3><b>Total :</b> {{ invoice_order.total_price | toIDR }}</h3>-->
+                        <!--                        </div>-->
+                        <!--                        <div class="clearfix"></div>-->
                         <hr>
                     </div>
                     <div class="col-md-12">
@@ -129,38 +143,39 @@
                             <table width="100%">
                                 <tbody>
                                 <tr>
-                                    <td width="50%">
+                                    <td width="60%">
                                         <table width="100%">
                                             <tbody>
                                             <tr>
+                                                <td width="10%"><b><h6>Harap Transfer Ke</h6></b></td>
+                                                <td width="2%">:</td>
+                                                <td width="30%"></td>
+                                                <td width="8%"></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="2%"><b>Penerima</b></td>
+                                                <td width="2%">:</td>
+                                                <td width="30%">{{ info.penerima }}</td>
+                                                <td width="8%"></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="2%"><b>No Rekening</b></td>
+                                                <td width="2%">:</td>
+                                                <td width="30%">{{ info.no_rek }}</td>
+                                                <td width="8%"></td>
+                                            </tr>
+                                            <tr>
                                                 <td width="2%"><b>Bank</b></td>
                                                 <td width="2%">:</td>
-                                                <td width="30%"></td>
+                                                <td width="30%">{{ info.bank }}</td>
                                                 <td width="8%"></td>
                                             </tr>
                                             <tr>
-                                                <td width="2%"><b>Account No</b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%"></td>
-                                                <td width="8%"></td>
+                                                <td><br></td>
                                             </tr>
                                             <tr>
-                                                <td width="2%"><b>Beneficiary</b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%"></td>
-                                                <td width="8%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="2%"><b>Branch</b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%"></td>
-                                                <td width="8%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="2%"><b>Swift Code</b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%"></td>
-                                                <td width="8%"></td>
+                                                <td width="10%" colspan="5"><b>*) Pembayarang dianggap sah jika bukti
+                                                    transfer sudah dikirimkan kepada kami</b></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -210,7 +225,7 @@
             </div>
 
         </div>
-
+        <br>
         <div class="text-right">
             <button
                 class="btn btn-secondary"
@@ -218,11 +233,7 @@
                 @click="back()"
             > Back
             </button>
-            <!--            <button-->
-            <!--                class="btn btn-warning"-->
-            <!--                id="returnSalesOrder"-->
-            <!--            > Return-->
-            <!--            </button>-->
+
             <button
                 class="btn btn-success"
                 @click="print"
@@ -234,10 +245,18 @@
 </template>
 
 <script>
+    import Table from "../../DataTable/partials/Table";
+
     export default {
+        components: {Table},
         props: ['id'],
         data() {
             return {
+                info: {
+                    penerima: "PT BERKAH TANI SEJAHTERA",
+                    no_rek: "008 500 9779",
+                    bank: "BCA Cabang BCBD"
+                },
                 invoice_order: {},
                 details: [],
                 loading: false,
