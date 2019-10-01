@@ -45,6 +45,34 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
 
         });
     });
+
+    /**
+     * Route Menu Procurement
+     */
+    Route::name('procurement.')->prefix('procurement')->middleware('auth')->group(function () {
+        Route::name('user_procurement.')->prefix('user_procurement')->group(function () {
+            Route::get('/', 'Procurement\UserProcurementController@index')->name('index');
+        });
+        Route::name('assign_procurement.')->prefix('assign_procurement')->group(function () {
+            Route::get('/', 'Procurement\AssignProcurementController@index')->name('index');
+        });
+        Route::name('list_procurement.')->prefix('list_procurement')->group(function () {
+            Route::get('/', 'Procurement\ListProcurementController@index')->name('index');
+        });
+    });
+
+    /**
+     * Route Menu Procurement
+     */
+    Route::name('warehouse_in.')->prefix('warehouse_in')->middleware('auth')->group(function () {
+        Route::name('confirm.')->prefix('confirm')->group(function () {
+            Route::get('/', 'WarehouseIn\ConfirmController@index')->name('index');
+        });
+        Route::name('conversion.')->prefix('conversion')->group(function () {
+            Route::get('/', 'WarehouseIn\ConversionController@index')->name('index');
+        });
+    });
+
     /**
      * Route Menu Warehouse
      */
