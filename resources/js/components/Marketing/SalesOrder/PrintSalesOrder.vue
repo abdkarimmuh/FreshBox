@@ -71,7 +71,6 @@
                                         <td width="2%">:</td>
                                         <td width="40%">{{ sales_order.fulfillment_date }}</td>
                                         <td width="40%"></td>
-
                                     </tr>
                                     </tbody>
                                 </table>
@@ -79,11 +78,8 @@
                         </div>
                         <br>
                         <div class="col-md-12">
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
-                                <table class="table table-hover">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-md">
                                     <thead>
                                     <tr>
                                         <th class="text-center">SKUID</th>
@@ -106,18 +102,11 @@
                                         <td style="text-align: right;">{{ item.amount_price_formated }}</td>
                                         <td style="text-align: right;">{{ item.total_amount_formated }}</td>
                                     </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                        <br>
                         <div class="col-md-12">
                             <div class="pull-right m-t-30 text-right">
                                 <p>Sub - Total : {{ sales_order.total_price }}</p>
@@ -138,41 +127,7 @@
                                     <tbody>
                                     <tr>
                                         <td width="50%">
-                                            <table width="100%">
-                                                <tbody>
-                                                <tr>
-                                                    <td width="2%"><b>Bank</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="2%"><b>Account No</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="2%"><b>Beneficiary</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="2%"><b>Branch</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="2%"><b>Swift Code</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
+
                                         <td width="10%">
                                             <table
                                                 width="100%"
@@ -277,7 +232,7 @@
                 })
             },
             back() {
-                this.$router.push({ name: 'form_sales_order'});
+                this.$router.push({name: 'form_sales_order'});
             }
         }
     }

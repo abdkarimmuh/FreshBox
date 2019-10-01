@@ -95,6 +95,7 @@ class FormInvoiceOrderController extends Controller
         $rules = [
             'invoice_date' => 'required',
             'do_id' => 'required',
+            'customer_id'=> 'required'
         ];
 
         $request->validate($rules);
@@ -103,6 +104,7 @@ class FormInvoiceOrderController extends Controller
         $invoice_order = [
             'do_id' => $request->do_id,
             'user_id' => $request->user_id,
+            'customer_id' => $request->customer_id,
             'invoice_date' => $request->invoice_date,
             'invoice_no' => $this->generateInvoiceNo(),
             'created_by' => $request->user_id

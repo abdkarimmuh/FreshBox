@@ -213,12 +213,12 @@ export default {
       axios
         .get(
           this.$parent.MakeUrl(
-            "api/marketing/sales_order/" + this.delivery_order.sales_order_id
+            "api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id
           )
         )
         .then(res => {
-          this.sales_order = res.data.data;
-          this.sales_order_details = this.sales_order.sales_order_details;
+          this.sales_order = res.data;
+          this.sales_order_details = res.data.sales_order_details;
           this.delivery_order.customer_name = this.sales_order.customer_name;
           this.delivery_order.customer_id = this.sales_order.customer_id;
           this.qty_do = this.sales_order_details.map((item, idx) => ({
@@ -262,8 +262,8 @@ export default {
     getData () {
       axios
         .all([
-          axios.get(this.$parent.MakeUrl("api/marketing/sales_order")),
-          axios.get(this.$parent.MakeUrl("api/master_data/driver"))
+          axios.get(this.$parent.MakeUrl("api/v1/warehouse/delivery_order/create")),
+          axios.get(this.$parent.MakeUrl("api/v1/master_data/driver"))
         ])
         .then(
           axios.spread((sales_order, driver) => {
@@ -274,6 +274,9 @@ export default {
         .catch(err => {
         });
     }
+
+
+
   },
   components: {
     ModelListSelect

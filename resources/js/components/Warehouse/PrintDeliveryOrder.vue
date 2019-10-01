@@ -85,17 +85,13 @@
                     </div>
                     <br>
                     <div class="col-md-12">
-                        <div
-                            class="table-responsive m-t-40"
-                            style="clear: both;"
-                        >
-                            <table class="table table-hover">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-md">
                                 <thead>
                                 <tr>
                                     <th class="text-center">SKUID</th>
                                     <th class="text-center">Item Name</th>
                                     <th class="text-center">UOM</th>
-                                    <th class="text-center">Qty SO</th>
                                     <th class="text-center">Qty DO</th>
                                     <th class="text-center">Remark</th>
                                 </tr>
@@ -108,7 +104,6 @@
                                     <td>{{ item.skuid }}</td>
                                     <td>{{ item.item_name }}</td>
                                     <td>{{ item.uom_name }}</td>
-                                    <td>{{ item.qty_order }}</td>
                                     <td>{{ item.qty_do }}</td>
                                     <td>{{ item.remark }}</td>
                                 </tr>

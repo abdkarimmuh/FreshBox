@@ -11,7 +11,7 @@ class InvoiceOrder extends MyModel
 {
     use SearchTraits;
     protected $table = 'trx_invoice';
-    protected $fillable = ['invoice_no', 'do_id', 'invoice_date', 'created_by'];
+    protected $fillable = ['invoice_no', 'do_id', 'invoice_date', 'created_by','customer_id'];
     protected $appends = ['delivery_order_no', 'sales_order_no', 'customer_name', 'total_price', 'invoice_date_formatted'];
     protected $dates = ['invoice_date'];
 

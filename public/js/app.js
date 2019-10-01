@@ -2089,9 +2089,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 });
-                setTimeout(function () {
-                  window.location.href = "/admin/finance/invoice_order";
-                }, 2500);
+                console.log(res); // setTimeout(function () {
+                //     window.location.href = "/admin/finance/invoice_order";
+                // }, 2500);
+
                 _context.next = 13;
                 break;
 
@@ -2140,9 +2141,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
 //
 //
 //
@@ -2476,21 +2474,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4385,9 +4368,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4462,51 +4442,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5875,9 +5810,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getDataCustomer: function getDataCustomer() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl("api/marketing/sales_order/" + this.delivery_order.sales_order_id)).then(function (res) {
-        _this.sales_order = res.data.data;
-        _this.sales_order_details = _this.sales_order.sales_order_details;
+      axios.get(this.$parent.MakeUrl("api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id)).then(function (res) {
+        _this.sales_order = res.data;
+        _this.sales_order_details = res.data.sales_order_details;
         _this.delivery_order.customer_name = _this.sales_order.customer_name;
         _this.delivery_order.customer_id = _this.sales_order.customer_id;
         _this.qty_do = _this.sales_order_details.map(function (item, idx) {
@@ -5955,7 +5890,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this3 = this;
 
-      axios.all([axios.get(this.$parent.MakeUrl("api/marketing/sales_order")), axios.get(this.$parent.MakeUrl("api/master_data/driver"))]).then(axios.spread(function (sales_order, driver) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/warehouse/delivery_order/create")), axios.get(this.$parent.MakeUrl("api/v1/master_data/driver"))]).then(axios.spread(function (sales_order, driver) {
         _this3.sales_orders = sales_order.data.data;
         _this3.drivers = driver.data;
       }))["catch"](function (err) {});
@@ -6472,9 +6407,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
@@ -6527,11 +6459,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -50139,59 +50066,52 @@ var render = function() {
                         _c("br"),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-12" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "table-responsive m-t-40",
-                              staticStyle: { clear: "both" }
-                            },
-                            [
-                              _c(
-                                "table",
-                                { staticClass: "table table-hover" },
-                                [
-                                  _vm._m(5, true),
-                                  _vm._v(" "),
-                                  _c(
-                                    "tbody",
-                                    [
-                                      _vm._l(item.delivery_orders, function(
-                                        row,
-                                        index
-                                      ) {
-                                        return _c("tr", { key: index }, [
-                                          _c("td", [_vm._v(_vm._s(row.skuid))]),
-                                          _vm._v(" "),
-                                          _c("td", [
-                                            _vm._v(_vm._s(row.item_name))
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("td", [
-                                            _vm._v(_vm._s(row.uom_name))
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("td", [
-                                            _vm._v(_vm._s(row.qty_confirm))
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("td", [
-                                            _vm._v(_vm._s(row.amount_price))
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("td", [
-                                            _vm._v(_vm._s(row.total_amount))
-                                          ])
+                          _c("div", { staticClass: "table-responsive" }, [
+                            _c(
+                              "table",
+                              { staticClass: "table table-bordered table-md" },
+                              [
+                                _vm._m(5, true),
+                                _vm._v(" "),
+                                _c(
+                                  "tbody",
+                                  [
+                                    _vm._l(item.delivery_orders, function(
+                                      row,
+                                      index
+                                    ) {
+                                      return _c("tr", { key: index }, [
+                                        _c("td", [_vm._v(_vm._s(row.skuid))]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(row.item_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(row.uom_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(row.qty_confirm))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(row.amount_price))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(row.total_amount))
                                         ])
-                                      }),
-                                      _vm._v(" "),
-                                      _vm._m(6, true)
-                                    ],
-                                    2
-                                  )
-                                ]
-                              )
-                            ]
-                          )
+                                      ])
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._m(6, true)
+                                  ],
+                                  2
+                                )
+                              ]
+                            )
+                          ])
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-12" }, [
@@ -50458,207 +50378,178 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      { staticClass: "card card-body printableArea", attrs: { id: "printMe" } },
-      [
-        _c("br"),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("h3", [
-          _c("span", { staticClass: "logo-text" }, [
-            _c("img", {
-              staticClass: "light-logo",
-              attrs: {
-                src: _vm.$parent.MakeUrl("assets/img/logo-frbox.png"),
-                alt: "homepage"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _vm.loading
-          ? _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-12" }, [
-                _c("div", { staticClass: "pull-right text-right" }, [
-                  _c("address", [
-                    _c("h4", [
-                      _c("b", { staticClass: "text-danger" }, [
-                        _vm._v("Invoice"),
-                        _c("span", { staticClass: "pull-right" }, [
-                          _vm._v("#" + _vm._s(_vm.invoice_order.invoice_no))
-                        ])
+    _c("div", { attrs: { id: "printMe" } }, [
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("h3", [
+        _c("span", { staticClass: "logo-text" }, [
+          _c("img", {
+            staticClass: "light-logo",
+            attrs: {
+              src: _vm.$parent.MakeUrl("assets/img/logo-frbox.png"),
+              alt: "homepage"
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _vm.loading
+        ? _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c("div", { staticClass: "pull-right text-right" }, [
+                _c("address", [
+                  _c("h4", [
+                    _c("b", { staticClass: "text-danger" }, [
+                      _vm._v("Invoice"),
+                      _c("span", { staticClass: "pull-right" }, [
+                        _vm._v("#" + _vm._s(_vm.invoice_order.invoice_no))
                       ])
                     ])
                   ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "table-responsive m-t-40",
-                      staticStyle: { clear: "both" }
-                    },
-                    [
-                      _c("table", { attrs: { width: "100%" } }, [
-                        _c("tbody", [
-                          _c("tr", [
-                            _vm._m(0),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "40%" } }, [
-                              _vm._v(_vm._s(_vm.invoice_order.customer_name))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "40%" } })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-12" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "table-responsive m-t-40",
+                    staticStyle: { clear: "both" }
+                  },
+                  [
+                    _c("table", { attrs: { width: "100%" } }, [
+                      _c("tbody", [
+                        _c("tr", [
+                          _vm._m(0),
+                          _vm._v(" "),
+                          _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
+                          _vm._v(" "),
+                          _c("td", { attrs: { width: "40%" } }, [
+                            _vm._v(_vm._s(_vm.invoice_order.customer_name))
                           ]),
                           _vm._v(" "),
-                          _c("tr", [
-                            _vm._m(1),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "40%" } }, [
-                              _vm._v(_vm._s(_vm.invoice_order.customer_address))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "40%" } })
+                          _c("td", { attrs: { width: "40%" } })
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
+                          _vm._v(" "),
+                          _c("td", { attrs: { width: "40%" } }, [
+                            _vm._v(_vm._s(_vm.invoice_order.customer_address))
                           ]),
                           _vm._v(" "),
-                          _c("tr", [
-                            _vm._m(2),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "40%" } }, [
-                              _vm._v(_vm._s(_vm.invoice_order.sales_order_no))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "40%" } })
+                          _c("td", { attrs: { width: "40%" } })
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _vm._m(2),
+                          _vm._v(" "),
+                          _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
+                          _vm._v(" "),
+                          _c("td", { attrs: { width: "40%" } }, [
+                            _vm._v(_vm._s(_vm.invoice_order.delivery_order_no))
                           ]),
                           _vm._v(" "),
-                          _c("tr", [
-                            _vm._m(3),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "40%" } }, [
-                              _vm._v(
-                                _vm._s(_vm.invoice_order.delivery_order_no)
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "40%" } })
+                          _c("td", { attrs: { width: "40%" } })
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _vm._m(3),
+                          _vm._v(" "),
+                          _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
+                          _vm._v(" "),
+                          _c("td", { attrs: { width: "40%" } }, [
+                            _vm._v(_vm._s(_vm.invoice_order.invoice_date))
                           ]),
                           _vm._v(" "),
-                          _c("tr", [
-                            _vm._m(4),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "40%" } }, [
-                              _vm._v(_vm._s(_vm.invoice_order.invoice_date))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "40%" } })
-                          ])
+                          _c("td", { attrs: { width: "40%" } })
                         ])
                       ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "table-responsive m-t-40",
-                      staticStyle: { clear: "both" }
-                    },
-                    [
-                      _c("table", { staticClass: "table table-hover" }, [
-                        _vm._m(5),
-                        _vm._v(" "),
-                        _c(
-                          "tbody",
-                          [
-                            _vm._l(_vm.details, function(item, index) {
-                              return _c("tr", { key: index }, [
-                                _c("td", [_vm._v(_vm._s(item.skuid))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.item_name))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.uom_name))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.qty_confirm))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.amount_price))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.total_amount))])
-                              ])
-                            }),
-                            _vm._v(" "),
-                            _vm._m(6)
-                          ],
-                          2
-                        )
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c("div", { staticClass: "pull-right m-t-30 text-right" }, [
-                    _c("p", [
-                      _vm._v(
-                        "Sub - Total : " +
-                          _vm._s(_vm._f("toIDR")(_vm.invoice_order.total_price))
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("PPN : ")]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v("PPh : - ")]),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c("h3", [
-                      _c("b", [_vm._v("Total :")]),
-                      _vm._v(
-                        " " +
-                          _vm._s(_vm._f("toIDR")(_vm.invoice_order.total_price))
-                      )
                     ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-12" }, [
+                _c("div", { staticClass: "table-responsive" }, [
+                  _c("table", { staticClass: "table" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.details, function(item, index) {
+                        return _c("tr", { key: index }, [
+                          _c("td", [_vm._v(_vm._s(item.skuid))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.item_name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.qty_confirm))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.uom_name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.amount_price))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.total_amount))])
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-12" }, [
+                _c("div", { staticClass: "pull-right m-t-30 text-right" }, [
+                  _c("p", [
+                    _vm._v(
+                      "Sub - Total : " +
+                        _vm._s(_vm._f("toIDR")(_vm.invoice_order.total_price))
+                    )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "clearfix" }),
+                  _c("p", [_vm._v("PPN : ")]),
                   _vm._v(" "),
-                  _c("hr")
+                  _c("p", [_vm._v("PPh : - ")]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("h3", [
+                    _c("b", [_vm._v("Total :")]),
+                    _vm._v(
+                      " " +
+                        _vm._s(_vm._f("toIDR")(_vm.invoice_order.total_price))
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
-                _vm._m(7)
-              ])
-            ])
-          : _c("div", { staticClass: "text-center p-4 text-muted" }, [
-              _c("h5", [_vm._v("Loading")]),
+                _c("div", { staticClass: "clearfix" }),
+                _vm._v(" "),
+                _c("hr")
+              ]),
               _vm._v(" "),
-              _c("p", [_vm._v("Please wait, data is being loaded...")])
+              _vm._m(5)
             ])
-      ]
-    ),
+          ])
+        : _c("div", { staticClass: "text-center p-4 text-muted" }, [
+            _c("h5", [_vm._v("Loading")]),
+            _vm._v(" "),
+            _c("p", [_vm._v("Please wait, data is being loaded...")])
+          ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "text-right" }, [
       _c(
@@ -50703,14 +50594,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", { attrs: { width: "13%" } }, [
-      _c("b", [_vm._v("Sales Order No")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "13%" } }, [
       _c("b", [_vm._v("Delivery Order No")])
     ])
   },
@@ -50732,32 +50615,14 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Item Name")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("UOM")]),
-        _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("UOM")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Amount Price")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Total Amount")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td")
     ])
   },
   function() {
@@ -52666,14 +52531,11 @@ var render = function() {
                   _c("br"),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-12" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "table-responsive m-t-40",
-                        staticStyle: { clear: "both" }
-                      },
-                      [
-                        _c("table", { staticClass: "table table-hover" }, [
+                    _c("div", { staticClass: "table-responsive" }, [
+                      _c(
+                        "table",
+                        { staticClass: "table table-bordered table-md" },
+                        [
                           _vm._m(4, true),
                           _vm._v(" "),
                           _c(
@@ -52722,9 +52584,9 @@ var render = function() {
                             ],
                             2
                           )
-                        ])
-                      ]
-                    )
+                        ]
+                      )
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-12" }, [
@@ -53103,55 +52965,50 @@ var render = function() {
                   _c("br"),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-12" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "table-responsive m-t-40",
-                        staticStyle: { clear: "both" }
-                      },
-                      [
-                        _c("table", { staticClass: "table table-hover" }, [
+                    _c("div", { staticClass: "table-responsive" }, [
+                      _c(
+                        "table",
+                        { staticClass: "table table-bordered table-md" },
+                        [
                           _vm._m(4),
                           _vm._v(" "),
                           _c(
                             "tbody",
-                            [
-                              _vm._l(_vm.details, function(item, index) {
-                                return _c("tr", { key: index }, [
-                                  _c("td", [_vm._v(_vm._s(item.skuid))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(item.item_name))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(item.uom_name))]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    { staticStyle: { "text-align": "right" } },
-                                    [_vm._v(_vm._s(item.qty))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    { staticStyle: { "text-align": "right" } },
-                                    [_vm._v(_vm._s(item.amount_price_formated))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    { staticStyle: { "text-align": "right" } },
-                                    [_vm._v(_vm._s(item.total_amount_formated))]
-                                  )
-                                ])
-                              }),
-                              _vm._v(" "),
-                              _vm._m(5)
-                            ],
-                            2
+                            _vm._l(_vm.details, function(item, index) {
+                              return _c("tr", { key: index }, [
+                                _c("td", [_vm._v(_vm._s(item.skuid))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(item.item_name))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(item.uom_name))]),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  { staticStyle: { "text-align": "right" } },
+                                  [_vm._v(_vm._s(item.qty))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  { staticStyle: { "text-align": "right" } },
+                                  [_vm._v(_vm._s(item.amount_price_formated))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  { staticStyle: { "text-align": "right" } },
+                                  [_vm._v(_vm._s(item.total_amount_formated))]
+                                )
+                              ])
+                            }),
+                            0
                           )
-                        ])
-                      ]
-                    )
+                        ]
+                      )
+                    ])
                   ]),
+                  _vm._v(" "),
+                  _c("br"),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-12" }, [
                     _c("div", { staticClass: "pull-right m-t-30 text-right" }, [
@@ -53178,7 +53035,7 @@ var render = function() {
                     _c("hr")
                   ]),
                   _vm._v(" "),
-                  _vm._m(6)
+                  _vm._m(5)
                 ])
               ])
             : _c("div", { staticClass: "text-center p-4 text-muted" }, [
@@ -53270,24 +53127,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
       _c(
         "div",
@@ -53299,72 +53138,7 @@ var staticRenderFns = [
           _c("table", { attrs: { width: "100%" } }, [
             _c("tbody", [
               _c("tr", [
-                _c("td", { attrs: { width: "50%" } }, [
-                  _c("table", { attrs: { width: "100%" } }, [
-                    _c("tbody", [
-                      _c("tr", [
-                        _c("td", { attrs: { width: "2%" } }, [
-                          _c("b", [_vm._v("Bank")])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "30%" } }),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "8%" } })
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", { attrs: { width: "2%" } }, [
-                          _c("b", [_vm._v("Account No")])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "30%" } }),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "8%" } })
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", { attrs: { width: "2%" } }, [
-                          _c("b", [_vm._v("Beneficiary")])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "30%" } }),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "8%" } })
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", { attrs: { width: "2%" } }, [
-                          _c("b", [_vm._v("Branch")])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "30%" } }),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "8%" } })
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", { attrs: { width: "2%" } }, [
-                          _c("b", [_vm._v("Swift Code")])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "30%" } }),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "8%" } })
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
+                _c("td", { attrs: { width: "50%" } }),
                 _c("td", { attrs: { width: "10%" } }, [
                   _c("table", { attrs: { width: "100%", border: "1" } }, [
                     _c("tbody", [
@@ -55922,14 +55696,11 @@ var render = function() {
                     _c("br"),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-12" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "table-responsive m-t-40",
-                          staticStyle: { clear: "both" }
-                        },
-                        [
-                          _c("table", { staticClass: "table table-hover" }, [
+                      _c("div", { staticClass: "table-responsive" }, [
+                        _c(
+                          "table",
+                          { staticClass: "table table-bordered table-md" },
+                          [
                             _vm._m(5, true),
                             _vm._v(" "),
                             _c(
@@ -55953,9 +55724,9 @@ var render = function() {
                               ],
                               2
                             )
-                          ])
-                        ]
-                      )
+                          ]
+                        )
+                      ])
                     ]),
                     _vm._v(" "),
                     _vm._m(7, true)
@@ -56306,14 +56077,11 @@ var render = function() {
                 _c("br"),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "table-responsive m-t-40",
-                      staticStyle: { clear: "both" }
-                    },
-                    [
-                      _c("table", { staticClass: "table table-hover" }, [
+                  _c("div", { staticClass: "table-responsive" }, [
+                    _c(
+                      "table",
+                      { staticClass: "table table-bordered table-md" },
+                      [
                         _vm._m(5),
                         _vm._v(" "),
                         _c(
@@ -56327,8 +56095,6 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(item.uom_name))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.qty_order))]),
-                                _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(item.qty_do))]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(item.remark))])
@@ -56339,9 +56105,9 @@ var render = function() {
                           ],
                           2
                         )
-                      ])
-                    ]
-                  )
+                      ]
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
                 _vm._m(7)
@@ -56436,8 +56202,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Item Name")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("UOM")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Qty SO")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Qty DO")]),
         _vm._v(" "),

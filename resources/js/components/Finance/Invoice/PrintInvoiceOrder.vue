@@ -1,9 +1,6 @@
 <template>
     <div>
-        <div
-            class="card card-body printableArea"
-            id="printMe"
-        >
+        <div id="printMe">
             <br>
             <br>
             <br>
@@ -40,7 +37,6 @@
                         >
                             <table width="100%">
                                 <tbody>
-
                                 <tr>
                                     <td width="13%"><b>Supplier</b></td>
                                     <td width="2%">:</td>
@@ -57,13 +53,13 @@
 
                                 </tr>
 
-                                <tr>
-                                    <td width="13%"><b>Sales Order No</b></td>
-                                    <td width="2%">:</td>
-                                    <td width="40%">{{ invoice_order.sales_order_no }}</td>
-                                    <td width="40%"></td>
+                                <!--                                <tr>-->
+                                <!--                                    <td width="13%"><b>Sales Order No</b></td>-->
+                                <!--                                    <td width="2%">:</td>-->
+                                <!--                                    <td width="40%">{{ invoice_order.sales_order_no }}</td>-->
+                                <!--                                    <td width="40%"></td>-->
 
-                                </tr>
+                                <!--                                </tr>-->
 
                                 <tr>
                                     <td width="13%"><b>Delivery Order No</b></td>
@@ -86,17 +82,14 @@
                     </div>
                     <br>
                     <div class="col-md-12">
-                        <div
-                            class="table-responsive m-t-40"
-                            style="clear: both;"
-                        >
-                            <table class="table table-hover">
+                        <div class="table-responsive">
+                            <table class="table">
                                 <thead>
                                 <tr>
                                     <th class="text-center">SKUID</th>
                                     <th class="text-center">Item Name</th>
-                                    <th class="text-center">UOM</th>
                                     <th class="text-center">Qty</th>
+                                    <th class="text-center">UOM</th>
                                     <th class="text-center">Amount Price</th>
                                     <th class="text-center">Total Amount</th>
                                 </tr>
@@ -108,18 +101,10 @@
                                 >
                                     <td>{{ item.skuid }}</td>
                                     <td>{{ item.item_name }}</td>
-                                    <td>{{ item.uom_name }}</td>
                                     <td>{{ item.qty_confirm }}</td>
+                                    <td>{{ item.uom_name }}</td>
                                     <td>{{ item.amount_price }}</td>
                                     <td>{{ item.total_amount }}</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -276,7 +261,7 @@
                     })
             },
             print() {
-                 Vue.swal({
+                Vue.swal({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
                     type: 'warning',

@@ -97,11 +97,8 @@
                         </div>
                         <br>
                         <div class="col-md-12">
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
-                                <table class="table table-hover">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-md">
                                     <thead>
                                     <tr>
                                         <th class="text-center">SKUID</th>

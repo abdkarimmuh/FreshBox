@@ -44,7 +44,8 @@
                     <a class="nav-link" href="{{route('admin.warehouse_in.confirm.index')}}"><span>Confirm Incoming Items</span></a>
                 </li>
                 <li class="{{ request()->route()->getName() == 'admin.warehouse_in.conversion.index' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{ route('admin.warehouse_in.conversion.index') }}"><span>UOM Conversion</span></a>
+                    <a class="nav-link"
+                       href="{{ route('admin.warehouse_in.conversion.index') }}"><span>UOM Conversion</span></a>
                 </li>
             </ul>
         </li>
@@ -65,6 +66,10 @@
                 <li class="{{ request()->route()->getName() == 'admin.finance.invoice_order.index' ? ' active' : '' }}">
                     <a class="nav-link"
                        href="{{ route('admin.finance.invoice_order.index') }}"><span>Form Invoice Order</span></a>
+                </li>
+                <li class="{{ request()->route()->getName() == 'admin.finance.invoice_order.index' ? ' active' : '' }}">
+                    <a class="nav-link"
+                       href="{{ route('admin.finance.invoice_order.index') }}"><span>Paid Invoice Order</span></a>
                 </li>
             </ul>
         </li>
