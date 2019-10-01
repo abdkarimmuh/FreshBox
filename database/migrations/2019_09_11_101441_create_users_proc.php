@@ -18,7 +18,7 @@ class CreateUsersProc extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('bank_account');
             $table->unsignedBigInteger('bank_id');
-            $table->decimal('tax_value', 18, 2)->default(0);
+            $table->decimal('saldo', 18, 2)->default(0);
 
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();

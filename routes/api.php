@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'v1'], function () {
     Route::post('login', 'API\AuthAPIController@login');
     Route::post('register', 'API\AuthAPIController@register');
-
 });
 
 
