@@ -27,18 +27,5 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('1234')
         ]);
         $adminUser->assignRole($adminRole);
-
-        $procRole = Role::create(['name' => 'Procurement']);
-        $procurementUser = User::create([
-            'name' => 'Procurement',
-            'email' => 'procurement@example.com',
-            'password' => Hash::make('1234')
-        ]);
-        UserProc::create([
-            'user_id' => $procurementUser->id,
-            'saldo' => 1000,
-
-        ]);
-        $procurementUser->assignRole($procRole);
     }
 }

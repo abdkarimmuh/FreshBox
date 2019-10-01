@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Procurement;
 
 use App\Http\Controllers\Controller;
+use App\Model\Marketing\SalesOrder;
 use App\Model\Procurement\AssignProcurement;
 use Illuminate\Http\Request;
 
@@ -57,7 +58,14 @@ class AssignProcurementController extends Controller
      */
     public function create()
     {
-        //
+        $so_assign = SalesOrder::where('status', 1)->get();
+
+        foreach ($so_assign as $items) {
+            // $items->status = 1;
+
+        }
+
+        return $so_assign;
     }
 
     /**
