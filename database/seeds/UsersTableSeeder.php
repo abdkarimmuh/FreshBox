@@ -1,10 +1,12 @@
 <?php
 
+use App\UserProc;
 use Illuminate\Database\Seeder;
 use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
+
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -16,8 +18,7 @@ class UsersTableSeeder extends Seeder
     {
         $adminRole = Role::create(['name' => 'Admin']);
         $adminPermissions = ['manage-users', 'view-users', 'create-users', 'edit-users', 'delete-users'];
-        foreach($adminPermissions as $ap)
-        {
+        foreach ($adminPermissions as $ap) {
             $permission = Permission::create(['name' => $ap]);
             $adminRole->givePermissionTo($permission);
         }
@@ -30,8 +31,7 @@ class UsersTableSeeder extends Seeder
 
         $editorRole = Role::create(['name' => 'Editor']);
         $editorPermissions = ['manage-users', 'view-users'];
-        foreach($editorPermissions as $ep)
-        {
+        foreach ($editorPermissions as $ep) {
             $permission = Permission::firstOrCreate(['name' => $ep]);
             $editorRole->givePermissionTo($permission);
         }
@@ -49,5 +49,18 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('1234')
         ]);
         $generalUser->assignRole($userRole);
+
+        $procRole = Role::create(['name' => 'Procurement']);
+        $procurementUser = User::create([
+            'name' => 'Procurement',
+            'email' => 'procurement@example.com',
+            'password' => Hash::make('1234')
+        ]);
+        UserProc::create([
+            'user_id' => $procurementUser->id,
+            'saldo' => 1000,
+
+        ]);
+        $procurementUser->assignRole($procRole);
     }
 }

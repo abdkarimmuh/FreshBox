@@ -19,6 +19,7 @@ class CreateTrxInvoiceTable extends Migration
             $table->unsignedBigInteger('do_id');
             $table->unsignedBigInteger('customer_id');
             $table->date('invoice_date');
+            $table->date('submit_date')->nullable();
             $table->tinyInteger('is_printed')->default(0);
             $table->tinyInteger('is_recap')->default(0);
             $table->unsignedBigInteger('created_by');

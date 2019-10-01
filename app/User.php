@@ -59,6 +59,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function procurement()
+    {
+        return $this->belongsTo(UserProc::class,'id','user_id');
+    }
+
     public function getAllpermissionsAttribute()
     {
         $res = [];

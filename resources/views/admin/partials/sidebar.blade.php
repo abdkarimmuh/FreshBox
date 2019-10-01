@@ -18,7 +18,8 @@
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->segment(3) == 'form_sales_order' ? ' active' : '' }}">
-                    <a  href="{{ url('admin/marketing/form_sales_order') }}" class="nav-link"><span>Form Sales Order</span></a>
+                    <a href="{{ url('admin/marketing/form_sales_order') }}"
+                       class="nav-link"><span>Form Sales Order</span></a>
                 </li>
             </ul>
         </li>
@@ -62,7 +63,12 @@
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance</span></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->route()->getName() == 'admin.finance.invoice_order.index' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{ route('admin.finance.invoice_order.index') }}"><span>Form Invoice Order</span></a>
+                    <a class="nav-link"
+                       href="{{ route('admin.finance.invoice_order.index') }}"><span>Form Invoice Order</span></a>
+                </li>
+                <li class="{{ request()->route()->getName() == 'admin.finance.invoice_order.index' ? ' active' : '' }}">
+                    <a class="nav-link"
+                       href="{{ route('admin.finance.invoice_order.index') }}"><span>Submit Invoice</span></a>
                 </li>
             </ul>
         </li>
@@ -92,7 +98,8 @@
                         <a class="nav-link" href="{{ route('admin.master_data.item.index') }}"><span>Item</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.modules.index' ? ' active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin.master_data.modules.index') }}"><span>Modules</span></a>
+                        <a class="nav-link"
+                           href="{{ route('admin.master_data.modules.index') }}"><span>Modules</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.origin.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.origin.index') }}"><span>Origin</span></a>
@@ -116,7 +123,7 @@
                         <a class="nav-link" href="{{ route('admin.master_data.residence.index') }}"><span>Residence</span></a>
                     </li> --}}
                     <li class="">
-                         <router-link :to="{ name: 'users'}" class="nav-link"><span>Users</span></router-link>
+                        <router-link :to="{ name: 'users'}" class="nav-link"><span>Users</span></router-link>
                     </li>
                 </ul>
             </li>

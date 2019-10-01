@@ -16,13 +16,12 @@ class CreateUsersProc extends Migration
         Schema::create('users_proc', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('bank_account');
-            $table->unsignedBigInteger('bank_id');
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('origin_id');
+            $table->unsignedBigInteger('bank_account')->nullable();
+            $table->unsignedBigInteger('bank_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('origin_id')->nullable();
             $table->decimal('saldo', 18, 2)->default(0);
-
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
 
             $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
