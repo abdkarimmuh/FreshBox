@@ -11,6 +11,7 @@ class AssignProcurement extends MyModel
     use SearchTraits;
 
     protected $table = 'trx_assign_procurement';
+    protected $fillable = ['sales_order_detail_id', 'user_proc_id', 'created_by'];
 
     protected $appends = [
         'created_by_name',

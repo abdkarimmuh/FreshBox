@@ -27,5 +27,26 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('1234')
         ]);
         $adminUser->assignRole($adminRole);
+
+        $editorRole = Role::create(['name' => 'Editor']);
+        $editorPermissions = ['manage-users', 'view-users'];
+        foreach ($editorPermissions as $ep) {
+            $permission = Permission::firstOrCreate(['name' => $ep]);
+            $editorRole->givePermissionTo($permission);
+        }
+        $editorUser = User::create([
+            'name' => 'Editor',
+            'email' => 'editor@example.com',
+            'password' => Hash::make('1234')
+        ]);
+        $editorUser->assignRole($editorRole);
+
+        $userRole = Role::create(['name' => 'User']);
+        $generalUser = User::create([
+            'name' => 'User',
+            'email' => 'user@example.com',
+            'password' => Hash::make('1234')
+        ]);
+        $generalUser->assignRole($userRole);
     }
 }
