@@ -220,8 +220,8 @@
                                             />
                                         </td>
                                         <td>{{ orders.uom }}</td>
-                                        <td style="text-align: right;">{{ orders.amount | price }}</td>
-                                        <td style="text-align: right">{{ total_amount[index] | price }}</td>
+                                        <td style="text-align: right;">{{ orders.amount | toIDR }}</td>
+                                        <td style="text-align: right">{{ total_amount[index] | toIDR }}</td>
                                         <td>
                                             <input
                                                 v-model="notes[index]"
@@ -509,19 +509,6 @@
                     (item, idx) => item.amount * (newQty[idx] || 0)
                 );
             }
-        },
-        filters: {
-            /**
-             * Formatting Price Number
-             * @param value
-             * @returns {string}
-             */
-            price: function (value) {
-                if (!value) return ''
-                return value.toLocaleString("id-ID", {
-                    minimumFractionDigits: 2
-                });
-            },
         }
     };
 

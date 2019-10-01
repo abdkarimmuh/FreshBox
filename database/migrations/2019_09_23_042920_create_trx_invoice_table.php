@@ -17,12 +17,14 @@ class CreateTrxInvoiceTable extends Migration
             $table->bigIncrements('id');
             $table->string('invoice_no');
             $table->unsignedBigInteger('do_id');
+            $table->unsignedBigInteger('customer_id');
             $table->date('invoice_date');
             $table->tinyInteger('is_printed')->default(0);
             $table->tinyInteger('is_recap')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
             $table->foreign('do_id')->on('trx_delivery_order')->references('id')->onDelete('cascade');
+            $table->foreign('customer_id')->on('master_customer')->references('id')->onDelete('cascade');
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
 
         });

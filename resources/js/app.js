@@ -3,6 +3,7 @@ window.Vue = require('vue');
 require('./bootstrap');
 require('./component');
 require('./library');
+require('./filters');
 
 import Router from './router';
 
@@ -10,7 +11,7 @@ import Router from './router';
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-    'Authorization' : 'Bearer ' + localStorage.getItem('accessToken')
+    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
 };
 
 const app = new Vue({
@@ -37,5 +38,18 @@ const app = new Vue({
         MakeUrl(path) {
             return BaseUrl(path);
         }
+    },
+    filters: {
+        /**
+         * Formatting Price Number
+         * @param value
+         * @returns {string}
+         */
+        price: function (value) {
+            if (!value) return '';
+            return value.toLocaleString("id-ID", {
+                minimumFractionDigits: 2
+            });
+        },
     }
 });

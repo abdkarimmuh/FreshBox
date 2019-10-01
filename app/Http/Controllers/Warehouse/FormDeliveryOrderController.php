@@ -41,7 +41,7 @@ class FormDeliveryOrderController extends Controller
             //Title Required
             'title' => 'Form Delivery Order',
             //Search Route Required
-            'route-search' => 'admin.marketing.sales_order.index',
+            'route-search' => 'admin.warehouse.delivery_order.index',
             /**
              * Route Can Be Null, Using Route Name
              */

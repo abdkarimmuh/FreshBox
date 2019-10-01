@@ -12,9 +12,8 @@ class PriceTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i <= 200; $i++) {
-            DB::statement("
-            INSERT INTO `master_price` (`test`, `skuid`, `uom_id`, `customer_id`, `amount`, `start_periode`, `end_periode`, `remarks`, `created_by`, `updated_by`, `deleted_at`, `created_at`, `updated_at`) VALUES
+        DB::statement("
+            INSERT INTO `master_price` (`id`, `skuid`, `uom_id`, `customer_id`, `amount`, `start_periode`, `end_periode`, `remarks`, `created_by`, `updated_by`, `deleted_at`, `created_at`, `updated_at`) VALUES
             (3,	10080,	3,	1,	50000.00,	'2019-05-15',	'2019-05-18',	'1 pack = 2 kg',	2,	NULL,	NULL,	'2019-05-15 06:38:26',	NULL),
             (4,	10006,	1,	2,	1000.00,	'2019-06-13',	'2019-06-30',	'',	1,	NULL,	NULL,	'2019-06-13 08:23:40',	NULL),
             (5,	10012,	1,	2,	1000.00,	'2019-06-13',	'2019-06-30',	'',	1,	NULL,	NULL,	'2019-06-13 08:24:38',	NULL),
@@ -6396,6 +6395,5 @@ class PriceTableSeeder extends Seeder
             (8584,	24527,	3,	32,	20000.00,	'2019-06-25',	'2019-07-01',	'250 gr',	2,	NULL,	NULL,	'2019-06-20 10:09:00',	NULL),
             (8585,	10146,	3,	32,	20000.00,	'2019-06-25',	'2019-07-01',	'250 gr',	2,	NULL,	NULL,	'2019-06-20 10:09:00',	NULL);
         ");
-        }
     }
 }

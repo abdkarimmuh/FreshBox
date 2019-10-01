@@ -46,7 +46,7 @@ class InvoiceOrder extends MyModel
         foreach ($this->delivery_order->do_details_not_returned as $do_details) {
             $total_amount += $do_details->sales_order_detail->total_amount;
         }
-        return number_format($total_amount, 2);
+        return $total_amount;
     }
 
     public function getStatusNameAttribute()
