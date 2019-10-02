@@ -46,13 +46,16 @@
                                                     <input type="checkbox" id="checked_all">
                                                 </th>
                                             @endisset
-                                            <th width="150px">Action</th>
+                                            @if( isset($config['route-edit']) || isset($config['route-delete']) || isset($config['route-view']) )
+                                                <th width="150px">Action</th>
+                                            @endif
                                             @foreach ($columns as $column)
                                                 <th style="overflow:hidden; white-space:nowrap">{{ capitalize($column['title']) }}</th>
                                             @endforeach
                                         </tr>
                                         @foreach($data as $row)
                                             <tr>
+                                                @if( isset($config['route-edit']) || isset($config['route-delete']) || isset($config['route-view']) || isset($config['route-multiple-print']) )
                                                 @isset($config['route-multiple-print'])
                                                     <td>
                                                         <input type="checkbox" name="id[]" class="custom-checkbox"
@@ -120,8 +123,8 @@
                                                             </a>
                                                         @endisset
                                                     @endisset
-
                                                 </td>
+                                                @endif
                                                 @foreach($columns as $column)
                                                     @if($column['field'] === 'status_name')
                                                         <td>{!! $row[$column['field']] !!}</td>
