@@ -74,6 +74,8 @@ class AssignProcurementController extends Controller
                     }
                 }
             }
+            $so->status = 2;
+            $so->save();
         }
 
         return redirect('admin/procurement/assign_procurement');
