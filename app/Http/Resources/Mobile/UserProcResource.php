@@ -18,6 +18,7 @@ class UserProcResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'category_id' => $this->category_id,
             'saldo' => $this->procurement->saldo,
             'assign' => AssignListResource::collection($this->procurement->assign_proc)
         ];

@@ -14,7 +14,7 @@ class DeliveryOrderAPIController extends Controller
 
     public function create()
     {
-        return SalesOrderResource::collection(SalesOrder::where('status', 1)->get());
+        return SalesOrderResource::collection(SalesOrder::where('status', 2)->get());
     }
     public function show($id)
     {
