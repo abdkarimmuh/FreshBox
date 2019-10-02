@@ -46,7 +46,7 @@
                                                     <input type="checkbox" id="checked_all">
                                                 </th>
                                             @endisset
-                                            @if( isset($config['route-edit']) || isset($config['route-delete']) || isset($config['route-view']) )
+                                            @if( isset($config['route-edit']) || isset($config['route-delete']) || isset($config['route-view']) || isset($config['route-confirm']) )
                                                 <th width="150px">Action</th>
                                             @endif
                                             @foreach ($columns as $column)
@@ -55,7 +55,7 @@
                                         </tr>
                                         @foreach($data as $row)
                                             <tr>
-                                                @if( isset($config['route-edit']) || isset($config['route-delete']) || isset($config['route-view']) || isset($config['route-multiple-print']) )
+                                                @if( isset($config['route-edit']) || isset($config['route-delete']) || isset($config['route-view']) || isset($config['route-multiple-print']) || isset($config['route-confirm']) )
                                                 @isset($config['route-multiple-print'])
                                                     <td>
                                                         <input type="checkbox" name="id[]" class="custom-checkbox"

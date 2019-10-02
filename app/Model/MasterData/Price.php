@@ -17,7 +17,8 @@ class Price extends MyModel
         'created_by_name',
         'updated_by_name',
         'item_name',
-        'uom_name'
+        'uom_name',
+        'customer_name'
     ];
 
     protected $columns = [
@@ -98,5 +99,20 @@ class Price extends MyModel
     public function Item()
     {
         return $this->belongsTo(Item::class, 'skuid', 'skuid');
+    }
+
+    public function getCustomerNameAttribute()
+    {
+        return $this->Customer->name;
+    }
+
+    public function getUomNameAttribute()
+    {
+        return $this->Uom->name;
+    }
+
+    public function getItemNameAttribute()
+    {
+        return $this->Item->name_item;
     }
 }
