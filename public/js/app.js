@@ -2626,11 +2626,11 @@ __webpack_require__.r(__webpack_exports__);
         title: "Kepada Yth",
         field: ""
       }, {
+        title: "PO No.",
+        field: "no_po"
+      }, {
         title: "Customer",
         field: "customer_name"
-      }, {
-        title: "Po No",
-        field: "no_po"
       }],
       logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
       info: {
