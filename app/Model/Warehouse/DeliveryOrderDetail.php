@@ -22,6 +22,7 @@ class DeliveryOrderDetail extends Model
      * @var array
      */
     protected $fillable = ['delivery_order_id', 'skuid', 'sales_order_detail_id', 'qty_do', 'qty_confirm', 'uom_id', 'qty_minus', 'remark', 'created_by', 'updated_by'];
+    protected $appends = ['total_amount','amount_price'];
 
     public function delivery_order()
     {
@@ -41,5 +42,15 @@ class DeliveryOrderDetail extends Model
     public function uom()
     {
         return $this->belongsTo(Uom::class, 'uom_id');
+    }
+
+    public function getAmountPriceAttribute()
+    {
+        return $this->sales_order_detail->amount_price;
+    }
+
+    public function getTotalAmountAttribute()
+    {
+        return $this->amount_price * $this->qty_confirm;
     }
 }

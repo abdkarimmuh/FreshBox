@@ -1,6 +1,8 @@
 <template>
     <div>
         <div id="printMe">
+            <br>
+            <br>
             <div class="row">
                 <div class="col-md-6">
                     <div class="text-left">
@@ -143,7 +145,7 @@
                             </tr>
                             </tbody>
                         </table>
-                        <!--                        <div class="pull-right m-t-30 text-right">-->
+                        <!--                        <div class  ="pull-right m-t-30 text-right">-->
                         <!--                            <p>Sub - Total : {{ invoice_order.total_price | toIDR }}</p>-->
                         <!--                            <p>PPN : </p>-->
                         <!--                            <p>PPh : - </p>-->
@@ -320,6 +322,17 @@
             },
             back() {
                 return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
+            }
+        },
+        computed: {
+            total_price: function () {
+                let total = 0;
+                this.details.forEach(function (item) {
+                    total += (item.total_amount)
+                });
+                return total.toLocaleString("id-ID", {
+                    minimumFractionDigits: 2
+                });
             }
         }
     }

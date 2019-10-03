@@ -44,7 +44,7 @@ class InvoiceOrder extends MyModel
     {
         $total_amount = 0;
         foreach ($this->delivery_order->delivery_order_details as $do_details) {
-            $total_amount += $do_details->sales_order_detail->total_amount;
+            $total_amount += $do_details->sales_order_detail->amount_price * $do_details->qty_confirm;
         }
         return $total_amount;
     }
