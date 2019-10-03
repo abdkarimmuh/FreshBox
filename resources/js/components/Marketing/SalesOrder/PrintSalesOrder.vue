@@ -58,7 +58,6 @@
                             <br>
                             <br>
                             <br>
-
                             <!--                            <div class="table-responsive m-t-40" style="clear: both;">-->
                             <!--                                <table width="100%">-->
                             <!--                                    <tbody>-->
@@ -94,10 +93,7 @@
                         </div>
                     </div>
                 </div>
-                <div
-                    class="text-center p-4 text-muted"
-                    v-else
-                >
+                <div class="text-center p-4 text-muted" v-else>
                     <h5>Loading</h5>
                     <p>Please wait, data is being loaded...</p>
                 </div>

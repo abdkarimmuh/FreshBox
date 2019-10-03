@@ -1,29 +1,11 @@
 <template>
     <div>
-        <div
-            class="card card-body printableArea"
-            id="printMe"
-        >
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <h3>
-        <span class="logo-text">
-          <img
-              v-bind:src="$parent.MakeUrl('assets/img/logo-frbox.png')"
-              alt="homepage"
-              class="light-logo"
-          >
-        </span>
-            </h3>
-            <hr>
-            <div
-                class="row"
-                v-if="loading"
-            >
+        <div id="printMe">
+            <print-header :logo="logo"></print-header>
+            <div class="row" v-if="loading">
                 <div class="col-md-12">
+                    <print-header-info :header_info="header_info" :data="sales_order"
+                                       :info="info"></print-header-info>
                     <div class="pull-right text-right">
                         <address>
                             <h4><b class="text-danger">Delivery Order<span class="pull-right">#{{ delivery_order.delivery_order_no }}</span></b>
@@ -120,93 +102,60 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div
-                            class="table-responsive m-t-40"
-                            style="clear: both;"
-                        >
-                            <table width="100%">
-                                <tbody>
-                                <tr>
-                                    <td width="50%">
-                                        <table width="100%">
-                                            <tbody>
-                                            <tr>
-                                                <td width="2%"><b>Bank</b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%"></td>
-                                                <td width="8%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="2%"><b>Account No</b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%"></td>
-                                                <td width="8%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="2%"><b>Beneficiary</b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%"></td>
-                                                <td width="8%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="2%"><b>Branch</b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%"></td>
-                                                <td width="8%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="2%"><b>Swift Code</b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%"></td>
-                                                <td width="8%"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                    <td width="10%">
-                                        <table
-                                            width="100%"
-                                            border="1"
-                                        >
-                                            <tbody>
-                                            <tr>
-                                                <td
-                                                    width="35%"
-                                                    class="text-center"
-                                                >Prepare by
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td height="78">&nbsp;</td>
-
-                                            </tr>
-
-                                            <tr>
-                                                <td
-                                                    height="23"
-                                                    class="text-center"
-                                                ></td>
-
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <table width="100%" style="border-top: 1px solid black">
+                            <tbody>
+                            <tr>
+                                <td width="56%">Keterangan :</td>
+                                <td style="border-bottom: 1px solid black;" class="text-right">Subtotal Rp</td>
+                                <td style="border-bottom: 1px solid black;" class="text-right">{{
+                                    sales_order.total_price | toIDR }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="56%"></td>
+                                <td style="border-bottom: 1px solid black;" class="text-right">Discount Rp</td>
+                                <td style="border-bottom: 1px solid black;" class="text-right"></td>
+                            </tr>
+                            <tr>
+                                <td width="56%"></td>
+                                <td style="border-bottom: 1px solid black;" class="text-right">Pajak Rp</td>
+                                <td style="border-bottom: 1px solid black;" class="text-right"></td>
+                            </tr>
+                            <tr>
+                                <td width="56%"></td>
+                                <td style="border-bottom: 1px solid black;" class="text-right">Total Rp</td>
+                                <td style="border-bottom: 1px solid black;" class="text-right">{{
+                                    sales_order.total_price | toIDR }}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <hr style="height: 2px; background-color: black">
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6>Disiapkan oleh,</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>Driver,</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>Diterima oleh,</h6>
+                            </div>
                         </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                     </div>
                 </div>
             </div>
-            <div
-                class="text-center p-4 text-muted"
-                v-else
-            >
+            <div class="text-center p-4 text-muted" v-else>
                 <h5>Loading</h5>
                 <p>Please wait, data is being loaded...</p>
             </div>
-
         </div>
 
         <div class="text-right">
@@ -231,6 +180,64 @@
         props: ['id'],
         data() {
             return {
+                info: {
+                    title: "Delivery Order",
+                    no: "delivery_order_no",
+                },
+                columns: [
+                    {
+                        title: 'Item No',
+                        field: 'skuid',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Item Name',
+                        field: 'item_name',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Qty',
+                        field: 'qty',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Unit',
+                        field: 'uom_name',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Remarks',
+                        field: 'remark',
+                        type: 'text',
+                    }
+                ],
+                header_info: [
+                    {
+                        title: "Delivery Order Date",
+                        field: "do_date",
+                    },
+                    // {
+                    //     title: "Delivery Order No",
+                    //     field: "delivery_order_no",
+                    // },
+                    {
+                        page_break: true,
+                    },
+                    {
+                        title: "Kepada Yth",
+                        field: "",
+                    },
+                    {
+                        title: "PO No.",
+                        field: "no_po",
+                    },
+                    {
+                        title: "Customer",
+                        field: "customer_name",
+                    },
+
+                ],
+                logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
                 delivery_order: {},
                 details: [],
                 loading: false,
