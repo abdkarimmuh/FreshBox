@@ -4282,21 +4282,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -6522,6 +6507,19 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -52330,13 +52328,11 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12" }, [
                   _c("div", { staticClass: "pull-right text-right" }, [
-                    _c("address", [
-                      _c("h4", [
-                        _c("b", { staticClass: "text-danger" }, [
-                          _vm._v("Sales Order"),
-                          _c("span", { staticClass: "pull-right" }, [
-                            _vm._v("#" + _vm._s(item.sales_order_no))
-                          ])
+                    _c("h4", [
+                      _c("b", { staticClass: "text-danger" }, [
+                        _vm._v("Sales Order"),
+                        _c("span", { staticClass: "pull-right" }, [
+                          _vm._v("#" + _vm._s(item.sales_order_no))
                         ])
                       ])
                     ])
@@ -56001,6 +55997,37 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
+      _c(
+        "table",
+        {
+          staticStyle: { "border-top": "1px solid black" },
+          attrs: { width: "100%" }
+        },
+        [
+          _c("tbody", [
+            _c("tr", [
+              _c("td", { attrs: { height: "70px", width: "56%" } }, [
+                _vm._v("Keterangan :")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", {
+                staticStyle: { "border-bottom": "1px solid black" },
+                attrs: { width: "100%" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", {
+                staticStyle: { "border-bottom": "1px solid black" },
+                attrs: { height: "22px", width: "100%" }
+              })
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
       _c("hr", { staticStyle: { height: "2px", "background-color": "black" } })
     ])
   },

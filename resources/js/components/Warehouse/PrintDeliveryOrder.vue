@@ -10,6 +10,19 @@
                     <print-table :columns="columns" :data="details"></print-table>
                     <br>
                     <div class="col-md-12">
+                        <table width="100%" style="border-top: 1px solid black">
+                            <tbody>
+                            <tr>
+                                <td height="70px" width="56%">Keterangan :</td>
+                            </tr>
+                            <tr>
+                                <td width="100%" style="border-bottom: 1px solid black"></td>
+                            </tr>
+                            <tr>
+                                <td height="22px" width="100%" style="border-bottom: 1px solid black"></td>
+                            </tr>
+                            </tbody>
+                        </table>
                         <hr style="height: 2px; background-color: black">
                     </div>
                     <div class="col-md-12">
