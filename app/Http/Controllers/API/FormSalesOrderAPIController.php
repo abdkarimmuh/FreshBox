@@ -32,11 +32,13 @@ class FormSalesOrderAPIController extends Controller
         } else {
             $query = $query->paginate($perPage);
         }
+
         return SalesOrderResource::collection($query);
     }
 
     /**
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function show(Request $request)
@@ -48,11 +50,13 @@ class FormSalesOrderAPIController extends Controller
             $so = SalesOrder::findOrFail($request->id);
             $sales_order = new SalesOrderResource($so);
         }
+
         return response()->json($sales_order, 200);
     }
 
     /**
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function store(Request $request)
@@ -72,13 +76,11 @@ class FormSalesOrderAPIController extends Controller
             'fulfillmentDate' => 'required',
             'customerId' => 'required|not_in:0',
             'sourceOrderId' => 'required',
-            'file' => 'required|file64:jpeg,jpg,png,pdf',
+            'file' => 'file64:jpeg,jpg,png,pdf',
             'items' => 'required',
             'items.*.qty' => 'required|not_in:0',
-
         ];
         $request->validate(array_merge($validation_po, $rules));
-
 
         $customer_id = $request->customerId;
         $items = $request->items;
@@ -92,8 +94,8 @@ class FormSalesOrderAPIController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateSalesOrderNo() . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-            Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
+            $file_name = $this->generateSalesOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
         }
@@ -109,6 +111,7 @@ class FormSalesOrderAPIController extends Controller
             'file' => $file_name,
             'status' => 1,
             'created_by' => $user,
+            'created_at' => Carbon::now(),
         ]);
         //Untuk Mendapatkan List SKUID
         foreach ($items as $i => $detail) {
@@ -133,6 +136,7 @@ class FormSalesOrderAPIController extends Controller
                     'amount_price' => $listItems[$i]->amount,
                     'total_amount' => $listItems[$i]->amount * $detail['qty'],
                     'notes' => $detail['notes'],
+                    'status' => 1,
                     'created_by' => $user,
                 ];
             } else {
@@ -143,13 +147,14 @@ class FormSalesOrderAPIController extends Controller
         SalesOrderDetail::insert($salesOrderDetails);
 
         return response()->json($sales_order);
-
     }
 
     /**
-     * Edit Sales Order
+     * Edit Sales Order.
+     *
      * @param $id
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function edit($id, Request $request)
@@ -165,7 +170,7 @@ class FormSalesOrderAPIController extends Controller
 
         return response()->json([
             'sales_order' => $sales_order,
-            'items' => $price
+            'items' => $price,
         ], 200);
     }
 
@@ -177,7 +182,7 @@ class FormSalesOrderAPIController extends Controller
         $items = $request->items;
         $user = 1;
 
-        /**
+        /*
          * Proses Update Data Order Details
          */
         SalesOrder::where('id', $sales_order_id)->update(['remarks' => $remarks]);
@@ -205,12 +210,12 @@ class FormSalesOrderAPIController extends Controller
                     'amount_price' => $OrderDetailLists[$i]->amount_price,
                     'total_amount' => $OrderDetailLists[$i]->amount_price * $row['qty'],
                     'notes' => $row['notes'],
-                    'updated_by' => $user
+                    'updated_by' => $user,
                 ]);
         }
 
         /**
-         * Proses Insert Baru Jika Ada Penambahan Items
+         * Proses Insert Baru Jika Ada Penambahan Items.
          */
 
         //Untuk Memfilter Data Yang Baru Di Tambah
@@ -227,7 +232,7 @@ class FormSalesOrderAPIController extends Controller
                     'skuid' => $row['skuid'],
                     'qty' => $row['qty'],
                     'notes' => $row['notes'],
-                    'created_by' => $user
+                    'created_by' => $user,
                 ];
             }
             if (isset($withoutOrderDetailsID)) {
@@ -245,7 +250,7 @@ class FormSalesOrderAPIController extends Controller
                     ->get();
 
                 //Merapihkan Posisi Index Data Yang Baru Di Tambah
-            foreach ($withoutOrderDetailsID as $i => $row) {
+                foreach ($withoutOrderDetailsID as $i => $row) {
                     $FinalWithoutOrderDetailsID[] = [
                         'sales_order_id' => $sales_order_id,
                         'skuid' => $row['skuid'],
@@ -254,34 +259,38 @@ class FormSalesOrderAPIController extends Controller
                         'total_amount' => $PriceLists[$i]->amount * $row['qty'],
                         'uom_id' => $PriceLists[$i]->uom_id,
                         'notes' => $row['notes'],
-                        'created_by' => $user
-
+                        'created_by' => $user,
                     ];
                 }
                 SalesOrderDetail::insert($FinalWithoutOrderDetailsID);
             }
         }
+
         return response()->json([
-            'status' => 'success'
+            'status' => 'success',
         ], 200);
     }
 
     /**
-     * Generate Sales Order No
+     * Generate Sales Order No.
+     *
      * @return string
      */
     public function generateSalesOrderNo()
     {
         $year_month = Carbon::now()->format('ym');
         $latest_sales_order = SalesOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        $get_last_so_no = isset($latest_sales_order->sales_order_no) ? $latest_sales_order->sales_order_no : 'SO' . $year_month . '00000';
-        $cut_string_so = str_replace("SO", "", $get_last_so_no);
-        return 'SO' . ($cut_string_so + 1);
+        $get_last_so_no = isset($latest_sales_order->sales_order_no) ? $latest_sales_order->sales_order_no : 'SO'.$year_month.'00000';
+        $cut_string_so = str_replace('SO', '', $get_last_so_no);
+
+        return 'SO'.($cut_string_so + 1);
     }
 
     /**
-     * Delete Sales Order Detail
+     * Delete Sales Order Detail.
+     *
      * @param $id
+     *
      * @return JsonResponse
      */
     public function deleteOrderDetails($id)
@@ -290,17 +299,19 @@ class FormSalesOrderAPIController extends Controller
         $so_detail->delete();
 
         return response()->json([
-            'status' => 'Success!'
+            'status' => 'Success!',
         ], 200);
     }
 
     /**
-     * Download File
+     * Download File.
+     *
      * @param $file
+     *
      * @return mixed
      */
     public function DownloadFile($file)
     {
-        return Storage::download('public/files/' . $file);
+        return Storage::download('public/files/'.$file);
     }
 }

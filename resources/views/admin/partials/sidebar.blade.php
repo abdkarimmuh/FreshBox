@@ -29,11 +29,11 @@
                 <li class="{{ request()->route()->getName() == 'admin.procurement.user_procurement.index' ? ' active' : '' }}">
                     <a class="nav-link" href="{{route('admin.procurement.user_procurement.index')}}"><span>User Procurement</span></a>
                 </li>
-                <li class="{{ request()->route()->getName() == 'admin.procurement.assign_procurement.index' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{ route('admin.procurement.assign_procurement.index') }}"><span>Assign Procurement</span></a>
+                <li class="{{ request()->route()->getName() == 'admin.procurement.item_procurement.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{ route('admin.procurement.item_procurement.index') }}"><span>Item</span></a>
                 </li>
                 <li class="{{ request()->route()->getName() == 'admin.procurement.list_procurement.index' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{ route('admin.procurement.list_procurement.index') }}"><span>List Procurement</span></a>
+                    <a class="nav-link" href="{{ route('admin.procurement.list_procurement.index') }}"><span>Procurement</span></a>
                 </li>
             </ul>
         </li>
