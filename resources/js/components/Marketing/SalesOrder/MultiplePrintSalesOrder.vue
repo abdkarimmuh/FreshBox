@@ -16,9 +16,7 @@
             </div>
         </div>
         <div id="printMe" v-if="loading">
-
-            <div class="card card-body printableArea" style="page-break-after: always"
-                 v-for="(item, index) in sales_order">
+            <div style="page-break-after: always" v-for="(item, index) in sales_order">
                 <br>
                 <br>
                 <br>
@@ -36,22 +34,14 @@
                 <hr>
                 <div class="col-md-12">
                     <div class="pull-right text-right">
-                        <address>
-                            <h4><b class="text-danger">Sales Order<span
-                                class="pull-right">#{{ item.sales_order_no }}</span></b>
-                            </h4>
-
-                        </address>
+                        <h4><b class="text-danger">Sales Order<span
+                            class="pull-right">#{{ item.sales_order_no }}</span></b>
+                        </h4>
                     </div>
-
                     <div class="col-md-12">
-                        <div
-                            class="table-responsive m-t-40"
-                            style="clear: both;"
-                        >
+                        <div class="table-responsive m-t-40" style="clear: both;">
                             <table width="100%">
                                 <tbody>
-
                                 <tr>
                                     <td width="13%"><b>Supplier</b></td>
                                     <td width="2%">:</td>
@@ -59,15 +49,12 @@
                                     <td width="40%"></td>
 
                                 </tr>
-
                                 <tr>
                                     <td width="13%"><b>Address</b></td>
                                     <td width="2%">:</td>
                                     <td width="40%">{{ item.customer_address}}</td>
                                     <td width="40%"></td>
-
                                 </tr>
-
                                 <tr>
                                     <td width="13%"><b>Sales Order Date</b></td>
                                     <td width="2%">:</td>
@@ -75,7 +62,6 @@
                                     <td width="40%"></td>
 
                                 </tr>
-
                                 <tr>
                                     <td width="13%"><b>Fullfilment Date</b></td>
                                     <td width="2%">:</td>
@@ -90,7 +76,7 @@
                     <br>
                     <div class="col-md-12">
                         <div class="table-responsive">
-                                <table class="table table-bordered table-md">
+                            <table class="table table-bordered table-md">
                                 <thead>
                                 <tr>
                                     <th class="text-center">SKUID</th>
@@ -102,10 +88,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr
-                                    v-for="(detail, index) in item.sales_order_details"
-                                    :key="index"
-                                >
+                                <tr v-for="(detail, index) in item.sales_order_details" :key="index">
                                     <td>{{ detail.skuid }}</td>
                                     <td>{{ detail.item_name }}</td>
                                     <td>{{ detail.uom_name }}</td>
@@ -137,10 +120,7 @@
                         <hr>
                     </div>
                     <div class="col-md-12">
-                        <div
-                            class="table-responsive m-t-40"
-                            style="clear: both;"
-                        >
+                        <div class="table-responsive m-t-40" style="clear: both;">
                             <table width="100%">
                                 <tbody>
                                 <tr>
@@ -246,7 +226,7 @@
                         this.sales_order = res.data;
                         this.loading = true;
                     }).catch(e => {
-                    if (e.response.status == 500) {
+                    if (e.response.status === 500) {
                         this.getData()
                     }
                 });
@@ -267,17 +247,11 @@
                     if (result.value) {
                         this.$htmlToPaper('printMe');
                         axios.post(this.$parent.MakeUrl('api/v1/marketing/sales_order/multiplePrint'), payload);
-                        // Swal.fire(
-                        //     'Printed!',
-                        //     'This Sales Order has been Printed.',
-                        //     'success'
-                        // )
                     }
                 })
             },
             back() {
-                this.$router.push({ name: 'form_sales_order'})
-                // return window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
+                this.$router.push({name: 'form_sales_order'})
             }
         }
     }

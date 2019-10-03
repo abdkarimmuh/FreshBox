@@ -4297,11 +4297,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4326,7 +4321,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.sales_order = res.data;
         _this.loading = true;
       })["catch"](function (e) {
-        if (e.response.status == 500) {
+        if (e.response.status === 500) {
           _this.getData();
         }
       });
@@ -4349,18 +4344,14 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           _this2.$htmlToPaper('printMe');
 
-          axios.post(_this2.$parent.MakeUrl('api/v1/marketing/sales_order/multiplePrint'), payload); // Swal.fire(
-          //     'Printed!',
-          //     'This Sales Order has been Printed.',
-          //     'success'
-          // )
+          axios.post(_this2.$parent.MakeUrl('api/v1/marketing/sales_order/multiplePrint'), payload);
         }
       });
     },
     back: function back() {
       this.$router.push({
         name: 'form_sales_order'
-      }); // return window.location.href = this.$parent.MakeUrl('admin/marketing/form_sales_order');
+      });
     }
   }
 });
@@ -52311,10 +52302,7 @@ var render = function() {
           _vm._l(_vm.sales_order, function(item, index) {
             return _c(
               "div",
-              {
-                staticClass: "card card-body printableArea",
-                staticStyle: { "page-break-after": "always" }
-              },
+              { staticStyle: { "page-break-after": "always" } },
               [
                 _c("br"),
                 _vm._v(" "),
