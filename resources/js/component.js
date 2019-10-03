@@ -22,6 +22,8 @@ import Testing from "./components/Testing";
 import ErrorPage from "./components/Template/ErrorPage";
 import ConfirmButton from "./components/Template/ConfirmButton";
 import HeaderPrint from "./components/Template/Print/HeaderPrint";
+import HeaderInfoPrint from "./components/Template/Print/HeaderInfoPrint";
+
 import TablePrint from "./components/Template/Print/TablePrint";
 
 
@@ -45,6 +47,8 @@ Vue.component('print-invoice-order', PrintInvoiceOrder);
 
 Vue.component('print-recap-invoice', PrintRecapInvoice);
 Vue.component('print-header', HeaderPrint);
+Vue.component('print-header-info', HeaderInfoPrint);
+
 Vue.component('print-table', TablePrint);
 
 Vue.component('s-form-input', StislaFromInput);

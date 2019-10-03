@@ -4,57 +4,8 @@
             <print-header :logo="logo"></print-header>
             <div class="row" v-if="loading">
                 <div class="col-md-12">
-                    <div class="pull-right text-right">
-                        <h4><b class="text-danger">{{ info.title }}<span
-                            class="pull-right">#{{ invoice_order.invoice_no }}</span></b>
-                        </h4>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="table-responsive m-t-40">
-                            <table width="100%">
-                                <tbody>
-                                <tr>
-                                    <td width="13%"><b>Invoice Date</b></td>
-                                    <td width="2%">:</td>
-                                    <td width="40%">{{ invoice_order.invoice_date }}</td>
-                                    <td width="40%"></td>
-                                </tr>
-                                <tr>
-                                    <td width="13%"><b>Delivery Order No</b></td>
-                                    <td width="2%">:</td>
-                                    <td width="40%">{{ invoice_order.delivery_order_no }}</td>
-                                    <td width="40%"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="col-md-12">
-                        <div class="table-responsive m-t-40">
-                            <table width="100%">
-                                <tbody>
-                                <tr>
-                                    <td width="13%"><b>Kepada Yth</b></td>
-                                    <td width="2%">:</td>
-                                </tr>
-
-                                <tr>
-                                    <td width="13%"><b>Customer</b></td>
-                                    <td width="2%">:</td>
-                                    <td width="40%">{{ invoice_order.customer_name }}</td>
-                                    <td width="40%"></td>
-                                </tr>
-                                <tr>
-                                    <td width="13%"><b>PO No</b></td>
-                                    <td width="2%">:</td>
-                                    <td width="40%">{{ invoice_order.no_po }}</td>
-                                    <td width="40%"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <print-header-info :header_info="header_info" :data="invoice_order"
+                                       :info="info"></print-header-info>
                     <br>
                     <print-table :columns="columns" :data="details"></print-table>
                     <div class="col-md-12">
@@ -88,8 +39,8 @@
                         </table>
                         <hr>
                     </div>
-                    <div clas="col-md-12">
-                        <div class="text-right mr-3">
+                    <div class="col-md-12">
+                        <div class="text-right mr-2">
                             <h6><b>{{ info.nama_pt }}</b></h6>
                             <br>
                             <br>
@@ -97,57 +48,43 @@
                             <br>
                             <br>
                             <div class="mr-5">
-                                <b>{{ info.nama_ttd }}</b>
+                                <h6>{{ info.nama_ttd }}</h6>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="table-responsive m-t-40" style="clear: both;">
-                            <table width="100%">
-                                <tbody>
-                                <tr>
-                                    <td width="60%">
-                                        <table width="100%">
-                                            <tbody>
-                                            <tr>
-                                                <td width="10%"><b><h6>Harap Transfer Ke</h6></b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%"></td>
-                                                <td width="8%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="2%"><b>Penerima</b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%">{{ info.nama_pt }}</td>
-                                                <td width="8%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="2%"><b>No Rekening</b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%">{{ info.no_rek }}</td>
-                                                <td width="8%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="2%"><b>Bank</b></td>
-                                                <td width="2%">:</td>
-                                                <td width="30%">{{ info.bank }}</td>
-                                                <td width="8%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><br></td>
-                                            </tr>
-                                            <tr>
-                                                <td width="10%" colspan="5"><b>*) Pembayaran dianggap sah jika bukti
+                        <table width="60%">
+                            <tbody>
+                            <tr>
+                                <td width="10%" class="text-right"><b><h6>Harap transfer ke</h6></b></td>
+                                <td width="2%">&nbsp:</td>
+                                <td width="30%"></td>
+                            </tr>
+                            <tr>
+                                <td width="2%" class="text-right"><b>Penerima</b></td>
+                                <td width="2%">&nbsp:</td>
+                                <td width="30%">{{ info.nama_pt }}</td>
+                            </tr>
+                            <tr>
+                                <td width="2%" class="text-right"><b>No Rekening</b></td>
+                                <td width="2%">&nbsp:</td>
+                                <td width="30%">{{ info.no_rek }}</td>
+                            </tr>
+                            <tr>
+                                <td width="2%" class="text-right"><b>Bank</b></td>
+                                <td width="2%">&nbsp:</td>
+                                <td width="30%">{{ info.bank }}</td>
+                            </tr>
+                            <tr>
+                                <td><br></td>
+                            </tr>
+                            <tr>
+                                <td width="10%" colspan="5"><b>*) Pembayaran dianggap sah jika bukti
 
-                                                    transfer sudah dikirimkan kepada kami</b></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                    transfer sudah dikirimkan kepada kami</b></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -169,11 +106,12 @@
             </button>
         </div>
     </div>
-
 </template>
 
 <script>
+    // import HeaderInfoPrint from "../../Template/Print/HeaderInfoPrint";
     export default {
+        // components: {HeaderInfoPrint},
         props: ['id'],
         data() {
             return {
@@ -209,9 +147,35 @@
                         type: 'currency',
                     },
                 ],
+                header_info: [
+                    {
+                        title: "Invoice Date",
+                        field: "invoice_date",
+                    },
+                    {
+                        title: "Delivery Order No",
+                        field: "delivery_order_no",
+                    },
+                    {
+                        page_break: true,
+                    },
+                    {
+                        title: "Kepada Yth",
+                        field: "",
+                    },
+                    {
+                        title: "Customer",
+                        field: "customer_name",
+                    },
+                    {
+                        title: "Po No",
+                        field: "no_po",
+                    },
+                ],
                 logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
                 info: {
                     title: "Invoice",
+                    no: "invoice_no",
                     nama_pt: "PT BERKAH TANI SEJAHTERA",
                     nama_ttd: "Faizal Finanda",
                     no_rek: "008 500 9779",
