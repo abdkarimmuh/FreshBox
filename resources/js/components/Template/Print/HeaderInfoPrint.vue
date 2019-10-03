@@ -6,12 +6,12 @@
                     class="pull-right">#{{ data[info.no] }}</span></b>
                 </h4>
             </div>
-            <table width="100%">
+            <table width="80%">
                 <tbody>
                 <tr v-for="(item, index) in header_info">
                     <div v-if="!item.page_break">
-                        <td width="150px"><b>{{ item.title }}</b></td>
-                        <td width="2%">:</td>
+                        <td width="150px" class="text-right"><b>{{ item.title }}</b></td>
+                        <td width="15px">&nbsp;:</td>
                         <td width="40%">{{ data[item.field] }}</td>
                         <td width="40%"></td>
                     </div>

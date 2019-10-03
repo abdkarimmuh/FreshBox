@@ -53870,18 +53870,20 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("table", { attrs: { width: "100%" } }, [
+      _c("table", { attrs: { width: "80%" } }, [
         _c(
           "tbody",
           _vm._l(_vm.header_info, function(item, index) {
             return _c("tr", [
               !item.page_break
                 ? _c("div", [
-                    _c("td", { attrs: { width: "150px" } }, [
-                      _c("b", [_vm._v(_vm._s(item.title))])
-                    ]),
+                    _c(
+                      "td",
+                      { staticClass: "text-right", attrs: { width: "150px" } },
+                      [_c("b", [_vm._v(_vm._s(item.title))])]
+                    ),
                     _vm._v(" "),
-                    _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
+                    _c("td", { attrs: { width: "15px" } }, [_vm._v(" :")]),
                     _vm._v(" "),
                     _c("td", { attrs: { width: "40%" } }, [
                       _vm._v(_vm._s(_vm.data[item.field]))
