@@ -2647,21 +2647,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
@@ -2693,6 +2678,7 @@ __webpack_require__.r(__webpack_exports__);
       }],
       logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
       info: {
+        title: "Invoice",
         nama_pt: "PT BERKAH TANI SEJAHTERA",
         nama_ttd: "Faizal Finanda",
         no_rek: "008 500 9779",
@@ -4585,49 +4571,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      columns: [{
+        title: 'Item No',
+        field: 'skuid',
+        type: 'text'
+      }, {
+        title: 'Item Name',
+        field: 'item_name',
+        type: 'text'
+      }, {
+        title: 'Qty',
+        field: 'qty_confirm',
+        type: 'text'
+      }, {
+        title: 'Unit',
+        field: 'uom_name',
+        type: 'text'
+      }, {
+        title: 'Price',
+        field: 'amount_price',
+        type: 'currency'
+      }, {
+        title: 'Amount',
+        field: 'total_amount',
+        type: 'currency'
+      }],
+      logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
       sales_order: {},
       details: [],
       loading: false
@@ -50503,7 +50475,7 @@ var render = function() {
                   _c("div", { staticClass: "pull-right text-right" }, [
                     _c("h4", [
                       _c("b", { staticClass: "text-danger" }, [
-                        _vm._v("Invoice"),
+                        _vm._v(_vm._s(_vm.info.title)),
                         _c("span", { staticClass: "pull-right" }, [
                           _vm._v("#" + _vm._s(_vm.invoice_order.invoice_no))
                         ])
@@ -53052,41 +53024,17 @@ var render = function() {
           staticStyle: { "page-break-after": "always" }
         },
         [
-          _c("br"),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c("h3", [
-            _c("span", { staticClass: "logo-text" }, [
-              _c("img", {
-                staticClass: "light-logo",
-                attrs: {
-                  src: _vm.$parent.MakeUrl("assets/img/logo-frbox.png"),
-                  alt: "homepage"
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("hr"),
+          _c("print-header", { attrs: { logo: _vm.logo } }),
           _vm._v(" "),
           _vm.loading
             ? _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-md-12" }, [
                   _c("div", { staticClass: "pull-right text-right" }, [
-                    _c("address", [
-                      _c("h4", [
-                        _c("b", { staticClass: "text-danger" }, [
-                          _vm._v("Sales Order"),
-                          _c("span", { staticClass: "pull-right" }, [
-                            _vm._v("#" + _vm._s(_vm.sales_order.sales_order_no))
-                          ])
+                    _c("h4", [
+                      _c("b", { staticClass: "text-danger" }, [
+                        _vm._v("Sales Order"),
+                        _c("span", { staticClass: "pull-right" }, [
+                          _vm._v("#" + _vm._s(_vm.sales_order.sales_order_no))
                         ])
                       ])
                     ])
@@ -53244,7 +53192,8 @@ var render = function() {
                 _vm._v(" "),
                 _c("p", [_vm._v("Please wait, data is being loaded...")])
               ])
-        ]
+        ],
+        1
       )
     ]),
     _vm._v(" "),

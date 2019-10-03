@@ -1,47 +1,18 @@
 <template>
     <div>
-
         <div id="printMe">
-            <div
-                class="card card-body printableArea" style="page-break-after: always"
-            >
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <h3>
-        <span class="logo-text">
-          <img
-              v-bind:src="$parent.MakeUrl('assets/img/logo-frbox.png')"
-              alt="homepage"
-              class="light-logo"
-          >
-        </span>
-                </h3>
-
-                <hr>
-                <div
-                    class="row"
-                    v-if="loading"
-                >
+            <div class="card card-body printableArea" style="page-break-after: always">
+                <print-header :logo="logo"></print-header>
+                <div class="row" v-if="loading">
                     <div class="col-md-12">
                         <div class="pull-right text-right">
-                            <address>
-                                <h4><b class="text-danger">Sales Order<span class="pull-right">#{{ sales_order.sales_order_no }}</span></b>
-                                </h4>
-
-                            </address>
+                            <h4><b class="text-danger">Sales Order<span class="pull-right">#{{ sales_order.sales_order_no }}</span></b>
+                            </h4>
                         </div>
-
                         <div class="col-md-12">
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
+                            <div class="table-responsive m-t-40" style="clear: both;">
                                 <table width="100%">
                                     <tbody>
-
                                     <tr>
                                         <td width="13%"><b>Supplier</b></td>
                                         <td width="2%">:</td>
@@ -49,7 +20,6 @@
                                         <td width="40%"></td>
 
                                     </tr>
-
                                     <tr>
                                         <td width="13%"><b>Address</b></td>
                                         <td width="2%">:</td>
@@ -57,15 +27,12 @@
                                         <td width="40%"></td>
 
                                     </tr>
-
                                     <tr>
                                         <td width="13%"><b>Sales Order Date</b></td>
                                         <td width="2%">:</td>
                                         <td width="40%">{{ sales_order.created_at }}</td>
                                         <td width="40%"></td>
-
                                     </tr>
-
                                     <tr>
                                         <td width="13%"><b>Fullfilment Date</b></td>
                                         <td width="2%">:</td>
@@ -119,20 +86,13 @@
                             <hr>
                         </div>
                         <div class="col-md-12">
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
+                            <div class="table-responsive m-t-40" style="clear: both;">
                                 <table width="100%">
                                     <tbody>
                                     <tr>
                                         <td width="50%">
-
                                         <td width="10%">
-                                            <table
-                                                width="100%"
-                                                border="1"
-                                            >
+                                            <table width="100%" border="1">
                                                 <tbody>
                                                 <tr>
                                                     <td
@@ -193,6 +153,39 @@
     export default {
         data() {
             return {
+                columns: [
+                    {
+                        title: 'Item No',
+                        field: 'skuid',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Item Name',
+                        field: 'item_name',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Qty',
+                        field: 'qty_confirm',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Unit',
+                        field: 'uom_name',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Price',
+                        field: 'amount_price',
+                        type: 'currency',
+                    },
+                    {
+                        title: 'Amount',
+                        field: 'total_amount',
+                        type: 'currency',
+                    },
+                ],
+                logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
                 sales_order: {},
                 details: [],
                 loading: false,

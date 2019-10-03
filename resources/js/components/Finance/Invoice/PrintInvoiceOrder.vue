@@ -5,7 +5,7 @@
             <div class="row" v-if="loading">
                 <div class="col-md-12">
                     <div class="pull-right text-right">
-                        <h4><b class="text-danger">Invoice<span
+                        <h4><b class="text-danger">{{ info.title }}<span
                             class="pull-right">#{{ invoice_order.invoice_no }}</span></b>
                         </h4>
                     </div>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <br>
-                       <div class="col-md-12">
+                    <div class="col-md-12">
                         <div class="table-responsive m-t-40">
                             <table width="100%">
                                 <tbody>
@@ -144,21 +144,6 @@
                                             </tbody>
                                         </table>
                                     </td>
-                                    <!--                                    <td width="10%">-->
-                                    <!--                                        <table width="100%" border="1">-->
-                                    <!--                                            <tbody>-->
-                                    <!--                                            <tr>-->
-                                    <!--                                                <td width="35%" class="text-center">Prepare by</td>-->
-                                    <!--                                            </tr>-->
-                                    <!--                                            <tr>-->
-                                    <!--                                                <td height="78">&nbsp;</td>-->
-                                    <!--                                            </tr>-->
-                                    <!--                                            <tr>-->
-                                    <!--                                                <td height="23" class="text-center"></td>-->
-                                    <!--                                            </tr>-->
-                                    <!--                                            </tbody>-->
-                                    <!--                                        </table>-->
-                                    <!--                                    </td>-->
                                 </tr>
                                 </tbody>
                             </table>
@@ -226,6 +211,7 @@
                 ],
                 logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
                 info: {
+                    title: "Invoice",
                     nama_pt: "PT BERKAH TANI SEJAHTERA",
                     nama_ttd: "Faizal Finanda",
                     no_rek: "008 500 9779",
