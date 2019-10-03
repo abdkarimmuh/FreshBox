@@ -55,6 +55,7 @@
                                 >
                                     <thead>
                                     <tr>
+                                        <th class="text-center">No</th>
                                         <th class="text-center">SKUID</th>
                                         <th class="text-center">Item Name</th>
                                         <th class="text-center">UOM</th>
@@ -72,6 +73,7 @@
                                         v-for="(orders, index) in do_details"
                                         v-bind:key="index"
                                     >
+                                        <td>{{ index + 1 }}</td>
                                         <td>{{ orders.skuid }}</td>
                                         <td>{{ orders.item_name }}</td>
                                         <td>{{ orders.uom_name }}</td>
