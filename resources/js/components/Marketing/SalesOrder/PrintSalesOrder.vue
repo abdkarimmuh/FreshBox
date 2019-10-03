@@ -163,10 +163,6 @@
                         title: "Sales Order Date",
                         field: "fulfillment_date",
                     },
-                    // {
-                    //     title: "Delivery Order No",
-                    //     field: "delivery_order_no",
-                    // },
                     {
                         page_break: true,
                     },
@@ -200,7 +196,6 @@
                         this.sales_order = res.data;
                         this.details = res.data.sales_order_details;
                         this.loading = true;
-                        console.log(res.data.sales_order_details)
                     })
                     .catch(err => {
                         if (err.response.status == 500) {

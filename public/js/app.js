@@ -4507,11 +4507,7 @@ __webpack_require__.r(__webpack_exports__);
       header_info: [{
         title: "Sales Order Date",
         field: "fulfillment_date"
-      }, // {
-      //     title: "Delivery Order No",
-      //     field: "delivery_order_no",
-      // },
-      {
+      }, {
         page_break: true
       }, {
         title: "Kepada Yth",
@@ -4540,7 +4536,6 @@ __webpack_require__.r(__webpack_exports__);
         _this.sales_order = res.data;
         _this.details = res.data.sales_order_details;
         _this.loading = true;
-        console.log(res.data.sales_order_details);
       })["catch"](function (err) {
         if (err.response.status == 500) {
           _this.getData();
