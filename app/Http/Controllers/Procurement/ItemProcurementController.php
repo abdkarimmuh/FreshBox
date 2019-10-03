@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Procurement;
 
 use App\Http\Controllers\Controller;
-use App\Model\Marketing\SalesOrder;
-use App\Model\Procurement\AssignProcurement;
-use App\Model\Procurement\UserProcurement;
+use App\Model\Marketing\SalesOrderDetail;
 use Illuminate\Http\Request;
 
-class AssignProcurementController extends Controller
+class ItemProcurementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,12 +18,13 @@ class AssignProcurementController extends Controller
         $searchValue = $request->input('search');
 
         $columns = [
-            array('title' => 'Nama', 'field' => 'proc_name'),
+            // array('title' => 'Nama', 'field' => 'proc_name'),
             array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
             array('title' => 'Nama Barang', 'field' => 'item_name'),
             array('title' => 'Qty', 'field' => 'qty'),
-            array('title' => 'UOM', 'field' => 'uom'),
+            array('title' => 'UOM', 'field' => 'uom_name'),
             array('title' => 'Area', 'field' => 'origin_code'),
+            array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
             array('title' => 'Modified By', 'field' => 'updated_by_name'),
@@ -34,19 +33,19 @@ class AssignProcurementController extends Controller
 
         $config = [
             //Title Required
-            'title' => 'Assign Procurement',
+            'title' => 'Item Procurement',
             /*
              * Route Can Be Null
              */
             //Route For Button Add
-            // 'route-add' => 'admin.procurement.assign_procurement.create',
+            // 'route-add' => 'admin.procurement.item_procurement.create',
             //Route For Button Edit
-            // 'route-edit' => 'admin.procurement.assign_procurement.edit',
+            // 'route-edit' => 'admin.procurement.item_procurement.edit',
             //Route For Button Search
-            'route-search' => 'admin.procurement.assign_procurement.index',
+            'route-search' => 'admin.procurement.item_procurement.index',
         ];
 
-        $query = AssignProcurement::dataTableQuery($searchValue);
+        $query = SalesOrderDetail::dataTableQuery($searchValue);
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
@@ -59,26 +58,6 @@ class AssignProcurementController extends Controller
      */
     public function create()
     {
-        $so_assign = SalesOrder::where('status', 1)->get();
-        $users_procurement = UserProcurement::all();
-
-        foreach ($so_assign as $so) {
-            foreach ($so->sales_order_details as $detail) {
-                foreach ($users_procurement as $user) {
-                    if ($user->origin_id == $detail->item->origin_id && $user->category_id == $detail->item->category_id) {
-                        AssignProcurement::create([
-                            'sales_order_detail_id' => $detail->id,
-                            'user_proc_id' => $user->id,
-                            'created_by' => auth()->user()->id,
-                        ]);
-                    }
-                }
-            }
-            $so->status = 2;
-            $so->save();
-        }
-
-        return redirect('admin/procurement/assign_procurement');
     }
 
     /**

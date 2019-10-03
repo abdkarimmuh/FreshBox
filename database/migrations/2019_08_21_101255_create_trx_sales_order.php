@@ -8,8 +8,6 @@ class CreateTrxSalesOrder extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -19,7 +17,7 @@ class CreateTrxSalesOrder extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('source_order_id');
             $table->string('no_po')->nullable();
-            $table->date('fulfillment_date');
+            $table->datetime('fulfillment_date');
             $table->string('remarks', 200)->nullable();
             $table->binary('file')->nullable();
             $table->tinyInteger('status');
@@ -38,8 +36,6 @@ class CreateTrxSalesOrder extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

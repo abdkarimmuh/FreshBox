@@ -18,14 +18,13 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
     Route::get('users/list', 'UserController@index')->name('users.roles');
     Route::resource('users', 'UserController', [
         'names' => [
-            'index' => 'users'
-        ]
+            'index' => 'users',
+        ],
     ]);
-
 });
 
 Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
-    /**
+    /*
      * Routing Menu Marketing
      */
     Route::name('marketing.')->prefix('marketing')->group(function () {
@@ -42,11 +41,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
 //            Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile')->name('download');
 //            Route::post('/{id}/print', 'Marketing\FormSalesOrderController@print');
 //            Route::post('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint');
-
         });
     });
 
-    /**
+    /*
      * Route Menu Procurement
      */
     Route::name('procurement.')->prefix('procurement')->middleware('auth')->group(function () {
@@ -57,12 +55,12 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/{id}/edit', 'Procurement\UserProcurementController@edit')->name('edit');
             Route::patch('/edit', 'Procurement\UserProcurementController@update')->name('update');
         });
-        Route::name('assign_procurement.')->prefix('assign_procurement')->group(function () {
-            Route::get('/', 'Procurement\AssignProcurementController@index')->name('index');
-            Route::get('/create', 'Procurement\AssignProcurementController@create')->name('create');
-            Route::post('/create', 'Procurement\AssignProcurementController@store')->name('store');
-            Route::get('/{id}/edit', 'Procurement\AssignProcurementController@edit')->name('edit');
-            Route::patch('/edit', 'Procurement\AssignProcurementController@update')->name('update');
+        Route::name('item_procurement.')->prefix('item_procurement')->group(function () {
+            Route::get('/', 'Procurement\ItemProcurementController@index')->name('index');
+            Route::get('/create', 'Procurement\ItemProcurementController@create')->name('create');
+            Route::post('/create', 'Procurement\ItemProcurementController@store')->name('store');
+            Route::get('/{id}/edit', 'Procurement\ItemProcurementController@edit')->name('edit');
+            Route::patch('/edit', 'Procurement\ItemProcurementController@update')->name('update');
         });
         Route::name('list_procurement.')->prefix('list_procurement')->group(function () {
             Route::get('/', 'Procurement\ListProcurementController@index')->name('index');
@@ -73,7 +71,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         });
     });
 
-    /**
+    /*
      * Route Menu Procurement
      */
     Route::name('warehouse_in.')->prefix('warehouse_in')->middleware('auth')->group(function () {
@@ -85,7 +83,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         });
     });
 
-    /**
+    /*
      * Route Menu Warehouse
      */
     Route::name('warehouse.')->prefix('warehouse')->middleware('auth')->group(function () {
@@ -96,7 +94,6 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/{id}/show', 'Warehouse\FormDeliveryOrderController@show')->name('show');
             Route::get('/{id}/print', 'Warehouse\FormDeliveryOrderController@print')->name('print');
             Route::get('/multiplePrint', 'Warehouse\FormDeliveryOrderController@multiplePrint')->name('multiplePrint');
-
         });
 
         Route::name('confirm_delivery_order.')->prefix('confirm_delivery_order')->group(function () {
@@ -110,10 +107,9 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/create', 'Warehouse\ReturnedOrderController@create')->name('create');
             Route::post('/store', 'Warehouse\ReturnedOrderController@store')->name('store');
             Route::get('/{id}/show', 'Warehouse\ReturnedOrderController@show')->name('show');
-
         });
     });
-    /**
+    /*
      * Route Menu Finance
      */
     Route::name('finance.')->prefix('finance')->middleware('auth')->group(function () {
@@ -127,10 +123,9 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint')->name('multiplePrint');
             Route::post('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint');
             Route::get('/printRecap', 'Finance\FormInvoiceOrderController@printRecap')->name('printRecap');
-
         });
     });
-    /**
+    /*
      * Route Menu Master Data
      */
     Route::name('master_data.')->prefix('master_data')->middleware('auth')->group(function () {
@@ -248,15 +243,14 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'MasterData\ModulesController@index')->name('index');
         });
     });
-
 });
-
 
 Route::get('/invoice', function () {
     return InvoiceOrder::all();
 });
 Route::middleware('auth')->get('logout', function () {
     Auth::logout();
+
     return redirect(route('login'))->withInfo('You have successfully logged out!');
 })->name('logout');
 
@@ -271,7 +265,7 @@ Route::get('users/auth', function () {
     return response()->json(['user' => Auth::check() ? Auth::user() : false]);
 });
 
-/**
+/*
  * Route For Testing
  */
 Route::get('/assign', function () {
@@ -279,7 +273,6 @@ Route::get('/assign', function () {
 });
 
 Route::get('/testing', function () {
-
     $columns = [
         array('title' => 'Id', 'field' => 'id'),
         array('title' => 'Name', 'field' => 'name'),
@@ -289,7 +282,7 @@ Route::get('/testing', function () {
     $config = [
         //Title Required
         'title' => 'asd',
-        /**
+        /*
          * Route Can Be Null
          */
         //Route For Button Add
@@ -320,7 +313,7 @@ Route::get('/testing/{id}/edit', function ($id) {
         //Form Method
         'method' => 'PATCH',
         //Back Button Using Route Name
-        'back-button' => 'testing.create'
+        'back-button' => 'testing.create',
     ];
 
     $data = \App\Model\MasterData\Category::findOrFail($id);
@@ -329,7 +322,6 @@ Route::get('/testing/{id}/edit', function ($id) {
 })->name('testing.edit');
 
 Route::get('/testing/create', function () {
-
     //Form Generator
     $forms = [
         array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'asdsa', 'mandatory' => true),
@@ -343,7 +335,7 @@ Route::get('/testing/create', function () {
         //Form Method
         'method' => 'POST',
         //Back Button Using Route Name
-        'back-button' => 'testing.create'
+        'back-button' => 'testing.create',
     ];
 
     $data = \App\Model\MasterData\Category::paginate(5);
@@ -352,7 +344,6 @@ Route::get('/testing/create', function () {
 })->name('testing.create');
 
 Route::get('/testing/delete', function () {
-
     //Form Generator
     $forms = [
         array('type' => 'text', 'label' => 'Category Name', 'name' => 'name', 'place_holder' => 'asdsa', 'mandatory' => true),
@@ -366,7 +357,7 @@ Route::get('/testing/delete', function () {
         //Form Method
         'method' => 'POST',
         //Back Button Using Route Name
-        'back-button' => 'testing.create'
+        'back-button' => 'testing.create',
     ];
 
     $data = \App\Model\MasterData\Category::paginate(5);
@@ -375,6 +366,5 @@ Route::get('/testing/delete', function () {
 })->name('testing.delete');
 
 Route::get('roles', function () {
-
     return $user = auth()->user()->getRoleNames();
 });

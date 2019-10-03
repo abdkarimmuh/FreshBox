@@ -37,7 +37,6 @@
                             >
                                 <label>
                                     <b>File</b>
-                                    <span style="color: red;">*</span>
                                 </label>
                                 <div class="custom-file">
                                     <input

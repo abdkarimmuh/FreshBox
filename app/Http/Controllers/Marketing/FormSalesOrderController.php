@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Marketing;
 use App\Model\Marketing\SalesOrder;
 use App\Model\Marketing\SalesOrderDetail;
 use App\Model\MasterData\Price;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MasterData\PriceResource;
 use App\Http\Resources\SalesOrderResource;
+use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -33,6 +33,7 @@ class FormSalesOrderController extends Controller
                 $query = $query->paginate($pe);
             }
             $data = SalesOrderResource::collection($query);
+
             return $data;
         } else {
             return redirect()->back();
@@ -73,7 +74,7 @@ class FormSalesOrderController extends Controller
     public function create()
     {
         $config = [
-            'vue-component' => '<add-sales-order></add-sales-order>'
+            'vue-component' => '<add-sales-order></add-sales-order>',
         ];
 
         return view('layouts.vue-view', compact('config'));
@@ -93,11 +94,11 @@ class FormSalesOrderController extends Controller
 
             return response()->json([
                 'sales_order' => $sales_order,
-                'items' => $price
+                'items' => $price,
             ], 200);
         }
         $config = [
-            'vue-component' => "<edit-sales-order :sales_order_id='" . $id . "'>" . "</edit-sales-order>"
+            'vue-component' => "<edit-sales-order :sales_order_id='".$id."'>".'</edit-sales-order>',
         ];
 
         return view('layouts.vue-view', compact('config'));
@@ -128,10 +129,8 @@ class FormSalesOrderController extends Controller
             'file' => 'required|file64:jpeg,jpg,png,pdf',
             'items' => 'required',
             'items.*.qty' => 'required|not_in:0',
-
         ];
         $request->validate(array_merge($validation_po, $rules));
-
 
         $customer_id = $request->customerId;
         $items = $request->items;
@@ -145,8 +144,8 @@ class FormSalesOrderController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateSalesOrderNo() . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-            Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
+            $file_name = $this->generateSalesOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
         }
@@ -162,6 +161,7 @@ class FormSalesOrderController extends Controller
             'file' => $file_name,
             'status' => 1,
             'created_by' => $user,
+            'created_at' => Carbon::now(),
         ]);
         //Untuk Mendapatkan List SKUID
         foreach ($items as $i => $detail) {
@@ -188,6 +188,7 @@ class FormSalesOrderController extends Controller
                     'amount_price' => $listItems[$i]->amount,
                     'total_amount' => $listItems[$i]->amount * $detail['qty'],
                     'notes' => $detail['notes'],
+                    'status' => 1,
                     'created_by' => $user,
                 ];
             } else {
@@ -205,14 +206,10 @@ class FormSalesOrderController extends Controller
         return SalesOrderDetail::with('item')->where('sales_order_id', $id)->get();
     }
 
-
-
     public function DownloadFile($file)
     {
-        return Storage::download('public/files/' . $file);
+        return Storage::download('public/files/'.$file);
     }
-
-
 
     public function multiplePrint(Request $request)
     {
@@ -223,11 +220,12 @@ class FormSalesOrderController extends Controller
                     SalesOrder::whereIn('id', $id)->update(['is_printed' => 1]);
                 } else {
                     $sales_order = SalesOrderResource::collection(SalesOrder::whereIn('id', $id)->get());
-                    return response()->json($sales_order, 200);
+
+                    return response()->json($sales_osatusrder, 200);
                 }
             }
             $config = [
-                'vue-component' => " <multiple-print-sales-order id='" . json_encode($id) . "'></multiple-print-sales-order>"
+                'vue-component' => " <multiple-print-sales-order id='".json_encode($id)."'></multiple-print-sales-order>",
             ];
 
             return view('layouts.vue-view', compact('config', 'title'));
@@ -243,11 +241,12 @@ class FormSalesOrderController extends Controller
                 SalesOrder::where('id', $id)->update(['is_printed' => 1]);
             } else {
                 $sales_order = new SalesOrderResource(SalesOrder::findOrFail($id));
+
                 return response()->json($sales_order, 200);
             }
         }
         $config = [
-            'vue-component' => "<print-sales-order id='$id'></print-sales-order>"
+            'vue-component' => "<print-sales-order id='$id'></print-sales-order>",
         ];
 
         return view('layouts.vue-view', compact('config', 'title', 'id'));
@@ -257,8 +256,7 @@ class FormSalesOrderController extends Controller
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
+
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
-
-
 }
