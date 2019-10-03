@@ -4501,36 +4501,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      info: {
+        title: "Sales Order",
+        no: "sales_order_no"
+      },
       columns: [{
         title: 'Item No',
         field: 'skuid',
@@ -4541,7 +4518,7 @@ __webpack_require__.r(__webpack_exports__);
         type: 'text'
       }, {
         title: 'Qty',
-        field: 'qty_confirm',
+        field: 'qty',
         type: 'text'
       }, {
         title: 'Unit',
@@ -4549,12 +4526,31 @@ __webpack_require__.r(__webpack_exports__);
         type: 'text'
       }, {
         title: 'Price',
-        field: 'amount_price',
+        field: 'amount_price_formatted',
         type: 'currency'
       }, {
         title: 'Amount',
-        field: 'total_amount',
+        field: 'total_amount_formatted',
         type: 'currency'
+      }],
+      header_info: [{
+        title: "Sales Order Date",
+        field: "fulfillment_date"
+      }, // {
+      //     title: "Delivery Order No",
+      //     field: "delivery_order_no",
+      // },
+      {
+        page_break: true
+      }, {
+        title: "Kepada Yth",
+        field: ""
+      }, {
+        title: "PO No.",
+        field: "no_po"
+      }, {
+        title: "Customer",
+        field: "customer_name"
       }],
       logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
       sales_order: {},
@@ -4573,6 +4569,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.sales_order = res.data;
         _this.details = res.data.sales_order_details;
         _this.loading = true;
+        console.log(res.data.sales_order_details);
       })["catch"](function (err) {
         if (err.response.status == 500) {
           _this.getData();
@@ -52881,173 +52878,130 @@ var render = function() {
     _c("div", { attrs: { id: "printMe" } }, [
       _c(
         "div",
-        {
-          staticClass: "card card-body printableArea",
-          staticStyle: { "page-break-after": "always" }
-        },
+        { staticStyle: { "page-break-after": "always" } },
         [
           _c("print-header", { attrs: { logo: _vm.logo } }),
           _vm._v(" "),
           _vm.loading
             ? _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c("div", { staticClass: "pull-right text-right" }, [
-                    _c("h4", [
-                      _c("b", { staticClass: "text-danger" }, [
-                        _vm._v("Sales Order"),
-                        _c("span", { staticClass: "pull-right" }, [
-                          _vm._v("#" + _vm._s(_vm.sales_order.sales_order_no))
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "table-responsive m-t-40",
-                        staticStyle: { clear: "both" }
-                      },
-                      [
-                        _c("table", { attrs: { width: "100%" } }, [
-                          _c("tbody", [
-                            _c("tr", [
-                              _vm._m(0),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "2%" } }, [
-                                _vm._v(":")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.sales_order.customer_name))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "40%" } })
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _vm._m(1),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "2%" } }, [
-                                _vm._v(":")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.sales_order.customer_address))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "40%" } })
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _vm._m(2),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "2%" } }, [
-                                _vm._v(":")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.sales_order.created_at))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "40%" } })
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _vm._m(3),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "2%" } }, [
-                                _vm._v(":")
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.sales_order.fulfillment_date))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "40%" } })
-                            ])
-                          ])
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _c("div", { staticClass: "table-responsive" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-md-12" },
+                  [
+                    _c("print-header-info", {
+                      attrs: {
+                        header_info: _vm.header_info,
+                        data: _vm.sales_order,
+                        info: _vm.info
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("print-table", {
+                      attrs: { columns: _vm.columns, data: _vm.details }
+                    }),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12" }, [
                       _c(
                         "table",
-                        { staticClass: "table table-bordered table-md" },
+                        {
+                          staticStyle: { "border-top": "1px solid black" },
+                          attrs: { width: "100%" }
+                        },
                         [
-                          _vm._m(4),
-                          _vm._v(" "),
-                          _c(
-                            "tbody",
-                            _vm._l(_vm.details, function(item, index) {
-                              return _c("tr", { key: index }, [
-                                _c("td", [_vm._v(_vm._s(item.skuid))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.item_name))]),
-                                _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(item.uom_name))]),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  { staticStyle: { "text-align": "right" } },
-                                  [_vm._v(_vm._s(item.qty))]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  { staticStyle: { "text-align": "right" } },
-                                  [_vm._v(_vm._s(item.amount_price_formated))]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  { staticStyle: { "text-align": "right" } },
-                                  [_vm._v(_vm._s(item.total_amount_formated))]
-                                )
-                              ])
-                            }),
-                            0
-                          )
+                          _c("tbody", [
+                            _c("tr", [
+                              _c("td", { attrs: { width: "56%" } }, [
+                                _vm._v("Keterangan :")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "text-right",
+                                  staticStyle: {
+                                    "border-bottom": "1px solid black"
+                                  }
+                                },
+                                [_vm._v("Subtotal Rp")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "text-right",
+                                  staticStyle: {
+                                    "border-bottom": "1px solid black"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("toIDR")(
+                                        _vm.sales_order.total_price
+                                      )
+                                    ) + "\n                                "
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(0),
+                            _vm._v(" "),
+                            _vm._m(1),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _c("td", { attrs: { width: "56%" } }),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "text-right",
+                                  staticStyle: {
+                                    "border-bottom": "1px solid black"
+                                  }
+                                },
+                                [_vm._v("Total Rp")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticClass: "text-right",
+                                  staticStyle: {
+                                    "border-bottom": "1px solid black"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("toIDR")(
+                                        _vm.sales_order.total_price
+                                      )
+                                    ) + "\n                                "
+                                  )
+                                ]
+                              )
+                            ])
+                          ])
                         ]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _c("div", { staticClass: "pull-right m-t-30 text-right" }, [
-                      _c("p", [
-                        _vm._v(
-                          "Sub - Total : " + _vm._s(_vm.sales_order.total_price)
-                        )
-                      ]),
+                      ),
                       _vm._v(" "),
-                      _c("p", [_vm._v("PPN : ")]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("PPh : - ")]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("h3", [
-                        _c("b", [_vm._v("Total :")]),
-                        _vm._v(" " + _vm._s(_vm.sales_order.total_price))
-                      ])
+                      _c("hr", {
+                        staticStyle: {
+                          height: "2px",
+                          "background-color": "black"
+                        }
+                      })
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "clearfix" }),
-                    _vm._v(" "),
-                    _c("hr")
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(5)
-                ])
+                    _vm._m(2)
+                  ],
+                  1
+                )
               ])
             : _c("div", { staticClass: "text-center p-4 text-muted" }, [
                 _c("h5", [_vm._v("Loading")]),
@@ -53089,50 +53043,44 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "13%" } }, [
-      _c("b", [_vm._v("Supplier")])
+    return _c("tr", [
+      _c("td", { attrs: { width: "56%" } }),
+      _vm._v(" "),
+      _c(
+        "td",
+        {
+          staticClass: "text-right",
+          staticStyle: { "border-bottom": "1px solid black" }
+        },
+        [_vm._v("Discount Rp")]
+      ),
+      _vm._v(" "),
+      _c("td", {
+        staticClass: "text-right",
+        staticStyle: { "border-bottom": "1px solid black" }
+      })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "13%" } }, [_c("b", [_vm._v("Address")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "13%" } }, [
-      _c("b", [_vm._v("Sales Order Date")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "13%" } }, [
-      _c("b", [_vm._v("Fullfilment Date")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { staticClass: "text-center" }, [_vm._v("SKUID")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Item Name")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("UOM")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Amount Price")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Total Amount")])
-      ])
+    return _c("tr", [
+      _c("td", { attrs: { width: "56%" } }),
+      _vm._v(" "),
+      _c(
+        "td",
+        {
+          staticClass: "text-right",
+          staticStyle: { "border-bottom": "1px solid black" }
+        },
+        [_vm._v("Pajak Rp")]
+      ),
+      _vm._v(" "),
+      _c("td", {
+        staticClass: "text-right",
+        staticStyle: { "border-bottom": "1px solid black" }
+      })
     ])
   },
   function() {
@@ -53140,53 +53088,27 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
-      _c(
-        "div",
-        {
-          staticClass: "table-responsive m-t-40",
-          staticStyle: { clear: "both" }
-        },
-        [
-          _c("table", { attrs: { width: "100%" } }, [
-            _c("tbody", [
-              _c("tr", [
-                _c("td", { attrs: { width: "50%" } }),
-                _c("td", { attrs: { width: "10%" } }, [
-                  _c("table", { attrs: { width: "100%", border: "1" } }, [
-                    _c("tbody", [
-                      _c("tr", [
-                        _c(
-                          "td",
-                          {
-                            staticClass: "text-center",
-                            attrs: { width: "35%" }
-                          },
-                          [
-                            _vm._v(
-                              "Prepare by\n                                                "
-                            )
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", { attrs: { height: "78" } }, [_vm._v(" ")])
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", {
-                          staticClass: "text-center",
-                          attrs: { height: "23" }
-                        })
-                      ])
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ]
-      )
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("h6", [_vm._v("Disiapkan oleh,")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [_c("h6", [_vm._v("Driver,")])]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("h6", [_vm._v("Diterima oleh,")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br")
     ])
   }
 ]

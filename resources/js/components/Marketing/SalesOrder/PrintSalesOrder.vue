@@ -1,123 +1,96 @@
 <template>
     <div>
         <div id="printMe">
-            <div class="card card-body printableArea" style="page-break-after: always">
+            <div style="page-break-after: always">
                 <print-header :logo="logo"></print-header>
                 <div class="row" v-if="loading">
                     <div class="col-md-12">
-                        <div class="pull-right text-right">
-                            <h4><b class="text-danger">Sales Order<span class="pull-right">#{{ sales_order.sales_order_no }}</span></b>
-                            </h4>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="table-responsive m-t-40" style="clear: both;">
-                                <table width="100%">
-                                    <tbody>
-                                    <tr>
-                                        <td width="13%"><b>Supplier</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ sales_order.customer_name }}</td>
-                                        <td width="40%"></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td width="13%"><b>Address</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ sales_order.customer_address}}</td>
-                                        <td width="40%"></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td width="13%"><b>Sales Order Date</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ sales_order.created_at }}</td>
-                                        <td width="40%"></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="13%"><b>Fullfilment Date</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ sales_order.fulfillment_date }}</td>
-                                        <td width="40%"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <print-header-info :header_info="header_info" :data="sales_order"
+                                           :info="info"></print-header-info>
+                        <br>
+                        <print-table :columns="columns" :data="details"></print-table>
                         <br>
                         <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-md">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">SKUID</th>
-                                        <th class="text-center">Item Name</th>
-                                        <th class="text-center">UOM</th>
-                                        <th class="text-center">Qty</th>
-                                        <th class="text-center">Amount Price</th>
-                                        <th class="text-center">Total Amount</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr
-                                        v-for="(item, index) in details"
-                                        :key="index"
-                                    >
-                                        <td>{{ item.skuid }}</td>
-                                        <td>{{ item.item_name }}</td>
-                                        <td>{{ item.uom_name }}</td>
-                                        <td style="text-align: right;">{{ item.qty }}</td>
-                                        <td style="text-align: right;">{{ item.amount_price_formated }}</td>
-                                        <td style="text-align: right;">{{ item.total_amount_formated }}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="col-md-12">
-                            <div class="pull-right m-t-30 text-right">
-                                <p>Sub - Total : {{ sales_order.total_price }}</p>
-                                <p>PPN : </p>
-                                <p>PPh : - </p>
-                                <hr>
-                                <h3><b>Total :</b> {{ sales_order.total_price }}</h3>
-                            </div>
-                            <div class="clearfix"></div>
-                            <hr>
+                            <table width="100%" style="border-top: 1px solid black">
+                                <tbody>
+                                <tr>
+                                    <td width="56%">Keterangan :</td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right">Subtotal Rp</td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right">{{
+                                        sales_order.total_price | toIDR }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="56%"></td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right">Discount Rp</td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right"></td>
+                                </tr>
+                                <tr>
+                                    <td width="56%"></td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right">Pajak Rp</td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right"></td>
+                                </tr>
+                                <tr>
+                                    <td width="56%"></td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right">Total Rp</td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right">{{
+                                        sales_order.total_price | toIDR }}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <hr style="height: 2px; background-color: black">
                         </div>
                         <div class="col-md-12">
-                            <div class="table-responsive m-t-40" style="clear: both;">
-                                <table width="100%">
-                                    <tbody>
-                                    <tr>
-                                        <td width="50%">
-                                        <td width="10%">
-                                            <table width="100%" border="1">
-                                                <tbody>
-                                                <tr>
-                                                    <td
-                                                        width="35%"
-                                                        class="text-center"
-                                                    >Prepare by
-                                                    </td>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>Disiapkan oleh,</h6>
+                                </div>
+                                <div class="col-md-3">
+                                    <h6>Driver,</h6>
+                                </div>
+                                <div class="col-md-3">
+                                    <h6>Diterima oleh,</h6>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
 
-                                                </tr>
-                                                <tr>
-                                                    <td height="78">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td
-                                                        height="23"
-                                                        class="text-center"
-                                                    ></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <!--                            <div class="table-responsive m-t-40" style="clear: both;">-->
+                            <!--                                <table width="100%">-->
+                            <!--                                    <tbody>-->
+                            <!--                                    <tr>-->
+                            <!--                                        <td width="50%">-->
+                            <!--                                        <td width="10%">-->
+                            <!--                                            <table width="100%" border="1">-->
+                            <!--                                                <tbody>-->
+                            <!--                                                <tr>-->
+                            <!--                                                    <td-->
+                            <!--                                                        width="35%"-->
+                            <!--                                                        class="text-center"-->
+                            <!--                                                    >Prepare by-->
+                            <!--                                                    </td>-->
+
+                            <!--                                                </tr>-->
+                            <!--                                                <tr>-->
+                            <!--                                                    <td height="78">&nbsp;</td>-->
+                            <!--                                                </tr>-->
+                            <!--                                                <tr>-->
+                            <!--                                                    <td-->
+                            <!--                                                        height="23"-->
+                            <!--                                                        class="text-center"-->
+                            <!--                                                    ></td>-->
+                            <!--                                                </tr>-->
+                            <!--                                                </tbody>-->
+                            <!--                                            </table>-->
+                            <!--                                        </td>-->
+                            <!--                                    </tr>-->
+                            <!--                                    </tbody>-->
+                            <!--                                </table>-->
+                            <!--                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -153,6 +126,10 @@
     export default {
         data() {
             return {
+                info: {
+                    title: "Sales Order",
+                    no: "sales_order_no",
+                },
                 columns: [
                     {
                         title: 'Item No',
@@ -166,7 +143,7 @@
                     },
                     {
                         title: 'Qty',
-                        field: 'qty_confirm',
+                        field: 'qty',
                         type: 'text',
                     },
                     {
@@ -176,14 +153,40 @@
                     },
                     {
                         title: 'Price',
-                        field: 'amount_price',
+                        field: 'amount_price_formatted',
                         type: 'currency',
                     },
                     {
                         title: 'Amount',
-                        field: 'total_amount',
+                        field: 'total_amount_formatted',
                         type: 'currency',
                     },
+                ],
+                header_info: [
+                    {
+                        title: "Sales Order Date",
+                        field: "fulfillment_date",
+                    },
+                    // {
+                    //     title: "Delivery Order No",
+                    //     field: "delivery_order_no",
+                    // },
+                    {
+                        page_break: true,
+                    },
+                    {
+                        title: "Kepada Yth",
+                        field: "",
+                    },
+                    {
+                        title: "PO No.",
+                        field: "no_po",
+                    },
+                    {
+                        title: "Customer",
+                        field: "customer_name",
+                    },
+
                 ],
                 logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
                 sales_order: {},
@@ -201,6 +204,7 @@
                         this.sales_order = res.data;
                         this.details = res.data.sales_order_details;
                         this.loading = true;
+                        console.log(res.data.sales_order_details)
                     })
                     .catch(err => {
                         if (err.response.status == 500) {
