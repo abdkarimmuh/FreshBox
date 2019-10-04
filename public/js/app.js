@@ -6226,161 +6226,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
     return {
+      info: {
+        title: "Delivery Order",
+        no: "delivery_order_no"
+      },
+      columns: [{
+        title: 'Item No',
+        field: 'skuid',
+        type: 'text'
+      }, {
+        title: 'Item Name',
+        field: 'item_name',
+        type: 'text'
+      }, {
+        title: 'Qty',
+        field: 'qty_order',
+        type: 'text'
+      }, {
+        title: 'Unit',
+        field: 'uom_name',
+        type: 'text'
+      }, {
+        title: 'Remarks',
+        field: 'remark',
+        type: 'text'
+      }],
+      header_info: [{
+        title: "Delivery Order Date",
+        field: "do_date"
+      }, // {
+      //     title: "Delivery Order No",
+      //     field: "delivery_order_no",
+      // },
+      {
+        page_break: true
+      }, {
+        title: "Kepada Yth",
+        field: ""
+      }, {
+        title: "PO No.",
+        field: "no_po"
+      }, {
+        title: "Customer",
+        field: "customer_name"
+      }],
+      logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
       delivery_order: [],
       loading: false
     };
@@ -6429,6 +6323,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -55257,175 +55153,45 @@ var render = function() {
           _vm._l(_vm.delivery_order, function(item, index) {
             return _c(
               "div",
-              {
-                staticClass: "card card-body",
-                staticStyle: { "page-break-after": "always" }
-              },
+              { staticStyle: { "page-break-after": "always" } },
               [
-                _c("br"),
+                _c("print-header", { attrs: { logo: _vm.logo } }),
                 _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("h3", [
-                  _c("span", { staticClass: "logo-text" }, [
-                    _c("img", {
-                      staticClass: "light-logo",
-                      attrs: {
-                        src: _vm.$parent.MakeUrl("assets/img/logo-frbox.png"),
-                        alt: "homepage"
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-12" }, [
-                    _c("div", { staticClass: "pull-right text-right" }, [
-                      _c("address", [
-                        _c("h4", [
-                          _c("b", { staticClass: "text-danger" }, [
-                            _vm._v("Delivery Order"),
-                            _c("span", { staticClass: "pull-right" }, [
-                              _vm._v("#" + _vm._s(item.delivery_order_no))
-                            ])
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12" }, [
+                _vm.loading
+                  ? _c("div", { staticClass: "row" }, [
                       _c(
                         "div",
-                        {
-                          staticClass: "table-responsive m-t-40",
-                          staticStyle: { clear: "both" }
-                        },
+                        { staticClass: "col-md-12" },
                         [
-                          _c("table", { attrs: { width: "100%" } }, [
-                            _c("tbody", [
-                              _c("tr", [
-                                _vm._m(0, true),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "2%" } }, [
-                                  _vm._v(":")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "40%" } }, [
-                                  _vm._v(_vm._s(item.customer_name))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "40%" } })
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", [
-                                _vm._m(1, true),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "2%" } }, [
-                                  _vm._v(":")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "40%" } }, [
-                                  _vm._v(_vm._s(item.customer_address))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "40%" } })
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", [
-                                _vm._m(2, true),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "2%" } }, [
-                                  _vm._v(":")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "40%" } }, [
-                                  _vm._v(_vm._s(item.sales_order_no))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "40%" } })
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", [
-                                _vm._m(3, true),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "2%" } }, [
-                                  _vm._v(":")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "40%" } }, [
-                                  _vm._v(_vm._s(item.delivery_order_no))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "40%" } })
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", [
-                                _vm._m(4, true),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "2%" } }, [
-                                  _vm._v(":")
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "40%" } }, [
-                                  _vm._v(_vm._s(item.do_date))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { attrs: { width: "40%" } })
-                              ])
-                            ])
-                          ])
-                        ]
+                          _c("print-header-info", {
+                            attrs: {
+                              header_info: _vm.header_info,
+                              data: item,
+                              info: _vm.info
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("print-table", {
+                            attrs: {
+                              columns: _vm.columns,
+                              data: item.do_details
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _vm._m(0, true),
+                          _vm._v(" "),
+                          _vm._m(1, true)
+                        ],
+                        1
                       )
-                    ]),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c("div", { staticClass: "table-responsive" }, [
-                        _c(
-                          "table",
-                          { staticClass: "table table-bordered table-md" },
-                          [
-                            _vm._m(5, true),
-                            _vm._v(" "),
-                            _c(
-                              "tbody",
-                              [
-                                _vm._l(item.do_details, function(row, index) {
-                                  return _c("tr", { key: index }, [
-                                    _c("td", [_vm._v(_vm._s(row.skuid))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(row.item_name))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(row.uom_name))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(row.qty_do))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(row.remark))])
-                                  ])
-                                }),
-                                _vm._v(" "),
-                                _vm._m(6, true)
-                              ],
-                              2
-                            )
-                          ]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(7, true)
-                  ])
-                ])
-              ]
+                    ])
+                  : _vm._e()
+              ],
+              1
             )
           }),
           0
@@ -55442,193 +55208,72 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "13%" } }, [
-      _c("b", [_vm._v("Supplier")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "13%" } }, [_c("b", [_vm._v("Address")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "13%" } }, [
-      _c("b", [_vm._v("Sales Order No")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "13%" } }, [
-      _c("b", [_vm._v("Delivery Order No")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "13%" } }, [
-      _c("b", [_vm._v("Delivery Order Date")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { staticClass: "text-center" }, [_vm._v("SKUID")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Item Name")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("UOM")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Qty DO")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Remark")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-12" }, [
       _c(
-        "div",
+        "table",
         {
-          staticClass: "table-responsive m-t-40",
-          staticStyle: { clear: "both" }
+          staticStyle: { "border-top": "1px solid black" },
+          attrs: { width: "100%" }
         },
         [
-          _c("table", { attrs: { width: "100%" } }, [
-            _c("tbody", [
-              _c("tr", [
-                _c("td", { attrs: { width: "50%" } }, [
-                  _c("table", { attrs: { width: "100%" } }, [
-                    _c("tbody", [
-                      _c("tr", [
-                        _c("td", { attrs: { width: "2%" } }, [
-                          _c("b", [_vm._v("Bank")])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "30%" } }),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "8%" } })
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", { attrs: { width: "2%" } }, [
-                          _c("b", [_vm._v("Account No")])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "30%" } }),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "8%" } })
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", { attrs: { width: "2%" } }, [
-                          _c("b", [_vm._v("Beneficiary")])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "30%" } }),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "8%" } })
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", { attrs: { width: "2%" } }, [
-                          _c("b", [_vm._v("Branch")])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "30%" } }),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "8%" } })
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", { attrs: { width: "2%" } }, [
-                          _c("b", [_vm._v("Swift Code")])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "30%" } }),
-                        _vm._v(" "),
-                        _c("td", { attrs: { width: "8%" } })
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("td", { attrs: { width: "10%" } }, [
-                  _c("table", { attrs: { width: "100%", border: "1" } }, [
-                    _c("tbody", [
-                      _c("tr", [
-                        _c(
-                          "td",
-                          {
-                            staticClass: "text-center",
-                            attrs: { width: "35%" }
-                          },
-                          [
-                            _vm._v(
-                              "Prepare by\n                                                "
-                            )
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", { attrs: { height: "78" } }, [_vm._v(" ")])
-                      ]),
-                      _vm._v(" "),
-                      _c("tr", [
-                        _c("td", {
-                          staticClass: "text-center",
-                          attrs: { height: "23" }
-                        })
-                      ])
-                    ])
-                  ])
-                ])
+          _c("tbody", [
+            _c("tr", [
+              _c("td", { attrs: { height: "70px", width: "56%" } }, [
+                _vm._v("Keterangan :")
               ])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", {
+                staticStyle: { "border-bottom": "1px solid black" },
+                attrs: { width: "100%" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", {
+                staticStyle: { "border-bottom": "1px solid black" },
+                attrs: { height: "22px", width: "100%" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", {
+                staticStyle: { "border-bottom": "2px solid black" },
+                attrs: { height: "22px", width: "100%" }
+              })
             ])
           ])
         ]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 mt-2" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("h6", [_vm._v("Disiapkan oleh,")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [_c("h6", [_vm._v("Driver,")])]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
+          _c("h6", [_vm._v("Diterima oleh,")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br")
     ])
   }
 ]
@@ -55753,19 +55398,24 @@ var staticRenderFns = [
                 staticStyle: { "border-bottom": "1px solid black" },
                 attrs: { height: "22px", width: "100%" }
               })
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", {
+                staticStyle: { "border-bottom": "2px solid black" },
+                attrs: { height: "22px", width: "100%" }
+              })
             ])
           ])
         ]
-      ),
-      _vm._v(" "),
-      _c("hr", { staticStyle: { height: "2px", "background-color": "black" } })
+      )
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
+    return _c("div", { staticClass: "col-md-12 mt-2" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-3" }, [
           _c("h6", [_vm._v("Disiapkan oleh,")])

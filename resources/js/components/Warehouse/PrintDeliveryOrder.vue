@@ -21,11 +21,13 @@
                             <tr>
                                 <td height="22px" width="100%" style="border-bottom: 1px solid black"></td>
                             </tr>
+                              <tr>
+                                <td height="22px" width="100%" style="border-bottom: 2px solid black"></td>
+                            </tr>
                             </tbody>
                         </table>
-                        <hr style="height: 2px; background-color: black">
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-2">
                         <div class="row">
                             <div class="col-md-3">
                                 <h6>Disiapkan oleh,</h6>
