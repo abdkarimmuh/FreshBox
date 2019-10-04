@@ -95,6 +95,11 @@ class SalesOrder extends MyModel
         return $this->sales_order_no.' - '.$this->customer->name;
     }
 
+    public function getDriverNameAttribute()
+    {
+        return $this->Driver->name;
+    }
+
     public function Customer()
     {
         return $this->belongsTo(Customer::class);
