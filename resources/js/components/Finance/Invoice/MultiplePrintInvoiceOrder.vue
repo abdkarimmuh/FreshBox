@@ -13,225 +13,110 @@
             > Print
             </button>
         </div>
-        <div id="printMe" v-if="loading">
-            <div class="card card-body" style="page-break-after: always" v-for="(item, index) in invoice_order">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <h3>
-        <span class="logo-text">
-          <img
-              v-bind:src="$parent.MakeUrl('assets/img/logo-frbox.png')"
-              alt="homepage"
-              class="light-logo"
-          >
-        </span>
-                </h3>
-                <hr>
-                <div
-                    class="row"
-                    v-if="loading"
-                >
+        <div id="printMe">
+            <div style="page-break-after: always" v-for="(item, index) in invoice_order">
+                <print-header :logo="logo"></print-header>
+                <div class="row" v-if="loading">
                     <div class="col-md-12">
-                        <div class="pull-right text-right">
-                            <address>
-                                <h4><b class="text-danger">Invoice<span
-                                    class="pull-right">#{{ item.invoice_no }}</span></b>
-                                </h4>
-
-                            </address>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
-                                <table width="100%">
-                                    <tbody>
-
-                                    <tr>
-                                        <td width="13%"><b>Supplier</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ item.customer_name }}</td>
-                                        <td width="40%"></td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td width="13%"><b>Address</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ item.customer_address }}</td>
-                                        <td width="40%"></td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td width="13%"><b>Sales Order No</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ item.sales_order_no }}</td>
-                                        <td width="40%"></td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td width="13%"><b>Delivery Order No</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ item.delivery_order_no }}</td>
-                                        <td width="40%"></td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td width="13%"><b>Invoice Date</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ item.invoice_date }}</td>
-                                        <td width="40%"></td>
-
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <print-header-info :header_info="header_info" :data="item"
+                                           :info="info"></print-header-info>
                         <br>
+                        <print-table :columns="columns" :data="item.do_details"></print-table>
                         <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-md">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">SKUID</th>
-                                        <th class="text-center">Item Name</th>
-                                        <th class="text-center">UOM</th>
-                                        <th class="text-center">Qty</th>
-                                        <th class="text-center">Amount Price</th>
-                                        <th class="text-center">Total Amount</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr
-                                        v-for="(row, index) in item.do_details"
-                                        :key="index"
-                                    >
-                                        <td>{{ row.skuid }}</td>
-                                        <td>{{ row.item_name }}</td>
-                                        <td>{{ row.uom_name }}</td>
-                                        <td>{{ row.qty_confirm }}</td>
-                                        <td>{{ row.amount_price }}</td>
-                                        <td>{{ row.total_amount }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                            <table width="100%" style="border-top: 1px solid black">
+                                <tbody>
+                                <tr>
+                                    <td width="56%">Keterangan :</td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right">Subtotal Rp</td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right">{{
+                                        item.total_price | toIDR }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="56%"></td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right">Discount Rp</td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right"></td>
+                                </tr>
+                                <tr>
+                                    <td width="56%"></td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right">Pajak Rp</td>
+                                    <td style="border-bottom: 1px solid black;" class="text-right"></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid black;">
+                                    <td width="56%"></td>
+                                    <td class="text-right">Total Rp</td>
+                                    <td class="text-right">{{
+                                        item.total_price | toIDR }}
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid black;" width="100%" height="22px">
+                                    <td width="56%"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                </tr>
+                                <tr style="border-bottom: 2px solid black;" width="100%" height="22px">
+                                    <td width="56%"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <div class="text-right mr-2">
+                                <h6><b>{{ info.nama_pt }}</b></h6>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <div class="mr-5">
+                                    <h6>{{ info.nama_ttd }}</h6>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="pull-right m-t-30 text-right">
-                                <p>Sub - Total : {{ item.total_price | toIDR }}</p>
-                                <p>PPN : </p>
-                                <p>PPh : - </p>
-                                <hr>
-                                <h3><b>Total :</b> {{ item.total_price | toIDR }}</h3>
-                            </div>
-                            <div class="clearfix"></div>
-                            <hr>
-                        </div>
-                        <div class="col-md-12">
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
-                                <table width="100%">
-                                    <tbody>
-                                    <tr>
-                                        <td width="50%">
-                                            <table width="100%">
-                                                <tbody>
-                                                <tr>
-                                                    <td width="2%"><b>Bank</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="2%"><b>Account No</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="2%"><b>Beneficiary</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="2%"><b>Branch</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="2%"><b>Swift Code</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                        <td width="10%">
-                                            <table
-                                                width="100%"
-                                                border="1"
-                                            >
-                                                <tbody>
-                                                <tr>
-                                                    <td
-                                                        width="35%"
-                                                        class="text-center"
-                                                    >Prepare by
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td height="78">&nbsp;</td>
-
-                                                </tr>
-
-                                                <tr>
-                                                    <td
-                                                        height="23"
-                                                        class="text-center"
-                                                    ></td>
-
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table width="60%">
+                                <tbody>
+                                <tr>
+                                    <td width="10%" class="text-right"><b><h6>Harap transfer ke</h6></b></td>
+                                    <td width="2%">&nbsp:</td>
+                                    <td width="30%"></td>
+                                </tr>
+                                <tr>
+                                    <td width="2%" class="text-right"><b>Penerima</b></td>
+                                    <td width="2%">&nbsp:</td>
+                                    <td width="30%">{{ info.nama_pt }}</td>
+                                </tr>
+                                <tr>
+                                    <td width="2%" class="text-right"><b>No Rekening</b></td>
+                                    <td width="2%">&nbsp:</td>
+                                    <td width="30%">{{ info.no_rek }}</td>
+                                </tr>
+                                <tr>
+                                    <td width="2%" class="text-right"><b>Bank</b></td>
+                                    <td width="2%">&nbsp:</td>
+                                    <td width="30%">{{ info.bank }}</td>
+                                </tr>
+                                <tr>
+                                    <td><br></td>
+                                </tr>
+                                <tr>
+                                    <td width="10%" colspan="5"><b>*) Pembayaran dianggap sah jika bukti transfer sudah
+                                        dikirimkan kepada kami</b></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+                <div class="text-center p-4 text-muted" v-else>
+                    <h5>Loading</h5>
+                    <p>Please wait, data is being loaded...</p>
+                </div>
             </div>
         </div>
-        <div class="text-center p-4 text-muted" v-else>
-            <h1>Loading</h1>
-            <p>Please wait, data is being loaded...</p>
-        </div>
     </div>
-
 </template>
 
 <script>
@@ -239,6 +124,73 @@
         props: ['id'],
         data() {
             return {
+                info: {
+                    title: "Invoice",
+                    no: "invoice_no",
+                    nama_pt: "PT BERKAH TANI SEJAHTERA",
+                    nama_ttd: "Faizal Finanda",
+                    no_rek: "008 500 9779",
+                    bank: "BCA Cabang BCBD"
+                },
+                columns: [
+                    {
+                        title: 'Item No',
+                        field: 'skuid',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Item Name',
+                        field: 'item_name',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Qty',
+                        field: 'qty_confirm',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Unit',
+                        field: 'uom_name',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Price',
+                        field: 'amount_price',
+                        type: 'currency',
+                    },
+                    {
+                        title: 'Amount',
+                        field: 'total_amount',
+                        type: 'currency',
+                    },
+                ],
+                header_info: [
+                    {
+                        title: "Invoice Date",
+                        field: "invoice_date",
+                    },
+                    {
+                        title: "Delivery Order No",
+                        field: "delivery_order_no",
+                    },
+                    {
+                        page_break: true,
+                    },
+                    {
+                        title: "Kepada Yth",
+                        field: "",
+                    },
+                    {
+                        title: "PO No.",
+                        field: "no_po",
+                    },
+                    {
+                        title: "Customer",
+                        field: "customer_name",
+                    },
+
+                ],
+                logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
                 invoice_order: [],
                 loading: false,
             }
@@ -252,7 +204,6 @@
                 const payload = {
                     id: id,
                 };
-
                 axios.get(this.$parent.MakeUrl('admin/finance/invoice_order/multiplePrint'), {params: payload})
                     .then(res => {
                         this.invoice_order = res.data;

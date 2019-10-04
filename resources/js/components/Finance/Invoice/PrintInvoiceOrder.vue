@@ -28,18 +28,27 @@
                                 <td style="border-bottom: 1px solid black;" class="text-right">Pajak Rp</td>
                                 <td style="border-bottom: 1px solid black;" class="text-right"></td>
                             </tr>
-                            <tr>
+                            <tr style="border-bottom: 1px solid black;">
                                 <td width="56%"></td>
-                                <td style="border-bottom: 1px solid black;" class="text-right">Total Rp</td>
-                                <td style="border-bottom: 1px solid black;" class="text-right">{{
+                                <td class="text-right">Total Rp</td>
+                                <td class="text-right">{{
                                     invoice_order.total_price | toIDR }}
                                 </td>
                             </tr>
+                            <tr style="border-bottom: 1px solid black;" width="100%" height="22px">
+                                <td width="56%"></td>
+                                <td class="text-right"></td>
+                                <td class="text-right"></td>
+                            </tr>
+                            <tr style="border-bottom: 2px solid black;" width="100%" height="22px">
+                                <td width="56%"></td>
+                                <td class="text-right"></td>
+                                <td class="text-right"></td>
+                            </tr>
                             </tbody>
                         </table>
-                        <hr>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-2">
                         <div class="text-right mr-2">
                             <h6><b>{{ info.nama_pt }}</b></h6>
                             <br>
@@ -109,9 +118,7 @@
 </template>
 
 <script>
-    // import HeaderInfoPrint from "../../Template/Print/HeaderInfoPrint";
     export default {
-        // components: {HeaderInfoPrint},
         props: ['id'],
         data() {
             return {
