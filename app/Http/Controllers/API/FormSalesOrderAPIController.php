@@ -77,7 +77,7 @@ class FormSalesOrderAPIController extends Controller
             'fulfillmentDate' => 'required',
             'customerId' => 'required|not_in:0',
             'sourceOrderId' => 'required',
-            'file' => 'file64:jpeg,jpg,png,pdf',
+//            'file' => 'file64:jpeg,jpg,png,pdf',
             'items' => 'required',
             'driver_id' => 'required',
             'items.*.qty' => 'required|not_in:0',
