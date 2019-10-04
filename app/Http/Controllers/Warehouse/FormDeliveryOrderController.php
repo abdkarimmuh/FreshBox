@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Warehouse;
 
 use App\Http\Resources\Warehouse\DeliveryOrderResource;
 use App\Model\Warehouse\DeliveryOrderDetail;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Marketing\SalesOrder;
@@ -20,17 +19,18 @@ class FormDeliveryOrderController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
     {
-
         $searchValue = $request->input('search');
         $columns = [
             array('title' => 'Delivery Order No', 'field' => 'delivery_order_no'),
             array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
             array('title' => 'Customer', 'field' => 'customer_name'),
             array('title' => 'Do Date', 'field' => 'do_date'),
+            array('title' => 'PIC QC', 'field' => 'pic_qc'),
             array('title' => 'Remarks', 'field' => 'remarks'),
             array('title' => 'Status', 'field' => 'status_name'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
@@ -42,14 +42,14 @@ class FormDeliveryOrderController extends Controller
             'title' => 'Form Delivery Order',
             //Search Route Required
             'route-search' => 'admin.warehouse.delivery_order.index',
-            /**
+            /*
              * Route Can Be Null, Using Route Name
              */
             //Route For Button Add
             'route-add' => 'admin.warehouse.delivery_order.create',
             //Route For Button View
             'route-view' => 'admin.warehouse.delivery_order.print',
-            'route-multiple-print' => 'admin.warehouse.delivery_order.multiplePrint'
+            'route-multiple-print' => 'admin.warehouse.delivery_order.multiplePrint',
         ];
 
         $query = DeliveryOrder::dataTableQuery($searchValue);
@@ -65,9 +65,8 @@ class FormDeliveryOrderController extends Controller
      */
     public function create()
     {
-
         $config = [
-            'vue-component' => "<add-delivery-order></add-delivery-order>"
+            'vue-component' => '<add-delivery-order></add-delivery-order>',
         ];
 
         return view('layouts.vue-view', compact('config'));
@@ -77,6 +76,7 @@ class FormDeliveryOrderController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function store(Request $request)
@@ -87,7 +87,7 @@ class FormDeliveryOrderController extends Controller
             'customer_id' => 'required',
             'do_date' => 'required',
             'so_details.*.qty_do' => 'required|not_in:0',
-
+            'pic_qc' => 'required',
         ];
         $request->validate($rules);
 
@@ -98,6 +98,7 @@ class FormDeliveryOrderController extends Controller
             'do_date' => $request->do_date,
             'driver_id' => $request->driver_id,
             'remark' => $request->remark,
+            'pic_qc' => $request->pic_qc,
             'created_by' => $request->user_id,
         ];
         $delivery_order = DeliveryOrder::create($data);
@@ -115,8 +116,9 @@ class FormDeliveryOrderController extends Controller
             ];
         }
         DeliveryOrderDetail::insert($salesOrderDetails);
+
         return response()->json([
-            'status' => 'success'
+            'status' => 'success',
         ], 200);
     }
 
@@ -129,15 +131,17 @@ class FormDeliveryOrderController extends Controller
     {
         $year_month = Carbon::now()->format('ym');
         $latest_delivery_order = DeliveryOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        $get_last_do_no = isset($latest_delivery_order->delivery_order_no) ? $latest_delivery_order->delivery_order_no : 'DO' . $year_month . '00000';
-        $cut_string_do = str_replace("DO", "", $get_last_do_no);
-        return 'DO' . ($cut_string_do + 1);
+        $get_last_do_no = isset($latest_delivery_order->delivery_order_no) ? $latest_delivery_order->delivery_order_no : 'DO'.$year_month.'00000';
+        $cut_string_do = str_replace('DO', '', $get_last_do_no);
+
+        return 'DO'.($cut_string_do + 1);
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
+     *
      * @return DeliveryOrderResource
      */
     public function show($id)
@@ -149,13 +153,15 @@ class FormDeliveryOrderController extends Controller
      * Display the specified resource.
      *
      * @param $id
+     *
      * @return View
      */
     public function print($id)
     {
         $config = [
-            'vue-component' => "<print-delivery-order :id='$id'></print-delivery-order>"
+            'vue-component' => "<print-delivery-order :id='$id'></print-delivery-order>",
         ];
+
         return view('layouts.vue-view', compact('config'));
     }
 
@@ -165,10 +171,11 @@ class FormDeliveryOrderController extends Controller
             $id = $request->id;
             if ($request->ajax()) {
                 $delivery_order = DeliveryOrderResource::collection(DeliveryOrder::whereIn('id', $id)->get());
+
                 return response()->json($delivery_order, 200);
             }
             $config = [
-                'vue-component' => " <multiple-print-delivery-order id='" . json_encode($id) . "'></multiple-print-delivery-order>"
+                'vue-component' => " <multiple-print-delivery-order id='".json_encode($id)."'></multiple-print-delivery-order>",
             ];
 
             return view('layouts.vue-view', compact('config'));

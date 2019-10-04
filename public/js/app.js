@@ -3494,6 +3494,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5903,6 +5905,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5968,6 +5994,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   customer_id: this.delivery_order.customer_id,
                   do_date: this.delivery_order.do_date,
                   driver_id: this.delivery_order.driver_id,
+                  pic_qc: this.delivery_order.pic_qc,
                   remark: this.delivery_order.remark,
                   so_details: this.sales_order_details.map(function (item, idx) {
                     return {
@@ -51764,8 +51791,10 @@ var render = function() {
                     _c("date-picker", {
                       attrs: {
                         lang: "en",
+                        type: "datetime",
                         valueType: "format",
-                        "not-before": new Date()
+                        "not-before": new Date(),
+                        format: "YYYY-MM-DD HH:mm"
                       },
                       model: {
                         value: _vm.sales_order.fulfillmentDate,
@@ -55294,6 +55323,51 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _c("div", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.delivery_order.pic_qc,
+                        expression: "delivery_order.pic_qc"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    class: { "is-invalid": _vm.errors.pic_qc },
+                    attrs: {
+                      type: "text",
+                      placeholder: "PIC Quality Control",
+                      required: ""
+                    },
+                    domProps: { value: _vm.delivery_order.pic_qc },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.delivery_order,
+                          "pic_qc",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.pic_qc
+                    ? _c("div", { staticClass: "invalid-feedback" }, [
+                        _c("p", [_vm._v(_vm._s(_vm.errors.pic_qc[0]))])
+                      ])
+                    : _vm._e()
+                ])
+              ])
+            ]),
+            _vm._v(" "),
             _vm.delivery_order.sales_order_id != ""
               ? _c("div", { staticClass: "col-12" }, [
                   _c(
@@ -55311,7 +55385,7 @@ var render = function() {
                           attrs: { id: "contentTable" }
                         },
                         [
-                          _vm._m(5),
+                          _vm._m(6),
                           _vm._v(" "),
                           _c(
                             "tbody",
@@ -55371,7 +55445,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-md-12" }, [
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(6),
+                _vm._m(7),
                 _vm._v(" "),
                 _c("textarea", {
                   directives: [
@@ -55476,6 +55550,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", [
       _c("b", [_vm._v("DO Date")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("PIC Quality Control")]),
       _vm._v(" "),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])

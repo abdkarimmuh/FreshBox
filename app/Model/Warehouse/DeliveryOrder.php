@@ -26,11 +26,10 @@ class DeliveryOrder extends MyModel
      *
      * @var array
      */
-    protected $fillable = ['delivery_order_no', 'sales_order_id', 'customer_id', 'do_date', 'confirm_date', 'remark', 'driver_id', 'created_by', 'created_at'];
+    protected $fillable = ['delivery_order_no', 'sales_order_id', 'customer_id', 'do_date', 'pic_qc', 'confirm_date', 'remark', 'driver_id', 'created_by', 'created_at'];
 
     protected $appends = ['customer_name', 'sales_order_no', 'status_name', 'driver_name'];
     protected $dates = ['do_date'];
-
 
     public function sales_order()
     {
@@ -54,7 +53,7 @@ class DeliveryOrder extends MyModel
 
     public function do_details_returned()
     {
-        return $this->hasMany(DeliveryOrderDetail::class)->where('qty_minus', '<>',0);
+        return $this->hasMany(DeliveryOrderDetail::class)->where('qty_minus', '<>', 0);
     }
 
     public function getDriverNameAttribute()

@@ -121,8 +121,10 @@
                                     <date-picker
                                         v-model="sales_order.fulfillmentDate"
                                         lang="en"
+                                        type="datetime"
                                         valueType="format"
                                         :not-before="new Date()"
+                                        format="YYYY-MM-DD HH:mm"
                                     ></date-picker>
                                 </div>
                                 <div

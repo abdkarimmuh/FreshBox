@@ -98,7 +98,31 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!-- PIC QC -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    <b>PIC Quality Control</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div>
+                                    <input
+                                        type="text"
+                                        v-bind:class="{'is-invalid': errors.pic_qc}"
+                                        placeholder="PIC Quality Control"
+                                        class="form-control"
+                                        v-model="delivery_order.pic_qc"
+                                        required
+                                    />
+                                    <div
+                                        class="invalid-feedback"
+                                        v-if="errors.pic_qc"
+                                    >
+                                        <p>{{ errors.pic_qc[0] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div
                             v-if="delivery_order.sales_order_id != ''"
                             class="col-12"
@@ -237,6 +261,7 @@
                     customer_id: this.delivery_order.customer_id,
                     do_date: this.delivery_order.do_date,
                     driver_id: this.delivery_order.driver_id,
+                    pic_qc: this.delivery_order.pic_qc,
                     remark: this.delivery_order.remark,
                     so_details: this.sales_order_details.map((item, idx) => ({
                         id: item.id,
