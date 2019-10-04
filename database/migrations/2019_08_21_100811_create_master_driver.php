@@ -8,8 +8,6 @@ class CreateMasterDriver extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -17,6 +15,7 @@ class CreateMasterDriver extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('phone_number', 20);
+            $table->string('vehicle_no')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
@@ -29,8 +28,6 @@ class CreateMasterDriver extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

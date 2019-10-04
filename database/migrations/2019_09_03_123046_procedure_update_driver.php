@@ -11,9 +11,9 @@ class ProcedureUpdateDriver extends Migration
     {
         DB::unprepared('DROP PROCEDURE IF EXISTS update_driver');
 
-        DB::unprepared('CREATE PROCEDURE update_driver(IN v_id INT, IN name VARCHAR(191), IN phone_number VARCHAR(20), IN updated_by INT )
+        DB::unprepared('CREATE PROCEDURE update_driver(IN v_id INT, IN name VARCHAR(191), IN phone_number VARCHAR(20), IN vehicle_no VARCHAR(20), IN updated_by INT )
         BEGIN
-        UPDATE master_driver SET name = name, phone_number = phone_number, updated_by = updated_by, updated_at = now() WHERE id = v_id;
+        UPDATE master_driver SET name = name, phone_number = phone_number, vehicle_no = vehicle_no, updated_by = updated_by, updated_at = now() WHERE id = v_id;
         END');
     }
 

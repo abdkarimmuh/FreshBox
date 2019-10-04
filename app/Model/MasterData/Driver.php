@@ -15,7 +15,7 @@ class Driver extends MyModel
 
     protected $appends = [
         'created_by_name',
-        'updated_by_name'
+        'updated_by_name',
     ];
 
     protected $columns = [
@@ -31,6 +31,10 @@ class Driver extends MyModel
             'searchable' => true,
             'search_relation' => false,
         ],
+        'vehicle_no' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
         'created_at' => [
             'searchable' => true,
             'search_relation' => false,
@@ -39,14 +43,14 @@ class Driver extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'create_by',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'updated_by_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'update_by',
-            'relation_field' => 'name'
-        ]
+            'relation_field' => 'name',
+        ],
     ];
 
     public function getColumns()

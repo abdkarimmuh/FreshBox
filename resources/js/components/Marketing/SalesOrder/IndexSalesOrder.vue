@@ -56,7 +56,11 @@
                         field: 'status_name',
                         type: 'html',
                         filterable: true,
-
+                    },
+                    {
+                        title: 'Driver',
+                        field: 'driver_name',
+                        filterable: true,
                     },
                     {
                         title: 'Created At',

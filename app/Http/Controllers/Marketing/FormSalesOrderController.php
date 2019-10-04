@@ -30,7 +30,7 @@ class FormSalesOrderController extends Controller
             if ($searchValue) {
                 $query = $query->take(20)->paginate(20);
             } else {
-                $query = $query->paginate($pe);
+                $query = $query->paginate($perPage);
             }
             $data = SalesOrderResource::collection($query);
 
@@ -221,7 +221,7 @@ class FormSalesOrderController extends Controller
                 } else {
                     $sales_order = SalesOrderResource::collection(SalesOrder::whereIn('id', $id)->get());
 
-                    return response()->json($sales_osatusrder, 200);
+                    return response()->json($sales_order, 200);
                 }
             }
             $config = [
