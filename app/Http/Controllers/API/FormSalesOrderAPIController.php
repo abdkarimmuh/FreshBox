@@ -61,7 +61,7 @@ class FormSalesOrderAPIController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        // return $request;
         //Check Jika Source Order PO
         //Maka No PO Wajib Di Isi
         //Jika Source Order ! = PO Maka No PO = ''
