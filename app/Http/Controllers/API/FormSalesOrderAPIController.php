@@ -61,6 +61,7 @@ class FormSalesOrderAPIController extends Controller
      */
     public function store(Request $request)
     {
+        return $request;
         //Check Jika Source Order PO
         //Maka No PO Wajib Di Isi
         //Jika Source Order ! = PO Maka No PO = ''
@@ -78,6 +79,7 @@ class FormSalesOrderAPIController extends Controller
             'sourceOrderId' => 'required',
             'file' => 'file64:jpeg,jpg,png,pdf',
             'items' => 'required',
+            'driver_id' => 'required',
             'items.*.qty' => 'required|not_in:0',
         ];
         $request->validate(array_merge($validation_po, $rules));
@@ -88,6 +90,7 @@ class FormSalesOrderAPIController extends Controller
         $fulfillment_date = $request->fulfillmentDate;
         $remarks = $request->remark;
         $user = $request->user_id;
+        $driver_id = $request->driver_id;
 
         //Untuk Mengupload File Ke Storage
         if ($request->file) {
@@ -110,6 +113,7 @@ class FormSalesOrderAPIController extends Controller
             'remarks' => $remarks,
             'file' => $file_name,
             'status' => 1,
+            'driver_id' => $driver_id,
             'created_by' => $user,
             'created_at' => Carbon::now(),
         ]);

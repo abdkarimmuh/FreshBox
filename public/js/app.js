@@ -3246,6 +3246,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3259,6 +3283,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         remark: "",
         no_po: "",
         customerId: 0,
+        driver_id: 0,
         sourceOrderId: 0
       },
       skuid: "",
@@ -3270,6 +3295,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       notes: [],
       errors: [],
       customers: [],
+      drivers: [],
       loading: false,
       header: {}
     };
@@ -3307,7 +3333,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this = this;
 
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId))]).then(axios.spread(function (customers, source_order, items) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId)), axios.get(this.$parent.MakeUrl("api/v1/master_data/driver"))]).then(axios.spread(function (customers, source_order, items, drivers) {
         _this.customers = customers.data;
         _this.source_orders = source_order.data;
         _this.items = items.data.data;
@@ -3316,6 +3342,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this.total_amount = [0];
         _this.notes = [];
         _this.skuid = "";
+        _this.drivers = drivers.data;
       }))["catch"](function (err) {
         if (err.response.status === 403) {
           _this.$router.push({
@@ -3347,6 +3374,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   fulfillmentDate: this.sales_order.fulfillmentDate,
                   sourceOrderId: this.sales_order.sourceOrderId,
                   no_po: this.sales_order.no_po,
+                  driver_id: this.sales_order.driver_id,
                   items: this.orders_detail.map(function (item, idx) {
                     return {
                       skuid: item.skuid,
@@ -3365,25 +3393,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   type: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
-                }).then(function (next) {
-                  _this2.$router.push({
-                    name: 'form_sales_order'
-                  });
+                }).then(function (next) {// this.$router.push({name: 'form_sales_order'});
                 });
-                _context2.next = 11;
+                console.log(res);
+                _context2.next = 12;
                 break;
 
-              case 8:
-                _context2.prev = 8;
+              case 9:
+                _context2.prev = 9;
                 _context2.t0 = _context2["catch"](1);
                 this.errors = _context2.t0.response.data.errors;
 
-              case 11:
+              case 12:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[1, 8]]);
+        }, _callee2, this, [[1, 9]]);
       }));
 
       function submitForm() {
@@ -50953,7 +50979,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "col-md-3" }, [
               _c("div", { staticClass: "form-group" }, [
                 _vm._m(5),
                 _vm._v(" "),
@@ -50996,13 +51022,56 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(6),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c("model-list-select", {
+                      class: { "is-invalid": _vm.errors.driver_id },
+                      attrs: {
+                        list: _vm.drivers,
+                        "option-value": "id",
+                        "option-text": "name",
+                        placeholder: "Select Driver"
+                      },
+                      model: {
+                        value: _vm.sales_order.driver_id,
+                        callback: function($$v) {
+                          _vm.$set(_vm.sales_order, "driver_id", $$v)
+                        },
+                        expression: "sales_order.driver_id"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.driver_id
+                      ? _c(
+                          "div",
+                          {
+                            staticStyle: {
+                              "margin-top": ".25rem",
+                              "font-size": "80%",
+                              color: "#dc3545"
+                            }
+                          },
+                          [_c("p", [_vm._v(_vm._s(_vm.errors.driver_id[0]))])]
+                        )
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ])
+            ]),
+            _vm._v(" "),
             _vm.sales_order.customerId != 0
               ? _c("div", { staticClass: "col-md-6" }, [
                   _c(
                     "div",
                     { staticClass: "form-group" },
                     [
-                      _vm._m(6),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c("model-list-select", {
                         attrs: {
@@ -51087,7 +51156,7 @@ var render = function() {
                             attrs: { id: "contentTable" }
                           },
                           [
-                            _vm._m(7),
+                            _vm._m(8),
                             _vm._v(" "),
                             _c(
                               "tbody",
@@ -51277,7 +51346,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-md-12" }, [
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(8),
+                _vm._m(9),
                 _vm._v(" "),
                 _c("textarea", {
                   directives: [
@@ -51397,6 +51466,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", [
       _c("b", [_vm._v("Fulfillment Date")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Driver")]),
       _vm._v(" "),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])

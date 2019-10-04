@@ -3,6 +3,7 @@
 namespace App\Model\Marketing;
 
 use App\Model\MasterData\Customer;
+use App\Model\MasterData\Driver;
 use App\Model\MasterData\SourceOrder;
 use App\MyModel;
 use App\Traits\SearchTraits;
@@ -22,7 +23,8 @@ class SalesOrder extends MyModel
         'updated_by_name',
         'created_by_name',
         'status_name',
-        'so_no_with_cust_name'
+        'so_no_with_cust_name',
+        'driver_name',
     ];
     protected $fillable = [
         'sales_order_no',
@@ -33,8 +35,9 @@ class SalesOrder extends MyModel
         'fulfillment_date',
         'remarks',
         'status',
+        'driver_id',
         'created_by',
-        'created_at'
+        'created_at',
     ];
     protected $dates = ['fulfillment_date'];
 
@@ -51,13 +54,19 @@ class SalesOrder extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'Customer',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'source_order_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'SourceOrder',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
+        ],
+        'driver_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'Driver',
+            'relation_field' => 'name',
         ],
         'fulfillment_date' => [
             'searchable' => true,
@@ -78,12 +87,12 @@ class SalesOrder extends MyModel
         'status' => [
             'searchable' => true,
             'search_relation' => false,
-        ]
+        ],
     ];
 
     public function getSoNoWithCustNameAttribute()
     {
-        return $this->sales_order_no . ' - ' . $this->customer->name;
+        return $this->sales_order_no.' - '.$this->customer->name;
     }
 
     public function Customer()
@@ -99,6 +108,11 @@ class SalesOrder extends MyModel
     public function SourceOrder()
     {
         return $this->belongsTo(SourceOrder::class);
+    }
+
+    public function Driver()
+    {
+        return $this->belongsTo(Driver::class);
     }
 
     public function getColumns()

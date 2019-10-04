@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>
                                     <b>Fulfillment Date</b>
@@ -132,6 +132,30 @@
                                     v-if="errors.fulfillmentDate"
                                 >
                                     <p>{{ errors.fulfillmentDate[0] }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>
+                                    <b>Driver</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div>
+                                    <model-list-select
+                                        v-bind:class="{'is-invalid': errors.driver_id}"
+                                        :list="drivers"
+                                        v-model="sales_order.driver_id"
+                                        option-value="id"
+                                        option-text="name"
+                                        placeholder="Select Driver"
+                                    ></model-list-select>
+                                    <div
+                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                        v-if="errors.driver_id"
+                                    >
+                                        <p>{{ errors.driver_id[0] }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -326,6 +350,7 @@
                     remark: "",
                     no_po: "",
                     customerId: 0,
+                    driver_id: 0,
                     sourceOrderId: 0,
                 },
                 skuid: "",
@@ -337,6 +362,7 @@
                 notes: [],
                 errors: [],
                 customers: [],
+                drivers: [],
                 loading: false,
                 header: {}
             };
@@ -354,10 +380,11 @@
                     .all([
                         axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list")),
                         axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list")),
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId))
+                        axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId)),
+                        axios.get(this.$parent.MakeUrl("api/v1/master_data/driver"))
                     ])
                     .then(
-                        axios.spread((customers, source_order, items) => {
+                        axios.spread((customers, source_order, items, drivers) => {
                             this.customers = customers.data;
                             this.source_orders = source_order.data;
                             this.items = items.data.data;
@@ -366,6 +393,7 @@
                             this.total_amount = [0];
                             this.notes = [];
                             this.skuid = "";
+                            this.drivers = drivers.data;
                         })
                     )
                     .catch(err => {
@@ -389,6 +417,7 @@
                     fulfillmentDate: this.sales_order.fulfillmentDate,
                     sourceOrderId: this.sales_order.sourceOrderId,
                     no_po: this.sales_order.no_po,
+                    driver_id: this.sales_order.driver_id,
                     items: this.orders_detail.map((item, idx) => ({
                         skuid: item.skuid,
                         qty: this.qty[idx],
@@ -404,8 +433,10 @@
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        this.$router.push({name: 'form_sales_order'});
+                        // this.$router.push({name: 'form_sales_order'});
                     });
+
+                    console.log(res)
 
                 } catch (e) {
                     this.errors = e.response.data.errors;

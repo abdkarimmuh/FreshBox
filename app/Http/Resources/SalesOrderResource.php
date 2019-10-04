@@ -32,6 +32,7 @@ class SalesOrderResource extends JsonResource
             'status' => $this->status,
             'remarks' => $this->remarks,
             'pic_qc' => $this->pic_qc,
+            'driver_id' => $this->driver_id,
             'so_no_with_cust_name' => $this->so_no_with_cust_name,
             'customer_id' => $this->customer_id,
             'source_order_id' => $this->source_order_id,

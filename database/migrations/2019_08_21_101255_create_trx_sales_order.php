@@ -22,6 +22,7 @@ class CreateTrxSalesOrder extends Migration
             $table->binary('file')->nullable();
             $table->tinyInteger('status');
             $table->tinyInteger('is_printed')->default(0);
+            $table->unsignedBigInteger('driver_id');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
@@ -30,6 +31,7 @@ class CreateTrxSalesOrder extends Migration
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('customer_id')->on('master_customer')->references('id')->onDelete('cascade');
+            $table->foreign('driver_id')->on('master_driver')->references('id')->onDelete('cascade');
             $table->foreign('source_order_id')->on('master_source_order')->references('id')->onDelete('cascade');
         });
     }
