@@ -12,7 +12,7 @@ class InvoiceOrder extends MyModel
     use SearchTraits;
     protected $table = 'trx_invoice';
     protected $fillable = ['invoice_no', 'do_id', 'invoice_date', 'created_by','customer_id'];
-    protected $appends = ['delivery_order_no', 'sales_order_no', 'customer_name', 'total_price', 'invoice_date_formatted'];
+    protected $appends = ['delivery_order_no', 'sales_order_no', 'customer_name', 'total_price', 'invoice_date_formatted','no_po'];
     protected $dates = ['invoice_date'];
 
     public function delivery_order()
@@ -34,6 +34,10 @@ class InvoiceOrder extends MyModel
     {
         return $this->delivery_order->sales_order->sales_order_no;
     }
+   public function getNoPoAttribute()
+    {
+        return $this->delivery_order->sales_order->no_po;
+    }
 
     public function getCustomerNameAttribute()
     {
@@ -44,7 +48,7 @@ class InvoiceOrder extends MyModel
     {
         $total_amount = 0;
         foreach ($this->delivery_order->delivery_order_details as $do_details) {
-            $total_amount += $do_details->sales_order_detail->total_amount;
+            $total_amount += $do_details->sales_order_detail->amount_price * $do_details->qty_confirm;
         }
         return $total_amount;
     }

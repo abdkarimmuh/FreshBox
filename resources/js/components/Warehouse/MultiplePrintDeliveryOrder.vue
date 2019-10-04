@@ -14,207 +14,56 @@
             </button>
         </div>
         <div id="printMe" v-if="loading">
-
-            <div class="card card-body" style="page-break-after: always" v-for="(item, index) in delivery_order">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <h3>
-        <span class="logo-text">
-          <img
-              v-bind:src="$parent.MakeUrl('assets/img/logo-frbox.png')"
-              alt="homepage"
-              class="light-logo"
-          >
-        </span>
-                </h3>
-                <hr>
-                <div class="row">
+            <div style="page-break-after: always" v-for="(item, index) in delivery_order">
+                <print-header :logo="logo"></print-header>
+                <div class="row" v-if="loading">
                     <div class="col-md-12">
-                        <div class="pull-right text-right">
-                            <address>
-                                <h4><b class="text-danger">Delivery Order<span class="pull-right">#{{ item.delivery_order_no }}</span></b>
-                                </h4>
-
-                            </address>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
-                                <table width="100%">
-                                    <tbody>
-
-                                    <tr>
-                                        <td width="13%"><b>Supplier</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ item.customer_name }}</td>
-                                        <td width="40%"></td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td width="13%"><b>Address</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ item.customer_address }}</td>
-                                        <td width="40%"></td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td width="13%"><b>Sales Order No</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ item.sales_order_no }}</td>
-                                        <td width="40%"></td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td width="13%"><b>Delivery Order No</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ item.delivery_order_no }}</td>
-                                        <td width="40%"></td>
-
-                                    </tr>
-
-                                    <tr>
-                                        <td width="13%"><b>Delivery Order Date</b></td>
-                                        <td width="2%">:</td>
-                                        <td width="40%">{{ item.do_date }}</td>
-                                        <td width="40%"></td>
-
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <print-header-info :header_info="header_info" :data="item"
+                                           :info="info"></print-header-info>
+                        <br>
+                        <print-table :columns="columns" :data="item.do_details"></print-table>
                         <br>
                         <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-md">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">SKUID</th>
-                                        <th class="text-center">Item Name</th>
-                                        <th class="text-center">UOM</th>
-                                        <th class="text-center">Qty DO</th>
-                                        <th class="text-center">Remark</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr
-                                        v-for="(row, index) in item.do_details"
-                                        :key="index"
-                                    >
-                                        <td>{{ row.skuid }}</td>
-                                        <td>{{ row.item_name }}</td>
-                                        <td>{{ row.uom_name }}</td>
-                                        <td>{{ row.qty_do }}</td>
-                                        <td>{{ row.remark }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table width="100%" style="border-top: 1px solid black">
+                                <tbody>
+                                <tr>
+                                    <td height="70px" width="56%">Keterangan :</td>
+                                </tr>
+                                <tr>
+                                    <td width="100%" style="border-bottom: 1px solid black"></td>
+                                </tr>
+                                <tr>
+                                    <td height="22px" width="100%" style="border-bottom: 1px solid black"></td>
+                                </tr>
+                                <tr>
+                                    <td height="22px" width="100%" style="border-bottom: 2px solid black"></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-md-12">
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
-                                <table width="100%">
-                                    <tbody>
-                                    <tr>
-                                        <td width="50%">
-                                            <table width="100%">
-                                                <tbody>
-                                                <tr>
-                                                    <td width="2%"><b>Bank</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="2%"><b>Account No</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="2%"><b>Beneficiary</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="2%"><b>Branch</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="2%"><b>Swift Code</b></td>
-                                                    <td width="2%">:</td>
-                                                    <td width="30%"></td>
-                                                    <td width="8%"></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                        <td width="10%">
-                                            <table
-                                                width="100%"
-                                                border="1"
-                                            >
-                                                <tbody>
-                                                <tr>
-                                                    <td
-                                                        width="35%"
-                                                        class="text-center"
-                                                    >Prepare by
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td height="78">&nbsp;</td>
-
-                                                </tr>
-
-                                                <tr>
-                                                    <td
-                                                        height="23"
-                                                        class="text-center"
-                                                    ></td>
-
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                        <div class="col-md-12 mt-2">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>Disiapkan oleh,</h6>
+                                </div>
+                                <div class="col-md-3">
+                                    <h6>Driver,</h6>
+                                </div>
+                                <div class="col-md-3">
+                                    <h6>Diterima oleh,</h6>
+                                </div>
                             </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-        <div
-            class="text-center p-4 text-muted"
-            v-else
-        >
+        <div class="text-center p-4 text-muted" v-else>
             <h5>Loading</h5>
             <p>Please wait, data is being loaded...</p>
         </div>
@@ -227,6 +76,64 @@
         props: ['id'],
         data() {
             return {
+                info: {
+                    title: "Delivery Order",
+                    no: "delivery_order_no",
+                },
+                columns: [
+                    {
+                        title: 'Item No',
+                        field: 'skuid',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Item Name',
+                        field: 'item_name',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Qty',
+                        field: 'qty_order',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Unit',
+                        field: 'uom_name',
+                        type: 'text',
+                    },
+                    {
+                        title: 'Remarks',
+                        field: 'remark',
+                        type: 'text',
+                    }
+                ],
+                header_info: [
+                    {
+                        title: "Delivery Order Date",
+                        field: "do_date",
+                    },
+                    // {
+                    //     title: "Delivery Order No",
+                    //     field: "delivery_order_no",
+                    // },
+                    {
+                        page_break: true,
+                    },
+                    {
+                        title: "Kepada Yth",
+                        field: "",
+                    },
+                    {
+                        title: "PO No.",
+                        field: "no_po",
+                    },
+                    {
+                        title: "Customer",
+                        field: "customer_name",
+                    },
+
+                ],
+                logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
                 delivery_order: [],
                 loading: false,
             }

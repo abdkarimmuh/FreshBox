@@ -28,6 +28,7 @@ class DeliveryOrderResource extends JsonResource
             'do_no_with_cust_name' => $this->delivery_order_no . ' - ' . $this->customer->name,
             'sales_order_id' => $this->sales_order_id,
             'sales_order_no' => $this->sales_order->sales_order_no,
+            'no_po' => $this->sales_order->no_po,
             'customer_id' => $this->customer_id,
             'customer_name' => $this->customer->name,
             'do_date' => $this->do_date->formatLocalized('%d %B %Y'),
