@@ -24,8 +24,7 @@
                                            :info="info"></print-header-info>
                         <br>
                         <print-table :columns="columns" :data="item.sales_order_details"></print-table>
-                        <br>
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <table width="100%" style="border-top: 1px solid black;">
                                 <tbody>
                                 <tr>
@@ -45,15 +44,22 @@
                                     <td style="border-bottom: 1px solid black;" class="text-right">Pajak Rp</td>
                                     <td style="border-bottom: 1px solid black;" class="text-right"></td>
                                 </tr>
-                                <tr>
+                                <tr style="border-bottom: 1px solid black;">
                                     <td width="56%"></td>
-                                    <td style="border-bottom: 1px solid black;" class="text-right">Total Rp</td>
-                                    <td style="border-bottom: 1px solid black;" class="text-right">{{
+                                    <td class="text-right">Total Rp</td>
+                                    <td class="text-right">{{
                                         item.total_price | toIDR }}
                                     </td>
                                 </tr>
-                                <tr style="border-bottom: 2px solid black" width="100%">
-
+                                <tr style="border-bottom: 1px solid black;" width="100%" height="22px">
+                                    <td width="56%"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                </tr>
+                                <tr style="border-bottom: 2px solid black;" width="100%" height="22px">
+                                    <td width="56%"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
                                 </tr>
                                 </tbody>
                             </table>

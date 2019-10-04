@@ -4165,6 +4165,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4279,30 +4285,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -52144,9 +52126,7 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-12" }, [
+                      _c("div", { staticClass: "col-md-12 mt-2" }, [
                         _c(
                           "table",
                           {
@@ -52193,50 +52173,39 @@ var render = function() {
                               _vm._v(" "),
                               _vm._m(1, true),
                               _vm._v(" "),
-                              _c("tr", [
-                                _c("td", { attrs: { width: "56%" } }),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass: "text-right",
-                                    staticStyle: {
-                                      "border-bottom": "1px solid black"
-                                    }
-                                  },
-                                  [_vm._v("Total Rp")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass: "text-right",
-                                    staticStyle: {
-                                      "border-bottom": "1px solid black"
-                                    }
-                                  },
-                                  [
+                              _c(
+                                "tr",
+                                {
+                                  staticStyle: {
+                                    "border-bottom": "1px solid black"
+                                  }
+                                },
+                                [
+                                  _c("td", { attrs: { width: "56%" } }),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-right" }, [
+                                    _vm._v("Total Rp")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-right" }, [
                                     _vm._v(
                                       _vm._s(
                                         _vm._f("toIDR")(item.total_price)
                                       ) + "\n                                "
                                     )
-                                  ]
-                                )
-                              ]),
+                                  ])
+                                ]
+                              ),
                               _vm._v(" "),
-                              _c("tr", {
-                                staticStyle: {
-                                  "border-bottom": "2px solid black"
-                                },
-                                attrs: { width: "100%" }
-                              })
+                              _vm._m(2, true),
+                              _vm._v(" "),
+                              _vm._m(3, true)
                             ])
                           ]
                         )
                       ]),
                       _vm._v(" "),
-                      _vm._m(2, true)
+                      _vm._m(4, true)
                     ],
                     1
                   )
@@ -52298,6 +52267,44 @@ var staticRenderFns = [
         staticStyle: { "border-bottom": "1px solid black" }
       })
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "tr",
+      {
+        staticStyle: { "border-bottom": "1px solid black" },
+        attrs: { width: "100%", height: "22px" }
+      },
+      [
+        _c("td", { attrs: { width: "56%" } }),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-right" }),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-right" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "tr",
+      {
+        staticStyle: { "border-bottom": "2px solid black" },
+        attrs: { width: "100%", height: "22px" }
+      },
+      [
+        _c("td", { attrs: { width: "56%" } }),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-right" }),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-right" })
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -52377,9 +52384,7 @@ var render = function() {
                       attrs: { columns: _vm.columns, data: _vm.details }
                     }),
                     _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-12" }, [
+                    _c("div", { staticClass: "col-md-12 mt-2" }, [
                       _c(
                         "table",
                         {
@@ -52428,29 +52433,21 @@ var render = function() {
                             _vm._v(" "),
                             _vm._m(1),
                             _vm._v(" "),
-                            _c("tr", [
-                              _c("td", { attrs: { width: "56%" } }),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                {
-                                  staticClass: "text-right",
-                                  staticStyle: {
-                                    "border-bottom": "1px solid black"
-                                  }
-                                },
-                                [_vm._v("Total Rp")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                {
-                                  staticClass: "text-right",
-                                  staticStyle: {
-                                    "border-bottom": "1px solid black"
-                                  }
-                                },
-                                [
+                            _c(
+                              "tr",
+                              {
+                                staticStyle: {
+                                  "border-bottom": "1px solid black"
+                                }
+                              },
+                              [
+                                _c("td", { attrs: { width: "56%" } }),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-right" }, [
+                                  _vm._v("Total Rp")
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-right" }, [
                                   _vm._v(
                                     _vm._s(
                                       _vm._f("toIDR")(
@@ -52458,22 +52455,19 @@ var render = function() {
                                       )
                                     ) + "\n                                "
                                   )
-                                ]
-                              )
-                            ])
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _vm._m(3)
                           ])
                         ]
-                      ),
-                      _vm._v(" "),
-                      _c("hr", {
-                        staticStyle: {
-                          height: "2px",
-                          "background-color": "black"
-                        }
-                      })
+                      )
                     ]),
                     _vm._v(" "),
-                    _vm._m(2)
+                    _vm._m(4)
                   ],
                   1
                 )
@@ -52562,7 +52556,45 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
+    return _c(
+      "tr",
+      {
+        staticStyle: { "border-bottom": "1px solid black" },
+        attrs: { width: "100%", height: "22px" }
+      },
+      [
+        _c("td", { attrs: { width: "56%" } }),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-right" }),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-right" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "tr",
+      {
+        staticStyle: { "border-bottom": "2px solid black" },
+        attrs: { width: "100%", height: "22px" }
+      },
+      [
+        _c("td", { attrs: { width: "56%" } }),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-right" }),
+        _vm._v(" "),
+        _c("td", { staticClass: "text-right" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 mt-1" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-3" }, [
           _c("h6", [_vm._v("Disiapkan oleh,")])

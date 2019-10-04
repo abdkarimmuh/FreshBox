@@ -9,8 +9,7 @@
                                            :info="info"></print-header-info>
                         <br>
                         <print-table :columns="columns" :data="details"></print-table>
-                        <br>
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-2">
                             <table width="100%" style="border-top: 1px solid black">
                                 <tbody>
                                 <tr>
@@ -30,18 +29,27 @@
                                     <td style="border-bottom: 1px solid black;" class="text-right">Pajak Rp</td>
                                     <td style="border-bottom: 1px solid black;" class="text-right"></td>
                                 </tr>
-                                <tr>
+                                <tr style="border-bottom: 1px solid black;">
                                     <td width="56%"></td>
-                                    <td style="border-bottom: 1px solid black;" class="text-right">Total Rp</td>
-                                    <td style="border-bottom: 1px solid black;" class="text-right">{{
+                                    <td class="text-right">Total Rp</td>
+                                    <td class="text-right">{{
                                         sales_order.total_price | toIDR }}
                                     </td>
                                 </tr>
+                                <tr style="border-bottom: 1px solid black;" width="100%" height="22px">
+                                    <td width="56%"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                </tr>
+                                <tr style="border-bottom: 2px solid black;" width="100%" height="22px">
+                                    <td width="56%"></td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                </tr>
                                 </tbody>
                             </table>
-                            <hr style="height: 2px; background-color: black">
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-1">
                             <div class="row">
                                 <div class="col-md-3">
                                     <h6>Disiapkan oleh,</h6>
@@ -58,38 +66,6 @@
                             <br>
                             <br>
                             <br>
-                            <!--                            <div class="table-responsive m-t-40" style="clear: both;">-->
-                            <!--                                <table width="100%">-->
-                            <!--                                    <tbody>-->
-                            <!--                                    <tr>-->
-                            <!--                                        <td width="50%">-->
-                            <!--                                        <td width="10%">-->
-                            <!--                                            <table width="100%" border="1">-->
-                            <!--                                                <tbody>-->
-                            <!--                                                <tr>-->
-                            <!--                                                    <td-->
-                            <!--                                                        width="35%"-->
-                            <!--                                                        class="text-center"-->
-                            <!--                                                    >Prepare by-->
-                            <!--                                                    </td>-->
-
-                            <!--                                                </tr>-->
-                            <!--                                                <tr>-->
-                            <!--                                                    <td height="78">&nbsp;</td>-->
-                            <!--                                                </tr>-->
-                            <!--                                                <tr>-->
-                            <!--                                                    <td-->
-                            <!--                                                        height="23"-->
-                            <!--                                                        class="text-center"-->
-                            <!--                                                    ></td>-->
-                            <!--                                                </tr>-->
-                            <!--                                                </tbody>-->
-                            <!--                                            </table>-->
-                            <!--                                        </td>-->
-                            <!--                                    </tr>-->
-                            <!--                                    </tbody>-->
-                            <!--                                </table>-->
-                            <!--                            </div>-->
                         </div>
                     </div>
                 </div>
