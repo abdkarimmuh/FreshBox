@@ -124,7 +124,7 @@
                                         type="datetime"
                                         valueType="format"
                                         :not-before="new Date()"
-                                        format="YYYY-MM-DD HH:mm"
+                                        format="YYYY-MM-DD HH:mm:ss"
                                     ></date-picker>
                                 </div>
                                 <div
@@ -435,7 +435,6 @@
                 axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid))
                     .then(res => {
                         this.item = res.data.data;
-                        console.log(this.item);
                     })
                     .catch(err => {
                     });
