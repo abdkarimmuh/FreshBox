@@ -58,7 +58,7 @@ class FormInvoiceOrderController extends Controller
 
         ];
 
-        $query = InvoiceOrder::dataTableQuery($searchValue);
+        $query = InvoiceOrder::dataTableQuery($searchValue)->orderBy('invoice_no','desc');
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
