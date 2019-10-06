@@ -21,6 +21,7 @@ class DriverController extends Controller
         $columns = [
             array('title' => 'Nama', 'field' => 'name'),
             array('title' => 'Phone Number', 'field' => 'phone_number'),
+            array('title' => 'Nomor Kendaraan', 'field' => 'vehicle_no'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
             array('title' => 'Modified By', 'field' => 'updated_by_name'),
@@ -30,7 +31,7 @@ class DriverController extends Controller
         $config = [
             //Title Required
             'title' => 'Driver',
-            /**
+            /*
              * Route Can Be Null
              */
             //Route For Button Add
@@ -58,6 +59,7 @@ class DriverController extends Controller
         $forms = [
             array('type' => 'text', 'label' => 'Driver Name', 'name' => 'name', 'place_holder' => 'Driver Name', 'mandatory' => true),
             array('type' => 'number', 'label' => 'Phone Number', 'name' => 'phone_number', 'place_holder' => 'Phone Number', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Nomor Kendaraan', 'name' => 'vehicle_no', 'place_holder' => 'Nomor Kendaraan', 'mandatory' => false),
         ];
         $config = [
             //Form Title
@@ -67,7 +69,7 @@ class DriverController extends Controller
             //Form Method
             'method' => 'POST',
             //Back Button Using Route Name
-            'back-button' => 'admin.master_data.driver.index'
+            'back-button' => 'admin.master_data.driver.index',
         ];
 
         return view('admin.crud.create_or_edit', compact('forms', 'config'));
@@ -76,35 +78,38 @@ class DriverController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
-            'phone_number' => 'required'
+            'phone_number' => 'required',
         ]);
 
-        DB::select('call insert_driver(?, ?, ?)', array($request->name, $request->phone_number, auth()->user()->id));
+        DB::select('call insert_driver(?, ?, ?, ?)', array($request->name, $request->phone_number, $request->vehicle_no, auth()->user()->id));
+
         return redirect('admin/master_data/driver');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -112,7 +117,8 @@ class DriverController extends Controller
         //Form Generator
         $forms = [
             array('type' => 'text', 'label' => 'Driver Name', 'name' => 'name', 'place_holder' => 'Driver Name', 'mandatory' => true),
-            array('type' => 'text', 'label' => 'Phone Number', 'name' => 'phone_number', 'place_holder' => 'Phone Number', 'mandatory' => true)
+            array('type' => 'text', 'label' => 'Phone Number', 'name' => 'phone_number', 'place_holder' => 'Phone Number', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Nomor Kendaraan', 'name' => 'vehicle_no', 'place_holder' => 'Nomor Kendaraan', 'mandatory' => false),
         ];
         $config = [
             //Form Title
@@ -122,7 +128,7 @@ class DriverController extends Controller
             //Form Method
             'method' => 'PATCH',
             //Back Button Using Route Name
-            'back-button' => 'admin.master_data.driver.index'
+            'back-button' => 'admin.master_data.driver.index',
         ];
 
         $data = Driver::find($id);
@@ -133,29 +139,31 @@ class DriverController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
         $request->validate([
             'name' => 'required',
-            'phone_number' => 'required'
+            'phone_number' => 'required',
         ]);
 
-        DB::select('call update_driver(?, ?, ?, ?)', array($request->id, $request->name, $request->phone_number, auth()->user()->id));
+        DB::select('call update_driver(?, ?, ?, ?, ?)', array($request->id, $request->name, $request->phone_number, $request->vehicle_no, auth()->user()->id));
+
         return redirect('admin/master_data/driver');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
     }
 }

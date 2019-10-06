@@ -97,7 +97,9 @@ class SalesOrder extends MyModel
 
     public function getDriverNameAttribute()
     {
-        return $this->Driver->name;
+        if (isset($this->Driver->name)) {
+            return $this->Driver->name;
+        }
     }
 
     public function Customer()
