@@ -52,7 +52,7 @@ class FormDeliveryOrderController extends Controller
             'route-multiple-print' => 'admin.warehouse.delivery_order.multiplePrint',
         ];
 
-        $query = DeliveryOrder::dataTableQuery($searchValue);
+        $query = DeliveryOrder::dataTableQuery($searchValue)->orderBy('delivery_order_no', 'desc');
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
