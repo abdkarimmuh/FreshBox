@@ -4307,7 +4307,8 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           _this2.$htmlToPaper('printMe');
 
-          axios.post(_this2.$parent.MakeUrl('api/v1/marketing/sales_order/multiplePrint'), payload);
+          var res = axios.post(_this2.$parent.MakeUrl('api/v1/marketing/sales_order/print'), payload);
+          console.log(res);
         }
       });
     },
@@ -4511,7 +4512,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           _this2.$htmlToPaper('printMe');
 
-          axios.post(_this2.$parent.MakeUrl('admin/marketing/form_sales_order/print/' + _this2.$route.params.id));
+          axios.post(_this2.$parent.MakeUrl('api/v1/marketing/sales_order/print?id=' + _this2.$route.params.id));
         }
       });
     },
@@ -54009,7 +54010,9 @@ var render = function() {
                                       )
                                     : _vm._e(),
                                   _vm._v(" "),
-                                  _vm.config.route_edit && item.status === 1
+                                  _vm.config.route_edit &&
+                                  item.status === 1 &&
+                                  item.is_printed === 0
                                     ? _c(
                                         "router-link",
                                         {

@@ -47,6 +47,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/show', 'API\FormSalesOrderAPIController@show');
             Route::get('/{id}/edit', 'API\FormSalesOrderAPIController@edit');
             Route::post('/store', 'API\FormSalesOrderAPIController@store');
+            Route::post('/print', 'API\FormSalesOrderAPIController@print');
             Route::delete('detail/{id}', 'API\FormSalesOrderAPIController@deleteOrderDetails');
             Route::patch('/update', 'API\FormSalesOrderAPIController@updateSalesOrderDetails');
             Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile');

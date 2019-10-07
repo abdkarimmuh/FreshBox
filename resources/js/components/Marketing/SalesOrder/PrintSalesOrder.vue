@@ -191,7 +191,7 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$htmlToPaper('printMe');
-                        axios.post(this.$parent.MakeUrl('admin/marketing/form_sales_order/print/' + this.$route.params.id))
+                        axios.post(this.$parent.MakeUrl('api/v1/marketing/sales_order/print?id=' + this.$route.params.id))
                     }
                 })
             },

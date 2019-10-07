@@ -77,7 +77,7 @@
                                              :to="{ name: config.route_view , params: { id: item.id }}">View
                                 </router-link>
 
-                                <router-link v-if="config.route_edit && item.status === 1" class="badge badge-warning"
+                                <router-link v-if="config.route_edit && item.status === 1 && item.is_printed === 0" class="badge badge-warning"
                                              :to="{ name: config.route_edit , params: { id: item.id }}">Edit
                                 </router-link>
                             </td>

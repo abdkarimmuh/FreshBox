@@ -28,9 +28,9 @@ class FormSalesOrderAPIController extends Controller
             $query->whereBetween('sales_order_no', [$request->start, $request->end]);
         }
         if ($searchValue) {
-            $query = $query->orderBy('sales_order_no','desc')->take(20)->paginate(20);
+            $query = $query->orderBy('sales_order_no', 'desc')->take(20)->paginate(20);
         } else {
-            $query = $query->orderBy('sales_order_no','desc')->paginate($perPage);
+            $query = $query->orderBy('sales_order_no', 'desc')->paginate($perPage);
         }
 
         return SalesOrderResource::collection($query);
@@ -44,7 +44,7 @@ class FormSalesOrderAPIController extends Controller
     public function show(Request $request)
     {
         if (is_array($request->id)) {
-            $so = SalesOrder::whereIn('id', $request->id)->orderBy('sales_order_no','desc')->get();
+            $so = SalesOrder::whereIn('id', $request->id)->orderBy('sales_order_no', 'desc')->get();
             $sales_order = SalesOrderResource::collection($so);
         } else {
             $so = SalesOrder::findOrFail($request->id);
@@ -320,4 +320,17 @@ class FormSalesOrderAPIController extends Controller
     {
         return Storage::download('public/files/' . $file);
     }
+
+    public function print(Request $request)
+    {
+        if (is_array($request->id)) {
+            SalesOrder::whereIn('id', $request->id)->update(['is_printed' => 1]);
+        } else {
+            SalesOrder::where('id', $request->id)->update(['is_printed' => 1]);
+        }
+        return response()->json([
+            'status' => 'success'
+        ], 200);
+    }
+
 }
