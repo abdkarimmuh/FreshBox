@@ -114,15 +114,17 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      */
     Route::name('finance.')->prefix('finance')->middleware('auth')->group(function () {
         Route::name('invoice_order.')->prefix('invoice_order')->group(function () {
-            Route::get('/', 'Finance\FormInvoiceOrderController@index')->name('index');
-            Route::get('/create', 'Finance\FormInvoiceOrderController@create')->name('create');
-            Route::get('/view', 'Finance\FormInvoiceOrderController@show')->name('show');
-            Route::post('/store', 'Finance\FormInvoiceOrderController@store')->name('store');
-            Route::get('/{id}/print', 'Finance\FormInvoiceOrderController@print')->name('print');
-            Route::post('/{id}/print', 'Finance\FormInvoiceOrderController@print');
-            Route::get('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint')->name('multiplePrint');
-            Route::post('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint');
-            Route::get('/printRecap', 'Finance\FormInvoiceOrderController@printRecap')->name('printRecap');
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+//            Route::get('/', 'Finance\FormInvoiceOrderController@index')->name('index');
+//            Route::get('/create', 'Finance\FormInvoiceOrderController@create')->name('create');
+//            Route::get('/view', 'Finance\FormInvoiceOrderController@show')->name('show');
+//            Route::post('/store', 'Finance\FormInvoiceOrderController@store')->name('store');
+//            Route::get('/{id}/print', 'Finance\FormInvoiceOrderController@print')->name('print');
+//            Route::post('/{id}/print', 'Finance\FormInvoiceOrderController@print');
+//            Route::get('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint')->name('multiplePrint');
+//            Route::post('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint');
+//            Route::get('/printRecap', 'Finance\FormInvoiceOrderController@printRecap')->name('printRecap');
         });
     });
     /*

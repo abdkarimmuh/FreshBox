@@ -13,10 +13,10 @@
                 config: {
                     title: 'Form Invoice Order',
                     base_url: this.$parent.MakeUrl('api/v1/finance/invoice'),
-                    route_create: 'invoice.create',
-                    route_view: 'invoice.print',
-                    route_edit: 'invoice.edit',
-                    route_multiple_print: 'invoice.multiplePrint',
+                    route_create: 'invoice_order.create',
+                    route_view: 'invoice_order.print',
+                    route_edit: 'invoice_order.edit',
+                    route_multiple_print: 'invoice_order.multiplePrint',
                 },
                 columns: [
                     {

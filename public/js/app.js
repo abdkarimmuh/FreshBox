@@ -2146,10 +2146,10 @@ __webpack_require__.r(__webpack_exports__);
       config: {
         title: 'Form Invoice Order',
         base_url: this.$parent.MakeUrl('api/v1/finance/invoice'),
-        route_create: 'invoice.create',
-        route_view: 'invoice.print',
-        route_edit: 'invoice.edit',
-        route_multiple_print: 'invoice.multiplePrint'
+        route_create: 'invoice_order.create',
+        route_view: 'invoice_order.print',
+        route_edit: 'invoice_order.edit',
+        route_multiple_print: 'invoice_order.multiplePrint'
       },
       columns: [{
         title: 'Invoice Order NO',
@@ -79294,28 +79294,28 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
    */
   // Index
   {
-    path: '/admin/finance/invoice',
-    name: "invoice",
+    path: '/admin/finance/invoice_order',
+    name: "invoice_order",
     component: _components_Finance_Invoice_IndexInvoice__WEBPACK_IMPORTED_MODULE_9__["default"]
   }, // Print Sales Order
   {
-    path: '/admin/finance/invoice/:id/print',
-    name: "invoice.print",
+    path: '/admin/finance/invoice_order/:id/print',
+    name: "invoice_order.print",
     component: _components_Finance_Invoice_PrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, // Print Multiple Sales Order
   {
-    path: '/admin/finance/invoice/printMultiple/',
-    name: "invoice.multiplePrint",
+    path: '/admin/finance/invoice_order/printMultiple/',
+    name: "invoice_order.multiplePrint",
     component: _components_Finance_Invoice_MultiplePrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_12__["default"],
     props: true
   }, // Create Sales Order
   {
-    path: '/admin/finance/invoice/create',
-    name: "invoice.create",
+    path: '/admin/finance/invoice_order/create',
+    name: "invoice_order.create",
     component: _components_Finance_Invoice_AddInvoice__WEBPACK_IMPORTED_MODULE_11__["default"]
   }, {
-    path: '/admin/finance/invoice/recap/',
-    name: "invoice.recap",
+    path: '/admin/finance/invoice_order/recap/',
+    name: "invoice_order.recap",
     component: _components_Finance_Invoice_PrintRecapInvoice__WEBPACK_IMPORTED_MODULE_13__["default"]
   },
   /**

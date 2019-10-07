@@ -33,7 +33,8 @@
                     <a class="nav-link" href="{{ route('admin.procurement.item_procurement.index') }}"><span>Item</span></a>
                 </li>
                 <li class="{{ request()->route()->getName() == 'admin.procurement.list_procurement.index' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{ route('admin.procurement.list_procurement.index') }}"><span>Procurement</span></a>
+                    <a class="nav-link"
+                       href="{{ route('admin.procurement.list_procurement.index') }}"><span>Procurement</span></a>
                 </li>
             </ul>
         </li>
@@ -63,13 +64,14 @@
         <li class="dropdown {{ request()->segment(2) == 'finance' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance</span></a>
             <ul class="dropdown-menu">
-                <li class="{{ request()->route()->getName() == 'admin.finance.invoice_order.index' ? ' active' : '' }}">
-                    <a class="nav-link"
-                       href="{{ route('admin.finance.invoice_order.index') }}"><span>Form Invoice Order</span></a>
+                <li class="{{ request()->segment(3) == 'invoice_order' ? ' active' : '' }}">
+
+                    <a href="{{ url('admin/finance/invoice_order') }}"
+                       class="nav-link"><span>Form Invoice Order</span></a>
                 </li>
-                <li class="{{ request()->route()->getName() == 'admin.finance.invoice_order.index' ? ' active' : '' }}">
-                    <a class="nav-link"
-                       href="{{ route('admin.finance.invoice_order.index') }}"><span>Paid Invoice Order</span></a>
+                <li class="{{ request()->segment(3) == 'paid_invoice_order' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance/paid_invoice_order') }}"
+                       class="nav-link"><span>Paid Invoice Order</span></a>
                 </li>
             </ul>
         </li>
@@ -124,7 +126,7 @@
                         <a class="nav-link" href="{{ route('admin.master_data.residence.index') }}"><span>Residence</span></a>
                     </li> --}}
                     <li class="">
-                        <a href="{{ route('admin.users') }}"  class="nav-link"><span>Users</span></a>
+                        <a href="{{ route('admin.users') }}" class="nav-link"><span>Users</span></a>
                     </li>
                 </ul>
             </li>
