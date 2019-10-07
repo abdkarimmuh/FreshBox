@@ -3,16 +3,45 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Finance\InvoiceOrderResource;
 use App\Http\Resources\Finance\RekapInvoiceResource;
+use App\Http\Resources\Warehouse\DeliveryOrderResource;
 use App\Model\Finance\InvoiceOrder;
 use App\Model\Marketing\SalesOrder;
 use App\Model\MasterData\Customer;
+use App\Model\Warehouse\DeliveryOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class InvoiceAPIController extends Controller
 {
+    public function index(Request $request)
+    {
+        $searchValue = $request->input('query');
+        $perPage = $request->perPage;
+        $query = InvoiceOrder::dataTableQuery($searchValue);
+        if ($request->start && $request->end) {
+            $query->whereBetween('invoice_no', [$request->start, $request->end]);
+        }
+
+        if ($searchValue) {
+            $query = $query->orderBy('invoice_no', 'desc')->take(20)->paginate(20);
+        } else {
+            $query = $query->orderBy('invoice_no', 'desc')->paginate($perPage);
+        }
+
+        return InvoiceOrderResource::collection($query);
+    }
+
+    public function create()
+    {
+        $delivery_order = DeliveryOrder::whereHas('sales_order', function ($q) {
+            $q->where('status', 5);
+        })->get();
+        return DeliveryOrderResource::collection($delivery_order);
+    }
+
     public function printRecap($customer_id)
     {
         if (request()->isMethod('POST')) {
@@ -50,7 +79,8 @@ class InvoiceAPIController extends Controller
             'status' => 'success'
         ], 200);
     }
-        public function generateInvoiceNo()
+
+    public function generateInvoiceNo()
     {
         $year_month = Carbon::now()->format('ym');
         $latest_invoice_order = InvoiceOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();

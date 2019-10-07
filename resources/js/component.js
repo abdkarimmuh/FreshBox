@@ -24,6 +24,7 @@ import HeaderPrint from "./components/Template/Print/HeaderPrint";
 import HeaderInfoPrint from "./components/Template/Print/HeaderInfoPrint";
 
 import TablePrint from "./components/Template/Print/TablePrint";
+import IndexInvoice from './components/Finance/Invoice/IndexInvoice';
 
 
 Vue.component('users-component', UsersComponent);
@@ -34,6 +35,8 @@ Vue.component('adduser-component', AdduserComponent);
 // Vue.component('edit-sales-order', EditSalesOrder);
 Vue.component('add-delivery-order', AddDeliveryOrder);
 Vue.component('add-invoice', AddInvoice);
+Vue.component('index-invoice', IndexInvoice);
+
 Vue.component('confirm-delivery-order', ConfirmDeliveryOrder);
 
 // Vue.component('multiple-print-sales-order', MultiplePrintSalesOrder);

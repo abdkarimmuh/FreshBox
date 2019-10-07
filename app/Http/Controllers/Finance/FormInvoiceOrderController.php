@@ -58,10 +58,10 @@ class FormInvoiceOrderController extends Controller
 
         ];
 
-        $query = InvoiceOrder::dataTableQuery($searchValue)->orderBy('invoice_no','desc');
-        $data = $query->paginate(10);
-
-        return view('admin.crud.index', compact('columns', 'data', 'config'));
+        $config = [
+            'vue-component' => "<index-invoice/>"
+        ];
+        return view('layouts.vue-view', compact('config'));
     }
 
     /**
@@ -95,7 +95,7 @@ class FormInvoiceOrderController extends Controller
         $rules = [
             'invoice_date' => 'required',
             'do_id' => 'required',
-            'customer_id'=> 'required'
+            'customer_id' => 'required'
         ];
 
         $request->validate($rules);

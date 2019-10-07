@@ -72,6 +72,7 @@ Route::group(['prefix' => 'v1'], function () {
      */
     Route::group(['prefix' => 'finance'], function () {
         Route::group(['prefix' => 'invoice'], function () {
+            Route::get('/', 'API\InvoiceAPIController@index');
             Route::get('/printRecap/{customer_id}', 'API\InvoiceAPIController@printRecap');
             Route::post('/store', 'API\InvoiceAPIController@store');
 

@@ -83,7 +83,11 @@
                             </td>
                             <td v-for="column in columns">
                                 <span v-html="item[column.field]" v-if="column.type === 'html'"></span>
-                                <a v-bind:href="item[column.field_url]" v-else-if="column.type === 'link'">{{ item[column.field] }}</a>
+                                <a v-bind:href="item[column.field_url]" v-else-if="column.type === 'link'">{{
+                                    item[column.field] }}</a>
+                                <p v-else-if="column.type === 'price'">
+                                    {{ item[column.field] | toIDR }}
+                                </p>
                                 <p v-else>
                                     {{ item[column.field] }}
                                 </p>
