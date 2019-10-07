@@ -2339,7 +2339,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id'],
   data: function data() {
     return {
       info: {
@@ -2405,11 +2404,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this = this;
 
-      var id = JSON.parse(this.id).map(Number);
       var payload = {
-        id: id
+        id: this.$route.query.id
       };
-      axios.get(this.$parent.MakeUrl('admin/finance/invoice_order/multiplePrint'), {
+      axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_order/show'), {
         params: payload
       }).then(function (res) {
         _this.invoice_order = res.data;
@@ -2432,9 +2430,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 payload = {
-                  id: this.invoice_order.map(function (item) {
-                    return item.sales_order_id;
-                  })
+                  id: this.$route.query.id
                 };
                 Vue.swal({
                   title: 'Are you sure?',
@@ -2448,11 +2444,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   if (result.value) {
                     _this2.$htmlToPaper('printMe');
 
-                    axios.post(_this2.$parent.MakeUrl('admin/finance/invoice_order/multiplePrint'), payload); // Swal.fire(
-                    //     'Printed!',
-                    //     'This Sales Order has been Printed.',
-                    //     'success'
-                    // )
+                    axios.post(_this2.$parent.MakeUrl('api/v1/finance/invoice_order/print'), payload);
                   }
                 });
 
@@ -2607,7 +2599,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id'],
   data: function data() {
     return {
       columns: [{
@@ -2699,7 +2690,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           _this2.$htmlToPaper('printMe');
 
-          axios.post(_this2.$parent.MakeUrl('api/v1/finance/invoice_order/' + _this2.$route.params.id + '/print'));
+          axios.post(_this2.$parent.MakeUrl('api/v1/finance/invoice_order/print?id=' + _this2.$route.params.id));
         }
       });
     },

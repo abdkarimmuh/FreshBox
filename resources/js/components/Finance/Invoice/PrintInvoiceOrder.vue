@@ -119,7 +119,6 @@
 
 <script>
     export default {
-        props: ['id'],
         data() {
             return {
                 columns: [
@@ -223,7 +222,7 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$htmlToPaper('printMe');
-                        axios.post(this.$parent.MakeUrl('api/v1/finance/invoice_order/' + this.$route.params.id + '/print'))
+                        axios.post(this.$parent.MakeUrl('api/v1/finance/invoice_order/print?id=' + this.$route.params.id))
                     }
                 })
             },
