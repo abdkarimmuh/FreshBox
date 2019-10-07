@@ -77019,12 +77019,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Template_Print_HeaderPrint__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Template/Print/HeaderPrint */ "./resources/js/components/Template/Print/HeaderPrint.vue");
 /* harmony import */ var _components_Template_Print_HeaderInfoPrint__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/Template/Print/HeaderInfoPrint */ "./resources/js/components/Template/Print/HeaderInfoPrint.vue");
 /* harmony import */ var _components_Template_Print_TablePrint__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/Template/Print/TablePrint */ "./resources/js/components/Template/Print/TablePrint.vue");
-/* harmony import */ var _components_Finance_Invoice_IndexInvoice__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Finance/Invoice/IndexInvoice */ "./resources/js/components/Finance/Invoice/IndexInvoice.vue");
 /**
  * List Component
  */
 // import DataTable from "./components/DataTable/DataTable";
-
 
 
 
@@ -77052,7 +77050,6 @@ Vue.component('adduser-component', _components_AdduserComponent__WEBPACK_IMPORTE
 
 Vue.component('add-delivery-order', _components_Warehouse_AddDeliveryOrder__WEBPACK_IMPORTED_MODULE_3__["default"]);
 Vue.component('add-invoice', _components_Finance_Invoice_AddInvoice__WEBPACK_IMPORTED_MODULE_6__["default"]);
-Vue.component('index-invoice', _components_Finance_Invoice_IndexInvoice__WEBPACK_IMPORTED_MODULE_20__["default"]);
 Vue.component('confirm-delivery-order', _components_Warehouse_ConfirmDeliveryOrder__WEBPACK_IMPORTED_MODULE_4__["default"]); // Vue.component('multiple-print-sales-order', MultiplePrintSalesOrder);
 
 Vue.component('multiple-print-delivery-order', _components_Warehouse_MultiplePrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_10__["default"]);
@@ -79240,6 +79237,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Marketing_SalesOrder_EditSalesOrder__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Marketing/SalesOrder/EditSalesOrder */ "./resources/js/components/Marketing/SalesOrder/EditSalesOrder.vue");
 /* harmony import */ var _components_Marketing_SalesOrder_PrintSalesOrder__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Marketing/SalesOrder/PrintSalesOrder */ "./resources/js/components/Marketing/SalesOrder/PrintSalesOrder.vue");
 /* harmony import */ var _components_Marketing_SalesOrder_MultiplePrintSalesOrder__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Marketing/SalesOrder/MultiplePrintSalesOrder */ "./resources/js/components/Marketing/SalesOrder/MultiplePrintSalesOrder.vue");
+/* harmony import */ var _components_Finance_Invoice_IndexInvoice__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Finance/Invoice/IndexInvoice */ "./resources/js/components/Finance/Invoice/IndexInvoice.vue");
+/* harmony import */ var _components_Finance_Invoice_PrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Finance/Invoice/PrintInvoiceOrder */ "./resources/js/components/Finance/Invoice/PrintInvoiceOrder.vue");
+/* harmony import */ var _components_Finance_Invoice_AddInvoice__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Finance/Invoice/AddInvoice */ "./resources/js/components/Finance/Invoice/AddInvoice.vue");
+/* harmony import */ var _components_Finance_Invoice_MultiplePrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Finance/Invoice/MultiplePrintInvoiceOrder */ "./resources/js/components/Finance/Invoice/MultiplePrintInvoiceOrder.vue");
+/* harmony import */ var _components_Finance_Invoice_PrintRecapInvoice__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Finance/Invoice/PrintRecapInvoice */ "./resources/js/components/Finance/Invoice/PrintRecapInvoice.vue");
+
+
+
+
+
 
 
 
@@ -79281,6 +79288,35 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/admin/marketing/form_sales_order/:id/edit',
     name: "form_sales_order.edit",
     component: _components_Marketing_SalesOrder_EditSalesOrder__WEBPACK_IMPORTED_MODULE_6__["default"]
+  },
+  /**
+   * Invoice Order
+   */
+  // Index
+  {
+    path: '/admin/finance/invoice',
+    name: "invoice",
+    component: _components_Finance_Invoice_IndexInvoice__WEBPACK_IMPORTED_MODULE_9__["default"]
+  }, // Print Sales Order
+  {
+    path: '/admin/finance/invoice/:id/print',
+    name: "invoice.print",
+    component: _components_Finance_Invoice_PrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_10__["default"]
+  }, // Print Multiple Sales Order
+  {
+    path: '/admin/finance/invoice/printMultiple/',
+    name: "invoice.multiplePrint",
+    component: _components_Finance_Invoice_MultiplePrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_12__["default"],
+    props: true
+  }, // Create Sales Order
+  {
+    path: '/admin/finance/invoice/create',
+    name: "invoice.create",
+    component: _components_Finance_Invoice_AddInvoice__WEBPACK_IMPORTED_MODULE_11__["default"]
+  }, {
+    path: '/admin/finance/invoice/recap/',
+    name: "invoice.recap",
+    component: _components_Finance_Invoice_PrintRecapInvoice__WEBPACK_IMPORTED_MODULE_13__["default"]
   },
   /**
    * Warehouse

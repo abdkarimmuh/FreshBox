@@ -9,6 +9,11 @@ import EditSalesOrder from "./components/Marketing/SalesOrder/EditSalesOrder";
 import PrintSalesOrder from "./components/Marketing/SalesOrder/PrintSalesOrder";
 import MultiplePrintSalesOrder from "./components/Marketing/SalesOrder/MultiplePrintSalesOrder";
 
+import IndexInvoice from './components/Finance/Invoice/IndexInvoice';
+import PrintInvoice from './components/Finance/Invoice/PrintInvoiceOrder';
+import AddInvoice from './components/Finance/Invoice/AddInvoice';
+import MultiplePrintInvoiceOrder from './components/Finance/Invoice/MultiplePrintInvoiceOrder';
+import PrintRecapInvoice from './components/Finance/Invoice/PrintRecapInvoice';
 
 Vue.use(VueRouter);
 
@@ -47,6 +52,39 @@ const router = new VueRouter({
             path: '/admin/marketing/form_sales_order/:id/edit',
             name: "form_sales_order.edit",
             component: EditSalesOrder
+        },
+        /**
+         * Invoice Order
+         */
+        // Index
+        {
+            path: '/admin/finance/invoice',
+            name: "invoice",
+            component: IndexInvoice
+        },
+        // Print Sales Order
+        {
+            path: '/admin/finance/invoice/:id/print',
+            name: "invoice.print",
+            component: PrintInvoice
+        },
+        // Print Multiple Sales Order
+        {
+            path: '/admin/finance/invoice/printMultiple/',
+            name: "invoice.multiplePrint",
+            component: MultiplePrintInvoiceOrder,
+            props: true
+        },
+        // Create Sales Order
+        {
+            path: '/admin/finance/invoice/create',
+            name: "invoice.create",
+            component: AddInvoice
+        },
+        {
+            path: '/admin/finance/invoice/recap/',
+            name: "invoice.recap",
+            component: PrintRecapInvoice
         },
         /**
          * Warehouse
