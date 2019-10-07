@@ -2,7 +2,6 @@
  * List Component
  */
 // import DataTable from "./components/DataTable/DataTable";
-
 import UsersComponent from './components/UsersComponent';
 import ProfileComponent from './components/ProfileComponent';
 import AdduserComponent from './components/AdduserComponent';
