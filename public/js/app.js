@@ -2674,9 +2674,9 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print')).then(function (res) {
-        _this.invoice_order = res.data.data;
-        _this.details = res.data.data.do_details;
+      axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_order/show?id=' + this.$route.params.id)).then(function (res) {
+        _this.invoice_order = res.data;
+        _this.details = res.data.do_details;
         _this.loading = true;
       })["catch"](function (err) {
         if (err.response.status === 500) {
@@ -2699,7 +2699,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           _this2.$htmlToPaper('printMe');
 
-          axios.post(_this2.$parent.MakeUrl('admin/finance/invoice_order/' + _this2.id + '/print'));
+          axios.post(_this2.$parent.MakeUrl('api/v1/finance/invoice_order/' + _this2.$route.params.id + '/print'));
         }
       });
     },

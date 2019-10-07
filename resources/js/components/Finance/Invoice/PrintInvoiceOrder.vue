@@ -199,10 +199,10 @@
         },
         methods: {
             getData() {
-                axios.get(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print'))
+                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_order/show?id=' + this.$route.params.id))
                     .then(res => {
-                        this.invoice_order = res.data.data;
-                        this.details = res.data.data.do_details;
+                        this.invoice_order = res.data;
+                        this.details = res.data.do_details;
                         this.loading = true;
                     })
                     .catch(err => {
@@ -223,7 +223,7 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$htmlToPaper('printMe');
-                        axios.post(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print'))
+                        axios.post(this.$parent.MakeUrl('api/v1/finance/invoice_order/' + this.$route.params.id + '/print'))
                     }
                 })
             },

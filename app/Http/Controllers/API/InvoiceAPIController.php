@@ -69,7 +69,7 @@ class InvoiceAPIController extends Controller
         ], 200);
     }
 
-    public function show(Request $request)
+    public function print(Request $request)
     {
         if (is_array($request->id)) {
             $inv = InvoiceOrder::whereIn('id', $request->id)->orderBy('invoice_no', 'desc')->update(['status' => 7]);
@@ -82,7 +82,7 @@ class InvoiceAPIController extends Controller
         ], 200);
     }
 
-    public function print(Request $request)
+    public function show(Request $request)
     {
         if (is_array($request->id)) {
             $inv = InvoiceOrder::whereIn('id', $request->id)->orderBy('invoice_no', 'desc')->get();
