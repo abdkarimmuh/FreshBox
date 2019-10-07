@@ -42,17 +42,6 @@ class InvoiceAPIController extends Controller
         return DeliveryOrderResource::collection($delivery_order);
     }
 
-    public function printRecap($customer_id)
-    {
-        if (request()->isMethod('POST')) {
-            InvoiceOrder::where('customer_id', $customer_id)->update(['is_recap' => 1]);
-        } else {
-            return new RekapInvoiceResource(Customer::where('id', $customer_id)->whereHas('invoices', function ($q) {
-                $q->where('is_recap', 0);
-            })->first());
-        }
-    }
-
     public function store(Request $request)
     {
         $rules = [
@@ -78,6 +67,43 @@ class InvoiceAPIController extends Controller
         return response()->json([
             'status' => 'success'
         ], 200);
+    }
+
+    public function show(Request $request)
+    {
+        if (is_array($request->id)) {
+            $inv = InvoiceOrder::whereIn('id', $request->id)->orderBy('invoice_no', 'desc')->update(['status' => 7]);
+        } else {
+            $inv = InvoiceOrder::findOrFail($request->id)->update(['status' => 7]);;
+        }
+
+        return response()->json([
+            'status' => 'success'
+        ], 200);
+    }
+
+    public function print(Request $request)
+    {
+        if (is_array($request->id)) {
+            $inv = InvoiceOrder::whereIn('id', $request->id)->orderBy('invoice_no', 'desc')->get();
+            $invoice_order = InvoiceOrderResource::collection($inv);
+        } else {
+            $inv = InvoiceOrder::findOrFail($request->id);
+            $invoice_order = new InvoiceOrderResource($inv);
+        }
+
+        return response()->json($invoice_order, 200);
+    }
+
+    public function printRecap($customer_id)
+    {
+        if (request()->isMethod('POST')) {
+            InvoiceOrder::where('customer_id', $customer_id)->update(['is_recap' => 1]);
+        } else {
+            return new RekapInvoiceResource(Customer::where('id', $customer_id)->whereHas('invoices', function ($q) {
+                $q->where('is_recap', 0);
+            })->first());
+        }
     }
 
     public function generateInvoiceNo()

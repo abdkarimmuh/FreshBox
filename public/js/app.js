@@ -2056,7 +2056,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this2 = this;
 
-      axios.get(this.$parent.MakeUrl("admin/finance/invoice_order/create")).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/finance/invoice_order/create")).then(function (res) {
         _this2.list_delivery_order = res.data.data;
       })["catch"](function (e) {
         console.log(e);
@@ -2080,7 +2080,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.post(this.$parent.MakeUrl("admin/finance/invoice_order/store"), payload);
+                return axios.post(this.$parent.MakeUrl("api/v1/finance/invoice_order/store"), payload);
 
               case 4:
                 res = _context.sent;
@@ -2145,7 +2145,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       config: {
         title: 'Form Invoice Order',
-        base_url: this.$parent.MakeUrl('api/v1/finance/invoice'),
+        base_url: this.$parent.MakeUrl('api/v1/finance/invoice_order'),
         route_create: 'invoice_order.create',
         route_view: 'invoice_order.print',
         route_edit: 'invoice_order.edit',

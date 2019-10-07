@@ -173,7 +173,7 @@
                     });
             },
             getData() {
-                axios.get(this.$parent.MakeUrl("admin/finance/invoice_order/create")).then(res => {
+                axios.get(this.$parent.MakeUrl("api/v1/finance/invoice_order/create")).then(res => {
                     this.list_delivery_order = res.data.data;
                 }).catch(e => {
                     console.log(e);
@@ -188,7 +188,7 @@
                     invoice_date: this.invoice_date
                 };
                 try {
-                    const res = await axios.post(this.$parent.MakeUrl("admin/finance/invoice_order/store"), payload);
+                    const res = await axios.post(this.$parent.MakeUrl("api/v1/finance/invoice_order/store"), payload);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
