@@ -121,7 +121,6 @@
 
 <script>
     export default {
-        props: ['id'],
         data() {
             return {
                 info: {
@@ -200,11 +199,10 @@
         },
         methods: {
             getData() {
-                const id = JSON.parse(this.id).map(Number);
                 const payload = {
-                    id: id,
+                    id: this.$route.query.id,
                 };
-                axios.get(this.$parent.MakeUrl('admin/finance/invoice_order/multiplePrint'), {params: payload})
+                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_order/show'), {params: payload})
                     .then(res => {
                         this.invoice_order = res.data;
                         this.loading = true;
@@ -217,7 +215,7 @@
             },
             async print() {
                 const payload = {
-                    id: this.invoice_order.map(item => item.sales_order_id),
+                    id: this.$route.query.id,
                 };
                 Vue.swal({
                     title: 'Are you sure?',
@@ -230,12 +228,7 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$htmlToPaper('printMe');
-                        axios.post(this.$parent.MakeUrl('admin/finance/invoice_order/multiplePrint'), payload);
-                        // Swal.fire(
-                        //     'Printed!',
-                        //     'This Sales Order has been Printed.',
-                        //     'success'
-                        // )
+                        axios.post(this.$parent.MakeUrl('api/v1/finance/invoice_order/print'), payload);
                     }
                 })
 

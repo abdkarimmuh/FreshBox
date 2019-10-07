@@ -54,6 +54,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/show', 'API\FormSalesOrderAPIController@show');
             Route::get('/{id}/edit', 'API\FormSalesOrderAPIController@edit');
             Route::post('/store', 'API\FormSalesOrderAPIController@store');
+            Route::post('/print', 'API\FormSalesOrderAPIController@print');
             Route::delete('detail/{id}', 'API\FormSalesOrderAPIController@deleteOrderDetails');
             Route::patch('/update', 'API\FormSalesOrderAPIController@updateSalesOrderDetails');
             Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile');
@@ -78,9 +79,13 @@ Route::group(['prefix' => 'v1'], function () {
      * Route API Route
      */
     Route::group(['prefix' => 'finance'], function () {
-        Route::group(['prefix' => 'invoice'], function () {
-            Route::get('/printRecap/{customer_id}', 'API\InvoiceAPIController@printRecap');
+        Route::group(['prefix' => 'invoice_order'], function () {
+            Route::get('/', 'API\InvoiceAPIController@index');
+            Route::get('/create', 'API\InvoiceAPIController@create');
+            Route::get('/show', 'API\InvoiceAPIController@show');
             Route::post('/store', 'API\InvoiceAPIController@store');
+            Route::post('/print', 'API\InvoiceAPIController@print');
+            Route::get('/printRecap/{customer_id}', 'API\InvoiceAPIController@printRecap');
 
         });
     });

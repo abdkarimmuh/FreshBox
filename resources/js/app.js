@@ -3,7 +3,7 @@ window.Vue = require('vue');
 require('./bootstrap');
 require('./component');
 require('./library');
-require('./filters');
+require('./filters')
 
 import Router from './router';
 
@@ -11,7 +11,7 @@ import Router from './router';
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-    'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+    'Authorization': 'Bearer ' + AccessToken
 };
 
 const app = new Vue({

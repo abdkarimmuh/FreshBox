@@ -193,7 +193,8 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$htmlToPaper('printMe');
-                        axios.post(this.$parent.MakeUrl('api/v1/marketing/sales_order/multiplePrint'), payload);
+                        const res = axios.post(this.$parent.MakeUrl('api/v1/marketing/sales_order/print'), payload);
+                        console.log(res);
                     }
                 })
             },

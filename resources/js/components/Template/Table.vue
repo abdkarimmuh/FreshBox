@@ -77,13 +77,17 @@
                                              :to="{ name: config.route_view , params: { id: item.id }}">View
                                 </router-link>
 
-                                <router-link v-if="config.route_edit && item.status === 1" class="badge badge-warning"
+                                <router-link v-if="config.route_edit && item.status === 1 && item.is_printed === 0" class="badge badge-warning"
                                              :to="{ name: config.route_edit , params: { id: item.id }}">Edit
                                 </router-link>
                             </td>
                             <td v-for="column in columns">
                                 <span v-html="item[column.field]" v-if="column.type === 'html'"></span>
-                                <a v-bind:href="item[column.field_url]" v-else-if="column.type === 'link'">{{ item[column.field] }}</a>
+                                <a v-bind:href="item[column.field_url]" v-else-if="column.type === 'link'">{{
+                                    item[column.field] }}</a>
+                                <p v-else-if="column.type === 'price'">
+                                    {{ item[column.field] | toIDR }}
+                                </p>
                                 <p v-else>
                                     {{ item[column.field] }}
                                 </p>
