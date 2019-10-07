@@ -113,6 +113,8 @@ Route::group(['prefix' => 'v1'], function () {
         });
         Route::group(['prefix' => 'driver'], function () {
             Route::get('/', 'API\DriverAPIController@index');
+            Route::get('/driver', 'API\DriverAPIController@driver');
+            Route::get('/picqc', 'API\DriverAPIController@picqc');
         });
 
         Route::group(['prefix' => 'uom'], function () {

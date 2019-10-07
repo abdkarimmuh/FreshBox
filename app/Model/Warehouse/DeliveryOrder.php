@@ -28,7 +28,7 @@ class DeliveryOrder extends MyModel
      */
     protected $fillable = ['delivery_order_no', 'sales_order_id', 'customer_id', 'do_date', 'pic_qc', 'confirm_date', 'remark', 'driver_id', 'created_by', 'created_at'];
 
-    protected $appends = ['customer_name', 'sales_order_no', 'status_name', 'driver_name'];
+    protected $appends = ['customer_name', 'sales_order_no', 'status_name', 'driver_name', 'pic_qc_name'];
     protected $dates = ['do_date'];
 
     public function sales_order()
@@ -46,6 +46,11 @@ class DeliveryOrder extends MyModel
         return $this->belongsTo(Driver::class, 'driver_id');
     }
 
+    public function picqc()
+    {
+        return $this->belongsTo(Driver::class, 'pic_qc');
+    }
+
     public function delivery_order_details()
     {
         return $this->hasMany(DeliveryOrderDetail::class);
@@ -59,6 +64,11 @@ class DeliveryOrder extends MyModel
     public function getDriverNameAttribute()
     {
         return $this->driver->name;
+    }
+
+    public function getPicQcNameAttribute()
+    {
+        return $this->picqc->name;
     }
 
     public function getCustomerNameAttribute()
