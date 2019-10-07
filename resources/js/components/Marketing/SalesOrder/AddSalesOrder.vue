@@ -434,6 +434,7 @@
                         text: "Successfully Insert Data!"
                     }).then(next => {
                         this.$router.push({name: 'form_sales_order'});
+                        // console.log(res)
                     });
                 } catch (e) {
                     this.errors = e.response.data.errors;

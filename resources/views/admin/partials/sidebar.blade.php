@@ -92,15 +92,15 @@
                     <li class="{{ request()->route()->getName() == 'admin.master_data.customer_type.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.customer_type.index') }}"><span>Customer Type</span></a>
                     </li>
-                    <li class="{{ request()->route()->getName() == 'admin.master_data.driver.index' ? ' active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin.master_data.driver.index') }}"><span>Driver</span></a>
-                    </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.item.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.item.index') }}"><span>Item</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.modules.index' ? ' active' : '' }}">
                         <a class="nav-link"
-                           href="{{ route('admin.master_data.modules.index') }}"><span>Modules</span></a>
+                        href="{{ route('admin.master_data.modules.index') }}"><span>Modules</span></a>
+                    </li>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.officer.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.officer.index') }}"><span>Officer</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.origin.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.origin.index') }}"><span>Origin</span></a>

@@ -16,6 +16,7 @@ class CreateMasterDriver extends Migration
             $table->string('name');
             $table->string('phone_number', 20);
             $table->string('vehicle_no')->nullable();
+            $table->integer('role');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
