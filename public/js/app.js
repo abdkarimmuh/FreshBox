@@ -3468,15 +3468,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }); // console.log(res)
 
                 });
-                _context2.next = 11;
+                _context2.next = 12;
                 break;
 
               case 8:
                 _context2.prev = 8;
                 _context2.t0 = _context2["catch"](1);
                 this.errors = _context2.t0.response.data.errors;
+                console.log(_context2.t0);
 
-              case 11:
+              case 12:
               case "end":
                 return _context2.stop();
             }

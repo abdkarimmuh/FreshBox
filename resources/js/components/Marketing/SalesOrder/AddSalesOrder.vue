@@ -438,6 +438,7 @@
                     });
                 } catch (e) {
                     this.errors = e.response.data.errors;
+                    console.log(e);
                 }
             },
 
