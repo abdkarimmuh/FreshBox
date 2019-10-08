@@ -1,6 +1,7 @@
 <?php
 
 use App\Model\Finance\InvoiceOrder;
+use App\Model\MasterData\Price;
 
 Route::get('/', function () {
     return redirect(route('admin.dashboard'));
@@ -11,7 +12,7 @@ Route::get('home', function () {
 });
 
 Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
-//    Route::get('/{any}', 'DashboardController')->where('any', '.*');
+    //    Route::get('/{any}', 'DashboardController')->where('any', '.*');
     Route::get('dashboard', 'DashboardController')->name('dashboard');
     Route::get('passport', 'DashboardController@passport')->name('passport');
 
@@ -32,15 +33,15 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
 
-//            Route::get('/', 'Marketing\FormSalesOrderController@index')->name('index');
-//            Route::get('/create', 'Marketing\FormSalesOrderController@create')->name('create');
-//            Route::get('/{id}/edit', 'Marketing\FormSalesOrderController@edit')->name('edit');
-//            Route::get('/{id}/print', 'Marketing\FormSalesOrderController@print')->name('print');
-//            Route::get('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint')->name('multiplePrint');
-//            Route::post('/store', 'Marketing\FormSalesOrderController@store')->name('store');
-//            Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile')->name('download');
-//            Route::post('/{id}/print', 'Marketing\FormSalesOrderController@print');
-//            Route::post('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint');
+            //            Route::get('/', 'Marketing\FormSalesOrderController@index')->name('index');
+            //            Route::get('/create', 'Marketing\FormSalesOrderController@create')->name('create');
+            //            Route::get('/{id}/edit', 'Marketing\FormSalesOrderController@edit')->name('edit');
+            //            Route::get('/{id}/print', 'Marketing\FormSalesOrderController@print')->name('print');
+            //            Route::get('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint')->name('multiplePrint');
+            //            Route::post('/store', 'Marketing\FormSalesOrderController@store')->name('store');
+            //            Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile')->name('download');
+            //            Route::post('/{id}/print', 'Marketing\FormSalesOrderController@print');
+            //            Route::post('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint');
         });
     });
 
@@ -116,15 +117,15 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         Route::name('invoice_order.')->prefix('invoice_order')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
-//            Route::get('/', 'Finance\FormInvoiceOrderController@index')->name('index');
-//            Route::get('/create', 'Finance\FormInvoiceOrderController@create')->name('create');
-//            Route::get('/view', 'Finance\FormInvoiceOrderController@show')->name('show');
-//            Route::post('/store', 'Finance\FormInvoiceOrderController@store')->name('store');
-//            Route::get('/{id}/print', 'Finance\FormInvoiceOrderController@print')->name('print');
-//            Route::post('/{id}/print', 'Finance\FormInvoiceOrderController@print');
-//            Route::get('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint')->name('multiplePrint');
-//            Route::post('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint');
-//            Route::get('/printRecap', 'Finance\FormInvoiceOrderController@printRecap')->name('printRecap');
+            //            Route::get('/', 'Finance\FormInvoiceOrderController@index')->name('index');
+            //            Route::get('/create', 'Finance\FormInvoiceOrderController@create')->name('create');
+            //            Route::get('/view', 'Finance\FormInvoiceOrderController@show')->name('show');
+            //            Route::post('/store', 'Finance\FormInvoiceOrderController@store')->name('store');
+            //            Route::get('/{id}/print', 'Finance\FormInvoiceOrderController@print')->name('print');
+            //            Route::post('/{id}/print', 'Finance\FormInvoiceOrderController@print');
+            //            Route::get('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint')->name('multiplePrint');
+            //            Route::post('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint');
+            //            Route::get('/printRecap', 'Finance\FormInvoiceOrderController@printRecap')->name('printRecap');
         });
     });
     /*

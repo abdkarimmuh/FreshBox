@@ -91,6 +91,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/store', 'API\InvoiceAPIController@store');
             Route::post('/print', 'API\InvoiceAPIController@print');
             Route::get('/printRecap/{customer_id}', 'API\InvoiceAPIController@printRecap');
+            Route::get('/printRekap', 'API\InvoiceAPIController@printRekap');
 
         });
     });
