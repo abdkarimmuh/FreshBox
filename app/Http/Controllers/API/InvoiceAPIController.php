@@ -97,12 +97,17 @@ class InvoiceAPIController extends Controller
 
     public function printRekap(Request $request)
     {
-        $invoices  = InvoiceOrder::whereIn('id', $request->id)->get();
-        foreach ($invoices as $invoice ){
+        $invoices = InvoiceOrder::whereIn('id', $request->id)->get();
+        foreach ($invoices as $invoice) {
             $customers_id[] = $invoice->customer_id;
         }
-
+        if (count(array_unique($customers_id)) === 1) {
+            return response(['status' => true]);
+        } else {
+            return response(['status' => false]);
+        }
     }
+
     public function printRecap($customer_id)
     {
         if (request()->isMethod('POST')) {

@@ -12,8 +12,8 @@
                             <a class="btn btn-info ml-2" style="color: white" @click="print()"
                                v-if="config.route_multiple_print && selected != 0">Print
                                 <i class="fas fa-print"></i></a>
-                            <a class="btn btn-primary ml-2" href=""
-                               style="color: white" v-if="config.route_print_rekap">Print Rekap <i
+                            <a class="btn btn-primary ml-2" @click="printRekap"
+                               style="color: white" v-if="config.route_print_rekap && selected != 0">Print Rekap <i
                                 class="fas fa-print"></i></a>
                         </div>
                     </div>
@@ -77,7 +77,8 @@
                                              :to="{ name: config.route_view , params: { id: item.id }}">View
                                 </router-link>
 
-                                <router-link v-if="config.route_edit && item.status === 1 && item.is_printed === 0" class="badge badge-warning"
+                                <router-link v-if="config.route_edit && item.status === 1 && item.is_printed === 0"
+                                             class="badge badge-warning"
                                              :to="{ name: config.route_edit , params: { id: item.id }}">Edit
                                 </router-link>
                             </td>
@@ -238,6 +239,26 @@
             },
             print() {
                 this.$router.push({name: this.config.route_multiple_print, query: {id: this.selected}})
+            },
+            printRekap() {
+                const payload = {
+                    id: this.selected,
+                };
+                axios.get(BaseUrl('api/v1/finance/invoice_order/printRekap'), {params: payload})
+                    .then(res => {
+                        if (res.data.status === true) {
+                            this.$router.push({name: this.config.route_multiple_print, query: {id: this.selected}})
+                        } else {
+                            Vue.swal({
+                                type: "danger",
+                                title: "Danger!",
+                                text: "Customer Harus Sama!"
+                            });
+                        }
+                        console.log(res);
+                    }).catch(e => {
+
+                });
             }
         },
         computed: {
