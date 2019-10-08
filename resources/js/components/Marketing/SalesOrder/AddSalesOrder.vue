@@ -229,7 +229,7 @@
                                     </thead>
                                     <tbody>
                                     <tr
-                                        v-for="(orders, index) in orders_detail"
+                                        v-for="(orders, index) in orders_detail.slice().reverse()" track-by="index"
                                         v-bind:key="index"
                                     >
                                         <td>{{ orders.skuid }}</td>
