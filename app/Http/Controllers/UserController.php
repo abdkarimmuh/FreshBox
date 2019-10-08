@@ -54,7 +54,9 @@ class UserController extends Controller
      */
     public function store(UserAddRequest $request)
     {
-        $user = User::create($request->all());
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
         $role = Role::find($request->role);
         if ($role) {
             $user->assignRole($role);
