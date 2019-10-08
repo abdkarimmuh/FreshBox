@@ -2393,7 +2393,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         title: "Customer",
         field: "customer_name"
       }],
-      logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
       invoice_order: [],
       loading: false
     };
@@ -2645,7 +2644,6 @@ __webpack_require__.r(__webpack_exports__);
         title: "Customer",
         field: "customer_name"
       }],
-      logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
       info: {
         title: "Invoice",
         no: "invoice_no",
@@ -4267,7 +4265,6 @@ __webpack_require__.r(__webpack_exports__);
         title: "Customer",
         field: "customer_name"
       }],
-      logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
       sales_order: [],
       loading: false
     };
@@ -4478,7 +4475,6 @@ __webpack_require__.r(__webpack_exports__);
         title: "Customer",
         field: "customer_name"
       }],
-      logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
       sales_order: {},
       details: [],
       loading: false
@@ -6335,7 +6331,7 @@ __webpack_require__.r(__webpack_exports__);
         type: 'text'
       }, {
         title: 'Qty',
-        field: 'qty_order',
+        field: 'qty_do',
         type: 'text'
       }, {
         title: 'Unit',
@@ -6365,7 +6361,6 @@ __webpack_require__.r(__webpack_exports__);
         title: "Customer",
         field: "customer_name"
       }],
-      logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
       delivery_order: [],
       loading: false
     };
@@ -6504,7 +6499,7 @@ __webpack_require__.r(__webpack_exports__);
         type: 'text'
       }, {
         title: 'Qty',
-        field: 'qty_order',
+        field: 'qty_do',
         type: 'text'
       }, {
         title: 'Unit',
@@ -6534,7 +6529,6 @@ __webpack_require__.r(__webpack_exports__);
         title: "Customer",
         field: "customer_name"
       }],
-      logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
       delivery_order: {},
       details: [],
       loading: false
@@ -49823,7 +49817,7 @@ var render = function() {
           "div",
           { staticStyle: { "page-break-after": "always" } },
           [
-            _c("print-header", { attrs: { logo: _vm.logo } }),
+            _c("print-header"),
             _vm._v(" "),
             _vm.loading
               ? _c("div", { staticClass: "row" }, [
@@ -50178,7 +50172,7 @@ var render = function() {
       "div",
       { attrs: { id: "printMe" } },
       [
-        _c("print-header", { attrs: { logo: _vm.logo } }),
+        _c("print-header"),
         _vm._v(" "),
         _vm.loading
           ? _c("div", { staticClass: "row" }, [
@@ -52284,7 +52278,7 @@ var render = function() {
           "div",
           { staticStyle: { "page-break-after": "always" } },
           [
-            _c("print-header", { attrs: { logo: _vm.logo } }),
+            _c("print-header"),
             _vm._v(" "),
             _vm.loading
               ? _c("div", { staticClass: "row" }, [
@@ -52545,7 +52539,7 @@ var render = function() {
         "div",
         { staticStyle: { "page-break-after": "always" } },
         [
-          _c("print-header", { attrs: { logo: _vm.logo } }),
+          _c("print-header"),
           _vm._v(" "),
           _vm.loading
             ? _c("div", { staticClass: "row" }, [
@@ -55448,7 +55442,7 @@ var render = function() {
               "div",
               { staticStyle: { "page-break-after": "always" } },
               [
-                _c("print-header", { attrs: { logo: _vm.logo } }),
+                _c("print-header"),
                 _vm._v(" "),
                 _vm.loading
                   ? _c("div", { staticClass: "row" }, [
@@ -55596,7 +55590,7 @@ var render = function() {
       "div",
       { attrs: { id: "printMe" } },
       [
-        _c("print-header", { attrs: { logo: _vm.logo } }),
+        _c("print-header"),
         _vm._v(" "),
         _vm.loading
           ? _c("div", { staticClass: "row" }, [
