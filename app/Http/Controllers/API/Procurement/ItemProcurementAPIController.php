@@ -18,17 +18,8 @@ class ItemProcurementAPIController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        // $searchValue = $request->input('query');
-        // $perPage = $request->perPage;
-        // $query = AssignProcurement::dataTableQuery($searchValue);
-        // if ($searchValue) {
-        //     $query = $query->orderBy('id', 'desc')->take(20)->paginate(20);
-        // } else {
-        //     $query = $query->orderBy('id', 'desc')->paginate($perPage);
-        // }
-
         $query = AssignProcurement::all();
         return AssignProcurementResource::collection($query);
     }
@@ -63,9 +54,10 @@ class ItemProcurementAPIController extends Controller
 
         $skuid = $request->skuid;
         $user_proc_id = $request->user_proc_id;
-        $qty_all = $request->qty;
+        $qty_all = number_format($request->qty);
+        $uom_id = $request->uom_id;
 
-        $sales_order_detail = SalesOrderDetail::where('status', 1)->where('skuid', $skuid)->orderBy('sales_order_id', 'desc')->get();
+        $sales_order_detail = SalesOrderDetail::where('status', 1)->where('skuid', $skuid)->where('uom_id', $uom_id)->orderBy('sales_order_id', 'desc')->get();
 
         foreach ($sales_order_detail as $item) {
 

@@ -18,6 +18,7 @@ class CreateTrxListProcurementDetail extends Migration
             $table->unsignedBigInteger('trx_list_procurement_id');
             $table->unsignedBigInteger('trx_assign_procurement_id');
             $table->decimal('qty', 18, 2);
+            $table->decimal('qty_minus', 18, 2)->default(0);
             $table->unsignedBigInteger('uom_id');
             $table->decimal('amount', 18, 2);
             $table->decimal('total_amount', 18, 2);

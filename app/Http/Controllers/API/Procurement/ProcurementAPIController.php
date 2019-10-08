@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\Procurement;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Procurement\ListProcurementResource;
+use App\Model\Procurement\ListProcurement;
 use Illuminate\Http\Request;
 
 class ProcurementAPIController extends Controller
@@ -14,7 +16,8 @@ class ProcurementAPIController extends Controller
      */
     public function index()
     {
-        //
+        $query = ListProcurement::all();
+        return ListProcurementResource::collection($query);
     }
 
     /**

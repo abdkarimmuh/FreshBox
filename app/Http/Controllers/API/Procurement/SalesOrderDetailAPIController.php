@@ -14,17 +14,8 @@ class SalesOrderDetailAPIController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        // $searchValue = $request->input('query');
-        // $perPage = $request->perPage;
-        // $query = SalesOrderDetail::dataTableQuery($searchValue);
-        // if ($searchValue) {
-        //     $query = $query->orderBy('sales_order_id', 'desc')->take(20)->paginate(20);
-        // } else {
-        //     $query = $query->orderBy('sales_order_id', 'desc')->paginate($perPage);
-        // }
-
         $query = SalesOrderDetail::all();
         return SalesOrderDetailResource::collection($query);
     }
