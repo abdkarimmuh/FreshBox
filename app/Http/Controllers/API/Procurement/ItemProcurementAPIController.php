@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\API\Procurement;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Procurement\AssignProcurementResource;
 use App\Http\Resources\SalesOrderDetailResource;
+use App\Model\Marketing\SalesOrder;
 use App\Model\Marketing\SalesOrderDetail;
 use App\Model\Procurement\AssignProcurement;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ItemAPIProcurement extends Controller
+class ItemProcurementAPIController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,16 +20,17 @@ class ItemAPIProcurement extends Controller
      */
     public function index(Request $request)
     {
-        $searchValue = $request->input('query');
-        $perPage = $request->perPage;
-        $query = SalesOrderDetail::dataTableQuery($searchValue);
-        if ($searchValue) {
-            $query = $query->orderBy('sales_order_id', 'desc')->take(20)->paginate(20);
-        } else {
-            $query = $query->orderBy('sales_order_id', 'desc')->paginate($perPage);
-        }
+        // $searchValue = $request->input('query');
+        // $perPage = $request->perPage;
+        // $query = AssignProcurement::dataTableQuery($searchValue);
+        // if ($searchValue) {
+        //     $query = $query->orderBy('id', 'desc')->take(20)->paginate(20);
+        // } else {
+        //     $query = $query->orderBy('id', 'desc')->paginate($perPage);
+        // }
 
-        return SalesOrderDetailResource::collection($query);
+        $query = AssignProcurement::all();
+        return AssignProcurementResource::collection($query);
     }
 
     /**
@@ -47,11 +51,13 @@ class ItemAPIProcurement extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         //List Validasi
         $rules = [
             'skuid' => 'required',
             'user_proc_id' => 'required',
             'qty' => 'required|not_in:0',
+            'uom_id' => 'required'
         ];
         $request->validate(array_merge($rules));
 
@@ -59,19 +65,45 @@ class ItemAPIProcurement extends Controller
         $user_proc_id = $request->user_proc_id;
         $qty_all = $request->qty;
 
-        $sales_order_detail = SalesOrderDetail::where('status', 1);
+        $sales_order_detail = SalesOrderDetail::where('status', 1)->where('skuid', $skuid)->orderBy('sales_order_id', 'desc')->get();
 
         foreach ($sales_order_detail as $item) {
+
+            $sales_order = SalesOrder::find($item->sales_order_id);
+
+            if ($qty_all >= $item->qty) {
+                $item->status = 2;
+                $item->sisa_qty_proc = 0;
+                $qty_proc = $item->qty;
+
+                $sales_order->status = 2;
+                $qty_all = $qty_all - $item->qty;
+            } else {
+                $item->sisa_qty_proc = $qty_all;
+                $qty_proc = $qty_all;
+
+                $qty_all = 0;
+            }
+
+            $item->save();
+            $sales_order->save();
+
             //Untuk Melakukan assign procurement
-            $assign_procurement = AssignProcurement::create([
+            $assign_procurement[] = [
                 'sales_order_detail_id' => $item->id,
                 'user_proc_id' => $user_proc_id,
-                'qty' => $qty_all,
+                'qty' => $qty_proc,
+                'uom_id' => $item->uom_id,
                 'created_by' => $user_proc_id,
                 'created_at' => Carbon::now(),
-            ]);
+            ];
+
+            if ($qty_all == 0) {
+                break;
+            }
         }
 
+        AssignProcurement::insert($assign_procurement);
 
         return response()->json([
             'status' => 'success',

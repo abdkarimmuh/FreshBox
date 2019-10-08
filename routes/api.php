@@ -32,16 +32,21 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'procurement'], function () {
-            Route::get('assign', function () {
-                return auth()->user()->procurement->assign_proc;
-            });
             Route::get('proc', function () {
                 return new UserProcResource(auth()->user());
             });
-    
+
             Route::group(['prefix' => 'item'], function () {
-                Route::get('/', 'API\Procurement\ItemAPIProcurement@index');
-                Route::post('/store', 'API\Procurement\ItemAPIProcurement@store');
+                Route::get('/', 'API\Procurement\ItemProcurementAPIController@index');
+                Route::post('/', 'API\Procurement\ItemProcurementAPIController@store');
+            });
+            
+            Route::group(['prefix' => 'procurement'], function () {
+                Route::get('/', 'API\Procurement\ProcurementAPIController@index');
+            });
+
+            Route::group(['prefix' => 'sales_order_detail'], function () {
+                Route::get('/', 'API\Procurement\SalesOrderDetailAPIController@index');
             });
         });
     });

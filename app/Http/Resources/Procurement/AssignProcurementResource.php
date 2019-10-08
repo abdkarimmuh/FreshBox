@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Mobile;
+namespace App\Http\Resources\Procurement;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AssignListResource extends JsonResource
+class AssignProcurementResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,10 @@ class AssignListResource extends JsonResource
     {
         return[
             'id' => $this->id,
-            'name' => $this->item_name,
+            'sales_order_detail_id' => $this->sales_order_detail_id,
+            'user_proc_id' => $this->user_proc_id,
             'qty' => $this->qty,
-            'uom' => $this->uom
+            'uom' => $this->uom,
         ];
     }
 }
