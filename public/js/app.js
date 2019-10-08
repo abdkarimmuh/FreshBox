@@ -3339,6 +3339,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3435,6 +3444,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                this.loading = true;
                 payload = {
                   user_id: this.sales_order.user_id,
                   customerId: this.sales_order.customerId,
@@ -3452,11 +3462,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     };
                   })
                 };
-                _context2.prev = 1;
-                _context2.next = 4;
+                _context2.prev = 2;
+                _context2.next = 5;
                 return axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order/store"), payload);
 
-              case 4:
+              case 5:
                 res = _context2.sent;
                 Vue.swal({
                   type: "success",
@@ -3465,24 +3475,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }).then(function (next) {
                   _this2.$router.push({
                     name: 'form_sales_order'
-                  }); // console.log(res)
-
+                  });
                 });
-                _context2.next = 12;
+                _context2.next = 13;
                 break;
 
-              case 8:
-                _context2.prev = 8;
-                _context2.t0 = _context2["catch"](1);
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](2);
+                this.loading = false;
                 this.errors = _context2.t0.response.data.errors;
-                console.log(_context2.t0);
 
-              case 12:
+              case 13:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[1, 8]]);
+        }, _callee2, this, [[2, 9]]);
       }));
 
       function submitForm() {
@@ -51525,32 +51534,36 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-12" }, [
               _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    on: {
-                      click: function($event) {
-                        return _vm.submitForm()
-                      }
-                    }
-                  },
-                  [_vm._v("Submit\n                            ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.back()
-                      }
-                    }
-                  },
-                  [_vm._v("Back\n                            ")]
-                )
+                _vm.loading
+                  ? _c("div", [_vm._m(10)])
+                  : _c("div", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.submitForm()
+                            }
+                          }
+                        },
+                        [_vm._v("Submit\n                                ")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.back()
+                            }
+                          }
+                        },
+                        [_vm._v("Back\n                                ")]
+                      )
+                    ])
               ])
             ])
           ])
@@ -51663,6 +51676,27 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [_c("b", [_vm._v("Remarks")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-danger",
+        attrs: { type: "button", disabled: "" }
+      },
+      [
+        _c("span", {
+          staticClass: "spinner-border spinner-border-sm",
+          attrs: { role: "status", "aria-hidden": "true" }
+        }),
+        _vm._v(
+          "\n                                    Loading...\n                                "
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true

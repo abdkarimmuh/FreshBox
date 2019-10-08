@@ -313,17 +313,26 @@
                         </div>
                         <div class="col-12">
                             <div class="card-body">
-                                <button
-                                    class="btn btn-danger"
-                                    v-on:click="submitForm()"
-                                >Submit
-                                </button>
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    @click="back()"
-                                >Back
-                                </button>
+                                <div v-if="loading">
+                                    <button class="btn btn-danger" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                          aria-hidden="true"></span>
+                                        Loading...
+                                    </button>
+                                </div>
+                                <div v-else>
+                                    <button
+                                        class="btn btn-danger"
+                                        v-on:click="submitForm()"
+                                    >Submit
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        @click="back()"
+                                    >Back
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -408,6 +417,7 @@
              * Insert Sales Order
              */
             async submitForm() {
+                this.loading = true;
 
                 const payload = {
                     user_id: this.sales_order.user_id,
@@ -434,11 +444,10 @@
                         text: "Successfully Insert Data!"
                     }).then(next => {
                         this.$router.push({name: 'form_sales_order'});
-                        // console.log(res)
                     });
                 } catch (e) {
+                    this.loading = false;
                     this.errors = e.response.data.errors;
-                    console.log(e);
                 }
             },
 
