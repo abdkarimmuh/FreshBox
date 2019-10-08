@@ -20,15 +20,16 @@ class ItemProcurementAPIController extends Controller
      */
     public function index(Request $request)
     {
-        $searchValue = $request->input('query');
-        $perPage = $request->perPage;
-        $query = AssignProcurement::dataTableQuery($searchValue);
-        if ($searchValue) {
-            $query = $query->orderBy('id', 'desc')->take(20)->paginate(20);
-        } else {
-            $query = $query->orderBy('id', 'desc')->paginate($perPage);
-        }
+        // $searchValue = $request->input('query');
+        // $perPage = $request->perPage;
+        // $query = AssignProcurement::dataTableQuery($searchValue);
+        // if ($searchValue) {
+        //     $query = $query->orderBy('id', 'desc')->take(20)->paginate(20);
+        // } else {
+        //     $query = $query->orderBy('id', 'desc')->paginate($perPage);
+        // }
 
+        $query = AssignProcurement::all();
         return AssignProcurementResource::collection($query);
     }
 
@@ -50,11 +51,13 @@ class ItemProcurementAPIController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         //List Validasi
         $rules = [
             'skuid' => 'required',
             'user_proc_id' => 'required',
             'qty' => 'required|not_in:0',
+            'uom_id' => 'required'
         ];
         $request->validate(array_merge($rules));
 
@@ -90,7 +93,7 @@ class ItemProcurementAPIController extends Controller
                 'sales_order_detail_id' => $item->id,
                 'user_proc_id' => $user_proc_id,
                 'qty' => $qty_proc,
-                'uom' => $item->uom_id,
+                'uom_id' => $item->uom_id,
                 'created_by' => $user_proc_id,
                 'created_at' => Carbon::now(),
             ];

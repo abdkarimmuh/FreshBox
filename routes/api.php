@@ -45,7 +45,7 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::get('/', 'API\Procurement\ProcurementAPIController@index');
             });
 
-            Route::group(['prefix' => 'sales_order'], function () {
+            Route::group(['prefix' => 'sales_order_detail'], function () {
                 Route::get('/', 'API\Procurement\SalesOrderDetailAPIController@index');
             });
         });
