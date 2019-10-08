@@ -68,7 +68,7 @@ class DeliveryOrder extends MyModel
 
     public function getPicQcNameAttribute()
     {
-        return $this->picqc->name;
+        return $this->picqc->name ?? null;
     }
 
     public function getCustomerNameAttribute()

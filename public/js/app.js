@@ -2149,7 +2149,8 @@ __webpack_require__.r(__webpack_exports__);
         route_create: 'invoice_order.create',
         route_view: 'invoice_order.print',
         route_edit: 'invoice_order.edit',
-        route_multiple_print: 'invoice_order.multiplePrint'
+        route_multiple_print: 'invoice_order.multiplePrint',
+        route_print_rekap: 'invoice_order.print_rekap'
       },
       columns: [{
         title: 'Invoice Order NO',
@@ -3338,6 +3339,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3434,6 +3444,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                this.loading = true;
                 payload = {
                   user_id: this.sales_order.user_id,
                   customerId: this.sales_order.customerId,
@@ -3451,11 +3462,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     };
                   })
                 };
-                _context2.prev = 1;
-                _context2.next = 4;
+                _context2.prev = 2;
+                _context2.next = 5;
                 return axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order/store"), payload);
 
-              case 4:
+              case 5:
                 res = _context2.sent;
                 Vue.swal({
                   type: "success",
@@ -3464,23 +3475,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }).then(function (next) {
                   _this2.$router.push({
                     name: 'form_sales_order'
-                  }); // console.log(res)
-
+                  });
                 });
-                _context2.next = 11;
+                _context2.next = 13;
                 break;
 
-              case 8:
-                _context2.prev = 8;
-                _context2.t0 = _context2["catch"](1);
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](2);
+                this.loading = false;
                 this.errors = _context2.t0.response.data.errors;
 
-              case 11:
+              case 13:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[1, 8]]);
+        }, _callee2, this, [[2, 9]]);
       }));
 
       function submitForm() {
@@ -5206,6 +5217,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['columns', 'config'],
   data: function data() {
@@ -5339,6 +5351,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           id: this.selected
         }
       });
+    },
+    printRekap: function printRekap() {
+      var _this2 = this;
+
+      var payload = {
+        id: this.selected
+      };
+      axios.get(BaseUrl('api/v1/finance/invoice_order/printRekap'), {
+        params: payload
+      }).then(function (res) {
+        if (res.data.status === true) {
+          _this2.$router.push({
+            name: _this2.config.route_multiple_print,
+            query: {
+              id: _this2.selected
+            }
+          });
+        } else {
+          Vue.swal({
+            type: "danger",
+            title: "Danger!",
+            text: "Customer Harus Sama!"
+          });
+        }
+
+        console.log(res);
+      })["catch"](function (e) {});
     }
   },
   computed: {
@@ -49116,7 +49155,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _vm.message
         ? _c("div", { staticClass: "alert alert-primary" }, [
-            _vm._v("\r\n            " + _vm._s(_vm.message) + "\r\n        ")
+            _vm._v("\n            " + _vm._s(_vm.message) + "\n        ")
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -51274,126 +51313,150 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "tbody",
-                              _vm._l(_vm.orders_detail, function(
-                                orders,
-                                index
-                              ) {
-                                return _c("tr", { key: index }, [
-                                  _c("td", [_vm._v(_vm._s(orders.skuid))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(orders.item_name))]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    { staticStyle: { "text-align": "right" } },
+                              _vm._l(
+                                _vm.orders_detail.slice().reverse(),
+                                function(orders, index) {
+                                  return _c(
+                                    "tr",
+                                    {
+                                      key: index,
+                                      attrs: { "track-by": "index" }
+                                    },
                                     [
-                                      _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.qty[index],
-                                            expression: "qty[index]"
-                                          }
-                                        ],
-                                        staticClass: "form-control qty",
-                                        attrs: {
-                                          type: "number",
-                                          placeholder: "Qty",
-                                          min: "0",
-                                          oninput: "validity.valid||(value='');"
-                                        },
-                                        domProps: { value: _vm.qty[index] },
-                                        on: {
-                                          input: function($event) {
-                                            if ($event.target.composing) {
-                                              return
-                                            }
-                                            _vm.$set(
-                                              _vm.qty,
-                                              index,
-                                              $event.target.value
-                                            )
-                                          }
-                                        }
-                                      })
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(orders.uom))]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    { staticStyle: { "text-align": "right" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(_vm._f("toIDR")(orders.amount))
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    { staticStyle: { "text-align": "right" } },
-                                    [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm._f("toIDR")(
-                                            _vm.total_amount[index]
-                                          )
-                                        )
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c("input", {
-                                      directives: [
+                                      _c("td", [_vm._v(_vm._s(orders.skuid))]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(_vm._s(orders.item_name))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
                                         {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.notes[index],
-                                          expression: "notes[index]"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "text",
-                                        placeholder: "Notes"
-                                      },
-                                      domProps: { value: _vm.notes[index] },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            _vm.notes,
-                                            index,
-                                            $event.target.value
+                                          staticStyle: { "text-align": "right" }
+                                        },
+                                        [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.qty[index],
+                                                expression: "qty[index]"
+                                              }
+                                            ],
+                                            staticClass: "form-control qty",
+                                            attrs: {
+                                              type: "number",
+                                              placeholder: "Qty",
+                                              min: "0",
+                                              oninput:
+                                                "validity.valid||(value='');"
+                                            },
+                                            domProps: { value: _vm.qty[index] },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  _vm.qty,
+                                                  index,
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("td", [_vm._v(_vm._s(orders.uom))]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        {
+                                          staticStyle: { "text-align": "right" }
+                                        },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("toIDR")(orders.amount)
+                                            )
                                           )
-                                        }
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-icon btn-sm btn-danger",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.removeOrderDetails(index)
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        {
+                                          staticStyle: { "text-align": "right" }
+                                        },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("toIDR")(
+                                                _vm.total_amount[index]
+                                              )
+                                            )
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.notes[index],
+                                              expression: "notes[index]"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: {
+                                            type: "text",
+                                            placeholder: "Notes"
+                                          },
+                                          domProps: { value: _vm.notes[index] },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                _vm.notes,
+                                                index,
+                                                $event.target.value
+                                              )
+                                            }
                                           }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fa fa-trash" })]
-                                    )
-                                  ])
-                                ])
-                              }),
+                                        })
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-icon btn-sm btn-danger",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.removeOrderDetails(
+                                                  index
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-trash"
+                                            })
+                                          ]
+                                        )
+                                      ])
+                                    ]
+                                  )
+                                }
+                              ),
                               0
                             ),
                             _vm._v(" "),
@@ -51495,32 +51558,36 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-12" }, [
               _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    on: {
-                      click: function($event) {
-                        return _vm.submitForm()
-                      }
-                    }
-                  },
-                  [_vm._v("Submit\n                            ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.back()
-                      }
-                    }
-                  },
-                  [_vm._v("Back\n                            ")]
-                )
+                _vm.loading
+                  ? _c("div", [_vm._m(10)])
+                  : _c("div", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.submitForm()
+                            }
+                          }
+                        },
+                        [_vm._v("Submit\n                                ")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.back()
+                            }
+                          }
+                        },
+                        [_vm._v("Back\n                                ")]
+                      )
+                    ])
               ])
             ])
           ])
@@ -51633,6 +51700,27 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [_c("b", [_vm._v("Remarks")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-danger",
+        attrs: { type: "button", disabled: "" }
+      },
+      [
+        _c("span", {
+          staticClass: "spinner-border spinner-border-sm",
+          attrs: { role: "status", "aria-hidden": "true" }
+        }),
+        _vm._v(
+          "\n                                    Loading...\n                                "
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -53664,13 +53752,13 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.config.route_print_rekap
+                _vm.config.route_print_rekap && _vm.selected != 0
                   ? _c(
                       "a",
                       {
                         staticClass: "btn btn-primary ml-2",
                         staticStyle: { color: "white" },
-                        attrs: { href: "" }
+                        on: { click: _vm.printRekap }
                       },
                       [
                         _vm._v("Print Rekap "),
