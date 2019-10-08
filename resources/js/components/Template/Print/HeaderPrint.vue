@@ -25,7 +25,7 @@
             </div>
             <div class="col-md-6">
                 <div class="text-right">
-                    <img v-bind:src="logo">
+                    <img src="http://freshbox.tetambastudio.com/assets/img/logo-frbox.png">
                 </div>
             </div>
         </div>
@@ -35,7 +35,6 @@
 
 <script>
     export default {
-        props: ['logo'],
         data() {
             return {
                 info: {
