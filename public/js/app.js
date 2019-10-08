@@ -2149,7 +2149,8 @@ __webpack_require__.r(__webpack_exports__);
         route_create: 'invoice_order.create',
         route_view: 'invoice_order.print',
         route_edit: 'invoice_order.edit',
-        route_multiple_print: 'invoice_order.multiplePrint'
+        route_multiple_print: 'invoice_order.multiplePrint',
+        route_print_rekap: 'invoice_order.print_rekap'
       },
       columns: [{
         title: 'Invoice Order NO',
@@ -3467,15 +3468,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }); // console.log(res)
 
                 });
-                _context2.next = 11;
+                _context2.next = 12;
                 break;
 
               case 8:
                 _context2.prev = 8;
                 _context2.t0 = _context2["catch"](1);
                 this.errors = _context2.t0.response.data.errors;
+                console.log(_context2.t0);
 
-              case 11:
+              case 12:
               case "end":
                 return _context2.stop();
             }
@@ -5206,6 +5208,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['columns', 'config'],
   data: function data() {
@@ -5339,6 +5342,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           id: this.selected
         }
       });
+    },
+    printRekap: function printRekap() {
+      var _this2 = this;
+
+      var payload = {
+        id: this.selected
+      };
+      axios.get(BaseUrl('api/v1/finance/invoice_order/printRekap'), {
+        params: payload
+      }).then(function (res) {
+        if (res.data.status === true) {
+          _this2.$router.push({
+            name: _this2.config.route_multiple_print,
+            query: {
+              id: _this2.selected
+            }
+          });
+        } else {
+          Vue.swal({
+            type: "danger",
+            title: "Danger!",
+            text: "Customer Harus Sama!"
+          });
+        }
+
+        console.log(res);
+      })["catch"](function (e) {});
     }
   },
   computed: {
@@ -49116,7 +49146,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _vm.message
         ? _c("div", { staticClass: "alert alert-primary" }, [
-            _vm._v("\r\n            " + _vm._s(_vm.message) + "\r\n        ")
+            _vm._v("\n            " + _vm._s(_vm.message) + "\n        ")
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -53664,13 +53694,13 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.config.route_print_rekap
+                _vm.config.route_print_rekap && _vm.selected != 0
                   ? _c(
                       "a",
                       {
                         staticClass: "btn btn-primary ml-2",
                         staticStyle: { color: "white" },
-                        attrs: { href: "" }
+                        on: { click: _vm.printRekap }
                       },
                       [
                         _vm._v("Print Rekap "),
