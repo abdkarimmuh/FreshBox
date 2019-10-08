@@ -16,7 +16,7 @@ class CreateTrxDeliveryOrder extends Migration
             $table->string('delivery_order_no', 15);
             $table->unsignedBigInteger('sales_order_id');
             $table->unsignedBigInteger('customer_id');
-            $table->string('pic_qc')->nullable();
+            $table->unsignedBigInteger('pic_qc');
             $table->date('do_date');
             $table->date('confirm_date')->nullable();
             $table->string('remark', 200)->nullable();
@@ -28,6 +28,7 @@ class CreateTrxDeliveryOrder extends Migration
 
             $table->foreign('sales_order_id')->on('trx_sales_order')->references('id')->onDelete('cascade');
             $table->foreign('customer_id')->on('master_customer')->references('id')->onDelete('cascade');
+            $table->foreign('pic_qc')->on('master_driver')->references('id')->onDelete('cascade');
 
             $table->foreign('driver_id')->on('master_driver')->references('id')->onDelete('cascade');
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');

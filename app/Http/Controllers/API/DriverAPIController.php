@@ -12,4 +12,15 @@ class DriverAPIController extends Controller
     {
         return Driver::all();
     }
+
+    public function driver()
+    {
+        return Driver::where('role', 1)->get();
+    }
+
+    public function picqc()
+    {
+        return Driver::where('role', 2)->get();
+    }
+
 }

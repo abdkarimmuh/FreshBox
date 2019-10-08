@@ -30,7 +30,7 @@ class FormDeliveryOrderController extends Controller
             array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
             array('title' => 'Customer', 'field' => 'customer_name'),
             array('title' => 'Do Date', 'field' => 'do_date'),
-            array('title' => 'PIC QC', 'field' => 'pic_qc'),
+            array('title' => 'PIC QC', 'field' => 'pic_qc_name'),
             array('title' => 'Remarks', 'field' => 'remarks'),
             array('title' => 'Status', 'field' => 'status_name'),
             array('title' => 'Created By', 'field' => 'created_by_name'),

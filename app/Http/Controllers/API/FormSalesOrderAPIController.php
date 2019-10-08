@@ -62,6 +62,7 @@ class FormSalesOrderAPIController extends Controller
     public function store(Request $request)
     {
         // return $request;
+
         //Check Jika Source Order PO
         //Maka No PO Wajib Di Isi
         //Jika Source Order ! = PO Maka No PO = ''
@@ -137,6 +138,7 @@ class FormSalesOrderAPIController extends Controller
                     'skuid' => $detail['skuid'],
                     'uom_id' => $listItems[$i]->uom_id,
                     'qty' => $detail['qty'],
+                    'sisa_qty_proc' => $detail['qty'],
                     'amount_price' => $listItems[$i]->amount,
                     'total_amount' => $listItems[$i]->amount * $detail['qty'],
                     'notes' => $detail['notes'],

@@ -75,6 +75,31 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- PIC QC -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    <b>PIC Quality Control</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div>
+                                    <model-list-select
+                                        v-bind:class="{'is-invalid': errors.pic_qc_id}"
+                                        :list="pic_qc"
+                                        v-model="delivery_order.pic_qc_id"
+                                        option-value="id"
+                                        option-text="name"
+                                        placeholder="Select PIC Quality Control"
+                                    ></model-list-select>
+                                    <div
+                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                        v-if="errors.pic_qc_id"
+                                    >
+                                        <p>{{ errors.pic_qc_id[0] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- DO Date -->
                         <div class="col-md-6">
                             <div class="form-group">
@@ -95,31 +120,6 @@
                                     v-if="errors.do_date"
                                 >
                                     <p>{{ errors.do_date[0] }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- PIC QC -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>
-                                    <b>PIC Quality Control</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <input
-                                        type="text"
-                                        v-bind:class="{'is-invalid': errors.pic_qc}"
-                                        placeholder="PIC Quality Control"
-                                        class="form-control"
-                                        v-model="delivery_order.pic_qc"
-                                        required
-                                    />
-                                    <div
-                                        class="invalid-feedback"
-                                        v-if="errors.pic_qc"
-                                    >
-                                        <p>{{ errors.pic_qc[0] }}</p>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -213,6 +213,7 @@
                     customer_name: "",
                     do_date: "",
                     driver_id: "",
+                    pic_qc_id: "",
                     remark: "",
                     user_id: UserID
                 },
@@ -220,6 +221,7 @@
                 sales_orders: [],
                 sales_order_details: [],
                 drivers: [],
+                pic_qc:[],
                 qty_do: [],
                 errors: []
             };
@@ -261,7 +263,7 @@
                     customer_id: this.delivery_order.customer_id,
                     do_date: this.delivery_order.do_date,
                     driver_id: this.delivery_order.driver_id,
-                    pic_qc: this.delivery_order.pic_qc,
+                    pic_qc: this.delivery_order.pic_qc_id,
                     remark: this.delivery_order.remark,
                     so_details: this.sales_order_details.map((item, idx) => ({
                         id: item.id,
@@ -288,12 +290,14 @@
                 axios
                     .all([
                         axios.get(this.$parent.MakeUrl("api/v1/warehouse/delivery_order/create")),
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/driver"))
+                        axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/driver")),
+                        axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/picqc"))
                     ])
                     .then(
-                        axios.spread((sales_order, driver) => {
+                        axios.spread((sales_order, driver, pic_qc) => {
                             this.sales_orders = sales_order.data.data;
                             this.drivers = driver.data;
+                            this.pic_qc = pic_qc.data;
                         })
                     )
                     .catch(err => {

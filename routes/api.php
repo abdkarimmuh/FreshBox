@@ -31,11 +31,18 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('logout', 'API\AuthAPIController@logout');
 
     Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
-        Route::get('assign', function () {
-            return auth()->user()->procurement->assign_proc;
-        });
-        Route::get('proc', function () {
-            return new UserProcResource(auth()->user());
+        Route::group(['prefix' => 'procurement'], function () {
+            Route::get('assign', function () {
+                return auth()->user()->procurement->assign_proc;
+            });
+            Route::get('proc', function () {
+                return new UserProcResource(auth()->user());
+            });
+    
+            Route::group(['prefix' => 'item'], function () {
+                Route::get('/', 'API\Procurement\ItemAPIProcurement@index');
+                Route::post('/store', 'API\Procurement\ItemAPIProcurement@store');
+            });
         });
     });
     /**
@@ -107,6 +114,8 @@ Route::group(['prefix' => 'v1'], function () {
         });
         Route::group(['prefix' => 'driver'], function () {
             Route::get('/', 'API\DriverAPIController@index');
+            Route::get('/driver', 'API\DriverAPIController@driver');
+            Route::get('/picqc', 'API\DriverAPIController@picqc');
         });
 
         Route::group(['prefix' => 'uom'], function () {

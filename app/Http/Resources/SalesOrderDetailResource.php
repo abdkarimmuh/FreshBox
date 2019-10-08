@@ -20,6 +20,7 @@ class SalesOrderDetailResource extends JsonResource
             'skuid' => $this->skuid,
             'uom_id' => $this->uom_id,
             'qty' => $this->qty,
+            'sisa_qty_proc' => $this->sisa_qty_proc,
             'taxt_value' => $this->taxt_value,
             'amount_price' => $this->amount_price,
             'total_amount' => $this->total_amount,

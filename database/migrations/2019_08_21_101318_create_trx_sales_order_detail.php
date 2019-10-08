@@ -19,6 +19,7 @@ class CreateTrxSalesOrderDetail extends Migration
             $table->bigInteger('skuid');
             $table->unsignedBigInteger('uom_id');
             $table->decimal('qty', 18, 2);
+            $table->decimal('sisa_qty_proc', 18, 2);
             $table->decimal('amount_price', 18, 2);
             $table->decimal('tax_value', 18, 2)->nullable();
             $table->decimal('total_amount', 18, 2);

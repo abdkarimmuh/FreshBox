@@ -3,6 +3,7 @@
 namespace App\Model\MasterData;
 
 use App\MyModel;
+use App\Traits\DriverTrait;
 use App\Traits\SearchTraits;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -10,12 +11,14 @@ class Driver extends MyModel
 {
     use SearchTraits;
     use SoftDeletes;
+    use DriverTrait;
 
     protected $table = 'master_driver';
 
     protected $appends = [
         'created_by_name',
         'updated_by_name',
+        'role_name'
     ];
 
     protected $columns = [

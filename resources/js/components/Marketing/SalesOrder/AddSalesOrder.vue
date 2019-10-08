@@ -381,7 +381,7 @@
                         axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list")),
                         axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list")),
                         axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId)),
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/driver"))
+                        axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/driver"))
                     ])
                     .then(
                         axios.spread((customers, source_order, items, drivers) => {
@@ -434,6 +434,7 @@
                         text: "Successfully Insert Data!"
                     }).then(next => {
                         this.$router.push({name: 'form_sales_order'});
+                        // console.log(res)
                     });
                 } catch (e) {
                     this.errors = e.response.data.errors;

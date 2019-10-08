@@ -17,6 +17,7 @@ class CreateTrxAssignProcurement extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sales_order_detail_id');
             $table->unsignedBigInteger('user_proc_id');
+            $table->integer('qty');
 
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();

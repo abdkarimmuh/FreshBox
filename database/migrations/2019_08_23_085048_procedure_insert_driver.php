@@ -11,9 +11,9 @@ class ProcedureInsertDriver extends Migration
     {
         DB::unprepared('DROP PROCEDURE IF EXISTS insert_driver');
 
-        DB::unprepared('CREATE PROCEDURE insert_driver( IN name VARCHAR(191), IN phone_number VARCHAR(20), IN vehicle_no VARCHAR(20), IN created_by INT )
+        DB::unprepared('CREATE PROCEDURE insert_driver( IN name VARCHAR(191), IN phone_number VARCHAR(20), IN vehicle_no VARCHAR(20), IN role INT, IN created_by INT )
         BEGIN
-        INSERT INTO master_driver (name, phone_number, vehicle_no, created_at, created_by) VALUES (name, phone_number, vehicle_no, now(), created_by);
+        INSERT INTO master_driver (name, phone_number, vehicle_no, role, created_at, created_by) VALUES (name, phone_number, vehicle_no, role, now(), created_by);
         END');
     }
 

@@ -3401,7 +3401,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this = this;
 
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId)), axios.get(this.$parent.MakeUrl("api/v1/master_data/driver"))]).then(axios.spread(function (customers, source_order, items, drivers) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId)), axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/driver"))]).then(axios.spread(function (customers, source_order, items, drivers) {
         _this.customers = customers.data;
         _this.source_orders = source_order.data;
         _this.items = items.data.data;
@@ -3464,7 +3464,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }).then(function (next) {
                   _this2.$router.push({
                     name: 'form_sales_order'
-                  });
+                  }); // console.log(res)
+
                 });
                 _context2.next = 11;
                 break;
@@ -5800,6 +5801,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         customer_name: "",
         do_date: "",
         driver_id: "",
+        pic_qc_id: "",
         remark: "",
         user_id: UserID
       },
@@ -5807,6 +5809,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       sales_orders: [],
       sales_order_details: [],
       drivers: [],
+      pic_qc: [],
       qty_do: [],
       errors: []
     };
@@ -5855,7 +5858,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   customer_id: this.delivery_order.customer_id,
                   do_date: this.delivery_order.do_date,
                   driver_id: this.delivery_order.driver_id,
-                  pic_qc: this.delivery_order.pic_qc,
+                  pic_qc: this.delivery_order.pic_qc_id,
                   remark: this.delivery_order.remark,
                   so_details: this.sales_order_details.map(function (item, idx) {
                     return {
@@ -5905,9 +5908,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this3 = this;
 
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/warehouse/delivery_order/create")), axios.get(this.$parent.MakeUrl("api/v1/master_data/driver"))]).then(axios.spread(function (sales_order, driver) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/warehouse/delivery_order/create")), axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/driver")), axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/picqc"))]).then(axios.spread(function (sales_order, driver, pic_qc) {
         _this3.sales_orders = sales_order.data.data;
         _this3.drivers = driver.data;
+        _this3.pic_qc = pic_qc.data;
       }))["catch"](function (err) {});
     }
   },
@@ -49112,7 +49116,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _vm.message
         ? _c("div", { staticClass: "alert alert-primary" }, [
-            _vm._v("\n            " + _vm._s(_vm.message) + "\n        ")
+            _vm._v("\r\n            " + _vm._s(_vm.message) + "\r\n        ")
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -54637,6 +54641,49 @@ var render = function() {
                 _c(
                   "div",
                   [
+                    _c("model-list-select", {
+                      class: { "is-invalid": _vm.errors.pic_qc_id },
+                      attrs: {
+                        list: _vm.pic_qc,
+                        "option-value": "id",
+                        "option-text": "name",
+                        placeholder: "Select PIC Quality Control"
+                      },
+                      model: {
+                        value: _vm.delivery_order.pic_qc_id,
+                        callback: function($$v) {
+                          _vm.$set(_vm.delivery_order, "pic_qc_id", $$v)
+                        },
+                        expression: "delivery_order.pic_qc_id"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.pic_qc_id
+                      ? _c(
+                          "div",
+                          {
+                            staticStyle: {
+                              "margin-top": ".25rem",
+                              "font-size": "80%",
+                              color: "#dc3545"
+                            }
+                          },
+                          [_c("p", [_vm._v(_vm._s(_vm.errors.pic_qc_id[0]))])]
+                        )
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
                     _c("date-picker", {
                       attrs: {
                         lang: "en",
@@ -54668,51 +54715,6 @@ var render = function() {
                       [_c("p", [_vm._v(_vm._s(_vm.errors.do_date[0]))])]
                     )
                   : _vm._e()
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _vm._m(5),
-                _vm._v(" "),
-                _c("div", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.delivery_order.pic_qc,
-                        expression: "delivery_order.pic_qc"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    class: { "is-invalid": _vm.errors.pic_qc },
-                    attrs: {
-                      type: "text",
-                      placeholder: "PIC Quality Control",
-                      required: ""
-                    },
-                    domProps: { value: _vm.delivery_order.pic_qc },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.delivery_order,
-                          "pic_qc",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.errors.pic_qc
-                    ? _c("div", { staticClass: "invalid-feedback" }, [
-                        _c("p", [_vm._v(_vm._s(_vm.errors.pic_qc[0]))])
-                      ])
-                    : _vm._e()
-                ])
               ])
             ]),
             _vm._v(" "),
@@ -54897,7 +54899,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("b", [_vm._v("DO Date")]),
+      _c("b", [_vm._v("PIC Quality Control")]),
       _vm._v(" "),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])
@@ -54907,7 +54909,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("b", [_vm._v("PIC Quality Control")]),
+      _c("b", [_vm._v("DO Date")]),
       _vm._v(" "),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])

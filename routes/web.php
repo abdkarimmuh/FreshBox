@@ -156,7 +156,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::patch('/edit', 'MasterData\ResidenceController@update')->name('update');
         });
 
-        Route::name('driver.')->prefix('driver')->group(function () {
+        Route::name('officer.')->prefix('officer')->group(function () {
             Route::get('/', 'MasterData\DriverController@index')->name('index');
             Route::get('/create', 'MasterData\DriverController@create')->name('create');
             Route::post('/create', 'MasterData\DriverController@store')->name('store');

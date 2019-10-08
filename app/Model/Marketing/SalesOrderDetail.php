@@ -18,6 +18,7 @@ class SalesOrderDetail extends MyModel
     protected $fillable = [
         'sales_order_id',
         'qty',
+        'sisa_qty_proc',
         'skuid',
         'amount_price',
         'total_amount',
