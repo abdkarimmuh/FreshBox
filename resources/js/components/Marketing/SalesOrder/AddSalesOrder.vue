@@ -241,7 +241,6 @@
                                                 placeholder="Qty"
                                                 @change="updateTotalAmount"
                                                 min="0"
-                                                oninput="validity.valid||(value='');"
                                                 class="form-control qty"
                                             />
                                         </td>
@@ -431,8 +430,8 @@
                     driver_id: this.sales_order.driver_id,
                     items: this.orders_detail.map((item, idx) => ({
                         skuid: item.skuid,
-                        qty: this.qty[idx],
-                        notes: this.notes[idx]
+                        qty: item.qty,
+                        notes: item.notes
                     })),
 
                 };

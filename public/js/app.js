@@ -3350,7 +3350,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3460,8 +3459,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   items: this.orders_detail.map(function (item, idx) {
                     return {
                       skuid: item.skuid,
-                      qty: _this2.qty[idx],
-                      notes: _this2.notes[idx]
+                      qty: item.qty,
+                      notes: item.notes
                     };
                   })
                 };
@@ -51336,9 +51335,7 @@ var render = function() {
                                           attrs: {
                                             type: "number",
                                             placeholder: "Qty",
-                                            min: "0",
-                                            oninput:
-                                              "validity.valid||(value='');"
+                                            min: "0"
                                           },
                                           domProps: { value: order.qty },
                                           on: {
