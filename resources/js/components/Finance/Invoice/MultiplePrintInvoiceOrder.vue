@@ -15,7 +15,7 @@
         </div>
         <div id="printMe">
             <div style="page-break-after: always" v-for="(item, index) in invoice_order">
-                <print-header :logo="logo"></print-header>
+                <print-header></print-header>
                 <div class="row" v-if="loading">
                     <div class="col-md-12">
                         <print-header-info :header_info="header_info" :data="item"
@@ -189,7 +189,6 @@
                     },
 
                 ],
-                logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
                 invoice_order: [],
                 loading: false,
             }

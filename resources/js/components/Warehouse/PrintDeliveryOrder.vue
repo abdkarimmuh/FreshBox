@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="printMe">
-            <print-header :logo="logo"></print-header>
+            <print-header></print-header>
             <div class="row" v-if="loading">
                 <div class="col-md-12">
                     <print-header-info :header_info="header_info" :data="delivery_order"
@@ -92,7 +92,7 @@
                     },
                     {
                         title: 'Qty',
-                        field: 'qty_order',
+                        field: 'qty_do',
                         type: 'text',
                     },
                     {
@@ -132,7 +132,6 @@
                     },
 
                 ],
-                logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
                 delivery_order: {},
                 details: [],
                 loading: false,

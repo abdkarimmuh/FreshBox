@@ -229,27 +229,27 @@
                                     </thead>
                                     <tbody>
                                     <tr
-                                        v-for="(orders, index) in orders_detail"
+                                        v-for="(order, index) in orders_detail" track-by="index"
                                         v-bind:key="index"
                                     >
-                                        <td>{{ orders.skuid }}</td>
-                                        <td>{{ orders.item_name }}</td>
+                                        <td>{{ order.skuid }}</td>
+                                        <td>{{ order.item_name }}</td>
                                         <td style="text-align: right;">
                                             <input
-                                                v-model="qty[index]"
+                                                v-model="order.qty"
                                                 type="number"
                                                 placeholder="Qty"
+                                                @change="updateTotalAmount"
                                                 min="0"
-                                                oninput="validity.valid||(value='');"
                                                 class="form-control qty"
                                             />
                                         </td>
-                                        <td>{{ orders.uom }}</td>
-                                        <td style="text-align: right;">{{ orders.amount | toIDR }}</td>
-                                        <td style="text-align: right">{{ total_amount[index] | toIDR }}</td>
+                                        <td>{{ order.uom }}</td>
+                                        <td style="text-align: right;">{{ order.amount | toIDR }}</td>
+                                        <td style="text-align: right">{{ order.total_amount | toIDR }}</td>
                                         <td>
                                             <input
-                                                v-model="notes[index]"
+                                                v-model="order.notes"
                                                 type="text"
                                                 placeholder="Notes"
                                                 class="form-control"
@@ -313,17 +313,26 @@
                         </div>
                         <div class="col-12">
                             <div class="card-body">
-                                <button
-                                    class="btn btn-danger"
-                                    v-on:click="submitForm()"
-                                >Submit
-                                </button>
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    @click="back()"
-                                >Back
-                                </button>
+                                <div v-if="loading">
+                                    <button class="btn btn-danger" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                          aria-hidden="true"></span>
+                                        Loading...
+                                    </button>
+                                </div>
+                                <div v-else>
+                                    <button
+                                        class="btn btn-danger"
+                                        v-on:click="submitForm()"
+                                    >Submit
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        @click="back()"
+                                    >Back
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -408,6 +417,7 @@
              * Insert Sales Order
              */
             async submitForm() {
+                this.loading = true;
 
                 const payload = {
                     user_id: this.sales_order.user_id,
@@ -420,8 +430,8 @@
                     driver_id: this.sales_order.driver_id,
                     items: this.orders_detail.map((item, idx) => ({
                         skuid: item.skuid,
-                        qty: this.qty[idx],
-                        notes: this.notes[idx]
+                        qty: item.qty,
+                        notes: item.notes
                     })),
 
                 };
@@ -434,11 +444,10 @@
                         text: "Successfully Insert Data!"
                     }).then(next => {
                         this.$router.push({name: 'form_sales_order'});
-                        // console.log(res)
                     });
                 } catch (e) {
+                    this.loading = false;
                     this.errors = e.response.data.errors;
-                    console.log(e);
                 }
             },
 
@@ -486,10 +495,10 @@
                     console.log("GAGAL");
                 } else {
                     let index = this.orders_detail.length;
-                    this.total_amount[index] = 0;
-                    this.qty[index] = 0;
-                    this.notes[index] = null;
-                    return this.orders_detail.push({
+                    return this.orders_detail.unshift({
+                        total_amount: 0,
+                        qty: 0,
+                        notes: null,
                         skuid: this.item.skuid,
                         qty: 0,
                         uom: this.item.uom,
@@ -508,6 +517,11 @@
             },
             back() {
                 this.$router.push({name: 'form_sales_order'});
+            },
+            updateTotalAmount() {
+                this.orders_detail.map(
+                    (item, idx) => item.total_amount = item.amount * item.qty
+                );
             }
         },
         components: {
@@ -520,25 +534,13 @@
              */
             totalItem: function () {
                 let sum = 0;
-                this.total_amount.forEach(function (item) {
-                    sum += parseFloat(item);
+                this.orders_detail.forEach(function (item) {
+                    sum += parseFloat(item.total_amount);
                 });
 
                 return sum.toLocaleString("id-ID", {
                     minimumFractionDigits: 2
                 });
-            }
-        },
-        watch: {
-            /**
-             * Calculate Total Amount Price
-             * @param newQty
-             * @param oldQty
-             */
-            qty: function (newQty, oldQty) {
-                this.total_amount = this.orders_detail.map(
-                    (item, idx) => item.amount * (newQty[idx] || 0)
-                );
             }
         }
     };

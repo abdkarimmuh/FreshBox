@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="printMe">
-            <print-header :logo="logo"></print-header>
+            <print-header></print-header>
             <div class="row" v-if="loading">
                 <div class="col-md-12">
                     <print-header-info :header_info="header_info" :data="invoice_order"
@@ -179,7 +179,6 @@
                     },
 
                 ],
-                logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
                 info: {
                     title: "Invoice",
                     no: "invoice_no",
