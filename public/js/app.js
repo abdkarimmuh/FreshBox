@@ -49139,7 +49139,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _vm.message
         ? _c("div", { staticClass: "alert alert-primary" }, [
-            _vm._v("\n            " + _vm._s(_vm.message) + "\n        ")
+            _vm._v("\r\n            " + _vm._s(_vm.message) + "\r\n        ")
           ])
         : _vm._e(),
       _vm._v(" "),
