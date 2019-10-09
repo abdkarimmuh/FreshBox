@@ -3841,7 +3841,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -51909,9 +51908,7 @@ var render = function() {
                                           attrs: {
                                             type: "number",
                                             placeholder: "Qty",
-                                            min: "0",
-                                            oninput:
-                                              "validity.valid||(value='');"
+                                            min: "0"
                                           },
                                           domProps: { value: order.qty },
                                           on: {
