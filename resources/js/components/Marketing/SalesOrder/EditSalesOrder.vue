@@ -24,7 +24,7 @@
                                 class="form-group"
                                 v-if="sales_order.source_order_id"
                             >
-                                <label><b>File</b><span style="color: red;">*</span></label>
+                                <label><b>File</b></label>
                                 <div>
                                     <a v-bind:href="sales_order.file_url">{{ sales_order.file }}</a>
                                 </div>
@@ -50,7 +50,15 @@
 
                         <s-form-input
                             :model="sales_order.fulfillment_date"
-                            col="6"
+                            col="3"
+                            title="Fulfillment Date"
+                            type="text"
+                            :disabled="true"
+                        ></s-form-input>
+
+                        <s-form-input
+                            :model="sales_order.driver_name"
+                            col="3"
                             title="Fulfillment Date"
                             type="text"
                             :disabled="true"

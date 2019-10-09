@@ -245,6 +245,7 @@
                         )
                     )
                     .then(res => {
+                        console.log(res);
                         this.sales_order = res.data;
                         this.sales_order_details = res.data.sales_order_details;
                         this.delivery_order.customer_name = this.sales_order.customer_name;
@@ -252,6 +253,7 @@
                         this.qty_do = this.sales_order_details.map((item, idx) => ({
                             qty: item.qty
                         }));
+                        this.delivery_order.driver_id = res.data.driver_id;
                     })
                     .catch(err => {
                     });
