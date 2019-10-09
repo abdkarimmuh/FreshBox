@@ -62,21 +62,19 @@ class ItemProcurementAPIController extends Controller
         foreach ($sales_order_detail as $item) {
 
             $sales_order = SalesOrder::find($item->sales_order_id);
+            $sales_order->status = 2;
 
             if ($qty_all >= $item->qty) {
                 $item->status = 2;
                 $item->sisa_qty_proc = 0;
                 $qty_proc = $item->qty;
-
-                $sales_order->status = 2;
                 $qty_all = $qty_all - $item->qty;
             } else {
                 $item->sisa_qty_proc = $qty_all;
                 $qty_proc = $qty_all;
-
                 $qty_all = 0;
             }
-
+            
             $item->save();
             $sales_order->save();
 
@@ -99,7 +97,7 @@ class ItemProcurementAPIController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'data' => $assign_procurement
+            // 'data' => $assign_procurement
         ]);
     }
 

@@ -16,7 +16,7 @@ class ListProcurement extends MyModel
         'created_by_name',
         'updated_by_name',
         'proc_name',
-        'vendor_name'
+        // 'vendor_name'
     ];
 
     protected $columns = [
@@ -34,12 +34,16 @@ class ListProcurement extends MyModel
             'relation_name' => 'UserProc',
             'relation_field' => 'proc_name'
         ],
-        'vendor_name' => [
+        'vendor' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'Vendor',
-            'relation_field' => 'vendor_name'
         ],
+        // 'vendor_name' => [
+        //     'searchable' => true,
+        //     'search_relation' => true,
+        //     'relation_name' => 'Vendor',
+        //     'relation_field' => 'vendor_name'
+        // ],
         'total_amount' => [
             'searchable' => true,
             'search_relation' => true,
@@ -88,19 +92,19 @@ class ListProcurement extends MyModel
         }
     }
 
-    public function Vendor()
-    {
-        return $this->belongsTo(Vendor::class);
-    }
+    // public function Vendor()
+    // {
+    //     return $this->belongsTo(Vendor::class);
+    // }
 
-    public function getVendorNameAttribute()
-    {
-        if (isset($this->Vendor->name)) {
-            return $this->Vendor->name;
-        } else {
-            return '';
-        }
-    }
+    // public function getVendorNameAttribute()
+    // {
+    //     if (isset($this->Vendor->name)) {
+    //         return $this->Vendor->name;
+    //     } else {
+    //         return '';
+    //     }
+    // }
 
     public function getColumns()
     {

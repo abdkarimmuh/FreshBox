@@ -3852,6 +3852,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5869,6 +5877,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       axios.get(this.$parent.MakeUrl("api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id)).then(function (res) {
+        console.log(res);
         _this.sales_order = res.data;
         _this.sales_order_details = res.data.sales_order_details;
         _this.delivery_order.customer_name = _this.sales_order.customer_name;
@@ -5878,6 +5887,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             qty: item.qty
           };
         });
+        _this.delivery_order.driver_id = res.data.driver_id;
       })["catch"](function (err) {});
     },
     submitForm: function () {
@@ -49155,7 +49165,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _vm.message
         ? _c("div", { staticClass: "alert alert-primary" }, [
-            _vm._v("\n            " + _vm._s(_vm.message) + "\n        ")
+            _vm._v("\r\n            " + _vm._s(_vm.message) + "\r\n        ")
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -51806,7 +51816,17 @@ var render = function() {
                   _c("s-form-input", {
                     attrs: {
                       model: _vm.sales_order.fulfillment_date,
-                      col: "6",
+                      col: "3",
+                      title: "Fulfillment Date",
+                      type: "text",
+                      disabled: true
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("s-form-input", {
+                    attrs: {
+                      model: _vm.sales_order.driver_name,
+                      col: "3",
                       title: "Fulfillment Date",
                       type: "text",
                       disabled: true
@@ -52172,10 +52192,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("b", [_vm._v("File")]),
-      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
-    ])
+    return _c("label", [_c("b", [_vm._v("File")])])
   },
   function() {
     var _vm = this

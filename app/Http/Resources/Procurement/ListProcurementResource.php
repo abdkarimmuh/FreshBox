@@ -16,10 +16,15 @@ class ListProcurementResource extends JsonResource
     {
         return[
             'id' => $this->id,
-            'sales_order_detail_id' => $this->sales_order_detail_id,
+            'procurement_no' => $this->procurement_no,
             'user_proc_id' => $this->user_proc_id,
-            'qty' => $this->qty,
-            'uom' => $this->uom,
+            'proc_name' => $this->proc_name,
+            'vemdpr' => $this->vemdpr,
+            'total_amount' => $this->total_amount,
+            'payment' => $this->payment,
+            'file' => $this->file,
+            'status' => $this->status,
+            'item' => $this->item,
         ];
     }
 }

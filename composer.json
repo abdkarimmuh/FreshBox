@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2",
         "calebporzio/livewire": "^0.2.4",
+        "doctrine/dbal": "^2.9",
         "facade/ignition": "^1.4",
         "fideloper/proxy": "^4.0",
         "jamesdordoy/laravelvuedatatable": "^1.1",
