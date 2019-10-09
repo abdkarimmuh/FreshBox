@@ -4,10 +4,14 @@ use App\Http\Resources\MasterData\UomResource;
 use App\Http\Resources\MasterData\VendorResource;
 use App\Http\Resources\Mobile\AssignListResource;
 use App\Http\Resources\Mobile\UserProcResource;
+use App\Model\MasterData\Customer;
+use App\Model\MasterData\Price;
 use App\Model\MasterData\Uom;
 use App\Model\MasterData\Vendor;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +44,7 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::get('/', 'API\Procurement\ItemProcurementAPIController@index');
                 Route::post('/', 'API\Procurement\ItemProcurementAPIController@store');
             });
-            
+
             Route::group(['prefix' => 'procurement'], function () {
                 Route::get('/', 'API\Procurement\ProcurementAPIController@index');
             });
@@ -172,4 +176,57 @@ Route::get('/users ', function (Request $request) {
     $data = $query->paginate($length);
 
     return new \JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource($data);
+});
+Route::get('/customers', function () {
+
+    $prices = DB::table('pricemaster')->get();
+    $customers = Customer::select('id')->get();
+    foreach ($customers as $customer) {
+        $customer_id[] = $customer->id;
+    }
+
+    for ($i = 1; $i <= 32; $i++) {
+        foreach ($prices as $price) {
+            if ($price->Unit === 'Kg') {
+                $uom = 1;
+            } elseif ($price->Unit === 'Pcs') {
+                $uom = 2;
+            } elseif ($price->Unit === 'Pack') {
+                $uom = 3;
+            } elseif ($price->Unit === 'Botol') {
+                $uom = 4;
+            } elseif ($price->Unit === 'Sisir') {
+                $uom = 5;
+            } elseif ($price->Unit === 'Klg') {
+                $uom = 6;
+            } elseif ($price->Unit === 'Peti') {
+                $uom = 7;
+            } elseif ($price->Unit === 'Ltr') {
+                $uom = 8;
+            } elseif ($price->Unit === 'Box') {
+                $uom = 9;
+            } elseif ($price->Unit === 'Karung') {
+                $uom = 10;
+            } elseif ($price->Unit === 'Can') {
+                $uom = 11;
+            } elseif ($price->Unit === 'Pail') {
+                $uom = 12;
+            } elseif ($price->Unit === 'Bag') {
+                $uom = 13;
+            }
+            $data[] = [
+                'customer_id' => $i,
+                'skuid' => $price->SKU,
+                'amount' => $price->Pricelist,
+                'created_by' => 1,
+                'uom_id' => $uom,
+                'start_periode' => Carbon::now(),
+                'end_periode' => Carbon::now()->addDays(5)
+            ];
+        }
+        DB::table('master_price')->insert($data);
+    }
+    return response()->json([
+        'status' => 'success'
+    ], 200);
 });

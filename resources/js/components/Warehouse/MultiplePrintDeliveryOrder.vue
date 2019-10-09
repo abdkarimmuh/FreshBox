@@ -15,7 +15,7 @@
         </div>
         <div id="printMe" v-if="loading">
             <div style="page-break-after: always" v-for="(item, index) in delivery_order">
-                <print-header :logo="logo"></print-header>
+                <print-header></print-header>
                 <div class="row" v-if="loading">
                     <div class="col-md-12">
                         <print-header-info :header_info="header_info" :data="item"
@@ -93,7 +93,7 @@
                     },
                     {
                         title: 'Qty',
-                        field: 'qty_order',
+                        field: 'qty_do',
                         type: 'text',
                     },
                     {
@@ -133,7 +133,6 @@
                     },
 
                 ],
-                logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
                 delivery_order: [],
                 loading: false,
             }

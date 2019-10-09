@@ -144,7 +144,6 @@
                                                 type="number"
                                                 placeholder="Qty"
                                                 min="0"
-                                                oninput="validity.valid||(value='');"
                                                 class="form-control qty"
                                                 v-on:input="calculateTotalAmount(index)"
                                             >

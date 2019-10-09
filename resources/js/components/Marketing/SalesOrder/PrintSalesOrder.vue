@@ -2,7 +2,7 @@
     <div>
         <div id="printMe">
             <div style="page-break-after: always">
-                <print-header :logo="logo"></print-header>
+                <print-header></print-header>
                 <div class="row" v-if="loading">
                     <div class="col-md-12">
                         <print-header-info :header_info="header_info" :data="sales_order"
@@ -156,7 +156,6 @@
                     },
 
                 ],
-                logo: this.$parent.MakeUrl('assets/img/logo-frbox.png'),
                 sales_order: {},
                 details: [],
                 loading: false,
