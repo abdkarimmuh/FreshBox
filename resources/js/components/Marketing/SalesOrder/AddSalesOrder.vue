@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-12">
+        <div class="col-12" v-if="loading">
             <div class="card col-12">
                 <div class="card-header">
                     <h4 class="text-danger">Sales Order Details</h4>
@@ -96,27 +96,25 @@
                                         v-bind:class="{'is-invalid': errors.customerId}"
                                         :list="customers"
                                         v-model="sales_order.customerId"
-                                        v-on:input="getData()"
+                                        v-on:input="getItems()"
                                         option-value="id"
                                         option-text="name"
                                         placeholder="Select Customer"
                                     ></model-list-select>
-                                    <div
-                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.customerId"
-                                    >
+                                    <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                         v-if="errors.customerId">
                                         <p>{{ errors.customerId[0] }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!--Fulfillment Date-->
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>
                                     <b>Fulfillment Date</b>
                                     <span style="color: red;">*</span>
                                 </label>
-
                                 <div>
                                     <date-picker
                                         v-model="sales_order.fulfillmentDate"
@@ -127,10 +125,8 @@
                                         format="YYYY-MM-DD HH:mm:ss"
                                     ></date-picker>
                                 </div>
-                                <div
-                                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                    v-if="errors.fulfillmentDate"
-                                >
+                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                     v-if="errors.fulfillmentDate">
                                     <p>{{ errors.fulfillmentDate[0] }}</p>
                                 </div>
                             </div>
@@ -150,29 +146,25 @@
                                         option-text="name"
                                         placeholder="Select Driver"
                                     ></model-list-select>
-                                    <div
-                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.driver_id"
-                                    >
+                                    <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                         v-if="errors.driver_id">
                                         <p>{{ errors.driver_id[0] }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="col-md-6"
-                            v-if="sales_order.customerId != 0"
-                        >
+                        <!--                        Items-->
+                        <div class="col-md-6"
+                             v-if="sales_order.customerId != 0">
                             <div class="form-group">
                                 <label>
                                     <b>Items</b>
                                     <span style="color: red;">*</span>
                                 </label>
-
                                 <model-list-select
                                     :list="items"
                                     v-model="skuid"
-                                    v-on:input="getItems()"
+                                    v-on:input="getItem()"
                                     option-value="skuid"
                                     option-text="item_name"
                                     placeholder="Select Item"
@@ -313,7 +305,7 @@
                         </div>
                         <div class="col-12">
                             <div class="card-body">
-                                <div v-if="loading">
+                                <div v-if="loadingSubmit">
                                     <button class="btn btn-danger" type="button" disabled>
                                     <span class="spinner-border spinner-border-sm" role="status"
                                           aria-hidden="true"></span>
@@ -335,6 +327,38 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" v-else>
+            <div class="card col-12">
+                <div class="text-center p-4 text-muted">
+                    <h5>Loading</h5>
+                    <p class="beep-sidebar">Please wait, data is being loaded...</p>
+                    <div class="spinner-grow text-danger" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-danger" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-danger" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-danger" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-danger" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-danger" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-danger" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-danger" role="status">
+                        <span class="sr-only">Loading...</span>
                     </div>
                 </div>
             </div>
@@ -363,16 +387,14 @@
                     sourceOrderId: 0,
                 },
                 skuid: "",
-                qty: [0],
-                total_amount: [0],
                 source_orders: [],
                 item: {},
                 items: [],
-                notes: [],
                 errors: [],
                 customers: [],
                 drivers: [],
                 loading: false,
+                loadingSubmit: false,
                 header: {}
             };
         },
@@ -389,20 +411,16 @@
                     .all([
                         axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list")),
                         axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list")),
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId)),
                         axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/driver"))
                     ])
                     .then(
-                        axios.spread((customers, source_order, items, drivers) => {
+                        axios.spread((customers, source_order, drivers) => {
                             this.customers = customers.data;
                             this.source_orders = source_order.data;
-                            this.items = items.data.data;
                             this.orders_detail = [];
-                            this.qty = [0];
-                            this.total_amount = [0];
-                            this.notes = [];
                             this.skuid = "";
                             this.drivers = drivers.data;
+                            this.loading = true;
                         })
                     )
                     .catch(err => {
@@ -411,14 +429,16 @@
                                 name: "form_sales_order"
                             });
                         }
+                        if (err.response.status === 500) {
+                          this.getData()
+                        }
                     });
             },
             /**
              * Insert Sales Order
              */
             async submitForm() {
-                this.loading = true;
-
+                this.loadingSubmit = true;
                 const payload = {
                     user_id: this.sales_order.user_id,
                     customerId: this.sales_order.customerId,
@@ -433,7 +453,6 @@
                         qty: item.qty,
                         notes: item.notes
                     })),
-
                 };
 
                 try {
@@ -446,7 +465,7 @@
                         this.$router.push({name: 'form_sales_order'});
                     });
                 } catch (e) {
-                    this.loading = false;
+                    this.loadingSubmit = false;
                     this.errors = e.response.data.errors;
                 }
             },
@@ -470,10 +489,23 @@
              * Get List Items
              * @returns {number}
              */
-            getItems() {
+            getItem() {
+                this.loading = false;
                 axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid))
                     .then(res => {
                         this.item = res.data.data;
+                        this.loading = true;
+                    })
+                    .catch(err => {
+                    });
+            },
+            getItems() {
+                this.loading = false;
+                axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId))
+                    .then(res => {
+                        this.items = res.data.data;
+                        this.orders_detail = [];
+                        this.loading = true;
                     })
                     .catch(err => {
                     });
@@ -494,13 +526,10 @@
                     });
                     console.log("GAGAL");
                 } else {
-                    let index = this.orders_detail.length;
-                    return this.orders_detail.unshift({
+                    return this.orders_detail.push({
                         total_amount: 0,
                         qty: 0,
-                        notes: null,
                         skuid: this.item.skuid,
-                        qty: 0,
                         uom: this.item.uom,
                         item_name: this.item.item_name,
                         amount: this.item.amount,
