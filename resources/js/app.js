@@ -3,10 +3,10 @@ window.Vue = require('vue');
 require('./bootstrap');
 require('./component');
 require('./library');
-require('./filters')
+require('./filters');
 
-import Router from './router';
-
+import router from './router';
+import store from './store'
 
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
@@ -16,7 +16,8 @@ axios.defaults.headers.common = {
 
 const app = new Vue({
     el: '#app',
-    router: Router,
+    router,
+    store,
     data() {
         return {
             user: AuthUser,
