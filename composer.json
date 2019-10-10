@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "barryvdh/laravel-cors": "^0.11.4",
         "calebporzio/livewire": "^0.2.4",
         "doctrine/dbal": "^2.9",
         "facade/ignition": "^1.4",
