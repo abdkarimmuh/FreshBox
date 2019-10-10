@@ -3426,13 +3426,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     /**
      * Get All Data
-     * Customer | Source Order | Price
+     * Customer | Source Order | Driver
      */
     getData: function getData() {
       var _this = this;
 
       axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/driver"))]).then(axios.spread(function (customers, source_order, drivers) {
-        _this.customers = customers.data;
+        _this.customers = customers.data.data;
         _this.source_orders = source_order.data;
         _this.orders_detail = [];
         _this.skuid = "";
@@ -3543,22 +3543,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * Get List Items
      * @returns {number}
      */
-    getItem: function getItem() {
+    getItems: function getItems() {
       var _this4 = this;
 
       this.loading = false;
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid)).then(function (res) {
-        _this4.item = res.data.data;
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId)).then(function (res) {
+        _this4.items = res.data.data;
+        _this4.orders_detail = [];
         _this4.loading = true;
       })["catch"](function (err) {});
     },
-    getItems: function getItems() {
+    getItem: function getItem() {
       var _this5 = this;
 
       this.loading = false;
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId)).then(function (res) {
-        _this5.items = res.data.data;
-        _this5.orders_detail = [];
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid)).then(function (res) {
+        _this5.item = res.data.data;
         _this5.loading = true;
       })["catch"](function (err) {});
     },

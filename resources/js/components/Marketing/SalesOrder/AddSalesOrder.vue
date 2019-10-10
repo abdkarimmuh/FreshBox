@@ -404,7 +404,7 @@
         methods: {
             /**
              * Get All Data
-             * Customer | Source Order | Price
+             * Customer | Source Order | Driver
              */
             getData() {
                 axios
@@ -430,7 +430,7 @@
                             });
                         }
                         if (err.response.status === 500) {
-                          this.getData()
+                            this.getData()
                         }
                     });
             },
@@ -489,22 +489,22 @@
              * Get List Items
              * @returns {number}
              */
-            getItem() {
-                this.loading = false;
-                axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid))
-                    .then(res => {
-                        this.item = res.data.data;
-                        this.loading = true;
-                    })
-                    .catch(err => {
-                    });
-            },
             getItems() {
                 this.loading = false;
                 axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId))
                     .then(res => {
                         this.items = res.data.data;
                         this.orders_detail = [];
+                        this.loading = true;
+                    })
+                    .catch(err => {
+                    });
+            },
+            getItem() {
+                this.loading = false;
+                axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid))
+                    .then(res => {
+                        this.item = res.data.data;
                         this.loading = true;
                     })
                     .catch(err => {
