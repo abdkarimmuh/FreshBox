@@ -128,6 +128,15 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             //            Route::get('/printRecap', 'Finance\FormInvoiceOrderController@printRecap')->name('printRecap');
         });
     });
+
+    /* Route Menu Report Data */
+    Route::name('report.')->prefix('report')->middleware('auth')->group(function () {
+        Route::name('reportso.')->prefix('reportso')->group(function () {
+            Route::get('/', 'report\ReportSOController@index')->name('index');
+        });
+       
+    });
+
     /*
      * Route Menu Master Data
      */
