@@ -415,7 +415,7 @@
                     ])
                     .then(
                         axios.spread((customers, source_order, drivers) => {
-                            this.customers = customers.data;
+                            this.customers = customers.data.data;
                             this.source_orders = source_order.data;
                             this.orders_detail = [];
                             this.skuid = "";
