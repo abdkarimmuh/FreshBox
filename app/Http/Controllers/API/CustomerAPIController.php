@@ -12,7 +12,7 @@ class CustomerAPIController extends Controller
 {
     public function all()
     {
-        return Customer::all();
+        return CustomerResource::collection(Customer::all());
     }
 
     public function ListCustomerHasRecap()
