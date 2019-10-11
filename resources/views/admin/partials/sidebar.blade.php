@@ -99,11 +99,20 @@
                 </li>
             </ul>
         </li>
+        <li class="dropdown {{ request()->segment(2) == 'report' ? ' active' : '' }}">
+            <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i><span>Report</span></a>
+            <ul class="dropdown-menu">
+                <li class="{{ request()->route()->getName() == 'admin.report.reportso.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.report.reportso.index')}}"><span>SO Report</span></a>
+                </li>
+               
+            </ul>
+        </li>
         @if(Auth::user()->can('view-users'))
             <li class="dropdown {{ request()->segment(2) == 'master_data' ? ' active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-server"></i><span>Master Data</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ request()->route()->getName() == 'admin.master_data.bank.index' ? ' active' : '' }}">
+                <li class="{{ request()->route()->getName() == 'admin.master_data.bank.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.bank.index') }}"><span>Bank</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.category.index' ? ' active' : '' }}">

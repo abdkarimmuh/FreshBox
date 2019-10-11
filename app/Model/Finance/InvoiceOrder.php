@@ -13,7 +13,7 @@ class InvoiceOrder extends MyModel
     use SearchTraits;
     protected $table = 'trx_invoice';
     protected $fillable = ['invoice_no', 'do_id', 'invoice_date', 'created_by', 'customer_id'];
-    protected $appends = ['delivery_order_no', 'sales_order_no', 'customer_name', 'total_price', 'invoice_date_formatted', 'no_po'];
+    protected $appends = ['delivery_order_no', 'sales_order_no', 'customer_name', 'total_price', 'invoice_date_formatted', 'no_po','tgl'];
     protected $dates = ['invoice_date'];
 
     protected $columns = [
@@ -47,6 +47,7 @@ class InvoiceOrder extends MyModel
         ],
     ];
 
+    
     public function delivery_order()
     {
         return $this->belongsTo(DeliveryOrder::class, 'do_id');
@@ -82,6 +83,13 @@ class InvoiceOrder extends MyModel
         return $this->delivery_order->sales_order->customer_name;
     }
 
+    public function getTglAttribute()
+    {
+        return $this->delivery_order->sales_order->fulfillment_date;
+
+        
+    }
+
     public function getTotalPriceAttribute()
     {
         $total_amount = 0;
@@ -105,4 +113,5 @@ class InvoiceOrder extends MyModel
             return 'Status NotFound';
         }
     }
+
 }

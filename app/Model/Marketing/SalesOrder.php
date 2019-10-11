@@ -5,6 +5,7 @@ namespace App\Model\Marketing;
 use App\Model\MasterData\Customer;
 use App\Model\MasterData\Driver;
 use App\Model\MasterData\SourceOrder;
+use App\Model\Warehouse\DeliveryOrder;
 use App\MyModel;
 use App\Traits\SearchTraits;
 use App\Traits\SalesOrderTrait;
@@ -102,6 +103,10 @@ class SalesOrder extends MyModel
         }
     }
 
+    public function DeliveryOrder()
+    {
+        return $this->hasOne(DeliveryOrder::class);
+    }
     public function Customer()
     {
         return $this->belongsTo(Customer::class);

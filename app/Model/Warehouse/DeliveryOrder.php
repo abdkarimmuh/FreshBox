@@ -2,6 +2,7 @@
 
 namespace App\Model\Warehouse;
 
+use App\Model\Finance\InvoiceOrder;
 use App\Model\Marketing\SalesOrder;
 use App\Model\MasterData\Customer;
 use App\Model\MasterData\Driver;
@@ -28,13 +29,19 @@ class DeliveryOrder extends MyModel
      */
     protected $fillable = ['delivery_order_no', 'sales_order_id', 'customer_id', 'do_date', 'pic_qc', 'confirm_date', 'remark', 'driver_id', 'created_by', 'created_at'];
 
-    protected $appends = ['customer_name', 'sales_order_no', 'status_name', 'driver_name', 'pic_qc_name'];
+    protected $appends = ['customer_name', 'sales_order_no', 'status_name', 'driver_name', 'pic_qc_name']; //finction dibawah
     protected $dates = ['do_date'];
 
+    
     public function sales_order()
     {
         return $this->belongsTo(SalesOrder::class, 'sales_order_id');
     }
+    public function invoice()
+    {
+        return $this->hasOne(InvoiceOrder::class, 'do_id', 'id');
+    }
+
 
     public function customer()
     {
@@ -99,4 +106,5 @@ class DeliveryOrder extends MyModel
             return 'Status NotFound';
         }
     }
+
 }

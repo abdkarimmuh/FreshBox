@@ -25,7 +25,7 @@ class FormSalesOrderController extends Controller
             $perPage = $request->perPage;
             $query = SalesOrder::dataTableQuery($searchValue);
             if ($request->start && $request->end) {
-                $query->whereBetween('sales_order_no', [$request->start, $request->end]);
+                $query->whereBetween('fulfillment_date', [$request->start, $request->end]);
             }
             if ($searchValue) {
                 $query = $query->take(20)->paginate(20);
@@ -38,37 +38,6 @@ class FormSalesOrderController extends Controller
         } else {
             return redirect()->back();
         }
-//        $columns = [
-//            array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
-//            array('title' => 'Customer', 'field' => 'customer_name'),
-//            array('title' => 'Source Order', 'field' => 'source_order_name'),
-//            array('title' => 'NO PO', 'field' => 'no_po'),
-//            array('title' => 'Fulfillment Date', 'field' => 'fulfillment_date'),
-//            array('title' => 'Remarks', 'field' => 'remarks'),
-//            array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
-//            array('title' => 'Created By', 'field' => 'created_by_name'),
-//            array('title' => 'Created At', 'field' => 'created_at'),
-//        ];
-//
-//        $config = [
-//            'base_url' => 'form_sales_order',
-//            'title' => 'Form Sales Order',
-//            'route_search' => 'admin.marketing.sales_order.index',
-//            'route_add' => 'form_sales_order/create',
-//            'route_edit' => 'admin.marketing.sales_order.edit',
-//            'route_view' => 'form_sales_order/',
-//            'url_multiple_print' => 'form_sales_order/multiplePrint',
-//
-//        ];
-//
-//        $config = json_encode($config);
-//        $columns = json_encode($columns);
-//
-//        $config = [
-//            'vue-component' => "<s-testing></s-testing>"
-//        ];
-//
-//        return view('layouts.vue-view', compact('config'));
     }
 
     public function create()
