@@ -80691,6 +80691,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Finance_Invoice_MultiplePrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Finance/Invoice/MultiplePrintInvoiceOrder */ "./resources/js/components/Finance/Invoice/MultiplePrintInvoiceOrder.vue");
 /* harmony import */ var _components_Finance_Invoice_PrintRecapInvoice__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Finance/Invoice/PrintRecapInvoice */ "./resources/js/components/Finance/Invoice/PrintRecapInvoice.vue");
 /* harmony import */ var _components_Warehouse_IndexDeliveryOrder__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Warehouse/IndexDeliveryOrder */ "./resources/js/components/Warehouse/IndexDeliveryOrder.vue");
+/* harmony import */ var _components_Warehouse_AddDeliveryOrder__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Warehouse/AddDeliveryOrder */ "./resources/js/components/Warehouse/AddDeliveryOrder.vue");
+
 
 
 
@@ -80775,6 +80777,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/admin/warehouse/delivery_order',
     name: 'delivery_order.index',
     component: _components_Warehouse_IndexDeliveryOrder__WEBPACK_IMPORTED_MODULE_14__["default"]
+  }, {
+    path: '/admin/warehouse/delivery_order/create',
+    name: 'delivery_order.create',
+    component: _components_Warehouse_AddDeliveryOrder__WEBPACK_IMPORTED_MODULE_15__["default"]
   }, {
     path: '/admin/users',
     name: 'users',

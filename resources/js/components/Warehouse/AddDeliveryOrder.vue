@@ -221,7 +221,7 @@
                 sales_orders: [],
                 sales_order_details: [],
                 drivers: [],
-                pic_qc:[],
+                pic_qc: [],
                 qty_do: [],
                 errors: []
             };
@@ -238,12 +238,7 @@
                 }
             },
             getDataCustomer() {
-                axios
-                    .get(
-                        this.$parent.MakeUrl(
-                            "api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id
-                        )
-                    )
+                axios.get(this.$parent.MakeUrl("api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id))
                     .then(res => {
                         console.log(res);
                         this.sales_order = res.data;
@@ -305,8 +300,6 @@
                     .catch(err => {
                     });
             }
-
-
         },
         components: {
             ModelListSelect
