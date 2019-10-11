@@ -17,7 +17,7 @@
         <li class="dropdown {{ request()->segment(2) == 'marketing' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
             <ul class="dropdown-menu">
-                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'warehouse' && request()->segment(2) != 'procurement' )
+                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'warehouse' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
                     <router-link :to="{ name: 'form_sales_order'}" v-slot="{ href, navigate, isActive }">
                         <li :class="[isActive && 'active']">
                             <a class="nav-link" :href="href" @click="navigate">Form Sales Order</a>
@@ -61,7 +61,7 @@
         <li class="dropdown {{ request()->segment(2) == 'warehouse' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-truck"></i><span>Warehouse Out</span></a>
             <ul class="dropdown-menu">
-                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'warehouse' && request()->segment(2) != 'procurement' )
+                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'warehouse' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
                     <router-link :to="{ name: 'delivery_order.index'}" v-slot="{ href, navigate, isActive }">
                         <li :class="[isActive && 'active']">
                             <a class="nav-link" :href="href" @click="navigate">Form Delivery Order</a>
@@ -82,7 +82,7 @@
         <li class="dropdown {{ request()->segment(2) == 'finance' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance</span></a>
             <ul class="dropdown-menu">
-                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'warehouse' && request()->segment(2) != 'procurement' )
+                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'warehouse' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
                     <router-link :to="{ name: 'invoice_order'}" v-slot="{ href, navigate, isActive }">
                         <li :class="[isActive && 'active']">
                             <a class="nav-link" :href="href" @click="navigate">Form Invoice Order</a>

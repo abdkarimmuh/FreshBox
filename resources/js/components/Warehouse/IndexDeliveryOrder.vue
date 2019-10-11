@@ -12,6 +12,7 @@
             return {
                 config: {
                     title: 'Form Delivery Order',
+                    action: true,
                     base_url: this.$parent.MakeUrl('api/v1/warehouse/delivery_order'),
                     // route_search: 'admin.marketing.sales_order.index',
                     route_create: 'delivery_order.create',

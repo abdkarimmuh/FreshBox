@@ -83,7 +83,7 @@ class SalesOrderDetail extends MyModel
 
     public function getSoDateAttribute()
     {
-        return $this->SalesOrder->fulfillment_date->toDateString();
+        return $this->SalesOrder->fulfillment_date->formatLocalized('%d %B %Y');
     }
     public function getCategoryNameAttribute()
     {

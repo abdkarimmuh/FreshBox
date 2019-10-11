@@ -12,6 +12,7 @@
             return {
                 config: {
                     title: 'Form Sales Order',
+                    action: true,
                     base_url: this.$parent.MakeUrl('api/v1/marketing/sales_order'),
                     // route_search: 'admin.marketing.sales_order.index',
                     route_create: 'form_sales_order.create',

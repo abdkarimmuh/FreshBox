@@ -2145,6 +2145,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       config: {
         title: 'Form Invoice Order',
+        action: true,
         base_url: this.$parent.MakeUrl('api/v1/finance/invoice_order'),
         route_create: 'invoice_order.create',
         route_view: 'invoice_order.print',
@@ -4086,6 +4087,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       config: {
         title: 'Form Sales Order',
+        action: true,
         base_url: this.$parent.MakeUrl('api/v1/marketing/sales_order'),
         // route_search: 'admin.marketing.sales_order.index',
         route_create: 'form_sales_order.create',
@@ -4711,6 +4713,104 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Report/SO/IndexReportSO.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Report/SO/IndexReportSO.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      config: {
+        title: 'Report SO',
+        base_url: '',
+        daterange: true,
+        export_excel: true,
+        action: false
+      },
+      columns: [{
+        title: 'Tanggal',
+        field: 'so_date',
+        filterable: true
+      }, {
+        title: 'Customer',
+        field: 'customer_name',
+        filterable: true
+      }, {
+        title: 'PO Customer No',
+        field: 'po_no',
+        filterable: false
+      }, {
+        title: 'SO No.',
+        field: 'sales_order_no',
+        filterable: true
+      }, {
+        title: 'Category',
+        field: 'category_name',
+        filterable: true
+      }, {
+        title: 'Item Code',
+        field: 'skuid',
+        filterable: true
+      }, {
+        title: 'Item Name',
+        field: 'item_name',
+        filterable: true
+      }, {
+        title: 'Kg',
+        field: 'uom_name',
+        filterable: true
+      }, {
+        title: 'Type Price',
+        field: 'customer_group_name',
+        filterable: true
+      }, {
+        title: 'Quantity',
+        field: 'qty',
+        filterable: true
+      }, {
+        title: 'DO No.',
+        field: 'delivery_order_no',
+        filterable: true
+      }, {
+        title: 'Quantity',
+        field: 'qty_do',
+        filterable: true
+      }, {
+        title: 'Total Amount',
+        field: 'total_amount',
+        filterable: true
+      }, {
+        title: 'Disc',
+        field: 'amount_disc',
+        filterable: true
+      }, {
+        title: 'Total Amount (After Disc)',
+        field: 'total_amount',
+        filterable: true
+      }],
+      error: {
+        code: 403,
+        description: 'You do not have access to this page'
+      }
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Template/ConfirmButton.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Template/ConfirmButton.vue?vue&type=script&lang=js& ***!
@@ -5245,6 +5345,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['columns', 'config'],
   data: function data() {
@@ -5405,6 +5534,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         console.log(res);
       })["catch"](function (e) {});
+    },
+    toExcel: function toExcel(table, name) {
+      var uri = 'data:application/vnd.ms-excel;base64,',
+          template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+          base64 = function base64(s) {
+        return window.btoa(unescape(encodeURIComponent(s)));
+      },
+          format = function format(s, c) {
+        return s.replace(/{(\w+)}/g, function (m, p) {
+          return c[p];
+        });
+      };
+
+      if (!table.nodeType) table = document.getElementById(table);
+      var ctx = {
+        worksheet: name || 'Worksheet',
+        table: table.innerHTML
+      };
+      window.location.href = uri + base64(format(template, ctx));
     }
   },
   computed: {
@@ -6295,6 +6443,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       config: {
         title: 'Form Delivery Order',
+        action: true,
         base_url: this.$parent.MakeUrl('api/v1/warehouse/delivery_order'),
         // route_search: 'admin.marketing.sales_order.index',
         route_create: 'delivery_order.create',
@@ -53401,6 +53550,38 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Report/SO/IndexReportSO.vue?vue&type=template&id=4d8110cf&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Report/SO/IndexReportSO.vue?vue&type=template&id=4d8110cf& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.$parent.userRole("Admin")
+    ? _c(
+        "div",
+        [
+          _c("s-table", { attrs: { config: _vm.config, columns: _vm.columns } })
+        ],
+        1
+      )
+    : _c("div", [_c("s-error-page", { attrs: { error: _vm.error } })], 1)
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Template/ConfirmButton.vue?vue&type=template&id=6713dec8&scoped=true&":
 /*!*************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Template/ConfirmButton.vue?vue&type=template&id=6713dec8&scoped=true& ***!
@@ -53942,164 +54123,281 @@ var render = function() {
     _c("div", { staticClass: "col-md-12" }, [
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-header" }, [
-          _c("div", { staticClass: "col-lg-8" }, [
-            _c(
-              "div",
-              { staticClass: "row" },
-              [
-                _c("h4", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.config.title))
-                ]),
-                _vm._v(" "),
-                _vm.config.route_create
-                  ? _c(
-                      "router-link",
-                      {
-                        staticClass: "btn btn-danger ml-2",
-                        attrs: { to: { name: _vm.config.route_create } }
-                      },
-                      [
-                        _vm._v("Add\n                            "),
-                        _c("i", { staticClass: "fas fa-plus" })
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.config.route_multiple_print && _vm.selected != 0
-                  ? _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-info ml-2",
-                        staticStyle: { color: "white" },
-                        on: {
-                          click: function($event) {
-                            return _vm.print()
+          _c(
+            "div",
+            {
+              class: {
+                "col-lg-7": _vm.config.daterange,
+                "col-lg-8": _vm.config.action
+              }
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "row" },
+                [
+                  _c("h4", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.config.title))
+                  ]),
+                  _vm._v(" "),
+                  _vm.config.route_create
+                    ? _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-danger ml-2",
+                          attrs: { to: { name: _vm.config.route_create } }
+                        },
+                        [
+                          _vm._v("Add\n                            "),
+                          _c("i", { staticClass: "fas fa-plus" })
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.config.export_excel
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-danger ml-2",
+                          staticStyle: { color: "white" },
+                          on: {
+                            click: function($event) {
+                              return _vm.toExcel("vuetable", "Test")
+                            }
                           }
-                        }
-                      },
-                      [
-                        _vm._v("Print\n                            "),
-                        _c("i", { staticClass: "fas fa-print" })
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.config.route_print_rekap && _vm.selected != 0
-                  ? _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-primary ml-2",
-                        staticStyle: { color: "white" },
-                        on: { click: _vm.printRekap }
-                      },
-                      [
-                        _vm._v("Print Rekap "),
-                        _c("i", { staticClass: "fas fa-print" })
-                      ]
-                    )
-                  : _vm._e()
-              ],
-              1
-            )
-          ]),
+                        },
+                        [_vm._v("Export Excel")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.config.route_multiple_print && _vm.selected != 0
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-info ml-2",
+                          staticStyle: { color: "white" },
+                          on: {
+                            click: function($event) {
+                              return _vm.print()
+                            }
+                          }
+                        },
+                        [
+                          _vm._v("Print\n                            "),
+                          _c("i", { staticClass: "fas fa-print" })
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.config.route_print_rekap && _vm.selected != 0
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-primary ml-2",
+                          staticStyle: { color: "white" },
+                          on: { click: _vm.printRekap }
+                        },
+                        [
+                          _vm._v("Print Rekap "),
+                          _c("i", { staticClass: "fas fa-print" })
+                        ]
+                      )
+                    : _vm._e()
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "card-header-action ml-0 mt-3 mb-3" }, [
-            _c("div", { staticClass: "input-group" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.params.start,
-                    expression: "params.start"
-                  }
-                ],
-                staticClass: "form-control ml-2",
-                attrs: { type: "text", placeholder: "Start" },
-                domProps: { value: _vm.params.start },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.params, "start", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.params.end,
-                    expression: "params.end"
-                  }
-                ],
-                staticClass: "form-control ml-2",
-                attrs: { type: "text", placeholder: "End" },
-                domProps: { value: _vm.params.end },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.params, "end", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.params.query,
-                    expression: "params.query"
-                  }
-                ],
-                staticClass: "form-control ml-2",
-                attrs: { type: "text", placeholder: "Search" },
-                domProps: { value: _vm.params.query },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.params, "query", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group-btn ml-1" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    attrs: { disabled: !_vm.loading },
-                    on: { click: _vm.search }
-                  },
+            _vm.config.daterange
+              ? _c(
+                  "div",
+                  { staticClass: "input-group" },
                   [
-                    _vm.loading
-                      ? _c("i", { staticClass: "fas fa-search" })
-                      : _vm._e(),
+                    _c("date-picker", {
+                      attrs: {
+                        lang: "en",
+                        type: "date",
+                        placeholder: "Start Date",
+                        valueType: "format",
+                        format: "YYYY-MM-DD"
+                      },
+                      model: {
+                        value: _vm.params.start,
+                        callback: function($$v) {
+                          _vm.$set(_vm.params, "start", $$v)
+                        },
+                        expression: "params.start"
+                      }
+                    }),
                     _vm._v(" "),
-                    !_vm.loading
-                      ? _c("span", {
-                          staticClass: "spinner-border spinner-border-sm",
-                          attrs: { role: "status", "aria-hidden": "true" }
-                        })
-                      : _vm._e(),
+                    _c("date-picker", {
+                      attrs: {
+                        lang: "en",
+                        type: "date",
+                        valueType: "format",
+                        placeholder: "End Date",
+                        format: "YYYY-MM-DD"
+                      },
+                      model: {
+                        value: _vm.params.end,
+                        callback: function($$v) {
+                          _vm.$set(_vm.params, "end", $$v)
+                        },
+                        expression: "params.end"
+                      }
+                    }),
                     _vm._v(" "),
-                    !_vm.loading
-                      ? _c("span", { staticClass: "sr-only" }, [
-                          _vm._v("Loading...")
-                        ])
-                      : _vm._e()
-                  ]
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.params.query,
+                          expression: "params.query"
+                        }
+                      ],
+                      staticClass: "form-control ml-2",
+                      attrs: { type: "text", placeholder: "Search" },
+                      domProps: { value: _vm.params.query },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.params, "query", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group-btn ml-1" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          attrs: { disabled: !_vm.loading },
+                          on: { click: _vm.search }
+                        },
+                        [
+                          _vm.loading
+                            ? _c("i", { staticClass: "fas fa-search" })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !_vm.loading
+                            ? _c("span", {
+                                staticClass: "spinner-border spinner-border-sm",
+                                attrs: { role: "status", "aria-hidden": "true" }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !_vm.loading
+                            ? _c("span", { staticClass: "sr-only" }, [
+                                _vm._v("Loading...")
+                              ])
+                            : _vm._e()
+                        ]
+                      )
+                    ])
+                  ],
+                  1
                 )
-              ])
-            ])
+              : _c("div", { staticClass: "input-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.start,
+                        expression: "params.start"
+                      }
+                    ],
+                    staticClass: "form-control ml-2",
+                    attrs: { type: "text", placeholder: "Start" },
+                    domProps: { value: _vm.params.start },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.params, "start", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.end,
+                        expression: "params.end"
+                      }
+                    ],
+                    staticClass: "form-control ml-2",
+                    attrs: { type: "text", placeholder: "End" },
+                    domProps: { value: _vm.params.end },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.params, "end", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.query,
+                        expression: "params.query"
+                      }
+                    ],
+                    staticClass: "form-control ml-2",
+                    attrs: { type: "text", placeholder: "Search" },
+                    domProps: { value: _vm.params.query },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.params, "query", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group-btn ml-1" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { disabled: !_vm.loading },
+                        on: { click: _vm.search }
+                      },
+                      [
+                        _vm.loading
+                          ? _c("i", { staticClass: "fas fa-search" })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        !_vm.loading
+                          ? _c("span", {
+                              staticClass: "spinner-border spinner-border-sm",
+                              attrs: { role: "status", "aria-hidden": "true" }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        !_vm.loading
+                          ? _c("span", { staticClass: "sr-only" }, [
+                              _vm._v("Loading...")
+                            ])
+                          : _vm._e()
+                      ]
+                    )
+                  ])
+                ])
           ])
         ])
       ]),
@@ -54159,253 +54457,291 @@ var render = function() {
         _vm.loading
           ? _c("div", { staticClass: "table-responsive" }, [
               _vm.data.length
-                ? _c("table", { staticClass: "table table-bordered" }, [
-                    _c(
-                      "tbody",
-                      [
-                        _c(
-                          "tr",
-                          [
-                            _c("th", [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "custom-checkbox custom-control"
-                                },
-                                [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.selectAll,
-                                        expression: "selectAll"
-                                      }
-                                    ],
-                                    staticClass: "custom-control-input",
-                                    attrs: {
-                                      type: "checkbox",
-                                      id: "checkbox-all"
-                                    },
-                                    domProps: {
-                                      checked: Array.isArray(_vm.selectAll)
-                                        ? _vm._i(_vm.selectAll, null) > -1
-                                        : _vm.selectAll
-                                    },
-                                    on: {
-                                      change: function($event) {
-                                        var $$a = _vm.selectAll,
-                                          $$el = $event.target,
-                                          $$c = $$el.checked ? true : false
-                                        if (Array.isArray($$a)) {
-                                          var $$v = null,
-                                            $$i = _vm._i($$a, $$v)
-                                          if ($$el.checked) {
-                                            $$i < 0 &&
-                                              (_vm.selectAll = $$a.concat([
-                                                $$v
-                                              ]))
-                                          } else {
-                                            $$i > -1 &&
-                                              (_vm.selectAll = $$a
-                                                .slice(0, $$i)
-                                                .concat($$a.slice($$i + 1)))
-                                          }
-                                        } else {
-                                          _vm.selectAll = $$c
-                                        }
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "custom-control-label",
-                                      attrs: { for: "checkbox-all" }
-                                    },
-                                    [_vm._v(" ")]
-                                  )
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Action")]),
-                            _vm._v(" "),
-                            _vm._l(_vm.columns, function(column) {
-                              return _c("th", [
-                                _vm._v(" " + _vm._s(column.title))
-                              ])
-                            })
-                          ],
-                          2
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.data, function(item, index) {
-                          return _c(
+                ? _c(
+                    "table",
+                    {
+                      staticClass: "table table-bordered",
+                      attrs: { id: "vuetable" }
+                    },
+                    [
+                      _c(
+                        "tbody",
+                        [
+                          _c(
                             "tr",
                             [
-                              _c("td", [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "custom-checkbox custom-control"
-                                  },
-                                  [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.selected,
-                                          expression: "selected"
-                                        }
-                                      ],
-                                      staticClass: "custom-control-input",
-                                      attrs: {
-                                        type: "checkbox",
-                                        id: "checkbox-" + index
-                                      },
-                                      domProps: {
-                                        value: item.id,
-                                        checked: Array.isArray(_vm.selected)
-                                          ? _vm._i(_vm.selected, item.id) > -1
-                                          : _vm.selected
-                                      },
-                                      on: {
-                                        change: function($event) {
-                                          var $$a = _vm.selected,
-                                            $$el = $event.target,
-                                            $$c = $$el.checked ? true : false
-                                          if (Array.isArray($$a)) {
-                                            var $$v = item.id,
-                                              $$i = _vm._i($$a, $$v)
-                                            if ($$el.checked) {
-                                              $$i < 0 &&
-                                                (_vm.selected = $$a.concat([
-                                                  $$v
-                                                ]))
-                                            } else {
-                                              $$i > -1 &&
-                                                (_vm.selected = $$a
-                                                  .slice(0, $$i)
-                                                  .concat($$a.slice($$i + 1)))
-                                            }
-                                          } else {
-                                            _vm.selected = $$c
-                                          }
-                                        }
-                                      }
-                                    }),
-                                    _vm._v(" "),
+                              _vm.config.action
+                                ? _c("th", [
                                     _c(
-                                      "label",
+                                      "div",
                                       {
-                                        staticClass: "custom-control-label",
-                                        attrs: { for: "checkbox-" + index }
+                                        staticClass:
+                                          "custom-checkbox custom-control"
                                       },
-                                      [_vm._v(" ")]
+                                      [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.selectAll,
+                                              expression: "selectAll"
+                                            }
+                                          ],
+                                          staticClass: "custom-control-input",
+                                          attrs: {
+                                            type: "checkbox",
+                                            id: "checkbox-all"
+                                          },
+                                          domProps: {
+                                            checked: Array.isArray(
+                                              _vm.selectAll
+                                            )
+                                              ? _vm._i(_vm.selectAll, null) > -1
+                                              : _vm.selectAll
+                                          },
+                                          on: {
+                                            change: function($event) {
+                                              var $$a = _vm.selectAll,
+                                                $$el = $event.target,
+                                                $$c = $$el.checked
+                                                  ? true
+                                                  : false
+                                              if (Array.isArray($$a)) {
+                                                var $$v = null,
+                                                  $$i = _vm._i($$a, $$v)
+                                                if ($$el.checked) {
+                                                  $$i < 0 &&
+                                                    (_vm.selectAll = $$a.concat(
+                                                      [$$v]
+                                                    ))
+                                                } else {
+                                                  $$i > -1 &&
+                                                    (_vm.selectAll = $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      ))
+                                                }
+                                              } else {
+                                                _vm.selectAll = $$c
+                                              }
+                                            }
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "label",
+                                          {
+                                            staticClass: "custom-control-label",
+                                            attrs: { for: "checkbox-all" }
+                                          },
+                                          [_vm._v(" ")]
+                                        )
+                                      ]
                                     )
-                                  ]
-                                )
-                              ]),
+                                  ])
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c(
-                                "td",
-                                [
-                                  _vm.config.route_view
-                                    ? _c(
-                                        "router-link",
-                                        {
-                                          staticClass: "badge badge-primary",
-                                          attrs: {
-                                            to: {
-                                              name: _vm.config.route_view,
-                                              params: { id: item.id }
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "View\n                            "
-                                          )
-                                        ]
-                                      )
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _vm.config.route_edit &&
-                                  item.status === 1 &&
-                                  item.is_printed === 0
-                                    ? _c(
-                                        "router-link",
-                                        {
-                                          staticClass: "badge badge-warning",
-                                          attrs: {
-                                            to: {
-                                              name: _vm.config.route_edit,
-                                              params: { id: item.id }
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "Edit\n                            "
-                                          )
-                                        ]
-                                      )
-                                    : _vm._e()
-                                ],
-                                1
-                              ),
+                              _vm.config.action
+                                ? _c("th", [_vm._v("Action")])
+                                : _vm._e(),
                               _vm._v(" "),
                               _vm._l(_vm.columns, function(column) {
-                                return _c("td", [
-                                  column.type === "html"
-                                    ? _c("span", {
-                                        domProps: {
-                                          innerHTML: _vm._s(item[column.field])
-                                        }
-                                      })
-                                    : column.type === "link"
-                                    ? _c(
-                                        "a",
-                                        {
-                                          attrs: {
-                                            href: item[column.field_url]
-                                          }
-                                        },
-                                        [_vm._v(_vm._s(item[column.field]))]
-                                      )
-                                    : column.type === "price"
-                                    ? _c("p", [
-                                        _vm._v(
-                                          "\n                                " +
-                                            _vm._s(
-                                              _vm._f("toIDR")(
-                                                item[column.field]
-                                              )
-                                            ) +
-                                            "\n                            "
-                                        )
-                                      ])
-                                    : _c("p", [
-                                        _vm._v(
-                                          "\n                                " +
-                                            _vm._s(item[column.field]) +
-                                            "\n                            "
-                                        )
-                                      ])
+                                return _c("th", [
+                                  _vm._v(" " + _vm._s(column.title))
                                 ])
                               })
                             ],
                             2
-                          )
-                        })
-                      ],
-                      2
-                    )
-                  ])
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.data, function(item, index) {
+                            return _c(
+                              "tr",
+                              [
+                                _vm.config.action
+                                  ? _c("td", [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "custom-checkbox custom-control"
+                                        },
+                                        [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.selected,
+                                                expression: "selected"
+                                              }
+                                            ],
+                                            staticClass: "custom-control-input",
+                                            attrs: {
+                                              type: "checkbox",
+                                              id: "checkbox-" + index
+                                            },
+                                            domProps: {
+                                              value: item.id,
+                                              checked: Array.isArray(
+                                                _vm.selected
+                                              )
+                                                ? _vm._i(
+                                                    _vm.selected,
+                                                    item.id
+                                                  ) > -1
+                                                : _vm.selected
+                                            },
+                                            on: {
+                                              change: function($event) {
+                                                var $$a = _vm.selected,
+                                                  $$el = $event.target,
+                                                  $$c = $$el.checked
+                                                    ? true
+                                                    : false
+                                                if (Array.isArray($$a)) {
+                                                  var $$v = item.id,
+                                                    $$i = _vm._i($$a, $$v)
+                                                  if ($$el.checked) {
+                                                    $$i < 0 &&
+                                                      (_vm.selected = $$a.concat(
+                                                        [$$v]
+                                                      ))
+                                                  } else {
+                                                    $$i > -1 &&
+                                                      (_vm.selected = $$a
+                                                        .slice(0, $$i)
+                                                        .concat(
+                                                          $$a.slice($$i + 1)
+                                                        ))
+                                                  }
+                                                } else {
+                                                  _vm.selected = $$c
+                                                }
+                                              }
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "custom-control-label",
+                                              attrs: {
+                                                for: "checkbox-" + index
+                                              }
+                                            },
+                                            [_vm._v(" ")]
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.config.action
+                                  ? _c(
+                                      "td",
+                                      [
+                                        _vm.config.route_view
+                                          ? _c(
+                                              "router-link",
+                                              {
+                                                staticClass:
+                                                  "badge badge-primary",
+                                                attrs: {
+                                                  to: {
+                                                    name: _vm.config.route_view,
+                                                    params: { id: item.id }
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "View\n                            "
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _vm.config.route_edit &&
+                                        item.status === 1 &&
+                                        item.is_printed === 0
+                                          ? _c(
+                                              "router-link",
+                                              {
+                                                staticClass:
+                                                  "badge badge-warning",
+                                                attrs: {
+                                                  to: {
+                                                    name: _vm.config.route_edit,
+                                                    params: { id: item.id }
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "Edit\n                            "
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ],
+                                      1
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm._l(_vm.columns, function(column) {
+                                  return _c("td", [
+                                    column.type === "html"
+                                      ? _c("span", {
+                                          domProps: {
+                                            innerHTML: _vm._s(
+                                              item[column.field]
+                                            )
+                                          }
+                                        })
+                                      : column.type === "link"
+                                      ? _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              href: item[column.field_url]
+                                            }
+                                          },
+                                          [_vm._v(_vm._s(item[column.field]))]
+                                        )
+                                      : column.type === "price"
+                                      ? _c("p", [
+                                          _vm._v(
+                                            "\n                                " +
+                                              _vm._s(
+                                                _vm._f("toIDR")(
+                                                  item[column.field]
+                                                )
+                                              ) +
+                                              "\n                            "
+                                          )
+                                        ])
+                                      : _c("p", [
+                                          _vm._v(
+                                            "\n                                " +
+                                              _vm._s(item[column.field]) +
+                                              "\n                            "
+                                          )
+                                        ])
+                                  ])
+                                })
+                              ],
+                              2
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]
+                  )
                 : _vm._e(),
               _vm._v(" "),
               !_vm.data.length
@@ -78394,6 +78730,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Template_Print_HeaderPrint__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Template/Print/HeaderPrint */ "./resources/js/components/Template/Print/HeaderPrint.vue");
 /* harmony import */ var _components_Template_Print_HeaderInfoPrint__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Template/Print/HeaderInfoPrint */ "./resources/js/components/Template/Print/HeaderInfoPrint.vue");
 /* harmony import */ var _components_Template_Print_TablePrint__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Template/Print/TablePrint */ "./resources/js/components/Template/Print/TablePrint.vue");
+/* harmony import */ var _components_Report_SO_IndexReportSO__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Report/SO/IndexReportSO */ "./resources/js/components/Report/SO/IndexReportSO.vue");
 /**
  * List Component
  */
@@ -78411,6 +78748,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+Vue.component('index-report-so', _components_Report_SO_IndexReportSO__WEBPACK_IMPORTED_MODULE_13__["default"]);
 Vue.component('users-component', _components_UsersComponent__WEBPACK_IMPORTED_MODULE_0__["default"]);
 Vue.component('profile-component', _components_ProfileComponent__WEBPACK_IMPORTED_MODULE_1__["default"]);
 Vue.component('adduser-component', _components_AdduserComponent__WEBPACK_IMPORTED_MODULE_2__["default"]); // Vue.component('add-sales-order', AddSalesOrder);
@@ -79283,6 +79622,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileComponent_vue_vue_type_template_id_a8276c82___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProfileComponent_vue_vue_type_template_id_a8276c82___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Report/SO/IndexReportSO.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/Report/SO/IndexReportSO.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _IndexReportSO_vue_vue_type_template_id_4d8110cf___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IndexReportSO.vue?vue&type=template&id=4d8110cf& */ "./resources/js/components/Report/SO/IndexReportSO.vue?vue&type=template&id=4d8110cf&");
+/* harmony import */ var _IndexReportSO_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndexReportSO.vue?vue&type=script&lang=js& */ "./resources/js/components/Report/SO/IndexReportSO.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _IndexReportSO_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _IndexReportSO_vue_vue_type_template_id_4d8110cf___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _IndexReportSO_vue_vue_type_template_id_4d8110cf___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Report/SO/IndexReportSO.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Report/SO/IndexReportSO.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/Report/SO/IndexReportSO.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexReportSO_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexReportSO.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Report/SO/IndexReportSO.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexReportSO_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Report/SO/IndexReportSO.vue?vue&type=template&id=4d8110cf&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/Report/SO/IndexReportSO.vue?vue&type=template&id=4d8110cf& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexReportSO_vue_vue_type_template_id_4d8110cf___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexReportSO.vue?vue&type=template&id=4d8110cf& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Report/SO/IndexReportSO.vue?vue&type=template&id=4d8110cf&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexReportSO_vue_vue_type_template_id_4d8110cf___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexReportSO_vue_vue_type_template_id_4d8110cf___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

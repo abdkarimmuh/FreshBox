@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Report;
 
+use App\Http\Resources\Report\ReportSOResource;
+use App\Model\Warehouse\DeliveryOrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Finance\InvoiceOrder;
@@ -9,19 +11,20 @@ use App\Model\Marketing\SalesOrderDetail;
 use App\Model\MasterData\Customer;
 use App\Model\Warehouse\DeliveryOrder;
 use Illuminate\Support\Facades\DB;
+use function foo\func;
 
 class reportSOController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
-    {        
+    {
         $searchValue = $request->input('search');
 
-        $columns = [/* 
+        $columns = [/*
             array('title' => 'No', 'field' => 'number'), */
             array('title' => 'Tanggal', 'field' => 'so_date'),
             array('title' => 'Customer', 'field' => 'customer_name'),
@@ -34,39 +37,30 @@ class reportSOController extends Controller
             array('title' => 'Type Price', 'field' => ''),
             array('title' => 'Qty', 'field' => 'qty'),
             array('title' => 'Total Amount', 'field' => 'amount_price'),
-            array('title' => 'DO No.', 'field' => 'delivery_order_no'), 
+            array('title' => 'DO No.', 'field' => 'delivery_order_no'),
             array('title' => 'Disc.', 'field' => 'tax_value'),
             array('title' => 'Total Amount (After Disc).', 'field' => 'total_amount'),
         ];
 
         $config = [
-            //Title Required
-            'title' => 'Report X',
-            /**
-             * Route Can Be Null
-             */
-            //Route For Button Add
-
-            //Route For Button Search
-            'route-search' => 'admin.report.reportso.index',
+            'vue-component' => '<index-report-so></index-report-so>',
         ];
 
-      /*   $salesOrderDetail = SalesOrderDetail::all();
-        $count = 0;
-
-        foreach ($salesOrderDetail as $row) {
-            $count = $count + 1;
-            $number[] = [
-                'number' => ($count)
-            ];
+        if ($request->ajax()) {
+            $query = DeliveryOrderDetail::dataTableQuery($searchValue);
+            $start = $request->start;
+            $end = $request->end;
+            if ($start && $end) {
+                $query->whereHas('sales_order_detail', function ($q) use ($start, $end) {
+                    $q->whereHas('SalesOrder', function ($query) use ($start, $end) {
+                        $query->whereBetween(DB::raw("DATE_FORMAT(fulfillment_date, '%Y-%m-%d')"), array($start,$end));
+                    });
+                });
+            }
+            return ReportSOResource::collection($query->paginate(10));
         }
 
-        $merge = $salesOrderDetail->merge($number); */
+        return view('layouts.vue-view', compact('config'));
 
-        $query = SalesOrderDetail::dataTableQuery($searchValue);
-        $data = $query->paginate(10);
-
-        return view('admin.crud.index', compact('columns', 'data', 'config'));
-        // return $data;
     }
 }

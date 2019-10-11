@@ -3,12 +3,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="col-lg-8">
+                    <div v-bind:class="{ 'col-lg-7': config.daterange, 'col-lg-8' : config.action}">
                         <div class="row">
                             <h4 class="text-danger">{{ config.title }}</h4>
                             <router-link :to="{ name: config.route_create }" class="btn btn-danger ml-2"
                                          v-if="config.route_create">Add
                                 <i class="fas fa-plus"></i></router-link>
+                            <a @click="toExcel('vuetable', 'Test')" class="btn btn-danger ml-2"
+                            style="color: white" v-if="config.export_excel">Export Excel</a>
                             <a class="btn btn-info ml-2" style="color: white" @click="print()"
                                v-if="config.route_multiple_print && selected != 0">Print
                                 <i class="fas fa-print"></i></a>
@@ -18,7 +20,34 @@
                         </div>
                     </div>
                     <div class="card-header-action ml-0 mt-3 mb-3">
-                        <div class="input-group">
+                        <div class="input-group" v-if="config.daterange">
+                            <date-picker
+                                v-model="params.start"
+                                lang="en"
+                                type="date"
+                                placeholder="Start Date"
+                                valueType="format"
+                                format="YYYY-MM-DD"
+                            ></date-picker>
+                            <date-picker
+                                v-model="params.end"
+                                lang="en"
+                                type="date"
+                                valueType="format"
+                                placeholder="End Date"
+                                format="YYYY-MM-DD"
+                            ></date-picker>
+                            <input type="text" class="form-control ml-2" placeholder="Search" v-model="params.query">
+                            <div class="input-group-btn ml-1">
+                                <button class="btn btn-danger" v-on:click="search" :disabled="!loading">
+                                    <i class="fas fa-search" v-if="loading"></i>
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                          aria-hidden="true" v-if="!loading"></span>
+                                    <span class="sr-only" v-if="!loading">Loading...</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-group" v-else>
                             <input type="text" class="form-control ml-2" placeholder="Start"
                                    v-model="params.start">
                             <input type="text" class="form-control ml-2" placeholder="End" v-model="params.end">
@@ -47,22 +76,22 @@
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive" v-if="loading">
-                    <table class="table table-bordered" v-if="data.length">
+                    <table class="table table-bordered" v-if="data.length" id="vuetable">
                         <tbody>
                         <tr>
-                            <th>
+                            <th v-if="config.action">
                                 <div class="custom-checkbox custom-control">
                                     <input type="checkbox" class="custom-control-input" id="checkbox-all"
                                            v-model="selectAll">
                                     <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                 </div>
                             </th>
-                            <th>Action</th>
+                            <th v-if="config.action">Action</th>
                             <th v-for="column in columns"> {{ column.title }}</th>
                         </tr>
                         <tr v-for="(item, index) in data">
                             <!--CheckBox-->
-                            <td>
+                            <td v-if="config.action">
                                 <div class="custom-checkbox custom-control">
                                     <input type="checkbox" class="custom-control-input" :value="item.id"
                                            v-model="selected" :id="'checkbox-'+ index">
@@ -72,7 +101,7 @@
                             </td>
                             <!--Button-->
 
-                            <td>
+                            <td v-if="config.action">
                                 <router-link v-if="config.route_view" class="badge badge-primary"
                                              :to="{ name: config.route_view , params: { id: item.id }}">View
                                 </router-link>
@@ -259,6 +288,22 @@
                     }).catch(e => {
 
                 });
+            },
+            toExcel(table, name) {
+                var uri = 'data:application/vnd.ms-excel;base64,'
+                    ,
+                    template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+                    , base64 = function (s) {
+                        return window.btoa(unescape(encodeURIComponent(s)));
+                    }
+                    , format = function (s, c) {
+                        return s.replace(/{(\w+)}/g, function (m, p) {
+                            return c[p];
+                        });
+                    };
+                if (!table.nodeType) table = document.getElementById(table);
+                var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML};
+                window.location.href = uri + base64(format(template, ctx));
             }
         },
         computed: {

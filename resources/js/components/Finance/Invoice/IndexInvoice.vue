@@ -12,6 +12,7 @@
             return {
                 config: {
                     title: 'Form Invoice Order',
+                    action: true,
                     base_url: this.$parent.MakeUrl('api/v1/finance/invoice_order'),
                     route_create: 'invoice_order.create',
                     route_view: 'invoice_order.print',

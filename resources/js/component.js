@@ -18,7 +18,9 @@ import HeaderPrint from "./components/Template/Print/HeaderPrint";
 import HeaderInfoPrint from "./components/Template/Print/HeaderInfoPrint";
 
 import TablePrint from "./components/Template/Print/TablePrint";
+import IndexReportSO from "./components/Report/SO/IndexReportSO"
 
+Vue.component('index-report-so', IndexReportSO);
 
 Vue.component('users-component', UsersComponent);
 Vue.component('profile-component', ProfileComponent);
