@@ -134,7 +134,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     /* Route Menu Report Data */
     Route::name('report.')->prefix('report')->middleware('auth')->group(function () {
         Route::name('reportso.')->prefix('reportso')->group(function () {
-            Route::get('/', 'Reportg\ReportSOController@index')->name('index');
+            Route::get('/', 'Report\ReportSOController@index')->name('index');
         });
 
     });
