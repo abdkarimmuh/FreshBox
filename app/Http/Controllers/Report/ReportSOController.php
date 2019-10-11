@@ -6,12 +6,7 @@ use App\Http\Resources\Report\ReportSOResource;
 use App\Model\Warehouse\DeliveryOrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Finance\InvoiceOrder;
-use App\Model\Marketing\SalesOrderDetail;
-use App\Model\MasterData\Customer;
-use App\Model\Warehouse\DeliveryOrder;
 use Illuminate\Support\Facades\DB;
-use function foo\func;
 
 class reportSOController extends Controller
 {
