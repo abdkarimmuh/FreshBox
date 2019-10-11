@@ -14,10 +14,9 @@
                     title: 'Form Delivery Order',
                     base_url: this.$parent.MakeUrl('api/v1/warehouse/delivery_order'),
                     // route_search: 'admin.marketing.sales_order.index',
-                    route_create: 'form_sales_order.create',
-                    route_view: 'form_sales_order.print',
-                    route_edit: 'form_sales_order.edit',
-                    route_multiple_print: 'form_sales_order.multiplePrint',
+                    route_create: 'delivery_order.create',
+                    route_view: 'delivery_order.print',
+                    route_multiple_print: 'delivery_order.multiplePrint',
                 },
                 columns: [
                     {

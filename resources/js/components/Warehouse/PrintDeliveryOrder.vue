@@ -21,7 +21,7 @@
                             <tr>
                                 <td height="22px" width="100%" style="border-bottom: 1px solid black"></td>
                             </tr>
-                              <tr>
+                            <tr>
                                 <td height="22px" width="100%" style="border-bottom: 2px solid black"></td>
                             </tr>
                             </tbody>
@@ -72,7 +72,6 @@
 
 <script>
     export default {
-        props: ['id'],
         data() {
             return {
                 info: {
@@ -142,7 +141,7 @@
         },
         methods: {
             getData() {
-                axios.get(this.$parent.MakeUrl('admin/warehouse/delivery_order/' + this.id + '/show'))
+                axios.get(this.$parent.MakeUrl('api/v1/warehouse/delivery_order/show?id=' + this.$route.params.id))
                     .then(res => {
                         this.delivery_order = res.data.data;
                         this.details = res.data.data.do_details;

@@ -33,16 +33,18 @@ class DeliveryOrderAPIController extends Controller
         return SalesOrderResource::collection(SalesOrder::where('status', 1)->get());
     }
 
-    public function show($id)
+
+    public function show(Request $request)
     {
-        $delivery_order = DeliveryOrder::where('id', $id)
-            ->whereHas('sales_order', function ($q) {
-                $q->where('status', 4);
-            })->first();
+        if (is_array($request->id)) {
+            $do = DeliveryOrder::whereIn('id', $request->id)->orderBy('delivery_order_no', 'desc')->get();
+            $delivery_order = DeliveryOrderResource::collection($do);
+        } else {
+            $do = DeliveryOrder::findOrFail($request->id);
+            $delivery_order = new DeliveryOrderResource($do);
+        }
 
-        //        return $delivery_order;
-
-        return new DeliveryOrderResource($delivery_order);
+        return response()->json($delivery_order, 200);
     }
 
     public function store(Request $request)

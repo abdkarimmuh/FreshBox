@@ -17,6 +17,8 @@ import PrintRecapInvoice from './components/Finance/Invoice/PrintRecapInvoice';
 
 import IndexDeliveryOrder from './components/Warehouse/IndexDeliveryOrder';
 import AddDeliveryOrder from './components/Warehouse/AddDeliveryOrder';
+import PrintDeliveryOrder from "./components/Warehouse/PrintDeliveryOrder";
+import MultiplePrintDeliveryOrder from "./components/Warehouse/MultiplePrintDeliveryOrder";
 
 Vue.use(VueRouter);
 
@@ -101,6 +103,16 @@ const router = new VueRouter({
             path: '/admin/warehouse/delivery_order/create',
             name: 'delivery_order.create',
             component: AddDeliveryOrder
+        },
+        {
+            path: '/admin/warehouse/delivery_order/:id/print',
+            name: 'delivery_order.print',
+            component: PrintDeliveryOrder
+        },
+        {
+            path: '/admin/warehouse/delivery_order/multiplePrint',
+            name: 'delivery_order.multiplePrint',
+            component: MultiplePrintDeliveryOrder
         },
 
         {

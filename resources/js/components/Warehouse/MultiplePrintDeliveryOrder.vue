@@ -143,11 +143,10 @@
         },
         methods: {
             getData() {
-                const id = JSON.parse(this.id).map(Number);
                 const payload = {
-                    id: id,
+                    id: this.$route.query.id,
                 };
-                axios.get(this.$parent.MakeUrl('admin/warehouse/delivery_order/multiplePrint'), {params: payload})
+                axios.get(this.$parent.MakeUrl('api/v1/warehouse/delivery_order/show'), {params: payload})
                     .then(res => {
                         this.delivery_order = res.data;
                         this.loading = true;

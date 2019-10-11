@@ -163,10 +163,10 @@
         },
         methods: {
             getDataDO() {
-                axios.get(this.$parent.MakeUrl("admin/warehouse/delivery_order/" + this.do_id + "/show"))
+                axios.get(this.$parent.MakeUrl("api/v1/warehouse/delivery_order/show?id=" + this.do_id))
                     .then(res => {
-                        this.delivery_order = res.data.data;
-                        this.do_details = res.data.data.do_details;
+                        this.delivery_order = res.data;
+                        this.do_details = res.data.do_details;
                     })
                     .catch(e => {
                         console.log(e);
