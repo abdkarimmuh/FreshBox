@@ -29,7 +29,7 @@ class CreateTrxSalesOrderDetail extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
-
+            $table->index(['skuid','qty','amount_price','total_amount']);
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('sales_order_id')->on('trx_sales_order')->references('id')->onDelete('cascade');

@@ -10,7 +10,7 @@
                                          v-if="config.route_create">Add
                                 <i class="fas fa-plus"></i></router-link>
                             <a @click="toExcel('vuetable', 'Test')" class="btn btn-danger ml-2"
-                            style="color: white" v-if="config.export_excel">Export Excel</a>
+                               style="color: white" v-if="config.export_excel">Export Excel</a>
                             <a class="btn btn-info ml-2" style="color: white" @click="print()"
                                v-if="config.route_multiple_print && selected != 0">Print
                                 <i class="fas fa-print"></i></a>

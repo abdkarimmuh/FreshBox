@@ -26,8 +26,7 @@ class CreateMasterVendor extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('category_id')->on('master_category')->references('id')->onDelete('cascade');
             $table->foreign('bank_id')->on('master_bank')->references('id')->onDelete('cascade');
-            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
+            $table->index(['name','pic_vendor']);
             $table->timestamps();
             $table->softDeletes();
         });

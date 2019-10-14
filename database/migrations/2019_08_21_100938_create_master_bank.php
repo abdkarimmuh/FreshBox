@@ -17,6 +17,7 @@ class CreateMasterBank extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('kode_bank', 20);
+            $table->index('name');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');

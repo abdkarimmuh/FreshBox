@@ -21,8 +21,6 @@ class CreateMasterSourceOrder extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
         });
     }
 
