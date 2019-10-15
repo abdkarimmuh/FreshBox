@@ -12,6 +12,6 @@ class RecapInvoiceDetail extends Model
 
     public function recap_invoice()
     {
-        return $this->belongsTo(RecapInvoice::class);
+        return $this->belongsTo(InvoiceRecap::class);
     }
 }

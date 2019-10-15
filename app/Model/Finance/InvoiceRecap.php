@@ -5,7 +5,7 @@ namespace App\Model\Finance;
 use App\Model\MasterData\Customer;
 use Illuminate\Database\Eloquent\Model;
 
-class RecapInvoice extends Model
+class InvoiceRecap extends Model
 {
     protected $table = 'trx_invoice_recap';
     protected $fillable = ['customer_id', 'recap_invoice_no', 'recap_date', 'created_by'];

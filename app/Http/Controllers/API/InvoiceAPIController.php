@@ -7,7 +7,7 @@ use App\Http\Resources\Finance\InvoiceOrderResource;
 use App\Http\Resources\Finance\RekapInvoiceResource;
 use App\Http\Resources\Warehouse\DeliveryOrderResource;
 use App\Model\Finance\InvoiceOrder;
-use App\Model\Finance\RecapInvoice;
+use App\Model\Finance\InvoiceRecap;
 use App\Model\Finance\RecapInvoiceDetail;
 use App\Model\Marketing\SalesOrder;
 use App\Model\MasterData\Customer;
@@ -118,7 +118,7 @@ class InvoiceAPIController extends Controller
                 'recap_date' => Carbon::now(),
                 'created_by' => $request->userId
             ];
-            $recap_invoice = RecapInvoice::create($invoice);
+            $recap_invoice = InvoiceRecap::create($invoice);
             foreach ($invoices as $invoice) {
                 RecapInvoiceDetail::create([
                     'invoice_recap_id' => $recap_invoice->id,
@@ -155,7 +155,7 @@ class InvoiceAPIController extends Controller
     public function generateInvoiceRecapNo()
     {
         $year_month = Carbon::now()->format('ym');
-        $latest_invoice_recap = RecapInvoice::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+        $latest_invoice_recap = InvoiceRecap::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
         $get_last_inv_recap_no = isset($latest_invoice_recap->recap_invoice_no) ? $latest_invoice_recap->recap_invoice_no : 'RKP' . $year_month . '00000';
         $cut_string_inv_recap_no = str_replace("RKP", "", $get_last_inv_recap_no);
         return 'RKP' . ($cut_string_inv_recap_no + 1);
