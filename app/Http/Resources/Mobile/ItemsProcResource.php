@@ -4,7 +4,7 @@ namespace App\Http\Resources\Mobile;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserProcResource extends JsonResource
+class ItemsProcResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,10 @@ class UserProcResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'saldo' => intval($this->procurement->saldo)
+            'skuid' => $this->skuid,
+            'qty' => $this->sisa_qty_proc,
+            'name' => $this->item_name,
+            'uom' => $this->uom_name,
         ];
     }
 }

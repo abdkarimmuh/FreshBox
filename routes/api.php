@@ -2,13 +2,11 @@
 
 use App\Http\Resources\MasterData\UomResource;
 use App\Http\Resources\MasterData\VendorResource;
-use App\Http\Resources\Mobile\AssignListResource;
 use App\Http\Resources\Mobile\UserProcResource;
 use App\Model\MasterData\Customer;
 use App\Model\MasterData\Price;
 use App\Model\MasterData\Uom;
 use App\Model\MasterData\Vendor;
-use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,7 +23,7 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::group(['prefix' => 'v1'], function () {
-    /**
+    /*
      * API MOBILE
      * Auth Route
      * Login / Register / Logout
@@ -35,8 +33,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('logout', 'API\AuthAPIController@logout');
 
     Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
-        Route::group(['prefix' => 'procurement'], function () {
-            Route::get('proc', function () {
+        Route::group(['prefix' => 'proc'], function () {
+            Route::get('/', function () {
                 return new UserProcResource(auth()->user());
             });
 
@@ -49,12 +47,13 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::get('/', 'API\Procurement\ProcurementAPIController@index');
             });
 
-            Route::group(['prefix' => 'sales_order_detail'], function () {
+            Route::group(['prefix' => 'so_detail'], function () {
                 Route::get('/', 'API\Procurement\SalesOrderDetailAPIController@index');
+                Route::get('/api', 'API\Procurement\SalesOrderDetailAPIController@indexAPI');
             });
         });
     });
-    /**
+    /*
      * Marketing Route
      */
     Route::group(['prefix' => 'marketing/'], function () {
@@ -70,13 +69,11 @@ Route::group(['prefix' => 'v1'], function () {
 
             Route::get('sales_order_details/{id}', 'Marketing\FormSalesOrderController@getSalesOrderDetails');
         });
-
     });
-    /**
+    /*
      * Route API Warehouse
      */
     Route::group(['prefix' => 'warehouse/'], function () {
-
         Route::group(['prefix' => 'delivery_order'], function () {
             Route::get('/create', 'API\DeliveryOrderAPIController@create');
             Route::get('/show/{id}', 'API\DeliveryOrderAPIController@show');
@@ -84,7 +81,7 @@ Route::group(['prefix' => 'v1'], function () {
         });
     });
 
-    /**
+    /*
      * Route API Route
      */
     Route::group(['prefix' => 'finance'], function () {
@@ -96,20 +93,17 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/print', 'API\InvoiceAPIController@print');
             Route::get('/printRecap/{customer_id}', 'API\InvoiceAPIController@printRecap');
             Route::get('/printRekap', 'API\InvoiceAPIController@printRekap');
-
         });
     });
 
-    /**
+    /*
      * Master Data Route
      */
     Route::group(['prefix' => 'master_data/', 'middleware' => 'auth:api'], function () {
-
         Route::group(['prefix' => 'customer'], function () {
             Route::get('/', 'API\CustomerAPIController@index')->name('api.customer');
             Route::get('/list', 'API\CustomerAPIController@all');
             Route::get('/list_has_recap', 'API\CustomerAPIController@ListCustomerHasRecap');
-
         });
         Route::group(['prefix' => 'price'], function () {
             Route::get('/', 'API\MasterPriceController@index')->name('api.price');
@@ -147,20 +141,19 @@ Route::group(['prefix' => 'v1'], function () {
     });
 });
 
-
-/**
+/*
  * Testing Route
  */
 
 Route::get('/testing', function () {
     $data = \App\Model\Marketing\SalesOrder::get();
+
     return $data;
 });
 
 Route::get('/bidding', function () {
 });
 Route::get('users/roles', 'UserController@roles')->name('users.roles');
-
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -178,14 +171,13 @@ Route::get('/users ', function (Request $request) {
     return new \JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource($data);
 });
 Route::get('/customers', function () {
-
     $prices = DB::table('pricemaster')->get();
     $customers = Customer::select('id')->get();
     foreach ($customers as $customer) {
         $customer_id[] = $customer->id;
     }
 
-    for ($i = 1; $i <= 32; $i++) {
+    for ($i = 1; $i <= 32; ++$i) {
         foreach ($prices as $price) {
             if ($price->Unit === 'Kg') {
                 $uom = 1;
@@ -221,12 +213,13 @@ Route::get('/customers', function () {
                 'created_by' => 1,
                 'uom_id' => $uom,
                 'start_periode' => Carbon::now(),
-                'end_periode' => Carbon::now()->addDays(5)
+                'end_periode' => Carbon::now()->addDays(5),
             ];
         }
         DB::table('master_price')->insert($data);
     }
+
     return response()->json([
-        'status' => 'success'
+        'status' => 'success',
     ], 200);
 });
