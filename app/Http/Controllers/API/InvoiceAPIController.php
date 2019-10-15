@@ -7,11 +7,15 @@ use App\Http\Resources\Finance\InvoiceOrderResource;
 use App\Http\Resources\Finance\RekapInvoiceResource;
 use App\Http\Resources\Warehouse\DeliveryOrderResource;
 use App\Model\Finance\InvoiceOrder;
+use App\Model\Finance\RecapInvoice;
+use App\Model\Finance\RecapInvoiceDetail;
 use App\Model\Marketing\SalesOrder;
 use App\Model\MasterData\Customer;
 use App\Model\Warehouse\DeliveryOrder;
 use Carbon\Carbon;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class InvoiceAPIController extends Controller
@@ -95,27 +99,47 @@ class InvoiceAPIController extends Controller
         return response()->json($invoice_order, 200);
     }
 
-    public function printRekap(Request $request)
+    /**
+     * Generate Recap Invoice
+     * @param Request $request
+     * @return ResponseFactory|Response
+     */
+    public function generateRecapInvoice(Request $request)
     {
         $invoices = InvoiceOrder::whereIn('id', $request->id)->get();
         foreach ($invoices as $invoice) {
             $customers_id[] = $invoice->customer_id;
         }
+        //Check If customer_id is same
         if (count(array_unique($customers_id)) === 1) {
-            return response(['status' => true]);
+            $invoice = [
+                'customer_id' => $invoices[0]->customer_id,
+                'recap_invoice_no' => $this->generateInvoiceRecapNo(),
+                'recap_date' => Carbon::now(),
+                'created_by' => $request->userId
+            ];
+            $recap_invoice = RecapInvoice::create($invoice);
+            foreach ($invoices as $invoice) {
+                RecapInvoiceDetail::create([
+                    'invoice_recap_id' => $recap_invoice->id,
+                    'invoice_id' => $invoice->id
+                ]);
+            }
+            return response([
+                'status' => true,
+                'invoice_recap_id' => $recap_invoice->id
+            ]);
         } else {
             return response(['status' => false]);
         }
     }
 
-    public function printRecap($customer_id)
+    public function printRecap(Request $request)
     {
         if (request()->isMethod('POST')) {
-            InvoiceOrder::where('customer_id', $customer_id)->update(['is_recap' => 1]);
+            InvoiceOrder::whereIn('id', $request->id)->update(['is_recap' => 1]);
         } else {
-            return new RekapInvoiceResource(Customer::where('id', $customer_id)->whereHas('invoices', function ($q) {
-                $q->where('is_recap', 0);
-            })->first());
+            return new RekapInvoiceResource(InvoiceOrder::whereIn('id', $request->id)->get());
         }
     }
 
@@ -126,5 +150,14 @@ class InvoiceAPIController extends Controller
         $get_last_inv_no = isset($latest_invoice_order->invoice_no) ? $latest_invoice_order->invoice_no : 'INV' . $year_month . '00000';
         $cut_string_inv_no = str_replace("INV", "", $get_last_inv_no);
         return 'INV' . ($cut_string_inv_no + 1);
+    }
+
+    public function generateInvoiceRecapNo()
+    {
+        $year_month = Carbon::now()->format('ym');
+        $latest_invoice_recap = RecapInvoice::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+        $get_last_inv_recap_no = isset($latest_invoice_recap->recap_invoice_no) ? $latest_invoice_recap->recap_invoice_no : 'RKP' . $year_month . '00000';
+        $cut_string_inv_recap_no = str_replace("RKP", "", $get_last_inv_recap_no);
+        return 'RKP' . ($cut_string_inv_recap_no + 1);
     }
 }

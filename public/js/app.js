@@ -2151,7 +2151,7 @@ __webpack_require__.r(__webpack_exports__);
         route_view: 'invoice_order.print',
         route_edit: 'invoice_order.edit',
         route_multiple_print: 'invoice_order.multiplePrint',
-        route_print_rekap: 'invoice_order.multiplePrint'
+        route_print_rekap: 'invoice_order.recap'
       },
       columns: [{
         title: 'Invoice Order NO',
@@ -2900,22 +2900,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
@@ -2928,12 +2912,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.getDataCustomer();
+    this.getInvoiceList();
   },
   methods: {
     getInvoiceList: function getInvoiceList() {
       var _this = this;
 
+      var payload = {
+        id: this.$route.query.id
+      };
       axios.get(this.$parent.MakeUrl('api/v1/finance/invoice/printRecap/' + this.customer_id)).then(function (res) {
         _this.customer = res.data.data;
         _this.invoices = res.data.data.invoices;
@@ -2941,20 +2928,8 @@ __webpack_require__.r(__webpack_exports__);
         console.log(_this.customer);
       })["catch"](function (e) {});
     },
-    getDataCustomer: function getDataCustomer() {
-      var _this2 = this;
-
-      axios.get(this.$parent.MakeUrl('api/v1/master_data/customer/list_has_recap')).then(function (res) {
-        _this2.customers = res.data.data;
-        _this2.loading = true;
-      })["catch"](function (err) {
-        if (err.response.status == 500) {
-          _this2.loading = true;
-        }
-      });
-    },
     print: function print() {
-      var _this3 = this;
+      var _this2 = this;
 
       Vue.swal({
         title: 'Are you sure?',
@@ -2966,9 +2941,9 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, Print it!'
       }).then(function (result) {
         if (result.value) {
-          _this3.$htmlToPaper('printMe');
+          _this2.$htmlToPaper('printMe');
 
-          axios.post(_this3.$parent.MakeUrl('admin/finance/invoice_order/' + _this3.id + '/print')); // Swal.fire(
+          axios.post(_this2.$parent.MakeUrl('admin/finance/invoice_order/' + _this2.id + '/print')); // Swal.fire(
           //     'Printed!',
           //     'This Sales Order has been Printed.',
           //     'success'
@@ -5311,6 +5286,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: ['columns', 'config'],
   data: function data() {
     return {
+      user: {},
       perPages: ['5', '10', '25', '50'],
       buttonClasses: 'btn btn-primary',
       selected: [0],
@@ -5333,40 +5309,65 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     };
   },
-  mounted: function mounted() {
-    this.getData();
-  },
+  mounted: function () {
+    var _mounted = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return this.getData();
+
+            case 2:
+              this.user = AuthUser;
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function mounted() {
+      return _mounted.apply(this, arguments);
+    }
+
+    return mounted;
+  }(),
   methods: {
     search: function () {
       var _search = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 this.loading = false;
                 this.pagination = null;
-                _context.prev = 2;
-                _context.next = 5;
+                _context2.prev = 2;
+                _context2.next = 5;
                 return this.getData();
 
               case 5:
                 this.loading = true;
-                _context.next = 11;
+                _context2.next = 11;
                 break;
 
               case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](2);
-                console.log(_context.t0);
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](2);
+                console.log(_context2.t0);
 
               case 11:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this, [[2, 8]]);
+        }, _callee2, this, [[2, 8]]);
       }));
 
       function search() {
@@ -5378,14 +5379,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function () {
       var _getData = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var _this = this;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                _context2.next = 2;
+                _context3.next = 2;
                 return axios.get(this.config.base_url, {
                   params: this.params
                 }).then(function (res) {
@@ -5413,10 +5414,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
 
       function getData() {
@@ -5445,21 +5446,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       var payload = {
-        id: this.selected
+        id: this.selected,
+        userId: this.user.id
       };
-      axios.get(BaseUrl('api/v1/finance/invoice_order/printRekap'), {
+      axios.get(BaseUrl('api/v1/finance/invoice_order/generateRecapInvoice'), {
         params: payload
       }).then(function (res) {
         if (res.data.status === true) {
-          _this2.$router.push({
-            name: _this2.config.route_multiple_print,
-            query: {
-              id: _this2.selected
-            }
+          Vue.swal({
+            type: "success",
+            title: "Success!",
+            text: "Berhasil Membuat Rekap Invoice!"
+          }).then(function (next) {
+            _this2.$router.push({
+              name: _this2.config.route_print_rekap,
+              params: {
+                id: res.data.invoice_recap_id
+              }
+            });
           });
         } else {
           Vue.swal({
-            type: "danger",
+            type: "error",
             title: "Danger!",
             text: "Customer Harus Sama!"
           });
@@ -50789,13 +50797,13 @@ var render = function() {
             }
           }
         },
-        [_vm._v(" Back\n        ")]
+        [_vm._v("\n            Back\n        ")]
       ),
       _vm._v(" "),
       _c(
         "button",
         { staticClass: "btn btn-success", on: { click: _vm.print } },
-        [_vm._v(" Print\n        ")]
+        [_vm._v("\n            Print\n        ")]
       )
     ]),
     _vm._v(" "),
@@ -51002,7 +51010,7 @@ var staticRenderFns = [
               [
                 _c("h4", [
                   _c("b", { staticStyle: { color: "black" } }, [
-                    _vm._v("REKAPAN\n                                INVOICE")
+                    _vm._v("REKAPAN INVOICE")
                   ])
                 ])
               ]
@@ -78452,6 +78460,9 @@ var app = new Vue({
 
       return false;
     },
+    userID: function userID() {
+      return JSON.parse(this.user);
+    },
     MakeUrl: function MakeUrl(path) {
       return BaseUrl(path);
     }
@@ -80907,7 +80918,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: "invoice_order.create",
     component: _components_Finance_Invoice_AddInvoice__WEBPACK_IMPORTED_MODULE_11__["default"]
   }, {
-    path: '/admin/finance/invoice_order/recap/',
+    path: '/admin/finance/invoice_order/recap/:id',
     name: "invoice_order.recap",
     component: _components_Finance_Invoice_PrintRecapInvoice__WEBPACK_IMPORTED_MODULE_13__["default"]
   },

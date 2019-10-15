@@ -87,7 +87,7 @@ const router = new VueRouter({
             component: AddInvoice
         },
         {
-            path: '/admin/finance/invoice_order/recap/',
+            path: '/admin/finance/invoice_order/recap/:id',
             name: "invoice_order.recap",
             component: PrintRecapInvoice
         },

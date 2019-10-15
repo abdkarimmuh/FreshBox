@@ -87,15 +87,27 @@ Route::group(['prefix' => 'v1'], function () {
      * Route API Route
      */
     Route::group(['prefix' => 'finance'], function () {
+        /**
+         * Invoice Route
+         */
         Route::group(['prefix' => 'invoice_order'], function () {
             Route::get('/', 'API\InvoiceAPIController@index');
             Route::get('/create', 'API\InvoiceAPIController@create');
             Route::get('/show', 'API\InvoiceAPIController@show');
             Route::post('/store', 'API\InvoiceAPIController@store');
             Route::post('/print', 'API\InvoiceAPIController@print');
-            Route::get('/printRecap/{customer_id}', 'API\InvoiceAPIController@printRecap');
-            Route::get('/printRekap', 'API\InvoiceAPIController@printRekap');
+            Route::get('/printRecap', 'API\InvoiceAPIController@printRecap');
+            Route::post('/printRecap', 'API\InvoiceAPIController@printRecap');
+            Route::get('/generateRecapInvoice', 'API\InvoiceAPIController@generateRecapInvoice');
         });
+        /**
+         * Recap Invoice Route
+         */
+        Route::group(['prefix' => 'invoice_recap'], function () {
+            Route::get('/', 'API\InvoiceRecapAPIController@index');
+            Route::get('/show/{id}', 'API\InvoiceRecapAPIController@show');
+        });
+
     });
 
     /*

@@ -197,6 +197,7 @@
         props: ['columns', 'config'],
         data() {
             return {
+                user: {},
                 perPages: ['5', '10', '25', '50'],
                 buttonClasses: 'btn btn-primary',
                 selected: [0],
@@ -219,8 +220,9 @@
                 },
             }
         },
-        mounted() {
-            this.getData();
+        async mounted() {
+            await this.getData();
+            this.user = AuthUser;
         },
         methods: {
             async search() {
@@ -272,14 +274,24 @@
             printRekap() {
                 const payload = {
                     id: this.selected,
+                    userId: this.user.id,
                 };
-                axios.get(BaseUrl('api/v1/finance/invoice_order/printRekap'), {params: payload})
+                axios.get(BaseUrl('api/v1/finance/invoice_order/generateRecapInvoice'), {params: payload})
                     .then(res => {
                         if (res.data.status === true) {
-                            this.$router.push({name: this.config.route_multiple_print, query: {id: this.selected}})
+                            Vue.swal({
+                                type: "success",
+                                title: "Success!",
+                                text: "Berhasil Membuat Rekap Invoice!"
+                            }).then(next => {
+                                this.$router.push({
+                                    name: this.config.route_print_rekap,
+                                    params: {id: res.data.invoice_recap_id}
+                                })
+                            });
                         } else {
                             Vue.swal({
-                                type: "danger",
+                                type: "error",
                                 title: "Danger!",
                                 text: "Customer Harus Sama!"
                             });
@@ -290,13 +302,11 @@
                 });
             },
             toExcel(table, name) {
-                var uri = 'data:application/vnd.ms-excel;base64,'
-                    ,
+                var uri = 'data:application/vnd.ms-excel;base64,',
                     template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
                     , base64 = function (s) {
                         return window.btoa(unescape(encodeURIComponent(s)));
-                    }
-                    , format = function (s, c) {
+                    }, format = function (s, c) {
                         return s.replace(/{(\w+)}/g, function (m, p) {
                             return c[p];
                         });

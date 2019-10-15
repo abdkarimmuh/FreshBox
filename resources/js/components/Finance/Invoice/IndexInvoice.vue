@@ -18,7 +18,7 @@
                     route_view: 'invoice_order.print',
                     route_edit: 'invoice_order.edit',
                     route_multiple_print: 'invoice_order.multiplePrint',
-                    route_print_rekap: 'invoice_order.multiplePrint'
+                    route_print_rekap: 'invoice_order.recap'
                 },
                 columns: [
                     {
