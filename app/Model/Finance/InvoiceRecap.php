@@ -19,4 +19,14 @@ class InvoiceRecap extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function scopeIsNotPaid($query)
+    {
+        return $query->where('is_paid', 0);
+    }
+
+    public function scopeIsPaid($query)
+    {
+        return $query->where('is_paid', 1);
+    }
 }
