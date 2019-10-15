@@ -18,6 +18,7 @@ class CreateTrxInvoiceRecapTable extends Migration
             $table->string('recap_invoice_no','20');
             $table->unsignedBigInteger('customer_id');
             $table->date('recap_date');
+            $table->tinyInteger('is_paid')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
