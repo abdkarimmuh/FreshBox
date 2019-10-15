@@ -75,10 +75,12 @@ Route::group(['prefix' => 'v1'], function () {
      */
     Route::group(['prefix' => 'warehouse/'], function () {
         Route::group(['prefix' => 'delivery_order'], function () {
+            Route::get('/', 'API\DeliveryOrderAPIController@index');
             Route::get('/create', 'API\DeliveryOrderAPIController@create');
-            Route::get('/show/{id}', 'API\DeliveryOrderAPIController@show');
+            Route::get('/show', 'API\DeliveryOrderAPIController@show');
             Route::post('/', 'Warehouse\FormDeliveryOrderController@store');
         });
+
     });
 
     /*

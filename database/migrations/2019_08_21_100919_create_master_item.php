@@ -28,12 +28,11 @@ class CreateMasterItem extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
+            $table->index(['skuid','name_item','tax']);
 
             $table->foreign('category_id')->on('master_category')->references('id')->onDelete('cascade');
             $table->foreign('uom_id')->on('master_uom')->references('id')->onDelete('cascade');
             $table->foreign('origin_id')->on('master_origin')->references('id')->onDelete('cascade');
-            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
         });
     }
 

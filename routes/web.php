@@ -89,12 +89,14 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      */
     Route::name('warehouse.')->prefix('warehouse')->middleware('auth')->group(function () {
         Route::name('delivery_order.')->prefix('delivery_order')->group(function () {
-            Route::get('/', 'Warehouse\FormDeliveryOrderController@index')->name('index');
-            Route::get('/create', 'Warehouse\FormDeliveryOrderController@create')->name('create');
-            Route::post('/store', 'Warehouse\FormDeliveryOrderController@store')->name('store');
-            Route::get('/{id}/show', 'Warehouse\FormDeliveryOrderController@show')->name('show');
-            Route::get('/{id}/print', 'Warehouse\FormDeliveryOrderController@print')->name('print');
-            Route::get('/multiplePrint', 'Warehouse\FormDeliveryOrderController@multiplePrint')->name('multiplePrint');
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+//            Route::get('/', 'Warehouse\FormDeliveryOrderController@index')->name('index');
+//            Route::get('/create', 'Warehouse\FormDeliveryOrderController@create')->name('create');
+//            Route::post('/store', 'Warehouse\FormDeliveryOrderController@store')->name('store');
+//            Route::get('/{id}/show', 'Warehouse\FormDeliveryOrderController@show')->name('show');
+//            Route::get('/{id}/print', 'Warehouse\FormDeliveryOrderController@print')->name('print');
+//            Route::get('/multiplePrint', 'Warehouse\FormDeliveryOrderController@multiplePrint')->name('multiplePrint');
         });
 
         Route::name('confirm_delivery_order.')->prefix('confirm_delivery_order')->group(function () {
@@ -128,6 +130,15 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             //            Route::get('/printRecap', 'Finance\FormInvoiceOrderController@printRecap')->name('printRecap');
         });
     });
+
+    /* Route Menu Report Data */
+    Route::name('report.')->prefix('report')->middleware('auth')->group(function () {
+        Route::name('reportso.')->prefix('reportso')->group(function () {
+            Route::get('/', 'Report\ReportSOController@index')->name('index');
+        });
+
+    });
+
     /*
      * Route Menu Master Data
      */

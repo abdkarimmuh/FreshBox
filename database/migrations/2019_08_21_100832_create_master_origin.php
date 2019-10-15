@@ -16,12 +16,10 @@ class CreateMasterOrigin extends Migration
         Schema::create('master_origin', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('origin_code', 100);
-            $table->string('description');
+            $table->string('description',200);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
-            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
-
+            $table->index('origin_code');
             $table->softDeletes();
             $table->timestamps();
         });

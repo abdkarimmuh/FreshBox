@@ -19,8 +19,7 @@ class CreateMasterUom extends Migration
             $table->string('description');
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
-            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
+            $table->index('name');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -39,7 +39,10 @@ class DeliveryOrderResource extends JsonResource
             'total_price_returned' => number_format($total_price_returned, 2),
             'do_details' => DeliveryOrderDetailResource::collection($this->delivery_order_details),
             'do_details_returned' => DeliveryOrderDetailResource::collection($this->do_details_returned),
-            'created_by_name' => $this->created_by_name
+            'created_by_name' => $this->created_by_name,
+            'status_name' => $this->status_name,
+            'pic_qc' => $this->pic_qc_name,
+            'created_at' => $this->created_at->formatLocalized('%d %B %Y')
         ];
     }
 }

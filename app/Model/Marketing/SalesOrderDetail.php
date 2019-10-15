@@ -14,12 +14,13 @@ class SalesOrderDetail extends MyModel
     use SalesOrderDetailTrait;
 
     protected $table = 'trx_sales_order_detail';
-    protected $appends = ['item_name', 'uom_name', 'origin_code', 'sales_order_no'];
+    protected $appends = ['item_name', 'uom_name', 'origin_code', 'sales_order_no','po_no','so_date','category_name','delivery_order_no'];
     protected $fillable = [
         'sales_order_id',
         'qty',
         'sisa_qty_proc',
         'skuid',
+        'tax_value',
         'amount_price',
         'total_amount',
         'notes',
@@ -40,6 +41,7 @@ class SalesOrderDetail extends MyModel
     {
         return $this->belongsTo(Uom::class, 'uom_id', 'id');
     }
+
 
     public function getItemNameAttribute()
     {
@@ -67,5 +69,29 @@ class SalesOrderDetail extends MyModel
         if (isset($this->SalesOrder->sales_order_no)) {
             return $this->SalesOrder->sales_order_no;
         }
+    }
+
+    public function getCustomerNameAttribute()
+    {
+        return $this->SalesOrder->customer_name;
+    }
+
+    public function getPoNoAttribute()
+    {
+        return $this->SalesOrder->no_po;
+    }
+
+    public function getSoDateAttribute()
+    {
+        return $this->SalesOrder->fulfillment_date->formatLocalized('%d %B %Y');
+    }
+    public function getCategoryNameAttribute()
+    {
+        return $this->item->category_name;
+    }
+
+    public function getDeliveryOrderNoAttribute()
+    {
+        return $this->SalesOrder->DeliveryOrder->delivery_order_no;
     }
 }

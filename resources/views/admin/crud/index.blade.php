@@ -8,16 +8,19 @@
                         <div class="row">
                             <h4 class="text-danger">{{ $config['title'] }}</h4>
                             @if(isset($config['route-add']))
-                                <a href="{{ route($config['route-add']) }}" class="btn btn-danger ml-2">Add <i
-                                        class="fas fa-plus"></i></a>
+                                <a href="{{ route($config['route-add']) }}" class="btn btn-danger ml-2">
+                                    Add <i class="fas fa-plus"></i>
+                                </a>
                             @endif
                             @isset($config['route-multiple-print'])
                                 <a class="btn btn-info ml-2" onclick="document.getElementById('checked-form').submit()"
-                                   style="color: white">Print <i class="fas fa-print"></i></a>
+                                   style="color: white">Print <i class="fas fa-print"></i>
+                                </a>
                             @endisset
                             @isset($config['route-print-recap'])
                                 <a class="btn btn-primary ml-2" href="{{ route($config['route-print-recap'])  }}"
-                                   style="color: white">Print Rekap <i class="fas fa-print"></i></a>
+                                   style="color: white">Print Rekap <i class="fas fa-print"></i>
+                                </a>
                             @endisset
                         </div>
                     </div>

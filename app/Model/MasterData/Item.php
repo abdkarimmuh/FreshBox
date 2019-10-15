@@ -19,7 +19,8 @@ class Item extends MyModel
         'category_name',
         'uom_name',
         'origin_code',
-        'tax_percentage'
+        'tax_percentage',
+        'skuid_item_name'
     ];
 
     protected $columns = [
@@ -90,6 +91,11 @@ class Item extends MyModel
     public function Category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function getSkuidItemNameAttribute()
+    {
+        return $this->skuid .' - ' . $this->name_item;
     }
 
     public function getCategoryNameAttribute()

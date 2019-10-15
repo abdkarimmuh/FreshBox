@@ -20,6 +20,18 @@ class Price extends MyModel
         'uom_name',
         'customer_name'
     ];
+    protected $fillable = [
+        'skuid',
+        'uom_id',
+        'customer_id',
+        'amount_basic',
+        'amount_discount',
+        'amount',
+        'tax_value',
+        'start_periode',
+        'end_periode',
+        'created_by'
+    ];
 
     protected $columns = [
         'id' => [

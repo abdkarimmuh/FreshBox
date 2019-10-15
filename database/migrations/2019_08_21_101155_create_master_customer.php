@@ -21,6 +21,7 @@ class CreateMasterCustomer extends Migration
             $table->string('name');
             $table->string('pic_customer');
             $table->string('tlp_pic', 20);
+            $table->tinyInteger('price_type');
             $table->string('address', 500);
             $table->unsignedBigInteger('province_id')->nullable();
             $table->unsignedBigInteger('residence_id')->nullable();
@@ -31,9 +32,7 @@ class CreateMasterCustomer extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
-
-            $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
+            $table->index(['name', 'customer_code']);
             $table->foreign('customer_type_id')->on('master_customer_type')->references('id')->onDelete('cascade');
             $table->foreign('customer_group_id')->on('master_customer_group')->references('id')->onDelete('cascade');
             $table->foreign('province_id')->on('master_province')->references('id')->onDelete('cascade');
