@@ -8,7 +8,7 @@ use App\Http\Resources\Finance\RekapInvoiceResource;
 use App\Http\Resources\Warehouse\DeliveryOrderResource;
 use App\Model\Finance\InvoiceOrder;
 use App\Model\Finance\InvoiceRecap;
-use App\Model\Finance\RecapInvoiceDetail;
+use App\Model\Finance\InvoiceRecapDetail;
 use App\Model\Marketing\SalesOrder;
 use App\Model\MasterData\Customer;
 use App\Model\Warehouse\DeliveryOrder;
@@ -120,7 +120,7 @@ class InvoiceAPIController extends Controller
             ];
             $recap_invoice = InvoiceRecap::create($invoice);
             foreach ($invoices as $invoice) {
-                RecapInvoiceDetail::create([
+                InvoiceRecapDetail::create([
                     'invoice_recap_id' => $recap_invoice->id,
                     'invoice_id' => $invoice->id
                 ]);

@@ -4,7 +4,7 @@ namespace App\Model\Finance;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RecapInvoiceDetail extends Model
+class InvoiceRecapDetail extends Model
 {
     protected $table = 'trx_invoice_recap_detail';
 
