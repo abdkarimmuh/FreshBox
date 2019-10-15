@@ -19,7 +19,7 @@ class InvoiceRecapResource extends JsonResource
             'customer_name' => $this->customer->name,
             'up' => $this->customer->pic_customer,
             'recap_invoice_no' => $this->recap_invoice_no,
-            'recap_date' => $this->recap_date,
+            'recap_date' => $this->recap_date->formatLocalized('%d %B %Y'),
             'is_paid' => $this->is_paid,
             'invoice_recap_detail' => InvoiceRecapDetailResource::collection($this->invoice_recap_detail)
         ];

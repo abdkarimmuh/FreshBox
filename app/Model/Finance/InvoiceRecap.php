@@ -9,6 +9,7 @@ class InvoiceRecap extends Model
 {
     protected $table = 'trx_invoice_recap';
     protected $fillable = ['customer_id', 'recap_invoice_no', 'recap_date', 'created_by'];
+    protected $dates = ['recap_date'];
 
     public function invoice_recap_detail()
     {
