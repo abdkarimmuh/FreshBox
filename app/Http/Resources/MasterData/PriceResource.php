@@ -17,7 +17,7 @@ class PriceResource extends JsonResource
         return [
             'id' => $this->id,
             'skuid' => $this->skuid,
-            'uom_id' => $this->uom->id,
+            'uom_id' => $this->uom_id,
             'uom' => $this->uom->name,
             'customer_name' => $this->customer->name,
             'customer_id' => $this->customer->id,
