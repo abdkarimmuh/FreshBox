@@ -23,15 +23,18 @@ class MasterPriceController extends Controller
         return new DataCollectionResource($data);
     }
 
-    public function show($customer_id, $skuid)
+    public function show($customer_id, $skuid, Request $request)
     {
         $data = Price::where('customer_id', $customer_id)->where('skuid', $skuid)->first();
         return new PriceResource($data);
     }
 
-    public function CustomerPrice($id)
+    public function CustomerPrice($id, Request $request)
     {
-        $data = Price::where('customer_id', $id)->get();
+        $data = Price::where('customer_id', $id)
+            ->where('start_periode', '<=', $request->fulfillment_date)
+            ->where('end_periode', '>=', $request->fulfillment_date)
+            ->get();
         if (isset($data)) {
             $data = PriceResource::collection($data);
             return response()->json(
