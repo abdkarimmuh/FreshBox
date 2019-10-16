@@ -14,6 +14,8 @@ import PrintInvoice from './components/Finance/Invoice/PrintInvoiceOrder';
 import AddInvoice from './components/Finance/Invoice/AddInvoice';
 import MultiplePrintInvoiceOrder from './components/Finance/Invoice/MultiplePrintInvoiceOrder';
 import PrintRecapInvoice from './components/Finance/Invoice/PrintRecapInvoice';
+import IndexInvoiceRecap from './components/Finance/Invoice/IndexInvoiceRecap';
+
 
 import IndexDeliveryOrder from './components/Warehouse/IndexDeliveryOrder';
 import AddDeliveryOrder from './components/Warehouse/AddDeliveryOrder';
@@ -87,10 +89,16 @@ const router = new VueRouter({
             component: AddInvoice
         },
         {
-            path: '/admin/finance/invoice_order/recap/:id',
+            path: '/admin/finance/recap_invoice',
             name: "invoice_order.recap",
+            component: IndexInvoiceRecap
+        },
+        {
+            path: '/admin/finance/recap_invoice/show/:id',
+            name: "invoice_order.recap.show",
             component: PrintRecapInvoice
         },
+
         /**
          * Warehouse
          */

@@ -4,7 +4,7 @@ namespace App\Http\Resources\Finance;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class InvoiceRecapResource extends JsonResource
+class InvoiceRecapHasDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -24,9 +24,9 @@ class InvoiceRecapResource extends JsonResource
             'up' => $this->customer->pic_customer,
             'recap_invoice_no' => $this->recap_invoice_no,
             'recap_date' => $this->recap_date->formatLocalized('%d %B %Y'),
+            'status' => $this->is_paid,
             'total_amount' => $total_amount,
-            'is_paid' => $this->is_paid,
-            'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
+            'invoice_recap_detail' => InvoiceRecapDetailResource::collection($this->invoice_recap_detail)
         ];
     }
 }

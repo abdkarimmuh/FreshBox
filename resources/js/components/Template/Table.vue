@@ -15,7 +15,7 @@
                                v-if="config.route_multiple_print && selected != 0">Print
                                 <i class="fas fa-print"></i></a>
                             <a class="btn btn-primary ml-2" @click="printRekap"
-                               style="color: white" v-if="config.route_print_rekap && selected != 0">Print Rekap <i
+                               style="color: white" v-if="config.route_print_recap && selected != 0">Generate Recap Invoice <i
                                 class="fas fa-print"></i></a>
                         </div>
                     </div>
@@ -285,7 +285,7 @@
                                 text: "Berhasil Membuat Rekap Invoice!"
                             }).then(next => {
                                 this.$router.push({
-                                    name: this.config.route_print_rekap,
+                                    name: this.config.route_print_recap,
                                     params: {id: res.data.invoice_recap_id}
                                 })
                             });

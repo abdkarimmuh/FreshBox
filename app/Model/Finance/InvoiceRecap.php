@@ -11,6 +11,31 @@ class InvoiceRecap extends Model
     protected $fillable = ['customer_id', 'recap_invoice_no', 'recap_date', 'created_by'];
     protected $dates = ['recap_date'];
 
+    protected $columns = [
+        'id' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'recap_invoice_no' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+        'customer_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'Customer',
+            'relation_field' => 'name',
+        ],
+        'created_at' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+        'created_by' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ]
+    ];
+
     public function invoice_recap_detail()
     {
         return $this->hasMany(InvoiceRecapDetail::class, 'invoice_recap_id', 'id');

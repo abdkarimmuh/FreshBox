@@ -11,29 +11,18 @@
         data() {
             return {
                 config: {
-                    title: 'Form Invoice Order',
+                    title: 'Recap Invoice Order',
                     action: true,
-                    base_url: this.$parent.MakeUrl('api/v1/finance/invoice_order'),
-                    route_create: 'invoice_order.create',
-                    route_view: 'invoice_order.print',
+                    base_url: this.$parent.MakeUrl('api/v1/finance/invoice_recap'),
+                    // route_create: 'invoice_order.create',
+                    route_view: 'invoice_order.recap.show',
                     route_edit: 'invoice_order.edit',
-                    route_multiple_print: 'invoice_order.multiplePrint',
-                    route_print_recap: 'invoice_order.recap.show'
+                    // route_multiple_print: 'invoice_order.multiplePrint',
                 },
                 columns: [
                     {
-                        title: 'Invoice Order NO',
-                        field: 'invoice_no',
-                        filterable: true,
-                    },
-                    {
-                        title: 'Delivery Order No',
-                        field: 'delivery_order_no',
-                        filterable: true,
-                    },
-                    {
-                        title: 'Sales Order No',
-                        field: 'sales_order_no',
+                        title: 'Recap Invoice NO',
+                        field: 'recap_invoice_no',
                         filterable: true,
                     },
                     {
@@ -42,20 +31,14 @@
                         filterable: false,
                     },
                     {
-                        title: 'Invoice Date',
-                        field: 'invoice_date',
+                        title: 'Recap Date',
+                        field: 'recap_date',
                         filterable: true,
                     },
                     {
                         title: 'Total Amount',
-                        field: 'total_price',
+                        field: 'total_amount',
                         type: 'price',
-                        filterable: true,
-                    },
-                    {
-                        title: 'Status',
-                        field: 'status_name',
-                        type: 'html',
                         filterable: true,
                     },
                     {

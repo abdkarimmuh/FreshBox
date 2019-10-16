@@ -129,6 +129,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             //            Route::post('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint');
             //            Route::get('/printRecap', 'Finance\FormInvoiceOrderController@printRecap')->name('printRecap');
         });
+        Route::name('recap_invoice.')->prefix('recap_invoice')->group(function () {
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+        });
     });
 
     /* Route Menu Report Data */

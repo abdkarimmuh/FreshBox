@@ -18,7 +18,7 @@ class InvoiceRecapDetailResource extends JsonResource
             'id' => $this->id,
             'invoice_no' => $this->invoice->invoice_no,
             'send_date' => $this->invoice->delivery_order->do_date->formatLocalized('%d-%b-%y'),
-            'price' => $this->invoice->total_price
+            'price' => $this->total_price
         ];
     }
 }
