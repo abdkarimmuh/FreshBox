@@ -95,8 +95,8 @@
                                     <model-list-select
                                         v-bind:class="{'is-invalid': errors.customerId}"
                                         :list="customers"
+                                        v-on:input="resetField"
                                         v-model="sales_order.customerId"
-                                        v-on:input="getItems()"
                                         option-value="id"
                                         option-text="name"
                                         placeholder="Select Customer"
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                         <!--Fulfillment Date-->
-                        <div class="col-md-3">
+                        <div class="col-md-3" v-if="sales_order.customerId != 0">
                             <div class="form-group">
                                 <label>
                                     <b>Fulfillment Date</b>
@@ -120,6 +120,7 @@
                                         v-model="sales_order.fulfillmentDate"
                                         lang="en"
                                         type="datetime"
+                                        v-on:input="getItems()"
                                         valueType="format"
                                         :not-before="new Date()"
                                         format="YYYY-MM-DD HH:mm:ss"
@@ -155,7 +156,7 @@
                         </div>
                         <!--                        Items-->
                         <div class="col-md-6"
-                             v-if="sales_order.customerId != 0">
+                             v-if="sales_order.fulfillmentDate != ''">
                             <div class="form-group">
                                 <label>
                                     <b>Items</b>
@@ -491,7 +492,7 @@
              */
             getItems() {
                 this.loading = false;
-                axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId))
+                axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId + '?fulfillment_date=' + this.sales_order.fulfillmentDate))
                     .then(res => {
                         this.items = res.data.data;
                         this.orders_detail = [];
@@ -551,6 +552,9 @@
                 this.orders_detail.map(
                     (item, idx) => item.total_amount = item.amount * item.qty
                 );
+            },
+            resetField() {
+                this.sales_order.fulfillmentDate = '';
             }
         },
         components: {

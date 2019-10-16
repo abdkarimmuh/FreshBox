@@ -3407,6 +3407,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3584,7 +3585,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this4 = this;
 
       this.loading = false;
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId)).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId + '?fulfillment_date=' + this.sales_order.fulfillmentDate)).then(function (res) {
         _this4.items = res.data.data;
         _this4.orders_detail = [];
         _this4.loading = true;
@@ -3647,6 +3648,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.orders_detail.map(function (item, idx) {
         return item.total_amount = item.amount * item.qty;
       });
+    },
+    resetField: function resetField() {
+      this.sales_order.fulfillmentDate = '';
     }
   },
   components: {
@@ -51343,11 +51347,7 @@ var render = function() {
                             "option-text": "name",
                             placeholder: "Select Customer"
                           },
-                          on: {
-                            input: function($event) {
-                              return _vm.getItems()
-                            }
-                          },
+                          on: { input: _vm.resetField },
                           model: {
                             value: _vm.sales_order.customerId,
                             callback: function($$v) {
@@ -51380,52 +51380,63 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-3" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      [
-                        _c("date-picker", {
-                          attrs: {
-                            lang: "en",
-                            type: "datetime",
-                            valueType: "format",
-                            "not-before": new Date(),
-                            format: "YYYY-MM-DD HH:mm:ss"
-                          },
-                          model: {
-                            value: _vm.sales_order.fulfillmentDate,
-                            callback: function($$v) {
-                              _vm.$set(_vm.sales_order, "fulfillmentDate", $$v)
-                            },
-                            expression: "sales_order.fulfillmentDate"
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _vm.errors.fulfillmentDate
-                      ? _c(
+                _vm.sales_order.customerId != 0
+                  ? _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(5),
+                        _vm._v(" "),
+                        _c(
                           "div",
-                          {
-                            staticStyle: {
-                              "margin-top": ".25rem",
-                              "font-size": "80%",
-                              color: "#dc3545"
-                            }
-                          },
                           [
-                            _c("p", [
-                              _vm._v(_vm._s(_vm.errors.fulfillmentDate[0]))
-                            ])
-                          ]
-                        )
-                      : _vm._e()
-                  ])
-                ]),
+                            _c("date-picker", {
+                              attrs: {
+                                lang: "en",
+                                type: "datetime",
+                                valueType: "format",
+                                "not-before": new Date(),
+                                format: "YYYY-MM-DD HH:mm:ss"
+                              },
+                              on: {
+                                input: function($event) {
+                                  return _vm.getItems()
+                                }
+                              },
+                              model: {
+                                value: _vm.sales_order.fulfillmentDate,
+                                callback: function($$v) {
+                                  _vm.$set(
+                                    _vm.sales_order,
+                                    "fulfillmentDate",
+                                    $$v
+                                  )
+                                },
+                                expression: "sales_order.fulfillmentDate"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _vm.errors.fulfillmentDate
+                          ? _c(
+                              "div",
+                              {
+                                staticStyle: {
+                                  "margin-top": ".25rem",
+                                  "font-size": "80%",
+                                  color: "#dc3545"
+                                }
+                              },
+                              [
+                                _c("p", [
+                                  _vm._v(_vm._s(_vm.errors.fulfillmentDate[0]))
+                                ])
+                              ]
+                            )
+                          : _vm._e()
+                      ])
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-3" }, [
                   _c("div", { staticClass: "form-group" }, [
@@ -51474,7 +51485,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm.sales_order.customerId != 0
+                _vm.sales_order.fulfillmentDate != ""
                   ? _c("div", { staticClass: "col-md-6" }, [
                       _c(
                         "div",
