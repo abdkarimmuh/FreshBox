@@ -4056,15 +4056,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     name: 'form_sales_order'
                   });
                 });
-                _context.next = 11;
+                _context.next = 12;
                 break;
 
               case 8:
                 _context.prev = 8;
                 _context.t0 = _context["catch"](1);
+                console.log(_context.t0);
                 this.errors = _context.t0.response.data.errors;
 
-              case 11:
+              case 12:
               case "end":
                 return _context.stop();
             }
