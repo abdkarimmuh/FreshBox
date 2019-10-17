@@ -4,8 +4,13 @@ namespace App\Http\Controllers\API\Procurement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Procurement\ListProcurementResource;
+use App\Model\Marketing\SalesOrderDetail;
+use App\Model\Procurement\AssignProcurement;
 use App\Model\Procurement\ListProcurement;
+use App\Model\Procurement\ListProcurementDetail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProcurementAPIController extends Controller
 {
@@ -17,6 +22,7 @@ class ProcurementAPIController extends Controller
     public function index()
     {
         $query = ListProcurement::all();
+
         return ListProcurementResource::collection($query);
     }
 
@@ -27,141 +33,138 @@ class ProcurementAPIController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //List Validasi
         $rules = [
-            'user_proc_id' => 'required',
             'vendor' => 'required',
             'total_amount' => 'required|not_in:0',
             'payment' => 'required',
-            'item' => 'required',
+            // 'file' => 'required',
+            'items' => 'required',
+            'items.*.assign_proc_id' => 'required',
             'items.*.qty' => 'required|not_in:0',
+            'items.*.uom_id' => 'required',
+            'items.*.amount' => 'required',
         ];
         $request->validate($rules);
 
-        $customer_id = $request->customerId;
+        $user_proc_id = auth('api')->user()->id;
+        $vendor = $request->vendor;
+        $total_amount = $request->total_amount;
+        $payment = $request->payment;
         $items = $request->items;
-        $source_order_id = $request->sourceOrderId;
-        $fulfillment_date = $request->fulfillmentDate;
-        $remarks = $request->remark;
-        $user = $request->user_id;
-        $driver_id = $request->driver_id;
 
-        //Untuk Mengupload File Ke Storage
         if ($request->file) {
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateSalesOrderNo() . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-            Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
+            $file_name = $this->generateProcOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
         }
 
-        //Untuk Menginput Sales Order
-        $sales_order = SalesOrder::create([
-            'sales_order_no' => $this->generateSalesOrderNo(),
-            'customer_id' => $customer_id,
-            'source_order_id' => $source_order_id,
-            'fulfillment_date' => $fulfillment_date,
-            'remarks' => $remarks,
+        $procurement = ListProcurement::create([
+            'procurement_no' => $this->generateProcOrderNo(),
+            'user_proc_id' => $user_proc_id,
+            'vendor' => $vendor,
+            'total_amount' => $total_amount,
+            'payment' => $payment,
             'file' => $file_name,
             'status' => 1,
-            'driver_id' => $driver_id,
-            'created_by' => $user,
+            'created_by' => $user_proc_id,
             'created_at' => Carbon::now(),
         ]);
-        //Untuk Mendapatkan List SKUID
-        foreach ($items as $i => $detail) {
-            if (isset($detail['qty'])) {
-                $skuids[] = $detail['skuid'];
-            } else {
-                unset($items[$i]);
+
+        foreach ($items as $item) {
+            $listProcDetails[] = [
+                'trx_list_procurement_id' => $procurement->id,
+                'trx_assign_procurement_id' => $item['assign_proc_id'],
+                'qty' => $item['qty'],
+                'uom_id' => $item['uom_id'],
+                'amount' => $item['amount'],
+                'created_by' => $user_proc_id,
+                'created_at' => Carbon::now(),
+            ];
+
+            $assignProcurement = AssignProcurement::where('id', $item['assign_proc_id']);
+            $salesOrderDetail = SalesOrderDetail::where('id', $assignProcurement['sales_order_detail_id']);
+
+            if ($salesOrderDetail->qty != $item['qty']) {
+                $salesOrderDetail->sisa_qty_proc = $salesOrderDetail->sisa_qty_proc - $item['qty'];
+                $salesOrderDetail->status = 3;
+                $salesOrderDetail->save();
             }
         }
-        $skuidsStr = implode(',', $skuids);
-        $listItems = Price::whereIn('skuid', $skuids)
-            ->where('customer_id', $customer_id)
-            ->orderByRaw(DB::raw("FIND_IN_SET(skuid, '$skuidsStr')"))
-            ->get();
-        foreach ($items as $i => $detail) {
-            if (isset($detail['qty'])) {
-                $salesOrderDetails[] = [
-                    'sales_order_id' => $sales_order->id,
-                    'skuid' => $detail['skuid'],
-                    'uom_id' => $listItems[$i]->uom_id,
-                    'qty' => $detail['qty'],
-                    'sisa_qty_proc' => $detail['qty'],
-                    'amount_price' => $listItems[$i]->amount,
-                    'total_amount' => $listItems[$i]->amount * $detail['qty'],
-                    'notes' => $detail['notes'],
-                    'status' => 1,
-                    'created_by' => $user,
-                ];
-            } else {
-                unset($items[$i]);
-            }
-        }
-        //Insert Data Array Sales Order Details
-        SalesOrderDetail::insert($salesOrderDetails);
+
+        ListProcurementDetail::insert($listProcDetails);
 
         return response()->json([
-            'status' => 'success'
+            'status' => 'success',
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+    }
+
+    public function generateProcOrderNo()
+    {
+        $year_month = Carbon::now()->format('ym');
+        $latest_proc = ListProcurement::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC'.$year_month.'00000';
+        $cut_string_proc = str_replace('PROC', '', $get_last_proc_no);
+
+        return 'PROC'.($cut_string_proc + 1);
     }
 }

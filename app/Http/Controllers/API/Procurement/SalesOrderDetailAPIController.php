@@ -29,7 +29,8 @@ class SalesOrderDetailAPIController extends Controller
      */
     public function indexAPI()
     {
-        $query = SalesOrderDetail::all();
+        //group skuid & uom_id dan sisa_proc_qty nya disatuin
+        $query = SalesOrderDetail::where('sisa_qty_proc', '>', '0')->get();
 
         return ItemsProcResource::collection($query);
     }

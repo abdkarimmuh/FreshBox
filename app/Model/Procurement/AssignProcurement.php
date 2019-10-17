@@ -20,7 +20,7 @@ class AssignProcurement extends MyModel
         'proc_name',
         'item_name',
         'origin_code',
-        'uom'
+        'uom',
     ];
 
     protected $columns = [
@@ -32,37 +32,35 @@ class AssignProcurement extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'SalesOrderDetail',
-            'relation_field' => 'sales_order_no'
+            'relation_field' => 'sales_order_no',
         ],
         'item_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'SalesOrderDetail',
-            'relation_field' => 'item_name'
+            'relation_field' => 'item_name',
         ],
         'qty' => [
             'searchable' => true,
-            'search_relation' => true,
-            'relation_name' => 'SalesOrderDetail',
-            'relation_field' => 'qty'
+            'search_relation' => false,
         ],
         'uom' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'SalesOrderDetail',
-            'relation_field' => 'uom'
+            'relation_field' => 'uom',
         ],
         'proc_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'UserProc',
-            'relation_field' => 'proc_name'
+            'relation_field' => 'proc_name',
         ],
         'origin_code' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'UserProc',
-            'relation_field' => 'origin_code'
+            'relation_field' => 'origin_code',
         ],
         'created_at' => [
             'searchable' => true,
@@ -80,14 +78,14 @@ class AssignProcurement extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'create_by',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'updated_by_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'update_by',
-            'relation_field' => 'name'
-        ]
+            'relation_field' => 'name',
+        ],
     ];
 
     public function UserProc()
@@ -131,15 +129,6 @@ class AssignProcurement extends MyModel
     {
         if (isset($this->SalesOrderDetail->item->name_item)) {
             return $this->SalesOrderDetail->item->name_item;
-        } else {
-            return '';
-        }
-    }
-
-    public function getQtyAttribute()
-    {
-        if (isset($this->SalesOrderDetail->qty)) {
-            return $this->SalesOrderDetail->qty;
         } else {
             return '';
         }

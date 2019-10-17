@@ -40,11 +40,13 @@ Route::group(['prefix' => 'v1'], function () {
 
             Route::group(['prefix' => 'item'], function () {
                 Route::get('/', 'API\Procurement\ItemProcurementAPIController@index');
+                Route::get('/get', 'API\Procurement\ItemProcurementAPIController@indexAPI');
                 Route::post('/', 'API\Procurement\ItemProcurementAPIController@store');
             });
 
             Route::group(['prefix' => 'procurement'], function () {
                 Route::get('/', 'API\Procurement\ProcurementAPIController@index');
+                Route::post('/', 'API\Procurement\ProcurementAPIController@store');
             });
 
             Route::group(['prefix' => 'so_detail'], function () {
@@ -80,7 +82,6 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/show', 'API\DeliveryOrderAPIController@show');
             Route::post('/', 'Warehouse\FormDeliveryOrderController@store');
         });
-
     });
 
     /*

@@ -2,10 +2,12 @@
 
 namespace App\Model\Procurement;
 
-use Illuminate\Database\Eloquent\Model;
+use App\MyModel;
+use App\Traits\SearchTraits;
 
-class ListProcurementDetail extends Model
+class ListProcurementDetail extends MyModel
 {
-    protected $table = 'list_procurement_detail';
+    use SearchTraits;
 
+    protected $table = 'trx_list_procurement_detail';
 }

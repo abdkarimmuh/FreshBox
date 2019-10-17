@@ -9,7 +9,8 @@ class AssignProcurementResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
@@ -18,7 +19,8 @@ class AssignProcurementResource extends JsonResource
             'id' => $this->id,
             'sales_order_detail_id' => $this->sales_order_detail_id,
             'user_proc_id' => $this->user_proc_id,
-            'qty' => $this->qty,
+            'name' => $this->item_name,
+            'qty' => intval($this->qty),
             'uom' => $this->uom,
         ];
     }
