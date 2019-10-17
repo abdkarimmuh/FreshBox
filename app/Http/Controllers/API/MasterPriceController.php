@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Resources\DataCollectionResource;
 use App\Http\Resources\MasterData\PriceResource;
 use App\Model\MasterData\Price;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -23,15 +24,20 @@ class MasterPriceController extends Controller
         return new DataCollectionResource($data);
     }
 
-    public function show($customer_id, $skuid)
+    public function show($customer_id, $skuid, Request $request)
     {
         $data = Price::where('customer_id', $customer_id)->where('skuid', $skuid)->first();
         return new PriceResource($data);
     }
 
-    public function CustomerPrice($id)
+    public function CustomerPrice($id, Request $request)
     {
-        $data = Price::where('customer_id', $id)->get();
+        $fulfillment_date = Carbon::create($request->fulfillment_date)->format('Y-m-d');
+
+        $data = Price::where('customer_id', $id)
+            ->where('start_periode', '<=', $fulfillment_date)
+            ->where('end_periode', '>=', $fulfillment_date)
+            ->get();
         if (isset($data)) {
             $data = PriceResource::collection($data);
             return response()->json(

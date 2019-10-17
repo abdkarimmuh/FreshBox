@@ -36,6 +36,9 @@ const app = new Vue({
             }
             return false;
         },
+        userID() {
+            return JSON.parse(this.user);
+        },
         MakeUrl(path) {
             return BaseUrl(path);
         }

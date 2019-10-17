@@ -17,10 +17,10 @@ const options = {
         'scrollbars=yes'
     ],
     styles: [
-        'https://demo.getstisla.com/assets/modules/bootstrap/css/bootstrap.min.css',
+        bootstrap,
         ''
     ]
-}
+};
 
 Vue.use(VueSweetalert2);
 Vue.use(VueHtmlToPaper, options);

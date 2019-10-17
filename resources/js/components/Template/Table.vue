@@ -9,14 +9,15 @@
                             <router-link :to="{ name: config.route_create }" class="btn btn-danger ml-2"
                                          v-if="config.route_create">Add
                                 <i class="fas fa-plus"></i></router-link>
-                            <a @click="toExcel('vuetable', 'Test')" class="btn btn-danger ml-2"
+                            <a :href="'reportso/export'" class="btn btn-danger ml-2"
                                style="color: white" v-if="config.export_excel">Export Excel</a>
                             <a class="btn btn-info ml-2" style="color: white" @click="print()"
                                v-if="config.route_multiple_print && selected != 0">Print
                                 <i class="fas fa-print"></i></a>
                             <a class="btn btn-primary ml-2" @click="printRekap"
-                               style="color: white" v-if="config.route_print_rekap && selected != 0">Print Rekap <i
-                                class="fas fa-print"></i></a>
+                               style="color: white" v-if="config.route_print_recap && selected != 0">Generate Recap
+                                Invoice <i
+                                    class="fas fa-print"></i></a>
                         </div>
                     </div>
                     <div class="card-header-action ml-0 mt-3 mb-3">
@@ -197,6 +198,7 @@
         props: ['columns', 'config'],
         data() {
             return {
+                user: {},
                 perPages: ['5', '10', '25', '50'],
                 buttonClasses: 'btn btn-primary',
                 selected: [0],
@@ -219,8 +221,9 @@
                 },
             }
         },
-        mounted() {
-            this.getData();
+        async mounted() {
+            await this.getData();
+            this.user = AuthUser;
         },
         methods: {
             async search() {
@@ -272,14 +275,24 @@
             printRekap() {
                 const payload = {
                     id: this.selected,
+                    userId: this.user.id,
                 };
-                axios.get(BaseUrl('api/v1/finance/invoice_order/printRekap'), {params: payload})
+                axios.get(BaseUrl('api/v1/finance/invoice_order/generateRecapInvoice'), {params: payload})
                     .then(res => {
                         if (res.data.status === true) {
-                            this.$router.push({name: this.config.route_multiple_print, query: {id: this.selected}})
+                            Vue.swal({
+                                type: "success",
+                                title: "Success!",
+                                text: "Berhasil Membuat Rekap Invoice!"
+                            }).then(next => {
+                                this.$router.push({
+                                    name: this.config.route_print_recap,
+                                    params: {id: res.data.invoice_recap_id}
+                                })
+                            });
                         } else {
                             Vue.swal({
-                                type: "danger",
+                                type: "error",
                                 title: "Danger!",
                                 text: "Customer Harus Sama!"
                             });
@@ -289,21 +302,25 @@
 
                 });
             },
-            toExcel(table, name) {
-                var uri = 'data:application/vnd.ms-excel;base64,'
-                    ,
-                    template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-                    , base64 = function (s) {
-                        return window.btoa(unescape(encodeURIComponent(s)));
-                    }
-                    , format = function (s, c) {
-                        return s.replace(/{(\w+)}/g, function (m, p) {
-                            return c[p];
-                        });
-                    };
-                if (!table.nodeType) table = document.getElementById(table);
-                var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML};
-                window.location.href = uri + base64(format(template, ctx));
+            async toExcel() {
+                try {
+                    const res = await axios.get(BaseUrl('admin/report/reportso/export'));
+                    console.log(res);
+                } catch (e) {
+                    console.log(e.response);
+                }
+                // var uri = 'data:application/vnd.ms-excel;base64,',
+                //     template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+                //     , base64 = function (s) {
+                //         return window.btoa(unescape(encodeURIComponent(s)));
+                //     }, format = function (s, c) {
+                //         return s.replace(/{(\w+)}/g, function (m, p) {
+                //             return c[p];
+                //         });
+                //     };
+                // if (!table.nodeType) table = document.getElementById(table);
+                // var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML};
+                // window.location.href = uri + base64(format(template, ctx));
             }
         },
         computed: {

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\MasterData;
+namespace App\Http\Resources\Finance;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PriceResource extends JsonResource
+class InvoiceRecapDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,9 @@ class PriceResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'skuid' => $this->skuid,
-            'uom' => $this->uom->name,
-            'amount' => round($this->amount, 2),
-            'item_name' => $this->item->name_item,
+            'invoice_no' => $this->invoice->invoice_no,
+            'send_date' => $this->invoice->delivery_order->do_date->formatLocalized('%d-%b-%y'),
+            'price' => $this->total_price
         ];
     }
 }

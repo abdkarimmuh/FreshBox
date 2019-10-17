@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Report;
 
+use App\Exports\ReportSOExport;
 use App\Http\Resources\Report\ReportSOResource;
 use App\Model\Warehouse\DeliveryOrderDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class reportSOController extends Controller
 {
@@ -48,7 +50,7 @@ class reportSOController extends Controller
             if ($start && $end) {
                 $query->whereHas('sales_order_detail', function ($q) use ($start, $end) {
                     $q->whereHas('SalesOrder', function ($query) use ($start, $end) {
-                        $query->whereBetween(DB::raw("DATE_FORMAT(fulfillment_date, '%Y-%m-%d')"), array($start,$end));
+                        $query->whereBetween(DB::raw("DATE_FORMAT(fulfillment_date, '%Y-%m-%d')"), array($start, $end));
                     });
                 });
             }
@@ -57,5 +59,10 @@ class reportSOController extends Controller
 
         return view('layouts.vue-view', compact('config'));
 
+    }
+
+    public function export()
+    {
+        return Excel::download(new ReportSOExport, 'reportso.xlsx');
     }
 }

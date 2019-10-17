@@ -1,37 +1,13 @@
 <template>
     <div>
-        <div class="text-left">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>
-                        <b>Customer</b>
-                        <span style="color: red;">*</span>
-                    </label>
-                    <div>
-                        <model-list-select
-                            :list="customers"
-                            v-model="customer_id"
-                            v-on:input="getInvoiceList()"
-                            option-value="id"
-                            option-text="name"
-                            placeholder="Select Customer"
-                        ></model-list-select>
-                    </div>
-                </div>
-            </div>
-
-        </div>
         <div class="text-right">
-            <button
-                class="btn btn-secondary"
-                type="button"
-                @click="back()"
-            > Back
+            <button class="btn btn-secondary" type="button" @click="back()">
+                Back
             </button>
             <button
                 class="btn btn-success"
-                @click="print"
-            > Print
+                @click="print">
+                Print
             </button>
         </div>
         <div class="card card-body printableArea" id="printMe">
@@ -42,36 +18,45 @@
             <br>
             <h3>
         <span class="logo-text">
-          <img
-              v-bind:src="$parent.MakeUrl('assets/img/logo-frbox.png')"
-              alt="homepage"
-              class="light-logo"
-          >
+          <img v-bind:src="$parent.MakeUrl('assets/img/logo-frbox.png')"
+               alt="homepage"
+               class="light-logo">
         </span>
+                <div class="col-md-6">
+                    <div class="text-left">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td><b>PT Berkah Tani Sejahtera</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>{{ customer.recap_invoice_no }}</b></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </h3>
             <hr>
-            <div
-                class="row"
-                v-if="loading"
-            >
+            <div class="row" v-if="loading">
                 <div class="col-md-12">
                     <div class="text-center">
                         <table border="1" style="margin: 0 auto">
                             <tr style="text-align: center">
-                                <td style="padding: 15px; text-align: center"><h4><b style="color: black">REKAPAN
-                                    INVOICE</b></h4></td>
+                                <td style="padding: 15px; text-align: center">
+                                    <h4>
+                                        <b style="color: black">REKAPAN INVOICE</b>
+                                    </h4>
+                                </td>
                             </tr>
                         </table>
                     </div>
 
                     <div class="col-md-12">
-                        <div
-                            class="table-responsive m-t-40"
-                            style="clear: both;"
-                        >
+                        <div class="table-responsive m-t-40"
+                             style="clear: both;">
                             <table width="100%">
                                 <tbody>
-
                                 <tr>
                                     <td width="13%"><b>Kepada</b></td>
                                     <td width="2%">:</td>
@@ -79,11 +64,10 @@
                                     <td width="40%"></td>
 
                                 </tr>
-
                                 <tr>
                                     <td width="13%"><b>Tanggal</b></td>
                                     <td width="2%">:</td>
-                                    <td width="40%">{{ customer.tanggal | toDate }}</td>
+                                    <td width="40%">{{ customer.recap_date }}</td>
                                     <td width="40%"></td>
 
                                 </tr>
@@ -107,43 +91,37 @@
                     </div>
                     <br>
                     <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-md" border="1">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">NO</th>
-                                    <th class="text-center">Nomor Invoice</th>
-                                    <th class="text-center">Tanggal Kirim</th>
-                                    <th class="text-center">Harga</th>
-                                    <th class="text-center">Subtotal</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="(item, index) in invoices">
-                                    <td>{{ index + 1}}</td>
-                                    <td>{{ item.invoice_no }}</td>
-                                    <td>{{ item.invoice_date}}</td>
-                                    <td>{{ item.total_price | toIDR }}</td>
-                                    <td></td>
-                                </tr>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>{{ customer.subtotal | toIDR}}</td>
-                                </tr>
-                                </tfoot>
-                            </table>
-
-                        </div>
+                        <table border="1" width="100%">
+                            <thead>
+                            <tr>
+                                <th class="text-center">NO</th>
+                                <th class="text-center">Nomor Invoice</th>
+                                <th class="text-center">Tanggal Kirim</th>
+                                <th class="text-center">Harga</th>
+                                <th class="text-center">Subtotal</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(item, index) in invoices">
+                                <td class="text-center">{{ index + 1}}</td>
+                                <td class="text-center">{{ item.invoice_no }}</td>
+                                <td class="text-center">{{ item.send_date }}</td>
+                                <td class="text-center">{{ item.price | toIDR }}</td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="text-center">{{ subTotal | toIDR}}</td>
+                            </tr>
+                            </tfoot>
+                        </table>
                     </div>
-                    <div class="col-md-12">
-                        <div class="clearfix"></div>
-                        <hr>
-                    </div>
+                    <br>
                     <br>
                     <div class="col-md-12">
                         <div class="row">
@@ -154,7 +132,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="text-right mr-4">
-                                    <h6>Jakarta, {{ customer.tanggal | toDate }}</h6>
+                                    <h6>Jakarta, {{ customer.recap_date }}</h6>
                                     <h6>Dibuat oleh,</h6>
                                 </div>
                             </div>
@@ -177,10 +155,7 @@
 
                 </div>
             </div>
-            <div
-                class="text-center p-4 text-muted"
-                v-else
-            >
+            <div class="text-center p-4 text-muted" v-else>
                 <h5>Loading</h5>
                 <p>Please wait, data is being loaded...</p>
             </div>
@@ -197,39 +172,26 @@
         props: ['id'],
         data() {
             return {
-                customer_id:"",
-                customer:{},
-                customers: [],
+                customer_id: "",
+                customer: {},
                 invoices: [],
                 loading: false,
             }
         },
         mounted() {
-            this.getDataCustomer();
+            this.getInvoice();
         },
         methods: {
-            getInvoiceList() {
-                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice/printRecap/' + this.customer_id))
+            getInvoice() {
+                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/show/' + this.$route.params.id))
                     .then(res => {
                         this.customer = res.data.data;
-                        this.invoices = res.data.data.invoices;
-                        this.customer.tanggal = new Date();
+                        this.invoices = res.data.data.invoice_recap_detail;
+                        this.loading = true;
                         console.log(this.customer);
                     }).catch(e => {
 
                 })
-            },
-            getDataCustomer() {
-                axios.get(this.$parent.MakeUrl('api/v1/master_data/customer/list_has_recap'))
-                    .then(res => {
-                        this.customers = res.data.data;
-                        this.loading = true;
-                    })
-                    .catch(err => {
-                        if (err.response.status == 500) {
-                            this.loading = true;
-                        }
-                    })
             },
             print() {
                 Vue.swal({
@@ -254,6 +216,15 @@
             },
             back() {
                 return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
+            }
+        },
+        computed: {
+            subTotal: function () {
+                let sum = 0;
+                this.invoices.forEach(function (item) {
+                    sum += item.price
+                });
+                return sum
             }
         }
     }

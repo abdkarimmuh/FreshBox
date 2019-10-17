@@ -129,12 +129,17 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             //            Route::post('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint');
             //            Route::get('/printRecap', 'Finance\FormInvoiceOrderController@printRecap')->name('printRecap');
         });
+        Route::name('recap_invoice.')->prefix('recap_invoice')->group(function () {
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+        });
     });
 
     /* Route Menu Report Data */
     Route::name('report.')->prefix('report')->middleware('auth')->group(function () {
         Route::name('reportso.')->prefix('reportso')->group(function () {
             Route::get('/', 'Report\ReportSOController@index')->name('index');
+            Route::get('/export', 'Report\ReportSOController@export')->name('export');
         });
 
     });

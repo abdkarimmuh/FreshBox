@@ -88,6 +88,11 @@
                             <a class="nav-link" :href="href" @click="navigate">Form Invoice Order</a>
                         </li>
                     </router-link>
+                    <router-link :to="{ name: 'invoice_order.recap'}" v-slot="{ href, navigate, isActive }">
+                        <li :class="[isActive && 'active']">
+                            <a class="nav-link" :href="href" @click="navigate">Recap Invoice</a>
+                        </li>
+                    </router-link>
                 @else
                     <li class="{{ request()->segment(3) == 'invoice_order' ? ' active' : '' }}">
                         <a href="{{ url('admin/finance/invoice_order') }}"

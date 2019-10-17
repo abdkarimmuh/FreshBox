@@ -4,7 +4,8 @@
             <div class="card col-12">
                 <div class="card-header">
                     <h4 class="text-danger">Add Invoice Order</h4>
-                </div>
+                </div>=
+
                 <div class="col-12">
                     <div class="row">
                         <!-- Delivery Order No -->
@@ -71,19 +72,9 @@
                             </div>
                         </div>
 
-                        <div
-                            v-if="do_id != ''"
-                            class="col-12"
-                        >
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
-                                <table
-                                    class="table table-hover"
-                                    id="contentTable"
-                                    style="font-size: 9pt;"
-                                >
+                        <div v-if="do_id != ''" class="col-12">
+                            <div class="table-responsive m-t-40" style="clear: both;">
+                                <table class="table table-hover" id="contentTable" style="font-size: 9pt;">
                                     <thead>
                                     <tr>
                                         <th class="text-center">SKUID</th>
@@ -138,6 +129,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
