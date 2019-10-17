@@ -24,7 +24,20 @@ class DeliveryOrderDetail extends Model
      * @var array
      */
     protected $fillable = ['delivery_order_id', 'skuid', 'sales_order_detail_id', 'qty_do', 'qty_confirm', 'uom_id', 'qty_minus', 'remark', 'created_by', 'updated_by'];
-    protected $appends = ['total_amount', 'amount_price','total_amount_do'];
+    protected $appends = ['total_amount', 'amount_price', 'total_amount_do'];
+
+    protected $columns = [
+        'id' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'customer_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'delivery_order.customer',
+            'relation_field' => 'name',
+        ],
+    ];
 
     public function delivery_order()
     {
