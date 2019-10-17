@@ -11,6 +11,7 @@ class ListProcurement extends MyModel
     use SearchTraits;
 
     protected $table = 'trx_list_procurement';
+    protected $fillable = ['procurement_no', 'user_proc_id', 'vendor', 'total_amount', 'payment', 'file', 'status', 'created_by', 'created_at'];
 
     protected $appends = [
         'created_by_name',
@@ -32,7 +33,7 @@ class ListProcurement extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'UserProc',
-            'relation_field' => 'proc_name'
+            'relation_field' => 'proc_name',
         ],
         'vendor' => [
             'searchable' => true,
@@ -68,14 +69,14 @@ class ListProcurement extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'create_by',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'updated_by_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'update_by',
-            'relation_field' => 'name'
-        ]
+            'relation_field' => 'name',
+        ],
     ];
 
     public function UserProc()

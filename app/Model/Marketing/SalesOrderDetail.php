@@ -14,7 +14,7 @@ class SalesOrderDetail extends MyModel
     use SalesOrderDetailTrait;
 
     protected $table = 'trx_sales_order_detail';
-    protected $appends = ['item_name', 'uom_name', 'origin_code', 'sales_order_no','po_no','so_date','category_name','delivery_order_no'];
+    protected $appends = ['item_name', 'uom_name', 'origin_code', 'sales_order_no', 'po_no', 'so_date', 'category_name', 'delivery_order_no', 'assign_qty'];
     protected $fillable = [
         'sales_order_id',
         'qty',
@@ -42,6 +42,10 @@ class SalesOrderDetail extends MyModel
         return $this->belongsTo(Uom::class, 'uom_id', 'id');
     }
 
+    public function getAssignQtyAttribute()
+    {
+        return floatval($this->qty - $this->sisa_qty_proc);
+    }
 
     public function getItemNameAttribute()
     {
@@ -85,6 +89,7 @@ class SalesOrderDetail extends MyModel
     {
         return $this->SalesOrder->fulfillment_date->formatLocalized('%d %B %Y');
     }
+
     public function getCategoryNameAttribute()
     {
         return $this->item->category_name;

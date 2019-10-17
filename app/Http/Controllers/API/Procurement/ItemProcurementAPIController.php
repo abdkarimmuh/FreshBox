@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API\Procurement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Procurement\AssignProcurementResource;
-use App\Http\Resources\SalesOrderDetailResource;
 use App\Model\Marketing\SalesOrder;
 use App\Model\Marketing\SalesOrderDetail;
 use App\Model\Procurement\AssignProcurement;
@@ -21,6 +20,17 @@ class ItemProcurementAPIController extends Controller
     public function index()
     {
         $query = AssignProcurement::all();
+
+        return AssignProcurementResource::collection($query);
+    }
+
+    public function indexAPI()
+    {
+        $query = AssignProcurement::where('user_proc_id', auth('api')->user()->id)
+        ->whereHas('SalesOrderDetail', function ($query) {
+            $query->where('status', '<=', 2);
+        })->get();
+
         return AssignProcurementResource::collection($query);
     }
 
@@ -45,55 +55,60 @@ class ItemProcurementAPIController extends Controller
         // return $request;
         //List Validasi
         $rules = [
-            'skuid' => 'required',
-            'user_proc_id' => 'required',
-            'qty' => 'required|not_in:0',
-            'uom_id' => 'required'
+            'items' => 'required',
+            'items.*.skuid' => 'required',
+            'items.*.pick' => 'required',
+            'items.*.uom_id' => 'required',
         ];
         $request->validate(array_merge($rules));
 
-        $skuid = $request->skuid;
-        $user_proc_id = $request->user_proc_id;
-        $qty_all = number_format($request->qty);
-        $uom_id = $request->uom_id;
+        $user_proc_id = auth('api')->user()->id;
+        $items = $request->items;
 
-        $sales_order_detail = SalesOrderDetail::where('status', 1)->where('skuid', $skuid)->where('uom_id', $uom_id)->orderBy('sales_order_id', 'desc')->get();
+        foreach ($items as $item) {
+            // return $item;
 
-        foreach ($sales_order_detail as $item) {
+            $skuid = $item['skuid'];
+            $qty_all = number_format($item['pick']);
+            $uom_id = $item['uom_id'];
 
-            $sales_order = SalesOrder::find($item->sales_order_id);
-            $sales_order->status = 2;
+            $sales_order_detail = SalesOrderDetail::where('status', 1)->where('skuid', $skuid)->where('uom_id', $uom_id)->get();
 
-            if ($qty_all >= $item->qty) {
-                $item->status = 2;
-                $item->sisa_qty_proc = 0;
-                $qty_proc = $item->qty;
-                $qty_all = $qty_all - $item->qty;
-            } else {
-                $item->sisa_qty_proc = $qty_all;
-                $qty_proc = $qty_all;
-                $qty_all = 0;
+            foreach ($sales_order_detail as $data) {
+                $sales_order = SalesOrder::find($data->sales_order_id);
+                $sales_order->status = 2;
+
+                if ($qty_all >= $data->sisa_qty_proc) {
+                    $data->sisa_qty_proc = 0;
+                    $qty_proc = $data->qty;
+                    $qty_all = $qty_all - $data->qty;
+                } else {
+                    $data->sisa_qty_proc = $data->sisa_qty_proc - $qty_all;
+                    $qty_proc = $qty_all;
+                    $qty_all = 0;
+                }
+
+                $data->status = 2;
+                $data->save();
+                $sales_order->save();
+
+                //Untuk Melakukan assign procurement
+                $assign_procurement[] = [
+                    'sales_order_detail_id' => $data->id,
+                    'user_proc_id' => $user_proc_id,
+                    'qty' => $qty_proc,
+                    'uom_id' => $data->uom_id,
+                    'created_by' => $user_proc_id,
+                    'created_at' => Carbon::now(),
+                ];
+
+                if ($qty_all == 0) {
+                    break;
+                }
             }
-            
-            $item->save();
-            $sales_order->save();
 
-            //Untuk Melakukan assign procurement
-            $assign_procurement[] = [
-                'sales_order_detail_id' => $item->id,
-                'user_proc_id' => $user_proc_id,
-                'qty' => $qty_proc,
-                'uom_id' => $item->uom_id,
-                'created_by' => $user_proc_id,
-                'created_at' => Carbon::now(),
-            ];
-
-            if ($qty_all == 0) {
-                break;
-            }
+            AssignProcurement::insert($assign_procurement);
         }
-
-        AssignProcurement::insert($assign_procurement);
 
         return response()->json([
             'status' => 'success',
