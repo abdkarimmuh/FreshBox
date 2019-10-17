@@ -3416,7 +3416,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         driver_id: 0,
         sourceOrderId: 0
       },
-      skuid: "",
+      skuid: null,
       source_orders: [],
       item: {},
       items: [],
@@ -3590,6 +3590,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getItem: function getItem() {
       var _this5 = this;
 
+      if (!this.skuid) return;
       this.loading = false;
       axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid)).then(function (res) {
         _this5.item = res.data.data;
@@ -3656,6 +3657,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__["ModelListSelect"]
   },
+  // watch: {
+  //     'skuid': function (val) {
+  //         console.log(val);
+  //     }
+  // },
   computed: {
     /**
      * Calculate Total Item
@@ -51521,11 +51527,7 @@ var render = function() {
                               "option-text": "item_name",
                               placeholder: "Select Item"
                             },
-                            on: {
-                              input: function($event) {
-                                return _vm.getItem()
-                              }
-                            },
+                            on: { input: _vm.getItem },
                             model: {
                               value: _vm.skuid,
                               callback: function($$v) {

@@ -165,7 +165,7 @@
                                 <model-list-select
                                     :list="items"
                                     v-model="skuid"
-                                    v-on:input="getItem()"
+                                    v-on:input="getItem"
                                     option-value="skuid"
                                     option-text="item_name"
                                     placeholder="Select Item"
@@ -387,7 +387,7 @@
                     driver_id: 0,
                     sourceOrderId: 0,
                 },
-                skuid: "",
+                skuid: null,
                 source_orders: [],
                 item: {},
                 items: [],
@@ -505,6 +505,7 @@
                     });
             },
             getItem() {
+                if (!this.skuid) return;
                 this.loading = false;
                 axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid))
                     .then(res => {
@@ -566,6 +567,11 @@
         components: {
             ModelListSelect
         },
+        // watch: {
+        //     'skuid': function (val) {
+        //         console.log(val);
+        //     }
+        // },
         computed: {
             /**
              * Calculate Total Item
