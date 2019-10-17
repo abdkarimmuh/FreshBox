@@ -77,26 +77,30 @@ class SalesOrderDetail extends MyModel
 
     public function getCustomerNameAttribute()
     {
-        return $this->SalesOrder->customer_name;
+        return $this->SalesOrder->customer_name ?? null;
     }
 
     public function getPoNoAttribute()
     {
-        return $this->SalesOrder->no_po;
+        return $this->SalesOrder->no_po ?? null;
     }
 
     public function getSoDateAttribute()
     {
-        return $this->SalesOrder->fulfillment_date->formatLocalized('%d %B %Y');
+        if (isset($this->SalesOrder->fulfillment_date)) {
+            return $this->SalesOrder->fulfillment_date->formatLocalized('%d %B %Y') ?? null;
+        }else{
+            return null;
+        }
     }
 
     public function getCategoryNameAttribute()
     {
-        return $this->item->category_name;
+        return $this->item->category_name ?? null;
     }
 
     public function getDeliveryOrderNoAttribute()
     {
-        return $this->SalesOrder->DeliveryOrder->delivery_order_no;
+        return $this->SalesOrder->DeliveryOrder->delivery_order_no ?? null;
     }
 }

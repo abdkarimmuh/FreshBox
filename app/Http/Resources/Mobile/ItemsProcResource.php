@@ -18,10 +18,10 @@ class ItemsProcResource extends JsonResource
         return [
             'id' => $this->id,
             'skuid' => $this->skuid,
-            'qty' => $this->sisa_qty_proc,
             'name' => $this->item_name,
             'uom' => $this->uom_name,
             'uom_id' => $this->uom_id,
+            'sisa_qty' => $this->sisa_qty
         ];
     }
 }

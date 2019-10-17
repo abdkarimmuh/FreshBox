@@ -7,6 +7,7 @@ use App\Http\Resources\Mobile\ItemsProcResource;
 use App\Http\Resources\SalesOrderDetailResource;
 use App\Model\Marketing\SalesOrderDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SalesOrderDetailAPIController extends Controller
 {
@@ -30,8 +31,11 @@ class SalesOrderDetailAPIController extends Controller
     public function indexAPI()
     {
         //group skuid & uom_id dan sisa_proc_qty nya disatuin
-        $query = SalesOrderDetail::where('sisa_qty_proc', '>', '0')->get();
-
+        $query = SalesOrderDetail::selectRaw('*, sum(sisa_qty_proc) as sisa_qty')
+            ->where('sisa_qty_proc', '>', '0')
+            ->groupBy('skuid')
+            ->groupBy('uom_id')
+            ->get();
         return ItemsProcResource::collection($query);
     }
 
@@ -81,7 +85,7 @@ class SalesOrderDetailAPIController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
