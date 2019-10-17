@@ -350,6 +350,7 @@
                         this.$router.push({name: 'form_sales_order'});
                     });
                 } catch (e) {
+                    console.log(e);
                     this.errors = e.response.data.errors;
                 }
             }
