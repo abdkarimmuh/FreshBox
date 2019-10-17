@@ -37,7 +37,7 @@
             <td>{{ $row->delivery_order->customer->name }}</td>
             <td>{{ $row->sales_order_detail->sales_order_no }}</td>
             <td>{{ $row->sales_order_detail->so_date }}</td>
-            <td>0</td>
+            <td>{{ $row->item->Origin->origin_code }}</td>
             <td>{{ $row->sales_order_detail->category_name }}</td>
             <td> {{$row->item->skuid}}</td>
             <td> {{$row->item->name_item}}</td>
