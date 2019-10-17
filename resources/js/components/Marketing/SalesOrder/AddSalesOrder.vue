@@ -499,6 +499,9 @@
                         this.loading = true;
                     })
                     .catch(err => {
+                        if (err.response.status === 500) {
+                            this.getItems()
+                        }
                     });
             },
             getItem() {
@@ -509,6 +512,9 @@
                         this.loading = true;
                     })
                     .catch(err => {
+                        if (err.response.status === 500) {
+                            this.getItem()
+                        }
                     });
             },
             /**

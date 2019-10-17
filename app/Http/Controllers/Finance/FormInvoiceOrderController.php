@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 
 class FormInvoiceOrderController extends Controller
 {
+    private $VUE_COMPONENT = "vue-component";
 
     /**
      * Generate Invoice No.
@@ -35,7 +36,7 @@ class FormInvoiceOrderController extends Controller
             }
         }
         $config = [
-            'vue-component' => "<print-invoice-order :id='$id'></print-invoice-order>"
+            $this->VUE_COMPONENT => "<print-invoice-order :id='$id'></print-invoice-order>"
         ];
         return view('layouts.vue-view', compact('config'));
     }
@@ -53,7 +54,7 @@ class FormInvoiceOrderController extends Controller
                 }
             }
             $config = [
-                'vue-component' => " <multiple-print-invoice-order id='" . json_encode($id) . "'></multiple-print-invoice-order>"
+                $this->VUE_COMPONENT => " <multiple-print-invoice-order id='" . json_encode($id) . "'></multiple-print-invoice-order>"
             ];
 
             return view('layouts.vue-view', compact('config'));
@@ -66,7 +67,7 @@ class FormInvoiceOrderController extends Controller
     {
 
         $config = [
-            'vue-component' => " <print-recap-invoice/>"
+            $this->VUE_COMPONENT => " <print-recap-invoice/>"
         ];
 
         return view('layouts.vue-view', compact('config'));
