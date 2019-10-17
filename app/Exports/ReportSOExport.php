@@ -5,14 +5,16 @@ namespace App\Exports;
 use App\DeliveryOrder;
 use App\Http\Resources\Report\ReportSOResource;
 use App\Model\Warehouse\DeliveryOrderDetail;
+use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class ReportSOExport implements FromCollection
+class ReportSOExport implements FromView
 {
     /**
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function collection()
+    public function View(): View
     {
         $searchValue = request()->input('search');
 
@@ -26,6 +28,8 @@ class ReportSOExport implements FromCollection
                 });
             });
         }
-        return ReportSOResource::collection($query->get());
+        $data = $query->get();
+        return view('admin.export.export_report_so', compact('data'));
+//        return ReportSOResource::collection($query->get());
     }
 }
