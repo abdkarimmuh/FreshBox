@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Report;
 use App\Exports\ReportSOExport;
 use App\Http\Resources\Report\ReportSOResource;
 use App\Model\Warehouse\DeliveryOrderDetail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -63,6 +64,7 @@ class reportSOController extends Controller
 
     public function export()
     {
-        return Excel::download(new ReportSOExport, 'reportso.xlsx');
+        $now = Carbon::now();
+        return Excel::download(new ReportSOExport, 'Report Sales Order - ' .$now. '.xlsx');
     }
 }
