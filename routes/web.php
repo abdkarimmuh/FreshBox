@@ -139,6 +139,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     Route::name('report.')->prefix('report')->middleware('auth')->group(function () {
         Route::name('reportso.')->prefix('reportso')->group(function () {
             Route::get('/', 'Report\ReportSOController@index')->name('index');
+            Route::get('/export', 'Report\ReportSOController@export')->name('export');
         });
 
     });

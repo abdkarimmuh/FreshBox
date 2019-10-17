@@ -2018,14 +2018,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5347,6 +5339,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['columns', 'config'],
   data: function data() {
@@ -5541,25 +5534,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         console.log(res);
       })["catch"](function (e) {});
     },
-    toExcel: function toExcel(table, name) {
-      var uri = 'data:application/vnd.ms-excel;base64,',
-          template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
-          base64 = function base64(s) {
-        return window.btoa(unescape(encodeURIComponent(s)));
-      },
-          format = function format(s, c) {
-        return s.replace(/{(\w+)}/g, function (m, p) {
-          return c[p];
-        });
-      };
+    toExcel: function () {
+      var _toExcel = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.prev = 0;
+                _context4.next = 3;
+                return axios.get(BaseUrl('admin/report/reportso/export'));
 
-      if (!table.nodeType) table = document.getElementById(table);
-      var ctx = {
-        worksheet: name || 'Worksheet',
-        table: table.innerHTML
-      };
-      window.location.href = uri + base64(format(template, ctx));
-    }
+              case 3:
+                res = _context4.sent;
+                console.log(res);
+                _context4.next = 10;
+                break;
+
+              case 7:
+                _context4.prev = 7;
+                _context4.t0 = _context4["catch"](0);
+                console.log(_context4.t0.response);
+
+              case 10:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[0, 7]]);
+      }));
+
+      function toExcel() {
+        return _toExcel.apply(this, arguments);
+      }
+
+      return toExcel;
+    }()
   },
   computed: {
     selectAll: {
@@ -49722,7 +49734,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _c("div", { staticClass: "card col-12" }, [
         _vm._m(0),
-        _vm._v(" "),
+        _vm._v("=\n\n            "),
         _c("div", { staticClass: "col-12" }, [
           _c(
             "div",
@@ -54050,11 +54062,7 @@ var render = function() {
                         {
                           staticClass: "btn btn-danger ml-2",
                           staticStyle: { color: "white" },
-                          on: {
-                            click: function($event) {
-                              return _vm.toExcel("vuetable", "Test")
-                            }
-                          }
+                          attrs: { href: "reportso/export" }
                         },
                         [_vm._v("Export Excel")]
                       )
@@ -54088,7 +54096,9 @@ var render = function() {
                           on: { click: _vm.printRekap }
                         },
                         [
-                          _vm._v("Generate Recap Invoice "),
+                          _vm._v(
+                            "Generate Recap\n                            Invoice "
+                          ),
                           _c("i", { staticClass: "fas fa-print" })
                         ]
                       )
