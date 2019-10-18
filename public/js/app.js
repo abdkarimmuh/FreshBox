@@ -6815,11 +6815,7 @@ __webpack_require__.r(__webpack_exports__);
       header_info: [{
         title: "Delivery Order Date",
         field: "do_date"
-      }, // {
-      //     title: "Delivery Order No",
-      //     field: "delivery_order_no",
-      // },
-      {
+      }, {
         page_break: true
       }, {
         title: "Kepada Yth",
@@ -6848,16 +6844,20 @@ __webpack_require__.r(__webpack_exports__);
         _this.details = res.data.data.do_details;
         _this.loading = true;
       })["catch"](function (err) {
-        if (err.response.status == 500) {
+        if (err.response.status === 500) {
           _this.getData();
         }
+
+        console.error(e.response.data);
       });
     },
     print: function print() {
       this.$htmlToPaper('printMe');
     },
     back: function back() {
-      return window.location.href = this.$parent.MakeUrl('admin/warehouse/delivery_order');
+      return this.$router.push({
+        name: 'delivery_order.index'
+      });
     }
   }
 });
