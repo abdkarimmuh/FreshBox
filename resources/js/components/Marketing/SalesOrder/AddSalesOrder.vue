@@ -468,6 +468,7 @@
                 } catch (e) {
                     this.loadingSubmit = false;
                     this.errors = e.response.data.errors;
+                    console.error(e.response.data);
                 }
             },
 

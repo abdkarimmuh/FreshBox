@@ -3528,7 +3528,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     name: 'form_sales_order'
                   });
                 });
-                _context2.next = 13;
+                _context2.next = 14;
                 break;
 
               case 9:
@@ -3536,8 +3536,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.t0 = _context2["catch"](2);
                 this.loadingSubmit = false;
                 this.errors = _context2.t0.response.data.errors;
+                console.error(_context2.t0.response.data);
 
-              case 13:
+              case 14:
               case "end":
                 return _context2.stop();
             }
