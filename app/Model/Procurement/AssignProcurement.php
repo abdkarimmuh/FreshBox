@@ -2,7 +2,8 @@
 
 namespace App\Model\Procurement;
 
-use App\Model\Marketing\SalesOrderDetail;
+use App\Model\MasterData\Item;
+use App\Model\MasterData\Uom;
 use App\MyModel;
 use App\Traits\SearchTraits;
 
@@ -11,15 +12,13 @@ class AssignProcurement extends MyModel
     use SearchTraits;
 
     protected $table = 'trx_assign_procurement';
-    protected $fillable = ['sales_order_detail_id', 'user_proc_id', 'created_by'];
+    protected $fillable = ['skuid', 'user_proc_id', 'created_by'];
 
     protected $appends = [
         'created_by_name',
         'updated_by_name',
-        'sales_order_no',
         'proc_name',
         'item_name',
-        'origin_code',
         'uom',
     ];
 
@@ -28,16 +27,14 @@ class AssignProcurement extends MyModel
             'searchable' => false,
             'search_relation' => false,
         ],
-        'sales_order' => [
+        'skuid' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'SalesOrderDetail',
-            'relation_field' => 'sales_order_no',
         ],
         'item_name' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'SalesOrderDetail',
+            'relation_name' => 'Item',
             'relation_field' => 'item_name',
         ],
         'qty' => [
@@ -47,7 +44,7 @@ class AssignProcurement extends MyModel
         'uom' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'SalesOrderDetail',
+            'relation_name' => 'Uom',
             'relation_field' => 'uom',
         ],
         'proc_name' => [
@@ -55,12 +52,6 @@ class AssignProcurement extends MyModel
             'search_relation' => true,
             'relation_name' => 'UserProc',
             'relation_field' => 'proc_name',
-        ],
-        'origin_code' => [
-            'searchable' => true,
-            'search_relation' => true,
-            'relation_name' => 'UserProc',
-            'relation_field' => 'origin_code',
         ],
         'created_at' => [
             'searchable' => true,
@@ -102,42 +93,29 @@ class AssignProcurement extends MyModel
         }
     }
 
-    public function getOriginCodeAttribute()
+    public function Item()
     {
-        if (isset($this->UserProc->Origin->description)) {
-            return $this->UserProc->Origin->description;
-        } else {
-            return '';
-        }
-    }
-
-    public function SalesOrderDetail()
-    {
-        return $this->belongsTo(SalesOrderDetail::class);
-    }
-
-    public function getSalesOrderNoAttribute()
-    {
-        if (isset($this->SalesOrderDetail->SalesOrder->sales_order_no)) {
-            return $this->SalesOrderDetail->SalesOrder->sales_order_no;
-        } else {
-            return '';
-        }
+        return $this->belongsTo(Item::class);
     }
 
     public function getItemNameAttribute()
     {
-        if (isset($this->SalesOrderDetail->item->name_item)) {
-            return $this->SalesOrderDetail->item->name_item;
+        if (isset($this->item->name_item)) {
+            return $this->item->name_item;
         } else {
             return '';
         }
     }
 
+    public function Uom()
+    {
+        return $this->belongsTo(Uom::class);
+    }
+
     public function getUomAttribute()
     {
-        if (isset($this->SalesOrderDetail->Uom->name)) {
-            return $this->SalesOrderDetail->Uom->name;
+        if (isset($this->Uom->name)) {
+            return $this->Uom->name;
         } else {
             return '';
         }

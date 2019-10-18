@@ -21,11 +21,9 @@ class AssignProcurementController extends Controller
 
         $columns = [
             array('title' => 'Nama', 'field' => 'proc_name'),
-            array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
             array('title' => 'Nama Barang', 'field' => 'item_name'),
             array('title' => 'Qty', 'field' => 'qty'),
             array('title' => 'UOM', 'field' => 'uom'),
-            array('title' => 'Area', 'field' => 'origin_code'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
             array('title' => 'Modified By', 'field' => 'updated_by_name'),

@@ -8,8 +8,6 @@ class CreateTrxListProcurementDetail extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -21,7 +19,6 @@ class CreateTrxListProcurementDetail extends Migration
             $table->decimal('qty_minus', 18, 2)->default(0);
             $table->unsignedBigInteger('uom_id');
             $table->decimal('amount', 18, 2);
-            $table->decimal('total_amount', 18, 2);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
 
@@ -38,8 +35,6 @@ class CreateTrxListProcurementDetail extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

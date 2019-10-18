@@ -9,6 +9,7 @@ use App\Model\Marketing\SalesOrderDetail;
 use App\Model\Procurement\AssignProcurement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ItemProcurementAPIController extends Controller
 {
@@ -72,6 +73,20 @@ class ItemProcurementAPIController extends Controller
             $qty_all = number_format($item['pick']);
             $uom_id = $item['uom_id'];
 
+            DB::select('call insert_assign_procurement(?, ?, ?, ?, ?)', array($skuid, auth()->user()->id, $qty_all, $uom_id, Carbon::now()));
+
+            //Untuk Melakukan assign procurement
+            // $assign_procurement[] = [
+            //     'sales_order_detail_id' => $data->id,
+            //     'user_proc_id' => $user_proc_id,
+            //     'qty' => $qty_proc,
+            //     'uom_id' => $data->uom_id,
+            //     'created_by' => $user_proc_id,
+            //     'created_at' => Carbon::now(),
+            // ];
+
+            // AssignProcurement::insert($assign_procurement);
+
             $sales_order_detail = SalesOrderDetail::where('status', 1)->where('skuid', $skuid)->where('uom_id', $uom_id)->get();
 
             foreach ($sales_order_detail as $data) {
@@ -80,11 +95,9 @@ class ItemProcurementAPIController extends Controller
 
                 if ($qty_all >= $data->sisa_qty_proc) {
                     $data->sisa_qty_proc = 0;
-                    $qty_proc = $data->qty;
                     $qty_all = $qty_all - $data->qty;
                 } else {
                     $data->sisa_qty_proc = $data->sisa_qty_proc - $qty_all;
-                    $qty_proc = $qty_all;
                     $qty_all = 0;
                 }
 
@@ -92,22 +105,10 @@ class ItemProcurementAPIController extends Controller
                 $data->save();
                 $sales_order->save();
 
-                //Untuk Melakukan assign procurement
-                $assign_procurement[] = [
-                    'sales_order_detail_id' => $data->id,
-                    'user_proc_id' => $user_proc_id,
-                    'qty' => $qty_proc,
-                    'uom_id' => $data->uom_id,
-                    'created_by' => $user_proc_id,
-                    'created_at' => Carbon::now(),
-                ];
-
                 if ($qty_all == 0) {
                     break;
                 }
             }
-
-            AssignProcurement::insert($assign_procurement);
         }
 
         return response()->json([

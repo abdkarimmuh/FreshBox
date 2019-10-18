@@ -18,7 +18,6 @@ class ItemProcurementController extends Controller
         $searchValue = $request->input('search');
 
         $columns = [
-            // array('title' => 'Nama', 'field' => 'proc_name'),
             array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
             array('title' => 'Nama Barang', 'field' => 'item_name'),
             array('title' => 'Qty', 'field' => 'qty'),
@@ -26,6 +25,7 @@ class ItemProcurementController extends Controller
             array('title' => 'UOM', 'field' => 'uom_name'),
             array('title' => 'Area', 'field' => 'origin_code'),
             array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
+            array('title' => 'Usser Assign', 'field' => 'proc_name'),
         ];
 
         $config = [

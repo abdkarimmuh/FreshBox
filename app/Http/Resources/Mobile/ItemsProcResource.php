@@ -21,7 +21,7 @@ class ItemsProcResource extends JsonResource
             'name' => $this->item_name,
             'uom' => $this->uom_name,
             'uom_id' => $this->uom_id,
-            'sisa_qty' => $this->sisa_qty
+            'qty' => $this->sisa_qty,
         ];
     }
 }

@@ -11,9 +11,9 @@ class ProcedureInsertAssignProcurement extends Migration
     {
         DB::unprepared('DROP PROCEDURE IF EXISTS insert_assign_procurement');
 
-        DB::unprepared('CREATE PROCEDURE insert_assign_procurement( IN sales_order_detail_id INT, IN user_proc_id INT, IN qty INT, IN uom_id INT, IN created_by INT )
+        DB::unprepared('CREATE PROCEDURE insert_assign_procurement( IN skuid INT, IN user_proc_id INT, IN qty INT, IN uom_id INT, IN created_by INT )
         BEGIN
-        INSERT INTO trx_assign_procurement (sales_order_detail_id, user_proc_id, qty, uom_id, created_at, created_by) VALUES (sales_order_detail_id, user_proc_id, qty, uom_id, now(), created_by);
+        INSERT INTO trx_assign_procurement (skuid, user_proc_id, qty, uom_id, created_at, created_by) VALUES (skuid, user_proc_id, qty, uom_id, now(), created_by);
         END');
     }
 

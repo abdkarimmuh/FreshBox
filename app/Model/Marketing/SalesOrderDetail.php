@@ -4,6 +4,7 @@ namespace App\Model\Marketing;
 
 use App\Model\MasterData\Item;
 use App\Model\MasterData\Uom;
+use App\Model\Procurement\AssignProcurement;
 use App\MyModel;
 use App\Traits\SalesOrderDetailTrait;
 use App\Traits\SearchTraits;
@@ -14,7 +15,7 @@ class SalesOrderDetail extends MyModel
     use SalesOrderDetailTrait;
 
     protected $table = 'trx_sales_order_detail';
-    protected $appends = ['item_name', 'uom_name', 'origin_code', 'sales_order_no', 'po_no', 'so_date', 'category_name', 'delivery_order_no', 'assign_qty'];
+    protected $appends = ['item_name', 'uom_name', 'origin_code', 'sales_order_no', 'po_no', 'so_date', 'category_name', 'delivery_order_no', 'assign_qty', 'proc_name'];
     protected $fillable = [
         'sales_order_id',
         'qty',
@@ -40,6 +41,20 @@ class SalesOrderDetail extends MyModel
     public function uom()
     {
         return $this->belongsTo(Uom::class, 'uom_id', 'id');
+    }
+
+    public function AssignProcurement()
+    {
+        return $this->belongsTo(AssignProcurement::class, 'id', 'sales_order_detail_id');
+    }
+
+    public function getProcNameAttribute()
+    {
+        if (isset($this->AssignProcurement->proc_name)) {
+            return $this->AssignProcurement->proc_name;
+        } else {
+            return 'Belum di Assign';
+        }
     }
 
     public function getAssignQtyAttribute()
@@ -89,7 +104,7 @@ class SalesOrderDetail extends MyModel
     {
         if (isset($this->SalesOrder->fulfillment_date)) {
             return $this->SalesOrder->fulfillment_date->formatLocalized('%d %B %Y') ?? null;
-        }else{
+        } else {
             return null;
         }
     }
