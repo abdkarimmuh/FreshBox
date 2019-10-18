@@ -29,20 +29,12 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      * Routing Menu Marketing
      */
     Route::name('marketing.')->prefix('marketing')->group(function () {
+
         Route::name('sales_order.')->prefix('form_sales_order')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
-
-            //            Route::get('/', 'Marketing\FormSalesOrderController@index')->name('index');
-            //            Route::get('/create', 'Marketing\FormSalesOrderController@create')->name('create');
-            //            Route::get('/{id}/edit', 'Marketing\FormSalesOrderController@edit')->name('edit');
-            //            Route::get('/{id}/print', 'Marketing\FormSalesOrderController@print')->name('print');
-            //            Route::get('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint')->name('multiplePrint');
-            //            Route::post('/store', 'Marketing\FormSalesOrderController@store')->name('store');
-            //            Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile')->name('download');
-            //            Route::post('/{id}/print', 'Marketing\FormSalesOrderController@print');
-            //            Route::post('/multiplePrint', 'Marketing\FormSalesOrderController@multiplePrint');
         });
+
     });
 
     /*
@@ -88,15 +80,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      * Route Menu Warehouse
      */
     Route::name('warehouse.')->prefix('warehouse')->middleware('auth')->group(function () {
+
         Route::name('delivery_order.')->prefix('delivery_order')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
-//            Route::get('/', 'Warehouse\FormDeliveryOrderController@index')->name('index');
-//            Route::get('/create', 'Warehouse\FormDeliveryOrderController@create')->name('create');
-//            Route::post('/store', 'Warehouse\FormDeliveryOrderController@store')->name('store');
-//            Route::get('/{id}/show', 'Warehouse\FormDeliveryOrderController@show')->name('show');
-//            Route::get('/{id}/print', 'Warehouse\FormDeliveryOrderController@print')->name('print');
-//            Route::get('/multiplePrint', 'Warehouse\FormDeliveryOrderController@multiplePrint')->name('multiplePrint');
         });
 
         Route::name('confirm_delivery_order.')->prefix('confirm_delivery_order')->group(function () {
@@ -116,19 +103,12 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      * Route Menu Finance
      */
     Route::name('finance.')->prefix('finance')->middleware('auth')->group(function () {
+
         Route::name('invoice_order.')->prefix('invoice_order')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
-            //            Route::get('/', 'Finance\FormInvoiceOrderController@index')->name('index');
-            //            Route::get('/create', 'Finance\FormInvoiceOrderController@create')->name('create');
-            //            Route::get('/view', 'Finance\FormInvoiceOrderController@show')->name('show');
-            //            Route::post('/store', 'Finance\FormInvoiceOrderController@store')->name('store');
-            //            Route::get('/{id}/print', 'Finance\FormInvoiceOrderController@print')->name('print');
-            //            Route::post('/{id}/print', 'Finance\FormInvoiceOrderController@print');
-            //            Route::get('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint')->name('multiplePrint');
-            //            Route::post('/multiplePrint', 'Finance\FormInvoiceOrderController@multiplePrint');
-            //            Route::get('/printRecap', 'Finance\FormInvoiceOrderController@printRecap')->name('printRecap');
         });
+
         Route::name('recap_invoice.')->prefix('recap_invoice')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
@@ -264,12 +244,8 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     });
 });
 
-Route::get('/invoice', function () {
-    return InvoiceOrder::all();
-});
 Route::middleware('auth')->get('logout', function () {
     Auth::logout();
-
     return redirect(route('login'))->withInfo('You have successfully logged out!');
 })->name('logout');
 
@@ -278,7 +254,6 @@ Auth::routes(['verify' => true]);
 Route::name('js.')->group(function () {
     Route::get('dynamic.js', 'JsController@dynamic')->name('dynamic');
 });
-
 // Get authenticated user
 Route::get('users/auth', function () {
     return response()->json(['user' => Auth::check() ? Auth::user() : false]);
@@ -385,5 +360,5 @@ Route::get('/testing/delete', function () {
 })->name('testing.delete');
 
 Route::get('roles', function () {
-    return $user = auth()->user()->getRoleNames();
+    return auth()->user()->getRoleNames();
 });
