@@ -240,7 +240,6 @@
             getDataCustomer() {
                 axios.get(this.$parent.MakeUrl("api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id))
                     .then(res => {
-                        console.log(res);
                         this.sales_order = res.data;
                         this.sales_order_details = res.data.sales_order_details;
                         this.delivery_order.customer_name = this.sales_order.customer_name;

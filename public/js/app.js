@@ -6077,7 +6077,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       axios.get(this.$parent.MakeUrl("api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id)).then(function (res) {
-        console.log(res);
         _this.sales_order = res.data;
         _this.sales_order_details = res.data.sales_order_details;
         _this.delivery_order.customer_name = _this.sales_order.customer_name;
