@@ -77,10 +77,10 @@ class FormSalesOrderAPIController extends Controller
         $rules = [
             'fulfillmentDate' => 'required',
             'customerId' => 'required|not_in:0',
-            'sourceOrderId' => 'required',
+            'sourceOrderId' => 'required|not_in:0',
 //            'file' => 'file64:jpeg,jpg,png,pdf',
             'items' => 'required',
-            'driver_id' => 'required',
+            'driver_id' => 'required|not_in:0',
             'items.*.qty' => 'required|not_in:0',
         ];
         $request->validate(array_merge($validation_po, $rules));

@@ -130,71 +130,49 @@
                         <h5>No Results</h5>
                         <p>Looks like you have not added any users yet!</p>
                     </div>
+                    <stisla-pagination :offset="5" :pagination="pagination" @paginate="getData"></stisla-pagination>
                 </div>
-                <div class="text-center p-4 text-muted" v-else>
-                    <h5>Loading</h5>
-                    <p class="beep-sidebar">Please wait, data is being loaded...</p>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
+                <loading-table v-else></loading-table>
             </div>
 
-            <nav class="row" v-if="pagination">
-                <div class="col-md-6 text-left">
-            <span>
-                &nbsp;Showing&nbsp;
-                {{ pagination.from }}
-                &nbsp;to&nbsp;
-                {{pagination.to}}
-                &nbsp;of&nbsp;
-                {{pagination.total}}
-                &nbsp;entries&nbsp;
-            </span>
-                </div>
-                <div class="col-md-6 text-right">
-                    <button
-                        v-if="pagination.prev"
-                        :class="buttonClasses"
-                        @click="changePage(pagination.current_page - 1)">
-                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                        &nbsp;Prev
-                    </button>
-                    <button
-                        v-if="pagination.next"
-                        :class="buttonClasses"
-                        @click="changePage(pagination.current_page + 1)">
-                        Next&nbsp;
-                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </nav>
+            <!--            <nav class="row" v-if="pagination">-->
+            <!--                <div class="col-md-6 text-left">-->
+            <!--            <span>-->
+            <!--                &nbsp;Showing&nbsp;-->
+            <!--                {{ pagination.from }}-->
+            <!--                &nbsp;to&nbsp;-->
+            <!--                {{pagination.to}}-->
+            <!--                &nbsp;of&nbsp;-->
+            <!--                {{pagination.total}}-->
+            <!--                &nbsp;entries&nbsp;-->
+            <!--            </span>-->
+            <!--                </div>-->
+            <!--                <div class="col-md-6 text-right">-->
+            <!--                    <button-->
+            <!--                        v-if="pagination.prev"-->
+            <!--                        :class="buttonClasses"-->
+            <!--                        @click="changePage(pagination.current_page - 1)">-->
+            <!--                        <i class="fa fa-chevron-left" aria-hidden="true"></i>-->
+            <!--                        &nbsp;Prev-->
+            <!--                    </button>-->
+            <!--                    <button-->
+            <!--                        v-if="pagination.next"-->
+            <!--                        :class="buttonClasses"-->
+            <!--                        @click="changePage(pagination.current_page + 1)">-->
+            <!--                        Next&nbsp;-->
+            <!--                        <i class="fa fa-chevron-right" aria-hidden="true"></i>-->
+            <!--                    </button>-->
+            <!--                </div>-->
+            <!--            </nav>-->
         </div>
     </div>
 </template>
 <script>
+    import LoadingTable from "./partials/LoadingTable";
+    import StislaPagination from "./partials/StislaPagination";
+
     export default {
+        components: {LoadingTable, StislaPagination},
         props: ['columns', 'config'],
         data() {
             return {
@@ -205,16 +183,10 @@
                 data: [],
                 loading: false,
                 pagination: {
-                    current_page: 1,
-                    first: null,
-                    prev: null,
-                    next: null,
-                    last_page: null,
-                    total: 0,
+                    current_page: 1
                 },
                 params: {
                     query: null,
-                    page: 1,
                     start: null,
                     end: null,
                     perPage: 5,
@@ -237,9 +209,17 @@
                 }
             },
             async getData() {
-                await axios.get(this.config.base_url, {params: this.params}).then(res => {
+                axios.get(this.config.base_url, {
+                    params: {
+                        query: this.params.query,
+                        start: this.params.start,
+                        end: this.params.end,
+                        perPage: this.params.perPage,
+                        page: this.pagination.current_page
+                    }
+                }).then(res => {
+                    console.log(res);
                     this.data = res.data.data;
-
                     this.pagination = {
                         first: res.data.links.first,
                         last: res.data.links.last,
@@ -253,6 +233,7 @@
                         path: res.data.meta.path,
 
                     };
+
                     this.loading = true;
 
                 }).catch(e => {
@@ -309,18 +290,6 @@
                 } catch (e) {
                     console.log(e.response);
                 }
-                // var uri = 'data:application/vnd.ms-excel;base64,',
-                //     template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-                //     , base64 = function (s) {
-                //         return window.btoa(unescape(encodeURIComponent(s)));
-                //     }, format = function (s, c) {
-                //         return s.replace(/{(\w+)}/g, function (m, p) {
-                //             return c[p];
-                //         });
-                //     };
-                // if (!table.nodeType) table = document.getElementById(table);
-                // var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML};
-                // window.location.href = uri + base64(format(template, ctx));
             }
         },
         computed: {
