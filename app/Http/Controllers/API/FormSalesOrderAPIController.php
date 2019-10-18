@@ -280,6 +280,7 @@ class FormSalesOrderAPIController extends Controller
     }
 
     /**
+     *
      * Generate Sales Order No.
      *
      * @return string
@@ -322,6 +323,11 @@ class FormSalesOrderAPIController extends Controller
     {
         return Storage::download('public/files/' . $file);
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
 
     public function print(Request $request)
     {

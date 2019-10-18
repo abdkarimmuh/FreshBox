@@ -148,9 +148,10 @@
                         this.loading = true;
                     })
                     .catch(err => {
-                        if (err.response.status == 500) {
+                        if (err.response.status === 500) {
                             this.getData();
                         }
+                        console.error(e.response.data);
                     })
             },
             print() {

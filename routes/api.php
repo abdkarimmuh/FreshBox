@@ -67,8 +67,8 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/print', 'API\FormSalesOrderAPIController@print');
             Route::delete('detail/{id}', 'API\FormSalesOrderAPIController@deleteOrderDetails');
             Route::patch('/update', 'API\FormSalesOrderAPIController@updateSalesOrderDetails');
-            Route::get('/download/{file}', 'Marketing\FormSalesOrderController@DownloadFile');
 
+            Route::get('/download/{file}', 'API\FormSalesOrderAPIController@DownloadFile');
             Route::get('sales_order_details/{id}', 'Marketing\FormSalesOrderController@getSalesOrderDetails');
         });
     });
@@ -78,9 +78,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'warehouse/'], function () {
         Route::group(['prefix' => 'delivery_order'], function () {
             Route::get('/', 'API\DeliveryOrderAPIController@index');
+            Route::post('/', 'API\DeliveryOrderAPIController@store');
             Route::get('/create', 'API\DeliveryOrderAPIController@create');
             Route::get('/show', 'API\DeliveryOrderAPIController@show');
-            Route::post('/', 'Warehouse\FormDeliveryOrderController@store');
         });
     });
 

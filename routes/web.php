@@ -12,7 +12,6 @@ Route::get('home', function () {
 });
 
 Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
-    //    Route::get('/{any}', 'DashboardController')->where('any', '.*');
     Route::get('dashboard', 'DashboardController')->name('dashboard');
     Route::get('passport', 'DashboardController@passport')->name('passport');
 
