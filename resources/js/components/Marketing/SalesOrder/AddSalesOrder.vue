@@ -332,37 +332,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-12" v-else>
-            <div class="card col-12">
-                <div class="text-center p-4 text-muted">
-                    <h5>Loading</h5>
-                    <p class="beep-sidebar">Please wait, data is being loaded...</p>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
-            </div>
+        <div class="card col-12" v-else>
+        <loading-table></loading-table>
         </div>
     </div>
 </template>
@@ -371,6 +342,7 @@
     import {
         ModelListSelect
     } from "vue-search-select";
+    import LoadingTable from "../../Template/Table/partials/LoadingTable";
 
     export default {
         data() {
@@ -566,6 +538,7 @@
             }
         },
         components: {
+            LoadingTable,
             ModelListSelect
         },
         // watch: {
