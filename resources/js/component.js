@@ -9,7 +9,7 @@ import AdduserComponent from './components/AdduserComponent';
 import ConfirmDeliveryOrder from './components/Warehouse/ConfirmDeliveryOrder';
 import StislaFromInput from './components/Template/Etc/s-form-input';
 
-import Table from "./components/Template/Table";
+import Table from "./components/Template/Table/Table";
 import Testing from "./components/Testing";
 import ErrorPage from "./components/Template/ErrorPage";
 import ConfirmButton from "./components/Template/ConfirmButton";
