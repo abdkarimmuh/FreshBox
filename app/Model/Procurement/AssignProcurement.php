@@ -19,7 +19,7 @@ class AssignProcurement extends MyModel
         'updated_by_name',
         'proc_name',
         'item_name',
-        'uom',
+        'uom_name',
     ];
 
     protected $columns = [
@@ -41,11 +41,11 @@ class AssignProcurement extends MyModel
             'searchable' => true,
             'search_relation' => false,
         ],
-        'uom' => [
+        'uom_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'Uom',
-            'relation_field' => 'uom',
+            'relation_field' => 'uom_name',
         ],
         'proc_name' => [
             'searchable' => true,
@@ -95,7 +95,7 @@ class AssignProcurement extends MyModel
 
     public function Item()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Item::class, 'skuid', 'skuid');
     }
 
     public function getItemNameAttribute()
@@ -112,7 +112,7 @@ class AssignProcurement extends MyModel
         return $this->belongsTo(Uom::class);
     }
 
-    public function getUomAttribute()
+    public function getUomNameAttribute()
     {
         if (isset($this->Uom->name)) {
             return $this->Uom->name;

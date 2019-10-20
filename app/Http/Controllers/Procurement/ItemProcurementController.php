@@ -25,7 +25,6 @@ class ItemProcurementController extends Controller
             array('title' => 'UOM', 'field' => 'uom_name'),
             array('title' => 'Area', 'field' => 'origin_code'),
             array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
-            array('title' => 'Usser Assign', 'field' => 'proc_name'),
         ];
 
         $config = [

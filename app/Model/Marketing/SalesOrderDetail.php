@@ -4,7 +4,6 @@ namespace App\Model\Marketing;
 
 use App\Model\MasterData\Item;
 use App\Model\MasterData\Uom;
-use App\Model\Procurement\AssignProcurement;
 use App\MyModel;
 use App\Traits\SalesOrderDetailTrait;
 use App\Traits\SearchTraits;
@@ -15,7 +14,7 @@ class SalesOrderDetail extends MyModel
     use SalesOrderDetailTrait;
 
     protected $table = 'trx_sales_order_detail';
-    protected $appends = ['item_name', 'uom_name', 'origin_code', 'sales_order_no', 'po_no', 'so_date', 'category_name', 'delivery_order_no', 'assign_qty', 'proc_name'];
+    protected $appends = ['item_name', 'uom_name', 'origin_code', 'sales_order_no', 'po_no', 'so_date', 'category_name', 'delivery_order_no', 'assign_qty', 'no_po'];
     protected $fillable = [
         'sales_order_id',
         'qty',
@@ -28,7 +27,7 @@ class SalesOrderDetail extends MyModel
         'created_by',
     ];
 
-    public function item()
+    public function Item()
     {
         return $this->belongsTo(Item::class, 'skuid', 'skuid');
     }
@@ -38,23 +37,9 @@ class SalesOrderDetail extends MyModel
         return $this->belongsTo(SalesOrder::class);
     }
 
-    public function uom()
+    public function Uom()
     {
         return $this->belongsTo(Uom::class, 'uom_id', 'id');
-    }
-
-    public function AssignProcurement()
-    {
-        return $this->belongsTo(AssignProcurement::class, 'id', 'sales_order_detail_id');
-    }
-
-    public function getProcNameAttribute()
-    {
-        if (isset($this->AssignProcurement->proc_name)) {
-            return $this->AssignProcurement->proc_name;
-        } else {
-            return 'Belum di Assign';
-        }
     }
 
     public function getAssignQtyAttribute()
@@ -64,22 +49,22 @@ class SalesOrderDetail extends MyModel
 
     public function getItemNameAttribute()
     {
-        if (isset($this->item->name_item)) {
-            return $this->item->name_item;
+        if (isset($this->Item->name_item)) {
+            return $this->Item->name_item;
         }
     }
 
     public function getUomNameAttribute()
     {
-        if (isset($this->uom->name)) {
-            return $this->uom->name;
+        if (isset($this->Uom->name)) {
+            return $this->Uom->name;
         }
     }
 
     public function getOriginCodeAttribute()
     {
-        if (isset($this->item->origin_code)) {
-            return $this->item->origin_code;
+        if (isset($this->Item->origin_code)) {
+            return $this->Item->origin_code;
         }
     }
 
@@ -117,5 +102,10 @@ class SalesOrderDetail extends MyModel
     public function getDeliveryOrderNoAttribute()
     {
         return $this->SalesOrder->DeliveryOrder->delivery_order_no ?? null;
+    }
+
+    public function getNoPoAttribute()
+    {
+        return $this->SalesOrder->no_po;
     }
 }

@@ -110,10 +110,6 @@
                         title: "Delivery Order Date",
                         field: "do_date",
                     },
-                    // {
-                    //     title: "Delivery Order No",
-                    //     field: "delivery_order_no",
-                    // },
                     {
                         page_break: true,
                     },
@@ -148,16 +144,17 @@
                         this.loading = true;
                     })
                     .catch(err => {
-                        if (err.response.status == 500) {
+                        if (err.response.status === 500) {
                             this.getData();
                         }
+                        console.error(e.response.data);
                     })
             },
             print() {
                 this.$htmlToPaper('printMe');
             },
             back() {
-                return window.location.href = this.$parent.MakeUrl('admin/warehouse/delivery_order');
+                return this.$router.push({name: 'delivery_order.index'});
             }
         }
     }

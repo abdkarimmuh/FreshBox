@@ -21,7 +21,6 @@ class CreateTrxAssignProcurement extends Migration
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
 
-            $table->foreign('skuid')->on('master_item')->references('id')->onDelete('cascade');
             $table->foreign('user_proc_id')->on('user_proc')->references('id')->onDelete('cascade');
             $table->foreign('uom_id')->on('master_uom')->references('id')->onDelete('cascade');
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');

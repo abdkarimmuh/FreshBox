@@ -17,11 +17,12 @@ class AssignProcurementResource extends JsonResource
     {
         return[
             'id' => $this->id,
-            'sales_order_detail_id' => $this->sales_order_detail_id,
+            'skuid' => $this->skuid,
             'user_proc_id' => $this->user_proc_id,
             'name' => $this->item_name,
             'qty' => intval($this->qty),
-            'uom' => $this->uom,
+            'uom_id' => $this->uom_id,
+            'uom' => $this->uom_name,
         ];
     }
 }
