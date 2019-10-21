@@ -237,14 +237,15 @@ class ProcurementAPIController extends Controller
     public function storeUserProc(Request $request)
     {
         $rules = [
+            'name' => 'required',
             'bank' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
             'category' => 'required',
             'origin' => 'required',
             'bank_account' => 'required',
-
         ];
+        $request->validate($rules);
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
@@ -260,6 +261,39 @@ class ProcurementAPIController extends Controller
         if ($role) {
             $user->assignRole($role);
         }
+        return response()->json($procurement);
+    }
+
+    public function updateUserProc($id, Request $request)
+    {
+        $rules = [
+            'name' => 'required',
+            'bank' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required',
+            'category' => 'required',
+            'origin' => 'required',
+            'bank_account' => 'required',
+        ];
+        $request->validate($rules);
+
+        $userProc = UserProc::findOrFail($id);
+        $users = User::findOrFail($userProc->user_id);
+
+
+        $input = $request->all();
+        if ($request->password) {
+            $input['password'] = bcrypt($input['password']);
+        }
+        $user = $users->update($input);
+        $procurement = $userProc->update([
+            'bank_account' => $request->bank_account,
+            'bank_id' => $request->bank,
+            'origin_id' => $request->origin,
+            'category_id' => $request->category,
+            'created_by' => auth('api')->user()->id
+        ]);
+
         return response()->json($procurement);
     }
 }
