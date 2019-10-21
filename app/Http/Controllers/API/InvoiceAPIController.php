@@ -50,7 +50,7 @@ class InvoiceAPIController extends Controller
     {
         $rules = [
             'invoice_date' => 'required',
-            'do_id' => 'required',
+            'do_id' => 'required|unique:trx_invoice',
             'customer_id' => 'required'
         ];
 

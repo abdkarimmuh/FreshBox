@@ -40,7 +40,7 @@ class SalesOrderResource extends JsonResource
             'source_order_id' => $this->source_order_id,
             'status_name' => $this->status_name,
             'sales_order_details' => SalesOrderDetailResource::collection($this->sales_order_details),
-            'total_price' => number_format($total_price, 2),
+            'total_price' => format_price($total_price),
             'updated_by_name' => $this->updated_by_name,
             'created_by_name' => $this->created_by_name,
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),

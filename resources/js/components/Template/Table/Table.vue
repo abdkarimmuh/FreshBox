@@ -130,40 +130,40 @@
                         <h5>No Results</h5>
                         <p>Looks like you have not added any users yet!</p>
                     </div>
-                    <stisla-pagination :offset="5" :pagination="pagination" @paginate="getData"></stisla-pagination>
+                    <!--                    <stisla-pagination :offset="5" :pagination="pagination" @paginate="getData"></stisla-pagination>-->
                 </div>
                 <loading-table v-else></loading-table>
             </div>
 
-            <!--            <nav class="row" v-if="pagination">-->
-            <!--                <div class="col-md-6 text-left">-->
-            <!--            <span>-->
-            <!--                &nbsp;Showing&nbsp;-->
-            <!--                {{ pagination.from }}-->
-            <!--                &nbsp;to&nbsp;-->
-            <!--                {{pagination.to}}-->
-            <!--                &nbsp;of&nbsp;-->
-            <!--                {{pagination.total}}-->
-            <!--                &nbsp;entries&nbsp;-->
-            <!--            </span>-->
-            <!--                </div>-->
-            <!--                <div class="col-md-6 text-right">-->
-            <!--                    <button-->
-            <!--                        v-if="pagination.prev"-->
-            <!--                        :class="buttonClasses"-->
-            <!--                        @click="changePage(pagination.current_page - 1)">-->
-            <!--                        <i class="fa fa-chevron-left" aria-hidden="true"></i>-->
-            <!--                        &nbsp;Prev-->
-            <!--                    </button>-->
-            <!--                    <button-->
-            <!--                        v-if="pagination.next"-->
-            <!--                        :class="buttonClasses"-->
-            <!--                        @click="changePage(pagination.current_page + 1)">-->
-            <!--                        Next&nbsp;-->
-            <!--                        <i class="fa fa-chevron-right" aria-hidden="true"></i>-->
-            <!--                    </button>-->
-            <!--                </div>-->
-            <!--            </nav>-->
+            <nav class="row" v-if="pagination">
+                <div class="col-md-6 text-left">
+                        <span>
+                            &nbsp;Showing&nbsp;
+                            {{ pagination.from }}
+                            &nbsp;to&nbsp;
+                            {{pagination.to}}
+                            &nbsp;of&nbsp;
+                            {{pagination.total}}
+                            &nbsp;entries&nbsp;
+                        </span>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button
+                        v-if="pagination.prev"
+                        :class="buttonClasses"
+                        @click="changePage(pagination.current_page - 1)">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                        &nbsp;Prev
+                    </button>
+                    <button
+                        v-if="pagination.next"
+                        :class="buttonClasses"
+                        @click="changePage(pagination.current_page + 1)">
+                        Next&nbsp;
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </nav>
         </div>
     </div>
 </template>
@@ -188,6 +188,7 @@
                 params: {
                     query: null,
                     start: null,
+                    page: 1,
                     end: null,
                     perPage: 5,
                 },
@@ -210,13 +211,14 @@
             },
             async getData() {
                 axios.get(this.config.base_url, {
-                    params: {
-                        query: this.params.query,
-                        start: this.params.start,
-                        end: this.params.end,
-                        perPage: this.params.perPage,
-                        page: this.pagination.current_page
-                    }
+                    params: this.params
+                    // params: {
+                    //     query: this.params.query,
+                    //     start: this.params.start,
+                    //     end: this.params.end,
+                    //     perPage: this.params.perPage,
+                    //     page: this.pagination.current_page
+                    // }
                 }).then(res => {
                     console.log(res);
                     this.data = res.data.data;

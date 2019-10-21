@@ -52,7 +52,7 @@ const app = new Vue({
         price: function (value) {
             if (!value) return '';
             return value.toLocaleString("id-ID", {
-                minimumFractionDigits: 2
+                minimumFractionDigits: 0
             });
         },
     }

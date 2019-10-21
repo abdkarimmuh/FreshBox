@@ -194,7 +194,6 @@ class CustomerController extends Controller
             'tlp_pic' => 'required',
             'province' => 'required',
             'residence' => 'required',
-            'address' => 'required',
         ]);
 
         DB::select('call update_customer(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', array($request->id ,$request->customer_code, $request->customerType, $request->customerGroup, $request->name, $request->pic_customer, $request->tlp_pic, $request->address, $request->province, $request->residence, $request->kodepos, null, null, auth()->user()->id));

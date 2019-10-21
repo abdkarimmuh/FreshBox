@@ -13,7 +13,7 @@
                 config: {
                     title: 'Report SO',
                     base_url: '',
-                    daterange:true,
+                    daterange: true,
                     export_excel: true,
                     action: false,
 
@@ -57,6 +57,11 @@
                     {
                         title: 'Kg',
                         field: 'uom_name',
+                        filterable: true,
+                    },
+                    {
+                        title: 'Price / each',
+                        field: 'item_price',
                         filterable: true,
                     },
                     {

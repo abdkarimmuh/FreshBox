@@ -19,15 +19,6 @@
                     route_view: 'delivery_order.print',
                     route_multiple_print: 'delivery_order.multiplePrint',
                 },
-                      $columns = [
-            array('title' => 'Delivery Order No', 'field' => 'delivery_order_no'),
-            array('title' => 'Customer', 'field' => 'customer_name'),
-            array('title' => 'Do Date', 'field' => 'do_date'),
-            array('title' => 'Remarks', 'field' => 'remarks'),
-            array('title' => 'Driver', 'field' => 'driver_name'),
-            array('title' => 'Created By', 'field' => 'created_by_name'),
-            array('title' => 'Created At', 'field' => 'created_at'),
-        ];
 
                 columns: [
                     {

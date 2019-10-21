@@ -75,7 +75,7 @@
                                 <tr>
                                     <td width="13%"><b>Up</b></td>
                                     <td width="2%">:</td>
-                                    <td width="40%"></td>
+                                    <td width="40%">{{ customer.up }}</td>
                                     <td width="40%"></td>
 
                                 </tr>

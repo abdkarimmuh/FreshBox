@@ -35,16 +35,6 @@
                                     invoice_order.total_price | toIDR }}
                                 </td>
                             </tr>
-                            <tr style="border-bottom: 1px solid black;" width="100%" height="22px">
-                                <td width="56%"></td>
-                                <td class="text-right"></td>
-                                <td class="text-right"></td>
-                            </tr>
-                            <tr style="border-bottom: 2px solid black;" width="100%" height="22px">
-                                <td width="56%"></td>
-                                <td class="text-right"></td>
-                                <td class="text-right"></td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -184,8 +174,8 @@
                     no: "invoice_no",
                     nama_pt: "PT BERKAH TANI SEJAHTERA",
                     nama_ttd: "Faizal Finanda",
-                    no_rek: "008 500 9779",
-                    bank: "BCA Cabang BCBD"
+                    no_rek: "006 500 9779",
+                    bank: "BCA Cabang SCBD"
                 },
                 invoice_order: {},
                 details: [],
@@ -227,17 +217,6 @@
             },
             back() {
                 return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
-            }
-        },
-        computed: {
-            total_price: function () {
-                let total = 0;
-                this.details.forEach(function (item) {
-                    total += (item.total_amount)
-                });
-                return total.toLocaleString("id-ID", {
-                    minimumFractionDigits: 2
-                });
             }
         }
     }

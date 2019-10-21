@@ -1,7 +1,7 @@
 Vue.filter('toIDR', function (value) {
     if (!value) return '';
     return value.toLocaleString("id-ID", {
-        minimumFractionDigits: 2
+        minimumFractionDigits: false
     });
 });
 Vue.filter('toDate', function (value) {

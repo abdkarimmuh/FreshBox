@@ -23,6 +23,7 @@ class ConfirmDeliveryOrderController extends Controller
 
         $columns = [
             array('title' => 'Delivery Order No', 'field' => 'delivery_order_no'),
+            array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
             array('title' => 'Customer', 'field' => 'customer_name'),
             array('title' => 'Do Date', 'field' => 'do_date'),
             array('title' => 'Remarks', 'field' => 'remarks'),
@@ -64,7 +65,7 @@ class ConfirmDeliveryOrderController extends Controller
                     $q->where('status', 4);
                 })->first();
 
-            return  new DeliveryOrderResource($delivery_order);
+            return new DeliveryOrderResource($delivery_order);
         }
         $config = [
             'vue-component' => "<confirm-delivery-order :do_id='" . $id . "'>" . "</confirm-delivery-order>"
@@ -83,7 +84,7 @@ class ConfirmDeliveryOrderController extends Controller
         //List Validasi
         $rules = [
             'confirm_date' => 'required',
-            'do_details.*.qty_confirm' => 'required|not_in:0',
+            'do_details.*.qty_confirm' => 'required',
 
         ];
         //Validasi Inputan

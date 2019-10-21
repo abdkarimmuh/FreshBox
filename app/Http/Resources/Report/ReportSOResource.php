@@ -20,7 +20,7 @@ class ReportSOResource extends JsonResource
             'uom_name' => $this->uom->name,
             'item_name' => $this->item->name_item,
             'po_no' => $this->sales_order_detail->po_no,
-            'amount_price' => $this->sales_order_detail->amount_price,
+            'item_price' => format_price($this->sales_order_detail->amount_price),
             'total_amount' => format_price($this->total_amount_do),
             'category_name' => $this->sales_order_detail->category_name,
             'delivery_order_no' => $this->delivery_order->delivery_order_no,
