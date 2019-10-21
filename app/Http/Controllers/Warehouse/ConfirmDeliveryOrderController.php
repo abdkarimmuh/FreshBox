@@ -84,7 +84,7 @@ class ConfirmDeliveryOrderController extends Controller
         //List Validasi
         $rules = [
             'confirm_date' => 'required',
-            'do_details.*.qty_confirm' => 'required|not_in:0',
+            'do_details.*.qty_confirm' => 'required',
 
         ];
         //Validasi Inputan
