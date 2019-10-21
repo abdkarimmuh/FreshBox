@@ -10,8 +10,7 @@ class ListProcurement extends MyModel
     use SearchTraits;
 
     protected $table = 'trx_list_procurement';
-    protected $fillable = ['procurement_no', 'user_proc_id', 'vendor', 'total_amount', 'payment', 'file', 'status', 'created_by', 'created_at'];
-
+    protected $fillable = ['procurement_no', 'user_proc_id', 'vendor', 'total_amount', 'payment', 'file', 'status', 'remarks', 'created_by', 'created_at'];
     protected $appends = [
         'created_by_name',
         'updated_by_name',

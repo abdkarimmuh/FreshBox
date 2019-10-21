@@ -12,7 +12,7 @@ class AssignProcurement extends MyModel
     use SearchTraits;
 
     protected $table = 'trx_assign_procurement';
-    protected $fillable = ['skuid', 'user_proc_id', 'created_by'];
+    protected $fillable = ['skuid', 'status', 'user_proc_id', 'created_by'];
 
     protected $appends = [
         'created_by_name',

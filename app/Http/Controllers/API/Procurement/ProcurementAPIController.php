@@ -63,6 +63,7 @@ class ProcurementAPIController extends Controller
         $vendor = $request->vendor;
         $total_amount = $request->total_amount;
         $payment = $request->payment;
+        $remarks = $request->remarks;
         $items = $request->items;
 
         if ($request->file) {
@@ -83,6 +84,7 @@ class ProcurementAPIController extends Controller
             'payment' => $payment,
             'file' => $file_name,
             'status' => 1,
+            'remarks' => $remarks,
             'created_by' => $user_proc_id,
             'created_at' => Carbon::now(),
         ]);
@@ -97,14 +99,16 @@ class ProcurementAPIController extends Controller
                 'created_by' => $user_proc_id,
                 'created_at' => Carbon::now(),
             ];
+
+            $assignProcurement = AssignProcurement::find($item['assign_proc_id']);
+            $assignProcurement->status = 2;
+            $assignProcurement->save();
         }
 
         ListProcurementDetail::insert($listProcDetails);
 
         return response()->json([
             'status' => 'success',
-            'data' => $procurement,
-            'detail' => $listProcDetails,
         ]);
     }
 
