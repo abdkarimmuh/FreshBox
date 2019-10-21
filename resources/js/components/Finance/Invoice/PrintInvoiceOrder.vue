@@ -35,16 +35,6 @@
                                     invoice_order.total_price | toIDR }}
                                 </td>
                             </tr>
-                            <tr style="border-bottom: 1px solid black;" width="100%" height="22px">
-                                <td width="56%"></td>
-                                <td class="text-right"></td>
-                                <td class="text-right"></td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid black;" width="100%" height="22px">
-                                <td width="56%"></td>
-                                <td class="text-right"></td>
-                                <td class="text-right"></td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -185,7 +175,7 @@
                     nama_pt: "PT BERKAH TANI SEJAHTERA",
                     nama_ttd: "Faizal Finanda",
                     no_rek: "006 500 9779",
-                    bank: "BCA Cabang BCBD"
+                    bank: "BCA Cabang SCBD"
                 },
                 invoice_order: {},
                 details: [],

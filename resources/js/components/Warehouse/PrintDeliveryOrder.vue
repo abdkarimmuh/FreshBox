@@ -18,12 +18,6 @@
                             <tr>
                                 <td width="100%" style="border-bottom: 1px solid black"></td>
                             </tr>
-                            <tr>
-                                <td height="22px" width="100%" style="border-bottom: 1px solid"></td>
-                            </tr>
-                            <tr>
-                                <td height="22px" width="100%" style="border-bottom: 1px solid"></td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>

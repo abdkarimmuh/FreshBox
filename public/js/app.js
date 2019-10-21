@@ -2400,16 +2400,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2418,8 +2408,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         no: "invoice_no",
         nama_pt: "PT BERKAH TANI SEJAHTERA",
         nama_ttd: "Faizal Finanda",
-        no_rek: "008 500 9779",
-        bank: "BCA Cabang BCBD"
+        no_rek: "006 500 9779",
+        bank: "BCA Cabang SCBD"
       },
       columns: [{
         title: 'Item No',
@@ -2659,16 +2649,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2721,7 +2701,7 @@ __webpack_require__.r(__webpack_exports__);
         nama_pt: "PT BERKAH TANI SEJAHTERA",
         nama_ttd: "Faizal Finanda",
         no_rek: "006 500 9779",
-        bank: "BCA Cabang BCBD"
+        bank: "BCA Cabang SCBD"
       },
       invoice_order: {},
       details: [],
@@ -4274,16 +4254,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4398,16 +4368,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -6710,12 +6670,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
@@ -6811,12 +6765,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -50371,11 +50319,7 @@ var render = function() {
                                     )
                                   ])
                                 ]
-                              ),
-                              _vm._v(" "),
-                              _vm._m(2, true),
-                              _vm._v(" "),
-                              _vm._m(3, true)
+                              )
                             ])
                           ]
                         )
@@ -50406,10 +50350,10 @@ var render = function() {
                       _c("div", { staticClass: "col-md-12" }, [
                         _c("table", { attrs: { width: "60%" } }, [
                           _c("tbody", [
-                            _vm._m(4, true),
+                            _vm._m(2, true),
                             _vm._v(" "),
                             _c("tr", [
-                              _vm._m(5, true),
+                              _vm._m(3, true),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "2%" } }, [
                                 _vm._v(" :")
@@ -50421,7 +50365,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("tr", [
-                              _vm._m(6, true),
+                              _vm._m(4, true),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "2%" } }, [
                                 _vm._v(" :")
@@ -50433,7 +50377,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("tr", [
-                              _vm._m(7, true),
+                              _vm._m(5, true),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "2%" } }, [
                                 _vm._v(" :")
@@ -50444,9 +50388,9 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _vm._m(8, true),
+                            _vm._m(6, true),
                             _vm._v(" "),
-                            _vm._m(9, true)
+                            _vm._m(7, true)
                           ])
                         ])
                       ])
@@ -50511,44 +50455,6 @@ var staticRenderFns = [
         staticStyle: { "border-bottom": "1px solid black" }
       })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "tr",
-      {
-        staticStyle: { "border-bottom": "1px solid black" },
-        attrs: { width: "100%", height: "22px" }
-      },
-      [
-        _c("td", { attrs: { width: "56%" } }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" })
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "tr",
-      {
-        staticStyle: { "border-bottom": "1px solid black" },
-        attrs: { width: "100%", height: "22px" }
-      },
-      [
-        _c("td", { attrs: { width: "56%" } }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" })
-      ]
-    )
   },
   function() {
     var _vm = this
@@ -50730,11 +50636,7 @@ var render = function() {
                                 )
                               ])
                             ]
-                          ),
-                          _vm._v(" "),
-                          _vm._m(2),
-                          _vm._v(" "),
-                          _vm._m(3)
+                          )
                         ])
                       ]
                     )
@@ -50763,10 +50665,10 @@ var render = function() {
                   _c("div", { staticClass: "col-md-12" }, [
                     _c("table", { attrs: { width: "60%" } }, [
                       _c("tbody", [
-                        _vm._m(4),
+                        _vm._m(2),
                         _vm._v(" "),
                         _c("tr", [
-                          _vm._m(5),
+                          _vm._m(3),
                           _vm._v(" "),
                           _c("td", { attrs: { width: "2%" } }, [_vm._v(" :")]),
                           _vm._v(" "),
@@ -50776,7 +50678,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("tr", [
-                          _vm._m(6),
+                          _vm._m(4),
                           _vm._v(" "),
                           _c("td", { attrs: { width: "2%" } }, [_vm._v(" :")]),
                           _vm._v(" "),
@@ -50786,7 +50688,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("tr", [
-                          _vm._m(7),
+                          _vm._m(5),
                           _vm._v(" "),
                           _c("td", { attrs: { width: "2%" } }, [_vm._v(" :")]),
                           _vm._v(" "),
@@ -50795,9 +50697,9 @@ var render = function() {
                           ])
                         ]),
                         _vm._v(" "),
-                        _vm._m(8),
+                        _vm._m(6),
                         _vm._v(" "),
-                        _vm._m(9)
+                        _vm._m(7)
                       ])
                     ])
                   ])
@@ -50883,44 +50785,6 @@ var staticRenderFns = [
         staticStyle: { "border-bottom": "1px solid black" }
       })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "tr",
-      {
-        staticStyle: { "border-bottom": "1px solid black" },
-        attrs: { width: "100%", height: "22px" }
-      },
-      [
-        _c("td", { attrs: { width: "56%" } }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" })
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "tr",
-      {
-        staticStyle: { "border-bottom": "1px solid black" },
-        attrs: { width: "100%", height: "22px" }
-      },
-      [
-        _c("td", { attrs: { width: "56%" } }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" })
-      ]
-    )
   },
   function() {
     var _vm = this
@@ -52835,17 +52699,13 @@ var render = function() {
                                     )
                                   ])
                                 ]
-                              ),
-                              _vm._v(" "),
-                              _vm._m(2, true),
-                              _vm._v(" "),
-                              _vm._m(3, true)
+                              )
                             ])
                           ]
                         )
                       ]),
                       _vm._v(" "),
-                      _vm._m(4, true)
+                      _vm._m(2, true)
                     ],
                     1
                   )
@@ -52907,44 +52767,6 @@ var staticRenderFns = [
         staticStyle: { "border-bottom": "1px solid black" }
       })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "tr",
-      {
-        staticStyle: { "border-bottom": "1px solid" },
-        attrs: { width: "100%", height: "22px" }
-      },
-      [
-        _c("td", { attrs: { width: "56%" } }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" })
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "tr",
-      {
-        staticStyle: { "border-bottom": "1px solid" },
-        attrs: { width: "100%", height: "22px" }
-      },
-      [
-        _c("td", { attrs: { width: "56%" } }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" })
-      ]
-    )
   },
   function() {
     var _vm = this
@@ -53093,17 +52915,13 @@ var render = function() {
                                   )
                                 ])
                               ]
-                            ),
-                            _vm._v(" "),
-                            _vm._m(2),
-                            _vm._v(" "),
-                            _vm._m(3)
+                            )
                           ])
                         ]
                       )
                     ]),
                     _vm._v(" "),
-                    _vm._m(4)
+                    _vm._m(2)
                   ],
                   1
                 )
@@ -53187,44 +53005,6 @@ var staticRenderFns = [
         staticStyle: { "border-bottom": "1px solid black" }
       })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "tr",
-      {
-        staticStyle: { "border-bottom": "1px solid" },
-        attrs: { width: "100%", height: "22px" }
-      },
-      [
-        _c("td", { attrs: { width: "56%" } }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" })
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "tr",
-      {
-        staticStyle: { "border-bottom": "1px solid" },
-        attrs: { width: "100%", height: "22px" }
-      },
-      [
-        _c("td", { attrs: { width: "56%" } }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" }),
-        _vm._v(" "),
-        _c("td", { staticClass: "text-right" })
-      ]
-    )
   },
   function() {
     var _vm = this
@@ -53956,9 +53736,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "text-right" }, [
         _c("img", {
           attrs: {
-            src: "http://freshbox.tetambastudio.com/assets/img/logo-frbox.png",
-            width: "20%",
-            height: "20%"
+            src: "http://freshbox.tetambastudio.com/assets/img/logo-frbox.png"
           }
         })
       ])
@@ -56204,20 +55982,6 @@ var staticRenderFns = [
                 staticStyle: { "border-bottom": "1px solid black" },
                 attrs: { width: "100%" }
               })
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", {
-                staticStyle: { "border-bottom": "1px solid" },
-                attrs: { height: "22px", width: "100%" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", {
-                staticStyle: { "border-bottom": "1px solid" },
-                attrs: { height: "22px", width: "100%" }
-              })
             ])
           ])
         ]
@@ -56366,20 +56130,6 @@ var staticRenderFns = [
               _c("td", {
                 staticStyle: { "border-bottom": "1px solid black" },
                 attrs: { width: "100%" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", {
-                staticStyle: { "border-bottom": "1px solid" },
-                attrs: { height: "22px", width: "100%" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", {
-                staticStyle: { "border-bottom": "1px solid" },
-                attrs: { height: "22px", width: "100%" }
               })
             ])
           ])

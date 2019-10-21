@@ -47,6 +47,12 @@ class DeliveryOrder extends MyModel
             'relation_name' => 'customer',
             'relation_field' => 'name',
         ],
+        'sales_order_no' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'sales_order',
+            'relation_field' => 'sales_order_no',
+        ],
         'driver_name' => [
             'searchable' => true,
             'search_relation' => true,

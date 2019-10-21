@@ -25,7 +25,7 @@
             </div>
             <div class="col-md-6">
                 <div class="text-right">
-                    <img src="http://freshbox.tetambastudio.com/assets/img/logo-frbox.png" width="20%" height="20%">
+                    <img src="http://freshbox.tetambastudio.com/assets/img/logo-frbox.png">
                 </div>
             </div>
         </div>
