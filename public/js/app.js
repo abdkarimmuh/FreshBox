@@ -2767,17 +2767,6 @@ __webpack_require__.r(__webpack_exports__);
     back: function back() {
       return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
     }
-  },
-  computed: {
-    total_price: function total_price() {
-      var total = 0;
-      this.details.forEach(function (item) {
-        total += item.total_amount;
-      });
-      return total.toLocaleString("id-ID", {
-        minimumFractionDigits: 2
-      });
-    }
   }
 });
 
@@ -4569,7 +4558,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.details = res.data.sales_order_details;
         _this.loading = true;
       })["catch"](function (err) {
-        if (err.response.status == 500) {
+        if (err.response.status === 500) {
           _this.getData();
         }
       });
@@ -4806,6 +4795,10 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Kg',
         field: 'uom_name',
+        filterable: true
+      }, {
+        title: 'Price / each',
+        field: 'item_price',
         filterable: true
       }, {
         title: 'Type Price',
@@ -6788,11 +6781,11 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(this.$parent.MakeUrl('api/v1/warehouse/delivery_order/show'), {
         params: payload
       }).then(function (res) {
-        _this.delivery_order = res.data;
+        _this.delivery_order = res.data.data;
         _this.loading = true;
         console.log(res);
       })["catch"](function (e) {
-        if (e.response.status == 500) {
+        if (e.response.status === 500) {
           _this.getData();
         }
       });
@@ -50545,7 +50538,7 @@ var staticRenderFns = [
     return _c(
       "tr",
       {
-        staticStyle: { "border-bottom": "2px solid black" },
+        staticStyle: { "border-bottom": "1px solid black" },
         attrs: { width: "100%", height: "22px" }
       },
       [
@@ -50917,7 +50910,7 @@ var staticRenderFns = [
     return _c(
       "tr",
       {
-        staticStyle: { "border-bottom": "2px solid black" },
+        staticStyle: { "border-bottom": "1px solid black" },
         attrs: { width: "100%", height: "22px" }
       },
       [
@@ -52920,7 +52913,7 @@ var staticRenderFns = [
     return _c(
       "tr",
       {
-        staticStyle: { "border-bottom": "1px solid black" },
+        staticStyle: { "border-bottom": "1px solid" },
         attrs: { width: "100%", height: "22px" }
       },
       [
@@ -52939,7 +52932,7 @@ var staticRenderFns = [
     return _c(
       "tr",
       {
-        staticStyle: { "border-bottom": "2px solid black" },
+        staticStyle: { "border-bottom": "1px solid" },
         attrs: { width: "100%", height: "22px" }
       },
       [
@@ -53064,11 +53057,9 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    _vm._s(
-                                      _vm._f("toIDR")(
-                                        _vm.sales_order.total_price
-                                      )
-                                    ) + "\n                                "
+                                    "\n                                    " +
+                                      _vm._s(_vm.sales_order.total_price) +
+                                      "\n                                "
                                   )
                                 ]
                               )
@@ -53094,11 +53085,9 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-right" }, [
                                   _vm._v(
-                                    _vm._s(
-                                      _vm._f("toIDR")(
-                                        _vm.sales_order.total_price
-                                      )
-                                    ) + "\n                                "
+                                    "\n                                    " +
+                                      _vm._s(_vm.sales_order.total_price) +
+                                      "\n                                "
                                   )
                                 ])
                               ]
@@ -53204,7 +53193,7 @@ var staticRenderFns = [
     return _c(
       "tr",
       {
-        staticStyle: { "border-bottom": "1px solid black" },
+        staticStyle: { "border-bottom": "1px solid" },
         attrs: { width: "100%", height: "22px" }
       },
       [
@@ -53223,7 +53212,7 @@ var staticRenderFns = [
     return _c(
       "tr",
       {
-        staticStyle: { "border-bottom": "2px solid black" },
+        staticStyle: { "border-bottom": "1px solid" },
         attrs: { width: "100%", height: "22px" }
       },
       [
@@ -53953,7 +53942,7 @@ var render = function() {
       _vm._m(0)
     ]),
     _vm._v(" "),
-    _c("hr")
+    _c("br")
   ])
 }
 var staticRenderFns = [
@@ -53965,7 +53954,9 @@ var staticRenderFns = [
       _c("div", { staticClass: "text-right" }, [
         _c("img", {
           attrs: {
-            src: "http://freshbox.tetambastudio.com/assets/img/logo-frbox.png"
+            src: "http://freshbox.tetambastudio.com/assets/img/logo-frbox.png",
+            width: "20%",
+            height: "20%"
           }
         })
       ])
@@ -56215,14 +56206,14 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("tr", [
               _c("td", {
-                staticStyle: { "border-bottom": "1px solid black" },
+                staticStyle: { "border-bottom": "1px solid" },
                 attrs: { height: "22px", width: "100%" }
               })
             ]),
             _vm._v(" "),
             _c("tr", [
               _c("td", {
-                staticStyle: { "border-bottom": "2px solid black" },
+                staticStyle: { "border-bottom": "1px solid" },
                 attrs: { height: "22px", width: "100%" }
               })
             ])
@@ -56378,14 +56369,14 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("tr", [
               _c("td", {
-                staticStyle: { "border-bottom": "1px solid black" },
+                staticStyle: { "border-bottom": "1px solid" },
                 attrs: { height: "22px", width: "100%" }
               })
             ]),
             _vm._v(" "),
             _c("tr", [
               _c("td", {
-                staticStyle: { "border-bottom": "2px solid black" },
+                staticStyle: { "border-bottom": "1px solid" },
                 attrs: { height: "22px", width: "100%" }
               })
             ])
@@ -78727,7 +78718,7 @@ var app = new Vue({
     price: function price(value) {
       if (!value) return '';
       return value.toLocaleString("id-ID", {
-        minimumFractionDigits: 2
+        minimumFractionDigits: 0
       });
     }
   }
@@ -81211,7 +81202,7 @@ __webpack_require__.r(__webpack_exports__);
 Vue.filter('toIDR', function (value) {
   if (!value) return '';
   return value.toLocaleString("id-ID", {
-    minimumFractionDigits: 2
+    minimumFractionDigits: false
   });
 });
 Vue.filter('toDate', function (value) {

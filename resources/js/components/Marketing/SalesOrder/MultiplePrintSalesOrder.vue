@@ -51,12 +51,12 @@
                                         item.total_price | toIDR }}
                                     </td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid black;" width="100%" height="22px">
+                                <tr style="border-bottom: 1px solid;" width="100%" height="22px">
                                     <td width="56%"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                 </tr>
-                                <tr style="border-bottom: 2px solid black;" width="100%" height="22px">
+                                <tr style="border-bottom: 1px solid;" width="100%" height="22px">
                                     <td width="56%"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>

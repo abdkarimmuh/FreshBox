@@ -20,7 +20,8 @@
         <th><b>Category</b></th>
         <th><b>Item Code</b></th>
         <th><b>Item Name</b></th>
-        <th><b>Unit</b></th>
+        <th><b>Kg</b></th>
+        <th><b>Price / each</b></th>
         <th><b>Quantity 1</b></th>
         <th><b>DO No.</b></th>
         <th><b>DO Date</b></th>

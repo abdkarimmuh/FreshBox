@@ -15,8 +15,8 @@
                                 <tr>
                                     <td width="56%">Keterangan :</td>
                                     <td style="border-bottom: 1px solid black;" class="text-right">Subtotal Rp</td>
-                                    <td style="border-bottom: 1px solid black;" class="text-right">{{
-                                        sales_order.total_price | toIDR }}
+                                    <td style="border-bottom: 1px solid black;" class="text-right">
+                                        {{sales_order.total_price }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -32,16 +32,16 @@
                                 <tr style="border-bottom: 1px solid black;">
                                     <td width="56%"></td>
                                     <td class="text-right">Total Rp</td>
-                                    <td class="text-right">{{
-                                        sales_order.total_price | toIDR }}
+                                    <td class="text-right">
+                                        {{sales_order.total_price }}
                                     </td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid black;" width="100%" height="22px">
+                                <tr style="border-bottom: 1px solid;" width="100%" height="22px">
                                     <td width="56%"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
                                 </tr>
-                                <tr style="border-bottom: 2px solid black;" width="100%" height="22px">
+                                <tr style="border-bottom: 1px solid;" width="100%" height="22px">
                                     <td width="56%"></td>
                                     <td class="text-right"></td>
                                     <td class="text-right"></td>
@@ -173,7 +173,7 @@
                         this.loading = true;
                     })
                     .catch(err => {
-                        if (err.response.status == 500) {
+                        if (err.response.status === 500) {
                             this.getData();
                         }
                     })

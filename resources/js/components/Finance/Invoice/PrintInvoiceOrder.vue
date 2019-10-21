@@ -40,7 +40,7 @@
                                 <td class="text-right"></td>
                                 <td class="text-right"></td>
                             </tr>
-                            <tr style="border-bottom: 2px solid black;" width="100%" height="22px">
+                            <tr style="border-bottom: 1px solid black;" width="100%" height="22px">
                                 <td width="56%"></td>
                                 <td class="text-right"></td>
                                 <td class="text-right"></td>
@@ -227,17 +227,6 @@
             },
             back() {
                 return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
-            }
-        },
-        computed: {
-            total_price: function () {
-                let total = 0;
-                this.details.forEach(function (item) {
-                    total += (item.total_amount)
-                });
-                return total.toLocaleString("id-ID", {
-                    minimumFractionDigits: 2
-                });
             }
         }
     }

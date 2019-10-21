@@ -33,10 +33,10 @@
                                     <td width="100%" style="border-bottom: 1px solid black"></td>
                                 </tr>
                                 <tr>
-                                    <td height="22px" width="100%" style="border-bottom: 1px solid black"></td>
+                                    <td height="22px" width="100%" style="border-bottom: 1px solid"></td>
                                 </tr>
                                 <tr>
-                                    <td height="22px" width="100%" style="border-bottom: 2px solid black"></td>
+                                    <td height="22px" width="100%" style="border-bottom: 1px solid"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -148,11 +148,11 @@
                 };
                 axios.get(this.$parent.MakeUrl('api/v1/warehouse/delivery_order/show'), {params: payload})
                     .then(res => {
-                        this.delivery_order = res.data;
+                        this.delivery_order = res.data.data;
                         this.loading = true;
                         console.log(res);
                     }).catch(e => {
-                    if (e.response.status == 500) {
+                    if (e.response.status === 500) {
                         this.getData()
                     }
                 });

@@ -25,11 +25,11 @@
             </div>
             <div class="col-md-6">
                 <div class="text-right">
-                    <img src="http://freshbox.tetambastudio.com/assets/img/logo-frbox.png">
+                    <img src="http://freshbox.tetambastudio.com/assets/img/logo-frbox.png" width="20%" height="20%">
                 </div>
             </div>
         </div>
-        <hr>
+        <br>
     </div>
 </template>
 
