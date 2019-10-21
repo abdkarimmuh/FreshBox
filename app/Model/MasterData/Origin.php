@@ -12,12 +12,6 @@ class Origin extends MyModel
     use SoftDeletes;
 
     protected $table = 'master_origin';
-
-    protected $appends = [
-        'created_by_name',
-        'updated_by_name'
-    ];
-
     protected $columns = [
         'id' => [
             'searchable' => false,

@@ -58,7 +58,10 @@ class UserProcurementController extends Controller
      */
     public function create()
     {
-        //
+        $config = [
+            'vue-component' => '<add-user-proc></add-user-proc>'
+        ];
+        return view('layouts.vue-view', compact('config'));
     }
 
     /**
