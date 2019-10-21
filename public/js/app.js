@@ -5341,6 +5341,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       params: {
         query: null,
         start: null,
+        page: 1,
         end: null,
         perPage: 5
       }
@@ -5424,13 +5425,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 axios.get(this.config.base_url, {
-                  params: {
-                    query: this.params.query,
-                    start: this.params.start,
-                    end: this.params.end,
-                    perPage: this.params.perPage,
-                    page: this.pagination.current_page
-                  }
+                  params: this.params // params: {
+                  //     query: this.params.query,
+                  //     start: this.params.start,
+                  //     end: this.params.end,
+                  //     perPage: this.params.perPage,
+                  //     page: this.pagination.current_page
+                  // }
+
                 }).then(function (res) {
                   console.log(res);
                   _this.data = res.data.data;
@@ -54417,26 +54419,115 @@ var render = function() {
         { staticClass: "card-body p-0" },
         [
           _vm.loading
-            ? _c(
-                "div",
-                { staticClass: "table-responsive" },
-                [
-                  _vm.data.length
-                    ? _c(
-                        "table",
-                        {
-                          staticClass: "table table-bordered",
-                          attrs: { id: "vuetable" }
-                        },
-                        [
-                          _c(
-                            "tbody",
-                            [
-                              _c(
+            ? _c("div", { staticClass: "table-responsive" }, [
+                _vm.data.length
+                  ? _c(
+                      "table",
+                      {
+                        staticClass: "table table-bordered",
+                        attrs: { id: "vuetable" }
+                      },
+                      [
+                        _c(
+                          "tbody",
+                          [
+                            _c(
+                              "tr",
+                              [
+                                _vm.config.action
+                                  ? _c("th", [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "custom-checkbox custom-control"
+                                        },
+                                        [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.selectAll,
+                                                expression: "selectAll"
+                                              }
+                                            ],
+                                            staticClass: "custom-control-input",
+                                            attrs: {
+                                              type: "checkbox",
+                                              id: "checkbox-all"
+                                            },
+                                            domProps: {
+                                              checked: Array.isArray(
+                                                _vm.selectAll
+                                              )
+                                                ? _vm._i(_vm.selectAll, null) >
+                                                  -1
+                                                : _vm.selectAll
+                                            },
+                                            on: {
+                                              change: function($event) {
+                                                var $$a = _vm.selectAll,
+                                                  $$el = $event.target,
+                                                  $$c = $$el.checked
+                                                    ? true
+                                                    : false
+                                                if (Array.isArray($$a)) {
+                                                  var $$v = null,
+                                                    $$i = _vm._i($$a, $$v)
+                                                  if ($$el.checked) {
+                                                    $$i < 0 &&
+                                                      (_vm.selectAll = $$a.concat(
+                                                        [$$v]
+                                                      ))
+                                                  } else {
+                                                    $$i > -1 &&
+                                                      (_vm.selectAll = $$a
+                                                        .slice(0, $$i)
+                                                        .concat(
+                                                          $$a.slice($$i + 1)
+                                                        ))
+                                                  }
+                                                } else {
+                                                  _vm.selectAll = $$c
+                                                }
+                                              }
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "custom-control-label",
+                                              attrs: { for: "checkbox-all" }
+                                            },
+                                            [_vm._v(" ")]
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.config.action
+                                  ? _c("th", [_vm._v("Action")])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm._l(_vm.columns, function(column) {
+                                  return _c("th", [
+                                    _vm._v(" " + _vm._s(column.title))
+                                  ])
+                                })
+                              ],
+                              2
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.data, function(item, index) {
+                              return _c(
                                 "tr",
                                 [
                                   _vm.config.action
-                                    ? _c("th", [
+                                    ? _c("td", [
                                         _c(
                                           "div",
                                           {
@@ -54449,51 +54540,52 @@ var render = function() {
                                                 {
                                                   name: "model",
                                                   rawName: "v-model",
-                                                  value: _vm.selectAll,
-                                                  expression: "selectAll"
+                                                  value: _vm.selected,
+                                                  expression: "selected"
                                                 }
                                               ],
                                               staticClass:
                                                 "custom-control-input",
                                               attrs: {
                                                 type: "checkbox",
-                                                id: "checkbox-all"
+                                                id: "checkbox-" + index
                                               },
                                               domProps: {
+                                                value: item.id,
                                                 checked: Array.isArray(
-                                                  _vm.selectAll
+                                                  _vm.selected
                                                 )
                                                   ? _vm._i(
-                                                      _vm.selectAll,
-                                                      null
+                                                      _vm.selected,
+                                                      item.id
                                                     ) > -1
-                                                  : _vm.selectAll
+                                                  : _vm.selected
                                               },
                                               on: {
                                                 change: function($event) {
-                                                  var $$a = _vm.selectAll,
+                                                  var $$a = _vm.selected,
                                                     $$el = $event.target,
                                                     $$c = $$el.checked
                                                       ? true
                                                       : false
                                                   if (Array.isArray($$a)) {
-                                                    var $$v = null,
+                                                    var $$v = item.id,
                                                       $$i = _vm._i($$a, $$v)
                                                     if ($$el.checked) {
                                                       $$i < 0 &&
-                                                        (_vm.selectAll = $$a.concat(
+                                                        (_vm.selected = $$a.concat(
                                                           [$$v]
                                                         ))
                                                     } else {
                                                       $$i > -1 &&
-                                                        (_vm.selectAll = $$a
+                                                        (_vm.selected = $$a
                                                           .slice(0, $$i)
                                                           .concat(
                                                             $$a.slice($$i + 1)
                                                           ))
                                                     }
                                                   } else {
-                                                    _vm.selectAll = $$c
+                                                    _vm.selected = $$c
                                                   }
                                                 }
                                               }
@@ -54504,7 +54596,9 @@ var render = function() {
                                               {
                                                 staticClass:
                                                   "custom-control-label",
-                                                attrs: { for: "checkbox-all" }
+                                                attrs: {
+                                                  for: "checkbox-" + index
+                                                }
                                               },
                                               [_vm._v(" ")]
                                             )
@@ -54514,234 +54608,189 @@ var render = function() {
                                     : _vm._e(),
                                   _vm._v(" "),
                                   _vm.config.action
-                                    ? _c("th", [_vm._v("Action")])
+                                    ? _c(
+                                        "td",
+                                        [
+                                          _vm.config.route_view
+                                            ? _c(
+                                                "router-link",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-primary",
+                                                  attrs: {
+                                                    to: {
+                                                      name:
+                                                        _vm.config.route_view,
+                                                      params: { id: item.id }
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "View\n                            "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.config.route_edit &&
+                                          item.status === 1 &&
+                                          item.is_printed === 0
+                                            ? _c(
+                                                "router-link",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-warning",
+                                                  attrs: {
+                                                    to: {
+                                                      name:
+                                                        _vm.config.route_edit,
+                                                      params: { id: item.id }
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "Edit\n                            "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e()
+                                        ],
+                                        1
+                                      )
                                     : _vm._e(),
                                   _vm._v(" "),
                                   _vm._l(_vm.columns, function(column) {
-                                    return _c("th", [
-                                      _vm._v(" " + _vm._s(column.title))
+                                    return _c("td", [
+                                      column.type === "html"
+                                        ? _c("span", {
+                                            domProps: {
+                                              innerHTML: _vm._s(
+                                                item[column.field]
+                                              )
+                                            }
+                                          })
+                                        : column.type === "link"
+                                        ? _c(
+                                            "a",
+                                            {
+                                              attrs: {
+                                                href: item[column.field_url]
+                                              }
+                                            },
+                                            [_vm._v(_vm._s(item[column.field]))]
+                                          )
+                                        : column.type === "price"
+                                        ? _c("p", [
+                                            _vm._v(
+                                              "\n                                " +
+                                                _vm._s(
+                                                  _vm._f("toIDR")(
+                                                    item[column.field]
+                                                  )
+                                                ) +
+                                                "\n                            "
+                                            )
+                                          ])
+                                        : _c("p", [
+                                            _vm._v(
+                                              "\n                                " +
+                                                _vm._s(item[column.field]) +
+                                                "\n                            "
+                                            )
+                                          ])
                                     ])
                                   })
                                 ],
                                 2
-                              ),
-                              _vm._v(" "),
-                              _vm._l(_vm.data, function(item, index) {
-                                return _c(
-                                  "tr",
-                                  [
-                                    _vm.config.action
-                                      ? _c("td", [
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "custom-checkbox custom-control"
-                                            },
-                                            [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: _vm.selected,
-                                                    expression: "selected"
-                                                  }
-                                                ],
-                                                staticClass:
-                                                  "custom-control-input",
-                                                attrs: {
-                                                  type: "checkbox",
-                                                  id: "checkbox-" + index
-                                                },
-                                                domProps: {
-                                                  value: item.id,
-                                                  checked: Array.isArray(
-                                                    _vm.selected
-                                                  )
-                                                    ? _vm._i(
-                                                        _vm.selected,
-                                                        item.id
-                                                      ) > -1
-                                                    : _vm.selected
-                                                },
-                                                on: {
-                                                  change: function($event) {
-                                                    var $$a = _vm.selected,
-                                                      $$el = $event.target,
-                                                      $$c = $$el.checked
-                                                        ? true
-                                                        : false
-                                                    if (Array.isArray($$a)) {
-                                                      var $$v = item.id,
-                                                        $$i = _vm._i($$a, $$v)
-                                                      if ($$el.checked) {
-                                                        $$i < 0 &&
-                                                          (_vm.selected = $$a.concat(
-                                                            [$$v]
-                                                          ))
-                                                      } else {
-                                                        $$i > -1 &&
-                                                          (_vm.selected = $$a
-                                                            .slice(0, $$i)
-                                                            .concat(
-                                                              $$a.slice($$i + 1)
-                                                            ))
-                                                      }
-                                                    } else {
-                                                      _vm.selected = $$c
-                                                    }
-                                                  }
-                                                }
-                                              }),
-                                              _vm._v(" "),
-                                              _c(
-                                                "label",
-                                                {
-                                                  staticClass:
-                                                    "custom-control-label",
-                                                  attrs: {
-                                                    for: "checkbox-" + index
-                                                  }
-                                                },
-                                                [_vm._v(" ")]
-                                              )
-                                            ]
-                                          )
-                                        ])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.config.action
-                                      ? _c(
-                                          "td",
-                                          [
-                                            _vm.config.route_view
-                                              ? _c(
-                                                  "router-link",
-                                                  {
-                                                    staticClass:
-                                                      "badge badge-primary",
-                                                    attrs: {
-                                                      to: {
-                                                        name:
-                                                          _vm.config.route_view,
-                                                        params: { id: item.id }
-                                                      }
-                                                    }
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "View\n                            "
-                                                    )
-                                                  ]
-                                                )
-                                              : _vm._e(),
-                                            _vm._v(" "),
-                                            _vm.config.route_edit &&
-                                            item.status === 1 &&
-                                            item.is_printed === 0
-                                              ? _c(
-                                                  "router-link",
-                                                  {
-                                                    staticClass:
-                                                      "badge badge-warning",
-                                                    attrs: {
-                                                      to: {
-                                                        name:
-                                                          _vm.config.route_edit,
-                                                        params: { id: item.id }
-                                                      }
-                                                    }
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "Edit\n                            "
-                                                    )
-                                                  ]
-                                                )
-                                              : _vm._e()
-                                          ],
-                                          1
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm._l(_vm.columns, function(column) {
-                                      return _c("td", [
-                                        column.type === "html"
-                                          ? _c("span", {
-                                              domProps: {
-                                                innerHTML: _vm._s(
-                                                  item[column.field]
-                                                )
-                                              }
-                                            })
-                                          : column.type === "link"
-                                          ? _c(
-                                              "a",
-                                              {
-                                                attrs: {
-                                                  href: item[column.field_url]
-                                                }
-                                              },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(item[column.field])
-                                                )
-                                              ]
-                                            )
-                                          : column.type === "price"
-                                          ? _c("p", [
-                                              _vm._v(
-                                                "\n                                " +
-                                                  _vm._s(
-                                                    _vm._f("toIDR")(
-                                                      item[column.field]
-                                                    )
-                                                  ) +
-                                                  "\n                            "
-                                              )
-                                            ])
-                                          : _c("p", [
-                                              _vm._v(
-                                                "\n                                " +
-                                                  _vm._s(item[column.field]) +
-                                                  "\n                            "
-                                              )
-                                            ])
-                                      ])
-                                    })
-                                  ],
-                                  2
-                                )
-                              })
-                            ],
-                            2
-                          )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  !_vm.data.length
-                    ? _c("div", { staticClass: "text-center p-3 text-muted" }, [
-                        _c("h5", [_vm._v("No Results")]),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v("Looks like you have not added any users yet!")
-                        ])
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.data.length
+                  ? _c("div", { staticClass: "text-center p-3 text-muted" }, [
+                      _c("h5", [_vm._v("No Results")]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v("Looks like you have not added any users yet!")
                       ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("stisla-pagination", {
-                    attrs: { offset: 5, pagination: _vm.pagination },
-                    on: { paginate: _vm.getData }
-                  })
-                ],
-                1
-              )
+                    ])
+                  : _vm._e()
+              ])
             : _c("loading-table")
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _vm.pagination
+        ? _c("nav", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6 text-left" }, [
+              _c("span", [
+                _vm._v(
+                  "\n                         Showing \n                        " +
+                    _vm._s(_vm.pagination.from) +
+                    "\n                         to \n                        " +
+                    _vm._s(_vm.pagination.to) +
+                    "\n                         of \n                        " +
+                    _vm._s(_vm.pagination.total) +
+                    "\n                         entries \n                    "
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6 text-right" }, [
+              _vm.pagination.prev
+                ? _c(
+                    "button",
+                    {
+                      class: _vm.buttonClasses,
+                      on: {
+                        click: function($event) {
+                          return _vm.changePage(_vm.pagination.current_page - 1)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-chevron-left",
+                        attrs: { "aria-hidden": "true" }
+                      }),
+                      _vm._v("\n                     Prev\n                ")
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.pagination.next
+                ? _c(
+                    "button",
+                    {
+                      class: _vm.buttonClasses,
+                      on: {
+                        click: function($event) {
+                          return _vm.changePage(_vm.pagination.current_page + 1)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Next \n                    "
+                      ),
+                      _c("i", {
+                        staticClass: "fa fa-chevron-right",
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]
+                  )
+                : _vm._e()
+            ])
+          ])
+        : _vm._e()
     ])
   ])
 }
