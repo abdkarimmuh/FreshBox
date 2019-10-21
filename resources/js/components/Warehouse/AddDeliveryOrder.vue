@@ -181,19 +181,29 @@
                         </div>
                         <div class="col-12">
                             <div class="card-body">
-                                <button
-                                    class="btn btn-danger"
-                                    v-on:click="submitForm()"
-                                >Submit
-                                </button>
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    onclick="back()"
-                                >Back
-                                </button>
+                                <div v-if="loadingSubmit">
+                                    <button class="btn btn-danger" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                          aria-hidden="true"></span>
+                                        Loading...
+                                    </button>
+                                </div>
+                                <div v-else>
+                                    <button
+                                        class="btn btn-danger"
+                                        v-on:click="submitForm()"
+                                    >Submit
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        @click="back()"
+                                    >Back
+                                    </button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -223,7 +233,8 @@
                 drivers: [],
                 pic_qc: [],
                 qty_do: [],
-                errors: []
+                errors: [],
+                loadingSubmit: false
             };
         },
         mounted() {
@@ -253,6 +264,7 @@
                     });
             },
             async submitForm() {
+                this.loadingSubmit = true;
                 const payload = {
                     user_id: this.delivery_order.user_id,
                     sales_order_id: this.delivery_order.sales_order_id,
@@ -278,6 +290,7 @@
                         window.location.href = "/admin/warehouse/delivery_order";
                     });
                 } catch (e) {
+                    this.loadingSubmit = false;
                     this.errors = e.response.data.errors;
                     console.error(e.response.data);
                 }
