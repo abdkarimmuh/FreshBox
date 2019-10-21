@@ -184,7 +184,7 @@
                     no: "invoice_no",
                     nama_pt: "PT BERKAH TANI SEJAHTERA",
                     nama_ttd: "Faizal Finanda",
-                    no_rek: "008 500 9779",
+                    no_rek: "006 500 9779",
                     bank: "BCA Cabang BCBD"
                 },
                 invoice_order: {},
