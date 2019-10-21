@@ -32,11 +32,35 @@ class DeliveryOrder extends MyModel
     protected $appends = ['customer_name', 'sales_order_no', 'status_name', 'driver_name', 'pic_qc_name']; //finction dibawah
     protected $dates = ['do_date'];
 
-    
+    protected $columns = [
+        'id' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'delivery_order_no' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+        'customer_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'customer',
+            'relation_field' => 'name',
+        ],
+        'driver_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'driver',
+            'relation_field' => 'name',
+        ],
+    ];
+
+
     public function sales_order()
     {
         return $this->belongsTo(SalesOrder::class, 'sales_order_id');
     }
+
     public function invoice()
     {
         return $this->hasOne(InvoiceOrder::class, 'do_id', 'id');
