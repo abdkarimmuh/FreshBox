@@ -6,8 +6,6 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     *
-     * @return void
      */
     public function run()
     {
@@ -17,13 +15,13 @@ class DatabaseSeeder extends Seeder
         $this->call(ProvinceTableSeeder::class);
         $this->call(ResidenceTableSeeder::class);
         $this->call(OriginTableSeeder::class);
-//        $this->call(UomTableSeeder::class);
+        $this->call(UomTableSeeder::class);
         $this->call(SourceOrderTableSeeder::class);
         $this->call(CustomerTypeTableSeeder::class);
-//        $this->call(CustomerGroupTableSeeder::class);
-//        $this->call(CustomerTableSeeder::class);
-//        $this->call(ItemTableSeeder::class);
-//        $this->call(PriceTableSeeder::class);
+        $this->call(CustomerGroupTableSeeder::class);
+        $this->call(CustomerTableSeeder::class);
+        $this->call(ItemTableSeeder::class);
+        // $this->call(PriceTableSeeder::class);
         $this->call(UserProcTableSeeder::class);
         $this->call(DriverTableSeeder::class);
     }

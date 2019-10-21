@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Procurement;
 
 use App\Http\Controllers\Controller;
 use App\Model\Procurement\ListProcurement;
+use App\Model\Procurement\ListProcurementDetail;
 use Illuminate\Http\Request;
 
 class ListProcurementController extends Controller
@@ -20,14 +21,10 @@ class ListProcurementController extends Controller
         $columns = [
             array('title' => 'Procurement No', 'field' => 'procurement_no'),
             array('title' => 'User Procurement', 'field' => 'proc_name'),
-            array('title' => 'Vendor', 'field' => 'vendor_name'),
+            array('title' => 'Vendor', 'field' => 'vendor'),
             array('title' => 'Amount', 'field' => 'total_amount'),
             array('title' => 'Payment', 'field' => 'payment'),
             array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
-            array('title' => 'Created By', 'field' => 'created_by_name'),
-            array('title' => 'Created At', 'field' => 'created_at'),
-            array('title' => 'Modified By', 'field' => 'updated_by_name'),
-            array('title' => 'Modified At', 'field' => 'updated_at'),
         ];
 
         $config = [
@@ -40,6 +37,8 @@ class ListProcurementController extends Controller
             // 'route-add' => 'admin.procurement.list_procurement.create',
             //Route For Button Edit
             // 'route-edit' => 'admin.procurement.list_procurement.edit',
+            //Route For Button Edit
+            'route-view' => 'admin.procurement.list_procurement.show',
             //Route For Button Search
             'route-search' => 'admin.procurement.list_procurement.index',
         ];
@@ -79,6 +78,7 @@ class ListProcurementController extends Controller
      */
     public function show($id)
     {
+        return ListProcurementDetail::where('trx_list_procurement_id', $id)->get();
     }
 
     /**

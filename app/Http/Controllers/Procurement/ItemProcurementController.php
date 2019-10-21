@@ -18,7 +18,6 @@ class ItemProcurementController extends Controller
         $searchValue = $request->input('search');
 
         $columns = [
-            // array('title' => 'Nama', 'field' => 'proc_name'),
             array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
             array('title' => 'Nama Barang', 'field' => 'item_name'),
             array('title' => 'Qty', 'field' => 'qty'),

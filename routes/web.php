@@ -1,8 +1,5 @@
 <?php
 
-use App\Model\Finance\InvoiceOrder;
-use App\Model\MasterData\Price;
-
 Route::get('/', function () {
     return redirect(route('admin.dashboard'));
 });
@@ -28,12 +25,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      * Routing Menu Marketing
      */
     Route::name('marketing.')->prefix('marketing')->group(function () {
-
         Route::name('sales_order.')->prefix('form_sales_order')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
-
     });
 
     /*
@@ -56,6 +51,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         });
         Route::name('list_procurement.')->prefix('list_procurement')->group(function () {
             Route::get('/', 'Procurement\ListProcurementController@index')->name('index');
+            Route::get('/{id}', 'Procurement\ListProcurementController@show')->name('show');
             Route::get('/create', 'Procurement\ListProcurementController@create')->name('create');
             Route::post('/create', 'Procurement\ListProcurementController@store')->name('store');
             Route::get('/{id}/edit', 'Procurement\ListProcurementController@edit')->name('edit');
@@ -79,7 +75,6 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      * Route Menu Warehouse
      */
     Route::name('warehouse.')->prefix('warehouse')->middleware('auth')->group(function () {
-
         Route::name('delivery_order.')->prefix('delivery_order')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
@@ -102,7 +97,6 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      * Route Menu Finance
      */
     Route::name('finance.')->prefix('finance')->middleware('auth')->group(function () {
-
         Route::name('invoice_order.')->prefix('invoice_order')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
@@ -120,7 +114,6 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'Report\ReportSOController@index')->name('index');
             Route::get('/export', 'Report\ReportSOController@export')->name('export');
         });
-
     });
 
     /*
@@ -245,6 +238,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
 
 Route::middleware('auth')->get('logout', function () {
     Auth::logout();
+
     return redirect(route('login'))->withInfo('You have successfully logged out!');
 })->name('logout');
 

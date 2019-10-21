@@ -8,8 +8,6 @@ class CreateMasterPrice extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -18,8 +16,8 @@ class CreateMasterPrice extends Migration
             $table->bigInteger('skuid');
             $table->unsignedBigInteger('uom_id');
             $table->unsignedBigInteger('customer_id');
-            $table->decimal('amount_basic', 18, 2);
-            $table->decimal('amount_discount', 18, 2);
+            $table->decimal('amount_basic', 18, 2)->nullable();
+            $table->decimal('amount_discount', 18, 2)->nullable();
             $table->decimal('amount', 18, 2);
             $table->decimal('tax_value', 18, 2)->nullable();
             $table->date('start_periode');
@@ -29,17 +27,12 @@ class CreateMasterPrice extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
-            $table->index(['skuid','amount','amount_basic','amount_discount']);
-
-            $table->foreign('uom_id')->on('master_uom')->references('id')->onDelete('cascade');
-            $table->foreign('customer_id')->on('master_customer')->references('id')->onDelete('cascade');
+            $table->index(['skuid', 'amount', 'amount_basic', 'amount_discount']);
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

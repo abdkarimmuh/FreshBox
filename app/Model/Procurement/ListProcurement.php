@@ -2,7 +2,6 @@
 
 namespace App\Model\Procurement;
 
-use App\Model\MasterData\Vendor;
 use App\MyModel;
 use App\Traits\SearchTraits;
 
@@ -17,7 +16,7 @@ class ListProcurement extends MyModel
         'created_by_name',
         'updated_by_name',
         'proc_name',
-        // 'vendor_name'
+        'status_name',
     ];
 
     protected $columns = [
@@ -39,12 +38,6 @@ class ListProcurement extends MyModel
             'searchable' => true,
             'search_relation' => true,
         ],
-        // 'vendor_name' => [
-        //     'searchable' => true,
-        //     'search_relation' => true,
-        //     'relation_name' => 'Vendor',
-        //     'relation_field' => 'vendor_name'
-        // ],
         'total_amount' => [
             'searchable' => true,
             'search_relation' => true,
@@ -93,19 +86,18 @@ class ListProcurement extends MyModel
         }
     }
 
-    // public function Vendor()
-    // {
-    //     return $this->belongsTo(Vendor::class);
-    // }
-
-    // public function getVendorNameAttribute()
-    // {
-    //     if (isset($this->Vendor->name)) {
-    //         return $this->Vendor->name;
-    //     } else {
-    //         return '';
-    //     }
-    // }
+    public function getStatusNameAttribute()
+    {
+        if ($this->status === 1) {
+            return '<span class="badge badge-info">Submit</span>';
+        } elseif ($this->status === 2) {
+            return '<span class="badge badge-success">Receive</span>';
+        } elseif ($this->status === 3) {
+            return '<span class="badge badge-danger">Return</span>';
+        } else {
+            return 'Status NotFound';
+        }
+    }
 
     public function getColumns()
     {
