@@ -4,7 +4,8 @@
             <div class="card col-12">
                 <div class="card-header">
                     <h4 class="text-danger">Add Invoice Order</h4>
-                </div>=
+                </div>
+                =
 
                 <div class="col-12">
                     <div class="row">
@@ -114,17 +115,26 @@
                         </div>
                         <div class="col-12">
                             <div class="card-body">
-                                <button
-                                    class="btn btn-danger"
-                                    v-on:click="submitForm()"
-                                >Submit
-                                </button>
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    onclick="back()"
-                                >Back
-                                </button>
+                                <div v-if="loadingSubmit">
+                                    <button class="btn btn-danger" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                          aria-hidden="true"></span>
+                                        Loading...
+                                    </button>
+                                </div>
+                                <div v-else>
+                                    <button
+                                        class="btn btn-danger"
+                                        v-on:click="submitForm()"
+                                    >Submit
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        @click="back()"
+                                    >Back
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -147,7 +157,8 @@
                 delivery_order: {},
                 list_delivery_order: [],
                 do_details: [],
-                errors: []
+                errors: [],
+                loadingSubmit: false
             };
         },
         mounted() {
@@ -157,8 +168,8 @@
             getDataDO() {
                 axios.get(this.$parent.MakeUrl("api/v1/warehouse/delivery_order/show?id=" + this.do_id))
                     .then(res => {
-                        this.delivery_order = res.data;
-                        this.do_details = res.data.do_details;
+                        this.delivery_order = res.data.data;
+                        this.do_details = res.data.data.do_details;
                     })
                     .catch(e => {
                         console.log(e);
@@ -172,6 +183,7 @@
                 });
             },
             async submitForm() {
+                this.loadingSubmit = true;
                 const payload = {
                     so_id: this.delivery_order.sales_order_id,
                     customer_id: this.delivery_order.customer_id,
