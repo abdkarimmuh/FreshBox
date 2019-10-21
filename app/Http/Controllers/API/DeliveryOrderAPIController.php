@@ -52,7 +52,7 @@ class DeliveryOrderAPIController extends Controller
     {
         //List Validasi
         $rules = [
-            'sales_order_id' => 'required|not_in:0',
+            'sales_order_id' => 'required|not_in:0|unique:trx_delivery_order',
             'customer_id' => 'required',
             'do_date' => 'required',
             'so_details.*.qty_do' => 'required|not_in:0',
