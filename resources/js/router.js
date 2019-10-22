@@ -12,6 +12,8 @@ import MultiplePrintSalesOrder from "./components/Marketing/SalesOrder/MultipleP
 import IndexInvoice from './components/Finance/Invoice/IndexInvoice';
 import PrintInvoice from './components/Finance/Invoice/PrintInvoiceOrder';
 import AddInvoice from './components/Finance/Invoice/AddInvoice';
+import AddPaidInvoice from './components/Finance/Invoice/AddPaidInvoice';
+
 import MultiplePrintInvoiceOrder from './components/Finance/Invoice/MultiplePrintInvoiceOrder';
 import PrintRecapInvoice from './components/Finance/Invoice/PrintRecapInvoice';
 import IndexInvoiceRecap from './components/Finance/Invoice/IndexInvoiceRecap';
@@ -87,6 +89,11 @@ const router = new VueRouter({
             path: '/admin/finance/invoice_order/create',
             name: "invoice_order.create",
             component: AddInvoice
+        },
+        {
+            path: '/admin/finance/invoice_order/paid/create',
+            name: "invoice_order.paid.create",
+            component: AddPaidInvoice
         },
         {
             path: '/admin/finance/recap_invoice',

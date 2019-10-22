@@ -32,4 +32,9 @@ class InvoiceRecapAPIController extends Controller
 
         return new InvoiceRecapHasDetailResource($recap_invoice);
     }
+
+    public function listInvoiceRecapNotPaid()
+    {
+        return InvoiceRecapResource::collection(InvoiceRecap::IsNotPaid()->get());
+    }
 }

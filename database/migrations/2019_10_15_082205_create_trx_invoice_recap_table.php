@@ -15,10 +15,11 @@ class CreateTrxInvoiceRecapTable extends Migration
     {
         Schema::create('trx_invoice_recap', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('recap_invoice_no','20');
+            $table->string('recap_invoice_no', '20');
             $table->unsignedBigInteger('customer_id');
             $table->date('recap_date');
-            $table->tinyInteger('is_paid')->nullable();
+            $table->date('submitted_date')->nullable();
+            $table->tinyInteger('is_paid')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
