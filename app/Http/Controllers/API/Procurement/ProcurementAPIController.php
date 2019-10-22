@@ -8,9 +8,12 @@ use App\Model\Marketing\SalesOrderDetail;
 use App\Model\Procurement\AssignProcurement;
 use App\Model\Procurement\ListProcurement;
 use App\Model\Procurement\ListProcurementDetail;
+use App\User;
+use App\UserProc;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class ProcurementAPIController extends Controller
 {
@@ -70,8 +73,8 @@ class ProcurementAPIController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateProcOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-            Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
+            $file_name = $this->generateProcOrderNo() . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
         }
@@ -138,7 +141,7 @@ class ProcurementAPIController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -161,10 +164,10 @@ class ProcurementAPIController extends Controller
     {
         $year_month = Carbon::now()->format('ym');
         $latest_proc = ListProcurement::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC'.$year_month.'00000';
+        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC' . $year_month . '00000';
         $cut_string_proc = str_replace('PROC', '', $get_last_proc_no);
 
-        return 'PROC'.($cut_string_proc + 1);
+        return 'PROC' . ($cut_string_proc + 1);
     }
 
     // public function storeWarehouseIn(Request $request)
@@ -234,4 +237,67 @@ class ProcurementAPIController extends Controller
     //         'status' => 'success',
     //     ]);
     // }
+
+    public function storeUserProc(Request $request)
+    {
+        $rules = [
+            'name' => 'required',
+            'bank' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required',
+            'category' => 'required',
+            'origin' => 'required',
+            'bank_account' => 'required',
+        ];
+        $request->validate($rules);
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        $procurement = UserProc::create([
+            'user_id' => $user->id,
+            'bank_account' => $request->bank_account,
+            'bank_id' => $request->bank,
+            'origin_id' => $request->origin,
+            'category_id' => $request->category,
+            'created_by' => auth('api')->user()->id
+        ]);
+        $role = Role::find(4);
+        if ($role) {
+            $user->assignRole($role);
+        }
+        return response()->json($procurement);
+    }
+
+    public function updateUserProc($id, Request $request)
+    {
+        $rules = [
+            'name' => 'required',
+            'bank' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required',
+            'category' => 'required',
+            'origin' => 'required',
+            'bank_account' => 'required',
+        ];
+        $request->validate($rules);
+
+        $userProc = UserProc::findOrFail($id);
+        $users = User::findOrFail($userProc->user_id);
+
+
+        $input = $request->all();
+        if ($request->password) {
+            $input['password'] = bcrypt($input['password']);
+        }
+        $user = $users->update($input);
+        $procurement = $userProc->update([
+            'bank_account' => $request->bank_account,
+            'bank_id' => $request->bank,
+            'origin_id' => $request->origin,
+            'category_id' => $request->category,
+            'created_by' => auth('api')->user()->id
+        ]);
+
+        return response()->json($procurement);
+    }
 }

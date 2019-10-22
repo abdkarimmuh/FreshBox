@@ -18,6 +18,7 @@ import HeaderInfoPrint from "./components/Template/Print/HeaderInfoPrint";
 
 import TablePrint from "./components/Template/Print/TablePrint";
 import IndexReportSO from "./components/Report/SO/IndexReportSO"
+import AddUserProc from "./components/MasterData/AddUserProc"
 
 Vue.component('index-report-so', IndexReportSO);
 
@@ -38,6 +39,8 @@ Vue.component('s-table', Table);
 Vue.component('s-testing', Testing);
 Vue.component('s-error-page', ErrorPage);
 Vue.component('s-btn-confirm', ConfirmButton);
+
+Vue.component('AddUserProc', AddUserProc);
 
 // Vue.component("data-table", DataTable);
 Vue.component(

@@ -11,11 +11,6 @@ class Bank extends MyModel
 
     protected $table = 'master_bank';
 
-    protected $appends = [
-        'created_by_name',
-        'updated_by_name'
-    ];
-
     protected $columns = [
         'id' => [
             'searchable' => false,

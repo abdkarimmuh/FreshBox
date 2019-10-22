@@ -13,11 +13,6 @@ class Category extends MyModel
 
     protected $table = 'master_category';
 
-    protected $appends = [
-        'created_by_name',
-        'updated_by_name'
-    ];
-
     protected $columns = [
         'id' => [
             'searchable' => false,

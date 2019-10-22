@@ -47,6 +47,8 @@ Route::group(['prefix' => 'v1'], function () {
             Route::group(['prefix' => 'procurement'], function () {
                 Route::get('/', 'API\Procurement\ProcurementAPIController@index');
                 Route::post('/', 'API\Procurement\ProcurementAPIController@store');
+                Route::post('/storeUser', 'API\Procurement\ProcurementAPIController@storeUserProc');
+
             });
 
             Route::group(['prefix' => 'so_detail'], function () {
@@ -145,6 +147,16 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/', function () {
                 return VendorResource::collection(Vendor::all());
             });
+        });
+
+        Route::group(['prefix' => 'category'], function () {
+            Route::get('/','API\MasterDataController@getCategory');
+        });
+        Route::group(['prefix' => 'bank'], function () {
+            Route::get('/','API\MasterDataController@getBank');
+        });
+        Route::group(['prefix' => 'origin'], function () {
+            Route::get('/','API\MasterDataController@getOrigin');
         });
 
         Route::get('customer', 'API\CustomerAPIController@index')->name('api.customer');
