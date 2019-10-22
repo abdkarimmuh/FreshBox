@@ -1,174 +1,157 @@
 <template>
     <stisla-create-template title="Add Paid Invoice">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>
-                    <b>Rekap Invoice Order No</b>
-                    <span style="color: red;">*</span>
-                </label>
-                <div>
-                    <model-list-select
-                        v-bind:class="{'is-invalid': errors.sales_order_id}"
-                        :list="sales_orders"
-                        v-model="delivery_order.sales_order_id"
-                        v-on:input="getDataCustomer()"
-                        option-value="id"
-                        option-text="so_no_with_cust_name"
-                        placeholder="Select Sales Order No"
-                    ></model-list-select>
-                    <div
-                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                        v-if="errors.sales_order_id"
-                    >
-                        <p>{{ errors.sales_order_id[0] }}</p>
+        <div class="row" v-if="loading">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>
+                        <b>Rekap Invoice Order No</b>
+                        <span style="color: red;">*</span>
+                    </label>
+                    <div>
+                        <model-list-select
+                            v-bind:class="{'is-invalid': errors.invoice_id}"
+                            :list="recapInvoices"
+                            v-model="recapInvoice.id"
+                            v-on:input="getRecapInvoice"
+                            option-value="id"
+                            option-text="recapNoWithCustName"
+                            placeholder="Select Recap Invoice Order No"
+                        ></model-list-select>
+                        <div
+                            style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                            v-if="errors.invoice_id"
+                        >
+                            <p>{{ errors.invoice_id[0] }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Customer -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>
-                    <b>Customer</b>
-                    <span style="color: red;">*</span>
-                </label>
-                <div>
-                    <input
-                        type="text"
+            <!-- Customer -->
+            <s-form-input title="Customer" :model="recapInvoice.customer_name" disabled="true" col="4"
+                          v-if="recapInvoice.id !== null">
+            </s-form-input>
+            <!--UP-->
+            <s-form-input title="Up" :model="recapInvoice.up" disabled="true" col="4" v-if="recapInvoice.id !== null">
+            </s-form-input>
+            <!--Paid Date-->
+            <div class="col-md-4" v-if="recapInvoice.id !== null">
+                <div class="form-group">
+                    <label>
+                        <b>PAID Date</b>
+                        <span style="color: red;">*</span>
+                    </label>
+                    <div>
+                        <date-picker
+                            v-model="recapInvoice.do_date"
+                            lang="en"
+                            valueType="format"
+                            :not-before="new Date()"
+                        ></date-picker>
+                    </div>
+                    <div
+                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                        v-if="errors.do_date"
+                    >
+                        <p>{{ errors.do_date[0] }}</p>
+                    </div>
+                </div>
+            </div>
+            <!--Total Amount-->
+            <s-form-input title="Total Amount Price" :model="recapInvoice.total_amount | toIDR" disabled="true" col="4"
+                          v-if="recapInvoice.id !== null">
+            </s-form-input>
+
+            <div class="col-md-3" v-if="recapInvoice.id !== null">
+                <div class="form-group">
+                    <label>
+                        <b>File</b>
+                    </label>
+                    <div class="custom-file">
+                        <input
+                            v-bind:class="{'is-invalid': errors.file}"
+                            type="file"
+                            class="custom-file-input"
+                            v-on:change="onFileChange"
+                        />
+                        <label class="custom-file-label" v-if="recapInvoice.fileName">
+                            {{ recapInvoice.fileName }}
+                        </label>
+                        <label class="custom-file-label" v-else>Choose File</label>
+                        <div
+                            class="invalid-feedback"
+                            v-if="errors.file"
+                        >
+                            <p>{{ errors.file[0] }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="recapInvoice.id !== null" class="col-12">
+                <div class="table-responsive m-t-40" style="clear: both;">
+                    <table
+                        class="table table-hover"
+                        id="contentTable"
+                        style="font-size: 9pt;"
+                    >
+                        <thead>
+                        <tr>
+                            <th class="text-center">Invoice No</th>
+                            <th class="text-center">Total Price</th>
+                            <th class="text-center">Paid Price</th>
+                            <!--                            <th class="text-center">Paid Date</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(invoice, index) in invoices" v-bind:key="index">
+                            <td>{{ invoice.invoice_no | toIDR }}</td>
+                            <td>{{ invoice.price | toIDR }}</td>
+                            <td>
+                                <input type="number" class="form-control"/>
+                            </td>
+                            <!--                            <td>-->
+                            <!--                                <input type="text" class="form-control"/>-->
+                            <!--                            </td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>
+                        <b>Remark</b>
+                    </label>
+                    <textarea
+                        v-model="recapInvoice.remark"
                         class="form-control"
-                        v-model="delivery_order.customer_name"
-                        disabled
-                    />
+                    ></textarea>
                 </div>
             </div>
-        </div>
-        <!-- PIC QC -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>
-                    <b>PIC Quality Control</b>
-                    <span style="color: red;">*</span>
-                </label>
-                <div>
-                    <model-list-select
-                        v-bind:class="{'is-invalid': errors.pic_qc_id}"
-                        :list="pic_qc"
-                        v-model="delivery_order.pic_qc_id"
-                        option-value="id"
-                        option-text="name"
-                        placeholder="Select PIC Quality Control"
-                    ></model-list-select>
-                    <div
-                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                        v-if="errors.pic_qc_id"
-                    >
-                        <p>{{ errors.pic_qc_id[0] }}</p>
+            <div class="col-12">
+                <div class="card-body">
+                    <div v-if="loadingSubmit">
+                        <button-loading></button-loading>
+                    </div>
+                    <div v-else>
+                        <button
+                            class="btn btn-danger"
+                            v-on:click="submitForm()"
+                        >Submit
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="history.back()"
+                        >Back
+                        </button>
                     </div>
                 </div>
             </div>
+
         </div>
-        <!-- DO Date -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>
-                    <b>DO Date</b>
-                    <span style="color: red;">*</span>
-                </label>
-                <div>
-                    <date-picker
-                        v-model="delivery_order.do_date"
-                        lang="en"
-                        valueType="format"
-                        :not-before="new Date()"
-                    ></date-picker>
-                </div>
-                <div
-                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                    v-if="errors.do_date"
-                >
-                    <p>{{ errors.do_date[0] }}</p>
-                </div>
-            </div>
-        </div>
-        <div
-            v-if="delivery_order.sales_order_id != ''"
-            class="col-12"
-        >
-            <div
-                class="table-responsive m-t-40"
-                style="clear: both;"
-            >
-                <table
-                    class="table table-hover"
-                    id="contentTable"
-                    style="font-size: 9pt;"
-                >
-                    <thead>
-                    <tr>
-                        <th class="text-center">SKUID</th>
-                        <th class="text-center">Item Name</th>
-                        <th class="text-center">Qty</th>
-                        <th class="text-center">UOM</th>
-                        <th class="text-center">Qty Do</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr
-                        v-for="(orders, index) in sales_order_details"
-                        v-bind:key="index"
-                    >
-                        <td>{{ orders.skuid }}</td>
-                        <td>{{ orders.item_name }}</td>
-                        <td>{{ orders.qty }}</td>
-                        <td>{{ orders.uom_name }}</td>
-                        <td>
-                            <input
-                                v-model="qty_do[index].qty"
-                                v-on:change="validateQtyDO(index)"
-                                type="number"
-                                class="form-control"
-                                :max="orders.qty"
-                            />
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>
-                    <b>Remark</b>
-                </label>
-                <textarea
-                    v-model="delivery_order.remark"
-                    class="form-control"
-                ></textarea>
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="card-body">
-                <div v-if="loadingSubmit">
-                    <button class="btn btn-danger" type="button" disabled>
-                                    <span class="spinner-border spinner-border-sm" role="status"
-                                          aria-hidden="true"></span>
-                        Loading...
-                    </button>
-                </div>
-                <div v-else>
-                    <button
-                        class="btn btn-danger"
-                        v-on:click="submitForm()"
-                    >Submit
-                    </button>
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        @click="back()"
-                    >Back
-                    </button>
-                </div>
-            </div>
+        <div v-else>
+            <loading-table></loading-table>
         </div>
     </stisla-create-template>
 </template>
@@ -177,71 +160,48 @@
     import {ModelListSelect} from "vue-search-select";
     import StislaCreateTemplate from "../../Template/StislaCreateTemplate";
     import StislaSearchSelect from "../../Template/StislaSearchSelect";
+    import LoadingTable from "../../Template/Table/partials/LoadingTable";
+    import ButtonLoading from "../../Template/Etc/ButtonLoading";
 
     export default {
         data() {
             return {
-                delivery_order: {
-                    sales_order_id: "",
-                    customer_id: "",
-                    customer_name: "",
-                    do_date: "",
-                    driver_id: "",
-                    pic_qc_id: "",
-                    remark: "",
-                    user_id: UserID
+                recapInvoice: {
+                    id: null,
+                    file: "",
+                    fileName: null,
                 },
-                sales_order: {},
-                sales_orders: [],
-                sales_order_details: [],
-                drivers: [],
-                pic_qc: [],
-                qty_do: [],
+                recapInvoices: [],
+                invoices: [],
                 errors: [],
+                loading: true,
                 loadingSubmit: false
             };
         },
         mounted() {
-            this.getData();
+            this.getRecapInvoices();
         },
         methods: {
-            getInvoice() {
-                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/show/' + this.$route.params.id))
+            getRecapInvoices() {
+                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/listNotPaid')).then(res => {
+                    this.recapInvoices = res.data.data;
+                })
+            },
+            getRecapInvoice() {
+                this.loading = false;
+                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/show/' + this.recapInvoice.id))
                     .then(res => {
-                        this.customer = res.data.data;
+                        this.recapInvoice = res.data.data;
                         this.invoices = res.data.data.invoice_recap_detail;
                         this.loading = true;
-                        console.log(this.customer);
                     }).catch(e => {
 
                 })
             },
-            validateQtyDO(idx) {
-                let qty_do = parseFloat(this.qty_do[idx].qty);
-                let qty_so = parseFloat(this.sales_order_details[idx].qty) + (this.sales_order_details[idx].qty * 0.1);
-                if (qty_do > qty_so) {
-                    this.qty_do[idx].qty = qty_so;
-                }
-            },
-            getDataCustomer() {
-                axios.get(this.$parent.MakeUrl("api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id))
-                    .then(res => {
-                        this.sales_order = res.data;
-                        this.sales_order_details = res.data.sales_order_details;
-                        this.delivery_order.customer_name = this.sales_order.customer_name;
-                        this.delivery_order.customer_id = this.sales_order.customer_id;
-                        this.qty_do = this.sales_order_details.map((item, idx) => ({
-                            qty: item.qty
-                        }));
-                        this.delivery_order.driver_id = res.data.driver_id;
-                    })
-                    .catch(err => {
-                    });
-            },
             async submitForm() {
                 this.loadingSubmit = true;
                 const payload = {
-                    user_id: this.delivery_order.user_id,
+                    user_id: this.recapInvoice.user_id,
                     sales_order_id: this.delivery_order.sales_order_id,
                     customer_id: this.delivery_order.customer_id,
                     do_date: this.delivery_order.do_date,
@@ -270,25 +230,25 @@
                     console.error(e.response.data);
                 }
             },
-            getData() {
-                axios
-                    .all([
-                        axios.get(this.$parent.MakeUrl("api/v1/warehouse/delivery_order/create")),
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/driver")),
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/picqc"))
-                    ])
-                    .then(
-                        axios.spread((sales_order, driver, pic_qc) => {
-                            this.sales_orders = sales_order.data.data;
-                            this.drivers = driver.data;
-                            this.pic_qc = pic_qc.data;
-                        })
-                    )
-                    .catch(err => {
-                    });
-            }
+            onFileChange(e) {
+                let fileData = e.target.files || e.dataTransfer.files;
+                this.recapInvoice.fileName = fileData[0].name;
+                if (!fileData.length) return;
+                this.createFile(fileData[0]);
+                console.log(this.recapInvoice.fileName)
+            },
+
+            createFile(file) {
+                let reader = new FileReader();
+                reader.onload = e => {
+                    this.recapInvoice.file = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            },
         },
         components: {
+            ButtonLoading,
+            LoadingTable,
             StislaSearchSelect,
             StislaCreateTemplate,
             ModelListSelect

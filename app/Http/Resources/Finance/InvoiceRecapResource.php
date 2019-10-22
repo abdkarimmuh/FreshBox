@@ -20,9 +20,10 @@ class InvoiceRecapResource extends JsonResource
         }
         return [
             'id' => $this->id,
-            'customer_name' => $this->customer->name,
+            'customer_name' => $this->customer_name,
             'up' => $this->customer->pic_customer,
             'recap_invoice_no' => $this->recap_invoice_no,
+            'recapNoWithCustName' => $this->recap_invoice_no . ' - ' . $this->customer_name,
             'recap_date' => $this->recap_date->formatLocalized('%d %B %Y'),
             'total_amount' => $total_amount,
             'is_paid' => $this->is_paid,

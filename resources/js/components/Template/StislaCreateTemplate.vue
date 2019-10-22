@@ -6,9 +6,7 @@
                     <h4 class="text-danger">{{ title }}</h4>
                 </div>
                 <div class="col-12">
-                    <div class="row">
-                        <slot></slot>
-                    </div>
+                    <slot></slot>
                 </div>
             </div>
         </div>

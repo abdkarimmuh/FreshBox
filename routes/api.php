@@ -108,6 +108,7 @@ Route::group(['prefix' => 'v1'], function () {
          */
         Route::group(['prefix' => 'invoice_recap'], function () {
             Route::get('/', 'API\InvoiceRecapAPIController@index');
+            Route::get('/listNotPaid', 'API\InvoiceRecapAPIController@listInvoiceRecapNotPaid');
             Route::get('/show/{id}', 'API\InvoiceRecapAPIController@show');
         });
 
@@ -150,13 +151,13 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         Route::group(['prefix' => 'category'], function () {
-            Route::get('/','API\MasterDataController@getCategory');
+            Route::get('/', 'API\MasterDataController@getCategory');
         });
         Route::group(['prefix' => 'bank'], function () {
-            Route::get('/','API\MasterDataController@getBank');
+            Route::get('/', 'API\MasterDataController@getBank');
         });
         Route::group(['prefix' => 'origin'], function () {
-            Route::get('/','API\MasterDataController@getOrigin');
+            Route::get('/', 'API\MasterDataController@getOrigin');
         });
 
         Route::get('customer', 'API\CustomerAPIController@index')->name('api.customer');

@@ -10,7 +10,6 @@ class InvoiceRecap extends Model
     protected $table = 'trx_invoice_recap';
     protected $fillable = ['customer_id', 'recap_invoice_no', 'recap_date', 'created_by'];
     protected $dates = ['recap_date'];
-
     protected $columns = [
         'id' => [
             'searchable' => false,
@@ -54,5 +53,10 @@ class InvoiceRecap extends Model
     public function scopeIsPaid($query)
     {
         return $query->where('is_paid', 1);
+    }
+
+    public function getCustomerNameAttribute()
+    {
+        return $this->customer->name;
     }
 }
