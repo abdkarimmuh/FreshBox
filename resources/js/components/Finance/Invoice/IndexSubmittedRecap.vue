@@ -13,10 +13,9 @@
                 config: {
                     title: 'Submitted Invoice Order',
                     action: true,
-                    base_url: this.$parent.MakeUrl('api/v1/finance/invoice_recap'),
-                    // route_create: 'invoice_order.create',
+                    base_url: this.$parent.MakeUrl('api/v1/finance/invoice_recap?status=submitted'),
+                    route_create: 'submitRecap.create',
                     route_view: 'invoice_order.recap.show',
-                    route_edit: 'invoice_order.edit',
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },
                 columns: [

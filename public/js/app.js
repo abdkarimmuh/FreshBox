@@ -2548,9 +2548,7 @@ __webpack_require__.r(__webpack_exports__);
         title: 'Recap Invoice Order',
         action: true,
         base_url: this.$parent.MakeUrl('api/v1/finance/invoice_recap'),
-        // route_create: 'invoice_order.create',
-        route_view: 'invoice_order.recap.show',
-        route_edit: 'invoice_order.edit' // route_multiple_print: 'invoice_order.multiplePrint',
+        route_view: 'invoice_order.recap.show' // route_multiple_print: 'invoice_order.multiplePrint',
 
       },
       columns: [{
@@ -2612,10 +2610,9 @@ __webpack_require__.r(__webpack_exports__);
       config: {
         title: 'Submitted Invoice Order',
         action: true,
-        base_url: this.$parent.MakeUrl('api/v1/finance/invoice_recap'),
-        // route_create: 'invoice_order.create',
-        route_view: 'invoice_order.recap.show',
-        route_edit: 'invoice_order.edit' // route_multiple_print: 'invoice_order.multiplePrint',
+        base_url: this.$parent.MakeUrl('api/v1/finance/invoice_recap?status=submitted'),
+        route_create: 'submitRecap.create',
+        route_view: 'invoice_order.recap.show' // route_multiple_print: 'invoice_order.multiplePrint',
 
       },
       columns: [{
@@ -3534,7 +3531,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getRecapInvoices: function getRecapInvoices() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/listNotPaid')).then(function (res) {
+      axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/notSubmitted')).then(function (res) {
         _this.recapInvoices = res.data.data;
       });
     },

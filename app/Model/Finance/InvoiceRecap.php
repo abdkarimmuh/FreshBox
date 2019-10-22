@@ -60,6 +60,11 @@ class InvoiceRecap extends Model
         return $query->whereNotNull('submitted_date');
     }
 
+    public function scopeIsNotSubmitted($query)
+    {
+        return $query->whereNull('submitted_date');
+    }
+
     public function getCustomerNameAttribute()
     {
         return $this->customer->name;

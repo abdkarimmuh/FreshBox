@@ -137,7 +137,7 @@
         },
         methods: {
             getRecapInvoices() {
-                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/listNotPaid')).then(res => {
+                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/notSubmitted')).then(res => {
                     this.recapInvoices = res.data.data;
                 })
             },

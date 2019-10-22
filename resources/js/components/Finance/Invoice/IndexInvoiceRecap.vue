@@ -14,9 +14,7 @@
                     title: 'Recap Invoice Order',
                     action: true,
                     base_url: this.$parent.MakeUrl('api/v1/finance/invoice_recap'),
-                    // route_create: 'invoice_order.create',
                     route_view: 'invoice_order.recap.show',
-                    route_edit: 'invoice_order.edit',
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },
                 columns: [

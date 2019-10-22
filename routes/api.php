@@ -108,7 +108,12 @@ Route::group(['prefix' => 'v1'], function () {
          */
         Route::group(['prefix' => 'invoice_recap'], function () {
             Route::get('/', 'API\InvoiceRecapAPIController@index');
+            Route::get('/notSubmitted', 'API\InvoiceRecapAPIController@InvoiceNotSubmitted');
+            Route::get('/submitted', 'API\InvoiceRecapAPIController@InvoiceSubmitted');
+            Route::get('/paid', 'API\InvoiceRecapAPIController@InvoicePaid');
             Route::get('/listNotPaid', 'API\InvoiceRecapAPIController@listInvoiceRecapNotPaid');
+
+
             Route::get('/show/{id}', 'API\InvoiceRecapAPIController@show');
         });
 

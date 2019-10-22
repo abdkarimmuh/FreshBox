@@ -14,7 +14,14 @@ class InvoiceRecapAPIController extends Controller
     {
         $searchValue = $request->input('query');
         $perPage = $request->perPage;
-        $query = InvoiceRecap::IsNotPaid();
+        if ($request->status === 'submitted') {
+            $query = InvoiceRecap::IsNotPaid()->isSubmitted();
+        } elseif ($request->status === 'paid') {
+            $query = InvoiceRecap::isPaid()->isSubmitted();
+        } else {
+            $query = InvoiceRecap::IsNotPaid()->isNotSubmitted();
+        }
+
         if ($request->start && $request->end) {
             $query->whereBetween('recap_invoice_no', [$request->start, $request->end]);
         }
@@ -33,8 +40,18 @@ class InvoiceRecapAPIController extends Controller
         return new InvoiceRecapHasDetailResource($recap_invoice);
     }
 
-    public function listInvoiceRecapNotPaid()
+    public function InvoiceNotSubmitted()
     {
-        return InvoiceRecapResource::collection(InvoiceRecap::IsNotPaid()->get());
+        return InvoiceRecapResource::collection(InvoiceRecap::IsNotPaid()->isNotSubmitted()->get());
+    }
+
+    public function InvoiceSubmitted()
+    {
+        return InvoiceRecapResource::collection(InvoiceRecap::IsNotPaid()->isSubmitted()->get());
+    }
+
+    public function InvoicePaid()
+    {
+        return InvoiceRecapResource::collection(InvoiceRecap::isSubmitted()->isPaid()->get());
     }
 }
