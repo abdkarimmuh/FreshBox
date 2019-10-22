@@ -13,12 +13,13 @@ import IndexInvoice from './components/Finance/Invoice/IndexInvoice';
 import PrintInvoice from './components/Finance/Invoice/PrintInvoiceOrder';
 import AddInvoice from './components/Finance/Invoice/AddInvoice';
 import AddPaidInvoice from './components/Finance/Invoice/AddPaidInvoice';
-import SubmitRecapInvoice from './components/Finance/Invoice/SubmitRecapInvoice';
 
 import MultiplePrintInvoiceOrder from './components/Finance/Invoice/MultiplePrintInvoiceOrder';
 import PrintRecapInvoice from './components/Finance/Invoice/PrintRecapInvoice';
 import IndexInvoiceRecap from './components/Finance/Invoice/IndexInvoiceRecap';
 
+import IndexSubmittedRecap from './components/Finance/Invoice/IndexSubmittedRecap';
+import SubmitRecapInvoice from './components/Finance/Invoice/SubmitRecapInvoice';
 
 import IndexDeliveryOrder from './components/Warehouse/IndexDeliveryOrder';
 import AddDeliveryOrder from './components/Warehouse/AddDeliveryOrder';
@@ -93,8 +94,14 @@ const router = new VueRouter({
         },
         //Submit Recap Invoice
         {
-            path: '/admin/finance/submitted-recap/create',
+            path: '/admin/finance/submitted-recap',
             name: "submitRecap",
+            component: IndexSubmittedRecap
+        },
+        //Create Submit Recap Invoice
+        {
+            path: '/admin/finance/submitted-recap/create',
+            name: "submitRecap.create",
             component: SubmitRecapInvoice
         },
         //Add Paid Recap Invoice

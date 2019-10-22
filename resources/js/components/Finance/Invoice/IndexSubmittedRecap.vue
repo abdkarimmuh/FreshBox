@@ -11,7 +11,7 @@
         data() {
             return {
                 config: {
-                    title: 'Recap Invoice Order',
+                    title: 'Submitted Invoice Order',
                     action: true,
                     base_url: this.$parent.MakeUrl('api/v1/finance/invoice_recap'),
                     // route_create: 'invoice_order.create',

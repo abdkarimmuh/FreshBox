@@ -2589,6 +2589,71 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      config: {
+        title: 'Submitted Invoice Order',
+        action: true,
+        base_url: this.$parent.MakeUrl('api/v1/finance/invoice_recap'),
+        // route_create: 'invoice_order.create',
+        route_view: 'invoice_order.recap.show',
+        route_edit: 'invoice_order.edit' // route_multiple_print: 'invoice_order.multiplePrint',
+
+      },
+      columns: [{
+        title: 'Recap Invoice NO',
+        field: 'recap_invoice_no',
+        filterable: true
+      }, {
+        title: 'Customer Name',
+        field: 'customer_name',
+        filterable: false
+      }, {
+        title: 'Recap Date',
+        field: 'recap_date',
+        filterable: true
+      }, {
+        title: 'Total Amount',
+        field: 'total_amount',
+        type: 'price',
+        filterable: true
+      }, {
+        title: 'Created At',
+        field: 'created_at',
+        filterable: true
+      }, {
+        title: 'Created By',
+        field: 'created_by_name',
+        filterable: true
+      }],
+      error: {
+        code: 403,
+        description: 'You do not have access to this page'
+      }
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Finance/Invoice/MultiplePrintInvoiceOrder.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Finance/Invoice/MultiplePrintInvoiceOrder.vue?vue&type=script&lang=js& ***!
@@ -5872,7 +5937,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['columns', 'data']
+  props: ['columns', 'data'],
+  computed: {
+    classObject: function classObject() {
+      return {
+        active: this.isActive && !this.error,
+        'text-right': this.error && this.error.type === 'fatal'
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -6256,7 +6329,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   // }
 
                 }).then(function (res) {
-                  console.log(res);
                   _this.data = res.data.data;
                   _this.pagination = {
                     first: res.data.links.first,
@@ -51386,6 +51458,38 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue?vue&type=template&id=2ed73b84&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue?vue&type=template&id=2ed73b84& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.$parent.userRole("Admin")
+    ? _c(
+        "div",
+        [
+          _c("s-table", { attrs: { config: _vm.config, columns: _vm.columns } })
+        ],
+        1
+      )
+    : _c("div", [_c("s-error-page", { attrs: { error: _vm.error } })], 1)
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Finance/Invoice/MultiplePrintInvoiceOrder.vue?vue&type=template&id=823aa768&":
 /*!********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Finance/Invoice/MultiplePrintInvoiceOrder.vue?vue&type=template&id=823aa768& ***!
@@ -55758,7 +55862,7 @@ var render = function() {
             _c("th", { staticClass: "text-right" }, [_vm._v("No")]),
             _vm._v(" "),
             _vm._l(_vm.columns, function(col, index) {
-              return _c("th", { staticClass: "text-right" }, [
+              return _c("th", { class: _vm.classObject }, [
                 _vm._v(
                   "\n                " + _vm._s(col.title) + "\n            "
                 )
@@ -81015,6 +81119,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _IndexSubmittedRecap_vue_vue_type_template_id_2ed73b84___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IndexSubmittedRecap.vue?vue&type=template&id=2ed73b84& */ "./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue?vue&type=template&id=2ed73b84&");
+/* harmony import */ var _IndexSubmittedRecap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndexSubmittedRecap.vue?vue&type=script&lang=js& */ "./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _IndexSubmittedRecap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _IndexSubmittedRecap_vue_vue_type_template_id_2ed73b84___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _IndexSubmittedRecap_vue_vue_type_template_id_2ed73b84___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSubmittedRecap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexSubmittedRecap.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSubmittedRecap_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue?vue&type=template&id=2ed73b84&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue?vue&type=template&id=2ed73b84& ***!
+  \********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSubmittedRecap_vue_vue_type_template_id_2ed73b84___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexSubmittedRecap.vue?vue&type=template&id=2ed73b84& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue?vue&type=template&id=2ed73b84&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSubmittedRecap_vue_vue_type_template_id_2ed73b84___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSubmittedRecap_vue_vue_type_template_id_2ed73b84___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Finance/Invoice/MultiplePrintInvoiceOrder.vue":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/Finance/Invoice/MultiplePrintInvoiceOrder.vue ***!
@@ -83527,14 +83700,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Finance_Invoice_PrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Finance/Invoice/PrintInvoiceOrder */ "./resources/js/components/Finance/Invoice/PrintInvoiceOrder.vue");
 /* harmony import */ var _components_Finance_Invoice_AddInvoice__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Finance/Invoice/AddInvoice */ "./resources/js/components/Finance/Invoice/AddInvoice.vue");
 /* harmony import */ var _components_Finance_Invoice_AddPaidInvoice__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Finance/Invoice/AddPaidInvoice */ "./resources/js/components/Finance/Invoice/AddPaidInvoice.vue");
-/* harmony import */ var _components_Finance_Invoice_SubmitRecapInvoice__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Finance/Invoice/SubmitRecapInvoice */ "./resources/js/components/Finance/Invoice/SubmitRecapInvoice.vue");
-/* harmony import */ var _components_Finance_Invoice_MultiplePrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Finance/Invoice/MultiplePrintInvoiceOrder */ "./resources/js/components/Finance/Invoice/MultiplePrintInvoiceOrder.vue");
-/* harmony import */ var _components_Finance_Invoice_PrintRecapInvoice__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Finance/Invoice/PrintRecapInvoice */ "./resources/js/components/Finance/Invoice/PrintRecapInvoice.vue");
-/* harmony import */ var _components_Finance_Invoice_IndexInvoiceRecap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/Finance/Invoice/IndexInvoiceRecap */ "./resources/js/components/Finance/Invoice/IndexInvoiceRecap.vue");
-/* harmony import */ var _components_Warehouse_IndexDeliveryOrder__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Warehouse/IndexDeliveryOrder */ "./resources/js/components/Warehouse/IndexDeliveryOrder.vue");
-/* harmony import */ var _components_Warehouse_AddDeliveryOrder__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/Warehouse/AddDeliveryOrder */ "./resources/js/components/Warehouse/AddDeliveryOrder.vue");
-/* harmony import */ var _components_Warehouse_PrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/Warehouse/PrintDeliveryOrder */ "./resources/js/components/Warehouse/PrintDeliveryOrder.vue");
-/* harmony import */ var _components_Warehouse_MultiplePrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Warehouse/MultiplePrintDeliveryOrder */ "./resources/js/components/Warehouse/MultiplePrintDeliveryOrder.vue");
+/* harmony import */ var _components_Finance_Invoice_MultiplePrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Finance/Invoice/MultiplePrintInvoiceOrder */ "./resources/js/components/Finance/Invoice/MultiplePrintInvoiceOrder.vue");
+/* harmony import */ var _components_Finance_Invoice_PrintRecapInvoice__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Finance/Invoice/PrintRecapInvoice */ "./resources/js/components/Finance/Invoice/PrintRecapInvoice.vue");
+/* harmony import */ var _components_Finance_Invoice_IndexInvoiceRecap__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Finance/Invoice/IndexInvoiceRecap */ "./resources/js/components/Finance/Invoice/IndexInvoiceRecap.vue");
+/* harmony import */ var _components_Finance_Invoice_IndexSubmittedRecap__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/Finance/Invoice/IndexSubmittedRecap */ "./resources/js/components/Finance/Invoice/IndexSubmittedRecap.vue");
+/* harmony import */ var _components_Finance_Invoice_SubmitRecapInvoice__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Finance/Invoice/SubmitRecapInvoice */ "./resources/js/components/Finance/Invoice/SubmitRecapInvoice.vue");
+/* harmony import */ var _components_Warehouse_IndexDeliveryOrder__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/Warehouse/IndexDeliveryOrder */ "./resources/js/components/Warehouse/IndexDeliveryOrder.vue");
+/* harmony import */ var _components_Warehouse_AddDeliveryOrder__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/Warehouse/AddDeliveryOrder */ "./resources/js/components/Warehouse/AddDeliveryOrder.vue");
+/* harmony import */ var _components_Warehouse_PrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Warehouse/PrintDeliveryOrder */ "./resources/js/components/Warehouse/PrintDeliveryOrder.vue");
+/* harmony import */ var _components_Warehouse_MultiplePrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/Warehouse/MultiplePrintDeliveryOrder */ "./resources/js/components/Warehouse/MultiplePrintDeliveryOrder.vue");
+
 
 
 
@@ -83606,7 +83781,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   {
     path: '/admin/finance/invoice_order/printMultiple/',
     name: "invoice_order.multiplePrint",
-    component: _components_Finance_Invoice_MultiplePrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_14__["default"],
+    component: _components_Finance_Invoice_MultiplePrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_13__["default"],
     props: true
   }, // Create Sales Order
   {
@@ -83615,9 +83790,14 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     component: _components_Finance_Invoice_AddInvoice__WEBPACK_IMPORTED_MODULE_11__["default"]
   }, //Submit Recap Invoice
   {
-    path: '/admin/finance/submitted-recap/create',
+    path: '/admin/finance/submitted-recap',
     name: "submitRecap",
-    component: _components_Finance_Invoice_SubmitRecapInvoice__WEBPACK_IMPORTED_MODULE_13__["default"]
+    component: _components_Finance_Invoice_IndexSubmittedRecap__WEBPACK_IMPORTED_MODULE_16__["default"]
+  }, //Create Submit Recap Invoice
+  {
+    path: '/admin/finance/submitted-recap/create',
+    name: "submitRecap.create",
+    component: _components_Finance_Invoice_SubmitRecapInvoice__WEBPACK_IMPORTED_MODULE_17__["default"]
   }, //Add Paid Recap Invoice
   {
     path: '/admin/finance/invoice-order/paid/create',
@@ -83626,11 +83806,11 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/finance/recap_invoice',
     name: "invoice_order.recap",
-    component: _components_Finance_Invoice_IndexInvoiceRecap__WEBPACK_IMPORTED_MODULE_16__["default"]
+    component: _components_Finance_Invoice_IndexInvoiceRecap__WEBPACK_IMPORTED_MODULE_15__["default"]
   }, {
     path: '/admin/finance/recap-invoice/show/:id',
     name: "invoice_order.recap.show",
-    component: _components_Finance_Invoice_PrintRecapInvoice__WEBPACK_IMPORTED_MODULE_15__["default"]
+    component: _components_Finance_Invoice_PrintRecapInvoice__WEBPACK_IMPORTED_MODULE_14__["default"]
   },
   /**
    * Warehouse
@@ -83638,19 +83818,19 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   {
     path: '/admin/warehouse/delivery-order',
     name: 'delivery_order.index',
-    component: _components_Warehouse_IndexDeliveryOrder__WEBPACK_IMPORTED_MODULE_17__["default"]
+    component: _components_Warehouse_IndexDeliveryOrder__WEBPACK_IMPORTED_MODULE_18__["default"]
   }, {
     path: '/admin/warehouse/delivery_order/create',
     name: 'delivery_order.create',
-    component: _components_Warehouse_AddDeliveryOrder__WEBPACK_IMPORTED_MODULE_18__["default"]
+    component: _components_Warehouse_AddDeliveryOrder__WEBPACK_IMPORTED_MODULE_19__["default"]
   }, {
     path: '/admin/warehouse/delivery_order/:id/print',
     name: 'delivery_order.print',
-    component: _components_Warehouse_PrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_19__["default"]
+    component: _components_Warehouse_PrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_20__["default"]
   }, {
     path: '/admin/warehouse/delivery_order/multiplePrint',
     name: 'delivery_order.multiplePrint',
-    component: _components_Warehouse_MultiplePrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_20__["default"]
+    component: _components_Warehouse_MultiplePrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_21__["default"]
   }, {
     path: '/admin/users',
     name: 'users',

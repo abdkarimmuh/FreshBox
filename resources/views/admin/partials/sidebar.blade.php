@@ -83,7 +83,7 @@
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance</span></a>
             <ul class="dropdown-menu">
                 @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'warehouse' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
-                    <router-link :to="{ name: 'invoice-order'}" v-slot="{ href, navigate, isActive }">
+                    <router-link :to="{ name: 'invoice_order'}" v-slot="{ href, navigate, isActive }">
                         <li :class="[isActive && 'active']">
                             <a class="nav-link" :href="href" @click="navigate">Form Invoice Order</a>
                         </li>

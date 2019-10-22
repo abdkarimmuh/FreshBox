@@ -55,6 +55,11 @@ class InvoiceRecap extends Model
         return $query->where('is_paid', 1);
     }
 
+    public function scopeIsSubmitted($query)
+    {
+        return $query->whereNotNull('submitted_date');
+    }
+
     public function getCustomerNameAttribute()
     {
         return $this->customer->name;
