@@ -38,7 +38,7 @@
             <div class="col-md-4" v-if="recapInvoice.id !== null">
                 <div class="form-group">
                     <label>
-                        <b>PAID Date</b>
+                        <b>Submit Date</b>
                         <span style="color: red;">*</span>
                     </label>
                     <div>
@@ -62,74 +62,29 @@
                           v-if="recapInvoice.id !== null">
             </s-form-input>
 
-            <div class="col-md-3" v-if="recapInvoice.id !== null">
-                <div class="form-group">
-                    <label>
-                        <b>File</b>
-                    </label>
-                    <div class="custom-file">
-                        <input
-                            v-bind:class="{'is-invalid': errors.file}"
-                            type="file"
-                            class="custom-file-input"
-                            v-on:change="onFileChange"
-                        />
-                        <label class="custom-file-label" v-if="recapInvoice.fileName">
-                            {{ recapInvoice.fileName }}
-                        </label>
-                        <label class="custom-file-label" v-else>Choose File</label>
-                        <div
-                            class="invalid-feedback"
-                            v-if="errors.file"
-                        >
-                            <p>{{ errors.file[0] }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div v-if="recapInvoice.id !== null" class="col-12">
                 <div class="table-responsive m-t-40" style="clear: both;">
-                    <table
-                        class="table table-hover"
-                        id="contentTable"
-                        style="font-size: 9pt;"
-                    >
+                    <table class="table table-bordered table-md">
                         <thead>
                         <tr>
-                            <th class="text-center">Invoice No</th>
-                            <th class="text-center">Total Price</th>
-                            <th class="text-center">Paid Price</th>
-                            <!--                            <th class="text-center">Paid Date</th>-->
+                            <th>No</th>
+                            <th class="text-left">Invoice No</th>
+                            <th class="text-left">Total Price</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr v-for="(invoice, index) in invoices" v-bind:key="index">
-                            <td>{{ invoice.invoice_no | toIDR }}</td>
-                            <td>{{ invoice.price | toIDR }}</td>
-                            <td>
-                                <input type="number" class="form-control"/>
-                            </td>
-                            <!--                            <td>-->
-                            <!--                                <input type="text" class="form-control"/>-->
-                            <!--                            </td>-->
+                            <td>{{ index + 1}}</td>
+                            <td class="text-left">{{ invoice.invoice_no | toIDR }}</td>
+                            <td class="text-left">{{ invoice.price | toIDR }}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>
-                        <b>Remark</b>
-                    </label>
-                    <textarea
-                        v-model="recapInvoice.remark"
-                        class="form-control"
-                    ></textarea>
-                </div>
-            </div>
-            <div class="col-12">
+
+            <div class="col-12" v-if="recapInvoice.id !== null">
                 <div class="card-body">
                     <div v-if="loadingSubmit">
                         <button-loading></button-loading>
@@ -169,8 +124,6 @@
             return {
                 recapInvoice: {
                     id: null,
-                    file: "",
-                    fileName: null,
                 },
                 recapInvoices: [],
                 invoices: [],
@@ -230,21 +183,6 @@
                     this.errors = e.response.data.errors;
                     console.error(e.response.data);
                 }
-            },
-            onFileChange(e) {
-                let fileData = e.target.files || e.dataTransfer.files;
-                this.recapInvoice.fileName = fileData[0].name;
-                if (!fileData.length) return;
-                this.createFile(fileData[0]);
-                console.log(this.recapInvoice.fileName)
-            },
-
-            createFile(file) {
-                let reader = new FileReader();
-                reader.onload = e => {
-                    this.recapInvoice.file = e.target.result;
-                };
-                reader.readAsDataURL(file);
             },
         },
         components: {

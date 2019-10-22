@@ -106,6 +106,11 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
+
+        Route::name('submit_recap.')->prefix('submit_recap')->group(function () {
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+        });
     });
 
     /* Route Menu Report Data */
