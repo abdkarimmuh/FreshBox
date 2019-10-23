@@ -33,10 +33,6 @@ class ListProcurementController extends Controller
             /*
              * Route Can Be Null
              */
-            //Route For Button Add
-            // 'route-add' => 'admin.procurement.list_procurement.create',
-            //Route For Button Edit
-            // 'route-edit' => 'admin.procurement.list_procurement.edit',
             //Route For Button Edit
             'route-view' => 'admin.procurement.list_procurement.show',
             //Route For Button Search
@@ -78,7 +74,39 @@ class ListProcurementController extends Controller
      */
     public function show($id)
     {
-        return ListProcurementDetail::where('trx_list_procurement_id', $id)->get();
+        $data = ListProcurement::find($id)->first();
+        $detail = ListProcurementDetail::where('id', $id)->get();
+
+        // return $data;
+
+        $columns = [
+            array('title' => 'Procurement No', 'field' => 'procurement_no'),
+            array('title' => 'User Procurement', 'field' => 'proc_name'),
+            array('title' => 'Vendor', 'field' => 'vendor'),
+            array('title' => 'Amount', 'field' => 'total_amount'),
+            array('title' => 'Payment', 'field' => 'payment'),
+            array('title' => 'Status', 'field' => 'status_name'),
+            array('title' => 'Remarks', 'field' => 'remarks'),
+        ];
+
+        $detailColumns = [
+            array('title' => 'Item', 'field' => 'item_name'),
+            array('title' => 'Qty', 'field' => 'qty'),
+            array('title' => 'Qty Minus', 'field' => 'qty_minus'),
+            array('title' => 'Uom', 'field' => 'uom_name'),
+            array('title' => 'Amount', 'field' => 'amount'),
+            array('title' => 'Status', 'field' => 'status_name'),
+        ];
+
+        $config = [
+            //Title Required
+            'title' => 'Detail',
+
+            //Route For Button Back
+            'back-button' => 'admin.procurement.list_procurement.index',
+        ];
+
+        return view('admin.procurement.detail', compact('data', 'detail', 'config', 'columns', 'detailColumns'));
     }
 
     /**

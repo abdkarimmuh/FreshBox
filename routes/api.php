@@ -46,9 +46,10 @@ Route::group(['prefix' => 'v1'], function () {
 
             Route::group(['prefix' => 'procurement'], function () {
                 Route::get('/', 'API\Procurement\ProcurementAPIController@index');
+                Route::get('/get', 'API\Procurement\ProcurementAPIController@indexAPI');
+                Route::get('/show/{id}', 'API\Procurement\ProcurementAPIController@show');
                 Route::post('/', 'API\Procurement\ProcurementAPIController@store');
                 Route::post('/storeUser', 'API\Procurement\ProcurementAPIController@storeUserProc');
-
             });
 
             Route::group(['prefix' => 'so_detail'], function () {
@@ -90,7 +91,7 @@ Route::group(['prefix' => 'v1'], function () {
      * Route API Route
      */
     Route::group(['prefix' => 'finance'], function () {
-        /**
+        /*
          * Invoice Route
          */
         Route::group(['prefix' => 'invoice_order'], function () {
@@ -103,7 +104,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/printRecap', 'API\InvoiceAPIController@printRecap');
             Route::get('/generateRecapInvoice', 'API\InvoiceAPIController@generateRecapInvoice');
         });
-        /**
+        /*
          * Recap Invoice Route
          */
         Route::group(['prefix' => 'invoice_recap'], function () {
@@ -115,7 +116,6 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/listNotPaid', 'API\InvoiceRecapAPIController@listInvoiceRecapNotPaid');
             Route::get('/show/{id}', 'API\InvoiceRecapAPIController@show');
         });
-
     });
 
     /*

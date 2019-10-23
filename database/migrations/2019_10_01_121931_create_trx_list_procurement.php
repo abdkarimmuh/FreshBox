@@ -20,6 +20,7 @@ class CreateTrxListProcurement extends Migration
             $table->string('payment');
             $table->binary('file')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->string('remarks')->nullable();
 
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();

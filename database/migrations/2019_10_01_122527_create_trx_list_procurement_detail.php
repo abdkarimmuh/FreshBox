@@ -19,6 +19,7 @@ class CreateTrxListProcurementDetail extends Migration
             $table->decimal('qty_minus', 18, 2)->default(0);
             $table->unsignedBigInteger('uom_id');
             $table->decimal('amount', 18, 2);
+            $table->integer('status')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
 

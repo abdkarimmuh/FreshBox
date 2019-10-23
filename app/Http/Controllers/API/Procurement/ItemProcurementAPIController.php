@@ -26,7 +26,7 @@ class ItemProcurementAPIController extends Controller
 
     public function indexAPI()
     {
-        $query = AssignProcurement::where('user_proc_id', auth('api')->user()->id)->get();
+        $query = AssignProcurement::where('user_proc_id', auth('api')->user()->id)->where('status', 1)->get();
 
         return AssignProcurementResource::collection($query);
     }
@@ -60,14 +60,14 @@ class ItemProcurementAPIController extends Controller
         $user_proc_id = auth('api')->user()->id;
         $items = $request->items;
 
+        $count = 0;
+
         foreach ($items as $item) {
             $skuid = $item['skuid'];
             $qty_all = number_format($item['pick']);
             $uom_id = $item['uom_id'];
 
             $sales_order_detail = SalesOrderDetail::where('status', 1)->where('skuid', $skuid)->where('uom_id', $uom_id)->get();
-
-            $count = 0;
 
             foreach ($sales_order_detail as $data) {
                 $sales_order = SalesOrder::find($data->sales_order_id);
@@ -94,18 +94,17 @@ class ItemProcurementAPIController extends Controller
                     break;
                 }
             }
+        }
+        if ($count != 0) {
+            DB::select('call insert_assign_procurement(?, ?, ?, ?, ?, ?)', array($skuid, $user_proc_id, $count, $uom_id, 1, $user_proc_id));
 
-            if ($count != 0) {
-                DB::select('call insert_assign_procurement(?, ?, ?, ?, ?)', array($skuid, $user_proc_id, $count, $uom_id, $user_proc_id));
-
-                return response()->json([
-                    'status' => 'success',
-                ]);
-            } else {
-                return response()->json([
-                    'status' => 'error',
-                ]);
-            }
+            return response()->json([
+                        'status' => 'success',
+                    ]);
+        } else {
+            return response()->json([
+                        'status' => 'error',
+                    ]);
         }
     }
 

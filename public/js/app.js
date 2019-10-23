@@ -5381,7 +5381,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -54850,7 +54849,7 @@ var render = function() {
                 ],
                 staticClass: "form-control",
                 class: { "is-invalid": _vm.errors.bank_account },
-                attrs: { type: "text", placeholder: "set an bank account" },
+                attrs: { type: "text", placeholder: "Set an bank account" },
                 domProps: { value: _vm.bank_account },
                 on: {
                   input: function($event) {
@@ -54921,64 +54920,6 @@ var render = function() {
               _vm.errors.bank
                 ? _c("div", { staticClass: "invalid-feedback" }, [
                     _c("p", [_vm._v(_vm._s(_vm.errors.bank[0]))])
-                  ])
-                : _vm._e()
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group row mb-4" }, [
-            _c(
-              "label",
-              {
-                staticClass:
-                  "col-form-label text-md-right col-12 col-md-3 col-lg-3"
-              },
-              [_vm._v("Category")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-12 col-md-7" }, [
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.category,
-                      expression: "category"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: { "is-invalid": _vm.errors.category },
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.category = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
-                  }
-                },
-                _vm._l(_vm.categories, function(category) {
-                  return _c("option", { domProps: { value: category.id } }, [
-                    _vm._v(
-                      _vm._s(category.name) + "\n                            "
-                    )
-                  ])
-                }),
-                0
-              ),
-              _vm._v(" "),
-              _vm.errors.category
-                ? _c("div", { staticClass: "invalid-feedback" }, [
-                    _c("p", [_vm._v(_vm._s(_vm.errors.category[0]))])
                   ])
                 : _vm._e()
             ])
@@ -55199,7 +55140,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _vm.message
         ? _c("div", { staticClass: "alert alert-primary" }, [
-            _vm._v("\r\n            " + _vm._s(_vm.message) + "\r\n        ")
+            _vm._v("\n            " + _vm._s(_vm.message) + "\n        ")
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -84182,8 +84123,8 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\FreshBox\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! /var/www/html/FreshBox/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/FreshBox/resources/sass/custom.scss */"./resources/sass/custom.scss");
 
 
 /***/ })

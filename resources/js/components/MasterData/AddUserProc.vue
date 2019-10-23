@@ -9,7 +9,6 @@
                     <h4>Add a New User Proc</h4>
                 </div>
                 <div class="card-body">
-
                     <div class="form-group row mb-4">
                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Name</label>
                         <div class="col-sm-12 col-md-7">
@@ -35,7 +34,7 @@
                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Bank Account</label>
                         <div class="col-sm-12 col-md-7">
                             <input v-bind:class="{'is-invalid': errors.bank_account}" type="text" v-model="bank_account"
-                                   class="form-control" placeholder="set an bank account">
+                                   class="form-control" placeholder="Set an bank account">
                             <div class="invalid-feedback" v-if="errors.bank_account">
                                 <p>{{ errors.bank_account[0] }}</p>
                             </div>
@@ -53,7 +52,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row mb-4">
+                    <!-- <div class="form-group row mb-4">
                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
                         <div class="col-sm-12 col-md-7">
                             <select class="form-control" v-model="category"
@@ -65,7 +64,7 @@
                                 <p>{{ errors.category[0] }}</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group row mb-4">
                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Origin</label>
