@@ -110,10 +110,9 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/', 'API\InvoiceRecapAPIController@index');
             Route::get('/notSubmitted', 'API\InvoiceRecapAPIController@InvoiceNotSubmitted');
             Route::get('/submitted', 'API\InvoiceRecapAPIController@InvoiceSubmitted');
+            Route::post('/submitted', 'API\InvoiceRecapAPIController@StoreSubmitInvoice');
             Route::get('/paid', 'API\InvoiceRecapAPIController@InvoicePaid');
             Route::get('/listNotPaid', 'API\InvoiceRecapAPIController@listInvoiceRecapNotPaid');
-
-
             Route::get('/show/{id}', 'API\InvoiceRecapAPIController@show');
         });
 

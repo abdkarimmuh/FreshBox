@@ -43,7 +43,7 @@
                     </label>
                     <div>
                         <date-picker
-                            v-model="recapInvoice.do_date"
+                            v-model="submitDate"
                             lang="en"
                             valueType="format"
                             :not-before="new Date()"
@@ -51,9 +51,9 @@
                     </div>
                     <div
                         style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                        v-if="errors.do_date"
+                        v-if="errors.submitDate"
                     >
-                        <p>{{ errors.do_date[0] }}</p>
+                        <p>{{ errors.submitDate[0] }}</p>
                     </div>
                 </div>
             </div>
@@ -125,6 +125,7 @@
                 recapInvoice: {
                     id: null,
                 },
+                submitDate: '',
                 recapInvoices: [],
                 invoices: [],
                 errors: [],
@@ -155,28 +156,18 @@
             async submitForm() {
                 this.loadingSubmit = true;
                 const payload = {
-                    user_id: this.recapInvoice.user_id,
-                    sales_order_id: this.delivery_order.sales_order_id,
-                    customer_id: this.delivery_order.customer_id,
-                    do_date: this.delivery_order.do_date,
-                    driver_id: this.delivery_order.driver_id,
-                    pic_qc: this.delivery_order.pic_qc_id,
-                    remark: this.delivery_order.remark,
-                    so_details: this.sales_order_details.map((item, idx) => ({
-                        id: item.id,
-                        skuid: item.skuid,
-                        uom_id: item.uom_id,
-                        qty_do: this.qty_do[idx].qty
-                    }))
+                    recapInvoiceId: this.recapInvoice.id,
+                    submitDate: this.submitDate
                 };
                 try {
-                    const res = await axios.post("/api/v1/warehouse/delivery_order", payload);
+                    const res = await axios.post(this.$parent.MakeUrl('api/v1/finance/invoice_recap/submitted'), payload);
+                    console.log(res);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        window.location.href = "/admin/warehouse/delivery_order";
+                        this.$router.push({name: 'submitRecap'});
                     });
                 } catch (e) {
                     this.loadingSubmit = false;

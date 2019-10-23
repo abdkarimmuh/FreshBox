@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class InvoiceRecap extends Model
 {
     protected $table = 'trx_invoice_recap';
-    protected $fillable = ['customer_id', 'recap_invoice_no', 'recap_date', 'created_by'];
+    protected $fillable = ['customer_id', 'recap_invoice_no', 'recap_date', 'created_by','submitted_date','is_paid'];
     protected $dates = ['recap_date'];
     protected $columns = [
         'id' => [

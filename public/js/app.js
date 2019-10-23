@@ -3517,6 +3517,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       recapInvoice: {
         id: null
       },
+      submitDate: '',
       recapInvoices: [],
       invoices: [],
       errors: [],
@@ -3558,51 +3559,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 this.loadingSubmit = true;
                 payload = {
-                  user_id: this.recapInvoice.user_id,
-                  sales_order_id: this.delivery_order.sales_order_id,
-                  customer_id: this.delivery_order.customer_id,
-                  do_date: this.delivery_order.do_date,
-                  driver_id: this.delivery_order.driver_id,
-                  pic_qc: this.delivery_order.pic_qc_id,
-                  remark: this.delivery_order.remark,
-                  so_details: this.sales_order_details.map(function (item, idx) {
-                    return {
-                      id: item.id,
-                      skuid: item.skuid,
-                      uom_id: item.uom_id,
-                      qty_do: _this3.qty_do[idx].qty
-                    };
-                  })
+                  recapInvoiceId: this.recapInvoice.id,
+                  submitDate: this.submitDate
                 };
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post("/api/v1/warehouse/delivery_order", payload);
+                return axios.post(this.$parent.MakeUrl('api/v1/finance/invoice_recap/submitted'), payload);
 
               case 5:
                 res = _context.sent;
+                console.log(res);
                 Vue.swal({
                   type: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
-                  window.location.href = "/admin/warehouse/delivery_order";
+                  _this3.$router.push({
+                    name: 'submitRecap'
+                  });
                 });
-                _context.next = 14;
+                _context.next = 15;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](2);
                 this.loadingSubmit = false;
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 9]]);
+        }, _callee, this, [[2, 10]]);
       }));
 
       function submitForm() {
@@ -52625,18 +52616,18 @@ var render = function() {
                               "not-before": new Date()
                             },
                             model: {
-                              value: _vm.recapInvoice.do_date,
+                              value: _vm.submitDate,
                               callback: function($$v) {
-                                _vm.$set(_vm.recapInvoice, "do_date", $$v)
+                                _vm.submitDate = $$v
                               },
-                              expression: "recapInvoice.do_date"
+                              expression: "submitDate"
                             }
                           })
                         ],
                         1
                       ),
                       _vm._v(" "),
-                      _vm.errors.do_date
+                      _vm.errors.submitDate
                         ? _c(
                             "div",
                             {
@@ -52646,7 +52637,11 @@ var render = function() {
                                 color: "#dc3545"
                               }
                             },
-                            [_c("p", [_vm._v(_vm._s(_vm.errors.do_date[0]))])]
+                            [
+                              _c("p", [
+                                _vm._v(_vm._s(_vm.errors.submitDate[0]))
+                              ])
+                            ]
                           )
                         : _vm._e()
                     ])

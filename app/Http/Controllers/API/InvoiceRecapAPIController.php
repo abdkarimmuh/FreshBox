@@ -40,6 +40,22 @@ class InvoiceRecapAPIController extends Controller
         return new InvoiceRecapHasDetailResource($recap_invoice);
     }
 
+    public function StoreSubmitInvoice(Request $request)
+    {
+        $rules = [
+            'submitDate' => 'required',
+            'recapInvoiceId' => 'required'
+        ];
+        $request->validate($rules);
+        $recapInvoice = InvoiceRecap::find($request->recapInvoiceId)
+            ->update([
+                'submitted_date' => $request->submitDate
+            ]);
+
+        return $this->sendResponse($recapInvoice, 'Recap Invoice submitted successfully.');
+
+    }
+
     public function InvoiceNotSubmitted()
     {
         return InvoiceRecapResource::collection(InvoiceRecap::IsNotPaid()->isNotSubmitted()->get());
