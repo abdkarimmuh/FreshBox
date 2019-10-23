@@ -2616,6 +2616,10 @@ __webpack_require__.r(__webpack_exports__);
 
       },
       columns: [{
+        title: 'Submitted Date',
+        field: 'submitted_date',
+        filterable: true
+      }, {
         title: 'Recap Invoice NO',
         field: 'recap_invoice_no',
         filterable: true

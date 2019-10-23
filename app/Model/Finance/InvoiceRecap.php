@@ -3,13 +3,14 @@
 namespace App\Model\Finance;
 
 use App\Model\MasterData\Customer;
+use App\MyModel;
 use Illuminate\Database\Eloquent\Model;
 
-class InvoiceRecap extends Model
+class InvoiceRecap extends MyModel
 {
     protected $table = 'trx_invoice_recap';
     protected $fillable = ['customer_id', 'recap_invoice_no', 'recap_date', 'created_by','submitted_date','is_paid'];
-    protected $dates = ['recap_date'];
+    protected $dates = ['recap_date','submitted_date'];
     protected $columns = [
         'id' => [
             'searchable' => false,
