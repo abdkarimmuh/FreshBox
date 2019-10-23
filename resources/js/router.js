@@ -69,19 +69,19 @@ const router = new VueRouter({
          */
         // Index
         {
-            path: '/admin/finance/invoice_order',
+            path: '/admin/finance/invoice-order',
             name: "invoice_order",
             component: IndexInvoice
         },
         // Print Sales Order
         {
-            path: '/admin/finance/invoice_order/:id/print',
+            path: '/admin/finance/invoice-order/:id/print',
             name: "invoice_order.print",
             component: PrintInvoice
         },
         // Print Multiple Sales Order
         {
-            path: '/admin/finance/invoice_order/printMultiple/',
+            path: '/admin/finance/invoice-order/printMultiple/',
             name: "invoice_order.multiplePrint",
             component: MultiplePrintInvoiceOrder,
             props: true
@@ -111,7 +111,7 @@ const router = new VueRouter({
             component: AddPaidInvoice
         },
         {
-            path: '/admin/finance/recap_invoice',
+            path: '/admin/finance/recap-invoice',
             name: "invoice_order.recap",
             component: IndexInvoiceRecap
         },

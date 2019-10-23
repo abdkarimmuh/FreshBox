@@ -100,7 +100,7 @@
                     </router-link>
                 @else
                     <li class="{{ request()->segment(3) == 'invoice_order' ? ' active' : '' }}">
-                        <a href="{{ url('admin/finance/invoice_order') }}"
+                        <a href="{{ url('admin/finance/invoice-order') }}"
                            class="nav-link"><span>Form Invoice Order</span></a>
                     </li>
                 @endif

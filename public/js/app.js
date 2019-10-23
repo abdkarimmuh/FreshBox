@@ -83773,17 +83773,17 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
    */
   // Index
   {
-    path: '/admin/finance/invoice_order',
+    path: '/admin/finance/invoice-order',
     name: "invoice_order",
     component: _components_Finance_Invoice_IndexInvoice__WEBPACK_IMPORTED_MODULE_9__["default"]
   }, // Print Sales Order
   {
-    path: '/admin/finance/invoice_order/:id/print',
+    path: '/admin/finance/invoice-order/:id/print',
     name: "invoice_order.print",
     component: _components_Finance_Invoice_PrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, // Print Multiple Sales Order
   {
-    path: '/admin/finance/invoice_order/printMultiple/',
+    path: '/admin/finance/invoice-order/printMultiple/',
     name: "invoice_order.multiplePrint",
     component: _components_Finance_Invoice_MultiplePrintInvoiceOrder__WEBPACK_IMPORTED_MODULE_13__["default"],
     props: true
@@ -83808,7 +83808,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: "invoice_order.paid.create",
     component: _components_Finance_Invoice_AddPaidInvoice__WEBPACK_IMPORTED_MODULE_12__["default"]
   }, {
-    path: '/admin/finance/recap_invoice',
+    path: '/admin/finance/recap-invoice',
     name: "invoice_order.recap",
     component: _components_Finance_Invoice_IndexInvoiceRecap__WEBPACK_IMPORTED_MODULE_15__["default"]
   }, {
