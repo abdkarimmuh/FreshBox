@@ -109,7 +109,7 @@
                         <tr>
                             <th class="text-center">Invoice No</th>
                             <th class="text-center">Total Price</th>
-                            <th class="text-center">Paid Price</th>
+                            <th class="text-center">Amount Paid</th>
                             <!--                            <th class="text-center">Paid Date</th>-->
                         </tr>
                         </thead>

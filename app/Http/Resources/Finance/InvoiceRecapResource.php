@@ -27,7 +27,7 @@ class InvoiceRecapResource extends JsonResource
             'recap_date' => $this->recap_date->formatLocalized('%d %B %Y'),
             'total_amount' => $total_amount,
             'is_paid' => $this->is_paid,
-            'submitted_date' => $this->submitted_date->formatLocalized('%d %B %Y'),
+            'submitted_date' => isset($this->submitted_date) ? $this->submitted_date->formatLocalized('%d %B %Y') : null,
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
             'created_by_name' => $this->created_by_name,
         ];
