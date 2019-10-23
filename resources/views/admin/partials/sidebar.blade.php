@@ -68,13 +68,13 @@
                         </li>
                     </router-link>
                 @else
-                    <li class="{{ request()->route()->getName() == 'admin.warehouse.delivery_order.index' ? ' active' : '' }}">
+                    <li class="{{ request()->segment(3) == 'delivery-order' ? ' active' : '' }}">
                         <a class="nav-link"
-                           href="{{url('admin/warehouse/delivery_order')}}"><span>Form Delivery Order</span></a>
+                           href="{{url('admin/warehouse/delivery-order')}}"><span>Form Delivery Order</span></a>
                     </li>
                 @endif
 
-                <li class="{{ request()->route()->getName() == 'admin.warehouse.confirm_delivery_order.index' ? ' active' : '' }}">
+                <li class="{{ request()->segment(3) == 'confirm_delivery_order' ? ' active' : '' }}">
                     <a class="nav-link" href="{{ url('admin/warehouse/confirm_delivery_order') }}"><span>Confirm Delivery Order</span></a>
                 </li>
             </ul>
