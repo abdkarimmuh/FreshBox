@@ -2308,6 +2308,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2335,7 +2345,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getRecapInvoices: function getRecapInvoices() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/listNotPaid')).then(function (res) {
+      axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/submitted')).then(function (res) {
         _this.recapInvoices = res.data.data;
       });
     },
@@ -6070,7 +6080,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "StislaSearchSelect",
-  props: ['label', 'data', 'model', 'oninput', 'optionValue', 'optionText', 'placeholder', 'errors', 'bindclass'],
+  props: ['label', 'data', 'model', 'oninput', 'optionValue', 'optionText', 'placeholder', 'errors', 'bindclass', 'col', 'mandatory'],
   components: {
     ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_0__["ModelListSelect"]
   }
@@ -51374,36 +51384,38 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-12" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_c("b", [_vm._v("Remark")])]),
-                  _vm._v(" "),
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.recapInvoice.remark,
-                        expression: "recapInvoice.remark"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    domProps: { value: _vm.recapInvoice.remark },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+              _vm.recapInvoice.id !== null
+                ? _c("div", { staticClass: "col-md-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_c("b", [_vm._v("Remark")])]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.recapInvoice.remark,
+                            expression: "recapInvoice.remark"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        domProps: { value: _vm.recapInvoice.remark },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.recapInvoice,
+                              "remark",
+                              $event.target.value
+                            )
+                          }
                         }
-                        _vm.$set(
-                          _vm.recapInvoice,
-                          "remark",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
+                      })
+                    ])
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _c("div", { staticClass: "col-12" }, [
                 _c("div", { staticClass: "card-body" }, [
@@ -56074,12 +56086,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-6" }, [
+  return _c("div", { class: "col-md-" + _vm.col }, [
     _c("div", { staticClass: "form-group" }, [
       _c("label", [
         _c("b", [_vm._v(_vm._s(_vm.label))]),
         _vm._v(" "),
-        _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+        _vm.mandatory
+          ? _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
