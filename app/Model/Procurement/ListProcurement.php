@@ -16,6 +16,7 @@ class ListProcurement extends MyModel
         'updated_by_name',
         'proc_name',
         'status_name',
+        'items',
     ];
 
     protected $columns = [
@@ -74,6 +75,16 @@ class ListProcurement extends MyModel
     public function UserProc()
     {
         return $this->belongsTo(UserProcurement::class);
+    }
+
+    public function ListProcurementDetail()
+    {
+        return $this->hasMany(ListProcurementDetail::class, 'trx_list_procurement_id', 'id');
+    }
+
+    public function getItemsAttribute()
+    {
+        return $this->ListProcurementDetail;
     }
 
     public function getProcNameAttribute()

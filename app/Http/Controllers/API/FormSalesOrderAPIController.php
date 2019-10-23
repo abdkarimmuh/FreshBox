@@ -98,8 +98,8 @@ class FormSalesOrderAPIController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateSalesOrderNo() . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-            Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
+            $file_name = $this->generateSalesOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
         }
@@ -153,7 +153,7 @@ class FormSalesOrderAPIController extends Controller
         SalesOrderDetail::insert($salesOrderDetails);
 
         return response()->json([
-            'status' => 'success'
+            'status' => 'success',
         ]);
     }
 
@@ -280,7 +280,6 @@ class FormSalesOrderAPIController extends Controller
     }
 
     /**
-     *
      * Generate Sales Order No.
      *
      * @return string
@@ -289,10 +288,10 @@ class FormSalesOrderAPIController extends Controller
     {
         $year_month = Carbon::now()->format('ym');
         $latest_sales_order = SalesOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        $get_last_so_no = isset($latest_sales_order->sales_order_no) ? $latest_sales_order->sales_order_no : 'SO' . $year_month . '00000';
+        $get_last_so_no = isset($latest_sales_order->sales_order_no) ? $latest_sales_order->sales_order_no : 'SO'.$year_month.'00000';
         $cut_string_so = str_replace('SO', '', $get_last_so_no);
 
-        return 'SO' . ($cut_string_so + 1);
+        return 'SO'.($cut_string_so + 1);
     }
 
     /**
@@ -321,14 +320,14 @@ class FormSalesOrderAPIController extends Controller
      */
     public function DownloadFile($file)
     {
-        return Storage::download('public/files/' . $file);
+        return Storage::download('public/files/'.$file);
     }
 
     /**
      * @param Request $request
+     *
      * @return JsonResponse
      */
-
     public function print(Request $request)
     {
         if (is_array($request->id)) {
@@ -336,9 +335,9 @@ class FormSalesOrderAPIController extends Controller
         } else {
             SalesOrder::where('id', $request->id)->update(['is_printed' => 1]);
         }
+
         return response()->json([
-            'status' => 'success'
+            'status' => 'success',
         ], 200);
     }
-
 }

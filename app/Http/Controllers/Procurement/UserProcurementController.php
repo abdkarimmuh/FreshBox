@@ -21,26 +21,21 @@ class UserProcurementController extends Controller
             array('title' => 'Nama', 'field' => 'name'),
             array('title' => 'Email', 'field' => 'email'),
             array('title' => 'Saldo', 'field' => 'saldo'),
-            array('title' => 'Category', 'field' => 'category_name'),
             array('title' => 'Bank Account', 'field' => 'bank_account'),
             array('title' => 'Bank Name', 'field' => 'bank_name'),
-            array('title' => 'Origin Code', 'field' => 'origin_code'),
-            array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
-            array('title' => 'Modified By', 'field' => 'updated_by_name'),
-            array('title' => 'Modified At', 'field' => 'updated_at'),
         ];
 
         $config = [
             //Title Required
             'title' => 'User Procurement',
-            /**
+            /*
              * Route Can Be Null
              */
             //Route For Button Add
             'route-add' => 'admin.procurement.user_procurement.create',
             //Route For Button Edit
-            'route-edit' => 'admin.procurement.user_procurement.edit',
+            // 'route-edit' => 'admin.procurement.user_procurement.edit',
             //Route For Button Search
             'route-search' => 'admin.procurement.user_procurement.index',
         ];
@@ -59,64 +54,65 @@ class UserProcurementController extends Controller
     public function create()
     {
         $config = [
-            'vue-component' => '<add-user-proc></add-user-proc>'
+            'vue-component' => '<add-user-proc></add-user-proc>',
         ];
+
         return view('layouts.vue-view', compact('config'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
     }
 }

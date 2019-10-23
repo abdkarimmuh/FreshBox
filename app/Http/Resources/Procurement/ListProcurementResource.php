@@ -17,7 +17,7 @@ class ListProcurementResource extends JsonResource
     {
         return[
             'id' => $this->id,
-            'procurement_no' => $this->procurement_no,
+            'no_proc' => $this->procurement_no,
             'user_proc_id' => $this->user_proc_id,
             'proc_name' => $this->proc_name,
             'vendor' => $this->vendor,
@@ -26,7 +26,7 @@ class ListProcurementResource extends JsonResource
             'file' => $this->file,
             'remarks' => $this->remarks,
             'status' => $this->status,
-            'item' => $this->item,
+            'items' => DetailProcurementResource::collection($this->items),
         ];
     }
 }

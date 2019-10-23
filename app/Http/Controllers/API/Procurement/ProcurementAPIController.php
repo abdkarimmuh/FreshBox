@@ -13,6 +13,7 @@ use App\UserProc;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 
 class ProcurementAPIController extends Controller
@@ -25,6 +26,13 @@ class ProcurementAPIController extends Controller
     public function index()
     {
         $query = ListProcurement::all();
+
+        return ListProcurementResource::collection($query);
+    }
+
+    public function indexAPI()
+    {
+        $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)->get();
 
         return ListProcurementResource::collection($query);
     }
@@ -47,7 +55,7 @@ class ProcurementAPIController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        // return $request->all();
 
         $rules = [
             'vendor' => 'required',
@@ -73,8 +81,8 @@ class ProcurementAPIController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateProcOrderNo() . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-            Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
+            $file_name = $this->generateProcOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
         }
@@ -99,6 +107,7 @@ class ProcurementAPIController extends Controller
                 'qty' => $item['qty'],
                 'uom_id' => $item['uom_id'],
                 'amount' => $item['amount'],
+                'status' => 1,
                 'created_by' => $user_proc_id,
                 'created_at' => Carbon::now(),
             ];
@@ -124,6 +133,9 @@ class ProcurementAPIController extends Controller
      */
     public function show($id)
     {
+        $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)->where('status', $id)->get();
+
+        return ListProcurementResource::collection($query);
     }
 
     /**
@@ -141,7 +153,7 @@ class ProcurementAPIController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param int                      $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -164,10 +176,10 @@ class ProcurementAPIController extends Controller
     {
         $year_month = Carbon::now()->format('ym');
         $latest_proc = ListProcurement::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC' . $year_month . '00000';
+        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC'.$year_month.'00000';
         $cut_string_proc = str_replace('PROC', '', $get_last_proc_no);
 
-        return 'PROC' . ($cut_string_proc + 1);
+        return 'PROC'.($cut_string_proc + 1);
     }
 
     // public function storeWarehouseIn(Request $request)
@@ -259,12 +271,13 @@ class ProcurementAPIController extends Controller
             'bank_id' => $request->bank,
             'origin_id' => $request->origin,
             'category_id' => $request->category,
-            'created_by' => auth('api')->user()->id
+            'created_by' => auth('api')->user()->id,
         ]);
         $role = Role::find(4);
         if ($role) {
             $user->assignRole($role);
         }
+
         return response()->json($procurement);
     }
 
@@ -284,7 +297,6 @@ class ProcurementAPIController extends Controller
         $userProc = UserProc::findOrFail($id);
         $users = User::findOrFail($userProc->user_id);
 
-
         $input = $request->all();
         if ($request->password) {
             $input['password'] = bcrypt($input['password']);
@@ -295,7 +307,7 @@ class ProcurementAPIController extends Controller
             'bank_id' => $request->bank,
             'origin_id' => $request->origin,
             'category_id' => $request->category,
-            'created_by' => auth('api')->user()->id
+            'created_by' => auth('api')->user()->id,
         ]);
 
         return response()->json($procurement);
