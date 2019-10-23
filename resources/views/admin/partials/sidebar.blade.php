@@ -104,8 +104,8 @@
                            class="nav-link"><span>Form Invoice Order</span></a>
                     </li>
                 @endif
-                <li class="{{ request()->segment(3) == 'paid_invoice_order' ? ' active' : '' }}">
-                    <a href="{{ url('admin/finance/paid_invoice_order') }}"
+                <li class="{{ request()->segment(3) == 'paid-recap' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance/paid-recap') }}"
                        class="nav-link"><span>Paid Invoice Order</span></a>
                 </li>
             </ul>

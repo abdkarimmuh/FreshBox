@@ -11,10 +11,10 @@
         data() {
             return {
                 config: {
-                    title: 'Submitted Invoice Order',
+                    title: 'Paid Recap Invoice Order',
                     action: true,
                     base_url: this.$parent.MakeUrl('api/v1/finance/invoice_recap?status=paid'),
-                    route_create: 'submitRecap.create',
+                    route_create: 'paidRecap.create',
                     route_view: 'invoice_order.recap.show',
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },

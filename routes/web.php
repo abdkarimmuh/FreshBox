@@ -111,6 +111,11 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
+
+        Route::name('paid-recap.')->prefix('paid-recap')->group(function () {
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+        });
     });
     /* Route Menu Report Data */
     Route::name('report.')->prefix('report')->middleware('auth')->group(function () {
