@@ -93,14 +93,19 @@
                             <a class="nav-link" :href="href" @click="navigate">Recap Invoice</a>
                         </li>
                     </router-link>
+                    <router-link :to="{ name: 'submitRecap'}" v-slot="{ href, navigate, isActive }">
+                        <li :class="[isActive && 'active']">
+                            <a class="nav-link" :href="href" @click="navigate">Submitted Recap Invoice</a>
+                        </li>
+                    </router-link>
                 @else
                     <li class="{{ request()->segment(3) == 'invoice_order' ? ' active' : '' }}">
-                        <a href="{{ url('admin/finance/invoice_order') }}"
+                        <a href="{{ url('admin/finance/invoice-order') }}"
                            class="nav-link"><span>Form Invoice Order</span></a>
                     </li>
                 @endif
-                <li class="{{ request()->segment(3) == 'paid_invoice_order' ? ' active' : '' }}">
-                    <a href="{{ url('admin/finance/paid_invoice_order') }}"
+                <li class="{{ request()->segment(3) == 'paid-recap' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance/paid-recap') }}"
                        class="nav-link"><span>Paid Invoice Order</span></a>
                 </li>
             </ul>

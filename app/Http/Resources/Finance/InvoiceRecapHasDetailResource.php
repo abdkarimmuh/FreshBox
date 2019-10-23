@@ -20,7 +20,7 @@ class InvoiceRecapHasDetailResource extends JsonResource
         }
         return [
             'id' => $this->id,
-            'customer_name' => $this->customer->name,
+            'customer_name' => $this->customer_name,
             'up' => $this->customer->pic_customer,
             'recap_invoice_no' => $this->recap_invoice_no,
             'recap_date' => $this->recap_date->formatLocalized('%d %B %Y'),

@@ -206,11 +206,6 @@
                     if (result.value) {
                         this.$htmlToPaper('printMe');
                         axios.post(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print'))
-                        // Swal.fire(
-                        //     'Printed!',
-                        //     'This Sales Order has been Printed.',
-                        //     'success'
-                        // )
                     }
                 })
             },

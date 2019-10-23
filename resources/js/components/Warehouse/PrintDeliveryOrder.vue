@@ -81,6 +81,7 @@
                     {
                         title: 'Item Name',
                         field: 'item_name',
+                        alignmentLeft: true,
                         type: 'text',
                     },
                     {

@@ -4,7 +4,7 @@
             <thead>
             <tr style="border-bottom: 1px solid black; border-top: 1px solid black">
                 <th class="text-right">No</th>
-                <th class="text-right" v-for="(col, index) in columns">
+                <th v-bind:class="[col.alignmentLeft ? 'text-left' : 'text-right']" class="pl-5" v-for="(col, index) in columns">
                     {{ col.title }}
                 </th>
             </tr>
@@ -12,7 +12,7 @@
             <tbody>
             <tr style="border-bottom: 0px" v-for="(item, index) in data" :key="index">
                 <td class="text-right">{{ index + 1 }}</td>
-                <td class="text-right" v-for="(col,index) in columns">
+                <td v-bind:class="[col.alignmentLeft ? 'text-left' : 'text-right']"  class="pl-5" v-for="(col,index) in columns">
                     <div v-if="col.type === 'text'">
                         {{ item[col.field]}}
                     </div>
@@ -28,7 +28,7 @@
 
 <script>
     export default {
-        props: ['columns', 'data']
+        props: ['columns', 'data'],
     }
 </script>
 

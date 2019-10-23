@@ -220,7 +220,6 @@
                     //     page: this.pagination.current_page
                     // }
                 }).then(res => {
-                    console.log(res);
                     this.data = res.data.data;
                     this.pagination = {
                         first: res.data.links.first,

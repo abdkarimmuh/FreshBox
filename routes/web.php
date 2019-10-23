@@ -97,17 +97,26 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      * Route Menu Finance
      */
     Route::name('finance.')->prefix('finance')->middleware('auth')->group(function () {
-        Route::name('invoice_order.')->prefix('invoice_order')->group(function () {
+        Route::name('invoice-order.')->prefix('invoice-order')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
 
-        Route::name('recap_invoice.')->prefix('recap_invoice')->group(function () {
+        Route::name('recap-invoice.')->prefix('recap-invoice')->group(function () {
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+        });
+
+        Route::name('submitted-recap.')->prefix('submitted-recap')->group(function () {
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+        });
+
+        Route::name('paid-recap.')->prefix('paid-recap')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
     });
-
     /* Route Menu Report Data */
     Route::name('report.')->prefix('report')->middleware('auth')->group(function () {
         Route::name('reportso.')->prefix('reportso')->group(function () {

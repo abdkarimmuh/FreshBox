@@ -12,10 +12,16 @@ import MultiplePrintSalesOrder from "./components/Marketing/SalesOrder/MultipleP
 import IndexInvoice from './components/Finance/Invoice/IndexInvoice';
 import PrintInvoice from './components/Finance/Invoice/PrintInvoiceOrder';
 import AddInvoice from './components/Finance/Invoice/AddInvoice';
+
 import MultiplePrintInvoiceOrder from './components/Finance/Invoice/MultiplePrintInvoiceOrder';
 import PrintRecapInvoice from './components/Finance/Invoice/PrintRecapInvoice';
 import IndexInvoiceRecap from './components/Finance/Invoice/IndexInvoiceRecap';
 
+import IndexSubmittedRecap from './components/Finance/Invoice/IndexSubmittedRecap';
+import SubmitRecapInvoice from './components/Finance/Invoice/SubmitRecapInvoice';
+
+import IndexPaidRecap from './components/Finance/Invoice/IndexPaidRecap';
+import AddPaidInvoice from './components/Finance/Invoice/AddPaidInvoice';
 
 import IndexDeliveryOrder from './components/Warehouse/IndexDeliveryOrder';
 import AddDeliveryOrder from './components/Warehouse/AddDeliveryOrder';
@@ -65,36 +71,60 @@ const router = new VueRouter({
          */
         // Index
         {
-            path: '/admin/finance/invoice_order',
+            path: '/admin/finance/invoice-order',
             name: "invoice_order",
             component: IndexInvoice
         },
         // Print Sales Order
         {
-            path: '/admin/finance/invoice_order/:id/print',
+            path: '/admin/finance/invoice-order/:id/print',
             name: "invoice_order.print",
             component: PrintInvoice
         },
         // Print Multiple Sales Order
         {
-            path: '/admin/finance/invoice_order/printMultiple/',
+            path: '/admin/finance/invoice-order/printMultiple/',
             name: "invoice_order.multiplePrint",
             component: MultiplePrintInvoiceOrder,
             props: true
         },
         // Create Sales Order
         {
-            path: '/admin/finance/invoice_order/create',
+            path: '/admin/finance/invoice-order/create',
             name: "invoice_order.create",
             component: AddInvoice
         },
+        //Submit Recap Invoice
         {
-            path: '/admin/finance/recap_invoice',
+            path: '/admin/finance/submitted-recap',
+            name: "submitRecap",
+            component: IndexSubmittedRecap
+        },
+        //Create Submit Recap Invoice
+        {
+            path: '/admin/finance/submitted-recap/create',
+            name: "submitRecap.create",
+            component: SubmitRecapInvoice
+        },
+        //Index Paid Recap
+        {
+            path: '/admin/finance/paid-recap',
+            name: "paidRecap",
+            component: IndexPaidRecap
+        },
+        //Add Paid Recap Invoice
+        {
+            path: '/admin/finance/paid-recap/create',
+            name: "paidRecap.create",
+            component: AddPaidInvoice
+        },
+        {
+            path: '/admin/finance/recap-invoice',
             name: "invoice_order.recap",
             component: IndexInvoiceRecap
         },
         {
-            path: '/admin/finance/recap_invoice/show/:id',
+            path: '/admin/finance/recap-invoice/show/:id',
             name: "invoice_order.recap.show",
             component: PrintRecapInvoice
         },
@@ -103,7 +133,7 @@ const router = new VueRouter({
          * Warehouse
          */
         {
-            path: '/admin/warehouse/delivery_order',
+            path: '/admin/warehouse/delivery-order',
             name: 'delivery_order.index',
             component: IndexDeliveryOrder
         },

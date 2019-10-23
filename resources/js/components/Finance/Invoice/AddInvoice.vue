@@ -5,8 +5,6 @@
                 <div class="card-header">
                     <h4 class="text-danger">Add Invoice Order</h4>
                 </div>
-                =
-
                 <div class="col-12">
                     <div class="row">
                         <!-- Delivery Order No -->

@@ -11,13 +11,19 @@
         data() {
             return {
                 config: {
-                    title: 'Recap Invoice Order',
+                    title: 'Submitted Invoice Order',
                     action: true,
-                    base_url: this.$parent.MakeUrl('api/v1/finance/invoice_recap'),
+                    base_url: this.$parent.MakeUrl('api/v1/finance/invoice_recap?status=submitted'),
+                    route_create: 'submitRecap.create',
                     route_view: 'invoice_order.recap.show',
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },
                 columns: [
+                    {
+                        title: 'Submitted Date',
+                        field: 'submitted_date',
+                        filterable: true,
+                    },
                     {
                         title: 'Recap Invoice NO',
                         field: 'recap_invoice_no',
