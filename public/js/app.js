@@ -5088,7 +5088,8 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Item Name',
         field: 'item_name',
-        type: 'text'
+        type: 'text',
+        alignmentLeft: true
       }, {
         title: 'Qty',
         field: 'qty',
@@ -5925,15 +5926,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['columns', 'data'],
-  computed: {
-    classObject: function classObject() {
-      return {
-        active: this.isActive && !this.error,
-        'text-right': this.error && this.error.type === 'fatal'
-      };
-    }
-  }
+  props: ['columns', 'data']
 });
 
 /***/ }),
@@ -55854,11 +55847,18 @@ var render = function() {
             _c("th", { staticClass: "text-right" }, [_vm._v("No")]),
             _vm._v(" "),
             _vm._l(_vm.columns, function(col, index) {
-              return _c("th", { class: _vm.classObject }, [
-                _vm._v(
-                  "\n                " + _vm._s(col.title) + "\n            "
-                )
-              ])
+              return _c(
+                "th",
+                {
+                  staticClass: "pl-5",
+                  class: [col.alignmentLeft ? "text-left" : "text-right"]
+                },
+                [
+                  _vm._v(
+                    "\n                " + _vm._s(col.title) + "\n            "
+                  )
+                ]
+              )
             })
           ],
           2
@@ -55877,25 +55877,32 @@ var render = function() {
               ]),
               _vm._v(" "),
               _vm._l(_vm.columns, function(col, index) {
-                return _c("td", { staticClass: "text-right" }, [
-                  col.type === "text"
-                    ? _c("div", [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(item[col.field]) +
-                            "\n                "
-                        )
-                      ])
-                    : col.type === "currency"
-                    ? _c("div", [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(_vm._f("toIDR")(item[col.field])) +
-                            "\n                "
-                        )
-                      ])
-                    : _vm._e()
-                ])
+                return _c(
+                  "td",
+                  {
+                    staticClass: "pl-5",
+                    class: [col.alignmentLeft ? "text-left" : "text-right"]
+                  },
+                  [
+                    col.type === "text"
+                      ? _c("div", [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(item[col.field]) +
+                              "\n                "
+                          )
+                        ])
+                      : col.type === "currency"
+                      ? _c("div", [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(_vm._f("toIDR")(item[col.field])) +
+                              "\n                "
+                          )
+                        ])
+                      : _vm._e()
+                  ]
+                )
               })
             ],
             2
