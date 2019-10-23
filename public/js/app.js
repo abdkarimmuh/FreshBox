@@ -2797,7 +2797,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         title: 'Item Name',
         field: 'item_name',
-        type: 'text'
+        type: 'text',
+        alignmentLeft: true
       }, {
         title: 'Qty',
         field: 'qty_confirm',
@@ -3038,7 +3039,8 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Item Name',
         field: 'item_name',
-        type: 'text'
+        type: 'text',
+        alignmentLeft: true
       }, {
         title: 'Qty',
         field: 'qty_confirm',
@@ -4888,7 +4890,8 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Item Name',
         field: 'item_name',
-        type: 'text'
+        type: 'text',
+        alignmentLeft: true
       }, {
         title: 'Qty',
         field: 'qty',
@@ -7607,7 +7610,8 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Item Name',
         field: 'item_name',
-        type: 'text'
+        type: 'text',
+        alignmentLeft: true
       }, {
         title: 'Qty',
         field: 'qty_do',
@@ -7767,6 +7771,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Item Name',
         field: 'item_name',
+        alignmentLeft: true,
         type: 'text'
       }, {
         title: 'Qty',

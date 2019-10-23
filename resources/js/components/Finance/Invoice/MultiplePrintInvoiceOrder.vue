@@ -131,6 +131,7 @@
                         title: 'Item Name',
                         field: 'item_name',
                         type: 'text',
+                        alignmentLeft: true,
                     },
                     {
                         title: 'Qty',
