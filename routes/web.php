@@ -72,7 +72,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      * Route Menu Warehouse
      */
     Route::name('warehouse.')->prefix('warehouse')->middleware('auth')->group(function () {
-        Route::name('delivery_order.')->prefix('delivery_order')->group(function () {
+        Route::name('delivery-order.')->prefix('delivery-order')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });

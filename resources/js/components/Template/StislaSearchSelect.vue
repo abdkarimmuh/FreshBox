@@ -1,9 +1,9 @@
 <template>
-    <div class="col-md-6">
+    <div :class="'col-md-' + col">
         <div class="form-group">
             <label>
                 <b>{{ label }}</b>
-                <span style="color: red;">*</span>
+                <span style="color: red;" v-if="mandatory">*</span>
             </label>
             <div>
                 <model-list-select
@@ -26,7 +26,7 @@
 
     export default {
         name: "StislaSearchSelect",
-        props: ['label', 'data', 'model', 'oninput', 'optionValue', 'optionText', 'placeholder', 'errors', 'bindclass'],
+        props: ['label', 'data', 'model', 'oninput', 'optionValue', 'optionText', 'placeholder', 'errors', 'bindclass','col','mandatory'],
         components: {
             ModelListSelect
         }

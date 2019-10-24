@@ -43,6 +43,7 @@
             <td> {{$row->item->skuid}}</td>
             <td> {{$row->item->name_item}}</td>
             <td>{{ $row->uom->name }}</td>
+            <td>{{  format_price($row->sales_order_detail->amount_price) }}</td>
             <td>{{ $row->sales_order_detail->qty }}</td>
             <td>{{ $row->delivery_order->delivery_order_no }}</td>
             <td>{{ $row->delivery_order->do_date }}</td>

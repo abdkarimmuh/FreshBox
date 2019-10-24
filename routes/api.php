@@ -22,39 +22,39 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::group(['prefix' => 'v1'], function () {
+Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
     /*
      * API MOBILE
      * Auth Route
      * Login / Register / Logout
      */
-    Route::post('login', 'API\AuthAPIController@login');
-    Route::post('register', 'API\AuthAPIController@register');
-    Route::get('logout', 'API\AuthAPIController@logout');
+    Route::post('login', 'AuthAPIController@login');
+    Route::post('register', 'AuthAPIController@register');
+    Route::get('logout', 'AuthAPIController@logout');
 
     Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'proc'], function () {
+
             Route::get('/', function () {
                 return new UserProcResource(auth()->user());
             });
-
             Route::group(['prefix' => 'item'], function () {
-                Route::get('/', 'API\Procurement\ItemProcurementAPIController@index');
-                Route::get('/get', 'API\Procurement\ItemProcurementAPIController@indexAPI');
-                Route::post('/', 'API\Procurement\ItemProcurementAPIController@store');
+                Route::get('/', 'Procurement\ItemProcurementAPIController@index');
+                Route::get('/get', 'Procurement\ItemProcurementAPIController@indexAPI');
+                Route::post('/', 'Procurement\ItemProcurementAPIController@store');
             });
 
             Route::group(['prefix' => 'procurement'], function () {
-                Route::get('/', 'API\Procurement\ProcurementAPIController@index');
-                Route::get('/get', 'API\Procurement\ProcurementAPIController@indexAPI');
-                Route::get('/show/{id}', 'API\Procurement\ProcurementAPIController@show');
-                Route::post('/', 'API\Procurement\ProcurementAPIController@store');
-                Route::post('/storeUser', 'API\Procurement\ProcurementAPIController@storeUserProc');
+                Route::get('/', 'Procurement\ProcurementAPIController@index');
+                Route::get('/get', 'Procurement\ProcurementAPIController@indexAPI');
+                Route::get('/show/{id}', 'Procurement\ProcurementAPIController@show');
+                Route::post('/', 'Procurement\ProcurementAPIController@store');
+                Route::post('/storeUser', 'Procurement\ProcurementAPIController@storeUserProc');
             });
 
             Route::group(['prefix' => 'so_detail'], function () {
-                Route::get('/', 'API\Procurement\SalesOrderDetailAPIController@index');
-                Route::get('/api', 'API\Procurement\SalesOrderDetailAPIController@indexAPI');
+                Route::get('/', 'Procurement\SalesOrderDetailAPIController@index');
+                Route::get('/api', 'Procurement\SalesOrderDetailAPIController@indexAPI');
             });
         });
     });
@@ -63,16 +63,14 @@ Route::group(['prefix' => 'v1'], function () {
      */
     Route::group(['prefix' => 'marketing/'], function () {
         Route::group(['prefix' => 'sales_order'], function () {
-            Route::get('/', 'API\FormSalesOrderAPIController@index');
-            Route::get('/show', 'API\FormSalesOrderAPIController@show');
-            Route::get('/{id}/edit', 'API\FormSalesOrderAPIController@edit');
-            Route::post('/store', 'API\FormSalesOrderAPIController@store');
-            Route::post('/print', 'API\FormSalesOrderAPIController@print');
-            Route::delete('detail/{id}', 'API\FormSalesOrderAPIController@deleteOrderDetails');
-            Route::patch('/update', 'API\FormSalesOrderAPIController@updateSalesOrderDetails');
-
-            Route::get('/download/{file}', 'API\FormSalesOrderAPIController@DownloadFile');
-            Route::get('sales_order_details/{id}', 'Marketing\FormSalesOrderController@getSalesOrderDetails');
+            Route::get('/', 'FormSalesOrderAPIController@index');
+            Route::get('/show', 'FormSalesOrderAPIController@show');
+            Route::get('/{id}/edit', 'FormSalesOrderAPIController@edit');
+            Route::post('/store', 'FormSalesOrderAPIController@store');
+            Route::post('/print', 'FormSalesOrderAPIController@print');
+            Route::delete('detail/{id}', 'FormSalesOrderAPIController@deleteOrderDetails');
+            Route::patch('/update', 'FormSalesOrderAPIController@updateSalesOrderDetails');
+            Route::get('/download/{file}', 'FormSalesOrderAPIController@DownloadFile');
         });
     });
     /*
@@ -80,10 +78,10 @@ Route::group(['prefix' => 'v1'], function () {
      */
     Route::group(['prefix' => 'warehouse/'], function () {
         Route::group(['prefix' => 'delivery_order'], function () {
-            Route::get('/', 'API\DeliveryOrderAPIController@index');
-            Route::post('/', 'API\DeliveryOrderAPIController@store');
-            Route::get('/create', 'API\DeliveryOrderAPIController@create');
-            Route::get('/show', 'API\DeliveryOrderAPIController@show');
+            Route::get('/', 'DeliveryOrderAPIController@index');
+            Route::post('/', 'DeliveryOrderAPIController@store');
+            Route::get('/create', 'DeliveryOrderAPIController@create');
+            Route::get('/show', 'DeliveryOrderAPIController@show');
         });
     });
 
@@ -95,52 +93,54 @@ Route::group(['prefix' => 'v1'], function () {
          * Invoice Route
          */
         Route::group(['prefix' => 'invoice_order'], function () {
-            Route::get('/', 'API\InvoiceAPIController@index');
-            Route::get('/create', 'API\InvoiceAPIController@create');
-            Route::get('/show', 'API\InvoiceAPIController@show');
-            Route::post('/store', 'API\InvoiceAPIController@store');
-            Route::post('/print', 'API\InvoiceAPIController@print');
-            Route::get('/printRecap', 'API\InvoiceAPIController@printRecap');
-            Route::post('/printRecap', 'API\InvoiceAPIController@printRecap');
-            Route::get('/generateRecapInvoice', 'API\InvoiceAPIController@generateRecapInvoice');
+            Route::get('/', 'InvoiceAPIController@index');
+            Route::get('/create', 'InvoiceAPIController@create');
+            Route::get('/show', 'InvoiceAPIController@show');
+            Route::post('/store', 'InvoiceAPIController@store');
+            Route::post('/print', 'InvoiceAPIController@print');
+            Route::get('/printRecap', 'InvoiceAPIController@printRecap');
+            Route::post('/printRecap', 'InvoiceAPIController@printRecap');
+            Route::get('/generateRecapInvoice', 'InvoiceAPIController@generateRecapInvoice');
         });
         /*
          * Recap Invoice Route
          */
         Route::group(['prefix' => 'invoice_recap'], function () {
-            Route::get('/', 'API\InvoiceRecapAPIController@index');
-            Route::get('/notSubmitted', 'API\InvoiceRecapAPIController@InvoiceNotSubmitted');
-            Route::get('/submitted', 'API\InvoiceRecapAPIController@InvoiceSubmitted');
-            Route::post('/submitted', 'API\InvoiceRecapAPIController@StoreSubmitInvoice');
-            Route::get('/paid', 'API\InvoiceRecapAPIController@InvoicePaid');
-            Route::get('/listNotPaid', 'API\InvoiceRecapAPIController@listInvoiceRecapNotPaid');
-            Route::get('/show/{id}', 'API\InvoiceRecapAPIController@show');
+            Route::get('/', 'InvoiceRecapAPIController@index');
+            Route::get('/notSubmitted', 'InvoiceRecapAPIController@InvoiceNotSubmitted');
+            Route::get('/submitted', 'InvoiceRecapAPIController@InvoiceSubmitted');
+            Route::post('/submitted', 'InvoiceRecapAPIController@StoreSubmitInvoice');
+            Route::get('/listNotPaid', 'InvoiceRecapAPIController@listInvoiceRecapNotPaid');
+            Route::get('/show/{id}', 'InvoiceRecapAPIController@show');
+
+            Route::get('/paid', 'InvoiceRecapAPIController@InvoicePaid');
+            Route::post('/paid', 'PaidInvoiceAPIController@store');
         });
     });
 
     /*
      * Master Data Route
      */
-    Route::group(['prefix' => 'master_data/', 'middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => 'master_data/'], function () {
         Route::group(['prefix' => 'customer'], function () {
-            Route::get('/', 'API\CustomerAPIController@index')->name('api.customer');
-            Route::get('/list', 'API\CustomerAPIController@all');
-            Route::get('/list_has_recap', 'API\CustomerAPIController@ListCustomerHasRecap');
+            Route::get('/', 'CustomerAPIController@index')->name('api.customer');
+            Route::get('/list', 'CustomerAPIController@all');
+            Route::get('/list_has_recap', 'CustomerAPIController@ListCustomerHasRecap');
         });
         Route::group(['prefix' => 'price'], function () {
-            Route::get('/', 'API\MasterPriceController@index')->name('api.price');
-            Route::get('/{id}', 'API\MasterPriceController@show');
-            Route::get('customer/{id}', 'API\MasterPriceController@CustomerPrice');
-            Route::get('/{customer_id}/{skuid}', 'API\MasterPriceController@show');
+            Route::get('/', 'MasterPriceController@index')->name('api.price');
+            Route::get('/{id}', 'MasterPriceController@show');
+            Route::get('customer/{id}', 'MasterPriceController@CustomerPrice');
+            Route::get('/{customer_id}/{skuid}', 'MasterPriceController@show');
         });
         Route::group(['prefix' => 'source_order'], function () {
-            Route::get('/', 'API\MasterPriceController@index');
-            Route::get('/list', 'API\SourceOrderAPIController@all');
+            Route::get('/', 'MasterPriceController@index');
+            Route::get('/list', 'SourceOrderAPIController@all');
         });
         Route::group(['prefix' => 'driver'], function () {
-            Route::get('/', 'API\DriverAPIController@index');
-            Route::get('/driver', 'API\DriverAPIController@driver');
-            Route::get('/picqc', 'API\DriverAPIController@picqc');
+            Route::get('/', 'DriverAPIController@index');
+            Route::get('/driver', 'DriverAPIController@driver');
+            Route::get('/picqc', 'DriverAPIController@picqc');
         });
 
         Route::group(['prefix' => 'uom'], function () {
@@ -155,17 +155,17 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         Route::group(['prefix' => 'category'], function () {
-            Route::get('/', 'API\MasterDataController@getCategory');
+            Route::get('/', 'MasterDataController@getCategory');
         });
         Route::group(['prefix' => 'bank'], function () {
-            Route::get('/', 'API\MasterDataController@getBank');
+            Route::get('/', 'MasterDataController@getBank');
         });
         Route::group(['prefix' => 'origin'], function () {
-            Route::get('/', 'API\MasterDataController@getOrigin');
+            Route::get('/', 'MasterDataController@getOrigin');
         });
 
-        Route::get('customer', 'API\CustomerAPIController@index')->name('api.customer');
-        Route::get('list_customer', 'API\CustomerAPIController@all');
+        Route::get('customer', 'CustomerAPIController@index')->name('api.customer');
+        Route::get('list_customer', 'CustomerAPIController@all');
 
         //    Route::get('price_customer/{id}', 'API\MasterPriceController@CustomerPrice');
 //        Route::get('uom', 'MasterData\UomController@index');

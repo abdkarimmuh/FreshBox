@@ -2308,6 +2308,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2318,9 +2328,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       recapInvoice: {
         id: null,
-        file: "",
-        fileName: null
+        file: null
       },
+      fileName: null,
       recapInvoices: [],
       invoices: [],
       errors: [],
@@ -2335,7 +2345,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getRecapInvoices: function getRecapInvoices() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/listNotPaid')).then(function (res) {
+      axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/submitted')).then(function (res) {
         _this.recapInvoices = res.data.data;
       });
     },
@@ -2362,25 +2372,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 this.loadingSubmit = true;
                 payload = {
-                  user_id: this.recapInvoice.user_id,
-                  sales_order_id: this.delivery_order.sales_order_id,
-                  customer_id: this.delivery_order.customer_id,
-                  do_date: this.delivery_order.do_date,
-                  driver_id: this.delivery_order.driver_id,
-                  pic_qc: this.delivery_order.pic_qc_id,
-                  remark: this.delivery_order.remark,
-                  so_details: this.sales_order_details.map(function (item, idx) {
+                  invoiceRecapId: this.recapInvoice.id,
+                  file: this.recapInvoice.file,
+                  invoiceRecapNo: this.recapInvoice.recap_invoice_no,
+                  invoiceRecapDetail: this.invoices.map(function (item, idx) {
                     return {
                       id: item.id,
-                      skuid: item.skuid,
-                      uom_id: item.uom_id,
-                      qty_do: _this3.qty_do[idx].qty
+                      amountPaid: item.amountPaid
                     };
                   })
                 };
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post("/api/v1/warehouse/delivery_order", payload);
+                return axios.post("/api/v1/finance/invoice_recap/paid", payload);
 
               case 5:
                 res = _context.sent;
@@ -2389,7 +2393,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
-                  window.location.href = "/admin/warehouse/delivery_order";
+                  _this3.$router.push({
+                    name: 'paidRecap'
+                  });
                 });
                 _context.next = 14;
                 break;
@@ -2417,10 +2423,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     onFileChange: function onFileChange(e) {
       var fileData = e.target.files || e.dataTransfer.files;
-      this.recapInvoice.fileName = fileData[0].name;
+      this.fileName = fileData[0].name;
       if (!fileData.length) return;
       this.createFile(fileData[0]);
-      console.log(this.recapInvoice.fileName);
+      console.log(this.fileName);
     },
     createFile: function createFile(file) {
       var _this4 = this;
@@ -6069,7 +6075,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "StislaSearchSelect",
-  props: ['label', 'data', 'model', 'oninput', 'optionValue', 'optionText', 'placeholder', 'errors', 'bindclass'],
+  props: ['label', 'data', 'model', 'oninput', 'optionValue', 'optionText', 'placeholder', 'errors', 'bindclass', 'col', 'mandatory'],
   components: {
     ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_0__["ModelListSelect"]
   }
@@ -51283,11 +51289,11 @@ var render = function() {
                           on: { change: _vm.onFileChange }
                         }),
                         _vm._v(" "),
-                        _vm.recapInvoice.fileName
+                        _vm.fileName
                           ? _c("label", { staticClass: "custom-file-label" }, [
                               _vm._v(
                                 "\n                        " +
-                                  _vm._s(_vm.recapInvoice.fileName) +
+                                  _vm._s(_vm.fileName) +
                                   "\n                    "
                               )
                             ])
@@ -51333,7 +51339,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("th", { staticClass: "text-center" }, [
-                                  _vm._v("Paid Price")
+                                  _vm._v("Amount Paid")
                                 ])
                               ])
                             ]),
@@ -51358,8 +51364,29 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("td", [
                                     _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: invoice.amountPaid,
+                                          expression: "invoice.amountPaid"
+                                        }
+                                      ],
                                       staticClass: "form-control",
-                                      attrs: { type: "number" }
+                                      attrs: { type: "number" },
+                                      domProps: { value: invoice.amountPaid },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            invoice,
+                                            "amountPaid",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
                                     })
                                   ])
                                 ])
@@ -51373,36 +51400,38 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-12" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_c("b", [_vm._v("Remark")])]),
-                  _vm._v(" "),
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.recapInvoice.remark,
-                        expression: "recapInvoice.remark"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    domProps: { value: _vm.recapInvoice.remark },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+              _vm.recapInvoice.id !== null
+                ? _c("div", { staticClass: "col-md-12" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_c("b", [_vm._v("Remark")])]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.recapInvoice.remark,
+                            expression: "recapInvoice.remark"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        domProps: { value: _vm.recapInvoice.remark },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.recapInvoice,
+                              "remark",
+                              $event.target.value
+                            )
+                          }
                         }
-                        _vm.$set(
-                          _vm.recapInvoice,
-                          "remark",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
+                      })
+                    ])
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _c("div", { staticClass: "col-12" }, [
                 _c("div", { staticClass: "card-body" }, [
@@ -55128,7 +55157,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _vm.message
         ? _c("div", { staticClass: "alert alert-primary" }, [
-            _vm._v("\n            " + _vm._s(_vm.message) + "\n        ")
+            _vm._v("\r\n            " + _vm._s(_vm.message) + "\r\n        ")
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -56015,12 +56044,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-6" }, [
+  return _c("div", { class: "col-md-" + _vm.col }, [
     _c("div", { staticClass: "form-group" }, [
       _c("label", [
         _c("b", [_vm._v(_vm._s(_vm.label))]),
         _vm._v(" "),
-        _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+        _vm.mandatory
+          ? _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -84109,8 +84140,8 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/FreshBox/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/FreshBox/resources/sass/custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! C:\laragon\www\FreshBox\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
 
 
 /***/ })

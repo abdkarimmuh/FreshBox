@@ -2,6 +2,16 @@
     <stisla-create-template title="Add Paid Invoice">
 
         <div class="row" v-if="loading">
+            <!--            <stisla-search-select-->
+            <!--                col="4"-->
+            <!--                label="Rekap Invoice Order No"-->
+            <!--                v-model="recapInvoice.id"-->
+            <!--                :data="recapInvoices"-->
+            <!--                :oninput="getRecapInvoice"-->
+            <!--                option-value="id"-->
+            <!--                option-text="recapNoWithCustName"-->
+            <!--                placeholder="Select Recap Invoice Order No"-->
+            <!--            />-->
             <div class="col-md-4">
                 <div class="form-group">
                     <label>
@@ -74,8 +84,8 @@
                             class="custom-file-input"
                             v-on:change="onFileChange"
                         />
-                        <label class="custom-file-label" v-if="recapInvoice.fileName">
-                            {{ recapInvoice.fileName }}
+                        <label class="custom-file-label" v-if="fileName">
+                            {{ fileName }}
                         </label>
                         <label class="custom-file-label" v-else>Choose File</label>
                         <div
@@ -99,7 +109,7 @@
                         <tr>
                             <th class="text-center">Invoice No</th>
                             <th class="text-center">Total Price</th>
-                            <th class="text-center">Paid Price</th>
+                            <th class="text-center">Amount Paid</th>
                             <!--                            <th class="text-center">Paid Date</th>-->
                         </tr>
                         </thead>
@@ -108,7 +118,7 @@
                             <td>{{ invoice.invoice_no | toIDR }}</td>
                             <td>{{ invoice.price | toIDR }}</td>
                             <td>
-                                <input type="number" class="form-control"/>
+                                <input type="number" class="form-control" v-model="invoice.amountPaid"/>
                             </td>
                             <!--                            <td>-->
                             <!--                                <input type="text" class="form-control"/>-->
@@ -118,7 +128,7 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" v-if="recapInvoice.id !== null">
                 <div class="form-group">
                     <label>
                         <b>Remark</b>
@@ -169,9 +179,9 @@
             return {
                 recapInvoice: {
                     id: null,
-                    file: "",
-                    fileName: null,
+                    file: null,
                 },
+                fileName: null,
                 recapInvoices: [],
                 invoices: [],
                 errors: [],
@@ -184,7 +194,7 @@
         },
         methods: {
             getRecapInvoices() {
-                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/listNotPaid')).then(res => {
+                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/submitted')).then(res => {
                     this.recapInvoices = res.data.data;
                 })
             },
@@ -202,28 +212,22 @@
             async submitForm() {
                 this.loadingSubmit = true;
                 const payload = {
-                    user_id: this.recapInvoice.user_id,
-                    sales_order_id: this.delivery_order.sales_order_id,
-                    customer_id: this.delivery_order.customer_id,
-                    do_date: this.delivery_order.do_date,
-                    driver_id: this.delivery_order.driver_id,
-                    pic_qc: this.delivery_order.pic_qc_id,
-                    remark: this.delivery_order.remark,
-                    so_details: this.sales_order_details.map((item, idx) => ({
+                    invoiceRecapId: this.recapInvoice.id,
+                    file: this.recapInvoice.file,
+                    invoiceRecapNo: this.recapInvoice.recap_invoice_no,
+                    invoiceRecapDetail: this.invoices.map((item, idx) => ({
                         id: item.id,
-                        skuid: item.skuid,
-                        uom_id: item.uom_id,
-                        qty_do: this.qty_do[idx].qty
+                        amountPaid: item.amountPaid
                     }))
                 };
                 try {
-                    const res = await axios.post("/api/v1/warehouse/delivery_order", payload);
+                    const res = await axios.post("/api/v1/finance/invoice_recap/paid", payload);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        window.location.href = "/admin/warehouse/delivery_order";
+                       this.$router.push({ name: 'paidRecap'})
                     });
                 } catch (e) {
                     this.loadingSubmit = false;
@@ -233,10 +237,10 @@
             },
             onFileChange(e) {
                 let fileData = e.target.files || e.dataTransfer.files;
-                this.recapInvoice.fileName = fileData[0].name;
+                this.fileName = fileData[0].name;
                 if (!fileData.length) return;
                 this.createFile(fileData[0]);
-                console.log(this.recapInvoice.fileName)
+                console.log(this.fileName)
             },
 
             createFile(file) {
