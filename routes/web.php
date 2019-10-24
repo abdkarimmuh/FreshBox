@@ -66,9 +66,6 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         Route::name('confirm.')->prefix('confirm')->group(function () {
             Route::get('/', 'WarehouseIn\ConfirmController@index')->name('index');
         });
-        Route::name('conversion.')->prefix('conversion')->group(function () {
-            Route::get('/', 'WarehouseIn\ConversionController@index')->name('index');
-        });
     });
 
     /*

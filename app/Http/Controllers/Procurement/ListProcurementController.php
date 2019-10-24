@@ -74,10 +74,8 @@ class ListProcurementController extends Controller
      */
     public function show($id)
     {
-        $data = ListProcurement::find($id)->first();
-        $detail = ListProcurementDetail::where('id', $id)->get();
-
-        // return $data;
+        $data = ListProcurement::findOrFail($id);
+        $detail = ListProcurementDetail::where('trx_list_procurement_id', $id)->get();
 
         $columns = [
             array('title' => 'Procurement No', 'field' => 'procurement_no'),

@@ -98,11 +98,11 @@ class ListProcurement extends MyModel
 
     public function getStatusNameAttribute()
     {
-        if ($this->status === 1) {
+        if ($this->status == 1) {
             return '<span class="badge badge-info">Submit</span>';
-        } elseif ($this->status === 2) {
+        } elseif ($this->status == 2) {
             return '<span class="badge badge-success">Receive</span>';
-        } elseif ($this->status === 3) {
+        } elseif ($this->status == 3) {
             return '<span class="badge badge-danger">Return</span>';
         } else {
             return 'Status NotFound';

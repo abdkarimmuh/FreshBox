@@ -11,9 +11,9 @@ class ProcedureInsertWarehouseConfirmDetail extends Migration
     {
         DB::unprepared('DROP PROCEDURE IF EXISTS insert_warehouse_confirm_detail');
 
-        DB::unprepared('CREATE PROCEDURE insert_warehouse_confirm_detail( IN warehouse_confirm_id INT, IN list_proc_detail_id INT, IN qty_order DECIMAL(18,2), IN qty_confirm DECIMAL(18,2), IN uom_id INT, IN created_by INT )
+        DB::unprepared('CREATE PROCEDURE insert_warehouse_confirm_detail( IN warehouse_confirm_id INT, IN list_proc_detail_id INT, IN bruto DECIMAL(18,2), IN netto DECIMAL(18,2), IN tara DECIMAL(18,2), IN created_by INT )
         BEGIN
-        INSERT INTO trx_warehouse_confirm_detail (warehouse_confirm_id, list_proc_detail_id, qty_order, qty_confirm, uom_id, created_at, created_by) VALUES (warehouse_confirm_id, list_proc_detail_id, qty_order, qty_confirm, uom_id, now(), created_by);
+        INSERT INTO trx_warehouse_confirm_detail (warehouse_confirm_id, list_proc_detail_id, bruto, netto, tara, created_at, created_by) VALUES (warehouse_confirm_id, list_proc_detail_id, bruto, netto, tara, now(), created_by);
         END');
     }
 

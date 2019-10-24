@@ -4,12 +4,8 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <div class="col-lg-10">
-                    <div class="row">
-                        <h4 class="text-danger">{{ $config['title'] }}</h4>
-                    </div>
-                </div>
-                <div class="col-lg-2 mr-auto">
+                <h4 class="text-danger">{{ $config['title'] }}</h4>
+                <div class="card-header-action">
                     <a href="{{ route($config['back-button']) }}" class="btn btn-primary">Back</a>
                 </div>
             </div>
@@ -53,7 +49,8 @@
                                         @if ($column['field'] === 'status_name')
                                         <td>{!! $item[$column['field']] !!}</td>
                                         @else
-                                        <td style="overflow:hidden; white-space:nowrap">{{ $item[$column['field']] }}</td>
+                                        <td style="overflow:hidden; white-space:nowrap">{{ $item[$column['field']] }}
+                                        </td>
                                         @endif
                                         @endforeach
                                     </tr>

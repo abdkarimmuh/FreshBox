@@ -52,10 +52,6 @@
                 <li class="{{ request()->route()->getName() == 'admin.warehouse_in.confirm.index' ? ' active' : '' }}">
                     <a class="nav-link" href="{{route('admin.warehouse_in.confirm.index')}}"><span>Confirm Incoming Items</span></a>
                 </li>
-                <li class="{{ request()->route()->getName() == 'admin.warehouse_in.conversion.index' ? ' active' : '' }}">
-                    <a class="nav-link"
-                       href="{{ route('admin.warehouse_in.conversion.index') }}"><span>UOM Conversion</span></a>
-                </li>
             </ul>
         </li>
         <li class="dropdown {{ request()->segment(2) == 'warehouse' ? ' active' : '' }}">

@@ -11,9 +11,9 @@ class ProcedureInsertWarehouseConfirm extends Migration
     {
         DB::unprepared('DROP PROCEDURE IF EXISTS insert_warehouse_confirm');
 
-        DB::unprepared('CREATE PROCEDURE insert_warehouse_confirm( IN procurement_no VARCHAR(191), IN fulfillment_date DATE, IN status INT, IN remark VARCHAR(191), IN created_by INT )
+        DB::unprepared('CREATE PROCEDURE insert_warehouse_confirm( IN procurement_no VARCHAR(191), IN status INT, IN remark VARCHAR(191), IN created_by INT )
         BEGIN
-        INSERT INTO trx_warehouse_confirm (procurement_no, fulfillment_date, status, remark, created_at, created_by) VALUES (procurement_no, fulfillment_date, status, remark, now(), created_by);
+        INSERT INTO trx_warehouse_confirm (procurement_no, status, remark, created_at, created_by) VALUES (procurement_no, status, remark, now(), created_by);
         END');
     }
 
