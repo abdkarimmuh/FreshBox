@@ -48,12 +48,12 @@
             <div class="col-md-4" v-if="recapInvoice.id !== null">
                 <div class="form-group">
                     <label>
-                        <b>PAID Date</b>
+                        <b>Paid Date</b>
                         <span style="color: red;">*</span>
                     </label>
                     <div>
                         <date-picker
-                            v-model="recapInvoice.do_date"
+                            v-model="recapInvoice.paidDate"
                             lang="en"
                             valueType="format"
                             :not-before="new Date()"
@@ -214,6 +214,7 @@
                 const payload = {
                     invoiceRecapId: this.recapInvoice.id,
                     file: this.recapInvoice.file,
+                    paidDate: this.recapInvoice.paidDate,
                     invoiceRecapNo: this.recapInvoice.recap_invoice_no,
                     invoiceRecapDetail: this.invoices.map((item, idx) => ({
                         id: item.id,

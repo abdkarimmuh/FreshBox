@@ -20,11 +20,6 @@
                 },
                 columns: [
                     {
-                        title: 'Submitted Date',
-                        field: 'submitted_date',
-                        filterable: true,
-                    },
-                    {
                         title: 'Recap Invoice NO',
                         field: 'recap_invoice_no',
                         filterable: true,
@@ -37,6 +32,11 @@
                     {
                         title: 'Recap Date',
                         field: 'recap_date',
+                        filterable: true,
+                    },
+                    {
+                        title: 'Submitted Date',
+                        field: 'submitted_date',
                         filterable: true,
                     },
                     {

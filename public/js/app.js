@@ -2378,6 +2378,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 payload = {
                   invoiceRecapId: this.recapInvoice.id,
                   file: this.recapInvoice.file,
+                  paidDate: this.recapInvoice.paidDate,
                   invoiceRecapNo: this.recapInvoice.recap_invoice_no,
                   invoiceRecapDetail: this.invoices.map(function (item, idx) {
                     return {
@@ -2690,10 +2691,6 @@ __webpack_require__.r(__webpack_exports__);
 
       },
       columns: [{
-        title: 'Submitted Date',
-        field: 'submitted_date',
-        filterable: true
-      }, {
         title: 'Recap Invoice NO',
         field: 'recap_invoice_no',
         filterable: true
@@ -2704,6 +2701,10 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Recap Date',
         field: 'recap_date',
+        filterable: true
+      }, {
+        title: 'Submitted Date',
+        field: 'submitted_date',
         filterable: true
       }, {
         title: 'Total Amount',
@@ -51226,7 +51227,7 @@ var render = function() {
                 ? _c("div", { staticClass: "col-md-4" }, [
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", [
-                        _c("b", [_vm._v("PAID Date")]),
+                        _c("b", [_vm._v("Paid Date")]),
                         _vm._v(" "),
                         _c("span", { staticStyle: { color: "red" } }, [
                           _vm._v("*")
@@ -51243,11 +51244,11 @@ var render = function() {
                               "not-before": new Date()
                             },
                             model: {
-                              value: _vm.recapInvoice.do_date,
+                              value: _vm.recapInvoice.paidDate,
                               callback: function($$v) {
-                                _vm.$set(_vm.recapInvoice, "do_date", $$v)
+                                _vm.$set(_vm.recapInvoice, "paidDate", $$v)
                               },
-                              expression: "recapInvoice.do_date"
+                              expression: "recapInvoice.paidDate"
                             }
                           })
                         ],
