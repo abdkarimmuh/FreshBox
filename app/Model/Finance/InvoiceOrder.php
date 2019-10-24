@@ -47,7 +47,7 @@ class InvoiceOrder extends MyModel
         ],
     ];
 
-    
+
     public function delivery_order()
     {
         return $this->belongsTo(DeliveryOrder::class, 'do_id');
@@ -87,7 +87,7 @@ class InvoiceOrder extends MyModel
     {
         return $this->delivery_order->sales_order->fulfillment_date;
 
-        
+
     }
 
     public function getTotalPriceAttribute()
@@ -104,7 +104,7 @@ class InvoiceOrder extends MyModel
         if ($this->delivery_order->sales_order->status === 6) {
             return '<span class="badge badge-info">Open</span>';
         } elseif ($this->delivery_order->sales_order->status === 7) {
-            return '<span class="badge badge-warning">Printed</span>';
+            return '<span class="badge badge-warning">Recap</span>';
         } elseif ($this->delivery_order->sales_order->status === 8) {
             return '<span class="badge badge-success">Paid</span>';
         } elseif ($this->delivery_order->sales_order->status === 9) {
