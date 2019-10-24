@@ -2067,6 +2067,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this3 = this;
+
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -2091,7 +2093,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
-                  window.location.href = "/admin/finance/invoice_order";
+                  _this3.$router.push({
+                    name: 'invoice_order'
+                  });
                 });
                 console.log(res);
                 _context.next = 15;
@@ -7185,7 +7189,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
-                  window.location.href = "/admin/warehouse/delivery_order";
+                  _this2.$router.push({
+                    name: 'delivery_order.index'
+                  });
                 });
                 _context.next = 14;
                 break;
@@ -7480,7 +7486,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Confirm Delivery Order!"
                 }).then(function (next) {
-                  window.location.href = "/admin/warehouse/delivery_order";
+                  window.location.href = "/admin/warehouse/confirm_delivery_order";
                 });
                 console.log(res);
                 _context.next = 13;
@@ -83972,15 +83978,15 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'delivery_order.index',
     component: _components_Warehouse_IndexDeliveryOrder__WEBPACK_IMPORTED_MODULE_19__["default"]
   }, {
-    path: '/admin/warehouse/delivery_order/create',
+    path: '/admin/warehouse/delivery-order/create',
     name: 'delivery_order.create',
     component: _components_Warehouse_AddDeliveryOrder__WEBPACK_IMPORTED_MODULE_20__["default"]
   }, {
-    path: '/admin/warehouse/delivery_order/:id/print',
+    path: '/admin/warehouse/delivery-order/:id/print',
     name: 'delivery_order.print',
     component: _components_Warehouse_PrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_21__["default"]
   }, {
-    path: '/admin/warehouse/delivery_order/multiplePrint',
+    path: '/admin/warehouse/delivery-order/multiplePrint',
     name: 'delivery_order.multiplePrint',
     component: _components_Warehouse_MultiplePrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_22__["default"]
   }, {

@@ -215,7 +215,7 @@
                         title: "Success!",
                         text: "Successfully Confirm Delivery Order!"
                     }).then(next => {
-                        window.location.href = "/admin/warehouse/delivery_order";
+                        window.location.href = "/admin/warehouse/confirm_delivery_order";
                     });
                     console.log(res);
                 } catch (e) {
