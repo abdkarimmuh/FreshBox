@@ -20,6 +20,7 @@ class CreateTrxInvoiceRecapTable extends Migration
             $table->date('recap_date');
             $table->date('submitted_date')->nullable();
             $table->tinyInteger('is_paid')->default(0);
+            $table->binary('file')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
