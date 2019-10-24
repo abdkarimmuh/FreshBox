@@ -73,6 +73,21 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
             Route::get('/download/{file}', 'FormSalesOrderAPIController@DownloadFile');
         });
     });
+    /**
+     * Procurement
+     */
+    Route::group(['prefix' => 'procurement/',''], function () {
+        Route::group(['prefix' => 'sales_order'], function () {
+            Route::get('/', 'FormSalesOrderAPIController@index');
+            Route::get('/show', 'FormSalesOrderAPIController@show');
+            Route::get('/{id}/edit', 'FormSalesOrderAPIController@edit');
+            Route::post('/store', 'FormSalesOrderAPIController@store');
+            Route::post('/print', 'FormSalesOrderAPIController@print');
+            Route::delete('detail/{id}', 'FormSalesOrderAPIController@deleteOrderDetails');
+            Route::patch('/update', 'FormSalesOrderAPIController@updateSalesOrderDetails');
+            Route::get('/download/{file}', 'FormSalesOrderAPIController@DownloadFile');
+        });
+    });
     /*
      * Route API Warehouse
      */

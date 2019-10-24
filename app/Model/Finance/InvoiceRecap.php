@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class InvoiceRecap extends MyModel
 {
     protected $table = 'trx_invoice_recap';
-    protected $fillable = ['customer_id', 'recap_invoice_no', 'recap_date', 'created_by','submitted_date','is_paid'];
-    protected $dates = ['recap_date','submitted_date'];
+    protected $fillable = ['customer_id', 'recap_invoice_no', 'recap_date', 'created_by', 'submitted_date', 'paid_date'];
+    protected $dates = ['recap_date', 'submitted_date'];
     protected $columns = [
         'id' => [
             'searchable' => false,
@@ -48,12 +48,12 @@ class InvoiceRecap extends MyModel
 
     public function scopeIsNotPaid($query)
     {
-        return $query->where('is_paid', 0);
+        return $query->whereNull('paid_date');
     }
 
     public function scopeIsPaid($query)
     {
-        return $query->where('is_paid', 1);
+        return $query->whereNotNull('paid_date');
     }
 
     public function scopeIsSubmitted($query)
