@@ -2639,6 +2639,14 @@ __webpack_require__.r(__webpack_exports__);
         field: 'recap_date',
         filterable: true
       }, {
+        title: 'Submitted Date',
+        field: 'submitted_date',
+        filterable: true
+      }, {
+        title: 'Paid Date',
+        field: 'paid_date',
+        filterable: true
+      }, {
         title: 'Total Amount',
         field: 'total_amount',
         type: 'price',
