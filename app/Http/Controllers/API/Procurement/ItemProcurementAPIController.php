@@ -60,32 +60,29 @@ class ItemProcurementAPIController extends Controller
         $user_proc_id = auth('api')->user()->id;
         $items = $request->items;
 
-        $count = 0;
-
         foreach ($items as $item) {
             $skuid = $item['skuid'];
             $qty_all = number_format($item['pick']);
             $uom_id = $item['uom_id'];
 
-            $sales_order_detail = SalesOrderDetail::where('status', 1)->where('skuid', $skuid)->where('uom_id', $uom_id)->get();
+            $sales_order_detail = SalesOrderDetail::where('sisa_qty_proc', '>', 0)->where('skuid', $skuid)->where('uom_id', $uom_id)->get();
 
             foreach ($sales_order_detail as $data) {
                 $sales_order = SalesOrder::find($data->sales_order_id);
 
                 if ($qty_all >= $data->sisa_qty_proc) {
+                    DB::select('call insert_assign_procurement(?, ?, ?, ?, ?, ?)', array($skuid, $user_proc_id, $data->sisa_qty_proc, $uom_id, 1, $user_proc_id));
+
+                    $qty_all = $qty_all - $data->sisa_qty_proc;
                     $data->sisa_qty_proc = 0;
-                    $qty_all = $qty_all - $data->qty;
-                    $sales_order->status = 2;
-
-                    $count = $count + $data->qty;
                 } else {
-                    $data->sisa_qty_proc = $data->sisa_qty_proc - $qty_all;
-                    $count = $count + $qty_all;
+                    DB::select('call insert_assign_procurement(?, ?, ?, ?, ?, ?)', array($skuid, $user_proc_id, $qty_all, $uom_id, 1, $user_proc_id));
 
+                    $data->sisa_qty_proc = $data->sisa_qty_proc - $qty_all;
                     $qty_all = 0;
-                    $sales_order->status = 1;
                 }
 
+                $sales_order->status = 2;
                 $data->status = 2;
                 $data->save();
                 $sales_order->save();
@@ -95,17 +92,8 @@ class ItemProcurementAPIController extends Controller
                 }
             }
         }
-        if ($count != 0) {
-            DB::select('call insert_assign_procurement(?, ?, ?, ?, ?, ?)', array($skuid, $user_proc_id, $count, $uom_id, 1, $user_proc_id));
 
-            return response()->json([
-                        'status' => 'success',
-                    ]);
-        } else {
-            return response()->json([
-                        'status' => 'error',
-                    ]);
-        }
+        return response()->json(['status' => 'success']);
     }
 
     /**

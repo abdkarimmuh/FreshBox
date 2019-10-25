@@ -4,6 +4,7 @@ namespace App\Http\Controllers\WarehouseIn;
 
 use App\Http\Controllers\Controller;
 use App\Model\WarehouseIn\Confirm;
+use App\Model\WarehouseIn\ConfirmDetail;
 use Illuminate\Http\Request;
 
 class ConfirmController extends Controller
@@ -33,11 +34,11 @@ class ConfirmController extends Controller
              * Route Can Be Null
              */
             //Route For Button Add
-            'route-add' => 'admin.master_data.bank.create',
-            //Route For Button Edit
-            'route-edit' => 'admin.master_data.bank.edit',
+            // 'route-add' => 'admin.warehouse_in.confirm.create',
+            //Route For Button View
+            'route-view' => 'admin.warehouse_in.confirm.show',
             //Route For Button Search
-            'route-search' => 'admin.master_data.bank.index',
+            'route-search' => 'admin.warehouse_in.confirm.index',
         ];
 
         $query = Confirm::dataTableQuery($searchValue);
@@ -75,6 +76,35 @@ class ConfirmController extends Controller
      */
     public function show($id)
     {
+        $data = Confirm::findOrFail($id);
+        $detail = ConfirmDetail::where('trx_list_procurement_id', $id)->get();
+
+        $columns = [
+            array('title' => 'Procurement No', 'field' => 'procurement_no'),
+            array('title' => 'User Procurement', 'field' => 'proc_name'),
+            array('title' => 'Status', 'field' => 'status_name'),
+            array('title' => 'Remarks', 'field' => 'remarks'),
+        ];
+
+        $detailColumns = [
+            array('title' => 'Item', 'field' => 'item_name'),
+            array('title' => 'Qty Procurement', 'field' => 'qty_proc'),
+            array('title' => 'Uom', 'field' => 'uom_name'),
+            array('title' => 'Bruto (Berat Kotor)', 'field' => 'bruto'),
+            array('title' => 'Netto (Berat Bersih)', 'field' => 'netto'),
+            array('title' => 'Tara (Potongan Berat)', 'field' => 'tara'),
+            array('title' => 'Status', 'field' => 'status_name'),
+        ];
+
+        $config = [
+            //Title Required
+            'title' => 'Detail',
+
+            //Route For Button Back
+            'back-button' => 'admin.procurement.list_procurement.index',
+        ];
+
+        return view('admin.crud.detail', compact('data', 'detail', 'config', 'columns', 'detailColumns'));
     }
 
     /**

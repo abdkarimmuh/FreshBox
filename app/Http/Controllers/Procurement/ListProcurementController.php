@@ -104,7 +104,7 @@ class ListProcurementController extends Controller
             'back-button' => 'admin.procurement.list_procurement.index',
         ];
 
-        return view('admin.procurement.detail', compact('data', 'detail', 'config', 'columns', 'detailColumns'));
+        return view('admin.crud.detail', compact('data', 'detail', 'config', 'columns', 'detailColumns'));
     }
 
     /**

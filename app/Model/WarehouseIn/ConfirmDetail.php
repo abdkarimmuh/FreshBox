@@ -5,7 +5,7 @@ namespace App\Model\WarehouseIn;
 use App\Model\Procurement\ListProcurementDetail;
 use App\MyModel;
 
-class Confirm extends MyModel
+class ConfirmDetail extends MyModel
 {
     use SearchTraits;
     use SoftDeletes;
@@ -14,6 +14,8 @@ class Confirm extends MyModel
     protected $fillable = ['warehouse_confirm_id', 'list_proc_detail_id', 'bruto', 'netto', 'tara', 'created_by', 'created_at'];
     protected $appends = [
         'item_name',
+        'qty_proc',
+        'uom_name',
     ];
 
     protected $columns = [
@@ -69,6 +71,20 @@ class Confirm extends MyModel
             return $this->ListProcurementDetail->AssignProcurement->Item->name_item;
         } else {
             return '';
+        }
+    }
+
+    public function getQtyProcAttribute()
+    {
+        if (isset($this->ListProcurementDetail->qty)) {
+            return $this->ListProcurementDetail->qty;
+        }
+    }
+
+    public function getUomNameAttribute()
+    {
+        if (isset($this->ListProcurementDetail->Uom->name)) {
+            return $this->ListProcurementDetail->Uom->name;
         }
     }
 

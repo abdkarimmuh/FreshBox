@@ -8,16 +8,15 @@ class CreateNotificationProcurement extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
         Schema::create('notification_procurement', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('status');
             $table->unsignedBigInteger('user_proc_id');
             $table->unsignedBigInteger('trx_warehouse_confirm_id');
+            $table->integer('status')->default(0);
+            $table->string('message');
             $table->dateTime('read_at')->nullable();
             $table->timestamps();
 
@@ -28,8 +27,6 @@ class CreateNotificationProcurement extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

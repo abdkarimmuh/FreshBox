@@ -14,10 +14,12 @@
                     <div class="row mb-4">
                         @foreach ($columns as $item)
                         @if ($item['field'] === 'remarks')
+                        @if ($data[$item['field']] !== null)
                         <div class="col-md-12 mt-4">
                             <h6><small class="text-muted">{{ $item['title']}}</small></h6>
                             <h5>{{ $data[$item['field']] }}</h5>
                         </div>
+                        @endif
                         @else
                         <div class="col-md-6 mt-4">
                             @if($item['field'] === 'status_name')
@@ -63,7 +65,6 @@
                     @endif
                 </div>
             </div>
-
         </div>
     </div>
 </div>
