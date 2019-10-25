@@ -196,7 +196,7 @@
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        window.location.href = "/admin/finance/invoice_order";
+                       this.$router.push({name:'invoice_order'})
                     });
                     console.log(res);
                 } catch (e) {

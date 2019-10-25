@@ -138,17 +138,17 @@ const router = new VueRouter({
             component: IndexDeliveryOrder
         },
         {
-            path: '/admin/warehouse/delivery_order/create',
+            path: '/admin/warehouse/delivery-order/create',
             name: 'delivery_order.create',
             component: AddDeliveryOrder
         },
         {
-            path: '/admin/warehouse/delivery_order/:id/print',
+            path: '/admin/warehouse/delivery-order/:id/print',
             name: 'delivery_order.print',
             component: PrintDeliveryOrder
         },
         {
-            path: '/admin/warehouse/delivery_order/multiplePrint',
+            path: '/admin/warehouse/delivery-order/multiplePrint',
             name: 'delivery_order.multiplePrint',
             component: MultiplePrintDeliveryOrder
         },

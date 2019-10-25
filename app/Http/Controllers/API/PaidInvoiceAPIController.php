@@ -20,12 +20,14 @@ class PaidInvoiceAPIController extends Controller
             'invoiceRecapDetail' => 'required',
             'invoiceRecapNo' => 'required',
             'invoiceRecapDetail.*.amountPaid' => 'required|not_in:0',
+            'paidDate' => 'required'
         ];
         $request->validate($rules);
 
         $data = [
             'invoiceRecapId' => $request->invoiceRecapId,
             'invoiceRecapDetail' => $request->invoiceRecapDetail,
+            'paidDate' => $request->paidDate,
             'file' => $request->file,
             'invoiceRecapNo' => $request->invoiceRecapNo
         ];
@@ -44,7 +46,7 @@ class PaidInvoiceAPIController extends Controller
         $invoice_recap = InvoiceRecap::find($data['invoiceRecapId'])
             ->update([
                 'file' => $file_name,
-                'is_paid' => 1
+                'paid_date' => 1
             ]);
 
         foreach ($data['invoiceRecapDetail'] as $i => $detail) {

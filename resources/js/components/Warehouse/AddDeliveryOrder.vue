@@ -287,7 +287,7 @@
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        window.location.href = "/admin/warehouse/delivery_order";
+                        this.$router.push({name: 'delivery_order.index'})
                     });
                 } catch (e) {
                     this.loadingSubmit = false;

@@ -2067,6 +2067,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this3 = this;
+
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -2091,7 +2093,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
-                  window.location.href = "/admin/finance/invoice_order";
+                  _this3.$router.push({
+                    name: 'invoice_order'
+                  });
                 });
                 console.log(res);
                 _context.next = 15;
@@ -2374,6 +2378,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 payload = {
                   invoiceRecapId: this.recapInvoice.id,
                   file: this.recapInvoice.file,
+                  paidDate: this.recapInvoice.paidDate,
                   invoiceRecapNo: this.recapInvoice.recap_invoice_no,
                   invoiceRecapDetail: this.invoices.map(function (item, idx) {
                     return {
@@ -2634,6 +2639,14 @@ __webpack_require__.r(__webpack_exports__);
         field: 'recap_date',
         filterable: true
       }, {
+        title: 'Submitted Date',
+        field: 'submitted_date',
+        filterable: true
+      }, {
+        title: 'Paid Date',
+        field: 'paid_date',
+        filterable: true
+      }, {
         title: 'Total Amount',
         field: 'total_amount',
         type: 'price',
@@ -2686,10 +2699,6 @@ __webpack_require__.r(__webpack_exports__);
 
       },
       columns: [{
-        title: 'Submitted Date',
-        field: 'submitted_date',
-        filterable: true
-      }, {
         title: 'Recap Invoice NO',
         field: 'recap_invoice_no',
         filterable: true
@@ -2700,6 +2709,10 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Recap Date',
         field: 'recap_date',
+        filterable: true
+      }, {
+        title: 'Submitted Date',
+        field: 'submitted_date',
         filterable: true
       }, {
         title: 'Total Amount',
@@ -7185,7 +7198,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
-                  window.location.href = "/admin/warehouse/delivery_order";
+                  _this2.$router.push({
+                    name: 'delivery_order.index'
+                  });
                 });
                 _context.next = 14;
                 break;
@@ -7480,7 +7495,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Confirm Delivery Order!"
                 }).then(function (next) {
-                  window.location.href = "/admin/warehouse/delivery_order";
+                  window.location.href = "/admin/warehouse/confirm_delivery_order";
                 });
                 console.log(res);
                 _context.next = 13;
@@ -51220,7 +51235,7 @@ var render = function() {
                 ? _c("div", { staticClass: "col-md-4" }, [
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", [
-                        _c("b", [_vm._v("PAID Date")]),
+                        _c("b", [_vm._v("Paid Date")]),
                         _vm._v(" "),
                         _c("span", { staticStyle: { color: "red" } }, [
                           _vm._v("*")
@@ -51237,11 +51252,11 @@ var render = function() {
                               "not-before": new Date()
                             },
                             model: {
-                              value: _vm.recapInvoice.do_date,
+                              value: _vm.recapInvoice.paidDate,
                               callback: function($$v) {
-                                _vm.$set(_vm.recapInvoice, "do_date", $$v)
+                                _vm.$set(_vm.recapInvoice, "paidDate", $$v)
                               },
-                              expression: "recapInvoice.do_date"
+                              expression: "recapInvoice.paidDate"
                             }
                           })
                         ],
@@ -83972,15 +83987,15 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'delivery_order.index',
     component: _components_Warehouse_IndexDeliveryOrder__WEBPACK_IMPORTED_MODULE_19__["default"]
   }, {
-    path: '/admin/warehouse/delivery_order/create',
+    path: '/admin/warehouse/delivery-order/create',
     name: 'delivery_order.create',
     component: _components_Warehouse_AddDeliveryOrder__WEBPACK_IMPORTED_MODULE_20__["default"]
   }, {
-    path: '/admin/warehouse/delivery_order/:id/print',
+    path: '/admin/warehouse/delivery-order/:id/print',
     name: 'delivery_order.print',
     component: _components_Warehouse_PrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_21__["default"]
   }, {
-    path: '/admin/warehouse/delivery_order/multiplePrint',
+    path: '/admin/warehouse/delivery-order/multiplePrint',
     name: 'delivery_order.multiplePrint',
     component: _components_Warehouse_MultiplePrintDeliveryOrder__WEBPACK_IMPORTED_MODULE_22__["default"]
   }, {
