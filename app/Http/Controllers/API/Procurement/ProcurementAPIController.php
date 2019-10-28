@@ -11,7 +11,10 @@ use App\Model\Procurement\ListProcurementDetail;
 use App\User;
 use App\UserProc;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
@@ -21,7 +24,7 @@ class ProcurementAPIController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function index()
     {
@@ -30,6 +33,9 @@ class ProcurementAPIController extends Controller
         return ListProcurementResource::collection($query);
     }
 
+    /**
+     * @return AnonymousResourceCollection
+     */
     public function indexAPI()
     {
         $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)->get();
@@ -38,20 +44,11 @@ class ProcurementAPIController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -81,8 +78,8 @@ class ProcurementAPIController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateProcOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-            Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
+            $file_name = $this->generateProcOrderNo() . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
         }
@@ -129,7 +126,7 @@ class ProcurementAPIController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function show($id)
     {
@@ -138,48 +135,14 @@ class ProcurementAPIController extends Controller
         return ListProcurementResource::collection($query);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-    }
-
     public function generateProcOrderNo()
     {
         $year_month = Carbon::now()->format('ym');
         $latest_proc = ListProcurement::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC'.$year_month.'00000';
+        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC' . $year_month . '00000';
         $cut_string_proc = str_replace('PROC', '', $get_last_proc_no);
 
-        return 'PROC'.($cut_string_proc + 1);
+        return 'PROC' . ($cut_string_proc + 1);
     }
 
     // public function storeWarehouseIn(Request $request)
@@ -250,6 +213,10 @@ class ProcurementAPIController extends Controller
     //     ]);
     // }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function storeUserProc(Request $request)
     {
         $rules = [
@@ -281,6 +248,12 @@ class ProcurementAPIController extends Controller
         return response()->json($procurement);
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     * @return JsonResponse
+     */
+
     public function updateUserProc($id, Request $request)
     {
         $rules = [
@@ -311,5 +284,16 @@ class ProcurementAPIController extends Controller
         ]);
 
         return response()->json($procurement);
+    }
+
+    /**
+     * @param $id
+     * @return ListProcurementResource
+     */
+    public function showDetailProc($id)
+    {
+        $query = ListProcurement::findOrFail($id);
+
+        return new ListProcurementResource($query);
     }
 }

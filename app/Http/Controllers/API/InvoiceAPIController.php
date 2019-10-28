@@ -30,7 +30,7 @@ class InvoiceAPIController extends Controller
         }
 
         if ($searchValue) {
-            $query = $query->orderBy('invoice_no', 'desc')->take(20)->paginate(20);
+            $query = $query->orderBy('invoice_no', 'desc')->paginate($perPage);
         } else {
             $query = $query->orderBy('invoice_no', 'desc')->paginate($perPage);
         }
