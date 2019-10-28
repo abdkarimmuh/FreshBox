@@ -13,7 +13,7 @@
             > Print
             </button>
         </div>
-        <div id="printMe" v-if="invoice_order.length">
+        <div id="printMe" v-if="loading">
             <div style="page-break-after: always" v-for="(item, index) in invoice_order">
                 <print-header></print-header>
                 <div class="row" v-if="loading">
@@ -106,7 +106,10 @@
                 </div>
             </div>
         </div>
-        <div v-if="!invoice_order.length" class="text-center p-3 text-muted">
+        <div v-else>
+            <loading-table></loading-table>
+        </div>
+        <div v-if="loading & !invoice_order.length" class="text-center p-3 text-muted">
             <h5>No Results</h5>
             <p>Looks like you have not any data yet!</p>
         </div>
@@ -114,7 +117,9 @@
 </template>
 
 <script>
+    import LoadingTable from "../../Template/Table/partials/LoadingTable";
     export default {
+        components: {LoadingTable},
         data() {
             return {
                 info: {
