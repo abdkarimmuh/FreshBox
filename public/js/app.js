@@ -2025,7 +2025,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7105,7 +7104,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7260,7 +7258,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
 //
 //
 //
@@ -50891,11 +50888,7 @@ var render = function() {
                     "div",
                     [
                       _c("date-picker", {
-                        attrs: {
-                          lang: "en",
-                          valueType: "format",
-                          "not-before": new Date()
-                        },
+                        attrs: { lang: "en", valueType: "format" },
                         model: {
                           value: _vm.invoice_date,
                           callback: function($$v) {
@@ -55172,7 +55165,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _vm.message
         ? _c("div", { staticClass: "alert alert-primary" }, [
-            _vm._v("\n            " + _vm._s(_vm.message) + "\n        ")
+            _vm._v("\r\n            " + _vm._s(_vm.message) + "\r\n        ")
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -57431,11 +57424,7 @@ var render = function() {
                   "div",
                   [
                     _c("date-picker", {
-                      attrs: {
-                        lang: "en",
-                        valueType: "format",
-                        "not-before": new Date()
-                      },
+                      attrs: { lang: "en", valueType: "format" },
                       model: {
                         value: _vm.delivery_order.do_date,
                         callback: function($$v) {
@@ -57763,20 +57752,20 @@ var render = function() {
                   _c(
                     "div",
                     [
-                      _c("date-picker", {
-                        attrs: {
-                          lang: "en",
-                          valueType: "format",
-                          "not-before": new Date()
+                      _c(
+                        "date-picker",
+                        {
+                          attrs: { lang: "en", valueType: "format" },
+                          model: {
+                            value: _vm.confirm_date,
+                            callback: function($$v) {
+                              _vm.confirm_date = $$v
+                            },
+                            expression: "confirm_date"
+                          }
                         },
-                        model: {
-                          value: _vm.confirm_date,
-                          callback: function($$v) {
-                            _vm.confirm_date = $$v
-                          },
-                          expression: "confirm_date"
-                        }
-                      })
+                        [_vm._v("\n                                >")]
+                      )
                     ],
                     1
                   ),
@@ -84155,8 +84144,8 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/FreshBox/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/FreshBox/resources/sass/custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! C:\laragon\www\FreshBox\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
 
 
 /***/ })

@@ -27,8 +27,7 @@
                                     <date-picker
                                         v-model="confirm_date"
                                         lang="en"
-                                        valueType="format"
-                                        :not-before="new Date()"
+                                        valueType="format">
                                     ></date-picker>
                                 </div>
                                 <div
