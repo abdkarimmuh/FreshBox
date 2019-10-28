@@ -76,12 +76,18 @@ class InvoiceAPIController extends Controller
     public function print(Request $request)
     {
         if (is_array($request->id)) {
-            $inv = InvoiceOrder::whereIn('id', $request->id)->orderBy('invoice_no', 'desc')->update(['status' => 7]);
+            $inv = InvoiceOrder::whereIn('id', $request->id)->orderBy('invoice_no', 'desc')
+                ->update(['is_printed' => 1]);
+        } elseif ($request->printAll == true) {
+            $inv = InvoiceOrder::where('is_printed', 0)
+                ->update(['is_printed' => 1]);
         } else {
-            $inv = InvoiceOrder::findOrFail($request->id)->update(['status' => 7]);;
+            $inv = InvoiceOrder::where('id', $request->id)
+                ->update(['is_printed' => 1]);
         }
 
         return response()->json([
+            'data' => $inv,
             'status' => 'success'
         ], 200);
     }
@@ -90,6 +96,9 @@ class InvoiceAPIController extends Controller
     {
         if (is_array($request->id)) {
             $inv = InvoiceOrder::whereIn('id', $request->id)->orderBy('invoice_no', 'desc')->get();
+            $invoice_order = InvoiceOrderResource::collection($inv);
+        } elseif ($request->printAll == true) {
+            $inv = InvoiceOrder::where('is_printed', 0)->orderBy('invoice_no', 'desc')->get();
             $invoice_order = InvoiceOrderResource::collection($inv);
         } else {
             $inv = InvoiceOrder::findOrFail($request->id);

@@ -14,10 +14,16 @@
                             <a class="btn btn-info ml-2" style="color: white" @click="print()"
                                v-if="config.route_multiple_print && selected != 0">Print
                                 <i class="fas fa-print"></i></a>
+
                             <a class="btn btn-primary ml-2" @click="printRekap"
                                style="color: white" v-if="config.route_print_recap && selected != 0">Generate Recap
                                 Invoice <i
                                     class="fas fa-print"></i></a>
+
+                            <router-link :to="{ name: config.route_print_all}" class="btn btn-warning ml-2"
+                               style="color: white" v-if="config.route_print_all">Print All Invoice
+                                Invoice <i class="fas fa-print"></i>
+                            </router-link>
                         </div>
                     </div>
                     <div class="card-header-action ml-0 mt-3 mb-3">

@@ -13,10 +13,12 @@ import IndexInvoice from './components/Finance/Invoice/IndexInvoice';
 import PrintInvoice from './components/Finance/Invoice/PrintInvoiceOrder';
 import AddInvoice from './components/Finance/Invoice/AddInvoice';
 
-import MultiplePrintInvoiceOrder from './components/Finance/Invoice/MultiplePrintInvoiceOrder';
-import PrintRecapInvoice from './components/Finance/Invoice/PrintRecapInvoice';
-import IndexInvoiceRecap from './components/Finance/Invoice/IndexInvoiceRecap';
 
+import IndexInvoiceRecap from './components/Finance/Invoice/IndexInvoiceRecap';
+import MultiplePrintInvoiceOrder from './components/Finance/Invoice/MultiplePrintInvoiceOrder';
+import PrintAllInvoice from './components/Finance/Invoice/PrintAllInvoice';
+
+import PrintRecapInvoice from './components/Finance/Invoice/PrintRecapInvoice';
 import IndexSubmittedRecap from './components/Finance/Invoice/IndexSubmittedRecap';
 import SubmitRecapInvoice from './components/Finance/Invoice/SubmitRecapInvoice';
 
@@ -83,10 +85,16 @@ const router = new VueRouter({
         },
         // Print Multiple Sales Order
         {
-            path: '/admin/finance/invoice-order/printMultiple/',
+            path: '/admin/finance/invoice-order/print-multiple/',
             name: "invoice_order.multiplePrint",
             component: MultiplePrintInvoiceOrder,
             props: true
+        },
+        // Print All
+        {
+            path: '/admin/finance/invoice-order/print-all/',
+            name: "invoice_order.printAll",
+            component: PrintAllInvoice,
         },
         // Create Sales Order
         {
