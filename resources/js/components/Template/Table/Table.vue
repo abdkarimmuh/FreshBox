@@ -183,7 +183,7 @@
         data() {
             return {
                 user: {},
-                perPages: ['5', '10', '25', '50'],
+                perPages: ['5', '10', '25', '50','100','150','300'],
                 buttonClasses: 'btn btn-primary',
                 selected: [0],
                 data: [],
