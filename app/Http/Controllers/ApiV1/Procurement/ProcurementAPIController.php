@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\API\Procurement;
+namespace App\Http\Controllers\ApiV1\Procurement;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Procurement\ListProcurementHasItemsResource;
 use App\Http\Resources\Procurement\ListProcurementResource;
 use App\Model\Marketing\SalesOrderDetail;
 use App\Model\Procurement\AssignProcurement;
@@ -29,18 +30,17 @@ class ProcurementAPIController extends Controller
     public function index()
     {
         $query = ListProcurement::all();
-
         return ListProcurementResource::collection($query);
     }
 
     /**
      * @return AnonymousResourceCollection
      */
-    public function indexAPI()
+    public function userProcHasProc()
     {
         $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)->get();
 
-        return ListProcurementResource::collection($query);
+        return ListProcurementHasItemsResource::collection($query);
     }
 
     /**
@@ -125,7 +125,7 @@ class ProcurementAPIController extends Controller
     {
         $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)->where('status', $id)->get();
 
-        return ListProcurementResource::collection($query);
+        return ListProcurementHasItemsResource::collection($query);
     }
 
     /**
@@ -133,15 +133,18 @@ class ProcurementAPIController extends Controller
      *
      * @param int $id
      *
-     * @return AnonymousResourceCollection
+     * @return ListProcurementHasItemsResource
      */
     public function show($id)
     {
         $query = ListProcurement::findOrFail($id);
 
-        return new ListProcurementResource($query);
+        return new ListProcurementHasItemsResource($query);
     }
 
+    /**
+     * @return string
+     */
     public function generateProcOrderNo()
     {
         $year_month = Carbon::now()->format('ym');
@@ -151,74 +154,6 @@ class ProcurementAPIController extends Controller
 
         return 'PROC'.($cut_string_proc + 1);
     }
-
-    // public function storeWarehouseIn(Request $request)
-    // {
-    //     $rules = [
-    //         'vendor' => 'required',
-    //         'total_amount' => 'required|not_in:0',
-    //         'payment' => 'required',
-    //         // 'file' => 'required',
-    //         'items' => 'required',
-    //         'items.*.assign_proc_id' => 'required',
-    //         'items.*.qty' => 'required|not_in:0',
-    //         'items.*.uom_id' => 'required',
-    //         'items.*.amount' => 'required',
-    //     ];
-    //     $request->validate($rules);
-
-    //     $user_proc_id = auth('api')->user()->id;
-    //     $vendor = $request->vendor;
-    //     $total_amount = $request->total_amount;
-    //     $payment = $request->payment;
-    //     $items = $request->items;
-
-    //     if ($request->file) {
-    //         $file = $request->file;
-    //         @list($type, $file_data) = explode(';', $file);
-    //         @list(, $file_data) = explode(',', $file_data);
-    //         $file_name = $this->generateProcOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-    //         Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
-    //     } else {
-    //         $file_name = '';
-    //     }
-
-    //     $procurement = ListProcurement::create([
-    //         'procurement_no' => $this->generateProcOrderNo(),
-    //         'user_proc_id' => $user_proc_id,
-    //         'vendor' => $vendor,
-    //         'total_amount' => $total_amount,
-    //         'payment' => $payment,
-    //         'file' => $file_name,
-    //         'status' => 1,
-    //         'created_by' => $user_proc_id,
-    //         'created_at' => Carbon::now(),
-    //     ]);
-
-    //     foreach ($items as $item) {
-    //         $listProcDetails[] = [
-    //             'trx_list_procurement_id' => $procurement->id,
-    //             'trx_assign_procurement_id' => $item['assign_proc_id'],
-    //             'qty' => $item['qty'],
-    //             'uom_id' => $item['uom_id'],
-    //             'amount' => $item['amount'],
-    //             'created_by' => $user_proc_id,
-    //             'created_at' => Carbon::now(),
-    //         ];
-
-    //         $assignProcurement = AssignProcurement::where('id', $item['assign_proc_id'])->first();
-    //         $salesOrderDetail = SalesOrderDetail::where('id', $assignProcurement['sales_order_detail_id'])->first();
-
-    //         $salesOrderDetail->sisa_qty_proc = $salesOrderDetail->sisa_qty_proc - $item['qty'];
-    //         $salesOrderDetail->save();
-    //     }
-
-    //     ListProcurementDetail::insert($listProcDetails);
-
-    //     return response()->json([
-    //         'status' => 'success',
-    //     ]);
-    // }
 
     /**
      * @param Request $request

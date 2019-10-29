@@ -4,18 +4,17 @@ namespace App\Http\Resources\Procurement;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ListProcurementResource extends JsonResource
+class ListProcurementHasItemsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
      * @param \Illuminate\Http\Request $request
-     *
      * @return array
      */
     public function toArray($request)
     {
-        return[
+        return [
             'id' => $this->id,
             'no_proc' => $this->procurement_no,
             'user_proc_id' => $this->user_proc_id,
@@ -26,6 +25,7 @@ class ListProcurementResource extends JsonResource
             'file' => $this->file,
             'remarks' => $this->remarks,
             'status' => $this->status,
+            'items' => DetailProcurementResource::collection($this->items),
         ];
     }
 }

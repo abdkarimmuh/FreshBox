@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
+Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     /*
      * API MOBILE
      * Auth Route
@@ -51,8 +51,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
 
                 Route::group(['prefix' => 'procurement'], function () {
                     Route::get('/', 'ProcurementAPIController@index');
-                    Route::get('/get', 'ProcurementAPIController@indexAPI');
-                    Route::get('/show/{id}', 'ProcurementAPIController@show');
+                    Route::get('/get', 'ProcurementAPIController@userProcHasProc');
                     Route::get('/selectBy/{id}', 'ProcurementAPIController@selectBy');
                     Route::post('/', 'ProcurementAPIController@store');
                     Route::post('/storeUser', 'ProcurementAPIController@storeUserProc');
@@ -80,22 +79,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
             Route::get('/download/{file}', 'FormSalesOrderAPIController@DownloadFile');
         });
     });
-//    /**
-//     * Procurement
-//     */
-//    Route::group(['prefix' => 'procurement/', ''], function () {
-//        Route::group(['prefix' => 'sales_order'], function () {
-//            Route::get('/', 'ProcurementAPIController@index');
-//            Route::get('/show', 'ProcurementAPIController@show');
-//            Route::get('/{id}/edit', 'ProcurementAPIController@edit');
-//            Route::post('/store', 'ProcurementAPIController@store');
-//            Route::post('/print', 'ProcurementAPIController@print');
-//            Route::delete('detail/{id}', 'ProcurementAPIController@deleteOrderDetails');
-//            Route::patch('/update', 'ProcurementAPIController@updateSalesOrderDetails');
-//            Route::get('/show/{id}', 'ProcurementAPIController@showDetailProc');
-//            Route::get('/download/{file}', 'ProcurementAPIController@DownloadFile');
-//        });
-//    });
+    /**
+     * Procurement
+     */
+    Route::group(['prefix' => 'procurement/', 'namespace' => 'Procurement\\'], function () {
+        Route::get('/', 'ProcurementAPIController@index');
+        Route::get('/show/{id}', 'ProcurementAPIController@show');
+    });
     /*
      * Route API Warehouse
      */

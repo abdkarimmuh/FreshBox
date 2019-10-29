@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\ApiV1;
 
 use App\Http\Resources\SalesOrderResource;
 use App\Model\Marketing\SalesOrder;

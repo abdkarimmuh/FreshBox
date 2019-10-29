@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\ApiV1;
 
 use App\Model\MasterData\SourceOrder;
 use Illuminate\Http\Request;
