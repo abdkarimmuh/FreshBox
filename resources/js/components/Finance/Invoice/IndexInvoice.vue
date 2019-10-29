@@ -17,6 +17,7 @@
                     route_create: 'invoice_order.create',
                     route_view: 'invoice_order.print',
                     route_edit: 'invoice_order.edit',
+                    route_print_all: 'invoice_order.printAll',
                     route_multiple_print: 'invoice_order.multiplePrint',
                     route_print_recap: 'invoice_order.recap.show'
                 },

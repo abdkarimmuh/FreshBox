@@ -59,7 +59,6 @@
                                         v-model="invoice_date"
                                         lang="en"
                                         valueType="format"
-                                        :not-before="new Date()"
                                     ></date-picker>
                                 </div>
                                 <div

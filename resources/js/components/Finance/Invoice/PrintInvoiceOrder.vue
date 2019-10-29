@@ -210,9 +210,10 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Yes, Print it!'
                 }).then((result) => {
+                    const res = axios.post(this.$parent.MakeUrl('api/v1/finance/invoice_order/print?id=' + this.$route.params.id))
+                    console.log(res);
                     if (result.value) {
                         this.$htmlToPaper('printMe');
-                        axios.post(this.$parent.MakeUrl('api/v1/finance/invoice_order/print?id=' + this.$route.params.id))
                     }
                 })
             },

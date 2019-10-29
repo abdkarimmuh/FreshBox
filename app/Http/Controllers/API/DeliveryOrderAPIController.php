@@ -71,7 +71,6 @@ class DeliveryOrderAPIController extends Controller
             'created_by' => $request->user_id,
         ];
         $delivery_order = DeliveryOrder::create($data);
-        SalesOrder::find($data['sales_order_id'])->update(['status' => 4]);
 
         $so_details = $request->so_details;
         foreach ($so_details as $i => $detail) {
@@ -85,6 +84,8 @@ class DeliveryOrderAPIController extends Controller
             ];
         }
         DeliveryOrderDetail::insert($salesOrderDetails);
+
+        SalesOrder::find($data['sales_order_id'])->update(['status' => 4]);
 
         return response()->json([
             'status' => 'success',

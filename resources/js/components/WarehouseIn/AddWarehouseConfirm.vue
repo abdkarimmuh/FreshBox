@@ -5,7 +5,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>
-                        <b>Sales Order No</b>
+                        <b>Procurement No</b>
                         <span style="color: red;">*</span>
                     </label>
                     <div>
@@ -24,36 +24,12 @@
                     </div>
                 </div>
             </div>
-            <!-- Driver -->
+
+            <!-- User Proc -->
             <div class="col-md-6">
                 <div class="form-group">
                     <label>
-                        <b>Driver</b>
-                        <span style="color: red;">*</span>
-                    </label>
-                    <div>
-                        <model-list-select
-                            v-bind:class="{'is-invalid': errors.driver_id}"
-                            :list="drivers"
-                            v-model="delivery_order.driver_id"
-                            option-value="id"
-                            option-text="name"
-                            placeholder="Select Driver"
-                        ></model-list-select>
-                        <div
-                            style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                            v-if="errors.driver_id"
-                        >
-                            <p>{{ errors.driver_id[0] }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Customer -->
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>
-                        <b>Customer</b>
+                        <b>User Proc Name</b>
                         <span style="color: red;">*</span>
                     </label>
                     <div>
@@ -66,31 +42,7 @@
                     </div>
                 </div>
             </div>
-            <!-- PIC QC -->
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>
-                        <b>PIC Quality Control</b>
-                        <span style="color: red;">*</span>
-                    </label>
-                    <div>
-                        <model-list-select
-                            v-bind:class="{'is-invalid': errors.pic_qc_id}"
-                            :list="pic_qc"
-                            v-model="delivery_order.pic_qc_id"
-                            option-value="id"
-                            option-text="name"
-                            placeholder="Select PIC Quality Control"
-                        ></model-list-select>
-                        <div
-                            style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                            v-if="errors.pic_qc_id"
-                        >
-                            <p>{{ errors.pic_qc_id[0] }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <!-- DO Date -->
             <div class="col-md-6">
                 <div class="form-group">
@@ -203,16 +155,8 @@
     export default {
         data() {
             return {
-                delivery_order: {
-                    sales_order_id: "",
-                    customer_id: "",
-                    customer_name: "",
-                    do_date: "",
-                    driver_id: "",
-                    pic_qc_id: "",
-                    remark: "",
-                    user_id: UserID
-                },
+                procurements: [],
+                procurement: {},
                 sales_order: {},
                 sales_orders: [],
                 sales_order_details: [],

@@ -7,9 +7,7 @@ use App\Model\MasterData\Customer;
 use App\Model\MasterData\Price;
 use App\Model\MasterData\Uom;
 use App\Model\MasterData\Vendor;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,29 +36,32 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
                 return new UserProcResource(auth()->user());
             });
 
-            Route::group(['prefix' => 'notif'], function () {
-                Route::get('/', 'Procurement\NotificationsAPIController@index');
-                Route::post('/', 'Procurement\NotificationsAPIController@store');
-                Route::post('/read', 'Procurement\NotificationsAPIController@asRead');
-            });
+            Route::group(['namespace' => 'Procurement\\'], function () {
+                Route::group(['prefix' => 'notif'], function () {
+                    Route::get('/', 'NotificationsAPIController@index');
+                    Route::post('/', 'NotificationsAPIController@store');
+                    Route::post('/read', 'NotificationsAPIController@asRead');
+                });
 
-            Route::group(['prefix' => 'item'], function () {
-                Route::get('/', 'Procurement\ItemProcurementAPIController@index');
-                Route::get('/get', 'Procurement\ItemProcurementAPIController@indexAPI');
-                Route::post('/', 'Procurement\ItemProcurementAPIController@store');
-            });
+                Route::group(['prefix' => 'item'], function () {
+                    Route::get('/', 'ItemProcurementAPIController@index');
+                    Route::get('/get', 'ItemProcurementAPIController@indexAPI');
+                    Route::post('/', 'ItemProcurementAPIController@store');
+                });
 
-            Route::group(['prefix' => 'procurement'], function () {
-                Route::get('/', 'Procurement\ProcurementAPIController@index');
-                Route::get('/get', 'Procurement\ProcurementAPIController@indexAPI');
-                Route::get('/selectBy/{id}', 'Procurement\ProcurementAPIController@selectBy');
-                Route::post('/', 'Procurement\ProcurementAPIController@store');
-                Route::post('/storeUser', 'Procurement\ProcurementAPIController@storeUserProc');
-            });
+                Route::group(['prefix' => 'procurement'], function () {
+                    Route::get('/', 'ProcurementAPIController@index');
+                    Route::get('/get', 'ProcurementAPIController@indexAPI');
+                    Route::get('/show/{id}', 'ProcurementAPIController@show');
+                    Route::get('/selectBy/{id}', 'ProcurementAPIController@selectBy');
+                    Route::post('/', 'ProcurementAPIController@store');
+                    Route::post('/storeUser', 'ProcurementAPIController@storeUserProc');
+                });
 
-            Route::group(['prefix' => 'so_detail'], function () {
-                Route::get('/', 'Procurement\SalesOrderDetailAPIController@index');
-                Route::get('/api', 'Procurement\SalesOrderDetailAPIController@indexAPI');
+                Route::group(['prefix' => 'so_detail'], function () {
+                    Route::get('/', 'SalesOrderDetailAPIController@index');
+                    Route::get('/api', 'SalesOrderDetailAPIController@indexAPI');
+                });
             });
         });
     });
@@ -79,21 +80,22 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
             Route::get('/download/{file}', 'FormSalesOrderAPIController@DownloadFile');
         });
     });
-    /*
-     * Procurement
-     */
-    Route::group(['prefix' => 'procurement/', ''], function () {
-        Route::group(['prefix' => 'sales_order'], function () {
-            Route::get('/', 'FormSalesOrderAPIController@index');
-            Route::get('/show', 'FormSalesOrderAPIController@show');
-            Route::get('/{id}/edit', 'FormSalesOrderAPIController@edit');
-            Route::post('/store', 'FormSalesOrderAPIController@store');
-            Route::post('/print', 'FormSalesOrderAPIController@print');
-            Route::delete('detail/{id}', 'FormSalesOrderAPIController@deleteOrderDetails');
-            Route::patch('/update', 'FormSalesOrderAPIController@updateSalesOrderDetails');
-            Route::get('/download/{file}', 'FormSalesOrderAPIController@DownloadFile');
-        });
-    });
+//    /**
+//     * Procurement
+//     */
+//    Route::group(['prefix' => 'procurement/', ''], function () {
+//        Route::group(['prefix' => 'sales_order'], function () {
+//            Route::get('/', 'ProcurementAPIController@index');
+//            Route::get('/show', 'ProcurementAPIController@show');
+//            Route::get('/{id}/edit', 'ProcurementAPIController@edit');
+//            Route::post('/store', 'ProcurementAPIController@store');
+//            Route::post('/print', 'ProcurementAPIController@print');
+//            Route::delete('detail/{id}', 'ProcurementAPIController@deleteOrderDetails');
+//            Route::patch('/update', 'ProcurementAPIController@updateSalesOrderDetails');
+//            Route::get('/show/{id}', 'ProcurementAPIController@showDetailProc');
+//            Route::get('/download/{file}', 'ProcurementAPIController@DownloadFile');
+//        });
+//    });
     /*
      * Route API Warehouse
      */
@@ -194,18 +196,16 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
     });
 });
 
+Route::resource('users', 'UserController', [
+    'names' => [
+        'index' => 'users',
+    ],
+]);
+
 /*
  * Testing Route
  */
 
-Route::get('/testing', function () {
-    $data = \App\Model\Marketing\SalesOrder::get();
-
-    return $data;
-});
-
-Route::get('/bidding', function () {
-});
 Route::get('users/roles', 'UserController@roles')->name('users.roles');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -222,57 +222,4 @@ Route::get('/users ', function (Request $request) {
     $data = $query->paginate($length);
 
     return new \JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource($data);
-});
-Route::get('/customers', function () {
-    $prices = DB::table('pricemaster')->get();
-    $customers = Customer::select('id')->get();
-    foreach ($customers as $customer) {
-        $customer_id[] = $customer->id;
-    }
-
-    for ($i = 1; $i <= 32; ++$i) {
-        foreach ($prices as $price) {
-            if ($price->Unit === 'Kg') {
-                $uom = 1;
-            } elseif ($price->Unit === 'Pcs') {
-                $uom = 2;
-            } elseif ($price->Unit === 'Pack') {
-                $uom = 3;
-            } elseif ($price->Unit === 'Botol') {
-                $uom = 4;
-            } elseif ($price->Unit === 'Sisir') {
-                $uom = 5;
-            } elseif ($price->Unit === 'Klg') {
-                $uom = 6;
-            } elseif ($price->Unit === 'Peti') {
-                $uom = 7;
-            } elseif ($price->Unit === 'Ltr') {
-                $uom = 8;
-            } elseif ($price->Unit === 'Box') {
-                $uom = 9;
-            } elseif ($price->Unit === 'Karung') {
-                $uom = 10;
-            } elseif ($price->Unit === 'Can') {
-                $uom = 11;
-            } elseif ($price->Unit === 'Pail') {
-                $uom = 12;
-            } elseif ($price->Unit === 'Bag') {
-                $uom = 13;
-            }
-            $data[] = [
-                'customer_id' => $i,
-                'skuid' => $price->SKU,
-                'amount' => $price->Pricelist,
-                'created_by' => 1,
-                'uom_id' => $uom,
-                'start_periode' => Carbon::now(),
-                'end_periode' => Carbon::now()->addDays(5),
-            ];
-        }
-        DB::table('master_price')->insert($data);
-    }
-
-    return response()->json([
-        'status' => 'success',
-    ], 200);
 });

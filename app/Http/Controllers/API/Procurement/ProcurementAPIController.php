@@ -11,7 +11,10 @@ use App\Model\Procurement\ListProcurementDetail;
 use App\User;
 use App\UserProc;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
@@ -21,7 +24,7 @@ class ProcurementAPIController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function index()
     {
@@ -30,6 +33,9 @@ class ProcurementAPIController extends Controller
         return ListProcurementResource::collection($query);
     }
 
+    /**
+     * @return AnonymousResourceCollection
+     */
     public function indexAPI()
     {
         $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)->get();
@@ -38,20 +44,11 @@ class ProcurementAPIController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -136,44 +133,13 @@ class ProcurementAPIController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function show($id)
     {
-    }
+        $query = ListProcurement::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
+        return new ListProcurementResource($query);
     }
 
     public function generateProcOrderNo()
@@ -254,6 +220,11 @@ class ProcurementAPIController extends Controller
     //     ]);
     // }
 
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
     public function storeUserProc(Request $request)
     {
         $rules = [
@@ -285,6 +256,12 @@ class ProcurementAPIController extends Controller
         return response()->json($procurement);
     }
 
+    /**
+     * @param $id
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
     public function updateUserProc($id, Request $request)
     {
         $rules = [
