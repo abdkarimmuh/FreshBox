@@ -124,6 +124,13 @@ class ProcurementAPIController extends Controller
         ]);
     }
 
+    public function selectBy($id)
+    {
+        $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)->where('status', $id)->get();
+
+        return ListProcurementResource::collection($query);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -133,9 +140,6 @@ class ProcurementAPIController extends Controller
      */
     public function show($id)
     {
-        $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)->where('status', $id)->get();
-
-        return ListProcurementResource::collection($query);
     }
 
     /**

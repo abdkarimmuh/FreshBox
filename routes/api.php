@@ -34,10 +34,16 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
 
     Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'proc'], function () {
-
             Route::get('/', function () {
                 return new UserProcResource(auth()->user());
             });
+
+            Route::group(['prefix' => 'notif'], function () {
+                Route::get('/', 'Procurement\NotificationsAPIController@index');
+                Route::post('/', 'Procurement\NotificationsAPIController@store');
+                Route::post('/read', 'Procurement\NotificationsAPIController@asRead');
+            });
+
             Route::group(['prefix' => 'item'], function () {
                 Route::get('/', 'Procurement\ItemProcurementAPIController@index');
                 Route::get('/get', 'Procurement\ItemProcurementAPIController@indexAPI');
@@ -47,7 +53,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
             Route::group(['prefix' => 'procurement'], function () {
                 Route::get('/', 'Procurement\ProcurementAPIController@index');
                 Route::get('/get', 'Procurement\ProcurementAPIController@indexAPI');
-                Route::get('/show/{id}', 'Procurement\ProcurementAPIController@show');
+                Route::get('/selectBy/{id}', 'Procurement\ProcurementAPIController@selectBy');
                 Route::post('/', 'Procurement\ProcurementAPIController@store');
                 Route::post('/storeUser', 'Procurement\ProcurementAPIController@storeUserProc');
             });
@@ -73,10 +79,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
             Route::get('/download/{file}', 'FormSalesOrderAPIController@DownloadFile');
         });
     });
-    /**
+    /*
      * Procurement
      */
-    Route::group(['prefix' => 'procurement/',''], function () {
+    Route::group(['prefix' => 'procurement/', ''], function () {
         Route::group(['prefix' => 'sales_order'], function () {
             Route::get('/', 'FormSalesOrderAPIController@index');
             Route::get('/show', 'FormSalesOrderAPIController@show');

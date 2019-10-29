@@ -21,6 +21,7 @@ class NotificationsResource extends JsonResource
             'message' => $this->message,
             'read_at' => $this->read_at,
             'procurement_no' => $this->procurement_no,
+            'date' => $this->created_at->toDateString(),
         ];
     }
 }
