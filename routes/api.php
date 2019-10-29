@@ -181,10 +181,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
 
         Route::get('customer', 'CustomerAPIController@index')->name('api.customer');
         Route::get('list_customer', 'CustomerAPIController@all');
-
-        //    Route::get('price_customer/{id}', 'API\MasterPriceController@CustomerPrice');
-//        Route::get('uom', 'MasterData\UomController@index');
-//        Route::post('uom', 'MasterData\UomController@store');
     });
 });
 
