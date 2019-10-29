@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ApiV1;
+namespace App\Http\Controllers\ApiV1\Marketing;
 
 use App\Http\Resources\MasterData\PriceResource;
 use App\Model\Marketing\SalesOrderDetail;

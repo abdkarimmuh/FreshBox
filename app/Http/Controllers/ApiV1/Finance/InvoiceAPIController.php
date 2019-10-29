@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ApiV1;
+namespace App\Http\Controllers\ApiV1\Finance;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Finance\InvoiceOrderResource;
