@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\API\Procurement;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Mobile\NotificationsResource;
 use App\Model\Procurement\Notifications;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NotificationsAPIController extends Controller
 {
@@ -17,7 +20,26 @@ class NotificationsAPIController extends Controller
     {
         $query = Notifications::where('user_proc_id', auth('api')->user()->id)->get();
 
-        return Notifications::collection($query);
+        return NotificationsResource::collection($query);
+    }
+
+    public function asRead(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+        ]);
+
+        $notification = Notifications::where('user_proc_id', auth('api')->user()->id)->where('id', $request->id);
+        $notification->read_at = Carbon::now();
+        $notification->save();
+
+        return response()->json([
+            'status' => 'success',
+        ]);
+
+        // $query = Notifications::where('user_proc_id', auth('api')->user()->id)->get();
+
+        // return NotificationsResource::collection($query);
     }
 
     /**
@@ -38,6 +60,22 @@ class NotificationsAPIController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'trx_warehouse_confirm_id' => 'required',
+            'status' => 'required',
+            'message' => 'required',
+        ]);
+
+        $userId = auth()->user()->id;
+        $warehouseId = $request->trx_warehouse_confirm_id;
+        $status = $request->status;
+        $message = $request->message;
+
+        DB::select('call insert_notification_procurement(?, ?, ?, ?)', array($userId, $warehouseId, $status, $message));
+
+        return response()->json([
+            'status' => 'success',
+        ]);
     }
 
     /**

@@ -7,9 +7,7 @@ use App\Model\MasterData\Customer;
 use App\Model\MasterData\Price;
 use App\Model\MasterData\Uom;
 use App\Model\MasterData\Vendor;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,12 +32,17 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
 
     Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'proc'], function () {
-
             Route::get('/', function () {
                 return new UserProcResource(auth()->user());
             });
 
             Route::group(['namespace' => 'Procurement\\'], function () {
+                Route::group(['prefix' => 'notif'], function () {
+                    Route::get('/', 'NotificationsAPIController@index');
+                    Route::post('/', 'NotificationsAPIController@store');
+                    Route::post('/read', 'NotificationsAPIController@asRead');
+                });
+
                 Route::group(['prefix' => 'item'], function () {
                     Route::get('/', 'ItemProcurementAPIController@index');
                     Route::get('/get', 'ItemProcurementAPIController@indexAPI');
@@ -50,9 +53,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
                     Route::get('/', 'ProcurementAPIController@index');
                     Route::get('/get', 'ProcurementAPIController@indexAPI');
                     Route::get('/show/{id}', 'ProcurementAPIController@show');
+                    Route::get('/selectBy/{id}', 'ProcurementAPIController@selectBy');
                     Route::post('/', 'ProcurementAPIController@store');
                     Route::post('/storeUser', 'ProcurementAPIController@storeUserProc');
-                    Route::get('/showDetailProc/{id}', 'ProcurementAPIController@showDetailProc');
                 });
 
                 Route::group(['prefix' => 'so_detail'], function () {
@@ -60,7 +63,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
                     Route::get('/api', 'SalesOrderDetailAPIController@indexAPI');
                 });
             });
-
         });
     });
     /*
@@ -221,4 +223,3 @@ Route::get('/users ', function (Request $request) {
 
     return new \JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource($data);
 });
-

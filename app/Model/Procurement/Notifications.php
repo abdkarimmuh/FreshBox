@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Notifications extends Model
 {
     protected $table = 'notification_procurement';
-    protected $fillable = ['status', 'message', 'user_proc_id', 'trx_warehouse_confirm_id', 'read_at', 'created_by', 'created_at'];
+    protected $fillable = ['status', 'message', 'user_proc_id', 'trx_warehouse_confirm_id', 'created_at'];
     protected $appends = [
         'procurement_no',
     ];
@@ -20,7 +20,7 @@ class Notifications extends Model
 
     public function Confirm()
     {
-        return $this->hasMany(Confirm::class, 'trx_warehouse_confirm_id', 'id');
+        return $this->belongsTo(Confirm::class, 'trx_warehouse_confirm_id', 'id');
     }
 
     public function getProcurementNoAttribute()
