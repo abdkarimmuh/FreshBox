@@ -3386,6 +3386,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3425,13 +3442,16 @@ __webpack_require__.r(__webpack_exports__);
         page_break: true
       }, {
         title: "Kepada Yth",
-        field: ""
+        field: "",
+        alignmentRight: true
       }, {
         title: "PO No.",
-        field: "no_po"
+        field: "no_po",
+        alignmentRight: true
       }, {
         title: "Customer",
-        field: "customer_name"
+        field: "customer_name",
+        alignmentRight: true
       }],
       info: {
         title: "Invoice",
@@ -6240,7 +6260,7 @@ __webpack_require__.r(__webpack_exports__);
         nama_pt: 'PT BERKAH TANI SEJAHTERA',
         alamat: 'Rukan Greenlake Ruko Greatwall B60 - B61',
         daerah: 'Cipondoh - Tangerang 15147',
-        contact: 'Telp : 021-54315198'
+        contact: 'Telp : 021-54317777'
       }
     };
   }
@@ -52637,9 +52657,7 @@ var render = function() {
                       [
                         _c("tbody", [
                           _c("tr", [
-                            _c("td", { attrs: { width: "56%" } }, [
-                              _vm._v("Keterangan :")
-                            ]),
+                            _vm._m(0),
                             _vm._v(" "),
                             _c(
                               "td",
@@ -52672,9 +52690,9 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
-                          _vm._m(0),
-                          _vm._v(" "),
                           _vm._m(1),
+                          _vm._v(" "),
+                          _vm._m(2),
                           _vm._v(" "),
                           _c(
                             "tr",
@@ -52699,6 +52717,29 @@ var render = function() {
                                   ) + "\n                            "
                                 )
                               ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "tr",
+                            {
+                              staticStyle: {
+                                "border-bottom": "1px solid black"
+                              }
+                            },
+                            [
+                              _c("td", { attrs: { width: "56%" } }, [
+                                _c("b", [
+                                  _vm._v(
+                                    "   Terbilang : " +
+                                      _vm._s(_vm.invoice_order.terbilang)
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-right" }),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-right" })
                             ]
                           )
                         ])
@@ -52729,10 +52770,10 @@ var render = function() {
                   _c("div", { staticClass: "col-md-12" }, [
                     _c("table", { attrs: { width: "60%" } }, [
                       _c("tbody", [
-                        _vm._m(2),
+                        _vm._m(3),
                         _vm._v(" "),
                         _c("tr", [
-                          _vm._m(3),
+                          _vm._m(4),
                           _vm._v(" "),
                           _c("td", { attrs: { width: "2%" } }, [_vm._v(" :")]),
                           _vm._v(" "),
@@ -52742,7 +52783,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("tr", [
-                          _vm._m(4),
+                          _vm._m(5),
                           _vm._v(" "),
                           _c("td", { attrs: { width: "2%" } }, [_vm._v(" :")]),
                           _vm._v(" "),
@@ -52752,7 +52793,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("tr", [
-                          _vm._m(5),
+                          _vm._m(6),
                           _vm._v(" "),
                           _c("td", { attrs: { width: "2%" } }, [_vm._v(" :")]),
                           _vm._v(" "),
@@ -52761,9 +52802,11 @@ var render = function() {
                           ])
                         ]),
                         _vm._v(" "),
-                        _vm._m(6),
+                        _vm._m(7),
                         _vm._v(" "),
-                        _vm._m(7)
+                        _vm._m(8),
+                        _vm._v(" "),
+                        _vm._m(9)
                       ])
                     ])
                   ])
@@ -52806,6 +52849,14 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { width: "56%" } }, [
+      _c("b", [_vm._v("Keterangan :")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -52900,9 +52951,23 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("tr", [
       _c("td", { attrs: { width: "10%", colspan: "5" } }, [
-        _c("b", [
+        _c("i", [
           _vm._v(
-            "*) Pembayaran dianggap sah jika bukti\n\n                                transfer sudah dikirimkan kepada kami"
+            "\n                                    *) Pembayaran dianggap sah jika bukti transfer sudah dikirimkan kepada kami\n                                "
+          )
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { width: "10%", colspan: "5" } }, [
+        _c("i", [
+          _vm._v(
+            "\n                                    *) Nilai tagihan dibuat berdasarkan pesanan yang diterima. Tidak ada coretan,\n                                    berarti pesanan diterima\n                                "
           )
         ])
       ])
@@ -56431,7 +56496,10 @@ var render = function() {
                 ? _c("div", [
                     _c(
                       "td",
-                      { staticClass: "text-right", attrs: { width: "150px" } },
+                      {
+                        class: { "text-right": item.alignmentRight },
+                        attrs: { width: "150px" }
+                      },
                       [_c("b", [_vm._v(_vm._s(item.title))])]
                     ),
                     _vm._v(" "),

@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
+      App::setLocale('id');
     /*
      * API MOBILE
      * Auth Route

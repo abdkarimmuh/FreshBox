@@ -168,17 +168,13 @@
             };
         },
         mounted() {
-            this.getData();
+            this.getProcurements();
         },
         methods: {
-            validateQtyDO(idx) {
-                let qty_do = parseFloat(this.qty_do[idx].qty);
-                let qty_so = parseFloat(this.sales_order_details[idx].qty) + (this.sales_order_details[idx].qty * 0.1);
-                if (qty_do > qty_so) {
-                    this.qty_do[idx].qty = qty_so;
-                }
+            getProcurements() {
+                axios.get()
             },
-            getDataCustomer() {
+            getProcurement() {
                 axios.get(this.$parent.MakeUrl("api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id))
                     .then(res => {
                         this.sales_order = res.data;
@@ -225,23 +221,7 @@
                     console.error(e.response.data);
                 }
             },
-            getData() {
-                axios
-                    .all([
-                        axios.get(this.$parent.MakeUrl("api/v1/warehouse/delivery_order/create")),
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/driver")),
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/picqc"))
-                    ])
-                    .then(
-                        axios.spread((sales_order, driver, pic_qc) => {
-                            this.sales_orders = sales_order.data.data;
-                            this.drivers = driver.data;
-                            this.pic_qc = pic_qc.data;
-                        })
-                    )
-                    .catch(err => {
-                    });
-            }
+
         },
         components: {
             ButtonLoading,

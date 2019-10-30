@@ -41,7 +41,7 @@
                     nama_pt: 'PT BERKAH TANI SEJAHTERA',
                     alamat: 'Rukan Greenlake Ruko Greatwall B60 - B61',
                     daerah: 'Cipondoh - Tangerang 15147',
-                    contact: 'Telp : 021-54315198'
+                    contact: 'Telp : 021-54317777'
                 },
             }
         }
