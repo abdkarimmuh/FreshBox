@@ -49,6 +49,13 @@
                                         item.total_price | toIDR }}
                                     </td>
                                 </tr>
+                                <tr style="border-bottom: 1px solid black;">
+                                    <td width="56%">
+                                        <b>&emsp; &emsp;Terbilang : {{ item.terbilang }}</b>
+                                    </td>
+                                    <td class="text-right"></td>
+                                    <td class="text-right"></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -92,8 +99,20 @@
                                     <td><br></td>
                                 </tr>
                                 <tr>
-                                    <td width="10%" colspan="5"><b>*) Pembayaran dianggap sah jika bukti transfer sudah
-                                        dikirimkan kepada kami</b></td>
+                                    <td width="10%" colspan="5">
+                                        <i>
+                                            *) Pembayaran dianggap sah jika bukti transfer sudah dikirimkan kepada kami
+                                        </i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="10%" colspan="5">
+                                        <i>
+                                            *) Nilai tagihan dibuat berdasarkan pesanan yang diterima. Tidak ada
+                                            coretan,
+                                            berarti pesanan diterima
+                                        </i>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -118,6 +137,7 @@
 
 <script>
     import LoadingTable from "../../Template/Table/partials/LoadingTable";
+
     export default {
         components: {LoadingTable},
         data() {
@@ -178,14 +198,17 @@
                     {
                         title: "Kepada Yth",
                         field: "",
+                        alignmentRight: true,
                     },
                     {
                         title: "PO No.",
                         field: "no_po",
+                        alignmentRight: true,
                     },
                     {
                         title: "Customer",
                         field: "customer_name",
+                        alignmentRight: true,
                     },
 
                 ],

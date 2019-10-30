@@ -2866,6 +2866,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2913,13 +2932,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         page_break: true
       }, {
         title: "Kepada Yth",
-        field: ""
+        field: "",
+        alignmentRight: true
       }, {
         title: "PO No.",
-        field: "no_po"
+        field: "no_po",
+        alignmentRight: true
       }, {
         title: "Customer",
-        field: "customer_name"
+        field: "customer_name",
+        alignmentRight: true
       }],
       invoice_order: [],
       loading: false
@@ -3134,6 +3156,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3185,13 +3226,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         page_break: true
       }, {
         title: "Kepada Yth",
-        field: ""
+        field: "",
+        alignmentRight: true
       }, {
         title: "PO No.",
-        field: "no_po"
+        field: "no_po",
+        alignmentRight: true
       }, {
         title: "Customer",
-        field: "customer_name"
+        field: "customer_name",
+        alignmentRight: true
       }],
       invoice_order: [],
       loading: false
@@ -52047,6 +52091,29 @@ var render = function() {
                                     )
                                   ])
                                 ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "tr",
+                                {
+                                  staticStyle: {
+                                    "border-bottom": "1px solid black"
+                                  }
+                                },
+                                [
+                                  _c("td", { attrs: { width: "56%" } }, [
+                                    _c("b", [
+                                      _vm._v(
+                                        "   Terbilang : " +
+                                          _vm._s(item.terbilang)
+                                      )
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-right" }),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-right" })
+                                ]
                               )
                             ])
                           ]
@@ -52118,7 +52185,9 @@ var render = function() {
                             _vm._v(" "),
                             _vm._m(6, true),
                             _vm._v(" "),
-                            _vm._m(7, true)
+                            _vm._m(7, true),
+                            _vm._v(" "),
+                            _vm._m(8, true)
                           ])
                         ])
                       ])
@@ -52234,9 +52303,23 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("tr", [
       _c("td", { attrs: { width: "10%", colspan: "5" } }, [
-        _c("b", [
+        _c("i", [
           _vm._v(
-            "*) Pembayaran dianggap sah jika bukti transfer sudah\n                                    dikirimkan kepada kami"
+            "\n                                        *) Pembayaran dianggap sah jika bukti transfer sudah dikirimkan kepada kami\n                                    "
+          )
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { width: "10%", colspan: "5" } }, [
+        _c("i", [
+          _vm._v(
+            "\n                                        *) Nilai tagihan dibuat berdasarkan pesanan yang diterima. Tidak ada\n                                        coretan,\n                                        berarti pesanan diterima\n                                    "
           )
         ])
       ])
@@ -52394,6 +52477,29 @@ var render = function() {
                                         )
                                       ])
                                     ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "tr",
+                                    {
+                                      staticStyle: {
+                                        "border-bottom": "1px solid black"
+                                      }
+                                    },
+                                    [
+                                      _c("td", { attrs: { width: "56%" } }, [
+                                        _c("b", [
+                                          _vm._v(
+                                            "   Terbilang : " +
+                                              _vm._s(item.terbilang)
+                                          )
+                                        ])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "text-right" }),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "text-right" })
+                                    ]
                                   )
                                 ])
                               ]
@@ -52465,7 +52571,9 @@ var render = function() {
                                 _vm._v(" "),
                                 _vm._m(6, true),
                                 _vm._v(" "),
-                                _vm._m(7, true)
+                                _vm._m(7, true),
+                                _vm._v(" "),
+                                _vm._m(8, true)
                               ])
                             ])
                           ])
@@ -52590,9 +52698,23 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("tr", [
       _c("td", { attrs: { width: "10%", colspan: "5" } }, [
-        _c("b", [
+        _c("i", [
           _vm._v(
-            "*) Pembayaran dianggap sah jika bukti transfer sudah\n                                    dikirimkan kepada kami"
+            "\n                                        *) Pembayaran dianggap sah jika bukti transfer sudah dikirimkan kepada kami\n                                    "
+          )
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { width: "10%", colspan: "5" } }, [
+        _c("i", [
+          _vm._v(
+            "\n                                        *) Nilai tagihan dibuat berdasarkan pesanan yang diterima. Tidak ada\n                                        coretan,\n                                        berarti pesanan diterima\n                                    "
           )
         ])
       ])
