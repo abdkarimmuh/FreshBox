@@ -15,7 +15,8 @@ class DetailProcurementResource extends JsonResource
      */
     public function toArray($request)
     {
-        return[
+        return [
+            'id' => $this->id,
             'name' => $this->item_name,
             'qty' => intval($this->qty),
             'qty_minus' => intval($this->qty_minus),

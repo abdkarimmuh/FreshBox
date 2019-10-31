@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
-      App::setLocale('id');
+    App::setLocale('id');
     /*
      * API MOBILE
      * Auth Route
@@ -68,7 +68,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     /*
      * Marketing Route
      */
-    Route::group(['prefix' => 'marketing/','namespace' => 'Marketing\\'], function () {
+    Route::group(['prefix' => 'marketing/', 'namespace' => 'Marketing\\'], function () {
 
         Route::group(['prefix' => 'sales_order'], function () {
             Route::get('/', 'FormSalesOrderAPIController@index');
@@ -87,12 +87,23 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
      */
     Route::group(['prefix' => 'procurement/', 'namespace' => 'Procurement\\'], function () {
         Route::get('/', 'ProcurementAPIController@index');
+        Route::get('/not-confirmed', 'ProcurementAPIController@listProcurementNotConfirmed');
         Route::get('/show/{id}', 'ProcurementAPIController@show');
     });
     /*
-     * Route API Warehouse
+   * Route API Warehouse In
+   */
+    Route::group(['prefix' => 'warehouseIn/', 'namespace' => 'WarehouseIn\\'], function () {
+        Route::group(['prefix' => 'confirm'], function () {
+            Route::get('/', 'ConfirmItemsAPIController@index');
+            Route::post('/store', 'ConfirmItemsAPIController@store');
+        });
+    });
+
+    /*
+     * Route API Warehouse Out
      */
-    Route::group(['prefix' => 'warehouse/','namespace' => 'WarehouseOut\\'], function () {
+    Route::group(['prefix' => 'warehouse/', 'namespace' => 'WarehouseOut\\'], function () {
         Route::group(['prefix' => 'delivery_order'], function () {
             Route::get('/', 'DeliveryOrderAPIController@index');
             Route::post('/', 'DeliveryOrderAPIController@store');
@@ -104,7 +115,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     /*
      * Route API Route
      */
-    Route::group(['prefix' => 'finance','namespace' => 'Finance\\'], function () {
+    Route::group(['prefix' => 'finance', 'namespace' => 'Finance\\'], function () {
         /*
          * Invoice Route
          */
