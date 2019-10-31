@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\Procurement;
+namespace App\Http\Controllers\ApiV1\Procurement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Mobile\ItemsProcResource;

@@ -5,6 +5,7 @@ namespace App\Http\Resources\Finance;
 use App\Http\Resources\Warehouse\DeliveryOrderDetailResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Riskihajar\Terbilang\Facades\Terbilang;
 
 class InvoiceOrderResource extends JsonResource
 {
@@ -26,6 +27,7 @@ class InvoiceOrderResource extends JsonResource
             'sales_order_no' => $this->sales_order_no,
             'sales_order_id' => $this->delivery_order->sales_order_id,
             'total_price' => $this->total_price,
+            'terbilang' => Terbilang::make($this->total_price).' rupiah',
             'do_details' => DeliveryOrderDetailResource::collection($this->delivery_order->delivery_order_details),
             'invoice_date' => $this->invoice_date->formatLocalized('%d %B %Y'),
             'status_name' => $this->status_name,

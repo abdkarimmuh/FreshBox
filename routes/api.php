@@ -20,7 +20,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
+Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
+      App::setLocale('id');
     /*
      * API MOBILE
      * Auth Route
@@ -51,8 +52,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
 
                 Route::group(['prefix' => 'procurement'], function () {
                     Route::get('/', 'ProcurementAPIController@index');
-                    Route::get('/get', 'ProcurementAPIController@indexAPI');
-                    Route::get('/show/{id}', 'ProcurementAPIController@show');
+                    Route::get('/get', 'ProcurementAPIController@userProcHasProc');
                     Route::get('/selectBy/{id}', 'ProcurementAPIController@selectBy');
                     Route::post('/', 'ProcurementAPIController@store');
                     Route::post('/storeUser', 'ProcurementAPIController@storeUserProc');
@@ -68,7 +68,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
     /*
      * Marketing Route
      */
-    Route::group(['prefix' => 'marketing/'], function () {
+    Route::group(['prefix' => 'marketing/','namespace' => 'Marketing\\'], function () {
+
         Route::group(['prefix' => 'sales_order'], function () {
             Route::get('/', 'FormSalesOrderAPIController@index');
             Route::get('/show', 'FormSalesOrderAPIController@show');
@@ -79,27 +80,19 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
             Route::patch('/update', 'FormSalesOrderAPIController@updateSalesOrderDetails');
             Route::get('/download/{file}', 'FormSalesOrderAPIController@DownloadFile');
         });
+
     });
-//    /**
-//     * Procurement
-//     */
-//    Route::group(['prefix' => 'procurement/', ''], function () {
-//        Route::group(['prefix' => 'sales_order'], function () {
-//            Route::get('/', 'ProcurementAPIController@index');
-//            Route::get('/show', 'ProcurementAPIController@show');
-//            Route::get('/{id}/edit', 'ProcurementAPIController@edit');
-//            Route::post('/store', 'ProcurementAPIController@store');
-//            Route::post('/print', 'ProcurementAPIController@print');
-//            Route::delete('detail/{id}', 'ProcurementAPIController@deleteOrderDetails');
-//            Route::patch('/update', 'ProcurementAPIController@updateSalesOrderDetails');
-//            Route::get('/show/{id}', 'ProcurementAPIController@showDetailProc');
-//            Route::get('/download/{file}', 'ProcurementAPIController@DownloadFile');
-//        });
-//    });
+    /**
+     * Procurement
+     */
+    Route::group(['prefix' => 'procurement/', 'namespace' => 'Procurement\\'], function () {
+        Route::get('/', 'ProcurementAPIController@index');
+        Route::get('/show/{id}', 'ProcurementAPIController@show');
+    });
     /*
      * Route API Warehouse
      */
-    Route::group(['prefix' => 'warehouse/'], function () {
+    Route::group(['prefix' => 'warehouse/','namespace' => 'WarehouseOut\\'], function () {
         Route::group(['prefix' => 'delivery_order'], function () {
             Route::get('/', 'DeliveryOrderAPIController@index');
             Route::post('/', 'DeliveryOrderAPIController@store');
@@ -111,7 +104,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
     /*
      * Route API Route
      */
-    Route::group(['prefix' => 'finance'], function () {
+    Route::group(['prefix' => 'finance','namespace' => 'Finance\\'], function () {
         /*
          * Invoice Route
          */
@@ -189,10 +182,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'API\\'], function () {
 
         Route::get('customer', 'CustomerAPIController@index')->name('api.customer');
         Route::get('list_customer', 'CustomerAPIController@all');
-
-        //    Route::get('price_customer/{id}', 'API\MasterPriceController@CustomerPrice');
-//        Route::get('uom', 'MasterData\UomController@index');
-//        Route::post('uom', 'MasterData\UomController@store');
     });
 });
 

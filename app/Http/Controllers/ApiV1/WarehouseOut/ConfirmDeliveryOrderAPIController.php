@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\API\Warehouse;
+namespace App\Http\Controllers\ApiV1\WarehouseOut;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ConfirmDeliveryOrderAPIController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $searchValue = $request->input('search');
-        $query = DeliveryOrder::whereHas('sales_order', function ($q) {
+        return DeliveryOrder::whereHas('sales_order', function ($q) {
             $q->where('status', 4);
-        })->dataTableQuery($searchValue);
-        $data = $query->paginate(10);
-
+        })->dataTableQuery($searchValue)
+            ->paginate(10);
     }
 }
