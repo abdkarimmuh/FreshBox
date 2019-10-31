@@ -66,6 +66,29 @@ class AuthAPIController extends Controller
     }
 
     /**
+     * Change Password
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function changePassword(Request $request)
+    {
+        $user = User::find(auth('api')->user()->id);
+        if (Hash::check($request->oldPassword, $user->password)) {
+            $user->update(['password' => Hash::make($request->password)]);
+            $response = [
+                'status' => 'Success',
+                'message' => 'Successfully Password Changed'
+            ];
+        } else {
+            $response = [
+                'status' => 'Fail',
+                'message' => 'Password does not match'
+            ];
+        }
+        return response()->json($response);
+    }
+
+    /**
      * Logout API
      * @param Request $request
      * @return JsonResponse

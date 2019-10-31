@@ -30,12 +30,16 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     Route::post('login', 'AuthAPIController@login');
     Route::post('register', 'AuthAPIController@register');
     Route::get('logout', 'AuthAPIController@logout');
+    Route::post('changePassword', 'AuthAPIController@changePassword');
+
+    Route::post('register', 'AuthAPIController@register');
 
     Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'proc'], function () {
             Route::get('/', function () {
                 return new UserProcResource(auth()->user());
             });
+            Route::post('/changePassword', 'UserController@changePassword');
 
             Route::group(['namespace' => 'Procurement\\'], function () {
                 Route::group(['prefix' => 'notif'], function () {
