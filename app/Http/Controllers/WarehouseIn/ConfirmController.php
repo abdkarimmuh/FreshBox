@@ -36,7 +36,6 @@ class ConfirmController extends Controller
             //Route For Button Add
             // 'route-add' => 'admin.warehouse_in.confirm.create',
             //Route For Button View
-            'route-view' => 'admin.warehouseIn.confirm.show',
             //Route For Button Search
             'route-search' => 'admin.warehouseIn.confirm.index',
         ];
