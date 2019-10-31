@@ -68,6 +68,11 @@ class Confirm extends MyModel
         return $this->belongsTo(ListProcurement::class, 'list_procurement_id', 'id');
     }
 
+    public function ConfirmDetail()
+    {
+        return $this->hasMany(ConfirmDetail::class, 'warehouse_confirm_id', 'id');
+    }
+
     public function getProcurementNoAttribute()
     {
         if (isset($this->ListProcturement->procurement_no)) {

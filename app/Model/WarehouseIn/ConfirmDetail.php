@@ -13,6 +13,7 @@ class ConfirmDetail extends MyModel
     use SoftDeletes;
 
     protected $table = 'trx_warehouse_confirm_detail';
+
     protected $fillable = ['warehouse_confirm_id', 'list_proc_detail_id', 'bruto', 'netto', 'tara', 'created_by', 'created_at'];
     protected $appends = [
         'item_name',
