@@ -18,7 +18,7 @@ class NotificationsAPIController extends Controller
      */
     public function index()
     {
-        $query = Notifications::where('user_proc_id', auth('api')->user()->id)->get();
+        $query = Notifications::where('user_proc_id', auth('api')->user()->id)->orderBy('id', 'desc')->take(10)->get();
 
         return NotificationsResource::collection($query);
     }
@@ -29,17 +29,13 @@ class NotificationsAPIController extends Controller
             'id' => 'required',
         ]);
 
-        $notification = Notifications::where('user_proc_id', auth('api')->user()->id)->where('id', $request->id);
+        $notification = Notifications::where('user_proc_id', auth('api')->user()->id)->where('id', $request->id)->first();
         $notification->read_at = Carbon::now();
         $notification->save();
 
-        return response()->json([
-            'status' => 'success',
-        ]);
+        $query = Notifications::where('user_proc_id', auth('api')->user()->id)->orderBy('id', 'desc')->take(10)->get();
 
-        // $query = Notifications::where('user_proc_id', auth('api')->user()->id)->get();
-
-        // return NotificationsResource::collection($query);
+        return NotificationsResource::collection($query);
     }
 
     /**

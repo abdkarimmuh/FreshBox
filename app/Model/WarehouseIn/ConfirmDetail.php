@@ -7,9 +7,6 @@ use App\MyModel;
 
 class ConfirmDetail extends MyModel
 {
-    use SearchTraits;
-    use SoftDeletes;
-
     protected $table = 'trx_warehouse_confirm';
     protected $fillable = ['warehouse_confirm_id', 'list_proc_detail_id', 'bruto', 'netto', 'tara', 'created_by', 'created_at'];
     protected $appends = [
