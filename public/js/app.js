@@ -8412,14 +8412,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -56251,7 +56243,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _vm.message
         ? _c("div", { staticClass: "alert alert-primary" }, [
-            _vm._v("\n            " + _vm._s(_vm.message) + "\n        ")
+            _vm._v("\r\n            " + _vm._s(_vm.message) + "\r\n        ")
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -59672,21 +59664,17 @@ var render = function() {
                           _c("th", { staticClass: "text-center" }, [
                             _vm._v("Qty")
                           ]),
-                          _vm._v(" "),
+                          _vm._v(";\n                        "),
                           _c("th", { staticClass: "text-center" }, [
                             _vm._v("UOM")
                           ]),
                           _vm._v(" "),
                           _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Bruto")
+                            _vm._v("Berat Kotor")
                           ]),
                           _vm._v(" "),
                           _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Netto")
-                          ]),
-                          _vm._v(" "),
-                          _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Tara")
+                            _vm._v("Berat Bersih")
                           ]),
                           _vm._v(" "),
                           _c("th", { staticClass: "text-center" }, [
@@ -59754,30 +59742,6 @@ var render = function() {
                                       return
                                     }
                                     _vm.$set(item, "netto", $event.target.value)
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: item.tara,
-                                    expression: "item.tara"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { type: "number" },
-                                domProps: { value: item.tara },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(item, "tara", $event.target.value)
                                   }
                                 }
                               })
@@ -85764,8 +85728,8 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/FreshBox/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/FreshBox/resources/sass/custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! C:\laragon\www\FreshBox\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
 
 
 /***/ })

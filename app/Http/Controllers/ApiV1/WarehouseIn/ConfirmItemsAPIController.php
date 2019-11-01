@@ -53,7 +53,6 @@ class ConfirmItemsAPIController extends Controller
                         'list_proc_detail_id' => $item['id'],
                         'bruto' => $item['bruto'],
                         'netto' => $item['netto'],
-                        'tara' => $item['tara'],
                         'created_by' => $userId
                     ]);
 
@@ -70,7 +69,6 @@ class ConfirmItemsAPIController extends Controller
                         'list_proc_detail_id' => $item['id'],
                         'bruto' => $item['bruto'],
                         'netto' => $item['netto'],
-                        'tara' => $item['tara'],
                         'created_by' => $userId
                     ]);
             }

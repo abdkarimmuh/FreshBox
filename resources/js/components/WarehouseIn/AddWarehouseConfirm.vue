@@ -51,11 +51,10 @@
                         <thead>
                         <tr>
                             <th class="text-center">Item Name</th>
-                            <th class="text-center">Qty</th>
+                            <th class="text-center">Qty</th>;
                             <th class="text-center">UOM</th>
-                            <th class="text-center">Bruto</th>
-                            <th class="text-center">Netto</th>
-                            <th class="text-center">Tara</th>
+                            <th class="text-center">Berat Kotor</th>
+                            <th class="text-center">Berat Bersih</th>
                             <th class="text-center">Qty Minus</th>
                         </tr>
                         </thead>
@@ -74,13 +73,6 @@
                             <td>
                                 <input
                                     v-model="item.netto"
-                                    type="number"
-                                    class="form-control"
-                                />
-                            </td>
-                            <td>
-                                <input
-                                    v-model="item.tara"
                                     type="number"
                                     class="form-control"
                                 />
