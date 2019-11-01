@@ -3,9 +3,9 @@
 namespace App\Model\Procurement;
 
 use App\Model\WarehouseIn\Confirm;
-use Illuminate\Database\Eloquent\Model;
+use App\MyModel;
 
-class Notifications extends Model
+class Notifications extends MyModel
 {
     protected $table = 'notification_procurement';
     protected $fillable = ['status', 'message', 'user_proc_id', 'trx_warehouse_confirm_id', 'created_at'];

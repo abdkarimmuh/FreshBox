@@ -10,23 +10,22 @@
                     </label>
                     <div>
                         <model-list-select
-                            v-bind:class="{'is-invalid': errors.sales_order_id}"
-                            :list="sales_orders"
-                            v-model="delivery_order.sales_order_id"
-                            v-on:input="getDataCustomer()"
+                            v-bind:class="{'is-invalid': errors.procurementId}"
+                            :list="procurements"
+                            v-model="procurementId"
+                            v-on:input="getProcurement()"
                             option-value="id"
-                            option-text="so_no_with_cust_name"
-                            placeholder="Select Sales Order No"
+                            option-text="no_proc"
+                            placeholder="Select Procurement No"
                         ></model-list-select>
-                        <div style="margin-top: .25rem; font-size: 80%;color: #dc3545" v-if="errors.sales_order_id">
-                            <p>{{ errors.sales_order_id[0] }}</p>
+                        <div style="margin-top: .25rem; font-size: 80%;color: #dc3545" v-if="errors.procurementId">
+                            <p>{{ errors.procurementId[0] }}</p>
                         </div>
                     </div>
                 </div>
             </div>
-
             <!-- User Proc -->
-            <div class="col-md-6">
+            <div class="col-md-6" v-if="procurementId !== ''">
                 <div class="form-group">
                     <label>
                         <b>User Proc Name</b>
@@ -36,44 +35,14 @@
                         <input
                             type="text"
                             class="form-control"
-                            v-model="delivery_order.customer_name"
+                            v-model="procurement.proc_name"
                             disabled
                         />
                     </div>
                 </div>
             </div>
-
-            <!-- DO Date -->
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>
-                        <b>DO Date</b>
-                        <span style="color: red;">*</span>
-                    </label>
-                    <div>
-                        <date-picker
-                            v-model="delivery_order.do_date"
-                            lang="en"
-                            valueType="format"
-                            :not-before="new Date()"
-                        ></date-picker>
-                    </div>
-                    <div
-                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                        v-if="errors.do_date"
-                    >
-                        <p>{{ errors.do_date[0] }}</p>
-                    </div>
-                </div>
-            </div>
-            <div
-                v-if="delivery_order.sales_order_id != ''"
-                class="col-12"
-            >
-                <div
-                    class="table-responsive m-t-40"
-                    style="clear: both;"
-                >
+            <div v-if="procurementId !== ''" class="col-12">
+                <div class="table-responsive m-t-40" style="clear: both;">
                     <table
                         class="table table-hover"
                         id="contentTable"
@@ -81,29 +50,46 @@
                     >
                         <thead>
                         <tr>
-                            <th class="text-center">SKUID</th>
                             <th class="text-center">Item Name</th>
                             <th class="text-center">Qty</th>
                             <th class="text-center">UOM</th>
-                            <th class="text-center">Qty Do</th>
+                            <th class="text-center">Bruto</th>
+                            <th class="text-center">Netto</th>
+                            <th class="text-center">Tara</th>
+                            <th class="text-center">Qty Minus</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr
-                            v-for="(orders, index) in sales_order_details"
-                            v-bind:key="index"
-                        >
-                            <td>{{ orders.skuid }}</td>
-                            <td>{{ orders.item_name }}</td>
-                            <td>{{ orders.qty }}</td>
-                            <td>{{ orders.uom_name }}</td>
+                        <tr v-for="(item, index) in procurement.items" v-bind:key="index">
+                            <td class="text-center">{{ item.name }}</td>
+                            <td class="text-center">{{ item.qty }}</td>
+                            <td class="text-center">{{ item.uom }}</td>
                             <td>
                                 <input
-                                    v-model="qty_do[index].qty"
-                                    v-on:change="validateQtyDO(index)"
+                                    v-model="item.bruto"
                                     type="number"
                                     class="form-control"
-                                    :max="orders.qty"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    v-model="item.netto"
+                                    type="number"
+                                    class="form-control"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    v-model="item.tara"
+                                    type="number"
+                                    class="form-control"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    v-model="item.qty_minus"
+                                    type="number"
+                                    class="form-control"
                                 />
                             </td>
                         </tr>
@@ -111,18 +97,18 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" v-if="procurementId !== ''">
                 <div class="form-group">
                     <label>
                         <b>Remark</b>
                     </label>
                     <textarea
-                        v-model="delivery_order.remark"
+                        v-model="procurement.remark"
                         class="form-control"
                     ></textarea>
                 </div>
             </div>
-            <div class="col-12">
+            <div class="col-12" v-if="procurementId !== ''">
                 <div class="card-body">
                     <div v-if="loadingSubmit">
                         <button-loading/>
@@ -136,13 +122,12 @@
                         <button
                             type="button"
                             class="btn btn-secondary"
-                            @click="back()"
+                            onclick="history.back()"
                         >Back
                         </button>
                     </div>
                 </div>
             </div>
-
         </div>
     </stisla-create-template>
 </template>
@@ -155,14 +140,9 @@
     export default {
         data() {
             return {
-                procurements: [],
+                procurementId: "",
                 procurement: {},
-                sales_order: {},
-                sales_orders: [],
-                sales_order_details: [],
-                drivers: [],
-                pic_qc: [],
-                qty_do: [],
+                procurements: [],
                 errors: [],
                 loadingSubmit: false
             };
@@ -172,53 +152,48 @@
         },
         methods: {
             getProcurements() {
-                axios.get()
+                axios.get(this.$parent.MakeUrl("api/v1/procurement/not-confirmed")).then(res => {
+                    this.procurements = res.data.data;
+                }).catch(err => {
+                    console.log(err);
+                });
             },
             getProcurement() {
-                axios.get(this.$parent.MakeUrl("api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id))
+                axios.get(this.$parent.MakeUrl("api/v1/procurement/show/" + this.procurementId))
                     .then(res => {
-                        this.sales_order = res.data;
-                        this.sales_order_details = res.data.sales_order_details;
-                        this.delivery_order.customer_name = this.sales_order.customer_name;
-                        this.delivery_order.customer_id = this.sales_order.customer_id;
-                        this.qty_do = this.sales_order_details.map((item, idx) => ({
-                            qty: item.qty
-                        }));
-                        this.delivery_order.driver_id = res.data.driver_id;
+                        this.procurement = res.data.data;
                     })
                     .catch(err => {
+                        console.log(err);
                     });
             },
             async submitForm() {
                 this.loadingSubmit = true;
                 const payload = {
-                    user_id: this.delivery_order.user_id,
-                    sales_order_id: this.delivery_order.sales_order_id,
-                    customer_id: this.delivery_order.customer_id,
-                    do_date: this.delivery_order.do_date,
-                    driver_id: this.delivery_order.driver_id,
-                    pic_qc: this.delivery_order.pic_qc_id,
-                    remark: this.delivery_order.remark,
-                    so_details: this.sales_order_details.map((item, idx) => ({
+                    procurementId: this.procurementId,
+                    userProcId: this.procurement.user_proc_id,
+                    remark: this.procurement.remark,
+                    items: this.procurement.items.map((item, idx) => ({
                         id: item.id,
-                        skuid: item.skuid,
-                        uom_id: item.uom_id,
-                        qty_do: this.qty_do[idx].qty
+                        bruto: item.bruto,
+                        netto: item.netto,
+                        tara: item.tara,
+                        qty_minus: item.qty_minus
                     }))
                 };
                 try {
-                    const res = await axios.post("/api/v1/warehouse/delivery_order", payload);
+                    const res = await axios.post("/api/v1/warehouseIn/confirm/store", payload);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        this.$router.push({name: 'delivery_order.index'})
+                        this.$router.push({name: 'warehouseIn.confirm'})
                     });
                 } catch (e) {
-                    this.loadingSubmit = false;
                     this.errors = e.response.data.errors;
                     console.error(e.response.data);
+                    this.loadingSubmit = false;
                 }
             },
 

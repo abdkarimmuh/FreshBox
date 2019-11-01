@@ -30,6 +30,8 @@ import AddDeliveryOrder from './components/Warehouse/AddDeliveryOrder';
 import PrintDeliveryOrder from "./components/Warehouse/PrintDeliveryOrder";
 import MultiplePrintDeliveryOrder from "./components/Warehouse/MultiplePrintDeliveryOrder";
 
+import AddWarehouseConfirm from "./components/WarehouseIn/AddWarehouseConfirm";
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -159,6 +161,18 @@ const router = new VueRouter({
             path: '/admin/warehouse/delivery-order/multiplePrint',
             name: 'delivery_order.multiplePrint',
             component: MultiplePrintDeliveryOrder
+        },
+        //WarehouseIn
+        {
+            path: '/admin/warehouseIn/confirm',
+            name: 'warehouseIn.confirm',
+            component: AddWarehouseConfirm
+        },
+
+        {
+            path: '/admin/warehouseIn/confirm/create',
+            name: 'warehouseIn.confirm.create',
+            component: AddWarehouseConfirm
         },
 
         {

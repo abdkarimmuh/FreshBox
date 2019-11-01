@@ -36,9 +36,8 @@ class ConfirmController extends Controller
             //Route For Button Add
             // 'route-add' => 'admin.warehouse_in.confirm.create',
             //Route For Button View
-            'route-view' => 'admin.warehouse_in.confirm.show',
             //Route For Button Search
-            'route-search' => 'admin.warehouse_in.confirm.index',
+            'route-search' => 'admin.warehouseIn.confirm.index',
         ];
 
         $query = Confirm::dataTableQuery($searchValue);

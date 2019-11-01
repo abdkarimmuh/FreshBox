@@ -28,13 +28,13 @@ class Confirm extends MyModel
         'procurement_no' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'ListProcturement',
+            'relation_name' => 'ListProcurement',
             'relation_field' => 'procurement_no',
         ],
         'proc_name' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'ListProcturement',
+            'relation_name' => 'ListProcurement',
             'relation_field' => 'proc_name',
         ],
         'created_at' => [
@@ -63,7 +63,7 @@ class Confirm extends MyModel
         ],
     ];
 
-    public function ListProcturement()
+    public function ListProcurement()
     {
         return $this->belongsTo(ListProcurement::class, 'list_procurement_id', 'id');
     }
@@ -75,8 +75,8 @@ class Confirm extends MyModel
 
     public function getProcurementNoAttribute()
     {
-        if (isset($this->ListProcturement->procurement_no)) {
-            return $this->ListProcturement->procurement_no;
+        if (isset($this->ListProcurement->procurement_no)) {
+            return $this->ListProcurement->procurement_no;
         } else {
             return '';
         }
@@ -84,8 +84,8 @@ class Confirm extends MyModel
 
     public function getProcNameAttribute()
     {
-        if (isset($this->ListProcturement->UserProc->User->name)) {
-            return $this->ListProcturement->UserProc->User->name;
+        if (isset($this->ListProcurement->UserProc->User->name)) {
+            return $this->ListProcurement->UserProc->User->name;
         } else {
             return '';
         }

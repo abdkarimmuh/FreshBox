@@ -28,12 +28,16 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     Route::post('login', 'AuthAPIController@login');
     Route::post('register', 'AuthAPIController@register');
     Route::get('logout', 'AuthAPIController@logout');
+    Route::post('changePassword', 'AuthAPIController@changePassword');
+
+    Route::post('register', 'AuthAPIController@register');
 
     Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'proc'], function () {
             Route::get('/', function () {
                 return new UserProcResource(auth()->user());
             });
+            Route::post('/changePassword', 'UserController@changePassword');
 
             Route::group(['namespace' => 'Procurement\\'], function () {
                 Route::group(['prefix' => 'notif'], function () {
@@ -84,10 +88,21 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
      */
     Route::group(['prefix' => 'procurement/', 'namespace' => 'Procurement\\'], function () {
         Route::get('/', 'ProcurementAPIController@index');
+        Route::get('/not-confirmed', 'ProcurementAPIController@listProcurementNotConfirmed');
         Route::get('/show/{id}', 'ProcurementAPIController@show');
     });
     /*
-     * Route API Warehouse
+   * Route API Warehouse In
+   */
+    Route::group(['prefix' => 'warehouseIn/', 'namespace' => 'WarehouseIn\\'], function () {
+        Route::group(['prefix' => 'confirm'], function () {
+            Route::get('/', 'ConfirmItemsAPIController@index');
+            Route::post('/store', 'ConfirmItemsAPIController@store');
+        });
+    });
+
+    /*
+     * Route API Warehouse Out
      */
     Route::group(['prefix' => 'warehouse/', 'namespace' => 'WarehouseOut\\'], function () {
         Route::group(['prefix' => 'delivery_order'], function () {

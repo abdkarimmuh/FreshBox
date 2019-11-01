@@ -44,11 +44,12 @@ class NotificationsAPIController extends Controller
         $request->validate([
             'id' => 'required',
             'status' => 'required',
-            'warehouse_confirm_id' => 'required',
         ]);
 
         if ($request->status == 1) {
             $query = Notifications::where('user_proc_id', auth('api')->user()->id)->where('id', $request->id)->first();
+
+            return $query;
 
             return DetailProcurementResource::collection($query);
         }

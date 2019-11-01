@@ -4,10 +4,16 @@ namespace App\Model\WarehouseIn;
 
 use App\Model\Procurement\ListProcurementDetail;
 use App\MyModel;
+use App\Traits\SearchTraits;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ConfirmDetail extends MyModel
 {
-    protected $table = 'trx_warehouse_confirm';
+    use SearchTraits;
+    use SoftDeletes;
+
+    protected $table = 'trx_warehouse_confirm_detail';
+
     protected $fillable = ['warehouse_confirm_id', 'list_proc_detail_id', 'bruto', 'netto', 'tara', 'created_by', 'created_at'];
     protected $appends = [
         'item_name',
