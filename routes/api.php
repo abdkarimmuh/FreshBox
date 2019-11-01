@@ -3,8 +3,6 @@
 use App\Http\Resources\MasterData\UomResource;
 use App\Http\Resources\MasterData\VendorResource;
 use App\Http\Resources\Mobile\UserProcResource;
-use App\Model\MasterData\Customer;
-use App\Model\MasterData\Price;
 use App\Model\MasterData\Uom;
 use App\Model\MasterData\Vendor;
 use Illuminate\Http\Request;
@@ -21,7 +19,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
-      App::setLocale('id');
+    App::setLocale('id');
     /*
      * API MOBILE
      * Auth Route
@@ -42,6 +40,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
                     Route::get('/', 'NotificationsAPIController@index');
                     Route::post('/', 'NotificationsAPIController@store');
                     Route::post('/read', 'NotificationsAPIController@asRead');
+                    Route::get('/detail', 'NotificationsAPIController@getDetailNotif');
                 });
 
                 Route::group(['prefix' => 'item'], function () {
@@ -68,8 +67,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     /*
      * Marketing Route
      */
-    Route::group(['prefix' => 'marketing/','namespace' => 'Marketing\\'], function () {
-
+    Route::group(['prefix' => 'marketing/', 'namespace' => 'Marketing\\'], function () {
         Route::group(['prefix' => 'sales_order'], function () {
             Route::get('/', 'FormSalesOrderAPIController@index');
             Route::get('/show', 'FormSalesOrderAPIController@show');
@@ -80,9 +78,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::patch('/update', 'FormSalesOrderAPIController@updateSalesOrderDetails');
             Route::get('/download/{file}', 'FormSalesOrderAPIController@DownloadFile');
         });
-
     });
-    /**
+    /*
      * Procurement
      */
     Route::group(['prefix' => 'procurement/', 'namespace' => 'Procurement\\'], function () {
@@ -92,7 +89,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     /*
      * Route API Warehouse
      */
-    Route::group(['prefix' => 'warehouse/','namespace' => 'WarehouseOut\\'], function () {
+    Route::group(['prefix' => 'warehouse/', 'namespace' => 'WarehouseOut\\'], function () {
         Route::group(['prefix' => 'delivery_order'], function () {
             Route::get('/', 'DeliveryOrderAPIController@index');
             Route::post('/', 'DeliveryOrderAPIController@store');
@@ -104,7 +101,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     /*
      * Route API Route
      */
-    Route::group(['prefix' => 'finance','namespace' => 'Finance\\'], function () {
+    Route::group(['prefix' => 'finance', 'namespace' => 'Finance\\'], function () {
         /*
          * Invoice Route
          */

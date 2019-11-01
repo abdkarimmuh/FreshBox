@@ -10,7 +10,7 @@ class Notifications extends Model
     protected $table = 'notification_procurement';
     protected $fillable = ['status', 'message', 'user_proc_id', 'trx_warehouse_confirm_id', 'created_at'];
     protected $appends = [
-        'procurement_no', 'items',
+        'procurement_no',
     ];
 
     public function UserProc()
@@ -27,15 +27,6 @@ class Notifications extends Model
     {
         if (isset($this->Confirm->ListProcturement->procurement_no)) {
             return $this->Confirm->ListProcturement->procurement_no;
-        } else {
-            return '';
-        }
-    }
-
-    public function getItemsAttribute()
-    {
-        if (isset($this->Confirm)) {
-            return $this->Confirm;
         } else {
             return '';
         }
