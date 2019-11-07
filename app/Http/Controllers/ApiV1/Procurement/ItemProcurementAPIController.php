@@ -26,7 +26,12 @@ class ItemProcurementAPIController extends Controller
 
     public function indexAPI()
     {
-        $query = AssignProcurement::where('user_proc_id', auth('api')->user()->id)->where('status', 1)->get();
+        $query = AssignProcurement::selectRaw('*, sum(qty) as qty')
+            ->where('user_proc_id', auth('api')->user()->id)
+            ->where('status', 1)
+            ->groupBy('skuid')
+            ->groupBy('uom_id')
+            ->get();
 
         return AssignProcurementResource::collection($query);
     }
@@ -71,21 +76,21 @@ class ItemProcurementAPIController extends Controller
                 $sales_order = SalesOrder::find($data->sales_order_id);
 
                 if ($qty_all >= $data->sisa_qty_proc) {
-                    DB::select('call insert_assign_procurement(?, ?, ?, ?, ?, ?)', array($skuid, $user_proc_id, $data->sisa_qty_proc, $uom_id, 1, $user_proc_id));
+                    DB::select('call insert_assign_procurement(?, ?, ?, ?, ?, ?, ?)', array($skuid, $user_proc_id, $data->id, $data->sisa_qty_proc, $uom_id, 1, $user_proc_id));
 
                     $qty_all = $qty_all - $data->sisa_qty_proc;
                     $data->sisa_qty_proc = 0;
                 } else {
-                    DB::select('call insert_assign_procurement(?, ?, ?, ?, ?, ?)', array($skuid, $user_proc_id, $qty_all, $uom_id, 1, $user_proc_id));
+                    DB::select('call insert_assign_procurement(?, ?, ?, ?, ?, ?, ?)', array($skuid, $user_proc_id, $data->id, $qty_all, $uom_id, 1, $user_proc_id));
 
                     $data->sisa_qty_proc = $data->sisa_qty_proc - $qty_all;
                     $qty_all = 0;
                 }
 
-                $sales_order->status = 2;
                 $data->status = 2;
                 $data->save();
-                $sales_order->save();
+
+                $sales_order->update(['status' => 2]);
 
                 if ($qty_all == 0) {
                     break;

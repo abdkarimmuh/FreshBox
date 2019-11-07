@@ -2,6 +2,7 @@
 
 namespace App\Model\Procurement;
 
+use App\Model\Marketing\SalesOrderDetail;
 use App\Model\MasterData\Item;
 use App\Model\MasterData\Uom;
 use App\MyModel;
@@ -12,7 +13,7 @@ class AssignProcurement extends MyModel
     use SearchTraits;
 
     protected $table = 'trx_assign_procurement';
-    protected $fillable = ['skuid', 'status', 'user_proc_id', 'created_by'];
+    protected $fillable = ['skuid', 'status', 'user_proc_id', 'sales_order_detail_id', 'created_by'];
 
     protected $appends = [
         'created_by_name',
@@ -82,6 +83,11 @@ class AssignProcurement extends MyModel
     public function UserProc()
     {
         return $this->belongsTo(UserProcurement::class);
+    }
+
+    public function SalesOrderDetail()
+    {
+        return $this->belongsTo(SalesOrderDetail::class);
     }
 
     public function getProcNameAttribute()

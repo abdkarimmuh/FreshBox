@@ -51,7 +51,7 @@
                         <thead>
                         <tr>
                             <th class="text-center">Item Name</th>
-                            <th class="text-center">Qty</th>;
+                            <th class="text-center">Qty</th>
                             <th class="text-center">UOM</th>
                             <th class="text-center">Berat Kotor</th>
                             <th class="text-center">Berat Bersih</th>

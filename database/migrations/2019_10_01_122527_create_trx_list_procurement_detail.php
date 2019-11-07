@@ -14,7 +14,7 @@ class CreateTrxListProcurementDetail extends Migration
         Schema::create('trx_list_procurement_detail', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('trx_list_procurement_id');
-            $table->unsignedBigInteger('trx_assign_procurement_id');
+            $table->unsignedBigInteger('skuid');
             $table->decimal('qty', 18, 2);
             $table->decimal('qty_minus', 18, 2)->default(0);
             $table->unsignedBigInteger('uom_id');
@@ -24,7 +24,6 @@ class CreateTrxListProcurementDetail extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
 
             $table->foreign('trx_list_procurement_id')->on('trx_list_procurement')->references('id')->onDelete('cascade');
-            $table->foreign('trx_assign_procurement_id')->on('trx_assign_procurement')->references('id')->onDelete('cascade');
             $table->foreign('uom_id')->on('master_uom')->references('id')->onDelete('cascade');
             $table->foreign('created_by')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('updated_by')->on('users')->references('id')->onDelete('cascade');
