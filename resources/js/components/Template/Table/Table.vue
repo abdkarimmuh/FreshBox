@@ -11,6 +11,7 @@
                                 <i class="fas fa-plus"></i></router-link>
                             <a :href="'reportso/export'" class="btn btn-danger ml-2"
                                style="color: white" v-if="config.export_excel">Export Excel</a>
+
                             <a class="btn btn-info ml-2" style="color: white" @click="print()"
                                v-if="config.route_multiple_print && selected != 0">Print
                                 <i class="fas fa-print"></i></a>
@@ -21,8 +22,14 @@
                                     class="fas fa-print"></i></a>
 
                             <router-link :to="{ name: config.route_print_all}" class="btn btn-warning ml-2"
-                               style="color: white" v-if="config.route_print_all">Print All Invoice
+                                         style="color: white" v-if="config.route_print_all">Print All Invoice
                                 Invoice <i class="fas fa-print"></i>
+                            </router-link>
+
+                            <router-link :to="{ name: config.route_confirm}" class="btn btn-warning ml-2"
+                                         style="color: white" v-if="config.route_confirm && selected != 0">
+                                Confirm Multiple
+                                <i class="fas fa-print"></i>
                             </router-link>
                         </div>
                     </div>
@@ -117,6 +124,11 @@
                                              class="badge badge-warning"
                                              :to="{ name: config.route_edit , params: { id: item.id }}">Edit
                                 </router-link>
+
+                                <router-link v-if="config.route_confirm"
+                                             class="badge badge-warning"
+                                             :to="{ name: config.route_confirm , params: { id: item.id }}">Confirm
+                                </router-link>
                             </td>
                             <td v-for="column in columns">
                                 <span v-html="item[column.field]" v-if="column.type === 'html'"></span>
@@ -183,7 +195,7 @@
         data() {
             return {
                 user: {},
-                perPages: ['5', '10', '25', '50','100','150','300'],
+                perPages: ['5', '10', '25', '50', '100', '150', '300'],
                 buttonClasses: 'btn btn-primary',
                 selected: [0],
                 data: [],
@@ -256,6 +268,9 @@
                 }
                 this.params.page = page;
                 this.getData();
+            },
+            multipleConfirm() {
+                this.$router.push({name: this.config.route_confirm, query: {id: this.selected}})
             },
             print() {
                 this.$router.push({name: this.config.route_multiple_print, query: {id: this.selected}})

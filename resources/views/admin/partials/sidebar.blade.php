@@ -70,8 +70,8 @@
                     </li>
                 @endif
 
-                <li class="{{ request()->segment(3) == 'confirm_delivery_order' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{ url('admin/warehouse/confirm_delivery_order') }}"><span>Confirm Delivery Order</span></a>
+                <li class="{{ request()->segment(3) == 'confirm-delivery-order' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{ url('admin/warehouse/confirm-delivery-order') }}"><span>Confirm Delivery Order</span></a>
                 </li>
             </ul>
         </li>

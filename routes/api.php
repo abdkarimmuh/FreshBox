@@ -105,11 +105,18 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
      * Route API Warehouse Out
      */
     Route::group(['prefix' => 'warehouse/', 'namespace' => 'WarehouseOut\\'], function () {
+        //Delivery Order
         Route::group(['prefix' => 'delivery_order'], function () {
             Route::get('/', 'DeliveryOrderAPIController@index');
             Route::post('/', 'DeliveryOrderAPIController@store');
             Route::get('/create', 'DeliveryOrderAPIController@create');
             Route::get('/show', 'DeliveryOrderAPIController@show');
+        });
+        //Confirm Delivery Order
+        Route::group(['prefix' => 'confirm_deliver_order'], function () {
+            Route::get('/', 'ConfirmDeliveryOrderAPIController@index');
+            Route::get('/show', 'ConfirmDeliveryOrderAPIController@show');
+            Route::patch('/update', 'ConfirmDeliveryOrderAPIController@update');
         });
     });
 

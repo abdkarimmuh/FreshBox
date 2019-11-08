@@ -79,10 +79,13 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
 
-        Route::name('confirm_delivery_order.')->prefix('confirm_delivery_order')->group(function () {
-            Route::get('/', 'Warehouse\ConfirmDeliveryOrderController@index')->name('index');
-            Route::get('/{id}/create', 'Warehouse\ConfirmDeliveryOrderController@create')->name('create');
-            Route::patch('/update', 'Warehouse\ConfirmDeliveryOrderController@update')->name('update');
+        Route::name('confirm_delivery_order.')->prefix('confirm-delivery-order')->group(function () {
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+
+//            Route::get('/', 'Warehouse\ConfirmDeliveryOrderController@index')->name('index');
+//            Route::get('/{id}/create', 'Warehouse\ConfirmDeliveryOrderController@create')->name('create');
+//            Route::patch('/update', 'Warehouse\ConfirmDeliveryOrderController@update')->name('update');
         });
 
         Route::name('returned.')->prefix('returned')->group(function () {
