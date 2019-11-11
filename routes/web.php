@@ -121,9 +121,13 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     });
     /* Route Menu Report Data */
     Route::name('report.')->prefix('report')->middleware('auth')->group(function () {
-        Route::name('reportso.')->prefix('reportso')->group(function () {
-            Route::get('/', 'Report\ReportSOController@index')->name('index');
-            Route::get('/export', 'Report\ReportSOController@export')->name('export');
+        Route::name('reportso.')->prefix('report-so')->group(function () {
+            Route::get('/', 'Report\ReportController@reportSO')->name('index');
+            Route::get('/export', 'Report\ReportController@exportSO')->name('export');
+        });
+        Route::name('reportFinanceAR.')->prefix('report-finance-ar')->group(function () {
+            Route::get('/', 'Report\ReportController@reportFinanceAR')->name('index');
+            Route::get('/export', 'Report\ReportController@exportFinanceAR')->name('export');
         });
     });
 

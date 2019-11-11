@@ -50,7 +50,8 @@
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-warehouse"></i><span>Warehouse In</span></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->route()->getName() == 'admin.warehouseIn.confirm.index' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{route('admin.warehouseIn.confirm.index')}}"><span>Confirm Incoming Items</span></a>
+                    <a class="nav-link"
+                       href="{{route('admin.warehouseIn.confirm.index')}}"><span>Confirm Incoming Items</span></a>
                 </li>
             </ul>
         </li>
@@ -112,7 +113,9 @@
                 <li class="{{ request()->route()->getName() == 'admin.report.reportso.index' ? ' active' : '' }}">
                     <a class="nav-link" href="{{route('admin.report.reportso.index')}}"><span>SO Report</span></a>
                 </li>
-
+                <li class="{{ request()->route()->getName() == 'admin.report.reportFinanceAR.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.report.reportFinanceAR.index')}}"><span>Report Finance AR</span></a>
+                </li>
             </ul>
         </li>
         @if(Auth::user()->can('view-users'))

@@ -18,9 +18,12 @@ import HeaderInfoPrint from "./components/Template/Print/HeaderInfoPrint";
 
 import TablePrint from "./components/Template/Print/TablePrint";
 import IndexReportSO from "./components/Report/SO/IndexReportSO"
+import IndexReportFinanceAR from "./components/Report/SO/IndexReportFinanceAR"
+
 import AddUserProc from "./components/MasterData/AddUserProc"
 
 Vue.component('index-report-so', IndexReportSO);
+Vue.component('index-report-finance-ar', IndexReportFinanceAR);
 
 Vue.component('users-component', UsersComponent);
 Vue.component('profile-component', ProfileComponent);

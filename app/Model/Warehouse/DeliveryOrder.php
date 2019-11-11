@@ -69,9 +69,8 @@ class DeliveryOrder extends MyModel
 
     public function invoice()
     {
-        return $this->hasOne(InvoiceOrder::class, 'do_id', 'id');
+        return $this->belongsTo(InvoiceOrder::class, 'id', 'do_id');
     }
-
 
     public function customer()
     {
