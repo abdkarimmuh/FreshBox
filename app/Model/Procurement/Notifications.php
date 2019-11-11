@@ -25,8 +25,8 @@ class Notifications extends MyModel
 
     public function getProcurementNoAttribute()
     {
-        if (isset($this->Confirm->ListProcturement->procurement_no)) {
-            return $this->Confirm->ListProcturement->procurement_no;
+        if (isset($this->Confirm->ListProcurement->procurement_no)) {
+            return $this->Confirm->ListProcurement->procurement_no;
         } else {
             return '';
         }

@@ -2,6 +2,7 @@
 
 namespace App\Model\Procurement;
 
+use App\Model\MasterData\Item;
 use App\Model\MasterData\Uom;
 use App\MyModel;
 use App\Traits\SearchTraits;
@@ -11,7 +12,7 @@ class ListProcurementDetail extends MyModel
     use SearchTraits;
 
     protected $table = 'trx_list_procurement_detail';
-    protected $fillable = ['trx_list_procurement_id', 'trx_assign_procurement_id', 'qty', 'qty_minus', 'uom_id', 'amount', 'status', 'created_by', 'created_at'];
+    protected $fillable = ['trx_list_procurement_id', 'skuid', 'qty', 'qty_minus', 'uom_id', 'amount', 'status', 'created_by', 'created_at'];
     protected $appends = [
         'item_name',
         'uom_name',
@@ -23,20 +24,20 @@ class ListProcurementDetail extends MyModel
         return $this->belongsTo(ListProcurement::class);
     }
 
-    public function AssignProcurement()
-    {
-        return $this->belongsTo(AssignProcurement::class, 'trx_assign_procurement_id', 'id');
-    }
-
     public function Uom()
     {
         return $this->belongsTo(Uom::class, 'uom_id', 'id');
     }
 
+    public function Item()
+    {
+        return $this->belongsTo(Item::class, 'skuid', 'skuid');
+    }
+
     public function getItemNameAttribute()
     {
-        if (isset($this->AssignProcurement->Item->name_item)) {
-            return $this->AssignProcurement->Item->name_item;
+        if (isset($this->Item->name_item)) {
+            return $this->Item->name_item;
         } else {
             return '';
         }

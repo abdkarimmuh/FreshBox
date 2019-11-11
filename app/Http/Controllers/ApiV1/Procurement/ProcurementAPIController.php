@@ -5,8 +5,8 @@ namespace App\Http\Controllers\ApiV1\Procurement;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Procurement\ListProcurementHasItemsResource;
 use App\Http\Resources\Procurement\ListProcurementResource;
-use App\Model\Marketing\SalesOrderDetail;
 use App\Model\Procurement\AssignProcurement;
+use App\Model\Procurement\AssignSalesOrderDetail;
 use App\Model\Procurement\ListProcurement;
 use App\Model\Procurement\ListProcurementDetail;
 use App\User;
@@ -23,7 +23,7 @@ use Spatie\Permission\Models\Role;
 class ProcurementAPIController extends Controller
 {
     /**
-     * List All Procurement
+     * List All Procurement.
      *
      * @return AnonymousResourceCollection
      */
@@ -33,7 +33,7 @@ class ProcurementAPIController extends Controller
     }
 
     /**
-     * List Procurement Not Confirmed
+     * List Procurement Not Confirmed.
      *
      * @return AnonymousResourceCollection
      */
@@ -67,9 +67,9 @@ class ProcurementAPIController extends Controller
             'vendor' => 'required',
             'total_amount' => 'required|not_in:0',
             'payment' => 'required',
-            // 'file' => 'required',
+            'file' => 'required',
             'items' => 'required',
-            'items.*.assign_proc_id' => 'required',
+            'items.*.skuid' => 'required',
             'items.*.qty' => 'required|not_in:0',
             'items.*.uom_id' => 'required',
             'items.*.amount' => 'required',
@@ -83,12 +83,24 @@ class ProcurementAPIController extends Controller
         $remarks = $request->remarks;
         $items = $request->items;
 
+        $userProc = UserProc::where('user_id', $user_proc_id)->first();
+
+        if ($userProc->saldo < $total_amount) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Saldo tidak mencukupi',
+            ]);
+        }
+
+        $userProc->saldo = intval($userProc->saldo) - intval($total_amount);
+        $userProc->save();
+
         if ($request->file) {
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateProcOrderNo() . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-            Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
+            $file_name = $this->generateProcOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
         }
@@ -107,9 +119,25 @@ class ProcurementAPIController extends Controller
         ]);
 
         foreach ($items as $item) {
+            $assignProcurement = AssignProcurement::where('user_proc_id', $user_proc_id)
+                ->where('status', 1)
+                ->where('skuid', $item['skuid'])
+                ->get();
+
+            foreach ($assignProcurement as $value) {
+                $value->update(['status' => 2]);
+                $value->SalesOrderDetail->update(['status' => 3]);
+                $value->SalesOrderDetail->SalesOrder->update(['status' => 3]);
+
+                AssignSalesOrderDetail::created([
+                    'sales_order_detail_id' => $value->SalesOrderDetail->id,
+                    'assign_id' => $value->id,
+                ]);
+            }
+
             $listProcDetails[] = [
                 'trx_list_procurement_id' => $procurement->id,
-                'trx_assign_procurement_id' => $item['assign_proc_id'],
+                'skuid' => $item['skuid'],
                 'qty' => $item['qty'],
                 'uom_id' => $item['uom_id'],
                 'amount' => $item['amount'],
@@ -117,10 +145,6 @@ class ProcurementAPIController extends Controller
                 'created_by' => $user_proc_id,
                 'created_at' => Carbon::now(),
             ];
-
-            $assignProcurement = AssignProcurement::find($item['assign_proc_id']);
-            $assignProcurement->status = 2;
-            $assignProcurement->save();
         }
 
         ListProcurementDetail::insert($listProcDetails);
@@ -158,10 +182,10 @@ class ProcurementAPIController extends Controller
     {
         $year_month = Carbon::now()->format('ym');
         $latest_proc = ListProcurement::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC' . $year_month . '00000';
+        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC'.$year_month.'00000';
         $cut_string_proc = str_replace('PROC', '', $get_last_proc_no);
 
-        return 'PROC' . ($cut_string_proc + 1);
+        return 'PROC'.($cut_string_proc + 1);
     }
 
     /**

@@ -16,7 +16,6 @@ class AssignProcurementResource extends JsonResource
     public function toArray($request)
     {
         return[
-            'id' => $this->id,
             'skuid' => $this->skuid,
             'user_proc_id' => $this->user_proc_id,
             'name' => $this->item_name,

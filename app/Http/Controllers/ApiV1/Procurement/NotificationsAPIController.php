@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\ApiV1\Procurement;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Mobile\DetailNotificationsItemResource;
 use App\Http\Resources\Mobile\NotificationsResource;
-use App\Http\Resources\Procurement\DetailProcurementResource;
 use App\Model\Procurement\Notifications;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -49,9 +49,9 @@ class NotificationsAPIController extends Controller
         if ($request->status == 1) {
             $query = Notifications::where('user_proc_id', auth('api')->user()->id)->where('id', $request->id)->first();
 
-            return $query;
+            // return $query;
 
-            return DetailProcurementResource::collection($query);
+            return new DetailNotificationsItemResource($query);
         }
     }
 
