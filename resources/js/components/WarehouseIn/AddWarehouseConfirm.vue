@@ -51,7 +51,8 @@
                         <thead>
                         <tr>
                             <th class="text-center">Item Name</th>
-                            <th class="text-center">Qty</th>
+                            <th class="text-center">Qty Assign</th>
+                            <th class="text-center">Qty Buy</th>
                             <th class="text-center">UOM</th>
                             <th class="text-center">Berat Kotor</th>
                             <th class="text-center">Berat Bersih</th>
@@ -60,9 +61,10 @@
                         </thead>
                         <tbody>
                         <tr v-for="(item, index) in procurement.items" v-bind:key="index">
-                            <td class="text-center">{{ item.name }}</td>
-                            <td class="text-center">{{ item.qty }}</td>
-                            <td class="text-center">{{ item.uom }}</td>
+                            <td class="text-center" style="overflow:hidden; white-space:nowrap">{{ item.name }}</td>
+                            <td class="text-center" style="overflow:hidden; white-space:nowrap">{{ item.qty_assign }}</td>
+                            <td class="text-center" style="overflow:hidden; white-space:nowrap">{{ item.qty }}</td>
+                            <td class="text-center" style="overflow:hidden; white-space:nowrap">{{ item.uom }}</td>
                             <td>
                                 <input
                                     v-model="item.bruto"

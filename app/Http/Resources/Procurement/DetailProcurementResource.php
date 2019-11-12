@@ -15,10 +15,17 @@ class DetailProcurementResource extends JsonResource
      */
     public function toArray($request)
     {
+        $qty_assign = 0;
+
+        foreach ($this->AssignListProcurementDetail as $item) {
+            $qty_assign += $item->AssignProcurement->qty;
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->item_name,
             'qty' => intval($this->qty),
+            'qty_assign' => intval($qty_assign),
             'qty_minus' => intval($this->qty_minus),
             'uom' => $this->uom_name,
             'amount' => $this->amount,
