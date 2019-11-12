@@ -13,11 +13,9 @@
                 config: {
                     title: 'Form Delivery Order',
                     action: true,
-                    base_url: this.$parent.MakeUrl('api/v1/warehouse/delivery_order'),
+                    base_url: this.$parent.MakeUrl('api/v1/warehouse/confirm_deliver_order'),
                     // route_search: 'admin.marketing.sales_order.index',
-                    route_create: 'delivery_order.create',
-                    route_view: 'delivery_order.print',
-                    route_multiple_print: 'delivery_order.multiplePrint',
+                    route_confirm: 'confirm_delivery_order.create',
                 },
 
                 columns: [

@@ -51,78 +51,78 @@ class ConfirmDeliveryOrderController extends Controller
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return DeliveryOrderResource
-     */
-    public function create($id)
-    {
-        if (request()->ajax()) {
-            $delivery_order = DeliveryOrder::where('id', $id)
-                ->whereHas('sales_order', function ($q) {
-                    $q->where('status', 4);
-                })->first();
-
-            return new DeliveryOrderResource($delivery_order);
-        }
-        $config = [
-            'vue-component' => "<confirm-delivery-order :do_id='" . $id . "'>" . "</confirm-delivery-order>"
-        ];
-        return view('layouts.vue-view', compact('config'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {
-        //List Validasi
-        $rules = [
-            'confirm_date' => 'required',
-            'do_details.*.qty_confirm' => 'required',
-
-        ];
-        //Validasi Inputan
-        $request->validate($rules);
-        $do_id = $request->id;
-        $confirm_date = $request->confirm_date;
-        $so_id = $request->sales_order_id;
-        $do_details = $request->do_details;
-
-        //Update DO Details
-        foreach ($do_details as $i => $detail) {
-            DeliveryOrderDetail::where('id', $detail['id'])->update([
-                'remark' => $detail['remark'],
-                'qty_confirm' => $detail['qty_confirm'],
-                'qty_minus' => $detail['qty_minus']
-            ]);
-        }
-
-        $sales_order = SalesOrder::find($so_id);
-        $sales_order->update([
-            'status' => 5,
-
-        ]);
-
-        $delivery_order = DeliveryOrder::find($do_id);
-        $delivery_order->update([
-            'confirm_date' => $confirm_date,
-        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+//
+//    /**
+//     * Show the form for creating a new resource.
+//     *
+//     * @return DeliveryOrderResource
+//     */
+//    public function create($id)
+//    {
+//        if (request()->ajax()) {
+//            $delivery_order = DeliveryOrder::where('id', $id)
+//                ->whereHas('sales_order', function ($q) {
+//                    $q->where('status', 4);
+//                })->first();
+//
+//            return new DeliveryOrderResource($delivery_order);
+//        }
+//        $config = [
+//            'vue-component' => "<confirm-delivery-order :do_id='" . $id . "'>" . "</confirm-delivery-order>"
+//        ];
+//        return view('layouts.vue-view', compact('config'));
+//    }
+//
+//    /**
+//     * Store a newly created resource in storage.
+//     *
+//     * @param \Illuminate\Http\Request $request
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function update(Request $request)
+//    {
+//        //List Validasi
+//        $rules = [
+//            'confirm_date' => 'required',
+//            'do_details.*.qty_confirm' => 'required',
+//
+//        ];
+//        //Validasi Inputan
+//        $request->validate($rules);
+//        $do_id = $request->id;
+//        $confirm_date = $request->confirm_date;
+//        $so_id = $request->sales_order_id;
+//        $do_details = $request->do_details;
+//
+//        //Update DO Details
+//        foreach ($do_details as $i => $detail) {
+//            DeliveryOrderDetail::where('id', $detail['id'])->update([
+//                'remark' => $detail['remark'],
+//                'qty_confirm' => $detail['qty_confirm'],
+//                'qty_minus' => $detail['qty_minus']
+//            ]);
+//        }
+//
+//        $sales_order = SalesOrder::find($so_id);
+//        $sales_order->update([
+//            'status' => 5,
+//
+//        ]);
+//
+//        $delivery_order = DeliveryOrder::find($do_id);
+//        $delivery_order->update([
+//            'confirm_date' => $confirm_date,
+//        ]);
+//    }
+//
+//    /**
+//     * Display the specified resource.
+//     *
+//     * @param int $id
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function show($id)
+//    {
+//        //
+//    }
 }
