@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiV1\Procurement;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Procurement\ListProcurementHasItemsResource;
 use App\Http\Resources\Procurement\ListProcurementResource;
+use App\Model\Procurement\AssignListProcurementDetail;
 use App\Model\Procurement\AssignProcurement;
 use App\Model\Procurement\AssignSalesOrderDetail;
 use App\Model\Procurement\ListProcurement;
@@ -119,6 +120,28 @@ class ProcurementAPIController extends Controller
         ]);
 
         foreach ($items as $item) {
+            // $listProcDetails[] = [
+            //     'trx_list_procurement_id' => $procurement->id,
+            //     'skuid' => $item['skuid'],
+            //     'qty' => $item['qty'],
+            //     'uom_id' => $item['uom_id'],
+            //     'amount' => $item['amount'],
+            //     'status' => 1,
+            //     'created_by' => $user_proc_id,
+            //     'created_at' => Carbon::now(),
+            // ];
+
+            $listProcDetails = ListProcurementDetail::create([
+                'trx_list_procurement_id' => $procurement->id,
+                'skuid' => $item['skuid'],
+                'qty' => $item['qty'],
+                'uom_id' => $item['uom_id'],
+                'amount' => $item['amount'],
+                'status' => 1,
+                'created_by' => $user_proc_id,
+                'created_at' => Carbon::now(),
+            ]);
+
             $assignProcurement = AssignProcurement::where('user_proc_id', $user_proc_id)
                 ->where('status', 1)
                 ->where('skuid', $item['skuid'])
@@ -129,25 +152,19 @@ class ProcurementAPIController extends Controller
                 $value->SalesOrderDetail->update(['status' => 3]);
                 $value->SalesOrderDetail->SalesOrder->update(['status' => 3]);
 
-                AssignSalesOrderDetail::created([
+                AssignSalesOrderDetail::create([
                     'sales_order_detail_id' => $value->SalesOrderDetail->id,
                     'assign_id' => $value->id,
                 ]);
-            }
 
-            $listProcDetails[] = [
-                'trx_list_procurement_id' => $procurement->id,
-                'skuid' => $item['skuid'],
-                'qty' => $item['qty'],
-                'uom_id' => $item['uom_id'],
-                'amount' => $item['amount'],
-                'status' => 1,
-                'created_by' => $user_proc_id,
-                'created_at' => Carbon::now(),
-            ];
+                AssignListProcurementDetail::create([
+                    'list_procurement_detail_id' => $listProcDetails->id,
+                    'assign_id' => $value->id,
+                ]);
+            }
         }
 
-        ListProcurementDetail::insert($listProcDetails);
+        // ListProcurementDetail::insert($listProcDetails);
 
         return response()->json([
             'status' => 'success',

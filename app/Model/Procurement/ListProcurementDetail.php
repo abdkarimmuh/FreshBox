@@ -24,6 +24,11 @@ class ListProcurementDetail extends MyModel
         return $this->belongsTo(ListProcurement::class);
     }
 
+    public function AssignListProcurementDetail()
+    {
+        return $this->hasMany(AssignListProcurementDetail::class, 'list_procurement_detail_id', 'id');
+    }
+
     public function Uom()
     {
         return $this->belongsTo(Uom::class, 'uom_id', 'id');

@@ -12,11 +12,11 @@ class AssignSalesOrderDetail extends Model
 
     public function AssignProcurement()
     {
-        return $this->belongsTo(AssignProcurement::class);
+        return $this->belongsTo(AssignProcurement::class, 'assign_id', 'id');
     }
 
     public function SalesOrderDetail()
     {
-        return $this->belongsTo(SalesOrderDetail::class);
+        return $this->belongsTo(SalesOrderDetail::class, 'sales_order_detail_id', 'id');
     }
 }
