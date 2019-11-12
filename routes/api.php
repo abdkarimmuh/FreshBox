@@ -202,6 +202,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         Route::get('customer', 'CustomerAPIController@index')->name('api.customer');
         Route::get('list_customer', 'CustomerAPIController@all');
     });
+
+    Route::group(['prefix' => 'import-data-price-temp', 'namespace' => 'ImportExcel\\'], function () {
+            Route::post('/','PriceUploadController@store');
+    });
 });
 
 Route::resource('users', 'UserController', [

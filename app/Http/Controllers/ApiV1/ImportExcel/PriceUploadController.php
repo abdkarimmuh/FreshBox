@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Http\Controllers\ApiV1\ImportExcel;
+
+use App\Http\Controllers\Controller;
+use App\Imports\PriceTempImport;
+use App\PriceTemp;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+
+class PriceUploadController extends Controller
+{
+    /**
+     *
+     */
+    public function index()
+    {
+
+    }
+
+    /**
+     * Insert Price Temp from Upload Excel
+     * @param Request $request
+     * @return Collection
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xls,xlsx'
+        ]);
+        $array = Excel::toArray(new PriceTempImport(), request()->file('file'));
+        return collect(head($array))->each(function ($row, $key) {
+            $exist = DB::table('price_temp')->where('sku', $row['sku'])->where('customer_group_id', $row['customer_group_id'])->get();
+            if (count($exist) > 0) {
+                PriceTemp::where('sku', $row['sku'])
+                    ->where('customer_group_id', $row['customer_group_id'])
+                    ->update([
+                        'Pricelist' => $row['basicprice'],
+                        'Discount' => $row['discount'],
+                        'Final' => $row['price'],
+                        'Remarks' => $row['remarks'],
+                        'start_period' => $row['start_period'],
+                        'End_Period' => $row['end_period'],
+                        'AuditDate' => $row['audi_date'],
+                    ]);
+            } else {
+                PriceTemp::insert([
+                    'No' => $row['no'],
+                    'Category' => $row['category'],
+                    'SKU' => $row['sku'],
+                    'Items' => $row['items'],
+                    'Unit' => $row['unit'],
+                    'Pricelist' => $row['basicprice'],
+                    'Discount' => $row['discount'],
+                    'Final' => $row['price'],
+                    'Remarks' => $row['remarks'],
+                    'customer_group_id' => $row['customer_group_id'],
+                    'start_period' => $row['start_period'],
+                    'End_Period' => $row['end_period'],
+                    'AuditDate' => $row['audi_date'],
+                ]);
+            }
+        });
+    }
+}
