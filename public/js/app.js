@@ -4188,6 +4188,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4265,8 +4266,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   text: "Successfully Confirm Delivery Order!"
                 }).then(function (next) {
                   _this2.loadingSubmit = false;
-                  _this2.showButtonAfterSubmit = true;
-                  window.location.href = "/admin/warehouse/confirm_delivery_order";
+                  _this2.showButtonAfterSubmit = true; // window.location.href = "/admin/warehouse/confirm_delivery_order";
                 });
                 console.log(res);
                 _context.next = 19;
@@ -54528,7 +54528,11 @@ var render = function() {
                   _c("input", {
                     staticClass: "custom-file-input",
                     class: { "is-invalid": _vm.errors.file },
-                    attrs: { type: "file" },
+                    attrs: {
+                      type: "file",
+                      accept:
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    },
                     on: { change: _vm.onFileChange }
                   }),
                   _vm._v(" "),
@@ -54544,7 +54548,7 @@ var render = function() {
                   _vm._v(" "),
                   _vm.errors.file
                     ? _c("div", { staticClass: "invalid-feedback" }, [
-                        _c("p", [_vm._v("Format File Harus : xlsx")])
+                        _c("p", [_vm._v("File Tidak Boleh Kosong!")])
                       ])
                     : _vm._e()
                 ])

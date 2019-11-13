@@ -40,13 +40,14 @@
                                         v-bind:class="{'is-invalid': errors.file}"
                                         type="file"
                                         class="custom-file-input"
+                                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                                         v-on:change="onFileChange"
                                     />
                                     <label class="custom-file-label">
                                         {{ form.fileName ? form.fileName : 'Choose File'}}
                                     </label>
                                     <div class="invalid-feedback" v-if="errors.file">
-                                        <p>Format File Harus : xlsx</p>
+                                        <p>File Tidak Boleh Kosong!</p>
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +193,7 @@
                     }).then(next => {
                         this.loadingSubmit = false;
                         this.showButtonAfterSubmit = true;
-                        window.location.href = "/admin/warehouse/confirm_delivery_order";
+                        // window.location.href = "/admin/warehouse/confirm_delivery_order";
                     });
                     console.log(res);
                 } catch (e) {

@@ -31,25 +31,30 @@ class PriceUploadController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimetypes:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'file' => 'required',
             'customerGroupId' => 'required',
             'startPeriod' => 'required',
             'endPeriod' => 'required',
-
         ]);
-        $array = Excel::toArray(new PriceTempImport(), request()->file('file'));
-        return collect(head($array))->each(function ($row, $key) {
-            $exist = DB::table('price_temp')->where('sku', $row['sku'])->where('customer_group_id', $row['customer_group_id'])->get();
+        $data = [
+            'startPeriod' => $request->startPeriod,
+            'customerGroupId' => $request->customerGroupId,
+            'endPeriod' => $request->endPeriod,
+            'file' => $request->file,
+        ];
+        $array = Excel::toArray(new PriceTempImport(), $data['file']);
+        return collect(head($array))->each(function ($row, $key) use($data) {
+            $exist = DB::table('price_temp')->where('sku', $row['sku'])->where('customer_group_id', $data['customerGroupId'])->get();
             if (count($exist) > 0) {
                 PriceTemp::where('sku', $row['sku'])
-                    ->where('customer_group_id', $row['customer_group_id'])
+                    ->where('customer_group_id', $data['customerGroupId'])
                     ->update([
                         'Pricelist' => $row['basicprice'],
                         'Discount' => $row['discount'],
                         'Final' => $row['price'],
                         'Remarks' => $row['remarks'],
-                        'start_period' => $row['start_period'],
-                        'End_Period' => $row['end_period'],
+                        'start_period' => $data['startPeriod'],
+                        'End_Period' => $data['endPeriod'],
                         'AuditDate' => $row['audi_date'],
                     ]);
             } else {
@@ -63,9 +68,9 @@ class PriceUploadController extends Controller
                     'Discount' => $row['discount'],
                     'Final' => $row['price'],
                     'Remarks' => $row['remarks'],
-                    'customer_group_id' => $row['customer_group_id'],
-                    'start_period' => $row['start_period'],
-                    'End_Period' => $row['end_period'],
+                    'customer_group_id' => $data['customerGroupId'],
+                    'start_period' => $data['startPeriod'],
+                    'End_Period' => $data['endPeriod'],
                     'AuditDate' => $row['audi_date'],
                 ]);
             }
