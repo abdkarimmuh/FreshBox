@@ -210,7 +210,7 @@
                 try {
                     const res = await axios.patch(this.$parent.MakeUrl("admin/warehouse/confirm_delivery_order/update"), payload);
                     Vue.swal({
-                        type: "success",
+                       icon: "success",
                         title: "Success!",
                         text: "Successfully Confirm Delivery Order!"
                     }).then(next => {

@@ -163,7 +163,7 @@
                     const res = await axios.post(this.$parent.MakeUrl('api/v1/finance/invoice_recap/submitted'), payload);
                     console.log(res);
                     Vue.swal({
-                        type: "success",
+                       icon: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {

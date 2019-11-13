@@ -224,7 +224,7 @@
                 try {
                     const res = await axios.post("/api/v1/finance/invoice_recap/paid", payload);
                     Vue.swal({
-                        type: "success",
+                       icon: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {

@@ -2088,7 +2088,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 5:
                 res = _context.sent;
                 Vue.swal({
-                  type: "success",
+                  icon: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
@@ -2393,7 +2393,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 5:
                 res = _context.sent;
                 Vue.swal({
-                  type: "success",
+                  icon: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
@@ -3994,7 +3994,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 res = _context.sent;
                 console.log(res);
                 Vue.swal({
-                  type: "success",
+                  icon: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
@@ -4810,7 +4810,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 5:
                 res = _context2.sent;
                 Vue.swal({
-                  type: "success",
+                  icon: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
@@ -4906,7 +4906,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (indexItem >= 0) {
         Vue.swal({
-          type: "error",
+          icon: "error",
           title: "ERROR!",
           text: "Item Already Added!"
         });
@@ -5285,7 +5285,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (indexItem >= 0) {
         Vue.swal({
-          type: 'error',
+          icon: 'error',
           title: 'ERROR!',
           text: 'Item Already Added!'
         });
@@ -5354,7 +5354,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 res = _context.sent;
                 Vue.swal({
-                  type: 'success',
+                  icon: 'success',
                   title: 'Success!',
                   text: 'Successfully Insert Data!'
                 }).then(function (next) {
@@ -7229,7 +7229,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (res) {
         if (res.data.status === true) {
           Vue.swal({
-            type: "success",
+            icon: "success",
             title: "Success!",
             text: "Berhasil Membuat Rekap Invoice!"
           }).then(function (next) {
@@ -7242,7 +7242,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           });
         } else {
           Vue.swal({
-            type: "error",
+            icon: "error",
             title: "Danger!",
             text: "Customer Harus Sama!"
           });
@@ -7871,6 +7871,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7959,7 +7966,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 5:
                 res = _context.sent;
                 Vue.swal({
-                  type: "success",
+                  icon: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
@@ -8255,7 +8262,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 res = _context.sent;
                 Vue.swal({
-                  type: "success",
+                  icon: "success",
                   title: "Success!",
                   text: "Successfully Confirm Delivery Order!"
                 }).then(function (next) {
@@ -8986,7 +8993,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 5:
                 res = _context.sent;
                 Vue.swal({
-                  type: "success",
+                  icon: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
@@ -59676,7 +59683,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Submit\n                                ")]
+                        [_vm._v("Submit\n                ")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -59690,7 +59697,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Back\n                                ")]
+                        [_vm._v("Back\n                ")]
                       )
                     ])
               ])
@@ -59799,9 +59806,7 @@ var staticRenderFns = [
           staticClass: "spinner-border spinner-border-sm",
           attrs: { role: "status", "aria-hidden": "true" }
         }),
-        _vm._v(
-          "\n                                    Loading...\n                                "
-        )
+        _vm._v("\n                  Loading...\n                ")
       ]
     )
   }
