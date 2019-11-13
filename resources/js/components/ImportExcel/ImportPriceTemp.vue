@@ -3,139 +3,113 @@
         <div class="col-12">
             <div class="card col-12">
                 <div class="card-header">
-                    <h4 class="text-danger">Confirm Delivery Order</h4>
+                    <h4 class="text-danger">Upload Price</h4>
                 </div>
                 <div class="col-12">
                     <div class="row">
-                        <!-- Delivery Order No -->
-                        <s-form-input
-                            :model="delivery_order.delivery_order_no"
-                            col="6"
-                            title="Delivery Order No"
-                            type="text"
-                            :disabled="true"
-                        ></s-form-input>
-
-                        <!-- Confirm Date -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    <b>Confirm Date</b>
+                                    <b>Customer Group</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div>
+                                    <model-list-select
+                                        :list="customerGroups"
+                                        v-model="form.customerGroupId"
+                                        option-value="id"
+                                        option-text="name"
+                                        placeholder="Select Customer Group"
+                                    ></model-list-select>
+                                    <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                         v-if="errors.customerGroupId">
+                                        <p>Customer Group Tidak Boleh Kosong!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- File -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    <b>File</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div class="custom-file">
+                                    <input
+                                        v-bind:class="{'is-invalid': errors.file}"
+                                        type="file"
+                                        class="custom-file-input"
+                                        v-on:change="onFileChange"
+                                    />
+                                    <label class="custom-file-label">
+                                        {{ form.fileName ? form.fileName : 'Choose File'}}
+                                    </label>
+                                    <div class="invalid-feedback" v-if="errors.file">
+                                        <p>Format File Harus : xlsx</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Confirm Date -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>
+                                    <b>Start Period</b>
                                     <span style="color: red;">*</span>
                                 </label>
                                 <div>
                                     <date-picker
-                                        v-model="confirm_date"
+                                        v-model="form.startPeriod"
                                         lang="en"
                                         valueType="format">
-                                    ></date-picker>
+                                        >
+                                    </date-picker>
+                                </div>
+                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                     v-if="errors.startPeriod">
+                                    <p>Start Period Tidak Boleh Kosong!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- End Date -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>
+                                    <b>End Period</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div>
+                                    <date-picker
+                                        v-model="form.endPeriod"
+                                        lang="en"
+                                        valueType="format">
+                                        >
+                                    </date-picker>
                                 </div>
                                 <div
                                     style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                    v-if="errors.confirm_date"
+                                    v-if="errors.endPeriod"
                                 >
-                                    <p>{{ errors.confirm_date[0] }}</p>
+                                    <p>End Period Tidak Boleh Kosong!</p>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div
-                            v-if="delivery_order.sales_order_id != ''"
-                            class="col-12"
-                        >
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
-                                <table
-                                    class="table table-hover"
-                                    id="contentTable"
-                                    style="font-size: 9pt;"
-                                >
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">SKUID</th>
-                                        <th class="text-center">Item Name</th>
-                                        <th class="text-center">UOM</th>
-                                        <th class="text-center">Qty Order</th>
-                                        <th class="text-center">Qty Do</th>
-                                        <th class="text-center">Qty Confirm</th>
-                                        <th class="text-center">Qty Minus</th>
-                                        <th class="text-center">Remark Confirm</th>
-                                        <!--                                        <th class="text-center">Returned</th>-->
-
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr
-                                        v-for="(orders, index) in do_details"
-                                        v-bind:key="index"
-                                    >
-                                        <td>{{ index + 1 }}</td>
-                                        <td>{{ orders.skuid }}</td>
-                                        <td>{{ orders.item_name }}</td>
-                                        <td>{{ orders.uom_name }}</td>
-                                        <td>{{ orders.qty_order }}</td>
-                                        <td>{{ orders.qty_do }}</td>
-                                        <td>
-                                            <input
-                                                v-model="qty_confirm[index].qty"
-                                                type="number"
-                                                class="form-control"
-                                                :max="orders.qty"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="qty_minus[index].qty"
-                                                type="number"
-                                                min="0"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="orders.remark"
-                                                type="text"
-                                                class="form-control"
-                                                placeholder="Remark Confirm"
-                                            />
-                                        </td>
-                                        <!--                                        <td>-->
-                                        <!--                                            <div class="form-check">-->
-                                        <!--                                                <input-->
-                                        <!--                                                    v-model="orders.returned"-->
-                                        <!--                                                    class="form-check-input"-->
-                                        <!--                                                    type="checkbox"-->
-                                        <!--                                                    value="1"-->
-                                        <!--                                                >-->
-                                        <!--                                            </div>-->
-                                        <!--                                        </td>-->
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div v-for="(orders, index) in do_details" v-bind:key="index">
-                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                     v-if="errors[`do_details.${index}.qty_confirm`]">
-                                    <p>The {{ do_details[index].item_name }} of qty confirm field is required.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>
-                                    <b>Remark</b>
-                                </label>
-                                <textarea
-                                    v-model="delivery_order.remark"
-                                    class="form-control"
-                                ></textarea>
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="card-body">
+                            <div v-if="loadingSubmit">
+                                <div v-if="showButtonAfterSubmit">
+                                    <button
+                                        class="btn btn-danger"
+                                        v-on:click="submitForm()"
+                                    >Generate
+                                    </button>
+                                </div>
+                                <div v-else>
+                                    <button-loading></button-loading>
+                                </div>
+                            </div>
+                            <div class="card-body" v-else>
                                 <button
                                     class="btn btn-danger"
                                     v-on:click="submitForm()"
@@ -157,67 +131,72 @@
 </template>
 
 <script>
+    import ButtonLoading from "../Template/Etc/ButtonLoading";
+
     export default {
-        props: ['do_id'],
+        components: {ButtonLoading},
         data() {
             return {
-                confirm_date: "",
-                delivery_order: {},
-                do_details: [],
-                qty_minus: [],
+                form: {
+                    startPeriod: "",
+                    endPeriod: "",
+                    customerGroupId: "",
+                    file: "",
+                    fileName: "",
+                },
+                loadingSubmit: false,
+                showButtonAfterSubmit: false,
+                customerGroups: [],
                 errors: []
-            };
+            }
         },
         mounted() {
             this.getData();
         },
         methods: {
-            // validateQtyDO (idx) {
-            //   let qty_do = parseFloat(this.qty_confirm[idx].qty);
-            //   let qty_so = parseFloat(this.sales_order_details[idx].qty) + (this.sales_order_details[idx].qty * 0.1);
-            //   if (qty_do > qty_so) {
-            //     this.qty_do[idx].qty = qty_so;
-            //   }
-            // },
+            onFileChange(e) {
+                let fileData = e.target.files || e.dataTransfer.files;
+                this.form.fileName = fileData[0].name;
+                this.form.file = fileData[0];
+            },
             getData() {
-                axios.get(this.$parent.MakeUrl("admin/warehouse/confirm_delivery_order/" + this.do_id + "/create"))
+                axios.get(this.$parent.MakeUrl("api/v1/master_data/customer-group"))
                     .then(res => {
                         console.log(res);
-                        this.delivery_order = res.data.data;
-                        this.do_details = res.data.data.do_details;
-                        this.qty_confirm = this.do_details.map((item, idx) => ({
-                            qty: item.qty_do
-                        }));
-                        this.qty_minus = this.do_details.map((item, idx) => ({
-                            qty: 0
-                        }));
+                        this.customerGroups = res.data;
                     })
                     .catch(err => {
+                        console.log(err);
                     });
             },
             async submitForm() {
-                const payload = {
-                    id: this.delivery_order.id,
-                    sales_order_id: this.delivery_order.sales_order_id,
-                    confirm_date: this.confirm_date,
-                    do_details: this.do_details.map((item, idx) => ({
-                        id: item.id,
-                        remark: item.remark,
-                        qty_confirm: this.qty_confirm[idx].qty,
-                        qty_minus: this.qty_minus[idx].qty
-                    }))
-                };
+                this.loadingSubmit = true;
+                var fData = new FormData();
+                fData.set('startPeriod', this.form.startPeriod);
+                fData.set('endPeriod', this.form.endPeriod);
+                fData.set('customerGroupId', this.form.customerGroupId);
+                fData.set('file', this.form.file);
                 try {
-                    const res = await axios.patch(this.$parent.MakeUrl("admin/warehouse/confirm_delivery_order/update"), payload);
+                    const res = await axios(
+                        {
+                            method: 'post',
+                            url: this.$parent.MakeUrl("api/v1/import-data-price-temp"),
+                            data: fData,
+                            config: {headers: {'Content-Type': 'multipart/form-data'}}
+                        }
+                    );
                     Vue.swal({
                         type: "success",
                         title: "Success!",
                         text: "Successfully Confirm Delivery Order!"
                     }).then(next => {
+                        this.loadingSubmit = false;
+                        this.showButtonAfterSubmit = true;
                         window.location.href = "/admin/warehouse/confirm_delivery_order";
                     });
                     console.log(res);
                 } catch (e) {
+                    this.loadingSubmit = false;
                     this.errors = e.response.data.errors;
                     console.error(e.response.data);
                 }

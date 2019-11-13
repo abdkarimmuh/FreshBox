@@ -4038,6 +4038,266 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ImportExcel/ImportPriceTemp.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ImportExcel/ImportPriceTemp.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Template_Etc_ButtonLoading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Template/Etc/ButtonLoading */ "./resources/js/components/Template/Etc/ButtonLoading.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ButtonLoading: _Template_Etc_ButtonLoading__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      form: {
+        startPeriod: "",
+        endPeriod: "",
+        customerGroupId: "",
+        file: "",
+        fileName: ""
+      },
+      loadingSubmit: false,
+      showButtonAfterSubmit: false,
+      customerGroups: [],
+      errors: []
+    };
+  },
+  mounted: function mounted() {
+    this.getData();
+  },
+  methods: {
+    onFileChange: function onFileChange(e) {
+      var fileData = e.target.files || e.dataTransfer.files;
+      this.form.fileName = fileData[0].name;
+      this.form.file = fileData[0];
+    },
+    getData: function getData() {
+      var _this = this;
+
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/customer-group")).then(function (res) {
+        console.log(res);
+        _this.customerGroups = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    submitForm: function () {
+      var _submitForm = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this2 = this;
+
+        var fData, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.loadingSubmit = true;
+                fData = new FormData();
+                fData.set('startPeriod', this.form.startPeriod);
+                fData.set('endPeriod', this.form.endPeriod);
+                fData.set('customerGroupId', this.form.customerGroupId);
+                fData.set('file', this.form.file);
+                _context.prev = 6;
+                _context.next = 9;
+                return axios({
+                  method: 'post',
+                  url: this.$parent.MakeUrl("api/v1/import-data-price-temp"),
+                  data: fData,
+                  config: {
+                    headers: {
+                      'Content-Type': 'multipart/form-data'
+                    }
+                  }
+                });
+
+              case 9:
+                res = _context.sent;
+                Vue.swal({
+                  type: "success",
+                  title: "Success!",
+                  text: "Successfully Confirm Delivery Order!"
+                }).then(function (next) {
+                  _this2.loadingSubmit = false;
+                  _this2.showButtonAfterSubmit = true;
+                  window.location.href = "/admin/warehouse/confirm_delivery_order";
+                });
+                console.log(res);
+                _context.next = 19;
+                break;
+
+              case 14:
+                _context.prev = 14;
+                _context.t0 = _context["catch"](6);
+                this.loadingSubmit = false;
+                this.errors = _context.t0.response.data.errors;
+                console.error(_context.t0.response.data);
+
+              case 19:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[6, 14]]);
+      }));
+
+      function submitForm() {
+        return _submitForm.apply(this, arguments);
+      }
+
+      return submitForm;
+    }()
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Marketing/SalesOrder/AddSalesOrder.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Marketing/SalesOrder/AddSalesOrder.vue?vue&type=script&lang=js& ***!
@@ -4058,6 +4318,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -54191,6 +54452,305 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ImportExcel/ImportPriceTemp.vue?vue&type=template&id=9e03c840&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ImportExcel/ImportPriceTemp.vue?vue&type=template&id=9e03c840& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-12" }, [
+      _c("div", { staticClass: "card col-12" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c("model-list-select", {
+                      attrs: {
+                        list: _vm.customerGroups,
+                        "option-value": "id",
+                        "option-text": "name",
+                        placeholder: "Select Customer Group"
+                      },
+                      model: {
+                        value: _vm.form.customerGroupId,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "customerGroupId", $$v)
+                        },
+                        expression: "form.customerGroupId"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.customerGroupId
+                      ? _c(
+                          "div",
+                          {
+                            staticStyle: {
+                              "margin-top": ".25rem",
+                              "font-size": "80%",
+                              color: "#dc3545"
+                            }
+                          },
+                          [
+                            _c("p", [
+                              _vm._v("Customer Group Tidak Boleh Kosong!")
+                            ])
+                          ]
+                        )
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-file" }, [
+                  _c("input", {
+                    staticClass: "custom-file-input",
+                    class: { "is-invalid": _vm.errors.file },
+                    attrs: { type: "file" },
+                    on: { change: _vm.onFileChange }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { staticClass: "custom-file-label" }, [
+                    _vm._v(
+                      "\n                                    " +
+                        _vm._s(
+                          _vm.form.fileName ? _vm.form.fileName : "Choose File"
+                        ) +
+                        "\n                                "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm.errors.file
+                    ? _c("div", { staticClass: "invalid-feedback" }, [
+                        _c("p", [_vm._v("Format File Harus : xlsx")])
+                      ])
+                    : _vm._e()
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c(
+                      "date-picker",
+                      {
+                        attrs: { lang: "en", valueType: "format" },
+                        model: {
+                          value: _vm.form.startPeriod,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "startPeriod", $$v)
+                          },
+                          expression: "form.startPeriod"
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                    >\n                                "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.errors.startPeriod
+                  ? _c(
+                      "div",
+                      {
+                        staticStyle: {
+                          "margin-top": ".25rem",
+                          "font-size": "80%",
+                          color: "#dc3545"
+                        }
+                      },
+                      [_c("p", [_vm._v("Start Period Tidak Boleh Kosong!")])]
+                    )
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c(
+                      "date-picker",
+                      {
+                        attrs: { lang: "en", valueType: "format" },
+                        model: {
+                          value: _vm.form.endPeriod,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "endPeriod", $$v)
+                          },
+                          expression: "form.endPeriod"
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                    >\n                                "
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.errors.endPeriod
+                  ? _c(
+                      "div",
+                      {
+                        staticStyle: {
+                          "margin-top": ".25rem",
+                          "font-size": "80%",
+                          color: "#dc3545"
+                        }
+                      },
+                      [_c("p", [_vm._v("End Period Tidak Boleh Kosong!")])]
+                    )
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12" }, [
+              _vm.loadingSubmit
+                ? _c("div", [
+                    _vm.showButtonAfterSubmit
+                      ? _c("div", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.submitForm()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "Generate\n                                "
+                              )
+                            ]
+                          )
+                        ])
+                      : _c("div", [_c("button-loading")], 1)
+                  ])
+                : _c("div", { staticClass: "card-body" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        on: {
+                          click: function($event) {
+                            return _vm.submitForm()
+                          }
+                        }
+                      },
+                      [_vm._v("Submit\n                            ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "button", onclick: "back()" }
+                      },
+                      [_vm._v("Back\n                            ")]
+                    )
+                  ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h4", { staticClass: "text-danger" }, [_vm._v("Upload Price")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Customer Group")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("File")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Start Period")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("End Period")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Marketing/SalesOrder/AddSalesOrder.vue?vue&type=template&id=b04d492c&":
 /*!*************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Marketing/SalesOrder/AddSalesOrder.vue?vue&type=template&id=b04d492c& ***!
@@ -83490,6 +84050,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ImportExcel/ImportPriceTemp.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/ImportExcel/ImportPriceTemp.vue ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ImportPriceTemp_vue_vue_type_template_id_9e03c840___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ImportPriceTemp.vue?vue&type=template&id=9e03c840& */ "./resources/js/components/ImportExcel/ImportPriceTemp.vue?vue&type=template&id=9e03c840&");
+/* harmony import */ var _ImportPriceTemp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ImportPriceTemp.vue?vue&type=script&lang=js& */ "./resources/js/components/ImportExcel/ImportPriceTemp.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ImportPriceTemp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ImportPriceTemp_vue_vue_type_template_id_9e03c840___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ImportPriceTemp_vue_vue_type_template_id_9e03c840___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ImportExcel/ImportPriceTemp.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ImportExcel/ImportPriceTemp.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/ImportExcel/ImportPriceTemp.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ImportPriceTemp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ImportPriceTemp.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ImportExcel/ImportPriceTemp.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ImportPriceTemp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ImportExcel/ImportPriceTemp.vue?vue&type=template&id=9e03c840&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/ImportExcel/ImportPriceTemp.vue?vue&type=template&id=9e03c840& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ImportPriceTemp_vue_vue_type_template_id_9e03c840___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ImportPriceTemp.vue?vue&type=template&id=9e03c840& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ImportExcel/ImportPriceTemp.vue?vue&type=template&id=9e03c840&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ImportPriceTemp_vue_vue_type_template_id_9e03c840___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ImportPriceTemp_vue_vue_type_template_id_9e03c840___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Marketing/SalesOrder/AddSalesOrder.vue":
 /*!************************************************************************!*\
   !*** ./resources/js/components/Marketing/SalesOrder/AddSalesOrder.vue ***!
@@ -85929,6 +86558,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Warehouse_IndexConfirmDeliveryOrder__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/Warehouse/IndexConfirmDeliveryOrder */ "./resources/js/components/Warehouse/IndexConfirmDeliveryOrder.vue");
 /* harmony import */ var _components_Warehouse_ConfirmDeliveryOrder__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/Warehouse/ConfirmDeliveryOrder */ "./resources/js/components/Warehouse/ConfirmDeliveryOrder.vue");
 /* harmony import */ var _components_WarehouseIn_AddWarehouseConfirm__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/WarehouseIn/AddWarehouseConfirm */ "./resources/js/components/WarehouseIn/AddWarehouseConfirm.vue");
+/* harmony import */ var _components_ImportExcel_ImportPriceTemp__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/ImportExcel/ImportPriceTemp */ "./resources/js/components/ImportExcel/ImportPriceTemp.vue");
 
 
 
@@ -85956,10 +86586,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('import-price-temp', _components_ImportExcel_ImportPriceTemp__WEBPACK_IMPORTED_MODULE_27__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
-  routes: [
+  routes: [{
+    path: '/admin/import/price',
+    name: "import.price",
+    component: _components_ImportExcel_ImportPriceTemp__WEBPACK_IMPORTED_MODULE_27__["default"]
+  },
   /**
    * Sales Order
    */

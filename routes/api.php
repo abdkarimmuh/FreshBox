@@ -183,6 +183,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
                 return UomResource::collection(Uom::all());
             });
         });
+
+        Route::group(['prefix' => 'customer-group'], function () {
+            Route::get('/', 'MasterDataController@getCustomerGroup');
+        });
         Route::group(['prefix' => 'vendor'], function () {
             Route::get('/', function () {
                 return VendorResource::collection(Vendor::all());
@@ -204,7 +208,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     });
 
     Route::group(['prefix' => 'import-data-price-temp', 'namespace' => 'ImportExcel\\'], function () {
-            Route::post('/','PriceUploadController@store');
+        Route::post('/', 'PriceUploadController@store');
     });
 });
 

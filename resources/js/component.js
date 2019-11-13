@@ -22,6 +22,7 @@ import IndexReportFinanceAR from "./components/Report/SO/IndexReportFinanceAR"
 
 import AddUserProc from "./components/MasterData/AddUserProc"
 
+
 Vue.component('index-report-so', IndexReportSO);
 Vue.component('index-report-finance-ar', IndexReportFinanceAR);
 

@@ -34,12 +34,19 @@ import IndexConfirmDeliveryOrder from './components/Warehouse/IndexConfirmDelive
 import AddConfirmDeliveryOrder from './components/Warehouse/ConfirmDeliveryOrder';
 
 import AddWarehouseConfirm from "./components/WarehouseIn/AddWarehouseConfirm";
+import ImportPriceTemp from "./components/ImportExcel/ImportPriceTemp"
 
+Vue.component('import-price-temp', ImportPriceTemp);
 Vue.use(VueRouter);
 
 const router = new VueRouter({
     mode: 'history',
     routes: [
+        {
+            path: '/admin/import/price',
+            name: "import.price",
+            component: ImportPriceTemp
+        },
         /**
          * Sales Order
          */

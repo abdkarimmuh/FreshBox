@@ -17,7 +17,10 @@ class PriceUploadController extends Controller
      */
     public function index()
     {
-
+        $config = [
+            'vue-component' => '<import-price-temp>'
+        ];
+        return view('layouts.vue-view', compact('config'));
     }
 
     /**
@@ -28,7 +31,11 @@ class PriceUploadController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:xls,xlsx'
+            'file' => 'required|mimetypes:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'customerGroupId' => 'required',
+            'startPeriod' => 'required',
+            'endPeriod' => 'required',
+
         ]);
         $array = Excel::toArray(new PriceTempImport(), request()->file('file'));
         return collect(head($array))->each(function ($row, $key) {

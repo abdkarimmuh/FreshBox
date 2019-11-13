@@ -21,6 +21,13 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
 });
 
 Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
+
+    Route::name('import')->prefix('import')->group(function () {
+        Route::name('price')->prefix('price')->group(function () {
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+        });
+    });
     /*
      * Routing Menu Marketing
      */
