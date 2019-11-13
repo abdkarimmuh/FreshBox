@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-12">
-            <div class="card col-12">
+            <div class="card col-12" v-if="!showButtonAfterSubmit">
                 <div class="card-header">
                     <h4 class="text-danger">Upload Price</h4>
                 </div>
@@ -33,7 +33,7 @@
                             <div class="form-group">
                                 <label>
                                     <b>File</b>
-                                    <span style="color: red;">*</span>
+                                    <span style="color: red;">*file harus type xlsx</span>
                                 </label>
                                 <div class="custom-file">
                                     <input
@@ -73,7 +73,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- End Date -->
                         <div class="col-md-3">
                             <div class="form-group">
@@ -99,18 +98,10 @@
                         </div>
                         <div class="col-12">
                             <div v-if="loadingSubmit">
-                                <div v-if="showButtonAfterSubmit">
-                                    <button
-                                        class="btn btn-danger"
-                                        v-on:click="submitForm()"
-                                    >Generate
-                                    </button>
-                                </div>
-                                <div v-else>
-                                    <button-loading></button-loading>
-                                </div>
+                                <button-loading></button-loading>
                             </div>
                             <div class="card-body" v-else>
+
                                 <button
                                     class="btn btn-danger"
                                     v-on:click="submitForm()"
@@ -124,6 +115,19 @@
                                 </button>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card col-12 text-center" v-if="showButtonAfterSubmit">
+                <div class="card-header">
+                    <h4 class="text-danger">Generate Master Price</h4>
+                </div>
+                <div class="col-12 text-center">
+                    <div class="col-md-3">
+                        <button class="btn btn-danger" v-on:click="generateMasterPrice()">
+                            Generate
+                        </button>
                     </div>
                 </div>
             </div>
@@ -163,7 +167,6 @@
             getData() {
                 axios.get(this.$parent.MakeUrl("api/v1/master_data/customer-group"))
                     .then(res => {
-                        console.log(res);
                         this.customerGroups = res.data;
                     })
                     .catch(err => {
@@ -178,7 +181,7 @@
                 fData.set('customerGroupId', this.form.customerGroupId);
                 fData.set('file', this.form.file);
                 try {
-                    const res = await axios(
+                    await axios(
                         {
                             method: 'post',
                             url: this.$parent.MakeUrl("api/v1/import-data-price-temp"),
@@ -187,22 +190,51 @@
                         }
                     );
                     Vue.swal({
-                        type: "success",
+                        icon: 'success',
                         title: "Success!",
-                        text: "Successfully Confirm Delivery Order!"
+                        text: "Successfully Upload Price Data!"
                     }).then(next => {
                         this.loadingSubmit = false;
                         this.showButtonAfterSubmit = true;
-                        // window.location.href = "/admin/warehouse/confirm_delivery_order";
                     });
-                    console.log(res);
                 } catch (e) {
                     this.loadingSubmit = false;
                     this.errors = e.response.data.errors;
                     console.error(e.response.data);
                 }
             },
-
+            generateMasterPrice() {
+                Vue.swal({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, generate it!'
+                }).then((result) => {
+                    if (result.value) {
+                        Vue.swal(
+                            'Generated!',
+                            'Master Price has been generated.',
+                            'success'
+                        ).then(next => {
+                            window.location.href = "/admin/import/price";
+                        });
+                        try {
+                            const res = axios(
+                                {
+                                    method: 'post',
+                                    url: this.$parent.MakeUrl("api/v1/import-data-price-temp/generate"),
+                                }
+                            );
+                            console.log(res);
+                        } catch (e) {
+                            console.error(e.response.data);
+                        }
+                    }
+                })
+            },
         }
     };
 </script>

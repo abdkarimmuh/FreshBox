@@ -43,7 +43,7 @@ class PriceUploadController extends Controller
             'file' => $request->file,
         ];
         $array = Excel::toArray(new PriceTempImport(), $data['file']);
-        return collect(head($array))->each(function ($row, $key) use($data) {
+        return collect(head($array))->each(function ($row, $key) use ($data) {
             $exist = DB::table('price_temp')->where('sku', $row['sku'])->where('customer_group_id', $data['customerGroupId'])->get();
             if (count($exist) > 0) {
                 PriceTemp::where('sku', $row['sku'])
@@ -75,5 +75,21 @@ class PriceUploadController extends Controller
                 ]);
             }
         });
+    }
+    /**
+     * Generate Master Price
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function generateMasterPriceAll()
+    {
+        $generate = DB::select('call GeneMAsterPriceAll(?)',array(auth('api')->user()->id));
+        if ($generate) {
+            $status = true;
+        } else {
+            $status = false;
+        }
+        return response()->json([
+            'success' => $status,
+        ]);
     }
 }

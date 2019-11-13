@@ -209,6 +209,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
 
     Route::group(['prefix' => 'import-data-price-temp', 'namespace' => 'ImportExcel\\'], function () {
         Route::post('/', 'PriceUploadController@store');
+        Route::post('/generate','PriceUploadController@generateMasterPriceAll');
     });
 });
 
