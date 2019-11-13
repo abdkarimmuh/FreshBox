@@ -15,6 +15,7 @@
                     base_url: '',
                     daterange: true,
                     export_excel: true,
+                    url_export: 'report-finance-ar/export',
                     action: false,
 
                 },

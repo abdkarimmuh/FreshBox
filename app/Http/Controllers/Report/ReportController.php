@@ -10,7 +10,7 @@ use App\Http\Resources\Report\ReportSOResource;
 use App\Model\Warehouse\DeliveryOrderDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -82,7 +82,7 @@ class ReportController extends Controller
     public function exportSO()
     {
         $now = Carbon::now();
-        return Excel::download(new ReportSOExport(), 'Report Sales Order - ' . $now . '.xlsx');
+        return Excel::download(new ReportSOExport, 'Report Sales Order - ' . $now . '.xlsx');
     }
 
     /**
@@ -94,6 +94,6 @@ class ReportController extends Controller
     public function exportFinanceAR()
     {
         $now = Carbon::now();
-        return Excel::download(new ReportFinanceARExport(), 'Report Finance AR - ' . $now . '.xlsx');
+        return Excel::download(new ReportFinanceARExport, 'Report Finance AR - ' . $now . '.xlsx');
     }
 }

@@ -53,8 +53,8 @@
             <td>{{ $row->qty_do }}</td>
             <td>{{ $row->sales_order_detail->amount_price }}</td>
             <td>{{ $row->sales_order_detail->no_po }}</td>
-            <td>{{ $row->delivery_order->invoice->invoice_no }}</td>
-            <td>{{ $row->delivery_order->invoice->invoice_date }}</td>
+            <td>{{ $row->delivery_order->invoice->invoice_no ?? '' }}</td>
+            <td>{{ $row->delivery_order->invoice->invoice_date ?? '' }}</td>
             <td>{{ $row->qty_confirm }}</td>
             <td>{{ $row->delivery_order->customer->id }}</td>
 

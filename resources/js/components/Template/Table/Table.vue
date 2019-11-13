@@ -9,7 +9,7 @@
                             <router-link :to="{ name: config.route_create }" class="btn btn-danger ml-2"
                                          v-if="config.route_create">Add
                                 <i class="fas fa-plus"></i></router-link>
-                            <a :href="'reportso/export'" class="btn btn-danger ml-2"
+                            <a :href="config.url_export" class="btn btn-danger ml-2"
                                style="color: white" v-if="config.export_excel">Export Excel</a>
 
                             <a class="btn btn-info ml-2" style="color: white" @click="print()"
@@ -304,14 +304,6 @@
                     }).catch(e => {
 
                 });
-            },
-            async toExcel() {
-                try {
-                    const res = await axios.get(BaseUrl('admin/report/reportso/export'));
-                    console.log(res);
-                } catch (e) {
-                    console.log(e.response);
-                }
             }
         },
         computed: {

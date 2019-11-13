@@ -6262,6 +6262,7 @@ __webpack_require__.r(__webpack_exports__);
         base_url: '',
         daterange: true,
         export_excel: true,
+        url_export: 'report-finance-ar/export',
         action: false
       },
       columns: [{
@@ -6376,6 +6377,7 @@ __webpack_require__.r(__webpack_exports__);
         base_url: '',
         daterange: true,
         export_excel: true,
+        url_export: 'report-so/export',
         action: false
       },
       columns: [{
@@ -7250,45 +7252,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         console.log(res);
       })["catch"](function (e) {});
-    },
-    toExcel: function () {
-      var _toExcel = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-        var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _context4.prev = 0;
-                _context4.next = 3;
-                return axios.get(BaseUrl('admin/report/reportso/export'));
-
-              case 3:
-                res = _context4.sent;
-                console.log(res);
-                _context4.next = 10;
-                break;
-
-              case 7:
-                _context4.prev = 7;
-                _context4.t0 = _context4["catch"](0);
-                console.log(_context4.t0.response);
-
-              case 10:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, null, [[0, 7]]);
-      }));
-
-      function toExcel() {
-        return _toExcel.apply(this, arguments);
-      }
-
-      return toExcel;
-    }()
+    }
   },
   computed: {
     selectAll: {
@@ -58206,7 +58170,7 @@ var render = function() {
                         {
                           staticClass: "btn btn-danger ml-2",
                           staticStyle: { color: "white" },
-                          attrs: { href: "reportso/export" }
+                          attrs: { href: _vm.config.url_export }
                         },
                         [_vm._v("Export Excel")]
                       )
