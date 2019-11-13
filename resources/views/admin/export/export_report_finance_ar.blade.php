@@ -31,6 +31,9 @@
         <th><b>Invoice No</b></th>
         <th><b>Invoice Date</b></th>
         <th><b>Qty Confirm</b></th>
+        <th><b>Total Amount</b></th>
+        <th><b>Disc</b></th>
+        <th><b>Total Amount(After Disc)</b></th>
         <th><b>Cust ID</b></th>
     </tr>
     </thead>
