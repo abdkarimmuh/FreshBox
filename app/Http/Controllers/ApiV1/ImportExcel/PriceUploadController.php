@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiV1\ImportExcel;
 use App\Http\Controllers\Controller;
 use App\Imports\PriceTempImport;
 use App\PriceTemp;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -55,7 +56,7 @@ class PriceUploadController extends Controller
                         'Remarks' => $row['remarks'],
                         'start_period' => $data['startPeriod'],
                         'End_Period' => $data['endPeriod'],
-                        'AuditDate' => $row['audi_date'],
+                        'AuditDate' => Carbon::now(),
                     ]);
             } else {
                 PriceTemp::insert([
@@ -71,7 +72,7 @@ class PriceUploadController extends Controller
                     'customer_group_id' => $data['customerGroupId'],
                     'start_period' => $data['startPeriod'],
                     'End_Period' => $data['endPeriod'],
-                    'AuditDate' => $row['audi_date'],
+                    'AuditDate' => Carbon::now(),
                 ]);
             }
         });
