@@ -46,6 +46,8 @@ class PriceController extends Controller
 //            'route-edit' => 'testing.edit',
             //Route For Button Search
             'route-search' => 'admin.master_data.price.index',
+            //Route Upload
+            'route-upload' => 'admin/import/price'
         ];
 
         $query = Price::dataTableQuery($searchValue);

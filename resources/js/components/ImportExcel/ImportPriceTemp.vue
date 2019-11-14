@@ -110,7 +110,7 @@
                                 <button
                                     type="button"
                                     class="btn btn-secondary"
-                                    onclick="back()"
+                                    onclick="history.back()"
                                 >Back
                                 </button>
                             </div>

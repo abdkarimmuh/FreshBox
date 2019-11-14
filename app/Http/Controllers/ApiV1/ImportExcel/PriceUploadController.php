@@ -14,17 +14,6 @@ use Maatwebsite\Excel\Facades\Excel;
 class PriceUploadController extends Controller
 {
     /**
-     *
-     */
-    public function index()
-    {
-        $config = [
-            'vue-component' => '<import-price-temp>'
-        ];
-        return view('layouts.vue-view', compact('config'));
-    }
-
-    /**
      * Insert Price Temp from Upload Excel
      * @param Request $request
      * @return Collection
@@ -43,6 +32,7 @@ class PriceUploadController extends Controller
             'endPeriod' => $request->endPeriod,
             'file' => $request->file,
         ];
+        PriceTemp::truncate();
         $array = Excel::toArray(new PriceTempImport(), $data['file']);
         return collect(head($array))->each(function ($row, $key) use ($data) {
             $exist = DB::table('price_temp')->where('sku', $row['sku'])->where('customer_group_id', $data['customerGroupId'])->get();
@@ -77,13 +67,14 @@ class PriceUploadController extends Controller
             }
         });
     }
+
     /**
      * Generate Master Price
      * @return \Illuminate\Http\JsonResponse
      */
     public function generateMasterPriceAll()
     {
-        $generate = DB::select('call GeneMAsterPriceAll(?)',array(auth('api')->user()->id));
+        $generate = DB::select('call GeneMAsterPriceAll(?)', array(auth('api')->user()->id));
         if ($generate) {
             $status = true;
         } else {
