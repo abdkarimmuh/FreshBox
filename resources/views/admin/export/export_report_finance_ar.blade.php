@@ -57,9 +57,9 @@
             <td>{{ $row->delivery_order->invoice->invoice_no ?? '' }}</td>
             <td>{{ $row->delivery_order->invoice->invoice_date ?? '' }}</td>
             <td>{{ $row->qty_confirm }}</td>
-            <td>{{ format_price($row->qty_confirm * $row->total_amount_do) }}</td>
+            <td>{{ format_price($row->qty_confirm * $row->sales_order_detail->amount_price) }}</td>
             <td></td>
-            <td>{{ format_price($row->qty_confirm * $row->total_amount_do) }}</td>
+            <td>{{ format_price($row->qty_confirm * $row->sales_order_detail->amount_price) }}</td>
             <td>{{ $row->delivery_order->customer->id }}</td>
 
         </tr>
