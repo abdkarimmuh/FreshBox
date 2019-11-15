@@ -284,7 +284,7 @@
                     .then(res => {
                         if (res.data.status === true) {
                             Vue.swal({
-                               icon: "success",
+                               type: "success",
                                 title: "Success!",
                                 text: "Berhasil Membuat Rekap Invoice!"
                             }).then(next => {
@@ -295,7 +295,7 @@
                             });
                         } else {
                             Vue.swal({
-                                icon: "error",
+                                 type: "error",
                                 title: "Danger!",
                                 text: "Customer Harus Sama!"
                             });

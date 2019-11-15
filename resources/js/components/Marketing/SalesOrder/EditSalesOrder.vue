@@ -292,7 +292,7 @@
                 const indexItem = this.orders_detail.findIndex(x => x.skuid === skuid);
                 if (indexItem >= 0) {
                     Vue.swal({
-                        icon: 'error',
+                        type: "error",
                         title: 'ERROR!',
                         text: 'Item Already Added!'
                     });
@@ -343,7 +343,7 @@
                 try {
                     const res = await axios.patch(this.$parent.MakeUrl('api/v1/marketing/sales_order/update'), payload);
                     Vue.swal({
-                        icon: 'success',
+                        type: "success",
                         title: 'Success!',
                         text: 'Successfully Insert Data!'
                     }).then(next => {

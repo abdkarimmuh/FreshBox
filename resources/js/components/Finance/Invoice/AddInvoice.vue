@@ -191,7 +191,7 @@
                 try {
                     const res = await axios.post(this.$parent.MakeUrl("api/v1/finance/invoice_order/store"), payload);
                     Vue.swal({
-                       icon: "success",
+                       type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {

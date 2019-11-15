@@ -289,7 +289,7 @@ export default {
       try {
         const res = await axios.post("/api/v1/warehouse/delivery_order", payload);
         Vue.swal({
-          icon: "success",
+          type: "success",
           title: "Success!",
           text: "Successfully Insert Data!"
         }).then(next => {
