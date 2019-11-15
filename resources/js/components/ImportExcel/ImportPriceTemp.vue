@@ -119,13 +119,46 @@
             <div class="card col-12 text-center" v-if="showButtonAfterSubmit">
                 <div class="card-header">
                     <h4 class="text-danger">Generate Master Price</h4>
+                    <button class="btn btn-sm btn-danger" v-on:click="generateMasterPrice()">
+                        Generate
+                    </button>
+                </div>
+                <div class="card-header">
+                    <h4 class="text-danger">List Duplicate Data</h4>
+                </div>
+                <div v-if="duplicateData.length" class="col-12">
+                    <div class="table-responsive m-t-40" style="clear: both;">
+                        <table class="table table-hover" style="font-size: 9pt;">
+                            <thead>
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">SKU</th>
+                                <th class="text-center">Category</th>
+                                <th class="text-center">Items</th>
+                                <th class="text-center">Unit</th>
+                                <th class="text-center">Pricelist</th>
+                                <th class="text-center">Discount</th>
+                                <th class="text-center">Final</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(item, index) in duplicateData" track-by="index" v-bind:key="index">
+                                <td>{{ item.No }}</td>
+                                <td>{{ item.SKU }}</td>
+                                <td>{{ item.Category }}</td>
+                                <td>{{ item.Items }}</td>
+                                <td>{{ item.Unit }}</td>
+                                <td>{{ item.Pricelist }}</td>
+                                <td>{{ item.Discount }}</td>
+                                <td>{{ item.Final }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="col-12 text-center">
-                    <div class="col-md-3">
-                        <button class="btn btn-danger" v-on:click="generateMasterPrice()">
-                            Generate
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -146,6 +179,7 @@
                     file: "",
                     fileName: "",
                 },
+                duplicateData: [],
                 loadingSubmit: false,
                 showButtonAfterSubmit: false,
                 customerGroups: [],
@@ -171,29 +205,6 @@
                     });
             },
             async submitForm() {
-                // const ipAPI = '//api.ipify.org?format=json'
-                // Vue.swal.queue([{
-                //     title: 'Your public IP',
-                //     confirmButtonText: 'Show my public IP',
-                //     text:
-                //         'Your public IP will be received ' +
-                //         'via AJAX request',
-                //     showLoaderOnConfirm: true,
-                //     preConfirm: () => {
-                //         return fetch(ipAPI)
-                //             .then(response => response.json())
-                //             .then(data => {
-                //                 Vue.swal.insertQueueStep(data.ip);
-                //                 Vue.swal.insertQueueStep(data.ip)
-                //             })
-                //             .catch(() => {
-                //                 Vue.swal.insertQueueStep({
-                //                     icon: 'error',
-                //                     title: 'Unable to get your public IP'
-                //                 })
-                //             })
-                //     }
-                // }]);
                 this.loadingSubmit = true;
                 let fData = new FormData();
                 fData.set('startPeriod', this.form.startPeriod);
@@ -209,8 +220,9 @@
                             config: {headers: {'Content-Type': 'multipart/form-data'}}
                         }
                     );
+                    this.duplicateData = res.data.duplicate;
                     Vue.swal({
-                        icon: 'success',
+                        type: 'success',
                         title: "Success!",
                         text: "Successfully Upload Price Data!"
                     }).then(next => {

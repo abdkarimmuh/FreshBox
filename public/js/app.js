@@ -4190,6 +4190,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4204,6 +4237,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         file: "",
         fileName: ""
       },
+      duplicateData: [],
       loadingSubmit: false,
       showButtonAfterSubmit: false,
       customerGroups: [],
@@ -4239,29 +4273,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // const ipAPI = '//api.ipify.org?format=json'
-                // Vue.swal.queue([{
-                //     title: 'Your public IP',
-                //     confirmButtonText: 'Show my public IP',
-                //     text:
-                //         'Your public IP will be received ' +
-                //         'via AJAX request',
-                //     showLoaderOnConfirm: true,
-                //     preConfirm: () => {
-                //         return fetch(ipAPI)
-                //             .then(response => response.json())
-                //             .then(data => {
-                //                 Vue.swal.insertQueueStep(data.ip);
-                //                 Vue.swal.insertQueueStep(data.ip)
-                //             })
-                //             .catch(() => {
-                //                 Vue.swal.insertQueueStep({
-                //                     icon: 'error',
-                //                     title: 'Unable to get your public IP'
-                //                 })
-                //             })
-                //     }
-                // }]);
                 this.loadingSubmit = true;
                 fData = new FormData();
                 fData.set('startPeriod', this.form.startPeriod);
@@ -4283,30 +4294,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 9:
                 res = _context.sent;
+                this.duplicateData = res.data.duplicate;
                 Vue.swal({
-                  icon: 'success',
+                  type: 'success',
                   title: "Success!",
                   text: "Successfully Upload Price Data!"
                 }).then(function (next) {
                   _this2.loadingSubmit = false;
                   _this2.showButtonAfterSubmit = true;
                 });
-                _context.next = 18;
+                _context.next = 19;
                 break;
 
-              case 13:
-                _context.prev = 13;
+              case 14:
+                _context.prev = 14;
                 _context.t0 = _context["catch"](6);
                 this.loadingSubmit = false;
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
 
-              case 18:
+              case 19:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[6, 13]]);
+        }, _callee, this, [[6, 14]]);
       }));
 
       function submitForm() {
@@ -54805,28 +54817,80 @@ var render = function() {
       _vm._v(" "),
       _vm.showButtonAfterSubmit
         ? _c("div", { staticClass: "card col-12 text-center" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _c("h4", { staticClass: "text-danger" }, [
+                _vm._v("Generate Master Price")
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-sm btn-danger",
+                  on: {
+                    click: function($event) {
+                      return _vm.generateMasterPrice()
+                    }
+                  }
+                },
+                [_vm._v("\n                    Generate\n                ")]
+              )
+            ]),
+            _vm._v(" "),
             _vm._m(5),
             _vm._v(" "),
-            _c("div", { staticClass: "col-12 text-center" }, [
-              _c("div", { staticClass: "col-md-3" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    on: {
-                      click: function($event) {
-                        return _vm.generateMasterPrice()
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n                        Generate\n                    "
-                    )
-                  ]
-                )
-              ])
-            ])
+            _vm.duplicateData.length
+              ? _c("div", { staticClass: "col-12" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "table-responsive m-t-40",
+                      staticStyle: { clear: "both" }
+                    },
+                    [
+                      _c(
+                        "table",
+                        {
+                          staticClass: "table table-hover",
+                          staticStyle: { "font-size": "9pt" }
+                        },
+                        [
+                          _vm._m(6),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.duplicateData, function(item, index) {
+                              return _c(
+                                "tr",
+                                { key: index, attrs: { "track-by": "index" } },
+                                [
+                                  _c("td", [_vm._v(_vm._s(item.No))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(item.SKU))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(item.Category))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(item.Items))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(item.Unit))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(item.Pricelist))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(item.Discount))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(item.Final))])
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 text-center" })
           ])
         : _vm._e()
     ])
@@ -54888,8 +54952,32 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "text-danger" }, [
-        _vm._v("Generate Master Price")
+      _c("h4", { staticClass: "text-danger" }, [_vm._v("List Duplicate Data")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "text-center" }, [_vm._v("No")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("SKU")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Items")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Unit")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Pricelist")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Discount")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Final")]),
+        _vm._v(" "),
+        _c("th")
       ])
     ])
   }
