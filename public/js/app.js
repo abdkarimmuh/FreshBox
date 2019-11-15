@@ -4190,9 +4190,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -4237,11 +4234,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var _this2 = this;
 
-        var fData;
+        var fData, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                // const ipAPI = '//api.ipify.org?format=json'
+                // Vue.swal.queue([{
+                //     title: 'Your public IP',
+                //     confirmButtonText: 'Show my public IP',
+                //     text:
+                //         'Your public IP will be received ' +
+                //         'via AJAX request',
+                //     showLoaderOnConfirm: true,
+                //     preConfirm: () => {
+                //         return fetch(ipAPI)
+                //             .then(response => response.json())
+                //             .then(data => {
+                //                 Vue.swal.insertQueueStep(data.ip);
+                //                 Vue.swal.insertQueueStep(data.ip)
+                //             })
+                //             .catch(() => {
+                //                 Vue.swal.insertQueueStep({
+                //                     icon: 'error',
+                //                     title: 'Unable to get your public IP'
+                //                 })
+                //             })
+                //     }
+                // }]);
                 this.loadingSubmit = true;
                 fData = new FormData();
                 fData.set('startPeriod', this.form.startPeriod);
@@ -4262,6 +4282,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 9:
+                res = _context.sent;
                 Vue.swal({
                   icon: 'success',
                   title: "Success!",
@@ -4270,22 +4291,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this2.loadingSubmit = false;
                   _this2.showButtonAfterSubmit = true;
                 });
-                _context.next = 17;
+                _context.next = 18;
                 break;
 
-              case 12:
-                _context.prev = 12;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context["catch"](6);
                 this.loadingSubmit = false;
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
 
-              case 17:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[6, 12]]);
+        }, _callee, this, [[6, 13]]);
       }));
 
       function submitForm() {

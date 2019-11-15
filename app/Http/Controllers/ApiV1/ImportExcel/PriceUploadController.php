@@ -34,7 +34,7 @@ class PriceUploadController extends Controller
         ];
         PriceTemp::truncate();
         $array = Excel::toArray(new PriceTempImport(), $data['file']);
-        return collect(head($array))->each(function ($row, $key) use ($data) {
+        collect(head($array))->each(function ($row, $key) use ($data) {
             $exist = DB::table('price_temp')->where('sku', $row['sku'])->where('customer_group_id', $data['customerGroupId'])->get();
             if (count($exist) > 0) {
                 PriceTemp::where('sku', $row['sku'])
@@ -66,6 +66,12 @@ class PriceUploadController extends Controller
                 ]);
             }
         });
+
+        return response()->json([
+            'success' => true,
+            'duplicate' => PriceTemp::whereNotNull('updated_at')->get()
+        ]);
+
     }
 
     /**

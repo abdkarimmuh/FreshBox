@@ -88,10 +88,7 @@
                                         >
                                     </date-picker>
                                 </div>
-                                <div
-                                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                    v-if="errors.endPeriod"
-                                >
+                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545" v-if="errors.endPeriod">
                                     <p>End Period Tidak Boleh Kosong!</p>
                                 </div>
                             </div>
@@ -174,14 +171,37 @@
                     });
             },
             async submitForm() {
+                // const ipAPI = '//api.ipify.org?format=json'
+                // Vue.swal.queue([{
+                //     title: 'Your public IP',
+                //     confirmButtonText: 'Show my public IP',
+                //     text:
+                //         'Your public IP will be received ' +
+                //         'via AJAX request',
+                //     showLoaderOnConfirm: true,
+                //     preConfirm: () => {
+                //         return fetch(ipAPI)
+                //             .then(response => response.json())
+                //             .then(data => {
+                //                 Vue.swal.insertQueueStep(data.ip);
+                //                 Vue.swal.insertQueueStep(data.ip)
+                //             })
+                //             .catch(() => {
+                //                 Vue.swal.insertQueueStep({
+                //                     icon: 'error',
+                //                     title: 'Unable to get your public IP'
+                //                 })
+                //             })
+                //     }
+                // }]);
                 this.loadingSubmit = true;
-                var fData = new FormData();
+                let fData = new FormData();
                 fData.set('startPeriod', this.form.startPeriod);
                 fData.set('endPeriod', this.form.endPeriod);
                 fData.set('customerGroupId', this.form.customerGroupId);
                 fData.set('file', this.form.file);
                 try {
-                    await axios(
+                    const res = await axios(
                         {
                             method: 'post',
                             url: this.$parent.MakeUrl("api/v1/import-data-price-temp"),
