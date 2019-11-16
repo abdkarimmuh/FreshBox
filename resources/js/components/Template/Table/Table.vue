@@ -26,7 +26,7 @@
                                 Invoice <i class="fas fa-print"></i>
                             </router-link>
 
-                            <router-link :to="{ name: config.route_confirm}" class="btn btn-warning ml-2"
+                            <router-link :to="{ name: config.route_confirm , query:{ id: selected}}" class="btn btn-warning ml-2"
                                          style="color: white" v-if="config.route_confirm && selected != 0">
                                 Confirm Multiple
                                 <i class="fas fa-print"></i>
@@ -127,7 +127,7 @@
 
                                 <router-link v-if="config.route_confirm"
                                              class="badge badge-warning"
-                                             :to="{ name: config.route_confirm , params: { id: item.id }}">Confirm
+                                             :to="'/admin/warehouse/confirm-delivery-order/id='+ item.id">Confirm
                                 </router-link>
                             </td>
                             <td v-for="column in columns">
