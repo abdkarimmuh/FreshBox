@@ -8268,7 +8268,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.patch(this.$parent.MakeUrl("admin/warehouse/confirm_delivery_order/update"), payload);
+                return axios.patch(this.$parent.MakeUrl("api/v1/confirm_delivery_order/update"), payload);
 
               case 4:
                 res = _context.sent;
