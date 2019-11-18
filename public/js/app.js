@@ -8225,7 +8225,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl("api/v1/warehouse/confirm_deliver_order/show?id=" + this.$route.params.id)).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/warehouse/confirm-delivery-order/show?id=" + this.$route.params.id)).then(function (res) {
         console.log(res);
         _this.delivery_order = res.data.data;
         _this.do_details = res.data.data.do_details;
@@ -8268,7 +8268,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.patch(this.$parent.MakeUrl("api/v1/confirm_delivery_order/update"), payload);
+                return axios.patch(this.$parent.MakeUrl("api/v1/warehouse/confirm-delivery-order/update"), payload);
 
               case 4:
                 res = _context.sent;
@@ -8277,7 +8277,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Confirm Delivery Order!"
                 }).then(function (next) {
-                  window.location.href = "/admin/warehouse/confirm_delivery_order";
+                  window.location.href = "/admin/warehouse/confirm-delivery-order";
                 });
                 console.log(res);
                 _context.next = 13;
@@ -8331,7 +8331,7 @@ __webpack_require__.r(__webpack_exports__);
       config: {
         title: 'Form Delivery Order',
         action: true,
-        base_url: this.$parent.MakeUrl('api/v1/warehouse/confirm_deliver_order'),
+        base_url: this.$parent.MakeUrl('api/v1/warehouse/confirm-delivery-order'),
         // route_search: 'admin.marketing.sales_order.index',
         route_confirm: 'confirm_delivery_order.create'
       },
@@ -58983,7 +58983,7 @@ var render = function() {
                       _c("h5", [_vm._v("No Results")]),
                       _vm._v(" "),
                       _c("p", [
-                        _vm._v("Looks like you have not added any users yet!")
+                        _vm._v("Looks like you have not added any data yet!")
                       ])
                     ])
                   : _vm._e()

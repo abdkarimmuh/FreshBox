@@ -13,7 +13,7 @@
                 config: {
                     title: 'Form Delivery Order',
                     action: true,
-                    base_url: this.$parent.MakeUrl('api/v1/warehouse/confirm_deliver_order'),
+                    base_url: this.$parent.MakeUrl('api/v1/warehouse/confirm-delivery-order'),
                     // route_search: 'admin.marketing.sales_order.index',
                     route_confirm: 'confirm_delivery_order.create',
                 },

@@ -147,7 +147,7 @@
                     </table>
                     <div v-if="!data.length" class="text-center p-3 text-muted">
                         <h5>No Results</h5>
-                        <p>Looks like you have not added any users yet!</p>
+                        <p>Looks like you have not added any data yet!</p>
                     </div>
                     <!--                    <stisla-pagination :offset="5" :pagination="pagination" @paginate="getData"></stisla-pagination>-->
                 </div>

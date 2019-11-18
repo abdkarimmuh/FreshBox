@@ -113,7 +113,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/show', 'DeliveryOrderAPIController@show');
         });
         //Confirm Delivery Order
-        Route::group(['prefix' => 'confirm_deliver_order'], function () {
+        Route::group(['prefix' => 'confirm-delivery-order'], function () {
             Route::get('/', 'ConfirmDeliveryOrderAPIController@index');
             Route::get('/show', 'ConfirmDeliveryOrderAPIController@show');
             Route::patch('/update', 'ConfirmDeliveryOrderAPIController@update');
