@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::get('users/roles', 'UserController@roles')->name('users.roles');
 Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     App::setLocale('id');
     /*
@@ -209,7 +209,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
 
     Route::group(['prefix' => 'import-data-price-temp', 'namespace' => 'ImportExcel\\'], function () {
         Route::post('/', 'PriceUploadController@store');
-        Route::post('/generate','PriceUploadController@generateMasterPriceAll');
+        Route::post('/generate', 'PriceUploadController@generateMasterPriceAll');
     });
 });
 
@@ -223,7 +223,6 @@ Route::resource('users', 'UserController', [
  * Testing Route
  */
 
-Route::get('users/roles', 'UserController@roles')->name('users.roles');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
