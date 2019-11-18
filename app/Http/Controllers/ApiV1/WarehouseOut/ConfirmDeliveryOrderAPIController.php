@@ -38,7 +38,7 @@ class ConfirmDeliveryOrderAPIController extends Controller
 
     /**
      * @param Request $request
-     * @return AnonymousResourceCollection
+     * @return DeliveryOrderResource
      */
     public function show(Request $request)
     {
@@ -46,12 +46,15 @@ class ConfirmDeliveryOrderAPIController extends Controller
             $do = DeliveryOrder::whereIn('id', $request->id)->whereHas('sales_order', function ($q) {
                 $q->where('status', 4);
             })->orderBy('delivery_order_no', 'desc')->get();
+            return DeliveryOrderResource::collection($do);
+
         } else {
             $do = DeliveryOrder::whereHas('sales_order', function ($q) {
                 $q->where('status', 4);
-            })->where('id', $request->id)->get();
+            })->where('id', $request->id)->first();
+            return new DeliveryOrderResource($do);
+
         }
-        return DeliveryOrderResource::collection($do);
     }
 
     /**

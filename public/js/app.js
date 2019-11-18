@@ -7077,6 +7077,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8023,6 +8024,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Template_Table_partials_LoadingTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Template/Table/partials/LoadingTable */ "./resources/js/components/Template/Table/partials/LoadingTable.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -8161,67 +8163,106 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    LoadingTable: _Template_Table_partials_LoadingTable__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  props: ['do_id'],
   data: function data() {
     return {
       confirm_date: "",
-      delivery_order: [],
+      delivery_order: {},
       do_details: [],
       qty_minus: [],
-      errors: []
+      errors: [],
+      loading: true
     };
   },
   mounted: function mounted() {
     this.getData();
   },
   methods: {
+    // validateQtyDO (idx) {
+    //   let qty_do = parseFloat(this.qty_confirm[idx].qty);
+    //   let qty_so = parseFloat(this.sales_order_details[idx].qty) + (this.sales_order_details[idx].qty * 0.1);
+    //   if (qty_do > qty_so) {
+    //     this.qty_do[idx].qty = qty_so;
+    //   }
+    // },
     getData: function getData() {
       var _this = this;
 
-      var payload = {
-        id: this.$route.query.id
-      };
-      axios.get(this.$parent.MakeUrl("api/v1/warehouse/confirm_deliver_order/show"), {
-        params: payload
-      }).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/warehouse/confirm_deliver_order/show?id=" + this.$route.params.id)).then(function (res) {
         console.log(res);
         _this.delivery_order = res.data.data;
         _this.do_details = res.data.data.do_details;
-        _this.delivery_order = res.data.data.map(function (item, idx) {
+        _this.qty_confirm = _this.do_details.map(function (item, idx) {
           return {
-            do_details: item.do_details(function (details, idx) {
-              return {
-                qty_confirm: details.qty_do,
-                qty_minus: details.qty_do
-              };
-            })
+            qty: item.qty_do
           };
         });
+        _this.qty_minus = _this.do_details.map(function (item, idx) {
+          return {
+            qty: 0
+          };
+        });
+        _this.loading = false;
       })["catch"](function (err) {});
     },
     submitForm: function () {
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this2 = this;
+
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 payload = {
-                  delivery_order: this.delivery_order.map(function (item, idx) {
+                  id: this.delivery_order.id,
+                  sales_order_id: this.delivery_order.sales_order_id,
+                  confirm_date: this.confirm_date,
+                  do_details: this.do_details.map(function (item, idx) {
                     return {
-                      id: item.delivery_order.id,
-                      sales_order_id: item.delivery_order.sales_order_id,
-                      confirm_date: item.confirm_date,
-                      do_details: item.do_details.map(function (detail, idx) {
-                        return {
-                          id: detail.id,
-                          remark: detail.remark,
-                          qty_confirm: detail.qty_confirm[idx].qty,
-                          qty_minus: detail.qty_minus[idx].qty
-                        };
-                      })
+                      id: item.id,
+                      remark: item.remark,
+                      qty_confirm: _this2.qty_confirm[idx].qty,
+                      qty_minus: _this2.qty_minus[idx].qty
                     };
                   })
                 };
@@ -58865,9 +58906,12 @@ var render = function() {
                                                   staticClass:
                                                     "badge badge-warning",
                                                   attrs: {
-                                                    to:
-                                                      "/admin/warehouse/confirm-delivery-order/id=" +
-                                                      item.id
+                                                    to: {
+                                                      name:
+                                                        _vm.config
+                                                          .route_confirm,
+                                                      params: { id: item.id }
+                                                    }
                                                   }
                                                 },
                                                 [
@@ -59919,66 +59963,15 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "col-12" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  [
-                    _c(
-                      "date-picker",
-                      {
-                        attrs: { lang: "en", valueType: "format" },
-                        model: {
-                          value: _vm.confirm_date,
-                          callback: function($$v) {
-                            _vm.confirm_date = $$v
-                          },
-                          expression: "confirm_date"
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                    >\n                                "
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _vm.errors.confirm_date
-                  ? _c(
-                      "div",
-                      {
-                        staticStyle: {
-                          "margin-top": ".25rem",
-                          "font-size": "80%",
-                          color: "#dc3545"
-                        }
-                      },
-                      [_c("p", [_vm._v(_vm._s(_vm.errors.confirm_date[0]))])]
-                    )
-                  : _vm._e()
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-12" },
-          [
-            _vm._l(_vm.delivery_order, function(item, idx) {
-              return _c(
+          _vm.loading
+            ? _c("div", { staticClass: "text-center" }, [_c("LoadingTable")], 1)
+            : _c(
                 "div",
                 { staticClass: "row" },
                 [
                   _c("s-form-input", {
                     attrs: {
-                      model: item.delivery_order_no,
+                      model: _vm.delivery_order.delivery_order_no,
                       col: "6",
                       title: "Delivery Order No",
                       type: "text",
@@ -59986,138 +59979,246 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-12" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "table-responsive m-t-40",
-                        staticStyle: { clear: "both" }
-                      },
-                      [
-                        _c(
-                          "table",
-                          {
-                            staticClass: "table table-hover",
-                            staticStyle: { "font-size": "9pt" }
-                          },
-                          [
-                            _vm._m(2, true),
-                            _vm._v(" "),
-                            _c(
-                              "tbody",
-                              _vm._l(item.do_details, function(order, index) {
-                                return _c("tr", { key: index }, [
-                                  _c("td", [_vm._v(_vm._s(index + 1))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(order.skuid))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(order.item_name))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(order.uom_name))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(order.qty_order))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(order.qty_do))]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: order.qty_confirm,
-                                          expression: "order.qty_confirm"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: { type: "number", max: order.qty },
-                                      domProps: { value: order.qty_confirm },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            order,
-                                            "qty_confirm",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: order.qty_minus,
-                                          expression: "order.qty_minus"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: { type: "number", min: "0" },
-                                      domProps: { value: order.qty_minus },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            order,
-                                            "qty_minus",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c("input", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: order.remark,
-                                          expression: "order.remark"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: {
-                                        type: "text",
-                                        placeholder: "Remark Confirm"
-                                      },
-                                      domProps: { value: order.remark },
-                                      on: {
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            order,
-                                            "remark",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ])
-                                ])
-                              }),
-                              0
-                            )
-                          ]
-                        )
-                      ]
-                    )
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        [
+                          _c(
+                            "date-picker",
+                            {
+                              attrs: { lang: "en", valueType: "format" },
+                              model: {
+                                value: _vm.confirm_date,
+                                callback: function($$v) {
+                                  _vm.confirm_date = $$v
+                                },
+                                expression: "confirm_date"
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    >\n                                "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm.errors.confirm_date
+                        ? _c(
+                            "div",
+                            {
+                              staticStyle: {
+                                "margin-top": ".25rem",
+                                "font-size": "80%",
+                                color: "#dc3545"
+                              }
+                            },
+                            [
+                              _c("p", [
+                                _vm._v(_vm._s(_vm.errors.confirm_date[0]))
+                              ])
+                            ]
+                          )
+                        : _vm._e()
+                    ])
                   ]),
+                  _vm._v(" "),
+                  _vm.delivery_order.sales_order_id != ""
+                    ? _c(
+                        "div",
+                        { staticClass: "col-12" },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "table-responsive m-t-40",
+                              staticStyle: { clear: "both" }
+                            },
+                            [
+                              _c(
+                                "table",
+                                {
+                                  staticClass: "table table-hover",
+                                  staticStyle: { "font-size": "9pt" },
+                                  attrs: { id: "contentTable" }
+                                },
+                                [
+                                  _vm._m(2),
+                                  _vm._v(" "),
+                                  _c(
+                                    "tbody",
+                                    _vm._l(_vm.do_details, function(
+                                      orders,
+                                      index
+                                    ) {
+                                      return _c("tr", { key: index }, [
+                                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(orders.skuid))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(orders.item_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(orders.uom_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(orders.qty_order))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(orders.qty_do))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value:
+                                                  _vm.qty_confirm[index].qty,
+                                                expression:
+                                                  "qty_confirm[index].qty"
+                                              }
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "number",
+                                              max: orders.qty
+                                            },
+                                            domProps: {
+                                              value: _vm.qty_confirm[index].qty
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  _vm.qty_confirm[index],
+                                                  "qty",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.qty_minus[index].qty,
+                                                expression:
+                                                  "qty_minus[index].qty"
+                                              }
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: { type: "number", min: "0" },
+                                            domProps: {
+                                              value: _vm.qty_minus[index].qty
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  _vm.qty_minus[index],
+                                                  "qty",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: orders.remark,
+                                                expression: "orders.remark"
+                                              }
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              placeholder: "Remark Confirm"
+                                            },
+                                            domProps: { value: orders.remark },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  orders,
+                                                  "remark",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ])
+                                      ])
+                                    }),
+                                    0
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.do_details, function(orders, index) {
+                            return _c("div", { key: index }, [
+                              _vm.errors["do_details." + index + ".qty_confirm"]
+                                ? _c(
+                                    "div",
+                                    {
+                                      staticStyle: {
+                                        "margin-top": ".25rem",
+                                        "font-size": "80%",
+                                        color: "#dc3545"
+                                      }
+                                    },
+                                    [
+                                      _c("p", [
+                                        _vm._v(
+                                          "The " +
+                                            _vm._s(
+                                              _vm.do_details[index].item_name
+                                            ) +
+                                            " of qty confirm field is required."
+                                        )
+                                      ])
+                                    ]
+                                  )
+                                : _vm._e()
+                            ])
+                          })
+                        ],
+                        2
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-12" }, [
                     _c("div", { staticClass: "form-group" }, [
-                      _vm._m(3, true),
+                      _vm._m(3),
                       _vm._v(" "),
                       _c("textarea", {
                         directives: [
@@ -60144,40 +60245,37 @@ var render = function() {
                         }
                       })
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("div", { staticClass: "card-body" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.submitForm()
+                            }
+                          }
+                        },
+                        [_vm._v("Submit\n                            ")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button", onclick: "back()" }
+                        },
+                        [_vm._v("Back\n                            ")]
+                      )
+                    ])
                   ])
                 ],
                 1
               )
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-12" }, [
-              _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    on: {
-                      click: function($event) {
-                        return _vm.submitForm()
-                      }
-                    }
-                  },
-                  [_vm._v("Submit\n                        ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", onclick: "back()" }
-                  },
-                  [_vm._v("Back\n                        ")]
-                )
-              ])
-            ])
-          ],
-          2
-        )
+        ])
       ])
     ])
   ])
@@ -89850,7 +89948,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'confirm_delivery_order',
     component: _components_Warehouse_IndexConfirmDeliveryOrder__WEBPACK_IMPORTED_MODULE_24__["default"]
   }, {
-    path: '/admin/warehouse/confirm-delivery-order/create',
+    path: '/admin/warehouse/confirm-delivery-order/create/:id',
     name: 'confirm_delivery_order.create',
     component: _components_Warehouse_ConfirmDeliveryOrder__WEBPACK_IMPORTED_MODULE_25__["default"]
   }, //WarehouseIn

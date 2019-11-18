@@ -179,7 +179,7 @@ const router = new VueRouter({
             component: IndexConfirmDeliveryOrder
         },
         {
-            path: '/admin/warehouse/confirm-delivery-order/create',
+            path: '/admin/warehouse/confirm-delivery-order/create/:id',
             name: 'confirm_delivery_order.create',
             component: AddConfirmDeliveryOrder
         },

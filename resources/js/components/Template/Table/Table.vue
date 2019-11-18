@@ -26,7 +26,8 @@
                                 Invoice <i class="fas fa-print"></i>
                             </router-link>
 
-                            <router-link :to="{ name: config.route_confirm , query:{ id: selected}}" class="btn btn-warning ml-2"
+                            <router-link :to="{ name: config.route_confirm , query:{ id: selected}}"
+                                         class="btn btn-warning ml-2"
                                          style="color: white" v-if="config.route_confirm && selected != 0">
                                 Confirm Multiple
                                 <i class="fas fa-print"></i>
@@ -127,7 +128,7 @@
 
                                 <router-link v-if="config.route_confirm"
                                              class="badge badge-warning"
-                                             :to="'/admin/warehouse/confirm-delivery-order/id='+ item.id">Confirm
+                                             :to="{ name: config.route_confirm , params:{ id: item.id }}">Confirm
                                 </router-link>
                             </td>
                             <td v-for="column in columns">
@@ -284,7 +285,7 @@
                     .then(res => {
                         if (res.data.status === true) {
                             Vue.swal({
-                               type: "success",
+                                type: "success",
                                 title: "Success!",
                                 text: "Berhasil Membuat Rekap Invoice!"
                             }).then(next => {
@@ -295,7 +296,7 @@
                             });
                         } else {
                             Vue.swal({
-                                 type: "error",
+                                type: "error",
                                 title: "Danger!",
                                 text: "Customer Harus Sama!"
                             });
