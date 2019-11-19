@@ -66,7 +66,8 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         Route::name('confirm.')->prefix('confirm')->group(function () {
             Route::get('/', 'WarehouseIn\ConfirmController@index')->name('index');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
-//            Route::get('/{id}', 'WarehouseIn\ConfirmController@show')->name('show');
+            Route::get('/{id}', 'WarehouseIn\ConfirmController@show')->name('show');
+            Route::get('/create', 'WarehouseIn\ConfirmController@create')->name('create');
         });
     });
 

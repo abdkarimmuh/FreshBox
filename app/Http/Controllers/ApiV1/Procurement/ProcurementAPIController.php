@@ -84,6 +84,29 @@ class ProcurementAPIController extends Controller
         $remarks = $request->remarks;
         $items = $request->items;
 
+        foreach ($items as $item) {
+            $assignProcurement = AssignProcurement::where('user_proc_id', $user_proc_id)
+                ->where('status', 1)
+                ->where('skuid', $item['skuid'])
+                ->get();
+            
+            if ($assignProcurement->isEmpty()) {
+                return response()->json([
+                    'status' => 'Barang Sudah Dibeli',
+                ]);
+            }
+        }
+
+        if ($request->file) {
+            $file = $request->file;
+            @list($type, $file_data) = explode(';', $file);
+            @list(, $file_data) = explode(',', $file_data);
+            $file_name = $this->generateProcOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
+        } else {
+            $file_name = '';
+        }
+
         $userProc = UserProc::where('user_id', $user_proc_id)->first();
 
         if ($userProc->saldo < $total_amount) {
@@ -95,16 +118,6 @@ class ProcurementAPIController extends Controller
 
         $userProc->saldo = intval($userProc->saldo) - intval($total_amount);
         $userProc->save();
-
-        if ($request->file) {
-            $file = $request->file;
-            @list($type, $file_data) = explode(';', $file);
-            @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateProcOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-            Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
-        } else {
-            $file_name = '';
-        }
 
         $procurement = ListProcurement::create([
             'procurement_no' => $this->generateProcOrderNo(),
@@ -120,16 +133,6 @@ class ProcurementAPIController extends Controller
         ]);
 
         foreach ($items as $item) {
-            // $listProcDetails[] = [
-            //     'trx_list_procurement_id' => $procurement->id,
-            //     'skuid' => $item['skuid'],
-            //     'qty' => $item['qty'],
-            //     'uom_id' => $item['uom_id'],
-            //     'amount' => $item['amount'],
-            //     'status' => 1,
-            //     'created_by' => $user_proc_id,
-            //     'created_at' => Carbon::now(),
-            // ];
 
             $listProcDetails = ListProcurementDetail::create([
                 'trx_list_procurement_id' => $procurement->id,
@@ -150,7 +153,6 @@ class ProcurementAPIController extends Controller
             foreach ($assignProcurement as $value) {
                 $value->update(['status' => 2]);
                 $value->SalesOrderDetail->update(['status' => 3]);
-                $value->SalesOrderDetail->SalesOrder->update(['status' => 3]);
 
                 AssignSalesOrderDetail::create([
                     'sales_order_detail_id' => $value->SalesOrderDetail->id,
@@ -163,8 +165,6 @@ class ProcurementAPIController extends Controller
                 ]);
             }
         }
-
-        // ListProcurementDetail::insert($listProcDetails);
 
         return response()->json([
             'status' => 'success',

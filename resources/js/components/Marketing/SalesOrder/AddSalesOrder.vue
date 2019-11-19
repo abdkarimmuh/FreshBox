@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--                        Items-->
+                        <!--Items-->
                         <div class="col-md-6"
                              v-if="sales_order.fulfillmentDate != ''">
                             <div class="form-group">

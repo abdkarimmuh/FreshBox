@@ -34,7 +34,7 @@ class ConfirmController extends Controller
              * Route Can Be Null
              */
             //Route For Button Add
-            // 'route-add' => 'admin.warehouseIn.confirm.create',
+            'route-add' => 'admin.warehouseIn.confirm.create',
             //Route For Button View
             //Route For Button Search
             'route-search' => 'admin.warehouseIn.confirm.index',
@@ -53,6 +53,7 @@ class ConfirmController extends Controller
      */
     public function create()
     {
+        return redirect('admin/warehouseIn/confirm/create');
     }
 
     /**

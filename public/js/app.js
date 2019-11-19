@@ -59976,21 +59976,45 @@ var render = function() {
                     [
                       _c("thead", [
                         _c("tr", [
-                          _c("th", { staticClass: "text-center" }, [
+                          _c("th", { staticStyle: { width: "150px" } }, [
                             _vm._v("Item Name")
                           ]),
                           _vm._v(" "),
-                          _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Qty Assign")
-                          ]),
+                          _c(
+                            "th",
+                            {
+                              staticClass: "text-center",
+                              staticStyle: {
+                                overflow: "hidden",
+                                "white-space": "nowrap"
+                              }
+                            },
+                            [_vm._v("Qty Assign")]
+                          ),
                           _vm._v(" "),
-                          _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Qty Buy")
-                          ]),
+                          _c(
+                            "th",
+                            {
+                              staticClass: "text-center",
+                              staticStyle: {
+                                overflow: "hidden",
+                                "white-space": "nowrap"
+                              }
+                            },
+                            [_vm._v("Qty Buy")]
+                          ),
                           _vm._v(" "),
-                          _c("th", { staticClass: "text-center" }, [
-                            _vm._v("UOM")
-                          ]),
+                          _c(
+                            "th",
+                            {
+                              staticClass: "text-center",
+                              staticStyle: {
+                                overflow: "hidden",
+                                "white-space": "nowrap"
+                              }
+                            },
+                            [_vm._v("UOM")]
+                          ),
                           _vm._v(" "),
                           _c("th", { staticClass: "text-center" }, [
                             _vm._v("Berat Kotor")
@@ -60010,53 +60034,19 @@ var render = function() {
                         "tbody",
                         _vm._l(_vm.procurement.items, function(item, index) {
                           return _c("tr", { key: index }, [
-                            _c(
-                              "td",
-                              {
-                                staticClass: "text-center",
-                                staticStyle: {
-                                  overflow: "hidden",
-                                  "white-space": "nowrap"
-                                }
-                              },
-                              [_vm._v(_vm._s(item.name))]
-                            ),
+                            _c("td", [_vm._v(_vm._s(item.name))]),
                             _vm._v(" "),
-                            _c(
-                              "td",
-                              {
-                                staticClass: "text-center",
-                                staticStyle: {
-                                  overflow: "hidden",
-                                  "white-space": "nowrap"
-                                }
-                              },
-                              [_vm._v(_vm._s(item.qty_assign))]
-                            ),
+                            _c("td", { staticClass: "text-center" }, [
+                              _vm._v(_vm._s(item.qty_assign))
+                            ]),
                             _vm._v(" "),
-                            _c(
-                              "td",
-                              {
-                                staticClass: "text-center",
-                                staticStyle: {
-                                  overflow: "hidden",
-                                  "white-space": "nowrap"
-                                }
-                              },
-                              [_vm._v(_vm._s(item.qty))]
-                            ),
+                            _c("td", { staticClass: "text-center" }, [
+                              _vm._v(_vm._s(item.qty))
+                            ]),
                             _vm._v(" "),
-                            _c(
-                              "td",
-                              {
-                                staticClass: "text-center",
-                                staticStyle: {
-                                  overflow: "hidden",
-                                  "white-space": "nowrap"
-                                }
-                              },
-                              [_vm._v(_vm._s(item.uom))]
-                            ),
+                            _c("td", { staticClass: "text-center" }, [
+                              _vm._v(_vm._s(item.uom))
+                            ]),
                             _vm._v(" "),
                             _c("td", [
                               _c("input", {

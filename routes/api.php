@@ -37,7 +37,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/', function () {
                 return new UserProcResource(auth()->user());
             });
-            Route::post('/changePassword', 'UserController@changePassword');
 
             Route::group(['namespace' => 'Procurement\\'], function () {
                 Route::group(['prefix' => 'notif'], function () {
