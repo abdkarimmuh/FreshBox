@@ -61524,9 +61524,16 @@ var render = function() {
                     [
                       _c("thead", [
                         _c("tr", [
-                          _c("th", { staticClass: "text-center" }, [
-                            _vm._v("Item Name")
-                          ]),
+                          _c(
+                            "th",
+                            {
+                              staticStyle: {
+                                overflow: "hidden",
+                                "white-space": "nowrap"
+                              }
+                            },
+                            [_vm._v("Item Name")]
+                          ),
                           _vm._v(" "),
                           _c(
                             "th",
@@ -61577,7 +61584,6 @@ var render = function() {
                             _c(
                               "td",
                               {
-                                staticClass: "text-center",
                                 staticStyle: {
                                   overflow: "hidden",
                                   "white-space": "nowrap"
