@@ -7,11 +7,17 @@
                     <div class="col-lg-9">
                         <div class="row">
                             <h4 class="text-danger">{{ $config['title'] }}</h4>
-                            @if(isset($config['route-add']))
+                            @isset($config['route-add'])
                                 <a href="{{ route($config['route-add']) }}" class="btn btn-danger ml-2">
                                     Add <i class="fas fa-plus"></i>
                                 </a>
-                            @endif
+                            @endisset
+                            @isset($config['route-upload'])
+                                <a href="{{ url($config['route-upload']) }}" class="btn btn-success ml-2">
+                                    Bulk Upload
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            @endisset
                             @isset($config['route-multiple-print'])
                                 <a class="btn btn-info ml-2" onclick="document.getElementById('checked-form').submit()"
                                    style="color: white">Print <i class="fas fa-print"></i>
@@ -59,23 +65,50 @@
                                         @foreach($data as $row)
                                             <tr>
                                                 @if( isset($config['route-edit']) || isset($config['route-delete']) || isset($config['route-view']) || isset($config['route-multiple-print']) || isset($config['route-confirm']) )
-                                                @isset($config['route-multiple-print'])
+                                                    @isset($config['route-multiple-print'])
+                                                        <td>
+                                                            <input type="checkbox" name="id[]" class="custom-checkbox"
+                                                                   value="{{ $row->id }}">
+                                                        </td>
+                                                    @endisset
                                                     <td>
-                                                        <input type="checkbox" name="id[]" class="custom-checkbox"
-                                                               value="{{ $row->id }}">
-                                                    </td>
-                                                @endisset
-                                                <td>
-                                                    @isset($row['status'])
-                                                        @isset($config['route-view'])
-                                                            <a href="{{ route($config['route-view'], ['id' => $row->id]) }}"
-                                                               class="badge badge-primary"
-                                                               title="View">
-                                                                View
-                                                            </a>
-                                                        @endisset
+                                                        @isset($row['status'])
+                                                            @isset($config['route-view'])
+                                                                <a href="{{ route($config['route-view'], ['id' => $row->id]) }}"
+                                                                   class="badge badge-primary"
+                                                                   title="View">
+                                                                    View
+                                                                </a>
+                                                            @endisset
 
-                                                        @if($row['status'] == 1 && $row['is_printed'] == 0)
+                                                            @if($row['status'] == 1 && $row['is_printed'] == 0)
+                                                                @isset($config['route-edit'])
+                                                                    <a
+                                                                        href="{{ route($config['route-edit'], ['id' => $row->id]) }}"
+                                                                        class="badge badge-warning"
+                                                                        title="Edit">
+                                                                        Edit
+                                                                    </a>
+                                                                @endisset
+                                                                @isset($config['route-delete'])
+                                                                    <a href="{{ route($config['route-delete'], ['id' => $row->id]) }}"
+                                                                       class="badge badge-danger"
+                                                                       title="Delete">
+                                                                        Delete
+                                                                    </a>
+                                                                @endisset
+                                                            @endif
+                                                        @else
+                                                            @isset($config['route-view'])
+                                                                <a href="{{ route($config['route-view'], ['id' => $row->id]) }}"
+                                                                   class="badge badge-primary"
+                                                                   title="View">
+                                                                    View
+                                                                </a>
+                                                            @endisset
+                                                            @isset($config['confirm-button'])
+                                                                {!! $config['confirm-button'] !!}
+                                                            @endisset
                                                             @isset($config['route-edit'])
                                                                 <a
                                                                     href="{{ route($config['route-edit'], ['id' => $row->id]) }}"
@@ -91,42 +124,15 @@
                                                                     Delete
                                                                 </a>
                                                             @endisset
-                                                        @endif
-                                                    @else
-                                                        @isset($config['route-view'])
-                                                            <a href="{{ route($config['route-view'], ['id' => $row->id]) }}"
-                                                               class="badge badge-primary"
-                                                               title="View">
-                                                                View
-                                                            </a>
+                                                            @isset($config['route-confirm'])
+                                                                <a href="{{ route($config['route-confirm'], ['id' => $row->id]) }}"
+                                                                   class="badge badge-warning"
+                                                                   title="Confirm">
+                                                                    Confirm
+                                                                </a>
+                                                            @endisset
                                                         @endisset
-                                                        @isset($config['confirm-button'])
-                                                            {!! $config['confirm-button'] !!}
-                                                        @endisset
-                                                        @isset($config['route-edit'])
-                                                            <a
-                                                                href="{{ route($config['route-edit'], ['id' => $row->id]) }}"
-                                                                class="badge badge-warning"
-                                                                title="Edit">
-                                                                Edit
-                                                            </a>
-                                                        @endisset
-                                                        @isset($config['route-delete'])
-                                                            <a href="{{ route($config['route-delete'], ['id' => $row->id]) }}"
-                                                               class="badge badge-danger"
-                                                               title="Delete">
-                                                                Delete
-                                                            </a>
-                                                        @endisset
-                                                        @isset($config['route-confirm'])
-                                                            <a href="{{ route($config['route-confirm'], ['id' => $row->id]) }}"
-                                                               class="badge badge-warning"
-                                                               title="Confirm">
-                                                                Confirm
-                                                            </a>
-                                                        @endisset
-                                                    @endisset
-                                                </td>
+                                                    </td>
                                                 @endif
                                                 @foreach($columns as $column)
                                                     @if($column['field'] === 'status_name')

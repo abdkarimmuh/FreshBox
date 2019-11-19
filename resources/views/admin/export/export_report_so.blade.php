@@ -48,7 +48,7 @@
             <td>{{ $row->delivery_order->delivery_order_no }}</td>
             <td>{{ $row->delivery_order->do_date }}</td>
             <td>{{ $row->qty_do }}</td>
-            <td>{{ $row->sales_order_detail->amount_price }}</td>
+            <td>{{ format_price($row->total_amount_do) }}</td>
             <td>{{ $row->sales_order_detail->no_po }}</td>
             <td>{{ $row->delivery_order->customer->id }}</td>
         </tr>

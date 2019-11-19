@@ -23,7 +23,7 @@ class DetailProcurementResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'name' => $this->item_name,
+            'name' => $this->name_item,
             'qty' => intval($this->qty),
             'qty_assign' => intval($qty_assign),
             'qty_minus' => intval($this->qty_minus),

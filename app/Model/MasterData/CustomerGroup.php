@@ -12,12 +12,6 @@ class CustomerGroup extends MyModel
     use SoftDeletes;
 
     protected $table = 'master_customer_group';
-
-    protected $appends = [
-        'created_by_name',
-        'updated_by_name'
-    ];
-
     protected $columns = [
         'id' => [
             'searchable' => false,

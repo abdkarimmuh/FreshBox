@@ -7,6 +7,7 @@
                 </div>
                 <div class="col-12">
                     <div class="row">
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
@@ -431,7 +432,7 @@
                 try {
                     const res = await axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order/store"), payload);
                     Vue.swal({
-                        type: "success",
+                       type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
@@ -501,7 +502,7 @@
                 const indexItem = this.orders_detail.findIndex(x => x.skuid === skuid);
                 if (indexItem >= 0) {
                     Vue.swal({
-                        type: "error",
+                         type: "error",
                         title: "ERROR!",
                         text: "Item Already Added!"
                     });

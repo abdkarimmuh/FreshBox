@@ -6,7 +6,11 @@
                     <h4 class="text-danger">Confirm Delivery Order</h4>
                 </div>
                 <div class="col-12">
-                    <div class="row">
+
+                    <div class="text-center" v-if="loading">
+                        <LoadingTable/>
+                    </div>
+                    <div class="row" v-else>
                         <!-- Delivery Order No -->
                         <s-form-input
                             :model="delivery_order.delivery_order_no"
@@ -28,7 +32,8 @@
                                         v-model="confirm_date"
                                         lang="en"
                                         valueType="format">
-                                    ></date-picker>
+                                        >
+                                    </date-picker>
                                 </div>
                                 <div
                                     style="margin-top: .25rem; font-size: 80%;color: #dc3545"
@@ -150,6 +155,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -157,7 +163,10 @@
 </template>
 
 <script>
+    import LoadingTable from "../Template/Table/partials/LoadingTable";
+
     export default {
+        components: {LoadingTable},
         props: ['do_id'],
         data() {
             return {
@@ -165,7 +174,8 @@
                 delivery_order: {},
                 do_details: [],
                 qty_minus: [],
-                errors: []
+                errors: [],
+                loading: true,
             };
         },
         mounted() {
@@ -180,7 +190,7 @@
             //   }
             // },
             getData() {
-                axios.get(this.$parent.MakeUrl("admin/warehouse/confirm_delivery_order/" + this.do_id + "/create"))
+                axios.get(this.$parent.MakeUrl("api/v1/warehouse/confirm-delivery-order/show?id=" + this.$route.params.id))
                     .then(res => {
                         console.log(res);
                         this.delivery_order = res.data.data;
@@ -191,6 +201,7 @@
                         this.qty_minus = this.do_details.map((item, idx) => ({
                             qty: 0
                         }));
+                        this.loading = false;
                     })
                     .catch(err => {
                     });
@@ -206,15 +217,16 @@
                         qty_confirm: this.qty_confirm[idx].qty,
                         qty_minus: this.qty_minus[idx].qty
                     }))
+
                 };
                 try {
-                    const res = await axios.patch(this.$parent.MakeUrl("admin/warehouse/confirm_delivery_order/update"), payload);
+                    const res = await axios.patch(this.$parent.MakeUrl("api/v1/warehouse/confirm-delivery-order/update"), payload);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
                         text: "Successfully Confirm Delivery Order!"
                     }).then(next => {
-                        window.location.href = "/admin/warehouse/confirm_delivery_order";
+                        window.location.href = "/admin/warehouse/confirm-delivery-order";
                     });
                     console.log(res);
                 } catch (e) {
@@ -222,8 +234,6 @@
                     console.error(e.response.data);
                 }
             },
-
         }
     };
 </script>
-

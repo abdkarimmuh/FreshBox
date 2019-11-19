@@ -9,7 +9,7 @@
                             <router-link :to="{ name: config.route_create }" class="btn btn-danger ml-2"
                                          v-if="config.route_create">Add
                                 <i class="fas fa-plus"></i></router-link>
-                            <a :href="'reportso/export'" class="btn btn-danger ml-2"
+                            <a :href="config.url_export" class="btn btn-danger ml-2"
                                style="color: white" v-if="config.export_excel">Export Excel</a>
 
                             <a class="btn btn-info ml-2" style="color: white" @click="print()"
@@ -26,7 +26,8 @@
                                 Invoice <i class="fas fa-print"></i>
                             </router-link>
 
-                            <router-link :to="{ name: config.route_confirm}" class="btn btn-warning ml-2"
+                            <router-link :to="{ name: config.route_confirm , query:{ id: selected}}"
+                                         class="btn btn-warning ml-2"
                                          style="color: white" v-if="config.route_confirm && selected != 0">
                                 Confirm Multiple
                                 <i class="fas fa-print"></i>
@@ -127,7 +128,7 @@
 
                                 <router-link v-if="config.route_confirm"
                                              class="badge badge-warning"
-                                             :to="{ name: config.route_confirm , params: { id: item.id }}">Confirm
+                                             :to="{ name: config.route_confirm , params:{ id: item.id }}">Confirm
                                 </router-link>
                             </td>
                             <td v-for="column in columns">
@@ -146,7 +147,7 @@
                     </table>
                     <div v-if="!data.length" class="text-center p-3 text-muted">
                         <h5>No Results</h5>
-                        <p>Looks like you have not added any users yet!</p>
+                        <p>Looks like you have not added any data yet!</p>
                     </div>
                     <!--                    <stisla-pagination :offset="5" :pagination="pagination" @paginate="getData"></stisla-pagination>-->
                 </div>
@@ -304,14 +305,6 @@
                     }).catch(e => {
 
                 });
-            },
-            async toExcel() {
-                try {
-                    const res = await axios.get(BaseUrl('admin/report/reportso/export'));
-                    console.log(res);
-                } catch (e) {
-                    console.log(e.response);
-                }
             }
         },
         computed: {

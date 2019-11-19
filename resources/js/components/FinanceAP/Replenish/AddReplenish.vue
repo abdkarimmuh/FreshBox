@@ -1,0 +1,279 @@
+<template>
+    <!--    Select List Procurement -->
+    <!-- - File-->
+    <!-- - Pilih Status Replenish or Return Replenish -->
+    <!-- - Remark-->
+    <!-- -> After Select List Procurement Showing Detail Items:-->
+    <!--item_name,qty,uom_name,amount-->
+
+    <!--after update status list procurement : 4 = replenish  : 5 = return replenish -->
+
+    <!-- -created_by-->
+    <!-- ->list_proc_id-->
+    <stisla-create-template title="Add Warehouse Confirm">
+        <div class="row">
+            <!-- Sales Order No -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>
+                        <b>Procurement No</b>
+                        <span style="color: red;">*</span>
+                    </label>
+                    <div>
+                        <model-list-select
+                            v-bind:class="{'is-invalid': errors.procurementId}"
+                            :list="procurements"
+                            v-model="procurementId"
+                            v-on:input="getProcurement()"
+                            option-value="id"
+                            option-text="no_proc"
+                            placeholder="Select Procurement No"
+                        ></model-list-select>
+                        <div
+                            style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                            v-if="errors.procurementId"
+                        >
+                            <p>{{ errors.procurementId[0] }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- User Proc -->
+            <div class="col-md-6" v-if="procurementId !== ''">
+                <div class="form-group">
+                    <label>
+                        <b>User Proc Name</b>
+                    </label>
+                    <div>
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="procurement.proc_name"
+                            disabled
+                        />
+                    </div>
+                </div>
+            </div>
+            <!--            Vendor Name-->
+            <div class="col-md-3" v-if="procurementId !== ''">
+                <div class="form-group">
+                    <label>
+                        <b>Vendor</b>
+                    </label>
+                    <div>
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="procurement.vendor"
+                            disabled
+                        />
+                    </div>
+                </div>
+            </div>
+            <!--            Total Amount-->
+            <div class="col-md-3" v-if="procurementId !== ''">
+                <div class="form-group">
+                    <label>
+                        <b>Total Amount</b>
+                    </label>
+                    <div>
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="procurement.total_amount"
+                            disabled
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div
+                v-if="procurementId !== ''"
+                class="col-12"
+            >
+                <div
+                    class="table-responsive m-t-40"
+                    style="clear: both;"
+                >
+                    <table
+                        class="table table-hover"
+                        id="contentTable"
+                        style="font-size: 9pt;"
+                    >
+                        <thead>
+                        <tr>
+                            <th class="text-center">Item Name</th>
+                            <th class="text-center">Qty Assign</th>
+                            <th class="text-center">Qty Buy</th>
+                            <th class="text-center">UOM</th>
+                            <th class="text-center">Berat Kotor</th>
+                            <th class="text-center">Berat Bersih</th>
+                            <th class="text-center">Qty Minus</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr
+                            v-for="(item, index) in procurement.items"
+                            v-bind:key="index"
+                        >
+                            <td
+                                class="text-center"
+                                style="overflow:hidden; white-space:nowrap"
+                            >{{ item.name }}
+                            </td>
+                            <td
+                                class="text-center"
+                                style="overflow:hidden; white-space:nowrap"
+                            >{{ item.qty_assign }}
+                            </td>
+                            <td
+                                class="text-center"
+                                style="overflow:hidden; white-space:nowrap"
+                            >{{ item.qty }}
+                            </td>
+                            <td
+                                class="text-center"
+                                style="overflow:hidden; white-space:nowrap"
+                            >{{ item.uom }}
+                            </td>
+                            <td>
+                                <input
+                                    v-model="item.bruto"
+                                    type="number"
+                                    class="form-control"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    v-model="item.netto"
+                                    type="number"
+                                    class="form-control"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    v-model="item.qty_minus"
+                                    type="number"
+                                    class="form-control"
+                                />
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div
+                class="col-md-12"
+                v-if="procurementId !== ''"
+            >
+                <div class="form-group">
+                    <label>
+                        <b>Remark</b>
+                    </label>
+                    <textarea
+                        v-model="procurement.remark"
+                        class="form-control"
+                    ></textarea>
+                </div>
+            </div>
+            <div
+                class="col-12"
+                v-if="procurementId !== ''"
+            >
+                <div class="card-body">
+                    <div v-if="loadingSubmit">
+                        <button-loading/>
+                    </div>
+                    <div v-else>
+                        <button
+                            class="btn btn-danger"
+                            v-on:click="submitForm()"
+                        >Submit
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="history.back()"
+                        >Back
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </stisla-create-template>
+</template>
+
+<script>
+    import {ModelListSelect} from "vue-search-select";
+    import ButtonLoading from "../../Template/Etc/ButtonLoading";
+    import StislaCreateTemplate from "../../Template/StislaCreateTemplate";
+
+    export default {
+        data() {
+            return {
+                procurementId: "",
+                procurement: {},
+                procurements: [],
+                errors: [],
+                loadingSubmit: false
+            };
+        },
+        mounted() {
+            this.getProcurements();
+        },
+        methods: {
+            getProcurements() {
+                axios.get(this.$parent.MakeUrl("api/v1/procurement/not-confirmed")).then(res => {
+                    this.procurements = res.data.data;
+                }).catch(err => {
+                    console.log(err);
+                });
+            },
+            getProcurement() {
+                axios.get(this.$parent.MakeUrl("api/v1/procurement/show/" + this.procurementId))
+                    .then(res => {
+                        this.procurement = res.data.data;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            },
+            async submitForm() {
+                this.loadingSubmit = true;
+                const payload = {
+                    procurementId: this.procurementId,
+                    userProcId: this.procurement.user_proc_id,
+                    remark: this.procurement.remark,
+                    items: this.procurement.items.map((item, idx) => ({
+                        id: item.id,
+                        bruto: item.bruto,
+                        netto: item.netto,
+                        tara: item.tara,
+                        qty_minus: item.qty_minus
+                    }))
+                };
+                try {
+                    const res = await axios.post("/api/v1/warehouseIn/confirm/store", payload);
+                    Vue.swal({
+                        type: "success",
+                        title: "Success!",
+                        text: "Successfully Insert Data!"
+                    }).then(next => {
+                        this.$router.push({name: 'warehouseIn.confirm'})
+                    });
+                } catch (e) {
+                    this.errors = e.response.data.errors;
+                    console.error(e.response.data);
+                    this.loadingSubmit = false;
+                }
+            },
+
+        },
+        components: {
+            StislaCreateTemplate,
+            ButtonLoading,
+            ModelListSelect
+        }
+    };
+</script>
+

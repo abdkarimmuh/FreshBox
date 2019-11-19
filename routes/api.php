@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::get('users/roles', 'UserController@roles')->name('users.roles');
 Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     App::setLocale('id');
     /*
@@ -112,7 +112,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/show', 'DeliveryOrderAPIController@show');
         });
         //Confirm Delivery Order
-        Route::group(['prefix' => 'confirm_deliver_order'], function () {
+        Route::group(['prefix' => 'confirm-delivery-order'], function () {
             Route::get('/', 'ConfirmDeliveryOrderAPIController@index');
             Route::get('/show', 'ConfirmDeliveryOrderAPIController@show');
             Route::patch('/update', 'ConfirmDeliveryOrderAPIController@update');
@@ -182,6 +182,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
                 return UomResource::collection(Uom::all());
             });
         });
+
+        Route::group(['prefix' => 'customer-group'], function () {
+            Route::get('/', 'MasterDataController@getCustomerGroup');
+        });
         Route::group(['prefix' => 'vendor'], function () {
             Route::get('/', function () {
                 return VendorResource::collection(Vendor::all());
@@ -201,6 +205,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         Route::get('customer', 'CustomerAPIController@index')->name('api.customer');
         Route::get('list_customer', 'CustomerAPIController@all');
     });
+
+    Route::group(['prefix' => 'import-data-price-temp', 'namespace' => 'ImportExcel\\'], function () {
+        Route::post('/', 'PriceUploadController@store');
+        Route::post('/generate', 'PriceUploadController@generateMasterPriceAll');
+    });
 });
 
 Route::resource('users', 'UserController', [
@@ -213,7 +222,6 @@ Route::resource('users', 'UserController', [
  * Testing Route
  */
 
-Route::get('users/roles', 'UserController@roles')->name('users.roles');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

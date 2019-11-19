@@ -8,12 +8,13 @@ use App\Model\Marketing\SalesOrder;
 use App\Model\Warehouse\DeliveryOrder;
 use App\Model\Warehouse\DeliveryOrderDetail;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ConfirmDeliveryOrderAPIController extends Controller
 {
     /**
      * @param Request $request
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return AnonymousResourceCollection
      */
     public function index(Request $request)
     {
@@ -41,11 +42,19 @@ class ConfirmDeliveryOrderAPIController extends Controller
      */
     public function show(Request $request)
     {
-        $delivery_order = DeliveryOrder::whereIn('id', $request->id)
-            ->whereHas('sales_order', function ($q) {
+        if (is_array($request->id)) {
+            $do = DeliveryOrder::whereIn('id', $request->id)->whereHas('sales_order', function ($q) {
                 $q->where('status', 4);
-            })->get();
-        return new DeliveryOrderResource($delivery_order);
+            })->orderBy('delivery_order_no', 'desc')->get();
+            return DeliveryOrderResource::collection($do);
+
+        } else {
+            $do = DeliveryOrder::whereHas('sales_order', function ($q) {
+                $q->where('status', 4);
+            })->where('id', $request->id)->first();
+            return new DeliveryOrderResource($do);
+
+        }
     }
 
     /**
@@ -57,7 +66,6 @@ class ConfirmDeliveryOrderAPIController extends Controller
         $rules = [
             'confirm_date' => 'required',
             'do_details.*.qty_confirm' => 'required',
-
         ];
         //Validasi Inputan
         $request->validate($rules);

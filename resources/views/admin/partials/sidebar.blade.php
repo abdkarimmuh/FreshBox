@@ -14,6 +14,7 @@
             <a class="nav-link" href="{{ route('admin.dashboard') }}">
                 <i class="fas fa-home"></i><span>Dashboard</span></a>
         </li>
+        {{--        Marketing--}}
         <li class="dropdown {{ request()->segment(2) == 'marketing' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
             <ul class="dropdown-menu">
@@ -31,6 +32,7 @@
                 @endif
             </ul>
         </li>
+        {{--        Procurement--}}
         <li class="dropdown {{ request()->segment(2) == 'procurement' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-box-open"></i><span>Procurement</span></a>
             <ul class="dropdown-menu">
@@ -46,6 +48,7 @@
                 </li>
             </ul>
         </li>
+        {{--        Warheouse In--}}
         <li class="dropdown {{ request()->segment(2) == 'warehouseIn' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-warehouse"></i><span>Warehouse In</span></a>
             <ul class="dropdown-menu">
@@ -55,6 +58,7 @@
                 </li>
             </ul>
         </li>
+        {{--        Warehous Out--}}
         <li class="dropdown {{ request()->segment(2) == 'warehouse' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-truck"></i><span>Warehouse Out</span></a>
             <ul class="dropdown-menu">
@@ -76,8 +80,19 @@
                 </li>
             </ul>
         </li>
+        {{--        Finance AP--}}
+        <li class="dropdown {{ request()->segment(2) == 'finance-ap' ? ' active' : '' }}">
+            <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance AP</span></a>
+            <ul class="dropdown-menu">
+                <li class="{{ request()->segment(3) == 'replenish' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance-ap/replenish') }}"
+                       class="nav-link"><span>Finance Replenish</span></a>
+                </li>
+            </ul>
+        </li>
+        {{--        Finance AR--}}
         <li class="dropdown {{ request()->segment(2) == 'finance' ? ' active' : '' }}">
-            <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance</span></a>
+            <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance AR</span></a>
             <ul class="dropdown-menu">
                 @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'warehouse' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
                     <router-link :to="{ name: 'invoice_order'}" v-slot="{ href, navigate, isActive }">
@@ -114,7 +129,8 @@
                     <a class="nav-link" href="{{route('admin.report.reportso.index')}}"><span>SO Report</span></a>
                 </li>
                 <li class="{{ request()->route()->getName() == 'admin.report.reportFinanceAR.index' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{route('admin.report.reportFinanceAR.index')}}"><span>Report Finance AR</span></a>
+                    <a class="nav-link"
+                       href="{{route('admin.report.reportFinanceAR.index')}}"><span>Report Finance AR</span></a>
                 </li>
             </ul>
         </li>

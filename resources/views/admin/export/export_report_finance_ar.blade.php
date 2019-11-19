@@ -26,11 +26,13 @@
         <th><b>DO No.</b></th>
         <th><b>DO Date</b></th>
         <th><b>Quantity 2</b></th>
-        <th><b>Price/Unit</b></th>
         <th><b>No. PO</b></th>
         <th><b>Invoice No</b></th>
         <th><b>Invoice Date</b></th>
         <th><b>Qty Confirm</b></th>
+        <th><b>Total Amount</b></th>
+        <th><b>Disc</b></th>
+        <th><b>Total Amount(After Disc)</b></th>
         <th><b>Cust ID</b></th>
     </tr>
     </thead>
@@ -43,19 +45,21 @@
             <td>{{ $row->sales_order_detail->so_date }}</td>
             <td>{{ $row->item->Origin->origin_code }}</td>
             <td>{{ $row->sales_order_detail->category_name }}</td>
-            <td> {{$row->item->skuid}}</td>
-            <td> {{$row->item->name_item}}</td>
+            <td>{{ $row->item->skuid }}</td>
+            <td>{{ $row->item->name_item }}</td>
             <td>{{ $row->uom->name }}</td>
             <td>{{  format_price($row->sales_order_detail->amount_price) }}</td>
             <td>{{ $row->sales_order_detail->qty }}</td>
             <td>{{ $row->delivery_order->delivery_order_no }}</td>
             <td>{{ $row->delivery_order->do_date }}</td>
             <td>{{ $row->qty_do }}</td>
-            <td>{{ $row->sales_order_detail->amount_price }}</td>
             <td>{{ $row->sales_order_detail->no_po }}</td>
-            <td>{{ $row->delivery_order->invoice->invoice_no }}</td>
-            <td>{{ $row->delivery_order->invoice->invoice_date }}</td>
+            <td>{{ $row->delivery_order->invoice->invoice_no ?? '' }}</td>
+            <td>{{ $row->delivery_order->invoice->invoice_date ?? '' }}</td>
             <td>{{ $row->qty_confirm }}</td>
+            <td>{{ format_price($row->qty_confirm * $row->sales_order_detail->amount_price) }}</td>
+            <td></td>
+            <td>{{ format_price($row->qty_confirm * $row->sales_order_detail->amount_price) }}</td>
             <td>{{ $row->delivery_order->customer->id }}</td>
 
         </tr>
