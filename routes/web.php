@@ -102,8 +102,20 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/{id}/show', 'Warehouse\ReturnedOrderController@show')->name('show');
         });
     });
+
+    /**
+     * Route Finance AP
+     */
+    Route::name('financeAP.')->prefix('finance-ap')->middleware('auth')->group(function () {
+        Route::name('replenish.')->prefix('replenish')->group(function () {
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+        });
+    });
+
+
     /*
-     * Route Menu Finance
+     * Route Finance AR
      */
     Route::name('finance.')->prefix('finance')->middleware('auth')->group(function () {
         Route::name('invoice-order.')->prefix('invoice-order')->group(function () {
@@ -126,6 +138,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
     });
+
     /* Route Menu Report Data */
     Route::name('report.')->prefix('report')->middleware('auth')->group(function () {
         Route::name('reportso.')->prefix('report-so')->group(function () {
