@@ -19,12 +19,13 @@ class CreateTrxReplenishTable extends Migration
             $table->tinyInteger('status')->comment('1 = Replenish, 2 = Return Replenish');
             $table->bigInteger('total_amount');
             $table->string('remark')->nullable();
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations
      *
      * @return void
      */
