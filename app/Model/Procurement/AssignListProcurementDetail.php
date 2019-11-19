@@ -9,8 +9,6 @@ class AssignListProcurementDetail extends Model
     protected $table = 'assign_list_procurement';
     protected $fillable = ['list_procurement_detail_id', 'assign_id'];
 
-
-
     public function AssignProcurement()
     {
         return $this->belongsTo(AssignProcurement::class, 'assign_id', 'id');
