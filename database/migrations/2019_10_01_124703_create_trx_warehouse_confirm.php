@@ -14,7 +14,7 @@ class CreateTrxWarehouseConfirm extends Migration
         Schema::create('trx_warehouse_confirm', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('list_procurement_id');
-            $table->string('remark');
+            $table->string('remark')->nullable();
             $table->integer('status')->default(0);
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();

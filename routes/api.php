@@ -119,9 +119,17 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::patch('/update', 'ConfirmDeliveryOrderAPIController@update');
         });
     });
+    /**
+     * Route Finance AP API
+     */
+    Route::group(['prefix' => 'finance-ap', 'namespace' => 'FinanceAP\\'], function () {
+        Route::group(['prefix' => 'replenish'], function () {
+            Route::get('/store', 'ReplenishAPIController@store');
+        });
+    });
 
     /*
-     * Route API Route
+     * Route Finance AR API Route
      */
     Route::group(['prefix' => 'finance', 'namespace' => 'Finance\\'], function () {
         /*

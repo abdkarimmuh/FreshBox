@@ -32,8 +32,23 @@
                     </div>
                 </div>
             </div>
-            <!-- User Proc -->
             <div class="col-md-6" v-if="procurementId !== ''">
+                <div class="form-group">
+                    <label>
+                        <b>Status</b>
+                    </label>
+                    <div>
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="procurement.proc_name"
+                            disabled
+                        />
+                    </div>
+                </div>
+            </div>
+            <!-- User Proc -->
+            <div class="col-md-3" v-if="procurementId !== ''">
                 <div class="form-group">
                     <label>
                         <b>User Proc Name</b>
@@ -236,16 +251,16 @@
                     procurementId: this.procurementId,
                     userProcId: this.procurement.user_proc_id,
                     remark: this.procurement.remark,
-                    items: this.procurement.items.map((item, idx) => ({
-                        id: item.id,
-                        bruto: item.bruto,
-                        netto: item.netto,
-                        tara: item.tara,
-                        qty_minus: item.qty_minus
-                    }))
+                    // items: this.procurement.items.map((item, idx) => ({
+                    //     id: item.id,
+                    //     bruto: item.bruto,
+                    //     netto: item.netto,
+                    //     tara: item.tara,
+                    //     qty_minus: item.qty_minus
+                    // }))
                 };
                 try {
-                    const res = await axios.post("/api/v1/warehouseIn/confirm/store", payload);
+                    const res = await axios.post("/api/v1/finance-ap/replenish/store", payload);
                     Vue.swal({
                         type: "success",
                         title: "Success!",

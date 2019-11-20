@@ -4252,6 +4252,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4306,20 +4321,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 payload = {
                   procurementId: this.procurementId,
                   userProcId: this.procurement.user_proc_id,
-                  remark: this.procurement.remark,
-                  items: this.procurement.items.map(function (item, idx) {
-                    return {
-                      id: item.id,
-                      bruto: item.bruto,
-                      netto: item.netto,
-                      tara: item.tara,
-                      qty_minus: item.qty_minus
-                    };
-                  })
+                  remark: this.procurement.remark // items: this.procurement.items.map((item, idx) => ({
+                  //     id: item.id,
+                  //     bruto: item.bruto,
+                  //     netto: item.netto,
+                  //     tara: item.tara,
+                  //     qty_minus: item.qty_minus
+                  // }))
+
                 };
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post("/api/v1/warehouseIn/confirm/store", payload);
+                return axios.post("/api/v1/finance-ap/replenish/store", payload);
 
               case 5:
                 res = _context.sent;
@@ -54992,6 +55005,42 @@ var render = function() {
             _vm._v(" "),
             _vm.procurementId !== ""
               ? _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_c("b", [_vm._v("Status")])]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.procurement.proc_name,
+                            expression: "procurement.proc_name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", disabled: "" },
+                        domProps: { value: _vm.procurement.proc_name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.procurement,
+                              "proc_name",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.procurementId !== ""
+              ? _c("div", { staticClass: "col-md-3" }, [
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", [_c("b", [_vm._v("User Proc Name")])]),
                     _vm._v(" "),
