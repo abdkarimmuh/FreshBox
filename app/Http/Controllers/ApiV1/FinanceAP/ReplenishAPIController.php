@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiV1\FinanceAP;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FinanceAP\ReplenishResource;
 use App\Model\FinanceAP\Replenish;
 use App\Model\Procurement\ListProcurement;
 use Illuminate\Http\JsonResponse;
@@ -16,7 +17,7 @@ class ReplenishAPIController extends Controller
         $perPage = $request->perPage;
         $query = Replenish::dataTableQuery($searchValue);
         if ($request->start && $request->end) {
-            $query->whereHas('procurement', function ($q) use($request) {
+            $query->whereHas('procurement', function ($q) use ($request) {
                 $q->whereBetween('procurement_no', [$request->start, $request->end]);
             });
         }
@@ -26,7 +27,7 @@ class ReplenishAPIController extends Controller
             $query = $query->paginate($perPage);
         }
 
-        return SalesOrderResource::collection($query);
+        return ReplenishResource::collection($query);
     }
 
     /**
