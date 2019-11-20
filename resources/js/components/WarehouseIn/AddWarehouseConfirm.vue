@@ -160,7 +160,7 @@
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        this.$router.push({name: "warehouseIn.confirm"});
+                       window.location.href = '/admin/warehouseIn/confirm'
                     });
                 } catch (e) {
                     this.errors = e.response.data.errors;
