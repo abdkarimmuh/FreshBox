@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 class FormSalesOrderAPIController extends Controller
 {
     /**
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
