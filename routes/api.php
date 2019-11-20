@@ -125,7 +125,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     Route::group(['prefix' => 'finance-ap', 'namespace' => 'FinanceAP\\'], function () {
         Route::group(['prefix' => 'replenish'], function () {
             Route::get('/', 'ReplenishAPIController@index');
-            Route::get('/store', 'ReplenishAPIController@store');
+            Route::post('/store', 'ReplenishAPIController@store');
         });
     });
 

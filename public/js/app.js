@@ -4264,6 +4264,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -4272,6 +4273,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       procurementId: "",
+      status: 0,
       procurement: {},
       procurements: [],
       errors: [],
@@ -4307,8 +4309,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this3 = this;
-
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -4316,16 +4316,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 this.loadingSubmit = true;
                 payload = {
-                  procurementId: this.procurementId,
-                  userProcId: this.procurement.user_proc_id,
-                  remark: this.procurement.remark // items: this.procurement.items.map((item, idx) => ({
-                  //     id: item.id,
-                  //     bruto: item.bruto,
-                  //     netto: item.netto,
-                  //     tara: item.tara,
-                  //     qty_minus: item.qty_minus
-                  // }))
-
+                  listProcId: this.procurementId,
+                  remark: this.procurement.remark,
+                  status: this.status,
+                  totalAmount: this.procurement.total_amount,
+                  userProcId: this.procurement.user_proc_id
                 };
                 _context.prev = 2;
                 _context.next = 5;
@@ -4333,31 +4328,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
                 res = _context.sent;
+                console.log(res);
                 Vue.swal({
                   type: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
-                }).then(function (next) {
-                  _this3.$router.push({
-                    name: 'warehouseIn.confirm'
-                  });
+                }).then(function (next) {// this.$router.push({name: 'warehouseIn.confirm'})
                 });
-                _context.next = 14;
+                _context.next = 15;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](2);
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
                 this.loadingSubmit = false;
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 9]]);
+        }, _callee, this, [[2, 10]]);
       }));
 
       function submitForm() {
@@ -54943,7 +54936,7 @@ var render = function() {
             _c("div", { staticClass: "col-md-6" }, [
               _c("div", { staticClass: "form-group" }, [
                 _c("label", [
-                  _c("b", [_vm._v("Procurement No")]),
+                  _c("b", [_vm._v("Select Procurement No")]),
                   _vm._v(" "),
                   _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
                 ]),
@@ -55007,15 +55000,48 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("select", { staticClass: "form-control selectric" }, [
-                      _c("option", { attrs: { value: "1" } }, [
-                        _vm._v("Replenish")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [
-                        _vm._v("Return Replenish")
-                      ])
-                    ])
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.status,
+                            expression: "status"
+                          }
+                        ],
+                        staticClass: "form-control selectric",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.status = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "0", hidden: "" } }, [
+                          _vm._v("Select Status")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("Replenish")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2" } }, [
+                          _vm._v("Return Replenish")
+                        ])
+                      ]
+                    )
                   ])
                 ])
               : _vm._e(),

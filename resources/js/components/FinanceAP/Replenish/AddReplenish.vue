@@ -10,7 +10,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>
-                        <b>Procurement No</b>
+                        <b>Select Procurement No</b>
                         <span style="color: red;">*</span>
                     </label>
                     <div>
@@ -38,7 +38,8 @@
                         <b>Status</b>
                         <span style="color: red;">*</span>
                     </label>
-                    <select class="form-control selectric">
+                    <select class="form-control selectric" v-model="status">
+                        <option value="0" hidden>Select Status</option>
                         <option value="1">Replenish</option>
                         <option value="2">Return Replenish</option>
                     </select>
@@ -212,6 +213,7 @@
         data() {
             return {
                 procurementId: "",
+                status: 0,
                 procurement: {},
                 procurements: [],
                 errors: [],
@@ -236,7 +238,6 @@
                     .then(res => {
                         this.procurement = res.data.data;
                         this.loading = false;
-
                     })
                     .catch(err => {
                         console.log(err);
@@ -245,25 +246,21 @@
             async submitForm() {
                 this.loadingSubmit = true;
                 const payload = {
-                    procurementId: this.procurementId,
-                    userProcId: this.procurement.user_proc_id,
+                    listProcId: this.procurementId,
                     remark: this.procurement.remark,
-                    // items: this.procurement.items.map((item, idx) => ({
-                    //     id: item.id,
-                    //     bruto: item.bruto,
-                    //     netto: item.netto,
-                    //     tara: item.tara,
-                    //     qty_minus: item.qty_minus
-                    // }))
+                    status: this.status,
+                    totalAmount: this.procurement.total_amount,
+                    userProcId: this.procurement.user_proc_id,
                 };
                 try {
                     const res = await axios.post("/api/v1/finance-ap/replenish/store", payload);
+                    console.log(res);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        this.$router.push({name: 'warehouseIn.confirm'})
+                        // this.$router.push({name: 'warehouseIn.confirm'})
                     });
                 } catch (e) {
                     this.errors = e.response.data.errors;
