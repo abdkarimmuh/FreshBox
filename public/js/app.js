@@ -4264,9 +4264,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 
@@ -55002,34 +54999,22 @@ var render = function() {
             _vm.procurementId !== ""
               ? _c("div", { staticClass: "col-md-6" }, [
                   _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_c("b", [_vm._v("Status")])]),
+                    _c("label", [
+                      _c("b", [_vm._v("Status")]),
+                      _vm._v(" "),
+                      _c("span", { staticStyle: { color: "red" } }, [
+                        _vm._v("*")
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _c("div", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.procurement.proc_name,
-                            expression: "procurement.proc_name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", disabled: "" },
-                        domProps: { value: _vm.procurement.proc_name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.procurement,
-                              "proc_name",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
+                    _c("select", { staticClass: "form-control selectric" }, [
+                      _c("option", { attrs: { value: "1" } }, [
+                        _vm._v("Replenish")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "2" } }, [
+                        _vm._v("Return Replenish")
+                      ])
                     ])
                   ])
                 ])

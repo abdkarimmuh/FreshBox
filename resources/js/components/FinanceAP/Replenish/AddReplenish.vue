@@ -36,15 +36,12 @@
                 <div class="form-group">
                     <label>
                         <b>Status</b>
+                        <span style="color: red;">*</span>
                     </label>
-                    <div>
-                        <input
-                            type="text"
-                            class="form-control"
-                            v-model="procurement.proc_name"
-                            disabled
-                        />
-                    </div>
+                    <select class="form-control selectric">
+                        <option value="1">Replenish</option>
+                        <option value="2">Return Replenish</option>
+                    </select>
                 </div>
             </div>
             <!-- User Proc -->
