@@ -4274,7 +4274,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getProcurements: function getProcurements() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl("api/v1/procurement/not-confirmed")).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/procurement/confirmed")).then(function (res) {
         _this.procurements = res.data.data;
       })["catch"](function (err) {
         console.log(err);
@@ -9138,8 +9138,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
 //
 //
 //
@@ -61566,9 +61564,16 @@ var render = function() {
                         [
                           _c("thead", [
                             _c("tr", [
-                              _c("th", { staticClass: "text-center" }, [
-                                _vm._v("Item Name")
-                              ]),
+                              _c(
+                                "th",
+                                {
+                                  staticStyle: {
+                                    overflow: "hidden",
+                                    "white-space": "nowrap"
+                                  }
+                                },
+                                [_vm._v("Item Name")]
+                              ),
                               _vm._v(" "),
                               _c(
                                 "th",
@@ -61622,7 +61627,6 @@ var render = function() {
                                 _c(
                                   "td",
                                   {
-                                    staticClass: "text-center",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "white-space": "nowrap"

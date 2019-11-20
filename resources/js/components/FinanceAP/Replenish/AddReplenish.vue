@@ -212,7 +212,7 @@
         },
         methods: {
             getProcurements() {
-                axios.get(this.$parent.MakeUrl("api/v1/procurement/not-confirmed")).then(res => {
+                axios.get(this.$parent.MakeUrl("api/v1/procurement/confirmed")).then(res => {
                     this.procurements = res.data.data;
                 }).catch(err => {
                     console.log(err);
