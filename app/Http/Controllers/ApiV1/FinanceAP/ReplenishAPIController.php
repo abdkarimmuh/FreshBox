@@ -10,6 +10,25 @@ use Illuminate\Http\Request;
 
 class ReplenishAPIController extends Controller
 {
+    public function index(Request $request)
+    {
+        $searchValue = $request->input('query');
+        $perPage = $request->perPage;
+        $query = Replenish::dataTableQuery($searchValue);
+        if ($request->start && $request->end) {
+            $query->whereHas('procurement', function ($q) use($request) {
+                $q->whereBetween('procurement_no', [$request->start, $request->end]);
+            });
+        }
+        if ($searchValue) {
+            $query = $query->take(20)->paginate(20);
+        } else {
+            $query = $query->paginate($perPage);
+        }
+
+        return SalesOrderResource::collection($query);
+    }
+
     /**
      *Insert the replenish data
      * @param Request $request
