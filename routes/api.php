@@ -88,6 +88,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     Route::group(['prefix' => 'procurement/', 'namespace' => 'Procurement\\'], function () {
         Route::get('/', 'ProcurementAPIController@index');
         Route::get('/not-confirmed', 'ProcurementAPIController@listProcurementNotConfirmed');
+        Route::get('/confirmed', 'ProcurementAPIController@listProcurementConfirmed');
         Route::get('/show/{id}', 'ProcurementAPIController@show');
     });
     /*

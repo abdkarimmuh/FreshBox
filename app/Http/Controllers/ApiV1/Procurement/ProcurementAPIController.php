@@ -44,6 +44,16 @@ class ProcurementAPIController extends Controller
     }
 
     /**
+     * List Procurement Not Confirmed.
+     *
+     * @return AnonymousResourceCollection
+     */
+    public function listProcurementConfirmed()
+    {
+        return ListProcurementResource::collection(ListProcurement::where('status', 2)->get());
+    }
+
+    /**
      * @return AnonymousResourceCollection
      */
     public function userProcHasProc()
@@ -89,7 +99,7 @@ class ProcurementAPIController extends Controller
                 ->where('status', 1)
                 ->where('skuid', $item['skuid'])
                 ->get();
-            
+
             if ($assignProcurement->isEmpty()) {
                 return response()->json([
                     'status' => 'Barang Sudah Dibeli',
@@ -101,8 +111,8 @@ class ProcurementAPIController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateProcOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-            Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
+            $file_name = $this->generateProcOrderNo() . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
         }
@@ -199,10 +209,10 @@ class ProcurementAPIController extends Controller
     {
         $year_month = Carbon::now()->format('ym');
         $latest_proc = ListProcurement::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC'.$year_month.'00000';
+        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC' . $year_month . '00000';
         $cut_string_proc = str_replace('PROC', '', $get_last_proc_no);
 
-        return 'PROC'.($cut_string_proc + 1);
+        return 'PROC' . ($cut_string_proc + 1);
     }
 
     /**
