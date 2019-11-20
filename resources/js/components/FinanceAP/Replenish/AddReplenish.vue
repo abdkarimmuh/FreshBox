@@ -1,17 +1,11 @@
 <template>
-    <!--    Select List Procurement -->
-    <!-- - File-->
-    <!-- - Pilih Status Replenish or Return Replenish -->
-    <!-- - Remark-->
-    <!-- -> After Select List Procurement Showing Detail Items:-->
-    <!--item_name,qty,uom_name,amount-->
-
-    <!--after update status list procurement : 4 = replenish  : 5 = return replenish -->
-
-    <!-- -created_by-->
-    <!-- ->list_proc_id-->
-    <stisla-create-template title="Add Warehouse Confirm">
-        <div class="row">
+    <stisla-create-template title="Add Finance Replenish">
+        <div class="row" v-if="loading">
+            <div class="col-md-12 text-center">
+                <LoadingTable></LoadingTable>
+            </div>
+        </div>
+        <div class="row" v-else>
             <!-- Sales Order No -->
             <div class="col-md-6">
                 <div class="form-group">
@@ -86,7 +80,22 @@
                     </div>
                 </div>
             </div>
-
+            <!--            File-->
+            <div class="col-md-3" v-if="procurementId !== ''">
+                <div class="form-group">
+                    <label>
+                        <b>File</b>
+                    </label>
+                    <div>
+                        <input
+                            type="text"
+                            class="form-control"
+                            v-model="procurement.file"
+                            disabled
+                        />
+                    </div>
+                </div>
+            </div>
             <div
                 v-if="procurementId !== ''"
                 class="col-12"
@@ -103,12 +112,9 @@
                         <thead>
                         <tr>
                             <th class="text-center">Item Name</th>
-                            <th class="text-center">Qty Assign</th>
-                            <th class="text-center">Qty Buy</th>
+                            <th class="text-center">Qty</th>
                             <th class="text-center">UOM</th>
-                            <th class="text-center">Berat Kotor</th>
-                            <th class="text-center">Berat Bersih</th>
-                            <th class="text-center">Qty Minus</th>
+                            <th class="text-center">Amount</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -121,11 +127,7 @@
                                 style="overflow:hidden; white-space:nowrap"
                             >{{ item.name }}
                             </td>
-                            <td
-                                class="text-center"
-                                style="overflow:hidden; white-space:nowrap"
-                            >{{ item.qty_assign }}
-                            </td>
+
                             <td
                                 class="text-center"
                                 style="overflow:hidden; white-space:nowrap"
@@ -136,26 +138,10 @@
                                 style="overflow:hidden; white-space:nowrap"
                             >{{ item.uom }}
                             </td>
-                            <td>
-                                <input
-                                    v-model="item.bruto"
-                                    type="number"
-                                    class="form-control"
-                                />
-                            </td>
-                            <td>
-                                <input
-                                    v-model="item.netto"
-                                    type="number"
-                                    class="form-control"
-                                />
-                            </td>
-                            <td>
-                                <input
-                                    v-model="item.qty_minus"
-                                    type="number"
-                                    class="form-control"
-                                />
+                            <td
+                                class="text-center"
+                                style="overflow:hidden; white-space:nowrap"
+                            >{{ item.amount }}
                             </td>
                         </tr>
                         </tbody>
@@ -200,6 +186,7 @@
                 </div>
             </div>
         </div>
+
     </stisla-create-template>
 </template>
 
@@ -207,6 +194,7 @@
     import {ModelListSelect} from "vue-search-select";
     import ButtonLoading from "../../Template/Etc/ButtonLoading";
     import StislaCreateTemplate from "../../Template/StislaCreateTemplate";
+    import LoadingTable from "../../Template/Table/partials/LoadingTable";
 
     export default {
         data() {
@@ -215,7 +203,8 @@
                 procurement: {},
                 procurements: [],
                 errors: [],
-                loadingSubmit: false
+                loadingSubmit: false,
+                loading: false,
             };
         },
         mounted() {
@@ -230,9 +219,12 @@
                 });
             },
             getProcurement() {
+                this.loading = true;
                 axios.get(this.$parent.MakeUrl("api/v1/procurement/show/" + this.procurementId))
                     .then(res => {
                         this.procurement = res.data.data;
+                        this.loading = false;
+
                     })
                     .catch(err => {
                         console.log(err);
@@ -270,6 +262,7 @@
 
         },
         components: {
+            LoadingTable,
             StislaCreateTemplate,
             ButtonLoading,
             ModelListSelect
