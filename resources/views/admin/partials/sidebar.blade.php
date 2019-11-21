@@ -7,8 +7,6 @@
             <img src="{{asset('assets/img/icon-freshbox.png')}}" width="32px" height="32px">
         </a>
     </div>
-    <br>
-    <br>
     <ul class="sidebar-menu">
         <li class="{{ Request::route()->getName() == 'admin.dashboard' ? ' active' : '' }}">
             <a class="nav-link" href="{{ route('admin.dashboard') }}">

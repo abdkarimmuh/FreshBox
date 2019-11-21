@@ -7,12 +7,14 @@ use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthAPIController extends Controller
 {
     /**
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function register(Request $request)
@@ -22,7 +24,7 @@ class AuthAPIController extends Controller
             'lastname' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
-            'confirm_password' => 'required|same:password'
+            'confirm_password' => 'required|same:password',
         ]);
         $errors = $validator->errors()->toArray();
         if ($validator->fails()) {
@@ -33,12 +35,15 @@ class AuthAPIController extends Controller
         $user = User::create($input);
         // $token = $user->createToken('nApp')->accessToken;
         $success = 'Success Registered Account!';
+
         return response()->json(['message' => $success], 200);
     }
 
     /**
-     * Login API
+     * Login API.
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function login(Request $request)
@@ -66,8 +71,10 @@ class AuthAPIController extends Controller
     }
 
     /**
-     * Change Password
+     * Change Password.
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function changePassword(Request $request)
@@ -77,27 +84,31 @@ class AuthAPIController extends Controller
             $user->update(['password' => Hash::make($request->password)]);
             $response = [
                 'status' => 'Success',
-                'message' => 'Successfully Password Changed'
+                'message' => 'Successfully Password Changed',
             ];
         } else {
             $response = [
                 'status' => 'Fail',
-                'message' => 'Password does not match'
+                'message' => 'Password does not match',
             ];
         }
+
         return response()->json($response);
     }
 
     /**
-     * Logout API
+     * Logout API.
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
+
         return response()->json([
-            'message' => 'Successfully logged out'
+            'message' => 'Successfully logged out',
         ]);
     }
 }

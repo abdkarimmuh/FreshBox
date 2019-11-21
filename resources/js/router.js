@@ -37,6 +37,7 @@ import AddWarehouseConfirm from "./components/WarehouseIn/AddWarehouseConfirm";
 import ImportPriceTemp from "./components/ImportExcel/ImportPriceTemp";
 
 import AddFinanceReplenish from './components/FinanceAP/Replenish/AddReplenish';
+import IndexReplenish from './components/FinanceAP/Replenish/IndexReplenish';
 
 Vue.component('import-price-temp', ImportPriceTemp);
 Vue.use(VueRouter);
@@ -198,6 +199,11 @@ const router = new VueRouter({
         },
 
         //Finance AP Replenish
+        {
+            path: '/admin/finance-ap/replenish',
+            name: 'finance.replenish',
+            component: IndexReplenish
+        },
         {
             path: '/admin/finance-ap/replenish/create',
             name: 'finance.replenish.create',
