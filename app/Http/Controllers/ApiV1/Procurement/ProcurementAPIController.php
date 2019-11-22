@@ -58,7 +58,11 @@ class ProcurementAPIController extends Controller
      */
     public function userProcHasProc()
     {
-        $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)->get();
+        $date = Carbon::today()->subDays(7);
+        $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)
+            ->where('created_at', '>=', $date)
+            ->orderBy('id', 'desc')
+            ->get();
 
         return ListProcurementHasItemsResource::collection($query);
     }
@@ -111,8 +115,8 @@ class ProcurementAPIController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateProcOrderNo() . '.' . explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
-            Storage::disk('local')->put('public/files/' . $file_name, base64_decode($file_data), 'public');
+            $file_name = $this->generateProcOrderNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/'.$file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
         }
@@ -143,7 +147,6 @@ class ProcurementAPIController extends Controller
         ]);
 
         foreach ($items as $item) {
-
             $listProcDetails = ListProcurementDetail::create([
                 'trx_list_procurement_id' => $procurement->id,
                 'skuid' => $item['skuid'],
@@ -183,7 +186,12 @@ class ProcurementAPIController extends Controller
 
     public function selectBy($id)
     {
-        $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)->where('status', $id)->get();
+        $date = Carbon::today()->subDays(7);
+        $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)
+            ->where('status', $id)
+            ->where('created_at', '>=', $date)
+            ->orderBy('id', 'desc')
+            ->get();
 
         return ListProcurementHasItemsResource::collection($query);
     }
@@ -209,10 +217,10 @@ class ProcurementAPIController extends Controller
     {
         $year_month = Carbon::now()->format('ym');
         $latest_proc = ListProcurement::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC' . $year_month . '00000';
+        $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC'.$year_month.'00000';
         $cut_string_proc = str_replace('PROC', '', $get_last_proc_no);
 
-        return 'PROC' . ($cut_string_proc + 1);
+        return 'PROC'.($cut_string_proc + 1);
     }
 
     /**

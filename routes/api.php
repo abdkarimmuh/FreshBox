@@ -119,13 +119,19 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::patch('/update', 'ConfirmDeliveryOrderAPIController@update');
         });
     });
-    /**
+    /*
      * Route Finance AP API
      */
     Route::group(['prefix' => 'finance-ap', 'namespace' => 'FinanceAP\\'], function () {
         Route::group(['prefix' => 'replenish'], function () {
             Route::get('/', 'ReplenishAPIController@index');
             Route::post('/store', 'ReplenishAPIController@store');
+        });
+        Route::group(['prefix' => 'topup'], function () {
+            Route::get('/', 'TopUpProcAPIController@index');
+            Route::get('/get', 'TopUpProcAPIController@indexApi');
+            Route::get('/show/{id}', 'TopUpProcAPIController@show');
+            Route::post('/', 'TopUpProcAPIController@store');
         });
     });
 
@@ -231,7 +237,6 @@ Route::resource('users', 'UserController', [
 /*
  * Testing Route
  */
-
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

@@ -143,6 +143,8 @@
                                                         </td>
                                                     @elseif($column['field'] === 'description' || $column['field'] === 'remarks' )
                                                         <td>{{ $row[$column['field']] }}</td>
+                                                    @elseif(isset($column['type']) ? $column['type'] === 'price': '')
+                                                        <td>{{ format_price($row[$column['field']]) }}</td>
                                                     @else
                                                         <td style="overflow:hidden; white-space:nowrap">{{ $row[$column['field']] }}</td>
                                                     @endif

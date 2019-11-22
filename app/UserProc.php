@@ -14,4 +14,9 @@ class UserProc extends Model
     {
         return $this->hasMany(AssignProcurement::class);
     }
+
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
