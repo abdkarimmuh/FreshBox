@@ -47,9 +47,10 @@ class PriceUploadController extends Controller
                         'start_period' => $data['startPeriod'],
                         'End_Period' => $data['endPeriod'],
                         'AuditDate' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
                     ]);
             } else {
-                PriceTemp::insert([
+                PriceTemp::create([
                     'No' => $row['no'],
                     'Category' => $row['category'],
                     'SKU' => $row['sku'],
@@ -63,6 +64,7 @@ class PriceUploadController extends Controller
                     'start_period' => $data['startPeriod'],
                     'End_Period' => $data['endPeriod'],
                     'AuditDate' => Carbon::now(),
+                    'updated_at' => null,
                 ]);
             }
         });
