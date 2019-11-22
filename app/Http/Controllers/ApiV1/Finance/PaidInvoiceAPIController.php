@@ -14,7 +14,6 @@ class PaidInvoiceAPIController extends Controller
 
     public function store(Request $request)
     {
-
         $rules = [
             'invoiceRecapId' => 'required|not_in:0',
             'invoiceRecapDetail' => 'required',
@@ -46,7 +45,7 @@ class PaidInvoiceAPIController extends Controller
         $invoice_recap = InvoiceRecap::find($data['invoiceRecapId'])
             ->update([
                 'file' => $file_name,
-                'paid_date' => 1
+                'paid_date' => $data['paidDate']
             ]);
 
         foreach ($data['invoiceRecapDetail'] as $i => $detail) {

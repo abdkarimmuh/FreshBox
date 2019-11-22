@@ -2310,17 +2310,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2401,22 +2390,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     name: 'paidRecap'
                   });
                 });
-                _context.next = 14;
+                console.log(res);
+                _context.next = 15;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](2);
                 this.loadingSubmit = false;
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 9]]);
+        }, _callee, this, [[2, 10]]);
       }));
 
       function submitForm() {
@@ -3816,7 +3806,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
 //
 //
 //
@@ -52835,11 +52824,7 @@ var render = function() {
                         "div",
                         [
                           _c("date-picker", {
-                            attrs: {
-                              lang: "en",
-                              valueType: "format",
-                              "not-before": new Date()
-                            },
+                            attrs: { lang: "en", valueType: "format" },
                             model: {
                               value: _vm.recapInvoice.paidDate,
                               callback: function($$v) {
@@ -54723,7 +54708,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "stisla-create-template",
-    { attrs: { title: "Add Paid Invoice" } },
+    { attrs: { title: "Submit Rekap Invoice" } },
     [
       _vm.loading
         ? _c(
@@ -54819,11 +54804,7 @@ var render = function() {
                         "div",
                         [
                           _c("date-picker", {
-                            attrs: {
-                              lang: "en",
-                              valueType: "format",
-                              "not-before": new Date()
-                            },
+                            attrs: { lang: "en", valueType: "format" },
                             model: {
                               value: _vm.submitDate,
                               callback: function($$v) {

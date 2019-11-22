@@ -2,16 +2,6 @@
     <stisla-create-template title="Add Paid Invoice">
 
         <div class="row" v-if="loading">
-            <!--            <stisla-search-select-->
-            <!--                col="4"-->
-            <!--                label="Rekap Invoice Order No"-->
-            <!--                v-model="recapInvoice.id"-->
-            <!--                :data="recapInvoices"-->
-            <!--                :oninput="getRecapInvoice"-->
-            <!--                option-value="id"-->
-            <!--                option-text="recapNoWithCustName"-->
-            <!--                placeholder="Select Recap Invoice Order No"-->
-            <!--            />-->
             <div class="col-md-4">
                 <div class="form-group">
                     <label>
@@ -56,7 +46,6 @@
                             v-model="recapInvoice.paidDate"
                             lang="en"
                             valueType="format"
-                            :not-before="new Date()"
                         ></date-picker>
                     </div>
                     <div
@@ -230,6 +219,7 @@
                     }).then(next => {
                        this.$router.push({ name: 'paidRecap'})
                     });
+                    console.log(res)
                 } catch (e) {
                     this.loadingSubmit = false;
                     this.errors = e.response.data.errors;
