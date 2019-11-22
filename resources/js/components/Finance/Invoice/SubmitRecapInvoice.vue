@@ -1,5 +1,5 @@
 <template>
-    <stisla-create-template title="Add Paid Invoice">
+    <stisla-create-template title="Submit Rekap Invoice">
 
         <div class="row" v-if="loading">
             <div class="col-md-4">
@@ -46,7 +46,6 @@
                             v-model="submitDate"
                             lang="en"
                             valueType="format"
-                            :not-before="new Date()"
                         ></date-picker>
                     </div>
                     <div
