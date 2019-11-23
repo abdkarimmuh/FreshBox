@@ -28,7 +28,7 @@ class DetailProcurementResource extends JsonResource
             'qty_assign' => intval($qty_assign),
             'qty_minus' => intval($this->qty_minus),
             'uom' => $this->uom_name,
-            'amount' =>format_price($this->amount),
+            'amount' => $this->amount,
             'status' => $this->status,
         ];
     }
