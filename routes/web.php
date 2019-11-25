@@ -113,6 +113,8 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         });
         Route::name('topup.')->prefix('topup')->group(function () {
             Route::get('/', 'Procurement\TopUpController@index')->name('index');
+            Route::get('/approve/{id}', 'Procurement\TopUpController@approve')->name('approve');
+            Route::get('/reject/{id}', 'Procurement\TopUpController@reject')->name('reject');
         });
     });
 

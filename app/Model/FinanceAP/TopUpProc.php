@@ -50,11 +50,11 @@ class TopUpProc extends MyModel
     public function getStatusNameAttribute()
     {
         if ($this->status === 1) {
-            return '<span class="badge badge-info">Submit</span>';
+            return '<span class="badge badge-light">Submit</span>';
         } elseif ($this->status === 2) {
-            return '<span class="badge badge-success">Approve</span>';
-        } elseif ($this->status === 3) {
             return '<span class="badge badge-danger">Reject</span>';
+        } elseif ($this->status === 3) {
+            return '<span class="badge badge-primary">Approve</span>';
         } else {
             return 'Status NotFound';
         }

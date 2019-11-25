@@ -30,8 +30,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     Route::get('logout', 'AuthAPIController@logout');
     Route::post('changePassword', 'AuthAPIController@changePassword');
 
-    Route::post('register', 'AuthAPIController@register');
-
     Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'proc'], function () {
             Route::get('/', function () {
