@@ -14,7 +14,7 @@
                     title: "Finance Replenish",
                     action: true,
                     base_url: this.$parent.MakeUrl("api/v1/finance-ap/replenish"),
-                    route_view: "finance.replenish.show",
+                    route_replenish: "finance.replenish.show",
                     route_create: "finance.replenish.create"
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },
@@ -42,7 +42,7 @@
                     },
                     {
                         title: "Status",
-                        field: "status",
+                        field: "status_html",
                         type: "html",
                         filterable: true
                     },

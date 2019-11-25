@@ -115,7 +115,6 @@
 
                             </td>
                             <!--Button-->
-
                             <td v-if="config.action">
                                 <router-link v-if="config.route_view" class="badge badge-primary"
                                              :to="{ name: config.route_view , params: { id: item.id }}">View
@@ -130,6 +129,10 @@
                                              class="badge badge-warning"
                                              :to="{ name: config.route_confirm , params:{ id: item.id }}">Confirm
                                 </router-link>
+                                <button @click="replenish(item.id)" class="badge badge-warning"
+                                        v-if="config.route_replenish && item.status === 2">
+                                    Replenish
+                                </button>
                             </td>
                             <td v-for="column in columns">
                                 <span v-html="item[column.field]" v-if="column.type === 'html'"></span>
@@ -305,6 +308,29 @@
                     }).catch(e => {
 
                 });
+            },
+            replenish(id) {
+                Vue.swal({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, replenish it!'
+                }).then((result) => {
+                    if (result.value) {
+                        axios.patch(BaseUrl('api/v1/finance-ap/replenish/' + id));
+                        Vue.swal(
+                            'Replenish!',
+                            'The data has been replenish.',
+                            'success'
+                        ).then(next => {
+                            this.getData();
+                        })
+                    }
+                });
+                console.log(id);
             }
         },
         computed: {

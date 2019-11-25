@@ -260,7 +260,7 @@
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        // this.$router.push({name: 'warehouseIn.confirm'})
+                        this.$router.push({name: 'finance.replenish'})
                     });
                 } catch (e) {
                     this.errors = e.response.data.errors;

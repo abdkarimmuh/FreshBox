@@ -18,7 +18,7 @@ class Replenish extends MyModel
     }
 
 
-    function getStatusNameAttribute()
+    function getStatusHtmlAttribute()
     {
         if ($this->status === 1) {
             return '<span class="badge badge-success">Replenish</span>';
