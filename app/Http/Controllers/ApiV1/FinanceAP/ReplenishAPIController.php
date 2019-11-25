@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 
 class ReplenishAPIController extends Controller
 {
+    /**
+     * List Data Replenish
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index(Request $request)
     {
         $searchValue = $request->input('query');
@@ -66,7 +71,20 @@ class ReplenishAPIController extends Controller
         ListProcurement::findOrFail($data['list_proc_id'])->update(['status' => $status]);
 
         return response()->json([
-            'status' => true
+            'success' => true
+        ]);
+    }
+
+    /**
+     * Change Status To Replenish
+     * @param $id
+     * @return JsonResponse
+     */
+    public function replenish($id)
+    {
+        Replenish::findOrFail($id)->update(['status' => 1]);
+        return response()->json([
+            'success' => true
         ]);
     }
 }

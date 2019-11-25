@@ -4298,6 +4298,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this3 = this;
+
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -4322,7 +4324,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   type: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
-                }).then(function (next) {// this.$router.push({name: 'warehouseIn.confirm'})
+                }).then(function (next) {
+                  _this3.$router.push({
+                    name: 'finance.replenish'
+                  });
                 });
                 _context.next = 15;
                 break;
@@ -4383,7 +4388,7 @@ __webpack_require__.r(__webpack_exports__);
         title: "Finance Replenish",
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/replenish"),
-        route_view: "finance.replenish.show",
+        route_replenish: "finance.replenish.show",
         route_create: "finance.replenish.create" // route_multiple_print: 'invoice_order.multiplePrint',
 
       },
@@ -4406,7 +4411,7 @@ __webpack_require__.r(__webpack_exports__);
         filterable: true
       }, {
         title: "Status",
-        field: "status",
+        field: "status_html",
         type: "html",
         filterable: true
       }, {
@@ -7468,6 +7473,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7676,6 +7684,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         console.log(res);
       })["catch"](function (e) {});
+    },
+    replenish: function replenish(id) {
+      var _this3 = this;
+
+      Vue.swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, replenish it!'
+      }).then(function (result) {
+        if (result.value) {
+          axios.patch(BaseUrl('api/v1/finance-ap/replenish/' + id));
+          Vue.swal('Replenish!', 'The data has been replenish.', 'success').then(function (next) {
+            _this3.getData();
+          });
+        }
+      });
+      console.log(id);
     }
   },
   computed: {
@@ -59759,6 +59788,29 @@ var render = function() {
                                                 [
                                                   _vm._v(
                                                     "Confirm\n                            "
+                                                  )
+                                                ]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.config.route_replenish &&
+                                          item.status === 2
+                                            ? _c(
+                                                "button",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-warning",
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.replenish(
+                                                        item.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                Replenish\n                            "
                                                   )
                                                 ]
                                               )

@@ -124,6 +124,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         Route::group(['prefix' => 'replenish'], function () {
             Route::get('/', 'ReplenishAPIController@index');
             Route::post('/store', 'ReplenishAPIController@store');
+            Route::patch('/{id}', 'ReplenishAPIController@replenish');
         });
         Route::group(['prefix' => 'topup'], function () {
             Route::get('/', 'TopUpProcAPIController@index');
