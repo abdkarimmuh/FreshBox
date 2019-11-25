@@ -12,7 +12,7 @@
             <a class="nav-link" href="{{ route('admin.dashboard') }}">
                 <i class="fas fa-home"></i><span>Dashboard</span></a>
         </li>
-        {{--        Marketing--}}
+        {{--Marketing--}}
         <li class="dropdown {{ request()->segment(2) == 'marketing' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
             <ul class="dropdown-menu">
@@ -30,7 +30,7 @@
                 @endif
             </ul>
         </li>
-        {{--        Procurement--}}
+        {{--Procurement--}}
         <li class="dropdown {{ request()->segment(2) == 'procurement' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-box-open"></i><span>Procurement</span></a>
             <ul class="dropdown-menu">
@@ -46,7 +46,7 @@
                 </li>
             </ul>
         </li>
-        {{--        Warheouse In--}}
+        {{--Warheouse In--}}
         <li class="dropdown {{ request()->segment(2) == 'warehouseIn' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-warehouse"></i><span>Warehouse In</span></a>
             <ul class="dropdown-menu">
@@ -56,7 +56,7 @@
                 </li>
             </ul>
         </li>
-        {{--        Warehous Out--}}
+        {{--Warehous Out--}}
         <li class="dropdown {{ request()->segment(2) == 'warehouse' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-truck"></i><span>Warehouse Out</span></a>
             <ul class="dropdown-menu">
@@ -78,17 +78,19 @@
                 </li>
             </ul>
         </li>
-        {{--        Finance AP--}}
+        {{--Finance AP--}}
         <li class="dropdown {{ request()->segment(2) == 'finance-ap' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance AP</span></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->segment(3) == 'replenish' ? ' active' : '' }}">
-                    <a href="{{ url('admin/finance-ap/replenish') }}"
-                       class="nav-link"><span>Finance Replenish</span></a>
+                    <a href="{{ url('admin/finance-ap/replenish') }}" class="nav-link"><span>Finance Replenish</span></a>
+                </li>
+                <li class="{{ request()->segment(3) == 'topup' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance-ap/topup') }}" class="nav-link"><span>TopUp Procurement</span></a>
                 </li>
             </ul>
         </li>
-        {{--        Finance AR--}}
+        {{--Finance AR--}}
         <li class="dropdown {{ request()->segment(2) == 'finance' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance AR</span></a>
             <ul class="dropdown-menu">

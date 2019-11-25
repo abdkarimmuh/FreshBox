@@ -21,7 +21,6 @@ Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
 });
 
 Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
-
     Route::name('import')->prefix('import')->group(function () {
         Route::name('price')->prefix('price')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
@@ -104,7 +103,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         });
     });
 
-    /**
+    /*
      * Route Finance AP
      */
     Route::name('financeAP.')->prefix('finance-ap')->middleware('auth')->group(function () {
@@ -112,8 +111,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
+        Route::name('topup.')->prefix('topup')->group(function () {
+            Route::get('/', 'Procurement\TopUpController@index')->name('index');
+        });
     });
-
 
     /*
      * Route Finance AR
