@@ -23,7 +23,7 @@ class ConfirmController extends Controller
             array('title' => 'User Procurement', 'field' => 'proc_name'),
             array('title' => 'Remarks', 'field' => 'remarks'),
             array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
-            array('title' => 'Created By', 'field' => 'created_by'),
+            array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
         ];
 
@@ -36,6 +36,7 @@ class ConfirmController extends Controller
             //Route For Button Add
             'route-add' => 'admin.warehouseIn.confirm.create',
             //Route For Button View
+            'route-view' => 'admin.warehouseIn.confirm.show',
             //Route For Button Search
             'route-search' => 'admin.warehouseIn.confirm.index',
         ];
@@ -77,7 +78,12 @@ class ConfirmController extends Controller
     public function show($id)
     {
         $data = Confirm::findOrFail($id);
-        $detail = ConfirmDetail::where('trx_list_procurement_id', $id)->get();
+        $detail = ConfirmDetail::where('warehouse_confirm_id', $id)->get();
+
+        // return response()->json([
+        //     'data' => $data,
+        //     'detail' => $detail,
+        // ]);
 
         $columns = [
             array('title' => 'Procurement No', 'field' => 'procurement_no'),
@@ -92,8 +98,6 @@ class ConfirmController extends Controller
             array('title' => 'Uom', 'field' => 'uom_name'),
             array('title' => 'Bruto (Berat Kotor)', 'field' => 'bruto'),
             array('title' => 'Netto (Berat Bersih)', 'field' => 'netto'),
-            array('title' => 'Tara (Potongan Berat)', 'field' => 'tara'),
-            array('title' => 'Status', 'field' => 'status_name'),
         ];
 
         $config = [
@@ -101,7 +105,7 @@ class ConfirmController extends Controller
             'title' => 'Detail',
 
             //Route For Button Back
-            'back-button' => 'admin.procurement.list_procurement.index',
+            'back-button' => 'admin.warehouseIn.confirm.index',
         ];
 
         return view('admin.crud.detail', compact('data', 'detail', 'config', 'columns', 'detailColumns'));

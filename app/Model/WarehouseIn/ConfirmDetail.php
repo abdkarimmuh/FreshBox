@@ -70,8 +70,8 @@ class ConfirmDetail extends MyModel
 
     public function getItemNameAttribute()
     {
-        if (isset($this->ListProcurementDetail->AssignProcurement->Item->name_item)) {
-            return $this->ListProcurementDetail->AssignProcurement->Item->name_item;
+        if (isset($this->ListProcurementDetail->Item->name_item)) {
+            return $this->ListProcurementDetail->Item->name_item;
         } else {
             return '';
         }

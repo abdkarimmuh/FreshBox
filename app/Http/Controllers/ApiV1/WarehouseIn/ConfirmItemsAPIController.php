@@ -7,6 +7,7 @@ use App\Model\Procurement\ListProcurement;
 use App\Model\Procurement\ListProcurementDetail;
 use App\Model\WarehouseIn\Confirm;
 use App\Model\WarehouseIn\ConfirmDetail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -50,6 +51,7 @@ class ConfirmItemsAPIController extends Controller
                     'bruto' => $item['bruto'],
                     'netto' => $item['netto'],
                     'created_by' => $userId,
+                    'created_at' => Carbon::now(),
                 ]);
 
                 DB::select('call insert_notification_procurement(?, ?, ?, ?)', array($userProcId, $confirm_id, 1, $data['remark']));
@@ -66,6 +68,7 @@ class ConfirmItemsAPIController extends Controller
                         'bruto' => $item['bruto'],
                         'netto' => $item['netto'],
                         'created_by' => $userId,
+                        'created_at' => Carbon::now(),
                     ]
                 );
             }
