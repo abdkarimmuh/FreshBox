@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Procurement;
 
 use App\Http\Controllers\Controller;
 use App\Model\FinanceAP\TopUpProc;
+use App\UserProc;
 use Illuminate\Http\Request;
 
 class TopUpController extends Controller
@@ -18,6 +19,7 @@ class TopUpController extends Controller
         $searchValue = $request->input('search');
 
         $columns = [
+            array('title' => 'Action', 'field' => 'user_name'),
             array('title' => 'User Procurement', 'field' => 'user_name'),
             array('title' => 'Amount', 'field' => 'amount', 'type' => 'price'),
             array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
@@ -30,13 +32,12 @@ class TopUpController extends Controller
             /*
              * Route Can Be Null
              */
-            //Route For Button Edit
-            // 'route-view' => 'admin.financeAP.topup.show',
-            //Route For Button Search
+            'route-approve-topup' => 'admin.financeAP.topup.approve',
+            'route-reject-topup' => 'admin.financeAP.topup.reject',
             'route-search' => 'admin.financeAP.topup.index',
         ];
 
-        $query = TopUpProc::dataTableQuery($searchValue);
+        $query = TopUpProc::dataTableQuery($searchValue)->orderBy('status', 'asc');
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
@@ -105,5 +106,33 @@ class TopUpController extends Controller
      */
     public function destroy($id)
     {
+    }
+
+    public function approve($id)
+    {
+        $topUp = TopUpProc::find($id);
+
+        if ($topUp->status == 1 || $topUp->status == 2) {
+            $topUp->status = 3;
+            $topUp->save();
+
+            $userProc = UserProc::where('user_id', $topUp->user_proc_id)->first();
+            $userProc->saldo = intval($userProc->saldo) + $topUp->amount;
+            $userProc->save();
+        }
+
+        return redirect('admin/finance-ap/topup');
+    }
+
+    public function reject($id)
+    {
+        $topUp = TopUpProc::find($id);
+
+        if ($topUp->status == 1) {
+            $topUp->status = 2;
+            $topUp->save();
+        }
+
+        return redirect('admin/finance-ap/topup');
     }
 }

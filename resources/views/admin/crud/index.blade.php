@@ -55,8 +55,8 @@
                                                     <input type="checkbox" id="checked_all">
                                                 </th>
                                             @endisset
-                                            @if( isset($config['route-edit']) || isset($config['route-delete']) || isset($config['route-view']) || isset($config['route-confirm']) )
-                                                <th width="150px">Action</th>
+                                            @if( isset($config['route-edit']) || isset($config['route-delete']) || isset($config['route-view']) || isset($config['route-confirm']) || isset($config['route-approve-topup']) || isset($config['route-reject-topup']) )
+                                                <th width="180px">Action</th>
                                             @endif
                                             @foreach ($columns as $column)
                                                 <th style="overflow:hidden; white-space:nowrap">{{ capitalize($column['title']) }}</th>
@@ -64,7 +64,7 @@
                                         </tr>
                                         @foreach($data as $row)
                                             <tr>
-                                                @if( isset($config['route-edit']) || isset($config['route-delete']) || isset($config['route-view']) || isset($config['route-multiple-print']) || isset($config['route-confirm']) )
+                                                @if( isset($config['route-edit']) || isset($config['route-delete']) || isset($config['route-view']) || isset($config['route-multiple-print']) || isset($config['route-confirm']) || isset($config['route-approve-topup']) || isset($config['route-reject-topup']) )
                                                     @isset($config['route-multiple-print'])
                                                         <td>
                                                             <input type="checkbox" name="id[]" class="custom-checkbox"
@@ -79,6 +79,24 @@
                                                                    title="View">
                                                                     View
                                                                 </a>
+                                                            @endisset
+                                                            @isset ($config['route-reject-topup'])
+                                                                @if ($row['status'] == 1 || $row['status'] == 2)
+                                                                    <a
+                                                                        href="{{ route($config['route-approve-topup'], ['id' => $row->id]) }}"
+                                                                        class="badge badge-primary"
+                                                                        title="Approve">
+                                                                        Approve
+                                                                    </a>
+                                                                @endif
+                                                                @if ($row['status'] == 1)
+                                                                <a
+                                                                    href="{{ route($config['route-reject-topup'], ['id' => $row->id]) }}"
+                                                                    class="badge badge-danger"
+                                                                    title="Reject">
+                                                                    Reject
+                                                                </a>
+                                                                @endif
                                                             @endisset
 
                                                             @if($row['status'] == 1 && $row['is_printed'] == 0)
