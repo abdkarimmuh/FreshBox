@@ -71,9 +71,9 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     Route::name('warehouseIn.')->prefix('warehouseIn')->middleware('auth')->group(function () {
         Route::name('confirm.')->prefix('confirm')->group(function () {
             Route::get('/', 'WarehouseIn\ConfirmController@index')->name('index');
-            Route::get('/{id}', 'WarehouseIn\ConfirmController@show')->name('show');
             Route::get('/create', 'WarehouseIn\ConfirmController@create')->name('create');
-            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+            Route::get('/show/{id}', 'WarehouseIn\ConfirmController@show')->name('show');
+//            Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
     });
 

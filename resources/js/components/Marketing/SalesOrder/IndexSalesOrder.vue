@@ -43,8 +43,8 @@
                     },
                     {
                         title: 'File',
-                        field: 'file',
-                        field_url:'file_url',
+                        field: 'file_url',
+                        type:'file',
                         filterable: true,
                     },
                     {

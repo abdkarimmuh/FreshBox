@@ -5880,8 +5880,8 @@ __webpack_require__.r(__webpack_exports__);
         filterable: true
       }, {
         title: 'File',
-        field: 'file',
-        field_url: 'file_url',
+        field: 'file_url',
+        type: 'file',
         filterable: true
       }, {
         title: 'Remarks',
@@ -7476,6 +7476,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7705,6 +7706,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       });
       console.log(id);
+    },
+    showFile: function showFile(fileUrl) {
+      Vue.swal({
+        title: 'Sweet!',
+        text: 'Modal with a custom image.',
+        imageUrl: fileUrl,
+        imageAlt: 'Custom image'
+      });
+      console.log(fileUrl);
     }
   },
   computed: {
@@ -59830,15 +59840,27 @@ var render = function() {
                                               )
                                             }
                                           })
-                                        : column.type === "link"
+                                        : column.type === "file"
                                         ? _c(
                                             "a",
                                             {
-                                              attrs: {
-                                                href: item[column.field_url]
+                                              staticClass: "badge badge-info",
+                                              attrs: { href: "#" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.showFile(
+                                                    item[column.field]
+                                                  )
+                                                }
                                               }
                                             },
-                                            [_vm._v(_vm._s(item[column.field]))]
+                                            [
+                                              _vm._v(
+                                                "\n                               " +
+                                                  _vm._s(item.file) +
+                                                  "\n                            "
+                                              )
+                                            ]
                                           )
                                         : column.type === "price"
                                         ? _c("p", [
@@ -87322,6 +87344,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Report_SO_IndexReportSO__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Report/SO/IndexReportSO */ "./resources/js/components/Report/SO/IndexReportSO.vue");
 /* harmony import */ var _components_Report_SO_IndexReportFinanceAR__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Report/SO/IndexReportFinanceAR */ "./resources/js/components/Report/SO/IndexReportFinanceAR.vue");
 /* harmony import */ var _components_MasterData_AddUserProc__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/MasterData/AddUserProc */ "./resources/js/components/MasterData/AddUserProc.vue");
+/* harmony import */ var _components_WarehouseIn_AddWarehouseConfirm__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/WarehouseIn/AddWarehouseConfirm */ "./resources/js/components/WarehouseIn/AddWarehouseConfirm.vue");
 /**
  * List Component
  */
@@ -87341,6 +87364,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+Vue.component('AddWarehouseConfirm', _components_WarehouseIn_AddWarehouseConfirm__WEBPACK_IMPORTED_MODULE_15__["default"]);
 Vue.component('index-report-so', _components_Report_SO_IndexReportSO__WEBPACK_IMPORTED_MODULE_12__["default"]);
 Vue.component('index-report-finance-ar', _components_Report_SO_IndexReportFinanceAR__WEBPACK_IMPORTED_MODULE_13__["default"]);
 Vue.component('users-component', _components_UsersComponent__WEBPACK_IMPORTED_MODULE_0__["default"]);

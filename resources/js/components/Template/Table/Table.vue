@@ -136,8 +136,9 @@
                             </td>
                             <td v-for="column in columns">
                                 <span v-html="item[column.field]" v-if="column.type === 'html'"></span>
-                                <a v-bind:href="item[column.field_url]" v-else-if="column.type === 'link'">{{
-                                    item[column.field] }}</a>
+                                <a href='#' class="badge badge-info" @click="showFile(item[column.field])" v-else-if="column.type === 'file'">
+                                   {{ item.file }}
+                                </a>
                                 <p v-else-if="column.type === 'price'">
                                     {{ item[column.field] | toIDR }}
                                 </p>
@@ -331,6 +332,15 @@
                     }
                 });
                 console.log(id);
+            },
+            showFile(fileUrl) {
+                Vue.swal({
+                    title: 'Sweet!',
+                    text: 'Modal with a custom image.',
+                    imageUrl: fileUrl,
+                    imageAlt: 'Custom image',
+                })
+                console.log(fileUrl);
             }
         },
         computed: {

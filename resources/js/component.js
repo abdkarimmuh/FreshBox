@@ -21,6 +21,9 @@ import IndexReportSO from "./components/Report/SO/IndexReportSO"
 import IndexReportFinanceAR from "./components/Report/SO/IndexReportFinanceAR"
 
 import AddUserProc from "./components/MasterData/AddUserProc"
+import AddWarehouseConfirm from "./components/WarehouseIn/AddWarehouseConfirm";
+
+Vue.component('AddWarehouseConfirm', AddWarehouseConfirm);
 
 
 Vue.component('index-report-so', IndexReportSO);

@@ -54,7 +54,10 @@ class ConfirmController extends Controller
      */
     public function create()
     {
-        return redirect('admin/warehouseIn/confirm/create');
+        $config = [
+            'vue-component' => '<add-warehouse-confirm/>'
+        ];
+        return view('layouts.vue-view', compact('config'));
     }
 
     /**
