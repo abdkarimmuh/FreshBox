@@ -21,7 +21,7 @@ class ConfirmController extends Controller
         $columns = [
             array('title' => 'Procurement No', 'field' => 'procurement_no'),
             array('title' => 'User Procurement', 'field' => 'proc_name'),
-            array('title' => 'Remarks', 'field' => 'remarks'),
+            array('title' => 'Remarks', 'field' => 'remark'),
             array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
