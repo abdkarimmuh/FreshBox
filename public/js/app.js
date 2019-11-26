@@ -7477,6 +7477,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7707,10 +7711,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
       console.log(id);
     },
-    showFile: function showFile(fileUrl) {
+    showFile: function showFile(fileUrl, fileName) {
       Vue.swal({
-        title: 'Sweet!',
-        text: 'Modal with a custom image.',
+        title: fileName,
         imageUrl: fileUrl,
         imageAlt: 'Custom image'
       });
@@ -59841,27 +59844,34 @@ var render = function() {
                                             }
                                           })
                                         : column.type === "file"
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass: "badge badge-info",
-                                              attrs: { href: "#" },
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.showFile(
-                                                    item[column.field]
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                               " +
-                                                  _vm._s(item.file) +
-                                                  "\n                            "
-                                              )
-                                            ]
-                                          )
+                                        ? _c("p", [
+                                            column.type === "file" &&
+                                            item.file !== ""
+                                              ? _c(
+                                                  "a",
+                                                  {
+                                                    staticClass:
+                                                      "badge badge-info",
+                                                    attrs: { href: "#" },
+                                                    on: {
+                                                      click: function($event) {
+                                                        return _vm.showFile(
+                                                          item[column.field],
+                                                          item.file
+                                                        )
+                                                      }
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                                    " +
+                                                        _vm._s(item.file) +
+                                                        "\n                                "
+                                                    )
+                                                  ]
+                                                )
+                                              : _vm._e()
+                                          ])
                                         : column.type === "price"
                                         ? _c("p", [
                                             _vm._v(
