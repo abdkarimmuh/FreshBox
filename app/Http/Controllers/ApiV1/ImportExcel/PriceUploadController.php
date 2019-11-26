@@ -83,13 +83,10 @@ class PriceUploadController extends Controller
     public function generateMasterPriceAll()
     {
         $generate = DB::select('call GeneMAsterPriceAll(?)', array(auth('api')->user()->id));
-        if ($generate) {
-            $status = true;
-        } else {
-            $status = false;
-        }
+
         return response()->json([
-            'success' => $status,
+            'success' => true,
+            'data' => $generate
         ]);
     }
 }

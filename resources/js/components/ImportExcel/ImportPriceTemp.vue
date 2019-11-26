@@ -262,7 +262,7 @@
                             );
                             console.log(res);
                         } catch (e) {
-                            console.error(e.response.data);
+                            console.error(e);
                         }
                     }
                 })
