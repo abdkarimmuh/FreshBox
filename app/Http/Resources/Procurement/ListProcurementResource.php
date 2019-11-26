@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Procurement;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ListProcurementResource extends JsonResource
 {
