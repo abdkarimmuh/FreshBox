@@ -139,7 +139,7 @@
                                 <p v-else-if="column.type === 'file'">
                                     <a href='#' class="badge badge-info"
                                        @click="showFile(item[column.field], item.file)"
-                                       v-if="column.type === 'file' && item.file !== ''">
+                                       v-if="column.type === 'file' && item.file !== '' && item.file !== null" >
                                         {{ item.file }}
                                     </a>
                                 </p>

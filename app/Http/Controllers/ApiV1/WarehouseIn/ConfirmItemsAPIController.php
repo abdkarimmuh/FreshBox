@@ -54,7 +54,7 @@ class ConfirmItemsAPIController extends Controller
                     'created_at' => Carbon::now(),
                 ]);
 
-                DB::select('call insert_notification_procurement(?, ?, ?, ?)', array($userProcId, $confirm_id, 1, $data['remark']));
+                DB::select('call insert_notification_procurement(?, ?, ?)', array($userProcId, $confirm_id, 1));
             } else {
                 ListProcurementDetail::find($item['id'])->update(
                     [

@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Finance;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceRecapResource extends JsonResource
 {
@@ -27,6 +28,8 @@ class InvoiceRecapResource extends JsonResource
             'recap_date' => $this->recap_date->formatLocalized('%d %B %Y'),
             'total_amount' => $total_amount,
             'paid_date' => $this->paid_date ? $this->paid_date->formatLocalized('%d %B %Y') : null,
+            'file' => $this->file,
+            'file_url' => url(Storage::url('public/files/recapInvoice/' . $this->file)),
             'submitted_date' => $this->submitted_date ? $this->submitted_date->formatLocalized('%d %B %Y') : null,
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
             'created_by_name' => $this->created_by_name,

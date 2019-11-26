@@ -2625,6 +2625,11 @@ __webpack_require__.r(__webpack_exports__);
         field: 'customer_name',
         filterable: false
       }, {
+        title: 'File',
+        field: 'file_url',
+        type: 'file',
+        filterable: false
+      }, {
         title: 'Recap Date',
         field: 'recap_date',
         filterable: true
@@ -59851,7 +59856,8 @@ var render = function() {
                                         : column.type === "file"
                                         ? _c("p", [
                                             column.type === "file" &&
-                                            item.file !== ""
+                                            item.file !== "" &&
+                                            item.file !== null
                                               ? _c(
                                                   "a",
                                                   {

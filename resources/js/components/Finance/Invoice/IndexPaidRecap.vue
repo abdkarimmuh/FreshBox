@@ -30,6 +30,12 @@
                         filterable: false,
                     },
                     {
+                        title: 'File',
+                        field: 'file_url',
+                        type: 'file',
+                        filterable: false,
+                    },
+                    {
                         title: 'Recap Date',
                         field: 'recap_date',
                         filterable: true,

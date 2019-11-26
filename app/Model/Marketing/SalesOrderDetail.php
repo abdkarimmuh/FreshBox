@@ -27,6 +27,51 @@ class SalesOrderDetail extends MyModel
         'created_by',
     ];
 
+    protected $columns = [
+        'id' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'customer_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'Customer',
+            'relation_field' => 'name',
+        ],
+        'sales_order_no' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'SalesOrder',
+            'relation_field' => 'name',
+        ],
+        'driver_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'Driver',
+            'relation_field' => 'name',
+        ],
+        'fulfillment_date' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+        'remarks' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+        'created_at' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+        'created_by' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+        'status' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+    ];
+
     public function Item()
     {
         return $this->belongsTo(Item::class, 'skuid', 'skuid');
