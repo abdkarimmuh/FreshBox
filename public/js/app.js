@@ -4410,6 +4410,11 @@ __webpack_require__.r(__webpack_exports__);
         type: "price",
         filterable: true
       }, {
+        title: "File",
+        field: "file_url",
+        type: "file",
+        filterable: true
+      }, {
         title: "Status",
         field: "status_html",
         type: "html",
