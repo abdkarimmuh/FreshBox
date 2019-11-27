@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-12">
-            <div class="card col-12">
+            <div class="card col-12" v-if="!loading">
                 <div class="card-header">
                     <h4 class="text-danger">Add Delivery Order</h4>
                 </div>
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <!-- Driver -->
-                        <div class="col-md-6">
+                        <div class="col-md-6" v-if="delivery_order.sales_order_id !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Driver</b>
@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         <!-- Customer -->
-                        <div class="col-md-6">
+                        <div class="col-md-6" v-if="delivery_order.sales_order_id !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Customer</b>
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         <!-- PIC QC -->
-                        <div class="col-md-6">
+                        <div class="col-md-6" v-if="delivery_order.sales_order_id !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>PIC Quality Control</b>
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         <!-- DO Date -->
-                        <div class="col-md-6">
+                        <div class="col-md-6" v-if="delivery_order.sales_order_id !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>DO Date</b>
@@ -115,6 +115,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div v-if="delivery_order.sales_order_id !== ''" class="col-12">
                             <div class="table-responsive m-t-40" style="clear: both;">
                                 <table class="table table-hover" style="font-size: 9pt;">
@@ -147,7 +148,8 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col-md-12">
+
+                        <div class="col-md-12" v-if="delivery_order.sales_order_id !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Remark</b>
@@ -161,7 +163,7 @@
                                     <loading-button/>
                                 </div>
                                 <div v-else>
-                                    <button class="btn btn-danger" v-on:click="submitForm()">
+                                    <button class="btn btn-danger" v-on:click="submitForm()" v-if="delivery_order.sales_order_id !== ''">
                                         Submit
                                     </button>
                                     <back-button/>
@@ -171,12 +173,16 @@
                     </div>
                 </div>
             </div>
+            <div class="card col-12" v-else>
+                <LoadingTable/>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     import {ModelListSelect} from "vue-search-select";
+    import LoadingTable from "../Template/Table/partials/LoadingTable";
 
     export default {
         data() {
@@ -198,6 +204,7 @@
                 pic_qc: [],
                 qty_do: [],
                 errors: [],
+                loading:false,
                 loadingSubmit: false
             };
         },
@@ -213,6 +220,7 @@
                 }
             },
             getDataCustomer() {
+                this.loading = true;
                 axios.get(this.$parent.MakeUrl("api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id))
                     .then(res => {
                         this.sales_order = res.data;
@@ -223,6 +231,7 @@
                             qty: item.qty
                         }));
                         this.delivery_order.driver_id = res.data.driver_id;
+                        this.loading = false;
                     })
                     .catch(err => {
                     });
@@ -276,6 +285,7 @@
             }
         },
         components: {
+            LoadingTable,
             ModelListSelect
         }
     };
