@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Model\WarehouseIn\Confirm;
 use App\Model\WarehouseIn\ConfirmDetail;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ConfirmController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -50,7 +52,7 @@ class ConfirmController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -65,7 +67,7 @@ class ConfirmController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -76,7 +78,7 @@ class ConfirmController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -119,7 +121,7 @@ class ConfirmController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -131,7 +133,7 @@ class ConfirmController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int                      $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -142,7 +144,7 @@ class ConfirmController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function destroy($id)
     {
