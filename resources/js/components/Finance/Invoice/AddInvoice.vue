@@ -61,16 +61,13 @@
                                         valueType="format"
                                     ></date-picker>
                                 </div>
-                                <div
-                                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                    v-if="errors.invoice_date"
-                                >
+                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545" v-if="errors.invoice_date">
                                     <p>{{ errors.invoice_date[0] }}</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div v-if="do_id != ''" class="col-12">
+                        <div v-if="do_id !== ''" class="col-12">
                             <div class="table-responsive m-t-40" style="clear: both;">
                                 <table class="table table-hover" id="contentTable" style="font-size: 9pt;">
                                     <thead>
@@ -86,10 +83,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr
-                                        v-for="(orders, index) in do_details"
-                                        v-bind:key="index"
-                                    >
+                                    <tr v-for="(orders, index) in do_details" v-bind:key="index">
                                         <td>{{ orders.skuid }}</td>
                                         <td>{{ orders.item_name }}</td>
                                         <td>{{ orders.uom_name }}</td>
@@ -103,7 +97,8 @@
                                     <tfoot>
                                     <tr>
                                         <td colspan="5" style="text-align: right;">Grand Total</td>
-                                        <td style="text-align: right;">{{ delivery_order.total_price_not_returned }}
+                                        <td style="text-align: right;">
+                                            {{ delivery_order.total_price_not_returned }}
                                         </td>
                                     </tr>
                                     </tfoot>
@@ -125,7 +120,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
     <stisla-create-template title="Add Finance Replenish">
         <div class="row" v-if="loading">
             <div class="col-md-12 text-center">
-                <LoadingTable></LoadingTable>
+                <LoadingTable/>
             </div>
         </div>
         <div class="row" v-else>
@@ -23,10 +23,7 @@
                             option-text="no_proc"
                             placeholder="Select Procurement No"
                         ></model-list-select>
-                        <div
-                            style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                            v-if="errors.procurementId"
-                        >
+                        <div style="margin-top: .25rem; font-size: 80%;color: #dc3545" v-if="errors.procurementId">
                             <p>{{ errors.procurementId[0] }}</p>
                         </div>
                     </div>
@@ -61,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <!--            Vendor Name-->
+            <!--Vendor Name-->
             <div class="col-md-3" v-if="procurementId !== ''">
                 <div class="form-group">
                     <label>
@@ -77,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <!--            Total Amount-->
+            <!--Total Amount-->
             <div class="col-md-3" v-if="procurementId !== ''">
                 <div class="form-group">
                     <label>
@@ -93,7 +90,7 @@
                     </div>
                 </div>
             </div>
-            <!--            File-->
+            <!--File-->
             <div class="col-md-3" v-if="procurementId !== ''">
                 <div class="form-group">
                     <label>
@@ -109,19 +106,9 @@
                     </div>
                 </div>
             </div>
-            <div
-                v-if="procurementId !== ''"
-                class="col-12"
-            >
-                <div
-                    class="table-responsive m-t-40"
-                    style="clear: both;"
-                >
-                    <table
-                        class="table table-hover"
-                        id="contentTable"
-                        style="font-size: 9pt;"
-                    >
+            <div v-if="procurementId !== ''" class="col-12">
+                <div class="table-responsive m-t-40" style="clear: both;">
+                    <table class="table table-hover" style="font-size: 9pt;">
                         <thead>
                         <tr>
                             <th class="text-center">Item Name</th>
@@ -131,30 +118,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr
-                            v-for="(item, index) in procurement.items"
-                            v-bind:key="index"
-                        >
-                            <td
-                                class="text-center"
-                                style="overflow:hidden; white-space:nowrap"
-                            >{{ item.name }}
+                        <tr v-for="(item, index) in procurement.items" v-bind:key="index">
+                            <td class="text-center" style="overflow:hidden; white-space:nowrap">
+                                {{ item.name }}
                             </td>
 
-                            <td
-                                class="text-center"
-                                style="overflow:hidden; white-space:nowrap"
-                            >{{ item.qty }}
+                            <td class="text-center" style="overflow:hidden; white-space:nowrap">
+                                {{ item.qty }}
                             </td>
-                            <td
-                                class="text-center"
-                                style="overflow:hidden; white-space:nowrap"
-                            >{{ item.uom }}
+                            <td class="text-center" style="overflow:hidden; white-space:nowrap">
+                                {{ item.uom }}
                             </td>
-                            <td
-                                class="text-center"
-                                style="overflow:hidden; white-space:nowrap"
-                            >{{ item.amount }}
+                            <td class="text-center" style="overflow:hidden; white-space:nowrap">
+                                {{ item.amount }}
                             </td>
                         </tr>
                         </tbody>
@@ -166,10 +142,7 @@
                     <label>
                         <b>Remark</b>
                     </label>
-                    <textarea
-                        v-model="procurement.remark"
-                        class="form-control"
-                    ></textarea>
+                    <textarea v-model="procurement.remark" class="form-control"></textarea>
                 </div>
             </div>
             <div class="col-12">
@@ -186,7 +159,6 @@
                 </div>
             </div>
         </div>
-
     </stisla-create-template>
 </template>
 

@@ -253,6 +253,7 @@
                     }).then(next => {
                         this.$router.push({name: 'delivery_order.index'})
                     });
+                    console.log(res);
                 } catch (e) {
                     this.loadingSubmit = false;
                     this.errors = e.response.data.errors;
@@ -260,21 +261,18 @@
                 }
             },
             getData() {
-                axios
-                    .all([
-                        axios.get(this.$parent.MakeUrl("api/v1/warehouse/delivery_order/create")),
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/driver")),
-                        axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/picqc"))
-                    ])
-                    .then(
-                        axios.spread((sales_order, driver, pic_qc) => {
-                            this.sales_orders = sales_order.data.data;
-                            this.drivers = driver.data;
-                            this.pic_qc = pic_qc.data;
-                        })
-                    )
-                    .catch(err => {
-                    });
+                axios.all([
+                    axios.get(this.$parent.MakeUrl("api/v1/warehouse/delivery_order/create")),
+                    axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/driver")),
+                    axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/picqc"))
+                ]).then(
+                    axios.spread((sales_order, driver, pic_qc) => {
+                        this.sales_orders = sales_order.data.data;
+                        this.drivers = driver.data;
+                        this.pic_qc = pic_qc.data;
+                    })
+                ).catch(err => {
+                });
             }
         },
         components: {

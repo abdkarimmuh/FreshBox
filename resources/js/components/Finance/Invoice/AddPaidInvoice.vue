@@ -119,19 +119,16 @@
                        <loading-button/>
                     </div>
                     <div v-else>
-                        <button
-                            class="btn btn-danger"
-                            v-on:click="submitForm()"
-                        >Submit
+                        <button class="btn btn-danger" v-on:click="submitForm()">
+                            Submit
                         </button>
                        <back-button/>
                     </div>
                 </div>
             </div>
-
         </div>
         <div v-else>
-            <loading-table></loading-table>
+            <loading-table/>
         </div>
     </stisla-create-template>
 </template>
@@ -174,7 +171,6 @@
                         this.invoices = res.data.data.invoice_recap_detail;
                         this.loading = true;
                     }).catch(e => {
-
                 })
             },
             async submitForm() {
@@ -212,7 +208,6 @@
                 this.createFile(fileData[0]);
                 console.log(this.fileName)
             },
-
             createFile(file) {
                 let reader = new FileReader();
                 reader.onload = e => {

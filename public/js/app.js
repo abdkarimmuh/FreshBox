@@ -2054,12 +2054,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2186,9 +2180,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
 //
 //
 //
@@ -4057,34 +4048,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -8245,22 +8208,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     name: 'delivery_order.index'
                   });
                 });
-                _context.next = 14;
+                console.log(res);
+                _context.next = 15;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](2);
                 this.loadingSubmit = false;
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 9]]);
+        }, _callee, this, [[2, 10]]);
       }));
 
       function submitForm() {
@@ -52457,7 +52421,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm.do_id != ""
+              _vm.do_id !== ""
                 ? _c("div", { staticClass: "col-12" }, [
                     _c(
                       "div",
@@ -52526,10 +52490,11 @@ var render = function() {
                                   { staticStyle: { "text-align": "right" } },
                                   [
                                     _vm._v(
-                                      _vm._s(
-                                        _vm.delivery_order
-                                          .total_price_not_returned
-                                      ) +
+                                      "\n                                        " +
+                                        _vm._s(
+                                          _vm.delivery_order
+                                            .total_price_not_returned
+                                        ) +
                                         "\n                                    "
                                     )
                                   ]
@@ -52968,7 +52933,11 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Submit\n                    ")]
+                            [
+                              _vm._v(
+                                "\n                        Submit\n                    "
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c("back-button")
@@ -55173,8 +55142,7 @@ var render = function() {
                         "table",
                         {
                           staticClass: "table table-hover",
-                          staticStyle: { "font-size": "9pt" },
-                          attrs: { id: "contentTable" }
+                          staticStyle: { "font-size": "9pt" }
                         },
                         [
                           _c("thead", [
@@ -55215,7 +55183,8 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      _vm._s(item.name) +
+                                      "\n                            " +
+                                        _vm._s(item.name) +
                                         "\n                        "
                                     )
                                   ]
@@ -55232,7 +55201,8 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      _vm._s(item.qty) +
+                                      "\n                            " +
+                                        _vm._s(item.qty) +
                                         "\n                        "
                                     )
                                   ]
@@ -55249,7 +55219,8 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      _vm._s(item.uom) +
+                                      "\n                            " +
+                                        _vm._s(item.uom) +
                                         "\n                        "
                                     )
                                   ]
@@ -55266,7 +55237,8 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      _vm._s(item.amount) +
+                                      "\n                            " +
+                                        _vm._s(item.amount) +
                                         "\n                        "
                                     )
                                   ]
