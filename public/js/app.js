@@ -4207,11 +4207,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -4309,7 +4304,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return submitForm;
-    }()
+    }(),
+    showFile: function showFile(fileUrl, fileName) {
+      Vue.swal({
+        title: fileName,
+        imageUrl: fileUrl,
+        imageAlt: 'Custom image'
+      });
+      console.log(fileUrl);
+    }
   },
   components: {
     LoadingTable: _Template_Table_partials_LoadingTable__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -55071,31 +55074,21 @@ var render = function() {
                     _c("label", [_c("b", [_vm._v("File")])]),
                     _vm._v(" "),
                     _c("div", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.procurement.file,
-                            expression: "procurement.file"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", disabled: "" },
-                        domProps: { value: _vm.procurement.file },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                      _c(
+                        "button",
+                        {
+                          staticClass: "badge badge-info",
+                          on: {
+                            click: function($event) {
+                              return _vm.showFile(
+                                _vm.procurement.file_url,
+                                _vm.procurement.file
+                              )
                             }
-                            _vm.$set(
-                              _vm.procurement,
-                              "file",
-                              $event.target.value
-                            )
                           }
-                        }
-                      })
+                        },
+                        [_vm._v(_vm._s(_vm.procurement.file))]
+                      )
                     ])
                   ])
                 ])
