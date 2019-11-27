@@ -16,7 +16,6 @@ class CreateNotificationProcurement extends Migration
             $table->unsignedBigInteger('user_proc_id');
             $table->unsignedBigInteger('trx_warehouse_confirm_id');
             $table->integer('status')->default(0);
-            $table->string('message');
             $table->dateTime('read_at')->nullable();
             $table->timestamps();
 

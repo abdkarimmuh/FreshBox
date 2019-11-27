@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiV1\WarehouseIn;
 
 use App\Http\Controllers\Controller;
+use App\Model\MasterData\Inventory;
 use App\Model\Procurement\ListProcurement;
 use App\Model\Procurement\ListProcurementDetail;
 use App\Model\WarehouseIn\Confirm;
@@ -29,7 +30,9 @@ class ConfirmItemsAPIController extends Controller
         ];
         $request->validate($rules);
         $userId = auth('api')->user()->id;
-        $userProcId = $request->userProcId;
+        $proc = ListProcurement::find($request->procurementId);
+        $userProcId = $proc->user_proc_id;
+
         $data = [
             'list_procurement_id' => $request->procurementId,
             'remark' => $request->remark,
@@ -53,30 +56,52 @@ class ConfirmItemsAPIController extends Controller
                     'created_by' => $userId,
                     'created_at' => Carbon::now(),
                 ]);
-
-                DB::select('call insert_notification_procurement(?, ?, ?, ?)', array($userProcId, $confirm_id, 1, $data['remark']));
+                DB::select('call insert_notification_procurement(?, ?, ?)', array($userProcId, $confirm_id, 1));
             } else {
-                ListProcurementDetail::find($item['id'])->update(
-                    [
-                        'status' => 2,
-                    ]
-                );
-                ConfirmDetail::insert(
-                    [
-                        'warehouse_confirm_id' => $confirm_id,
-                        'list_proc_detail_id' => $item['id'],
-                        'bruto' => $item['bruto'],
-                        'netto' => $item['netto'],
-                        'created_by' => $userId,
-                        'created_at' => Carbon::now(),
-                    ]
-                );
+                ListProcurementDetail::find($item['id'])->update([
+                    'status' => 2,
+                ]);
+                ConfirmDetail::insert([
+                    'warehouse_confirm_id' => $confirm_id,
+                    'list_proc_detail_id' => $item['id'],
+                    'bruto' => $item['bruto'],
+                    'netto' => $item['netto'],
+                    'created_by' => $userId,
+                    'created_at' => Carbon::now(),
+                ]);
             }
+            $this->insertInventory($item['id'], $item['netto']);
         }
         ListProcurement::find($data['list_procurement_id'])->update(['status' => 2]);
 
         return response()->json([
             'status' => 'success',
         ], 200);
+    }
+
+    public function insertInventory($procDetailId, $qty)
+    {
+        $userId = auth('api')->user()->id;
+        $now = Carbon::now();
+
+        $procurement = ListProcurementDetail::where('trx_list_procurement_id', $procDetailId);
+        $skuid = $procurement->skuid;
+
+        $inventory = Inventory::where('skuid', $skuid);
+
+        if (isset($inventory)) {
+            $qty_inventory = $inventory->qty + $qty;
+
+            $inventory->qty = $qty_inventory;
+            $inventory->updated_at = $now;
+            $inventory->updated_by = $userId;
+        } else {
+            Inventory::insert([
+                'skuid' => $skuid,
+                'qty' => $qty,
+                'created_by' => $userId,
+                'created_at' => $now,
+            ]);
+        }
     }
 }

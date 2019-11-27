@@ -85,15 +85,13 @@ class NotificationsAPIController extends Controller
         $request->validate([
             'trx_warehouse_confirm_id' => 'required',
             'status' => 'required',
-            'message' => 'required',
         ]);
 
         $userId = auth()->user()->id;
         $warehouseId = $request->trx_warehouse_confirm_id;
         $status = $request->status;
-        $message = $request->message;
 
-        DB::select('call insert_notification_procurement(?, ?, ?, ?)', array($userId, $warehouseId, $status, $message));
+        DB::select('call insert_notification_procurement(?, ?, ?)', array($userId, $warehouseId, $status));
 
         return response()->json([
             'status' => 'success',

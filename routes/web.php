@@ -71,8 +71,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     Route::name('warehouseIn.')->prefix('warehouseIn')->middleware('auth')->group(function () {
         Route::name('confirm.')->prefix('confirm')->group(function () {
             Route::get('/', 'WarehouseIn\ConfirmController@index')->name('index');
-            Route::get('/{id}', 'WarehouseIn\ConfirmController@show')->name('show');
-            Route::get('/create', 'WarehouseIn\ConfirmController@create')->name('create');
+            Route::get('/show/{id}', 'WarehouseIn\ConfirmController@show')->name('show');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
     });
@@ -267,6 +266,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'MasterData\PriceController@index')->name('index');
             Route::get('/create', 'MasterData\PriceController@create')->name('create');
             Route::post('/create', 'MasterData\PriceController@store')->name('store');
+        });
+
+        Route::name('inventory.')->prefix('inventory')->group(function () {
+            Route::get('/', 'MasterData\InventoryController@index')->name('index');
         });
 
         Route::name('modules.')->prefix('modules')->group(function () {
