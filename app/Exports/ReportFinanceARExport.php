@@ -17,7 +17,7 @@ class ReportFinanceARExport implements FromView
      */
     public function view(): View
     {
-        $searchValue = request()->input('search');
+        $searchValue = request()->input('query');
 
         $query = DeliveryOrderDetail::dataTableQuery($searchValue);
         $start = request()->start;

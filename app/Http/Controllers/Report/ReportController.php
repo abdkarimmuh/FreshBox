@@ -9,25 +9,30 @@ use App\Http\Resources\Report\ReportFinanceARResource;
 use App\Http\Resources\Report\ReportSOResource;
 use App\Model\Warehouse\DeliveryOrderDetail;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Resources\Json\AnonymousResourceCollection|\Illuminate\View\View
+     * @return Factory|AnonymousResourceCollection|View
      */
     public function reportSO(Request $request)
     {
-        $searchValue = $request->input('search');
+        $searchValue = $request->input('query');
 
         $config = [
             'vue-component' => '<index-report-so/>',
         ];
 
-        if ($request->ajax()) {
+//        if ($request->ajax()) {
             $query = DeliveryOrderDetail::dataTableQuery($searchValue);
             $start = $request->start;
             $end = $request->end;
@@ -39,7 +44,7 @@ class ReportController extends Controller
                 });
             }
             return ReportSOResource::collection($query->paginate(10));
-        }
+//        }
 
         return view('layouts.vue-view', compact('config'));
     }
@@ -47,11 +52,11 @@ class ReportController extends Controller
     /**
      * Display a listing of the resource.
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Resources\Json\AnonymousResourceCollection|\Illuminate\View\View
+     * @return Factory|AnonymousResourceCollection|View
      */
     public function reportFinanceAR(Request $request)
     {
-        $searchValue = $request->input('search');
+        $searchValue = $request->input('query');
         $config = [
             'vue-component' => '<index-report-finance-ar/>',
         ];
@@ -75,9 +80,7 @@ class ReportController extends Controller
 
     /**
      * Export Data Report SO To Excel
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @return BinaryFileResponse
      */
     public function exportSO()
     {
@@ -87,9 +90,7 @@ class ReportController extends Controller
 
     /**
      * Export Data Report Finance AR To Excel
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @return BinaryFileResponse
      */
     public function exportFinanceAR()
     {
