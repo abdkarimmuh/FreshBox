@@ -32,7 +32,7 @@ class ReportController extends Controller
             'vue-component' => '<index-report-so/>',
         ];
 
-//        if ($request->ajax()) {
+        if ($request->ajax()) {
             $query = DeliveryOrderDetail::dataTableQuery($searchValue);
             $start = $request->start;
             $end = $request->end;
@@ -44,7 +44,7 @@ class ReportController extends Controller
                 });
             }
             return ReportSOResource::collection($query->paginate(10));
-//        }
+        }
 
         return view('layouts.vue-view', compact('config'));
     }
