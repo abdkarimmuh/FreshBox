@@ -67,10 +67,6 @@ class UserProcurement extends MyModel
             'searchable' => true,
             'search_relation' => false,
         ],
-        'created_at' => [
-            'searchable' => true,
-            'search_relation' => false,
-        ],
         'updated_at' => [
             'searchable' => true,
             'search_relation' => false,
