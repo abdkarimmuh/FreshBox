@@ -7,7 +7,6 @@
                 </div>
                 <div class="col-12">
                     <div class="row">
-
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
@@ -22,20 +21,15 @@
                                         option-text="name"
                                         placeholder="Select Source Order"
                                     ></model-list-select>
-                                    <div
-                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.sourceOrderId"
-                                    >
+                                    <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                         v-if="errors.sourceOrderId">
                                         <p>{{ errors.sourceOrderId[0] }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div
-                                class="form-group"
-                                v-if="sales_order.sourceOrderId"
-                            >
+                            <div class="form-group" v-if="sales_order.sourceOrderId">
                                 <label>
                                     <b>File</b>
                                 </label>
@@ -48,39 +42,29 @@
                                         id="site-logo"
                                         v-on:change="onFileChange"
                                     />
-                                    <label class="custom-file-label">{{ sales_order.fileName ? sales_order.fileName :
-                                        'Choose File'}}</label>
-                                    <div
-                                        class="invalid-feedback"
-                                        v-if="errors.file"
-                                    >
+                                    <label class="custom-file-label">
+                                        {{ sales_order.fileName ? sales_order.fileName : 'Choose File'}}
+                                    </label>
+                                    <div class="invalid-feedback" v-if="errors.file">
                                         <p>{{ errors.file[0] }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div
-                                class="form-group"
-                                v-if="sales_order.sourceOrderId == 1"
-                            >
+                            <div class="form-group" v-if="sales_order.sourceOrderId === 1">
                                 <label>
                                     <b>No PO</b>
                                     <span style="color: red;">*</span>
                                 </label>
                                 <div>
-                                    <input
-                                        type="text"
-                                        v-bind:class="{'is-invalid': errors.no_po}"
-                                        placeholder="No PO"
-                                        class="form-control"
-                                        v-model="sales_order.no_po"
-                                        required
-                                    />
-                                    <div
-                                        class="invalid-feedback"
-                                        v-if="errors.no_po"
-                                    >
+                                    <input type="text"
+                                           v-bind:class="{'is-invalid': errors.no_po}"
+                                           placeholder="No PO"
+                                           class="form-control"
+                                           v-model="sales_order.no_po"
+                                           required/>
+                                    <div class="invalid-feedback" v-if="errors.no_po">
                                         <p>{{ errors.no_po[0] }}</p>
                                     </div>
                                 </div>
@@ -110,7 +94,7 @@
                             </div>
                         </div>
                         <!--Fulfillment Date-->
-                        <div class="col-md-3" v-if="sales_order.customerId != 0">
+                        <div class="col-md-3" v-if="sales_order.customerId !== 0">
                             <div class="form-group">
                                 <label>
                                     <b>Fulfillment Date</b>
@@ -125,7 +109,7 @@
                                         valueType="format"
                                         :not-before="new Date()"
                                         format="YYYY-MM-DD HH:mm:ss"
-                                    ></date-picker>
+                                    />
                                 </div>
                                 <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
                                      v-if="errors.fulfillmentDate">
@@ -156,8 +140,7 @@
                             </div>
                         </div>
                         <!--Items-->
-                        <div class="col-md-6"
-                             v-if="sales_order.fulfillmentDate != ''">
+                        <div class="col-md-6" v-if="sales_order.fulfillmentDate !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Items</b>
@@ -169,46 +152,27 @@
                                     v-on:input="getItem"
                                     option-value="skuid"
                                     option-text="item_name"
-                                    placeholder="Select Item"
-                                >
+                                    placeholder="Select Item">
                                 </model-list-select>
 
                             </div>
                         </div>
-                        <div
-                            class="col-md-6 mt-4"
-                            v-if="skuid != ''"
-                        >
+                        <div class="col-md-6 mt-4" v-if="skuid != ''">
                             <div class="form-group">
                                 <label></label>
-                                <button
-                                    class="btn btn-sm btn-primary"
-                                    @click="pushOrderDetails(skuid)"
-                                >Add Items
+                                <button class="btn btn-sm btn-primary" @click="pushOrderDetails(skuid)">
+                                    Add Items
                                 </button>
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div
-                                style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                v-if="errors.items"
-                            >
+                            <div style="margin-top: .25rem; font-size: 80%;color: #dc3545" v-if="errors.items">
                                 <p>{{ errors.items[0] }}</p>
                             </div>
                         </div>
-                        <div
-                            v-if="sales_order.customerId != 0"
-                            class="col-12"
-                        >
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
-                                <table
-                                    class="table table-hover"
-                                    id="contentTable"
-                                    style="font-size: 9pt;"
-                                >
+                        <div v-if="sales_order.customerId !== 0" class="col-12">
+                            <div class="table-responsive m-t-40" style="clear: both;">
+                                <table class="table table-hover" style="font-size: 9pt;">
                                     <thead>
                                     <tr>
                                         <th class="text-center">SKUID</th>
@@ -222,10 +186,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr
-                                        v-for="(order, index) in orders_detail" track-by="index"
-                                        v-bind:key="index"
-                                    >
+                                    <tr v-for="(order, index) in orders_detail" track-by="index" v-bind:key="index">
                                         <td>{{ order.skuid }}</td>
                                         <td>{{ order.item_name }}</td>
                                         <td style="text-align: right;">
@@ -250,10 +211,8 @@
                                             />
                                         </td>
                                         <td>
-                                            <button
-                                                class="btn btn-icon btn-sm btn-danger"
-                                                @click="removeOrderDetails(index)"
-                                            >
+                                            <button class="btn btn-icon btn-sm btn-danger"
+                                                    @click="removeOrderDetails(index)">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </td>
@@ -261,10 +220,8 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <td
-                                            colspan="5"
-                                            style="text-align: right;"
-                                        >Grand Total
+                                        <td colspan="5" style="text-align: right;">
+                                            Grand Total
                                         </td>
                                         <td style="text-align: right;">{{ totalItem }}</td>
                                         <td></td>
@@ -272,15 +229,9 @@
                                     </tfoot>
                                 </table>
                             </div>
-
-                            <div
-                                v-for="(orders, index) in orders_detail"
-                                v-bind:key="index"
-                            >
-                                <div
-                                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                    v-if="errors[`items.${index}.qty`]"
-                                >
+                            <div v-for="(orders, index) in orders_detail" v-bind:key="index">
+                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                     v-if="errors[`items.${index}.qty`]">
                                     <p>The {{ orders_detail[index].item_name }} of qty field is required.</p>
                                 </div>
                             </div>
@@ -297,10 +248,7 @@
                                     id="Remarks"
                                     name="Remarks"
                                 ></textarea>
-                                <div
-                                    class="invalid-feedback"
-                                    v-if="errors.remark"
-                                >
+                                <div class="invalid-feedback" v-if="errors.remark">
                                     <p>{{ errors.remark[0] }}</p>
                                 </div>
                             </div>
@@ -308,24 +256,13 @@
                         <div class="col-12">
                             <div class="card-body">
                                 <div v-if="loadingSubmit">
-                                    <button class="btn btn-danger" type="button" disabled>
-                                    <span class="spinner-border spinner-border-sm" role="status"
-                                          aria-hidden="true"></span>
-                                        Loading...
-                                    </button>
+                                    <loading-button/>
                                 </div>
                                 <div v-else>
-                                    <button
-                                        class="btn btn-danger"
-                                        v-on:click="submitForm()"
-                                    >Submit
+                                    <button class="btn btn-danger" v-on:click="submitForm()">
+                                        Submit
                                     </button>
-                                    <button
-                                        type="button"
-                                        class="btn btn-secondary"
-                                        @click="back()"
-                                    >Back
-                                    </button>
+                                    <back-button/>
                                 </div>
                             </div>
                         </div>
@@ -334,15 +271,13 @@
             </div>
         </div>
         <div class="card col-12" v-else>
-        <loading-table></loading-table>
+            <loading-table></loading-table>
         </div>
     </div>
 </template>
 
 <script>
-    import {
-        ModelListSelect
-    } from "vue-search-select";
+    import {ModelListSelect} from "vue-search-select";
     import LoadingTable from "../../Template/Table/partials/LoadingTable";
 
     export default {
@@ -432,7 +367,7 @@
                 try {
                     const res = await axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order/store"), payload);
                     Vue.swal({
-                       type: "success",
+                        type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
@@ -502,7 +437,7 @@
                 const indexItem = this.orders_detail.findIndex(x => x.skuid === skuid);
                 if (indexItem >= 0) {
                     Vue.swal({
-                         type: "error",
+                        type: "error",
                         title: "ERROR!",
                         text: "Item Already Added!"
                     });
@@ -542,11 +477,6 @@
             LoadingTable,
             ModelListSelect
         },
-        // watch: {
-        //     'skuid': function (val) {
-        //         console.log(val);
-        //     }
-        // },
         computed: {
             /**
              * Calculate Total Item

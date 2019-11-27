@@ -113,24 +113,13 @@
                         <div class="col-12">
                             <div class="card-body">
                                 <div v-if="loadingSubmit">
-                                    <button class="btn btn-danger" type="button" disabled>
-                                    <span class="spinner-border spinner-border-sm" role="status"
-                                          aria-hidden="true"></span>
-                                        Loading...
-                                    </button>
+                                  <loading-button/>
                                 </div>
                                 <div v-else>
-                                    <button
-                                        class="btn btn-danger"
-                                        v-on:click="submitForm()"
-                                    >Submit
+                                    <button class="btn btn-danger" v-on:click="submitForm()">
+                                        Submit
                                     </button>
-                                    <button
-                                        type="button"
-                                        class="btn btn-secondary"
-                                        @click="back()"
-                                    >Back
-                                    </button>
+                                    <back-button/>
                                 </div>
                             </div>
                         </div>
@@ -191,11 +180,11 @@
                 try {
                     const res = await axios.post(this.$parent.MakeUrl("api/v1/finance/invoice_order/store"), payload);
                     Vue.swal({
-                       type: "success",
+                        type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                       this.$router.push({name:'invoice_order'})
+                        this.$router.push({name: 'invoice_order'})
                     });
                     console.log(res);
                 } catch (e) {

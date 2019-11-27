@@ -161,10 +161,7 @@
                     </table>
                 </div>
             </div>
-            <div
-                class="col-md-12"
-                v-if="procurementId !== ''"
-            >
+            <div class="col-md-12" v-if="procurementId !== ''">
                 <div class="form-group">
                     <label>
                         <b>Remark</b>
@@ -175,26 +172,16 @@
                     ></textarea>
                 </div>
             </div>
-            <div
-                class="col-12"
-                v-if="procurementId !== ''"
-            >
+            <div class="col-12">
                 <div class="card-body">
                     <div v-if="loadingSubmit">
-                        <button-loading/>
+                        <loading-button/>
                     </div>
                     <div v-else>
-                        <button
-                            class="btn btn-danger"
-                            v-on:click="submitForm()"
-                        >Submit
+                        <button class="btn btn-danger" v-on:click="submitForm()" v-if="procurementId !== ''">
+                            Submit
                         </button>
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            onclick="history.back()"
-                        >Back
-                        </button>
+                     <back-button/>
                     </div>
                 </div>
             </div>
@@ -205,7 +192,6 @@
 
 <script>
     import {ModelListSelect} from "vue-search-select";
-    import ButtonLoading from "../../Template/Etc/ButtonLoading";
     import StislaCreateTemplate from "../../Template/StislaCreateTemplate";
     import LoadingTable from "../../Template/Table/partials/LoadingTable";
 
@@ -273,7 +259,6 @@
         components: {
             LoadingTable,
             StislaCreateTemplate,
-            ButtonLoading,
             ModelListSelect
         }
     };

@@ -1,6 +1,5 @@
 <template>
     <stisla-create-template title="Add Paid Invoice">
-
         <div class="row" v-if="loading">
             <div class="col-md-4">
                 <div class="form-group">
@@ -18,10 +17,7 @@
                             option-text="recapNoWithCustName"
                             placeholder="Select Recap Invoice Order No"
                         ></model-list-select>
-                        <div
-                            style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                            v-if="errors.invoice_id"
-                        >
+                        <div style="margin-top: .25rem; font-size: 80%;color: #dc3545" v-if="errors.invoice_id">
                             <p>{{ errors.invoice_id[0] }}</p>
                         </div>
                     </div>
@@ -77,10 +73,7 @@
                             {{ fileName }}
                         </label>
                         <label class="custom-file-label" v-else>Choose File</label>
-                        <div
-                            class="invalid-feedback"
-                            v-if="errors.file"
-                        >
+                        <div class="invalid-feedback" v-if="errors.file">
                             <p>{{ errors.file[0] }}</p>
                         </div>
                     </div>
@@ -89,17 +82,12 @@
 
             <div v-if="recapInvoice.id !== null" class="col-12">
                 <div class="table-responsive m-t-40" style="clear: both;">
-                    <table
-                        class="table table-hover"
-                        id="contentTable"
-                        style="font-size: 9pt;"
-                    >
+                    <table class="table table-hover" style="font-size: 9pt;">
                         <thead>
                         <tr>
                             <th class="text-center">Invoice No</th>
                             <th class="text-center">Total Price</th>
                             <th class="text-center">Amount Paid</th>
-                            <!--                            <th class="text-center">Paid Date</th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -109,9 +97,6 @@
                             <td>
                                 <input type="number" class="form-control" v-model="invoice.amountPaid"/>
                             </td>
-                            <!--                            <td>-->
-                            <!--                                <input type="text" class="form-control"/>-->
-                            <!--                            </td>-->
                         </tr>
                         </tbody>
                     </table>
@@ -131,7 +116,7 @@
             <div class="col-12">
                 <div class="card-body">
                     <div v-if="loadingSubmit">
-                        <button-loading></button-loading>
+                       <loading-button/>
                     </div>
                     <div v-else>
                         <button
@@ -139,12 +124,7 @@
                             v-on:click="submitForm()"
                         >Submit
                         </button>
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            onclick="history.back()"
-                        >Back
-                        </button>
+                       <back-button/>
                     </div>
                 </div>
             </div>
@@ -161,7 +141,6 @@
     import StislaCreateTemplate from "../../Template/StislaCreateTemplate";
     import StislaSearchSelect from "../../Template/StislaSearchSelect";
     import LoadingTable from "../../Template/Table/partials/LoadingTable";
-    import ButtonLoading from "../../Template/Etc/ButtonLoading";
 
     export default {
         data() {
@@ -243,7 +222,6 @@
             },
         },
         components: {
-            ButtonLoading,
             LoadingTable,
             StislaSearchSelect,
             StislaCreateTemplate,
