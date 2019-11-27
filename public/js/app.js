@@ -8401,48 +8401,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -8456,7 +8414,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       do_details: [],
       qty_minus: [],
       errors: [],
-      loading: true
+      loading: true,
+      loadingSubmit: false
     };
   },
   mounted: function mounted() {
@@ -8501,6 +8460,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                this.loadingSubmit = true;
                 payload = {
                   id: this.delivery_order.id,
                   sales_order_id: this.delivery_order.sales_order_id,
@@ -8514,11 +8474,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     };
                   })
                 };
-                _context.prev = 1;
-                _context.next = 4;
+                _context.prev = 2;
+                _context.next = 5;
                 return axios.patch(this.$parent.MakeUrl("api/v1/warehouse/confirm-delivery-order/update"), payload);
 
-              case 4:
+              case 5:
                 res = _context.sent;
                 Vue.swal({
                   type: "success",
@@ -8528,21 +8488,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   window.location.href = "/admin/warehouse/confirm-delivery-order";
                 });
                 console.log(res);
-                _context.next = 13;
+                _context.next = 15;
                 break;
 
-              case 9:
-                _context.prev = 9;
-                _context.t0 = _context["catch"](1);
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](2);
                 this.errors = _context.t0.response.data.errors;
+                this.loadingSubmit = false;
                 console.error(_context.t0.response.data);
 
-              case 13:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 9]]);
+        }, _callee, this, [[2, 10]]);
       }));
 
       function submitForm() {
@@ -60717,24 +60678,16 @@ var render = function() {
                       _c(
                         "div",
                         [
-                          _c(
-                            "date-picker",
-                            {
-                              attrs: { lang: "en", valueType: "format" },
-                              model: {
-                                value: _vm.confirm_date,
-                                callback: function($$v) {
-                                  _vm.confirm_date = $$v
-                                },
-                                expression: "confirm_date"
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                    >\n                                "
-                              )
-                            ]
-                          )
+                          _c("date-picker", {
+                            attrs: { lang: "en", valueType: "format" },
+                            model: {
+                              value: _vm.confirm_date,
+                              callback: function($$v) {
+                                _vm.confirm_date = $$v
+                              },
+                              expression: "confirm_date"
+                            }
+                          })
                         ],
                         1
                       ),
@@ -60759,7 +60712,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm.delivery_order.sales_order_id != ""
+                  _vm.delivery_order.sales_order_id !== ""
                     ? _c(
                         "div",
                         { staticClass: "col-12" },
@@ -60775,8 +60728,7 @@ var render = function() {
                                 "table",
                                 {
                                   staticClass: "table table-hover",
-                                  staticStyle: { "font-size": "9pt" },
-                                  attrs: { id: "contentTable" }
+                                  staticStyle: { "font-size": "9pt" }
                                 },
                                 [
                                   _vm._m(2),
@@ -60979,29 +60931,34 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-12" }, [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger",
-                          on: {
-                            click: function($event) {
-                              return _vm.submitForm()
-                            }
-                          }
-                        },
-                        [_vm._v("Submit\n                            ")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-secondary",
-                          attrs: { type: "button", onclick: "back()" }
-                        },
-                        [_vm._v("Back\n                            ")]
-                      )
-                    ])
+                    _vm.loadingSubmit
+                      ? _c(
+                          "div",
+                          { staticClass: "card-body" },
+                          [_c("loading-button")],
+                          1
+                        )
+                      : _c(
+                          "div",
+                          { staticClass: "card-body" },
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.submitForm()
+                                  }
+                                }
+                              },
+                              [_vm._v("Submit\n                            ")]
+                            ),
+                            _vm._v(" "),
+                            _c("back-button")
+                          ],
+                          1
+                        )
                   ])
                 ],
                 1
