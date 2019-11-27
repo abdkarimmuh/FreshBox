@@ -119,6 +119,9 @@
                 </div>
                 <div class="card-header">
                     <h4 class="text-danger">List Duplicate Data</h4>
+                    <a class="btn btn-sm btn-danger" href="/api/v1/import-data-price-temp/export">
+                        Export
+                    </a>
                 </div>
                 <div v-if="duplicateData.length" class="col-12">
                     <div class="table-responsive m-t-40" style="clear: both;">
@@ -237,26 +240,35 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Yes, generate it!'
                 }).then((result) => {
-                    if (result.value) {
-                        Vue.swal(
-                            'Generated!',
-                            'Master Price has been generated.',
-                            'success'
-                        ).then(next => {
-                            window.location.href = "/admin/import/price";
-                        });
-                        try {
-                            const res = axios(
-                                {
-                                    method: 'post',
-                                    url: this.$parent.MakeUrl("api/v1/import-data-price-temp/generate"),
-                                }
-                            );
-                            console.log(res);
-                        } catch (e) {
-                            console.error(e);
+                    try {
+                        const res = axios(
+                            {
+                                method: 'post',
+                                url: this.$parent.MakeUrl("api/v1/import-data-price-temp/generate"),
+                            }
+                        );
+                        if (res.response.status === 200) {
+                            Vue.swal(
+                                'Generated!',
+                                'Master Price has been generated.',
+                                'success'
+                            ).then(next => {
+                                window.location.href = "/admin/import/price";
+                            });
+                        } else {
+                            Vue.swal(
+                                'Fail!',
+                                'Master Price failed to generate.',
+                                'danger'
+                            ).then(next => {
+                                window.location.href = "/admin/import/price";
+                            });
                         }
+                        console.log(res);
+                    } catch (e) {
+                        console.error(e);
                     }
+
                 })
             },
         }

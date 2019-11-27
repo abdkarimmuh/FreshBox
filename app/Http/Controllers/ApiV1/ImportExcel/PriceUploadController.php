@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ApiV1\ImportExcel;
 
+use App\Exports\ExportDuplicatePrice;
 use App\Http\Controllers\Controller;
 use App\Imports\PriceTempImport;
 use App\PriceTemp;
@@ -88,5 +89,11 @@ class PriceUploadController extends Controller
             'success' => true,
             'data' => $generate
         ]);
+    }
+
+    public function exportDuplicateData()
+    {
+        $now = Carbon::now()->formatLocalized('%d-%B-%Y');
+        return (new ExportDuplicatePrice())->download('Duplicate Price - ' .$now.'.xlsx');
     }
 }

@@ -4575,6 +4575,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4687,20 +4690,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, generate it!'
       }).then(function (result) {
-        if (result.value) {
-          Vue.swal('Generated!', 'Master Price has been generated.', 'success').then(function (next) {
-            window.location.href = "/admin/import/price";
+        try {
+          var res = axios({
+            method: 'post',
+            url: _this3.$parent.MakeUrl("api/v1/import-data-price-temp/generate")
           });
 
-          try {
-            var res = axios({
-              method: 'post',
-              url: _this3.$parent.MakeUrl("api/v1/import-data-price-temp/generate")
+          if (res.response.status === 200) {
+            Vue.swal('Generated!', 'Master Price has been generated.', 'success').then(function (next) {
+              window.location.href = "/admin/import/price";
             });
-            console.log(res);
-          } catch (e) {
-            console.error(e);
+          } else {
+            Vue.swal('Fail!', 'Master Price failed to generate.', 'danger').then(function (next) {
+              window.location.href = "/admin/import/price";
+            });
           }
+
+          console.log(res);
+        } catch (e) {
+          console.error(e);
         }
       });
     }
@@ -55694,7 +55702,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "text-danger" }, [_vm._v("List Duplicate Data")])
+      _c("h4", { staticClass: "text-danger" }, [_vm._v("List Duplicate Data")]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-sm btn-danger",
+          attrs: { href: "/api/v1/import-data-price-temp/export" }
+        },
+        [_vm._v("\n                    Export\n                ")]
+      )
     ])
   },
   function() {
