@@ -145,6 +145,7 @@ class FormSalesOrderAPIController extends Controller
                     'notes' => $detail['notes'],
                     'status' => 1,
                     'created_by' => $user,
+                    'created_at' => Carbon::now()
                 ];
             } else {
                 unset($items[$i]);

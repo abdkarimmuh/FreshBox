@@ -20,15 +20,13 @@
         <th><b>Category</b></th>
         <th><b>Item Code</b></th>
         <th><b>Item Name</b></th>
-        <th><b>Kg</b></th>
+        <th><b>Unit</b></th>
         <th><b>Price / each</b></th>
         <th><b>Quantity 1</b></th>
         <th><b>DO No.</b></th>
         <th><b>DO Date</b></th>
         <th><b>Quantity 2</b></th>
-        <th><b>Price/Unit</b></th>
         <th><b>No. PO</b></th>
-        <th><b>Cust ID</b></th>
     </tr>
     </thead>
     <tbody>
@@ -37,7 +35,7 @@
             <td>{{ $idx + 1 }}</td>
             <td>{{ $row->delivery_order->customer->name }}</td>
             <td>{{ $row->sales_order_detail->sales_order_no }}</td>
-            <td>{{ $row->sales_order_detail->so_date }}</td>
+            <td>{{ $row->sales_order_detail->tanggal }}</td>
             <td>{{ $row->item->Origin->origin_code }}</td>
             <td>{{ $row->sales_order_detail->category_name }}</td>
             <td> {{$row->item->skuid}}</td>
@@ -46,11 +44,9 @@
             <td>{{  format_price($row->sales_order_detail->amount_price) }}</td>
             <td>{{ $row->sales_order_detail->qty }}</td>
             <td>{{ $row->delivery_order->delivery_order_no }}</td>
-            <td>{{ $row->delivery_order->do_date }}</td>
+            <td>{{ $row->delivery_order->do_date->formatLocalized('%m/%d/%Y') }}</td>
             <td>{{ $row->qty_do }}</td>
-            <td>{{ format_price($row->total_amount_do) }}</td>
             <td>{{ $row->sales_order_detail->no_po }}</td>
-            <td>{{ $row->delivery_order->customer->id }}</td>
         </tr>
     @empty
         <tr style="text-align: center">

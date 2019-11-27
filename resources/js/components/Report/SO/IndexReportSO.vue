@@ -56,7 +56,7 @@
                         filterable: true,
                     },
                     {
-                        title: 'Kg',
+                        title: 'Unit',
                         field: 'uom_name',
                         filterable: true,
                     },

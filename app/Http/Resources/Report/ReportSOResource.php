@@ -27,7 +27,7 @@ class ReportSOResource extends JsonResource
             'sales_order_no' => $this->sales_order_detail->sales_order_no,
             'qty' => $this->sales_order_detail->qty,
             'qty_do' => $this->qty_do,
-            'so_date' => $this->sales_order_detail->so_date,
+            'so_date' => $this->sales_order_detail->tanggal,
             'customer_group_name' => $this->delivery_order->customer->customer_group_name,
             'customer_name' => $this->delivery_order->customer->name,
 

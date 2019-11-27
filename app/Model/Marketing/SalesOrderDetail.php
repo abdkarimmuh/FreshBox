@@ -137,6 +137,15 @@ class SalesOrderDetail extends MyModel
         }
     }
 
+    public function getTanggalAttribute()
+    {
+        if (isset($this->SalesOrder->created_at)) {
+            return $this->SalesOrder->created_at->formatLocalized('%m/%d/%Y') ?? null;
+        } else {
+            return null;
+        }
+    }
+
     public function getCategoryNameAttribute()
     {
         return $this->item->category_name ?? null;
