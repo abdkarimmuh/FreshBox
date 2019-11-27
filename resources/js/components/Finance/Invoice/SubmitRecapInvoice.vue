@@ -86,7 +86,7 @@
             <div class="col-12" v-if="recapInvoice.id !== null">
                 <div class="card-body">
                     <div v-if="loadingSubmit">
-                        <button-loading></button-loading>
+                        <loading-button/>
                     </div>
                     <div v-else>
                         <button
@@ -94,12 +94,7 @@
                             v-on:click="submitForm()"
                         >Submit
                         </button>
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            onclick="history.back()"
-                        >Back
-                        </button>
+                        <back-button/>
                     </div>
                 </div>
             </div>
@@ -116,7 +111,6 @@
     import StislaCreateTemplate from "../../Template/StislaCreateTemplate";
     import StislaSearchSelect from "../../Template/StislaSearchSelect";
     import LoadingTable from "../../Template/Table/partials/LoadingTable";
-    import ButtonLoading from "../../Template/Etc/ButtonLoading";
 
     export default {
         data() {
@@ -176,7 +170,6 @@
             },
         },
         components: {
-            ButtonLoading,
             LoadingTable,
             StislaSearchSelect,
             StislaCreateTemplate,

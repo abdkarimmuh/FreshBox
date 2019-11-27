@@ -3,6 +3,7 @@
 namespace App\Http\Resources\FinanceAP;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ReplenishResource extends JsonResource
 {
@@ -24,6 +25,8 @@ class ReplenishResource extends JsonResource
             'remark' => $this->remark,
             'status_html' => $this->status_html,
             'status' => $this->status,
+            'file' => $this->procurement->file,
+            'file_url' => url(Storage::url('public/files/procurement/' . $this->procurement->file)),
             'updated_by_name' => $this->updated_by_name,
             'created_by_name' => $this->created_by_name,
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),

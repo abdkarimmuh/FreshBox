@@ -95,21 +95,15 @@
                         </div>
                         <div class="col-12">
                             <div v-if="loadingSubmit">
-                                <button-loading></button-loading>
+                                <loading-button/>
                             </div>
                             <div class="card-body" v-else>
-
                                 <button
                                     class="btn btn-danger"
                                     v-on:click="submitForm()"
                                 >Submit
                                 </button>
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    onclick="history.back()"
-                                >Back
-                                </button>
+                                <back-button/>
                             </div>
                         </div>
                     </div>
@@ -166,10 +160,8 @@
 </template>
 
 <script>
-    import ButtonLoading from "../Template/Etc/ButtonLoading";
 
     export default {
-        components: {ButtonLoading},
         data() {
             return {
                 form: {

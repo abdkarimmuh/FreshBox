@@ -21,8 +21,13 @@ import IndexReportSO from "./components/Report/SO/IndexReportSO"
 import IndexReportFinanceAR from "./components/Report/SO/IndexReportFinanceAR"
 
 import AddUserProc from "./components/MasterData/AddUserProc"
+import AddWarehouseConfirm from "./components/WarehouseIn/AddWarehouseConfirm";
+import LoadingButton from "./components/Button/LoadingButton";
+import BackButton from "./components/Button/BackButton";
 
 
+
+Vue.component('AddWarehouseConfirm', AddWarehouseConfirm);
 Vue.component('index-report-so', IndexReportSO);
 Vue.component('index-report-finance-ar', IndexReportFinanceAR);
 
@@ -43,6 +48,9 @@ Vue.component('s-table', Table);
 Vue.component('s-testing', Testing);
 Vue.component('s-error-page', ErrorPage);
 Vue.component('s-btn-confirm', ConfirmButton);
+
+Vue.component('back-button', BackButton);
+Vue.component('loading-button', LoadingButton);
 
 Vue.component('AddUserProc', AddUserProc);
 

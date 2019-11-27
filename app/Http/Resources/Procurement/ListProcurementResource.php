@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Procurement;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ListProcurementResource extends JsonResource
 {
@@ -15,7 +16,7 @@ class ListProcurementResource extends JsonResource
      */
     public function toArray($request)
     {
-        return[
+        return [
             'id' => $this->id,
             'no_proc' => $this->procurement_no,
             'user_proc_id' => $this->user_proc_id,
@@ -24,6 +25,7 @@ class ListProcurementResource extends JsonResource
             'total_amount' => $this->total_amount,
             'payment' => $this->payment,
             'file' => $this->file,
+            'file_url' => url(Storage::url('public/files/procurement/' . $this->file)),
             'remarks' => $this->remarks,
             'status' => $this->status,
         ];

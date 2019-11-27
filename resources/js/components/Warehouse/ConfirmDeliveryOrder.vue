@@ -6,20 +6,13 @@
                     <h4 class="text-danger">Confirm Delivery Order</h4>
                 </div>
                 <div class="col-12">
-
                     <div class="text-center" v-if="loading">
                         <LoadingTable/>
                     </div>
                     <div class="row" v-else>
                         <!-- Delivery Order No -->
-                        <s-form-input
-                            :model="delivery_order.delivery_order_no"
-                            col="6"
-                            title="Delivery Order No"
-                            type="text"
-                            :disabled="true"
-                        ></s-form-input>
-
+                        <s-form-input :model="delivery_order.delivery_order_no" col="6" title="Delivery Order No"
+                                      type="text" :disabled="true"/>
                         <!-- Confirm Date -->
                         <div class="col-md-6">
                             <div class="form-group">
@@ -28,35 +21,17 @@
                                     <span style="color: red;">*</span>
                                 </label>
                                 <div>
-                                    <date-picker
-                                        v-model="confirm_date"
-                                        lang="en"
-                                        valueType="format">
-                                        >
-                                    </date-picker>
+                                    <date-picker v-model="confirm_date" lang="en" valueType="format"/>
                                 </div>
-                                <div
-                                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                    v-if="errors.confirm_date"
-                                >
+                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                     v-if="errors.confirm_date">
                                     <p>{{ errors.confirm_date[0] }}</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div
-                            v-if="delivery_order.sales_order_id != ''"
-                            class="col-12"
-                        >
-                            <div
-                                class="table-responsive m-t-40"
-                                style="clear: both;"
-                            >
-                                <table
-                                    class="table table-hover"
-                                    id="contentTable"
-                                    style="font-size: 9pt;"
-                                >
+                        <div v-if="delivery_order.sales_order_id !== ''" class="col-12">
+                            <div class="table-responsive m-t-40" style="clear: both;">
+                                <table class="table table-hover" style="font-size: 9pt;">
                                     <thead>
                                     <tr>
                                         <th class="text-center">No</th>
@@ -68,15 +43,10 @@
                                         <th class="text-center">Qty Confirm</th>
                                         <th class="text-center">Qty Minus</th>
                                         <th class="text-center">Remark Confirm</th>
-                                        <!--                                        <th class="text-center">Returned</th>-->
-
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr
-                                        v-for="(orders, index) in do_details"
-                                        v-bind:key="index"
-                                    >
+                                    <tr v-for="(orders, index) in do_details" v-bind:key="index">
                                         <td>{{ index + 1 }}</td>
                                         <td>{{ orders.skuid }}</td>
                                         <td>{{ orders.item_name }}</td>
@@ -107,16 +77,6 @@
                                                 placeholder="Remark Confirm"
                                             />
                                         </td>
-                                        <!--                                        <td>-->
-                                        <!--                                            <div class="form-check">-->
-                                        <!--                                                <input-->
-                                        <!--                                                    v-model="orders.returned"-->
-                                        <!--                                                    class="form-check-input"-->
-                                        <!--                                                    type="checkbox"-->
-                                        <!--                                                    value="1"-->
-                                        <!--                                                >-->
-                                        <!--                                            </div>-->
-                                        <!--                                        </td>-->
                                     </tr>
                                     </tbody>
                                 </table>
@@ -140,18 +100,16 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="card-body">
+                            <div class="card-body" v-if="loadingSubmit">
+                                <loading-button/>
+                            </div>
+                            <div class="card-body" v-else>
                                 <button
                                     class="btn btn-danger"
                                     v-on:click="submitForm()"
                                 >Submit
                                 </button>
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    onclick="back()"
-                                >Back
-                                </button>
+                                <back-button/>
                             </div>
                         </div>
                     </div>
@@ -176,6 +134,7 @@
                 qty_minus: [],
                 errors: [],
                 loading: true,
+                loadingSubmit: false,
             };
         },
         mounted() {
@@ -207,6 +166,7 @@
                     });
             },
             async submitForm() {
+                this.loadingSubmit = true;
                 const payload = {
                     id: this.delivery_order.id,
                     sales_order_id: this.delivery_order.sales_order_id,
@@ -231,6 +191,7 @@
                     console.log(res);
                 } catch (e) {
                     this.errors = e.response.data.errors;
+                    this.loadingSubmit = false;
                     console.error(e.response.data);
                 }
             },

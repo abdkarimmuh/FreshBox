@@ -88,7 +88,7 @@
             <div class="col-12" v-if="procurementId !== ''">
                 <div class="card-body">
                     <div v-if="loadingSubmit">
-                        <button-loading/>
+                       <loading-button/>
                     </div>
                     <div v-else>
                         <button class="btn btn-danger" v-on:click="submitForm()">Submit</button>
@@ -102,7 +102,6 @@
 <script>
     import {ModelListSelect} from "vue-search-select";
     import StislaCreateTemplate from "../Template/StislaCreateTemplate";
-    import ButtonLoading from "../Template/Etc/ButtonLoading";
     import LoadingTable from "../Template/Table/partials/LoadingTable";
 
     export default {
@@ -171,7 +170,6 @@
         },
         components: {
             LoadingTable,
-            ButtonLoading,
             StislaCreateTemplate,
             ModelListSelect
         }

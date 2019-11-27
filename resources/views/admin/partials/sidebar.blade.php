@@ -16,7 +16,7 @@
         <li class="dropdown {{ request()->segment(2) == 'marketing' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
             <ul class="dropdown-menu">
-                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'warehouse' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
+                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
                     <router-link :to="{ name: 'form_sales_order'}" v-slot="{ href, navigate, isActive }">
                         <li :class="[isActive && 'active']">
                             <a class="nav-link" :href="href" @click="navigate">Form Sales Order</a>
@@ -60,10 +60,15 @@
         <li class="dropdown {{ request()->segment(2) == 'warehouse' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-truck"></i><span>Warehouse Out</span></a>
             <ul class="dropdown-menu">
-                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'warehouse' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
+                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
                     <router-link :to="{ name: 'delivery_order.index'}" v-slot="{ href, navigate, isActive }">
                         <li :class="[isActive && 'active']">
                             <a class="nav-link" :href="href" @click="navigate">Form Delivery Order</a>
+                        </li>
+                    </router-link>
+                    <router-link :to="{ name: 'confirm_delivery_order' }" v-slot="{ href, navigate, isActive }">
+                        <li :class="[isActive && 'active']">
+                            <a class="nav-link" :href="href" @click="navigate">Confirm Delivery Order</a>
                         </li>
                     </router-link>
                 @else
@@ -71,11 +76,12 @@
                         <a class="nav-link"
                            href="{{url('admin/warehouse/delivery-order')}}"><span>Form Delivery Order</span></a>
                     </li>
+                    <li class="{{ request()->segment(3) == 'confirm-delivery-order' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/warehouse/confirm-delivery-order') }}"><span>Confirm Delivery Order</span></a>
+                    </li>
                 @endif
 
-                <li class="{{ request()->segment(3) == 'confirm-delivery-order' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{ url('admin/warehouse/confirm-delivery-order') }}"><span>Confirm Delivery Order</span></a>
-                </li>
+
             </ul>
         </li>
         {{--Finance AP--}}
@@ -83,7 +89,8 @@
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance AP</span></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->segment(3) == 'replenish' ? ' active' : '' }}">
-                    <a href="{{ url('admin/finance-ap/replenish') }}" class="nav-link"><span>Finance Replenish</span></a>
+                    <a href="{{ url('admin/finance-ap/replenish') }}"
+                       class="nav-link"><span>Finance Replenish</span></a>
                 </li>
                 <li class="{{ request()->segment(3) == 'topup' ? ' active' : '' }}">
                     <a href="{{ url('admin/finance-ap/topup') }}" class="nav-link"><span>TopUp Procurement</span></a>
@@ -94,7 +101,7 @@
         <li class="dropdown {{ request()->segment(2) == 'finance' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance AR</span></a>
             <ul class="dropdown-menu">
-                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'warehouse' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
+                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
                     <router-link :to="{ name: 'invoice_order'}" v-slot="{ href, navigate, isActive }">
                         <li :class="[isActive && 'active']">
                             <a class="nav-link" :href="href" @click="navigate">Form Invoice Order</a>
@@ -110,16 +117,21 @@
                             <a class="nav-link" :href="href" @click="navigate">Submitted Recap Invoice</a>
                         </li>
                     </router-link>
+                    <router-link :to="{ name: 'paidRecap'}" v-slot="{ href, navigate, isActive }">
+                        <li :class="[isActive && 'active']">
+                            <a class="nav-link" :href="href" @click="navigate">Paid Recap Invoice</a>
+                        </li>
+                    </router-link>
                 @else
                     <li class="{{ request()->segment(3) == 'invoice_order' ? ' active' : '' }}">
                         <a href="{{ url('admin/finance/invoice-order') }}"
                            class="nav-link"><span>Form Invoice Order</span></a>
                     </li>
+                    <li class="{{ request()->segment(3) == 'paid-recap' ? ' active' : '' }}">
+                        <a href="{{ url('admin/finance/paid-recap') }}"
+                           class="nav-link"><span>Paid Recap Invoice</span></a>
+                    </li>
                 @endif
-                <li class="{{ request()->segment(3) == 'paid-recap' ? ' active' : '' }}">
-                    <a href="{{ url('admin/finance/paid-recap') }}"
-                       class="nav-link"><span>Paid Invoice Order</span></a>
-                </li>
             </ul>
         </li>
         <li class="dropdown {{ request()->segment(2) == 'report' ? ' active' : '' }}">

@@ -62,7 +62,7 @@ class InvoiceAPIController extends Controller
             'user_id' => $request->user_id,
             'customer_id' => $request->customer_id,
             'invoice_date' => $request->invoice_date,
-            'invoice_no' => $this->generateInvoiceNo(),
+            'invoice_no' => $this->generateInvoiceNo($request->do_id),
             'created_by' => $request->user_id
         ];
         InvoiceOrder::create($invoice_order);
@@ -152,13 +152,12 @@ class InvoiceAPIController extends Controller
         }
     }
 
-    public function generateInvoiceNo()
+    public function generateInvoiceNo($id)
     {
-        $year_month = Carbon::now()->format('ym');
-        $latest_invoice_order = InvoiceOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        $get_last_inv_no = isset($latest_invoice_order->invoice_no) ? $latest_invoice_order->invoice_no : 'INV' . $year_month . '00000';
-        $cut_string_inv_no = str_replace("INV", "", $get_last_inv_no);
-        return 'INV' . ($cut_string_inv_no + 1);
+        $deliveryOrder = DeliveryOrder::findOrFail($id);
+        $deliveryOrderNo = $deliveryOrder->delivery_order_no;
+        $cutStringDO = str_replace("DO", "", $deliveryOrderNo);
+        return 'INV' . $cutStringDO;
     }
 
     public function generateInvoiceRecapNo()

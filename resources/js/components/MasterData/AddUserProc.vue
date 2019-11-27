@@ -52,20 +52,6 @@
                         </div>
                     </div>
 
-                    <!-- <div class="form-group row mb-4">
-                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
-                        <div class="col-sm-12 col-md-7">
-                            <select class="form-control" v-model="category"
-                                    v-bind:class="{'is-invalid': errors.category}">
-                                <option v-for="category in categories" v-bind:value="category.id">{{ category.name }}
-                                </option>
-                            </select>
-                            <div class="invalid-feedback" v-if="errors.category">
-                                <p>{{ errors.category[0] }}</p>
-                            </div>
-                        </div>
-                    </div> -->
-
                     <div class="form-group row mb-4">
                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Origin</label>
                         <div class="col-sm-12 col-md-7">

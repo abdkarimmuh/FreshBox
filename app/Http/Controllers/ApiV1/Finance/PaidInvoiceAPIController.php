@@ -42,7 +42,7 @@ class PaidInvoiceAPIController extends Controller
         }
 
         //Untuk Menginput Sales Order
-        $invoice_recap = InvoiceRecap::find($data['invoiceRecapId'])
+        InvoiceRecap::find($data['invoiceRecapId'])
             ->update([
                 'file' => $file_name,
                 'paid_date' => $data['paidDate']

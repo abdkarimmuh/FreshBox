@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class SalesOrderResource extends JsonResource
 {
@@ -28,7 +29,7 @@ class SalesOrderResource extends JsonResource
             'source_order_name' => $this->SourceOrder->name,
             'fulfillment_date' => $this->fulfillment_date->formatLocalized('%d %B %Y'),
             'file' => $this->file,
-            'file_url' => url('api/v1/marketing/sales_order/download/' . $this->file),
+            'file_url' => url(Storage::url('public/files/salesOrder/'. $this->file)),
             'status' => $this->status,
             'remarks' => $this->remarks,
             'pic_qc' => $this->pic_qc,

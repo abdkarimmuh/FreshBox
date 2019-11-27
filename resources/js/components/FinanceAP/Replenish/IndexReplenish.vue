@@ -41,6 +41,12 @@
                         filterable: true
                     },
                     {
+                        title: "File",
+                        field: "file_url",
+                        type: "file",
+                        filterable: true
+                    },
+                    {
                         title: "Status",
                         field: "status_html",
                         type: "html",
