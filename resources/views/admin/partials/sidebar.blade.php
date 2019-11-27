@@ -165,6 +165,9 @@
                     <li class="{{ request()->route()->getName() == 'admin.master_data.customer_type.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.customer_type.index') }}"><span>Customer Type</span></a>
                     </li>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.inventory.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.inventory.index') }}"><span>Inventory</span></a>
+                    </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.item.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.item.index') }}"><span>Item</span></a>
                     </li>

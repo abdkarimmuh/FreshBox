@@ -269,6 +269,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::post('/create', 'MasterData\PriceController@store')->name('store');
         });
 
+        Route::name('inventory.')->prefix('inventory')->group(function () {
+            Route::get('/', 'MasterData\InventoryController@index')->name('index');
+        });
+
         Route::name('modules.')->prefix('modules')->group(function () {
             Route::get('/', 'MasterData\ModulesController@index')->name('index');
         });

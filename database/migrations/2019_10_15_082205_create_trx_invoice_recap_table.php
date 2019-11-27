@@ -8,8 +8,6 @@ class CreateTrxInvoiceRecapTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -20,6 +18,7 @@ class CreateTrxInvoiceRecapTable extends Migration
             $table->date('recap_date');
             $table->date('submitted_date')->nullable();
             $table->date('paid_date')->nullable();
+            $table->bigInteger('admin_amount')->default(0);
             $table->binary('file')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
@@ -28,8 +27,6 @@ class CreateTrxInvoiceRecapTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
