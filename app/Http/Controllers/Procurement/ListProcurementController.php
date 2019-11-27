@@ -22,7 +22,7 @@ class ListProcurementController extends Controller
             array('title' => 'Procurement No', 'field' => 'procurement_no'),
             array('title' => 'User Procurement', 'field' => 'proc_name'),
             array('title' => 'Vendor', 'field' => 'vendor'),
-            array('title' => 'Amount', 'field' => 'total_amount'),
+            array('title' => 'Amount', 'field' => 'total_amount', 'type' => 'price'),
             array('title' => 'Payment', 'field' => 'payment'),
             array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
         ];
@@ -81,7 +81,7 @@ class ListProcurementController extends Controller
             array('title' => 'Procurement No', 'field' => 'procurement_no'),
             array('title' => 'User Procurement', 'field' => 'proc_name'),
             array('title' => 'Vendor', 'field' => 'vendor'),
-            array('title' => 'Amount', 'field' => 'total_amount'),
+            array('title' => 'Amount', 'field' => 'total_amount', 'type' => 'price'),
             array('title' => 'Payment', 'field' => 'payment'),
             array('title' => 'Status', 'field' => 'status_name'),
             array('title' => 'Remarks', 'field' => 'remarks'),
@@ -92,7 +92,7 @@ class ListProcurementController extends Controller
             array('title' => 'Qty', 'field' => 'qty'),
             array('title' => 'Qty Minus', 'field' => 'qty_minus'),
             array('title' => 'Uom', 'field' => 'uom_name'),
-            array('title' => 'Amount', 'field' => 'amount'),
+            array('title' => 'Amount', 'field' => 'amount', 'type' => 'price'),
             array('title' => 'Status', 'field' => 'status_name'),
         ];
 
@@ -122,7 +122,7 @@ class ListProcurementController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
