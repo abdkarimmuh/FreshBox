@@ -199,7 +199,6 @@ const router = new VueRouter({
             name: 'warehouseIn.confirm.create',
             component: AddWarehouseConfirm
         },
-
         //Finance AP Replenish
         {
             path: '/admin/finance-ap/replenish',

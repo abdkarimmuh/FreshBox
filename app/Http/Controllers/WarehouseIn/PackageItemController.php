@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\WarehouseIn;
 
 use App\Http\Controllers\Controller;
+use App\Model\WarehouseIn\PackageItem;
 use Illuminate\Http\Request;
 
 class PackageItemController extends Controller
@@ -17,9 +18,8 @@ class PackageItemController extends Controller
         $searchValue = $request->input('search');
 
         $columns = [
-            array('title' => 'Procurement No', 'field' => 'procurement_no'),
-            array('title' => 'User Procurement', 'field' => 'proc_name'),
-            array('title' => 'Remarks', 'field' => 'remarks'),
+            array('title' => 'Item Name', 'field' => 'item_name'),
+            array('title' => 'Sales Order No', 'field' => 'sales_order_no'),
             array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
@@ -32,14 +32,14 @@ class PackageItemController extends Controller
              * Route Can Be Null
              */
             //Route For Button Add
-            'route-add' => 'admin.warehouseIn.confirm.create',
+            'route-add' => 'admin.warehouseIn.packageItem.create',
             //Route For Button View
-            'route-view' => 'admin.warehouseIn.confirm.show',
+            'route-view' => 'admin.warehouseIn.packageItem.show',
             //Route For Button Search
-            'route-search' => 'admin.warehouseIn.confirm.index',
+            'route-search' => 'admin.warehouseIn.packageItem.index',
         ];
 
-        $query = Confirm::dataTableQuery($searchValue);
+        $query = PackageItem::dataTableQuery($searchValue);
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
@@ -52,6 +52,11 @@ class PackageItemController extends Controller
      */
     public function create()
     {
+        $config = [
+            'vue-component' => '<add-warehouse-package-item/>',
+        ];
+
+        return view('layouts.vue-view', compact('config'));
     }
 
     /**

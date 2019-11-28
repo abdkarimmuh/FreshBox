@@ -13,7 +13,7 @@ class CreateTrxPackageItem extends Migration
     {
         Schema::create('trx_package_item', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('trx_so_detail_id');
+            $table->unsignedBigInteger('so_detail_id');
             $table->tinyInteger('status');
             $table->unsignedBigInteger('created_by');
             $table->timestamps();

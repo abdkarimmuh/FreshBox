@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\ApiV1\WarehouseIn;
 
 use App\Http\Controllers\Controller;
+use App\Model\Marketing\SalesOrderDetail;
 use App\Model\MasterData\Inventory;
+use App\Model\Procurement\AssignListProcurementDetail;
+use App\Model\Procurement\AssignProcurement;
 use App\Model\Procurement\ListProcurement;
 use App\Model\Procurement\ListProcurementDetail;
 use App\Model\WarehouseIn\Confirm;
@@ -81,6 +84,14 @@ class ConfirmItemsAPIController extends Controller
                     'created_by' => $userId,
                     'created_at' => Carbon::now(),
                 ]);
+
+                $listProcurementDetail = ListProcurementDetail::find($item['id']);
+                $assignListProcurementDetail = AssignListProcurementDetail::where('list_procurement_detail_id', $listProcurementDetail->id)->first();
+                $assignProcurement = AssignProcurement::find($assignListProcurementDetail->assign_id);
+                $soDetail = SalesOrderDetail::find($assignProcurement->sales_order_detail_id);
+
+                $soDetail->status = 4;
+                $soDetail->save();
             }
             $this->insertInventory($item['id'], $item['netto']);
         }
@@ -96,10 +107,10 @@ class ConfirmItemsAPIController extends Controller
         $userId = auth('api')->user()->id;
         $now = Carbon::now();
 
-        $procurement = ListProcurementDetail::where('trx_list_procurement_id', $procDetailId);
+        $procurement = ListProcurementDetail::where('trx_list_procurement_id', $procDetailId)->first();
         $skuid = $procurement->skuid;
 
-        $inventory = Inventory::where('skuid', $skuid);
+        $inventory = Inventory::where('skuid', $skuid)->first();
 
         if (isset($inventory)) {
             $qty_inventory = $inventory->qty + $qty;
@@ -107,6 +118,8 @@ class ConfirmItemsAPIController extends Controller
             $inventory->qty = $qty_inventory;
             $inventory->updated_at = $now;
             $inventory->updated_by = $userId;
+
+            $inventory->save();
         } else {
             Inventory::insert([
                 'skuid' => $skuid,

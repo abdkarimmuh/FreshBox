@@ -76,7 +76,11 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'WarehouseIn\ConfirmController@index')->name('index');
             Route::get('/create', 'WarehouseIn\ConfirmController@create')->name('create');
             Route::get('/show/{id}', 'WarehouseIn\ConfirmController@show')->name('show');
-            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+        });
+        Route::name('packageItem.')->prefix('packageItem')->group(function () {
+            Route::get('/', 'WarehouseIn\PackageItemController@index')->name('index');
+            Route::get('/create', 'WarehouseIn\PackageItemController@create')->name('create');
+            Route::get('/show/{id}', 'WarehouseIn\PackageItemController@show')->name('show');
         });
     });
 
@@ -92,10 +96,6 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         Route::name('confirm_delivery_order.')->prefix('confirm-delivery-order')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
-
-//            Route::get('/', 'Warehouse\ConfirmDeliveryOrderController@index')->name('index');
-//            Route::get('/{id}/create', 'Warehouse\ConfirmDeliveryOrderController@create')->name('create');
-//            Route::patch('/update', 'Warehouse\ConfirmDeliveryOrderController@update')->name('update');
         });
 
         Route::name('returned.')->prefix('returned')->group(function () {
