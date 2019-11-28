@@ -2436,6 +2436,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
 
       reader.readAsDataURL(file);
+    },
+    validateAmount: function validateAmount(idx) {
+      var amountPaid = parseFloat(this.invoices[idx].amountPaid);
+      var qty_so = parseFloat(this.invoices[idx].amountPaid) + this.sales_order_details[idx].amountPaid * 0.1;
+
+      if (qty_do > qty_so) {
+        this.qty_do[idx].qty = qty_so;
+      }
     }
   },
   components: {
@@ -52934,11 +52942,7 @@ var render = function() {
                               _vm._l(_vm.invoices, function(invoice, index) {
                                 return _c("tr", { key: index }, [
                                   _c("td", [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm._f("toIDR")(invoice.invoice_no)
-                                      )
-                                    )
+                                    _vm._v(_vm._s(invoice.invoice_no))
                                   ]),
                                   _vm._v(" "),
                                   _c("td", [
@@ -52961,6 +52965,9 @@ var render = function() {
                                       attrs: { type: "number" },
                                       domProps: { value: invoice.amountPaid },
                                       on: {
+                                        change: function($event) {
+                                          return _vm.validateAmount(index)
+                                        },
                                         input: function($event) {
                                           if ($event.target.composing) {
                                             return

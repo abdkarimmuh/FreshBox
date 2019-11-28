@@ -92,10 +92,10 @@
                         </thead>
                         <tbody>
                         <tr v-for="(invoice, index) in invoices" v-bind:key="index">
-                            <td>{{ invoice.invoice_no | toIDR }}</td>
+                            <td>{{ invoice.invoice_no }}</td>
                             <td>{{ invoice.price | toIDR }}</td>
                             <td>
-                                <input type="number" class="form-control" v-model="invoice.amountPaid"/>
+                                <input type="number" class="form-control" v-model="invoice.amountPaid" v-on:change="validateAmount(index)"/>
                             </td>
                         </tr>
                         </tbody>
@@ -116,13 +116,13 @@
             <div class="col-12">
                 <div class="card-body">
                     <div v-if="loadingSubmit">
-                       <loading-button/>
+                        <loading-button/>
                     </div>
                     <div v-else>
                         <button class="btn btn-danger" v-on:click="submitForm()">
                             Submit
                         </button>
-                       <back-button/>
+                        <back-button/>
                     </div>
                 </div>
             </div>
@@ -188,11 +188,11 @@
                 try {
                     const res = await axios.post("/api/v1/finance/invoice_recap/paid", payload);
                     Vue.swal({
-                       type: "success",
+                        type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                       this.$router.push({ name: 'paidRecap'})
+                        this.$router.push({name: 'paidRecap'})
                     });
                     console.log(res)
                 } catch (e) {
@@ -214,6 +214,13 @@
                     this.recapInvoice.file = e.target.result;
                 };
                 reader.readAsDataURL(file);
+            },
+            validateAmount(idx) {
+                let amountPaid = parseFloat(this.invoices[idx].amountPaid);
+                let qty_so = parseFloat(this.invoices[idx].amountPaid) + (this.sales_order_details[idx].amountPaid * 0.1);
+                if (qty_do > qty_so) {
+                    this.qty_do[idx].qty = qty_so;
+                }
             },
         },
         components: {
