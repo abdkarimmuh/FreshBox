@@ -33,7 +33,9 @@ import MultiplePrintDeliveryOrder from "./components/Warehouse/MultiplePrintDeli
 import IndexConfirmDeliveryOrder from './components/Warehouse/IndexConfirmDeliveryOrder';
 import AddConfirmDeliveryOrder from './components/Warehouse/ConfirmDeliveryOrder';
 
+import IndexWarehouseConfirm from "./components/WarehouseIn/IndexWarehouseConfirm";
 import AddWarehouseConfirm from "./components/WarehouseIn/AddWarehouseConfirm";
+
 import ImportPriceTemp from "./components/ImportExcel/ImportPriceTemp";
 
 import AddFinanceReplenish from './components/FinanceAP/Replenish/AddReplenish';
@@ -190,7 +192,7 @@ const router = new VueRouter({
         {
             path: '/admin/warehouseIn/confirm',
             name: 'warehouseIn.confirm',
-            component: AddWarehouseConfirm
+            component: IndexWarehouseConfirm
         },
         {
             path: '/admin/warehouseIn/confirm/create',

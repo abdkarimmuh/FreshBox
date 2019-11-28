@@ -14,9 +14,21 @@ use Illuminate\Support\Facades\DB;
 
 class ConfirmItemsAPIController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Confirm::all();
+        $searchValue = $request->input('query');
+        $perPage = $request->perPage;
+        $query = Confirm::dataTableQuery($searchValue);
+        if ($request->start && $request->end) {
+            $query->whereBetween('sales_order_no', [$request->start, $request->end]);
+        }
+        if ($searchValue) {
+            $query = $query->orderBy('sales_order_no', 'desc')->take(20)->paginate(20);
+        } else {
+            $query = $query->orderBy('sales_order_no', 'desc')->paginate($perPage);
+        }
+
+        return SalesOrderResource::collection($query);
     }
 
     public function store(Request $request)

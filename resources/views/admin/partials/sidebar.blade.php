@@ -50,10 +50,15 @@
         <li class="dropdown {{ request()->segment(2) == 'warehouseIn' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-warehouse"></i><span>Warehouse In</span></a>
             <ul class="dropdown-menu">
-                <li class="{{ request()->route()->getName() == 'admin.warehouseIn.confirm.index' ? ' active' : '' }}">
-                    <a class="nav-link"
-                       href="{{route('admin.warehouseIn.confirm.index')}}"><span>Confirm Incoming Items</span></a>
-                </li>
+                <router-link :to="{ name: 'warehouseIn.confirm'}" v-slot="{ href, navigate, isActive }">
+                    <li :class="[isActive && 'active']">
+                        <a class="nav-link" :href="href" @click="navigate">Confirm Incoming Items</a>
+                    </li>
+                </router-link>
+{{--                <li class="{{ request()->route()->getName() == 'admin.warehouseIn.confirm.index' ? ' active' : '' }}">--}}
+{{--                    <a class="nav-link"--}}
+{{--                       href="{{route('admin.warehouseIn.confirm.index')}}"><span>Confirm Incoming Items</span></a>--}}
+{{--                </li>--}}
             </ul>
         </li>
         {{--Warehous Out--}}
@@ -166,7 +171,8 @@
                         <a class="nav-link" href="{{ route('admin.master_data.customer_type.index') }}"><span>Customer Type</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.inventory.index' ? ' active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin.master_data.inventory.index') }}"><span>Inventory</span></a>
+                        <a class="nav-link"
+                           href="{{ route('admin.master_data.inventory.index') }}"><span>Inventory</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.item.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.item.index') }}"><span>Item</span></a>
