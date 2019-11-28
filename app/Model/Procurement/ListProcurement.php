@@ -26,27 +26,19 @@ class ListProcurement extends MyModel
         ],
         'procurement_no' => [
             'searchable' => true,
-            'search_relation' => true,
+            'search_relation' => false,
         ],
         'proc_name' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'UserProc',
-            'relation_field' => 'proc_name',
+            'relation_name' => 'UserProc.User',
+            'relation_field' => 'name',
         ],
         'vendor' => [
             'searchable' => true,
-            'search_relation' => true,
-        ],
-        'total_amount' => [
-            'searchable' => true,
-            'search_relation' => true,
+            'search_relation' => false,
         ],
         'payment' => [
-            'searchable' => true,
-            'search_relation' => true,
-        ],
-        'created_at' => [
             'searchable' => true,
             'search_relation' => false,
         ],
@@ -57,18 +49,6 @@ class ListProcurement extends MyModel
         'updated_at' => [
             'searchable' => true,
             'search_relation' => false,
-        ],
-        'created_by_name' => [
-            'searchable' => true,
-            'search_relation' => true,
-            'relation_name' => 'create_by',
-            'relation_field' => 'name',
-        ],
-        'updated_by_name' => [
-            'searchable' => true,
-            'search_relation' => true,
-            'relation_name' => 'update_by',
-            'relation_field' => 'name',
         ],
     ];
 

@@ -34,12 +34,8 @@ class Confirm extends MyModel
         'proc_name' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'ListProcurement',
-            'relation_field' => 'proc_name',
-        ],
-        'created_at' => [
-            'searchable' => true,
-            'search_relation' => false,
+            'relation_name' => 'ListProcurement.UserProc.User',
+            'relation_field' => 'name',
         ],
         'created_at' => [
             'searchable' => true,

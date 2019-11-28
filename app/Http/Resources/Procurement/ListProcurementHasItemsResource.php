@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Procurement;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ListProcurementHasItemsResource extends JsonResource
 {
@@ -23,6 +24,7 @@ class ListProcurementHasItemsResource extends JsonResource
             'total_amount' => $this->total_amount,
             'payment' => $this->payment,
             'file' => $this->file,
+            'file_url' => url(Storage::url('public/files/procurement/' . $this->file)),
             'remarks' => $this->remarks,
             'status' => $this->status,
             'items' => DetailProcurementResource::collection($this->items),

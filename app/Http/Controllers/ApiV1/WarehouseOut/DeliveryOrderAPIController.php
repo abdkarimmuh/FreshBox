@@ -33,7 +33,7 @@ class DeliveryOrderAPIController extends Controller
 
     public function create()
     {
-        return SalesOrderResource::collection(SalesOrder::where('status', '<=',  3)->get());
+        return SalesOrderResource::collection(SalesOrder::where('status', '<=',  3)->orderBy('sales_order_no','asc')->get());
     }
 
 

@@ -16,7 +16,7 @@ class ReportSOExport implements FromView
      */
     public function View(): View
     {
-        $searchValue = request()->input('search');
+        $searchValue = request()->input('query');
 
         $query = DeliveryOrderDetail::dataTableQuery($searchValue);
         $start = request()->start;

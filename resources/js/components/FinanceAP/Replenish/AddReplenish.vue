@@ -97,12 +97,7 @@
                         <b>File</b>
                     </label>
                     <div>
-                        <input
-                            type="text"
-                            class="form-control"
-                            v-model="procurement.file"
-                            disabled
-                        />
+                        <button @click="showFile(procurement.file_url, procurement.file)" class="badge badge-info">{{ procurement.file }}</button>
                     </div>
                 </div>
             </div>
@@ -154,7 +149,7 @@
                         <button class="btn btn-danger" v-on:click="submitForm()" v-if="procurementId !== ''">
                             Submit
                         </button>
-                     <back-button/>
+                        <back-button/>
                     </div>
                 </div>
             </div>
@@ -226,6 +221,14 @@
                     this.loadingSubmit = false;
                 }
             },
+            showFile(fileUrl, fileName) {
+                Vue.swal({
+                    title: fileName,
+                    imageUrl: fileUrl,
+                    imageAlt: 'Custom image',
+                })
+                console.log(fileUrl);
+            }
 
         },
         components: {

@@ -37,6 +37,24 @@ class DeliveryOrderDetail extends Model
             'relation_name' => 'delivery_order.customer',
             'relation_field' => 'name',
         ],
+        'delivery_order_no' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'delivery_order',
+            'relation_field' => 'delivery_order_no',
+        ],
+        'customer_group_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'delivery_order.customer.CustomerGroup',
+            'relation_field' => 'name',
+        ],
+        'sales_order_no' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'delivery_order.sales_order',
+            'relation_field' => 'sales_order_no',
+        ],
     ];
 
     public function delivery_order()

@@ -20,7 +20,7 @@ class UserProcurementController extends Controller
         $columns = [
             array('title' => 'Nama', 'field' => 'name'),
             array('title' => 'Email', 'field' => 'email'),
-            array('title' => 'Saldo', 'field' => 'saldo'),
+            array('title' => 'Saldo', 'field' => 'saldo', 'type' => 'price'),
             array('title' => 'Bank Account', 'field' => 'bank_account'),
             array('title' => 'Bank Name', 'field' => 'bank_name'),
             array('title' => 'Created At', 'field' => 'created_at'),

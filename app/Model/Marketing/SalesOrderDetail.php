@@ -36,28 +36,26 @@ class SalesOrderDetail extends MyModel
         'customer_name' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'Customer',
+            'relation_name' => 'SalesOrder.Customer',
             'relation_field' => 'name',
         ],
         'sales_order_no' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'SalesOrder',
-            'relation_field' => 'name',
+            'relation_field' => 'sales_order_no',
         ],
         'driver_name' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'Driver',
+            'relation_name' => 'SalesOrder.Driver',
             'relation_field' => 'name',
         ],
         'fulfillment_date' => [
             'searchable' => true,
-            'search_relation' => false,
-        ],
-        'remarks' => [
-            'searchable' => true,
-            'search_relation' => false,
+            'search_relation' => true,
+            'relation_name' => 'SalesOrder',
+            'relation_field' => 'fulfillment_date',
         ],
         'created_at' => [
             'searchable' => true,
@@ -135,6 +133,15 @@ class SalesOrderDetail extends MyModel
     {
         if (isset($this->SalesOrder->fulfillment_date)) {
             return $this->SalesOrder->fulfillment_date->formatLocalized('%d %B %Y') ?? null;
+        } else {
+            return null;
+        }
+    }
+
+    public function getTanggalAttribute()
+    {
+        if (isset($this->SalesOrder->created_at)) {
+            return $this->SalesOrder->created_at->formatLocalized('%m/%d/%Y') ?? null;
         } else {
             return null;
         }

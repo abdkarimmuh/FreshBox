@@ -42,7 +42,7 @@ class InvoiceAPIController extends Controller
     {
         $delivery_order = DeliveryOrder::whereHas('sales_order', function ($q) {
             $q->where('status', 5);
-        })->get();
+        })->orderBy('delivery_order_no', 'asc')->get();
         return DeliveryOrderResource::collection($delivery_order);
     }
 
