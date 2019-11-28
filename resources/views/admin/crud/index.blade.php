@@ -90,12 +90,12 @@
                                                                     </a>
                                                                 @endif
                                                                 @if ($row['status'] == 1)
-                                                                <a
-                                                                    href="{{ route($config['route-reject-topup'], ['id' => $row->id]) }}"
-                                                                    class="badge badge-danger"
-                                                                    title="Reject">
-                                                                    Reject
-                                                                </a>
+                                                                    <a
+                                                                        href="{{ route($config['route-reject-topup'], ['id' => $row->id]) }}"
+                                                                        class="badge badge-danger"
+                                                                        title="Reject">
+                                                                        Reject
+                                                                    </a>
                                                                 @endif
                                                             @endisset
 
@@ -157,7 +157,9 @@
                                                         <td>{!! $row[$column['field']] !!}</td>
                                                     @elseif($column['field']  === 'file')
                                                         <td>
-                                                            <a href="{{ route('admin.marketing.sales_order.download', $row[$column['field']]) }}">Download</a>
+                                                            <image-modal file-url="{{ $row['file_url'] }}"
+                                                                        file-name="{{ $row[$column['field']] }}">
+                                                            </image-modal>
                                                         </td>
                                                     @elseif($column['field'] === 'description' || $column['field'] === 'remarks' )
                                                         <td>{{ $row[$column['field']] }}</td>

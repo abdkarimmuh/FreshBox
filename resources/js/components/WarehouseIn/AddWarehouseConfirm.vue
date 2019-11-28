@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" v-if="procurementId !== ''">
+            <div class="col-md-3" v-if="procurementId !== ''">
                 <div class="form-group">
                     <label>
                         <b>User Proc Name</b>
@@ -43,6 +43,20 @@
                     </div>
                 </div>
             </div>
+            <!--File-->
+            <div class="col-md-3" v-if="procurementId !== ''">
+                <div class="form-group">
+                    <label>
+                        <b>File</b>
+                    </label>
+                    <div>
+                        <image-modal :file-url="procurement.file_url"
+                                     :file-name="procurement.file">
+                        </image-modal>
+                    </div>
+                </div>
+            </div>
+
             <div v-if="procurementId !== ''" class="col-12">
                 <div class="table-responsive m-t-40" style="clear: both;">
                     <table class="table table-hover" id="contentTable" style="font-size: 9pt;">
@@ -88,7 +102,7 @@
             <div class="col-12" v-if="procurementId !== ''">
                 <div class="card-body">
                     <div v-if="loadingSubmit">
-                       <loading-button/>
+                        <loading-button/>
                     </div>
                     <div v-else>
                         <button class="btn btn-danger" v-on:click="submitForm()">Submit</button>
@@ -159,7 +173,7 @@
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                       window.location.href = '/admin/warehouseIn/confirm'
+                        window.location.href = '/admin/warehouseIn/confirm'
                     });
                 } catch (e) {
                     this.errors = e.response.data.errors;

@@ -26,8 +26,12 @@
                                             <h6><small class="text-muted">{{ $item['title']}}</small></h6>
                                             <div>{!! $data[$item['field']] !!}</div>
                                         @elseif(isset($item['type']) ? $item['type'] === 'price' : '')
-                                            <h6><small class="text-muted">{{ $item['title']}}</small></h6>
                                             <h5>{{ format_price($data[$item['field']]) }}</h5>
+                                        @elseif($item['field'] === 'file')
+                                            <h6><small class="text-muted">{{ $item['title']}}</small></h6>
+                                            <image-modal file-url="{{ $data['file_url'] }}"
+                                                         file-name="{{ $data[$item['field']] }}">
+                                            </image-modal>
                                         @else
                                             <h6><small class="text-muted">{{ $item['title']}}</small></h6>
                                             <h5>{{ $data[$item['field']] }}</h5>

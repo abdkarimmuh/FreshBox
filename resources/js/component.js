@@ -15,6 +15,7 @@ import ErrorPage from "./components/Template/ErrorPage";
 import ConfirmButton from "./components/Template/ConfirmButton";
 import HeaderPrint from "./components/Template/Print/HeaderPrint";
 import HeaderInfoPrint from "./components/Template/Print/HeaderInfoPrint";
+import ImageModal from "./components/Template/ImageModal";
 
 import TablePrint from "./components/Template/Print/TablePrint";
 import IndexReportSO from "./components/Report/SO/IndexReportSO"
@@ -53,6 +54,7 @@ Vue.component('back-button', BackButton);
 Vue.component('loading-button', LoadingButton);
 
 Vue.component('AddUserProc', AddUserProc);
+Vue.component('ImageModal', ImageModal);
 
 // Vue.component("data-table", DataTable);
 Vue.component(

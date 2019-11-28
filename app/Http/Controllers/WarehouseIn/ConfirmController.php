@@ -24,6 +24,7 @@ class ConfirmController extends Controller
             array('title' => 'Procurement No', 'field' => 'procurement_no'),
             array('title' => 'User Procurement', 'field' => 'proc_name'),
             array('title' => 'Remarks', 'field' => 'remark'),
+            array('title' => 'File', 'field' => 'file'),
             array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
@@ -95,6 +96,7 @@ class ConfirmController extends Controller
             array('title' => 'User Procurement', 'field' => 'proc_name'),
             array('title' => 'Status', 'field' => 'status_name'),
             array('title' => 'Remarks', 'field' => 'remarks'),
+            array('title' => 'File', 'field' => 'file'),
         ];
 
         $detailColumns = [
@@ -131,7 +133,7 @@ class ConfirmController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return Response
      */

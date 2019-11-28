@@ -6,6 +6,7 @@ use App\Model\Procurement\ListProcurement;
 use App\MyModel;
 use App\Traits\SearchTraits;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Confirm extends MyModel
 {
@@ -14,11 +15,7 @@ class Confirm extends MyModel
 
     protected $table = 'trx_warehouse_confirm';
     protected $fillable = ['list_procurement_id', 'remark', 'status', 'created_by', 'created_at'];
-    protected $appends = [
-        'procurement_no',
-        'proc_name',
-        'status_name',
-    ];
+    protected $appends = ['file','file_url'];
 
     protected $columns = [
         'id' => [
@@ -67,6 +64,24 @@ class Confirm extends MyModel
     public function ConfirmDetail()
     {
         return $this->hasMany(ConfirmDetail::class, 'warehouse_confirm_id', 'id');
+    }
+
+    public function getFileAttribute()
+    {
+        if (isset($this->ListProcurement->file)) {
+            return $this->ListProcurement->file;
+        } else {
+            return '';
+        }
+    }
+
+    public function getFileUrlAttribute()
+    {
+        if (isset($this->ListProcurement->file)) {
+            return url(Storage::url('public/files/procurement/' . $this->ListProcurement->file));
+        } else {
+            return '';
+        }
     }
 
     public function getProcurementNoAttribute()
