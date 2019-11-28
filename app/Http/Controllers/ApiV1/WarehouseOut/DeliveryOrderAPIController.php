@@ -6,6 +6,7 @@ use App\Http\Resources\SalesOrderResource;
 use App\Model\Marketing\SalesOrder;
 use App\Model\Warehouse\DeliveryOrderDetail;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Warehouse\DeliveryOrderResource;
@@ -14,6 +15,12 @@ use Illuminate\Support\Facades\DB;
 
 class DeliveryOrderAPIController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index(Request $request)
     {
         $searchValue = $request->input('query');
@@ -31,23 +38,39 @@ class DeliveryOrderAPIController extends Controller
         return DeliveryOrderResource::collection($query);
     }
 
+    /**
+     *  Show the form for creating a new resource.
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function create()
     {
         return SalesOrderResource::collection(SalesOrder::where('status', '<=',  3)->orderBy('sales_order_no','asc')->get());
     }
 
 
+    /**
+     * Show the specified resource.
+     * @param Request $request
+     * @return DeliveryOrderResource|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function show(Request $request)
     {
-        if (is_array($request->id)) {
-            $do = DeliveryOrder::whereIn('id', $request->id)->orderBy('delivery_order_no', 'desc')->get();
+        $id = $request->id;
+
+        if (is_array($id)) {
+            $do = DeliveryOrder::whereIn('id', $id)->orderBy('delivery_order_no', 'desc')->get();
             return DeliveryOrderResource::collection($do);
         } else {
-            $do = DeliveryOrder::findOrFail($request->id);
+            $do = DeliveryOrder::findOrFail($id);
             return new DeliveryOrderResource($do);
         }
     }
 
+    /**
+     * Store a newly created resource in storage.
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function store(Request $request)
     {
         //List Validasi
@@ -92,6 +115,9 @@ class DeliveryOrderAPIController extends Controller
         ], 200);
     }
 
+    /**
+     * @return string
+     */
     public function generateDeliveryOrderNo()
     {
         $year_month = Carbon::now()->format('ym');

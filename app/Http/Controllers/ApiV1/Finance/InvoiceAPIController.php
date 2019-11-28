@@ -20,6 +20,10 @@ use Illuminate\Support\Facades\DB;
 
 class InvoiceAPIController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index(Request $request)
     {
         $searchValue = $request->input('query');
@@ -38,6 +42,9 @@ class InvoiceAPIController extends Controller
         return InvoiceOrderResource::collection($query);
     }
 
+    /**
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function create()
     {
         $delivery_order = DeliveryOrder::whereHas('sales_order', function ($q) {
@@ -46,6 +53,10 @@ class InvoiceAPIController extends Controller
         return DeliveryOrderResource::collection($delivery_order);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         $rules = [
@@ -73,6 +84,10 @@ class InvoiceAPIController extends Controller
         ], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function print(Request $request)
     {
         if (is_array($request->id)) {
@@ -92,6 +107,10 @@ class InvoiceAPIController extends Controller
         ], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(Request $request)
     {
         if (is_array($request->id)) {
@@ -143,15 +162,23 @@ class InvoiceAPIController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return InvoiceOrderResource
+     */
     public function printRecap(Request $request)
     {
         if (request()->isMethod('POST')) {
             InvoiceOrder::whereIn('id', $request->id)->update(['is_recap' => 1]);
         } else {
-            return new RekapInvoiceResource(InvoiceOrder::whereIn('id', $request->id)->get());
+            return new InvoiceOrderResource(InvoiceOrder::whereIn('id', $request->id)->get());
         }
     }
 
+    /**
+     * @param $id
+     * @return string
+     */
     public function generateInvoiceNo($id)
     {
         $deliveryOrder = DeliveryOrder::findOrFail($id);
@@ -160,6 +187,9 @@ class InvoiceAPIController extends Controller
         return 'INV' . $cutStringDO;
     }
 
+    /**
+     * @return string
+     */
     public function generateInvoiceRecapNo()
     {
         $year_month = Carbon::now()->format('ym');
