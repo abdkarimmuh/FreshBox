@@ -33,7 +33,6 @@ import MultiplePrintDeliveryOrder from "./components/Warehouse/MultiplePrintDeli
 import IndexConfirmDeliveryOrder from './components/Warehouse/IndexConfirmDeliveryOrder';
 import AddConfirmDeliveryOrder from './components/Warehouse/ConfirmDeliveryOrder';
 
-import AddWarehouseConfirm from "./components/WarehouseIn/AddWarehouseConfirm";
 import ImportPriceTemp from "./components/ImportExcel/ImportPriceTemp";
 
 import AddFinanceReplenish from './components/FinanceAP/Replenish/AddReplenish';
@@ -185,17 +184,6 @@ const router = new VueRouter({
             path: '/admin/warehouse/confirm-delivery-order/create/:id',
             name: 'confirm_delivery_order.create',
             component: AddConfirmDeliveryOrder
-        },
-        //WarehouseIn
-        {
-            path: '/admin/warehouseIn/confirm',
-            name: 'warehouseIn.confirm',
-            component: AddWarehouseConfirm
-        },
-        {
-            path: '/admin/warehouseIn/confirm/create',
-            name: 'warehouseIn.confirm.create',
-            component: AddWarehouseConfirm
         },
 
         //Finance AP Replenish

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiV1\Procurement;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Procurement\ListProcurementHasItemsResource;
 use App\Http\Resources\Procurement\ListProcurementResource;
+use App\Model\Marketing\SalesOrderDetail;
 use App\Model\Procurement\AssignListProcurementDetail;
 use App\Model\Procurement\AssignProcurement;
 use App\Model\Procurement\AssignSalesOrderDetail;
@@ -165,10 +166,13 @@ class ProcurementAPIController extends Controller
 
             foreach ($assignProcurement as $value) {
                 $value->update(['status' => 2]);
-                $value->SalesOrderDetail->update(['status' => 3]);
+
+                $salesOrderDetail = SalesOrderDetail::find($value->sales_order_detail_id);
+                $salesOrderDetail->status = 3;
+                $salesOrderDetail->save();
 
                 AssignSalesOrderDetail::create([
-                    'sales_order_detail_id' => $value->SalesOrderDetail->id,
+                    'sales_order_detail_id' => $value->sales_order_detail_id,
                     'assign_id' => $value->id,
                 ]);
 

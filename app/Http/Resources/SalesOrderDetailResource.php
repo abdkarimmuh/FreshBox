@@ -9,13 +9,15 @@ class SalesOrderDetailResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
     {
         return [
             'id' => $this->id,
+            'no_so' => $this->so_no_with_item_name,
             'sales_order_id' => $this->sales_order_id,
             'skuid' => $this->skuid,
             'uom_id' => $this->uom_id,
@@ -30,6 +32,7 @@ class SalesOrderDetailResource extends JsonResource
             'status' => $this->status,
             'item_name' => $this->item_name,
             'uom_name' => $this->uom_name,
+            'customer_name' => $this->SalesOrder->customer_name,
         ];
     }
 }

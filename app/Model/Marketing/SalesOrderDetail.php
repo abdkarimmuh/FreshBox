@@ -14,8 +14,9 @@ class SalesOrderDetail extends MyModel
     use SalesOrderDetailTrait;
 
     protected $table = 'trx_sales_order_detail';
-    protected $appends = ['item_name', 'uom_name', 'origin_code', 'sales_order_no', 'po_no', 'so_date', 'category_name', 'delivery_order_no', 'assign_qty', 'no_po'];
+    protected $appends = ['item_name', 'uom_name', 'origin_code', 'sales_order_no', 'po_no', 'so_date', 'category_name', 'delivery_order_no', 'assign_qty', 'no_po', 'so_no_with_item_name'];
     protected $fillable = [
+        'so_no_with_item_name',
         'sales_order_id',
         'qty',
         'sisa_qty_proc',
@@ -147,6 +148,11 @@ class SalesOrderDetail extends MyModel
     public function getDeliveryOrderNoAttribute()
     {
         return $this->SalesOrder->DeliveryOrder->delivery_order_no ?? null;
+    }
+
+    public function getSoNoWithItemNameAttribute()
+    {
+        return $this->sales_order_no.' - '.$this->item_name;
     }
 
     public function getNoPoAttribute()

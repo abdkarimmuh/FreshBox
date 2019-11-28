@@ -82,12 +82,17 @@ class AssignProcurement extends MyModel
 
     public function UserProc()
     {
-        return $this->belongsTo(UserProcurement::class);
+        return $this->belongsTo(UserProcurement::class, 'user_proc_id', 'id');
     }
 
     public function SalesOrderDetail()
     {
-        return $this->belongsTo(SalesOrderDetail::class);
+        return $this->belongsTo(SalesOrderDetail::class, 'sales_order_detail_id', 'id');
+    }
+
+    public function AssignProcurementDetail()
+    {
+        return $this->hasMany(AssignProcurementDetail::class, 'assign_id', 'id');
     }
 
     public function getProcNameAttribute()

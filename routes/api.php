@@ -79,6 +79,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::patch('/update', 'FormSalesOrderAPIController@updateSalesOrderDetails');
             Route::get('/download/{file}', 'FormSalesOrderAPIController@DownloadFile');
         });
+
+        Route::group(['prefix' => 'so_detail'], function () {
+            Route::get('/isProc', 'SalesOrderDetailAPIController@soDetailIsConfirm');
+            Route::get('/show/{id}', 'SalesOrderDetailAPIController@show');
+        });
     });
     /*
      * Procurement
