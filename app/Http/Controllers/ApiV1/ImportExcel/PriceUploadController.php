@@ -38,16 +38,25 @@ class PriceUploadController extends Controller
         collect(head($array))->each(function ($row, $key) use ($data) {
             $exist = DB::table('price_temp')->where('sku', $row['sku'])->where('customer_group_id', $data['customerGroupId'])->get();
             if (count($exist) > 0) {
+                PriceTemp::create([
+                    'No' => $row['no'],
+                    'Category' => $row['category'],
+                    'SKU' => $row['sku'],
+                    'Items' => $row['items'],
+                    'Unit' => $row['unit'],
+                    'Pricelist' => $row['basicprice'],
+                    'Discount' => $row['discount'],
+                    'Final' => $row['price'],
+                    'Remarks' => $row['remarks'],
+                    'customer_group_id' => $data['customerGroupId'],
+                    'start_period' => $data['startPeriod'],
+                    'End_Period' => $data['endPeriod'],
+                    'AuditDate' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
                 PriceTemp::where('sku', $row['sku'])
                     ->where('customer_group_id', $data['customerGroupId'])
                     ->update([
-                        'Pricelist' => $row['basicprice'],
-                        'Discount' => $row['discount'],
-                        'Final' => $row['price'],
-                        'Remarks' => $row['remarks'],
-                        'start_period' => $data['startPeriod'],
-                        'End_Period' => $data['endPeriod'],
-                        'AuditDate' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ]);
             } else {
@@ -94,6 +103,6 @@ class PriceUploadController extends Controller
     public function exportDuplicateData()
     {
         $now = Carbon::now()->formatLocalized('%d-%B-%Y');
-        return (new ExportDuplicatePrice())->download('Duplicate Price - ' .$now.'.xlsx');
+        return (new ExportDuplicatePrice())->download('Duplicate Price - ' . $now . '.xlsx');
     }
 }
