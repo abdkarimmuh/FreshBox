@@ -205,7 +205,7 @@
                 }).then((result) => {
                     if (result.value) {
                         this.$htmlToPaper('printMe');
-                        axios.post(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print'))
+                        // axios.post(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print'))
                     }
                 })
             },

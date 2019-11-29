@@ -3776,9 +3776,8 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, Print it!'
       }).then(function (result) {
         if (result.value) {
-          _this2.$htmlToPaper('printMe');
+          _this2.$htmlToPaper('printMe'); // axios.post(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print'))
 
-          axios.post(_this2.$parent.MakeUrl('admin/finance/invoice_order/' + _this2.id + '/print'));
         }
       });
     },
