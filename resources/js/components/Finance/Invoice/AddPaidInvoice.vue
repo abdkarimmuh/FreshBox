@@ -52,12 +52,8 @@
                     </div>
                 </div>
             </div>
-            <!--Total Amount-->
-            <s-form-input title="Total Amount Price" :model="recapInvoice.total_amount | toIDR" disabled="true" col="4"
-                          v-if="recapInvoice.id !== null">
-            </s-form-input>
-
-            <div class="col-md-3" v-if="recapInvoice.id !== null">
+            <!--                Choose File-->
+            <div class="col-md-4" v-if="recapInvoice.id !== null">
                 <div class="form-group">
                     <label>
                         <b>File</b>
@@ -80,6 +76,41 @@
                 </div>
             </div>
 
+            <!--Total Amount-->
+            <s-form-input title="Total Amount Price" :model="recapInvoice.total_amount | toIDR" disabled="true" col="4"
+                          v-if="recapInvoice.id !== null">
+            </s-form-input>
+
+            <!--Total Amount Paid-->
+            <s-form-input title="Total Amount Paid" :model="totalAmountPaid" disabled="true"
+                          col="3"
+                          v-if="recapInvoice.id !== null">
+            </s-form-input>
+            <!--Admin Amount-->
+
+            <div class="col-md-3">
+                <div class="form-group" v-if="recapInvoice.id !== null">
+                    <label>
+                        <b>Admin Amount</b>
+                        <span style="color: red;">*</span>
+                    </label>
+                    <div>
+                        <input type="text"
+                               v-bind:class="{'is-invalid': errors.adminAmount}"
+                               placeholder="Admin Amount"
+                               class="form-control"
+                               v-model="recapInvoice.adminAmount"
+                               required/>
+                        <div class="invalid-feedback" v-if="errors.adminAmount">
+                            <p>{{ errors.adminAmount[0] }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <s-form-input title="Final Amount" :model="finalAmount | toIDR" disabled="true"
+                          col="3"
+                          v-if="recapInvoice.id !== null">
+            </s-form-input>
             <div v-if="recapInvoice.id !== null" class="col-12">
                 <div class="table-responsive m-t-40" style="clear: both;">
                     <table class="table table-hover" style="font-size: 9pt;">
@@ -95,7 +126,8 @@
                             <td>{{ invoice.invoice_no }}</td>
                             <td>{{ invoice.price | toIDR }}</td>
                             <td>
-                                <input type="number" class="form-control" v-model="invoice.amountPaid" v-on:change="validateAmount(index)"/>
+                                <input type="number" class="form-control" v-model="invoice.amountPaid"
+                                       v-on:change="validateAmount(index)"/>
                             </td>
                         </tr>
                         </tbody>
@@ -145,6 +177,7 @@
                 recapInvoice: {
                     id: null,
                     file: null,
+                    adminAmount: null
                 },
                 fileName: null,
                 recapInvoices: [],
@@ -222,6 +255,27 @@
                     this.qty_do[idx].qty = qty_so;
                 }
             },
+        },
+        computed: {
+            /**
+             * Calculate Total Paid Price
+             * @returns {string}
+             */
+            totalAmountPaid: function () {
+                let sum = 0;
+                this.invoices.forEach(function (item) {
+                    sum += item.amountPaid ? parseFloat(item.amountPaid) : 0;
+                });
+
+                return sum.toLocaleString("id-ID", {
+                    minimumFractionDigits: false
+                });
+            },
+            finalAmount: function () {
+                const finalAmount = this.recapInvoice.adminAmount ? Number(this.recapInvoice.total_amount) + Number(this.recapInvoice.adminAmount) : this.recapInvoice.total_amount;
+
+                return finalAmount ;
+            }
         },
         components: {
             LoadingTable,

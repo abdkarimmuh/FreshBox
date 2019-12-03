@@ -2315,6 +2315,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2324,7 +2356,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       recapInvoice: {
         id: null,
-        file: null
+        file: null,
+        adminAmount: null
       },
       fileName: null,
       recapInvoices: [],
@@ -2444,6 +2477,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (qty_do > qty_so) {
         this.qty_do[idx].qty = qty_so;
       }
+    }
+  },
+  computed: {
+    /**
+     * Calculate Total Paid Price
+     * @returns {string}
+     */
+    totalAmountPaid: function totalAmountPaid() {
+      var sum = 0;
+      this.invoices.forEach(function (item) {
+        sum += item.amountPaid ? parseFloat(item.amountPaid) : 0;
+      });
+      return sum.toLocaleString("id-ID", {
+        minimumFractionDigits: false
+      });
+    },
+    finalAmount: function finalAmount() {
+      var finalAmount = this.recapInvoice.adminAmount ? Number(this.recapInvoice.total_amount) + Number(this.recapInvoice.adminAmount) : this.recapInvoice.total_amount;
+      return finalAmount;
     }
   },
   components: {
@@ -53044,18 +53096,7 @@ var render = function() {
                 : _vm._e(),
               _vm._v(" "),
               _vm.recapInvoice.id !== null
-                ? _c("s-form-input", {
-                    attrs: {
-                      title: "Total Amount Price",
-                      model: _vm._f("toIDR")(_vm.recapInvoice.total_amount),
-                      disabled: "true",
-                      col: "4"
-                    }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.recapInvoice.id !== null
-                ? _c("div", { staticClass: "col-md-3" }, [
+                ? _c("div", { staticClass: "col-md-4" }, [
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", [_c("b", [_vm._v("File")])]),
                       _vm._v(" "),
@@ -53087,6 +53128,94 @@ var render = function() {
                       ])
                     ])
                   ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.recapInvoice.id !== null
+                ? _c("s-form-input", {
+                    attrs: {
+                      title: "Total Amount Price",
+                      model: _vm._f("toIDR")(_vm.recapInvoice.total_amount),
+                      disabled: "true",
+                      col: "4"
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.recapInvoice.id !== null
+                ? _c("s-form-input", {
+                    attrs: {
+                      title: "Total Amount Paid",
+                      model: _vm.totalAmountPaid,
+                      disabled: "true",
+                      col: "3"
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-3" }, [
+                _vm.recapInvoice.id !== null
+                  ? _c("div", { staticClass: "form-group" }, [
+                      _c("label", [
+                        _c("b", [_vm._v("Admin Amount")]),
+                        _vm._v(" "),
+                        _c("span", { staticStyle: { color: "red" } }, [
+                          _vm._v("*")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.recapInvoice.adminAmount,
+                              expression: "recapInvoice.adminAmount"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.errors.adminAmount },
+                          attrs: {
+                            type: "text",
+                            placeholder: "Admin Amount",
+                            required: ""
+                          },
+                          domProps: { value: _vm.recapInvoice.adminAmount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.recapInvoice,
+                                "adminAmount",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.adminAmount
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _c("p", [
+                                _vm._v(_vm._s(_vm.errors.adminAmount[0]))
+                              ])
+                            ])
+                          : _vm._e()
+                      ])
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _vm.recapInvoice.id !== null
+                ? _c("s-form-input", {
+                    attrs: {
+                      title: "Final Amount",
+                      model: _vm._f("toIDR")(_vm.finalAmount),
+                      disabled: "true",
+                      col: "3"
+                    }
+                  })
                 : _vm._e(),
               _vm._v(" "),
               _vm.recapInvoice.id !== null
