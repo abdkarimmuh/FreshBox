@@ -316,13 +316,12 @@ class FormSalesOrderAPIController extends Controller
     /**
      * Download File.
      *
-     * @param $file
-     *
+     * @param $fileName
      * @return mixed
      */
-    public function DownloadFile($file)
+    public function DownloadFile($fileName)
     {
-        return Storage::download('public/files/'.$file);
+        return Storage::download('public/files/'.$fileName);
     }
 
     /**
