@@ -40,6 +40,8 @@ import ImportPriceTemp from "./components/ImportExcel/ImportPriceTemp";
 
 import AddFinanceReplenish from './components/FinanceAP/Replenish/AddReplenish';
 import IndexReplenish from './components/FinanceAP/Replenish/IndexReplenish';
+import IndexRequestAdvance from './components/FinanceAP/RequestAdvance/IndexRequestAdvance';
+import AddRequestAdvance from './components/FinanceAP/RequestAdvance/AddRequestAdvance';
 
 Vue.component('import-price-temp', ImportPriceTemp);
 Vue.use(VueRouter);
@@ -199,6 +201,7 @@ const router = new VueRouter({
             name: 'warehouseIn.confirm.create',
             component: AddWarehouseConfirm
         },
+
         //Finance AP Replenish
         {
             path: '/admin/finance-ap/replenish',
@@ -209,6 +212,17 @@ const router = new VueRouter({
             path: '/admin/finance-ap/replenish/create',
             name: 'finance.replenish.create',
             component: AddFinanceReplenish
+        },
+
+        {
+            path: '/admin/finance-ap/request-advance',
+            name: 'finance.requestAdvance',
+            component: IndexRequestAdvance
+        },
+        {
+            path: '/admin/finance-ap/request-advance/create',
+            name: 'finance.requestAdvance.create',
+            component: AddRequestAdvance
         },
 
         {
