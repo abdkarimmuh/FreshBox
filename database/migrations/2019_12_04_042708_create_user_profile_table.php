@@ -15,6 +15,7 @@ class CreateUserProfileTable extends Migration
     {
         Schema::create('user_profile', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->string('dept');
             $table->string('no_rek');
             $table->string('nama_rek');

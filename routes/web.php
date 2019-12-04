@@ -405,3 +405,7 @@ Route::get('/testing/delete', function () {
 Route::get('roles', function () {
     return auth()->user()->getRoleNames();
 });
+
+Route::get('/usertest', function () {
+    return Auth::user();
+});

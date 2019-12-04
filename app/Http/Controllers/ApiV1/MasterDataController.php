@@ -7,7 +7,10 @@ use App\Model\MasterData\Bank;
 use App\Model\MasterData\Category;
 use App\Model\MasterData\CustomerGroup;
 use App\Model\MasterData\Origin;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class MasterDataController extends Controller
 {
@@ -46,5 +49,24 @@ class MasterDataController extends Controller
     public function getCustomerGroup()
     {
         return CustomerGroup::select('id', 'name')->get();
+    }
+
+    /**
+     * Display a listing of the User.
+     * @return Collection
+     */
+    public function getUser()
+    {
+        return DB::table('users')->select('name', 'id')->get();
+    }
+
+    /**
+     * Display a detail of the User.
+     * @param $id
+     * @return User
+     */
+    public function getDetailUser($id)
+    {
+        return User::findOrFail($id);
     }
 }

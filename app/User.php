@@ -83,4 +83,9 @@ class User extends Authenticatable
         }
         return $res;
     }
+
+    public function UserProfile()
+    {
+        return $this->hasOne(UserProfile::class,'user_id','id');
+    }
 }

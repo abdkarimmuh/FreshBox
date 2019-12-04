@@ -222,6 +222,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/', 'MasterDataController@getOrigin');
         });
 
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/', 'MasterDataController@getUser');
+        });
+
         Route::get('customer', 'CustomerAPIController@index')->name('api.customer');
         Route::get('list_customer', 'CustomerAPIController@all');
     });
@@ -246,6 +250,7 @@ Route::resource('users', 'UserController', [
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 
 Route::get('/users ', function (Request $request) {
     $length = $request->input('length');
