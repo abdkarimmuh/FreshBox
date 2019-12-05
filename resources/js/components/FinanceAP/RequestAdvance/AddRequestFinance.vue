@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card col-12" v-if="!loading">
                 <div class="card-header">
-                    <h4 class="text-danger">Add Request Advance</h4>
+                    <h4 class="text-danger">Add Request Finance</h4>
                 </div>
                 <div class="col-12">
                     <div class="row">
@@ -407,39 +407,6 @@
                         console.log(err.response.data)
                     });
             },
-            async submitForm() {
-                this.loadingSubmit = true;
-                const payload = {
-                    user_id: this.delivery_order.user_id,
-                    sales_order_id: this.delivery_order.sales_order_id,
-                    customer_id: this.delivery_order.customer_id,
-                    do_date: this.delivery_order.do_date,
-                    driver_id: this.delivery_order.driver_id,
-                    pic_qc: this.delivery_order.pic_qc_id,
-                    remark: this.delivery_order.remark,
-                    so_details: this.sales_order_details.map((item, idx) => ({
-                        id: item.id,
-                        skuid: item.skuid,
-                        uom_id: item.uom_id,
-                        qty_do: this.qty_do[idx].qty
-                    }))
-                };
-                try {
-                    const res = await axios.post("/api/v1/warehouse/delivery_order", payload);
-                    Vue.swal({
-                        type: "success",
-                        title: "Success!",
-                        text: "Successfully Insert Data!"
-                    }).then(next => {
-                        this.$router.push({name: 'delivery_order.index'})
-                    });
-                    console.log(res);
-                } catch (e) {
-                    this.loadingSubmit = false;
-                    this.errors = e.response.data.errors;
-                    console.error(e.response.data);
-                }
-            },
             pushItems(id) {
                 if (!id) return;
                 const indexItem = this.orderDetails.findIndex(x => x.id === id);
@@ -480,6 +447,39 @@
             },
             deleteRow(index) {
                 this.orderDetails.splice(index, 1);
+            },
+            async submitForm() {
+                this.loadingSubmit = true;
+                const payload = {
+                    user_id: this.delivery_order.user_id,
+                    sales_order_id: this.delivery_order.sales_order_id,
+                    customer_id: this.delivery_order.customer_id,
+                    do_date: this.delivery_order.do_date,
+                    driver_id: this.delivery_order.driver_id,
+                    pic_qc: this.delivery_order.pic_qc_id,
+                    remark: this.delivery_order.remark,
+                    so_details: this.sales_order_details.map((item, idx) => ({
+                        id: item.id,
+                        skuid: item.skuid,
+                        uom_id: item.uom_id,
+                        qty_do: this.qty_do[idx].qty
+                    }))
+                };
+                try {
+                    const res = await axios.post("/api/v1/warehouse/delivery_order", payload);
+                    Vue.swal({
+                        type: "success",
+                        title: "Success!",
+                        text: "Successfully Insert Data!"
+                    }).then(next => {
+                        this.$router.push({name: 'delivery_order.index'})
+                    });
+                    console.log(res);
+                } catch (e) {
+                    this.loadingSubmit = false;
+                    this.errors = e.response.data.errors;
+                    console.error(e.response.data);
+                }
             },
         },
         components: {

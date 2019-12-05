@@ -4888,6 +4888,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         console.log(err.response.data);
       });
     },
+    pushItems: function pushItems(id) {
+      if (!id) return;
+      var indexItem = this.orderDetails.findIndex(function (x) {
+        return x.id === id;
+      });
+
+      if (indexItem >= 0) {
+        Vue.swal({
+          type: "error",
+          title: "ERROR!",
+          text: "Item Already Added!"
+        });
+        console.log("GAGAL");
+      } else {
+        return this.orderDetails.push({
+          id: this.item.id,
+          name: this.item.name_item,
+          skuid: this.item.skuid,
+          unit: '',
+          qty: 0,
+          ppn: 0,
+          harga: 0,
+          total: 0,
+          namaSuplier: '',
+          keterangan: ''
+        });
+      }
+    },
+    pushRows: function pushRows() {
+      return this.orderDetails.push({
+        name: '',
+        skuid: '',
+        unit: '',
+        qty: 0,
+        ppn: 0,
+        harga: 0,
+        total: 0,
+        namaSuplier: '',
+        keterangan: ''
+      });
+    },
+    deleteRow: function deleteRow(index) {
+      this.orderDetails.splice(index, 1);
+    },
     submitForm: function () {
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
@@ -4956,51 +5000,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return submitForm;
-    }(),
-    pushItems: function pushItems(id) {
-      if (!id) return;
-      var indexItem = this.orderDetails.findIndex(function (x) {
-        return x.id === id;
-      });
-
-      if (indexItem >= 0) {
-        Vue.swal({
-          type: "error",
-          title: "ERROR!",
-          text: "Item Already Added!"
-        });
-        console.log("GAGAL");
-      } else {
-        return this.orderDetails.push({
-          id: this.item.id,
-          name: this.item.name_item,
-          skuid: this.item.skuid,
-          unit: '',
-          qty: 0,
-          ppn: 0,
-          harga: 0,
-          total: 0,
-          namaSuplier: '',
-          keterangan: ''
-        });
-      }
-    },
-    pushRows: function pushRows() {
-      return this.orderDetails.push({
-        name: '',
-        skuid: '',
-        unit: '',
-        qty: 0,
-        ppn: 0,
-        harga: 0,
-        total: 0,
-        namaSuplier: '',
-        keterangan: ''
-      });
-    },
-    deleteRow: function deleteRow(index) {
-      this.orderDetails.splice(index, 1);
-    }
+    }()
   },
   components: {
     ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__["ModelListSelect"]
@@ -57405,7 +57405,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "text-danger" }, [_vm._v("Add Request Advance")])
+      _c("h4", { staticClass: "text-danger" }, [_vm._v("Add Request Finance")])
     ])
   },
   function() {
