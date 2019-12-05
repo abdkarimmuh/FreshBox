@@ -17,13 +17,13 @@
                                 <div>
                                     <model-list-select
                                         v-bind:class="{'is-invalid': errors.sales_order_id}"
-                                        :list="Users"
-                                        v-model="delivery_order.sales_order_id"
-                                        v-on:input="getDataCustomer()"
-                                        option-value="value"
+                                        :list="users"
+                                        v-model="userId"
+                                        v-on:input="getUser()"
+                                        option-value="id"
                                         option-text="name"
-                                        placeholder="Select Sales Order No"
-                                    ></model-list-select>
+                                        placeholder="Select User"
+                                    />
                                     <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
                                          v-if="errors.sales_order_id">
                                         <p>{{ errors.sales_order_id[0] }}</p>
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <!-- Driver -->
-                        <div class="col-md-3">
+                        <div class="col-md-3" v-if="userId !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Request Type</b>
@@ -46,7 +46,7 @@
                                         option-value="value"
                                         option-text="name"
                                         placeholder="Select Request Type"
-                                    ></model-list-select>
+                                    />
                                     <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
                                          v-if="errors.requestType">
                                         <p>{{ errors.requestType[0] }}</p>
@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         <!--Product Types-->
-                        <div class="col-md-3" v-if="requestType === 2">
+                        <div class="col-md-3" v-if="userId !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Product Type</b>
@@ -69,7 +69,7 @@
                                         option-value="value"
                                         option-text="name"
                                         placeholder="Select Product Type"
-                                    ></model-list-select>
+                                    />
                                     <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
                                          v-if="errors.productType">
                                         <p>{{ errors.productType[0] }}</p>
@@ -77,6 +77,30 @@
                                 </div>
                             </div>
                         </div>
+
+                        <s-form-input v-if="userId !== ''"
+                                      col="3"
+                                      title="Name"
+                                      :model="user.name"
+                                      disabled="true"/>
+
+                        <s-form-input v-if="userId !== ''"
+                                      col="3"
+                                      title="Dept"
+                                      :model="user.dept"
+                                      disabled="true"/>
+
+                        <s-form-input v-if="userId !== ''"
+                                      col="3"
+                                      title="Nama Rekening"
+                                      :model="user.nama_rek"
+                                      disabled="true"/>
+
+                        <s-form-input v-if="userId !== ''"
+                                      col="3"
+                                      title="Nomor Rekening"
+                                      :model="user.no_rek"
+                                      disabled="true"/>
 
                         <div v-if="productType === 1" class="col-12">
                             <div class="table-responsive m-t-40" style="clear: both;">
@@ -252,16 +276,8 @@
                     }
                 ],
                 productType: '',
-                Users: [
-                    {
-                        name: 'Non Core',
-                        value: 1
-                    },
-                    {
-                        name: 'Core',
-                        value: 2
-                    }
-                ],
+                users: [],
+                userId: '',
                 user: '',
                 listItems: [],
                 delivery_order: {
@@ -283,9 +299,25 @@
             };
         },
         mounted() {
-            this.getData();
+            this.getListUsers();
         },
         methods: {
+            getListUsers() {
+                axios.get(this.$parent.MakeUrl("api/v1/master_data/users"))
+                    .then(res => {
+                        this.users = res.data;
+                    })
+                    .catch(err => {
+                    });
+            },
+            getUser() {
+                axios.get(this.$parent.MakeUrl("api/v1/master_data/users/" + this.userId))
+                    .then(res => {
+                        this.user = res.data.data;
+                    })
+                    .catch(err => {
+                    });
+            },
             getDataCustomer() {
                 this.loading = true;
                 axios.get(this.$parent.MakeUrl("api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id))

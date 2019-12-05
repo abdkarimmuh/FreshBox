@@ -407,5 +407,5 @@ Route::get('roles', function () {
 });
 
 Route::get('/usertest', function () {
-    return Auth::user();
+    return Auth::user()->UserProfile;
 });

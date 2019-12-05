@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiV1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Model\MasterData\Bank;
 use App\Model\MasterData\Category;
 use App\Model\MasterData\CustomerGroup;
@@ -63,10 +64,10 @@ class MasterDataController extends Controller
     /**
      * Display a detail of the User.
      * @param $id
-     * @return User
+     * @return UserResource
      */
     public function getDetailUser($id)
     {
-        return User::findOrFail($id);
+        return new UserResource(User::findOrFail($id));
     }
 }
