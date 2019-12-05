@@ -16,6 +16,7 @@ class ListProcurementDetail extends MyModel
     protected $appends = [
         'item_name',
         'uom_name',
+        'uom_assign_name',
         'status_name',
     ];
 
@@ -52,6 +53,15 @@ class ListProcurementDetail extends MyModel
     {
         if (isset($this->Uom->name)) {
             return $this->Uom->name;
+        } else {
+            return '';
+        }
+    }
+
+    public function getUomAssignNameAttribute()
+    {
+        if (isset($this->AssignListProcurementDetail[0]->AssignProcurement->uom_name)) {
+            return $this->AssignListProcurementDetail[0]->AssignProcurement->uom_name;
         } else {
             return '';
         }

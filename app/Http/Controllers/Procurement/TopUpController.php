@@ -20,6 +20,7 @@ class TopUpController extends Controller
 
         $columns = [
             array('title' => 'Action', 'field' => 'user_name'),
+            array('title' => 'Tanggal Pengajuan', 'field' => 'date'),
             array('title' => 'User Procurement', 'field' => 'user_name'),
             array('title' => 'Amount', 'field' => 'amount', 'type' => 'price'),
             array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
@@ -112,8 +113,8 @@ class TopUpController extends Controller
     {
         $topUp = TopUpProc::find($id);
 
-        if ($topUp->status == 1 || $topUp->status == 2) {
-            $topUp->status = 3;
+        if ($topUp->status == 1) {
+            $topUp->status = 2;
             $topUp->save();
 
             $userProc = UserProc::where('user_id', $topUp->user_proc_id)->first();
@@ -129,7 +130,7 @@ class TopUpController extends Controller
         $topUp = TopUpProc::find($id);
 
         if ($topUp->status == 1) {
-            $topUp->status = 2;
+            $topUp->status = 3;
             $topUp->save();
         }
 

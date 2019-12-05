@@ -84,6 +84,10 @@ class ListProcurement extends MyModel
             return '<span class="badge badge-success">Receive</span>';
         } elseif ($this->status == 3) {
             return '<span class="badge badge-danger">Return</span>';
+        } elseif ($this->status == 4) {
+            return '<span class="badge badge-primary">Replenish</span>';
+        } elseif ($this->status == 5) {
+            return '<span class="badge badge-dark">Return Replenish</span>';
         } else {
             return 'Status NotFound';
         }
@@ -94,4 +98,3 @@ class ListProcurement extends MyModel
         return $this->columns;
     }
 }
-

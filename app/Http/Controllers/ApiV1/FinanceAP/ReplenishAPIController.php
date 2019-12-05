@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\FinanceAP\ReplenishResource;
 use App\Model\FinanceAP\Replenish;
 use App\Model\Procurement\ListProcurement;
+use App\Model\WarehouseIn\Confirm;
 use App\UserProc;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -13,8 +14,10 @@ use Illuminate\Http\Request;
 class ReplenishAPIController extends Controller
 {
     /**
-     * List Data Replenish
+     * List Data Replenish.
+     *
      * @param Request $request
+     *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
@@ -37,8 +40,10 @@ class ReplenishAPIController extends Controller
     }
 
     /**
-     *Insert the replenish data
+     *Insert the replenish data.
+     *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function store(Request $request)
@@ -46,7 +51,7 @@ class ReplenishAPIController extends Controller
         $request->validate([
             'status' => 'required|not_in:0',
             'totalAmount' => 'required',
-            'listProcId' => 'required'
+            'listProcId' => 'required',
         ]);
 
         $data = [
@@ -59,32 +64,42 @@ class ReplenishAPIController extends Controller
         ];
 
         Replenish::create($data);
-        if ($data['status'] === 1) {
+
+        if ($data['status'] == 1) {
             $status = 4;
 
-            $userProc = UserProc::findOrFail($data['userProcId']);
+            $userProc = UserProc::where('user_id', $data['userProcId'])->first();
             $saldo = $userProc->saldo + $data['total_amount'];
-            $userProc->update(['saldo' => $saldo]);
-        } elseif ($data['status'] === 2) {
+            $userProc->saldo = $saldo;
+            $userProc->save();
+
+            $confirm = Confirm::where('list_procurement_id', $request->listProcId)->first();
+            $confirm->status = 3;
+            $confirm->save();
+        } elseif ($data['status'] == 2) {
             $status = 5;
         }
+
         ListProcurement::findOrFail($data['list_proc_id'])->update(['status' => $status]);
 
         return response()->json([
-            'success' => true
+            'success' => true,
         ]);
     }
 
     /**
-     * Change Status To Replenish
+     * Change Status To Replenish.
+     *
      * @param $id
+     *
      * @return JsonResponse
      */
     public function replenish($id)
     {
         Replenish::findOrFail($id)->update(['status' => 1]);
+
         return response()->json([
-            'success' => true
+            'success' => true,
         ]);
     }
 }
