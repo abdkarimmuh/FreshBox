@@ -40,8 +40,8 @@ import ImportPriceTemp from "./components/ImportExcel/ImportPriceTemp";
 
 import AddFinanceReplenish from './components/FinanceAP/Replenish/AddReplenish';
 import IndexReplenish from './components/FinanceAP/Replenish/IndexReplenish';
-import IndexRequestAdvance from './components/FinanceAP/RequestAdvance/IndexRequestAdvance';
-import AddRequestAdvance from './components/FinanceAP/RequestAdvance/AddRequestAdvance';
+import IndexRequestFinance from './components/FinanceAP/RequestAdvance/IndexRequestFinance';
+import AddRequestFinance from './components/FinanceAP/RequestAdvance/AddRequestFinance';
 
 Vue.component('import-price-temp', ImportPriceTemp);
 Vue.use(VueRouter);
@@ -215,14 +215,14 @@ const router = new VueRouter({
         },
 
         {
-            path: '/admin/finance-ap/request-advance',
-            name: 'finance.requestAdvance',
-            component: IndexRequestAdvance
+            path: '/admin/finance-ap/request-finance',
+            name: 'finance.requestFinance',
+            component: IndexRequestFinance
         },
         {
-            path: '/admin/finance-ap/request-advance/create',
-            name: 'finance.requestAdvance.create',
-            component: AddRequestAdvance
+            path: '/admin/finance-ap/request-finance/create',
+            name: 'finance.requestFinance.create',
+            component: AddRequestFinance
         },
 
         {
