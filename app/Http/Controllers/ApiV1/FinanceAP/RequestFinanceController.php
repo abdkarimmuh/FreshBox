@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RequestFinanceController extends Controller
-{g
+{
     public function index()
     {
 
