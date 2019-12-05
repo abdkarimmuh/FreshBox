@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class RequestAdvanceController extends Controller
-{
+class RequestFinanceController extends Controller
+{g
     public function index()
     {
 
