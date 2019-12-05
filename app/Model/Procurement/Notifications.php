@@ -38,7 +38,7 @@ class Notifications extends MyModel
         if (isset($this->Confirm->remark)) {
             return $this->Confirm->remark;
         } else {
-            return '';
+            return 'Item Reject';
         }
     }
 }

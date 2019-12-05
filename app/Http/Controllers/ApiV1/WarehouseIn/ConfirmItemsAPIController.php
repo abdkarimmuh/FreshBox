@@ -57,6 +57,8 @@ class ConfirmItemsAPIController extends Controller
 
         $confirm_id = Confirm::insertGetId($data);
 
+        ListProcurement::find($data['list_procurement_id'])->update(['status' => 2]);
+
         foreach ($request->items as $i => $item) {
             if ($item['qty_minus'] != 0) {
                 ListProcurementDetail::find($item['id'])->update([
@@ -71,19 +73,22 @@ class ConfirmItemsAPIController extends Controller
                     'created_by' => $userId,
                     'created_at' => Carbon::now(),
                 ]);
+                Confirm::find($confirm_id)->update(['status' => 2]);
+                ListProcurement::find($data['list_procurement_id'])->update(['status' => 3]);
                 DB::select('call insert_notification_procurement(?, ?, ?)', array($userProcId, $confirm_id, 1));
+                $this->insertInventory($item['id'], $item['netto']);
             } else {
                 ListProcurementDetail::find($item['id'])->update([
                     'status' => 2,
-                ]);
+                    ]);
                 ConfirmDetail::insert([
-                    'warehouse_confirm_id' => $confirm_id,
-                    'list_proc_detail_id' => $item['id'],
-                    'bruto' => $item['bruto'],
-                    'netto' => $item['netto'],
-                    'created_by' => $userId,
-                    'created_at' => Carbon::now(),
-                ]);
+                        'warehouse_confirm_id' => $confirm_id,
+                        'list_proc_detail_id' => $item['id'],
+                        'bruto' => $item['bruto'],
+                        'netto' => $item['netto'],
+                        'created_by' => $userId,
+                        'created_at' => Carbon::now(),
+                        ]);
 
                 $listProcurementDetail = ListProcurementDetail::find($item['id']);
                 $assignListProcurementDetail = AssignListProcurementDetail::where('list_procurement_detail_id', $listProcurementDetail->id)->first();
@@ -92,10 +97,9 @@ class ConfirmItemsAPIController extends Controller
 
                 $soDetail->status = 4;
                 $soDetail->save();
+                $this->insertInventory($item['id'], $item['netto']);
             }
-            $this->insertInventory($item['id'], $item['netto']);
         }
-        ListProcurement::find($data['list_procurement_id'])->update(['status' => 2]);
 
         return response()->json([
             'status' => 'success',
@@ -107,7 +111,8 @@ class ConfirmItemsAPIController extends Controller
         $userId = auth('api')->user()->id;
         $now = Carbon::now();
 
-        $procurement = ListProcurementDetail::where('trx_list_procurement_id', $procDetailId)->first();
+        $procurement = ListProcurementDetail::findOrFail($procDetailId);
+
         $skuid = $procurement->skuid;
 
         $inventory = Inventory::where('skuid', $skuid)->first();

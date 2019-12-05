@@ -14,6 +14,7 @@ class ConfirmController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function index(Request $request)
@@ -58,8 +59,9 @@ class ConfirmController extends Controller
     public function create()
     {
         $config = [
-            'vue-component' => '<add-warehouse-confirm/>'
+            'vue-component' => '<add-warehouse-confirm/>',
         ];
+
         return view('layouts.vue-view', compact('config'));
     }
 
@@ -86,11 +88,6 @@ class ConfirmController extends Controller
         $data = Confirm::findOrFail($id);
         $detail = ConfirmDetail::where('warehouse_confirm_id', $id)->get();
 
-        // return response()->json([
-        //     'data' => $data,
-        //     'detail' => $detail,
-        // ]);
-
         $columns = [
             array('title' => 'Procurement No', 'field' => 'procurement_no'),
             array('title' => 'User Procurement', 'field' => 'proc_name'),
@@ -101,7 +98,7 @@ class ConfirmController extends Controller
 
         $detailColumns = [
             array('title' => 'Item', 'field' => 'item_name'),
-            array('title' => 'Qty Procurement', 'field' => 'qty_proc'),
+            array('title' => 'Qty', 'field' => 'qty_proc'),
             array('title' => 'Uom', 'field' => 'uom_name'),
             array('title' => 'Bruto (Berat Kotor)', 'field' => 'bruto'),
             array('title' => 'Netto (Berat Bersih)', 'field' => 'netto'),
@@ -133,7 +130,7 @@ class ConfirmController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param int                      $id
      *
      * @return Response
      */
@@ -145,8 +142,6 @@ class ConfirmController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     *
-     * @return void
      */
     public function destroy($id)
     {

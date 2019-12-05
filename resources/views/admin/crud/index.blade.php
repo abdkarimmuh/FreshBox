@@ -80,16 +80,15 @@
                                                                     View
                                                                 </a>
                                                             @endisset
-                                                            @isset ($config['route-reject-topup'])
-                                                                @if ($row['status'] == 1 || $row['status'] == 2)
+                                                            @isset ($config['route-reject-topup'] )
+                                                            @isset ($config['route-approve-topup'])
+                                                                @if ($row['status'] == 1)
                                                                     <a
                                                                         href="{{ route($config['route-approve-topup'], ['id' => $row->id]) }}"
                                                                         class="badge badge-primary"
                                                                         title="Approve">
                                                                         Approve
                                                                     </a>
-                                                                @endif
-                                                                @if ($row['status'] == 1)
                                                                     <a
                                                                         href="{{ route($config['route-reject-topup'], ['id' => $row->id]) }}"
                                                                         class="badge badge-danger"
@@ -98,7 +97,7 @@
                                                                     </a>
                                                                 @endif
                                                             @endisset
-
+                                                            @endisset
                                                             @if($row['status'] == 1 && $row['is_printed'] == 0)
                                                                 @isset($config['route-edit'])
                                                                     <a

@@ -30,7 +30,7 @@ class SalesOrderDetailAPIController extends Controller
     public function indexAPI()
     {
         $query = SalesOrderDetail::selectRaw('*, sum(sisa_qty_proc) as sisa_qty')
-            ->where('status', '<', '3')
+            ->where('status', '<', '4')
             ->where('sisa_qty_proc', '>', '0')
             ->groupBy('skuid')
             ->groupBy('uom_id')
