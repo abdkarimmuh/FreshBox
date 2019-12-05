@@ -102,7 +102,38 @@
                                       :model="user.no_rek"
                                       disabled="true"/>
 
-                        <div v-if="productType === 1" class="col-12">
+                        <div class="col-md-12" v-if="productType === 1">
+                            <div class="form-group text-right">
+                                <button class="btn btn-primary" @click="pushRows()">
+                                    Add Row
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6" v-if="productType === 2">
+                            <div class="form-group">
+                                <label>
+                                    <b>Items</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <model-list-select
+                                    :list="items"
+                                    v-model="itemId"
+                                    v-on:input="getDetailItem"
+                                    option-value="id"
+                                    option-text="name_item"
+                                    placeholder="Select Item">
+                                </model-list-select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-4" v-if="productType === 2">
+                            <div class="form-group">
+                                <button class="btn btn-sm btn-primary" @click="pushItems(itemId)">
+                                    Add Items
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-12" v-if="productType !== ''">
                             <div class="table-responsive m-t-40" style="clear: both;">
                                 <table class="table table-hover" style="font-size: 9pt;">
                                     <thead>
@@ -116,18 +147,38 @@
                                         <th class="text-center">Total</th>
                                         <th class="text-center">Nama Suplier</th>
                                         <th class="text-center">Keterangan</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(item, index) in listItems" v-bind:key="index">
-                                        <td> {{ index + 1}}</td>
-                                        <td>nama barang</td>
-                                        <td> jenis barang</td>
-                                        <td></td>
+                                    <tr v-for="(item, index) in orderDetails" v-bind:key="index"
+                                        v-if="productType === 1">
+                                        <td>{{ index + 1}}</td>
+                                        <td>
+                                            <input
+                                                v-model="item.name"
+                                                type="text"
+                                                class="form-control"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                v-model="item.skuid"
+                                                type="text"
+                                                class="form-control"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                v-model="item.qty"
+                                                type="number"
+                                                class="form-control"
+                                            />
+                                        </td>
                                         <td>
                                             <input
                                                 v-model="item.unit"
-                                                type="number"
+                                                type="text"
                                                 class="form-control"
                                             />
                                         </td>
@@ -145,7 +196,13 @@
                                                 class="form-control"
                                             />
                                         </td>
-                                        <td>Total</td>
+                                        <td>
+                                            <input
+                                                v-model="item.total"
+                                                type="number"
+                                                class="form-control"
+                                            />
+                                        </td>
                                         <td>
                                             <input
                                                 v-model="item.namaSuplier"
@@ -160,68 +217,84 @@
                                                 class="form-control"
                                             />
                                         </td>
+                                        <td>
+                                            <button class="btn btn-icon btn-sm btn-danger"
+                                                    @click="deleteRow(index)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </td>
                                     </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6" v-if="productType === 2">
-                            <div class="form-group">
-                                <label>
-                                    <b>Items</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <model-list-select
-                                    :list="items"
-                                    v-model="skuid"
-                                    v-on:input="getItem"
-                                    option-value="skuid"
-                                    option-text="item_name"
-                                    placeholder="Select Item">
-                                </model-list-select>
-
-                            </div>
-                        </div>
-                        <div v-if="productType === 2" class="col-12">
-                            <div class="table-responsive m-t-40" style="clear: both;">
-                                <table class="table table-hover" style="font-size: 9pt;">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">SKUID</th>
-                                        <th class="text-center">Item Name</th>
-                                        <th class="text-center">Qty</th>
-                                        <th class="text-center">UOM</th>
-                                        <th class="text-center">Qty Do</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr v-for="(orders, index) in listItems" v-bind:key="index">
-                                        <td>{{ orders.skuid }}</td>
-                                        <td>{{ orders.item_name }}</td>
-                                        <td>{{ orders.qty }}</td>
-                                        <td>{{ orders.uom_name }}</td>
+                                    <tr v-for="(item, index) in orderDetails" v-bind:key="index"
+                                        v-if="productType === 2">
+                                        <td>{{ index + 1}}</td>
+                                        <td>{{ item.name }}</td>
+                                        <td>{{ item.skuid }}</td>
                                         <td>
                                             <input
-                                                v-model="qty_do[index].qty"
-                                                v-on:change="validateQtyDO(index)"
+                                                v-model="item.qty"
                                                 type="number"
                                                 class="form-control"
-                                                :max="orders.qty"
                                             />
+                                        </td>
+                                        <td>
+                                            <input
+                                                v-model="item.unit"
+                                                type="text"
+                                                class="form-control"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                v-model="item.harga"
+                                                type="number"
+                                                class="form-control"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                v-model="item.ppn"
+                                                type="number"
+                                                class="form-control"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                v-model="item.total"
+                                                type="number"
+                                                class="form-control"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                v-model="item.namaSuplier"
+                                                type="text"
+                                                class="form-control"
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                v-model="item.keterangan"
+                                                type="number"
+                                                class="form-control"
+                                            />
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-icon btn-sm btn-danger"
+                                                    @click="deleteRow(index)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
-                        <div class="col-md-12" v-if="delivery_order.sales_order_id !== ''">
+                        <div class="col-md-12" v-if="userId !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Remark</b>
                                 </label>
-                                <textarea v-model="delivery_order.remark" class="form-control"></textarea>
+                                <textarea v-model="remark" class="form-control"></textarea>
                             </div>
                         </div>
 
@@ -232,7 +305,7 @@
                                 </div>
                                 <div v-else>
                                     <button class="btn btn-danger" v-on:click="submitForm()"
-                                            v-if="delivery_order.sales_order_id !== ''">
+                                            v-if="userId !== ''">
                                         Submit
                                     </button>
                                     <back-button/>
@@ -279,35 +352,50 @@
                 users: [],
                 userId: '',
                 user: '',
-                listItems: [],
-                delivery_order: {
-                    sales_order_id: "",
-                    customer_id: "",
-                    customer_name: "",
-                    do_date: "",
-                    driver_id: "",
-                    pic_qc_id: "",
-                    remark: "",
-                    user_id: UserID
-                },
-                drivers: [],
-                pic_qc: [],
-                qty_do: [],
+                items: [],
+                itemId: '',
+                orderDetails: [],
+                remark: '',
                 errors: [],
                 loading: false,
                 loadingSubmit: false
             };
         },
         mounted() {
-            this.getListUsers();
+            this.getData();
         },
         methods: {
-            getListUsers() {
-                axios.get(this.$parent.MakeUrl("api/v1/master_data/users"))
+            getData() {
+                this.loading = true;
+                axios.all([
+                    axios.get(this.$parent.MakeUrl("api/v1/master_data/users")),
+                    axios.get(this.$parent.MakeUrl("api/v1/master_data/items")),
+                ]).then(
+                    axios.spread((users, items) => {
+                        this.users = users.data;
+                        this.items = items.data;
+                        this.loading = false;
+                    })
+                ).catch(err => {
+                    if (err.response.status === 403) {
+                        this.$router.push({
+                            name: "form_sales_order"
+                        });
+                    }
+                    if (err.response.status === 500) {
+                        this.getData()
+                    }
+                });
+            },
+            getDetailItem() {
+                this.loading = true;
+                axios.get(this.$parent.MakeUrl("api/v1/master_data/items/" + this.itemId))
                     .then(res => {
-                        this.users = res.data;
+                        this.item = res.data;
+                        this.loading = false;
                     })
                     .catch(err => {
+                        console.log(err.response.data)
                     });
             },
             getUser() {
@@ -316,23 +404,7 @@
                         this.user = res.data.data;
                     })
                     .catch(err => {
-                    });
-            },
-            getDataCustomer() {
-                this.loading = true;
-                axios.get(this.$parent.MakeUrl("api/v1/marketing/sales_order/show?id=" + this.delivery_order.sales_order_id))
-                    .then(res => {
-                        this.sales_order = res.data;
-                        this.sales_order_details = res.data.sales_order_details;
-                        this.delivery_order.customer_name = this.sales_order.customer_name;
-                        this.delivery_order.customer_id = this.sales_order.customer_id;
-                        this.qty_do = this.sales_order_details.map((item, idx) => ({
-                            qty: item.qty
-                        }));
-                        this.delivery_order.driver_id = res.data.driver_id;
-                        this.loading = false;
-                    })
-                    .catch(err => {
+                        console.log(err.response.data)
                     });
             },
             async submitForm() {
@@ -368,23 +440,47 @@
                     console.error(e.response.data);
                 }
             },
-            getData() {
-                // axios.all([
-                //     axios.get(this.$parent.MakeUrl("api/v1/warehouse/delivery_order/create")),
-                //     axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/driver")),
-                //     axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/picqc"))
-                // ]).then(
-                //     axios.spread((sales_order, driver, pic_qc) => {
-                //         this.sales_orders = sales_order.data.data;
-                //         this.drivers = driver.data;
-                //         this.pic_qc = pic_qc.data;
-                //     })
-                // ).catch(err => {
-                // });
+            pushItems(id) {
+                if (!id) return;
+                const indexItem = this.orderDetails.findIndex(x => x.id === id);
+                if (indexItem >= 0) {
+                    Vue.swal({
+                        type: "error",
+                        title: "ERROR!",
+                        text: "Item Already Added!"
+                    });
+                    console.log("GAGAL");
+                } else {
+                    return this.orderDetails.push({
+                        id: this.item.id,
+                        name: this.item.name_item,
+                        skuid: this.item.skuid,
+                        unit: '',
+                        qty: 0,
+                        ppn: 0,
+                        harga: 0,
+                        total: 0,
+                        namaSuplier: '',
+                        keterangan: ''
+                    });
+                }
             },
-            pushItems() {
-
-            }
+            pushRows() {
+                return this.orderDetails.push({
+                    name: '',
+                    skuid: '',
+                    unit: '',
+                    qty: 0,
+                    ppn: 0,
+                    harga: 0,
+                    total: 0,
+                    namaSuplier: '',
+                    keterangan: ''
+                });
+            },
+            deleteRow(index) {
+                this.orderDetails.splice(index, 1);
+            },
         },
         components: {
             ModelListSelect

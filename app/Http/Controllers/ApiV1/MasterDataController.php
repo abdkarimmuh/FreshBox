@@ -7,8 +7,11 @@ use App\Http\Resources\UserResource;
 use App\Model\MasterData\Bank;
 use App\Model\MasterData\Category;
 use App\Model\MasterData\CustomerGroup;
+use App\Model\MasterData\Item;
 use App\Model\MasterData\Origin;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -53,7 +56,7 @@ class MasterDataController extends Controller
     }
 
     /**
-     * Display a listing of the User.
+     * Display a listing of the Users.
      * @return Collection
      */
     public function getUser()
@@ -69,5 +72,28 @@ class MasterDataController extends Controller
     public function getDetailUser($id)
     {
         return new UserResource(User::findOrFail($id));
+    }
+
+    /**
+     * Display a listing of the Items.
+     * @return Collection
+     */
+    public function getItems()
+    {
+        return DB::table('master_item')
+            ->select('name_item', 'id', 'skuid')
+            ->get();
+    }
+
+    /**
+     * Display a detail of the Item
+     * @param $id
+     * @return Model|Builder|object
+     */
+    public function getDetailItem($id)
+    {
+        return Item::select('name_item', 'id', 'skuid')
+            ->where('id', $id)
+            ->first();
     }
 }
