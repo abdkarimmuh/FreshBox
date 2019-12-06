@@ -15,6 +15,20 @@ class CreateFinanceRequestDetailTable extends Migration
     {
         Schema::create('finance_request_detail', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('request_finance_id')->index();
+            $table->string('item_name')->index();
+            $table->string('type_of_goods')->index();
+            $table->float('qty')->index();
+            $table->string('unit')->index();
+            $table->integer('price')->index();
+            $table->integer('ppn');
+            $table->integer('total')->index();
+            $table->string('supplier_name');
+            $table->string('remarks')->nullable();
+            $table->integer('price_confirm')->nullable();
+            $table->integer('total_confirm')->nullable();
+            $table->float('qty_confirm')->default(0);
+            $table->tinyInteger('checked')->default(0)->comment('0 = false/returned ,1 = true/notReturned');
             $table->timestamps();
         });
     }
