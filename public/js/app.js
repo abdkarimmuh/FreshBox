@@ -4848,6 +4848,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getData();
   },
   methods: {
+    //Get Data Users & Items
     getData: function getData() {
       var _this = this;
 
