@@ -96,4 +96,15 @@ class MasterDataController extends Controller
             ->where('id', $id)
             ->first();
     }
+
+    /**
+     * Display a listing of the Warehouse.
+     * @return Collection
+     */
+    public function getWarehouse()
+    {
+        return DB::table('master_warehouse')
+            ->select('address', 'id')
+            ->get();
+    }
 }

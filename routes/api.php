@@ -233,6 +233,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/{id}', 'MasterDataController@getDetailItem');
 
         });
+        Route::group(['prefix' => 'warehouse'], function () {
+            Route::get('/', 'MasterDataController@getWarehouse');
+        });
         Route::get('customer', 'CustomerAPIController@index')->name('api.customer');
         Route::get('list_customer', 'CustomerAPIController@all');
     });
