@@ -4849,6 +4849,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4906,6 +4910,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   productType: this.productType,
                   requestType: this.requestType,
                   userId: this.userId,
+                  warehouseId: this.warehouseId,
                   orderDetails: this.orderDetails.map(function (item, idx) {
                     return {
                       id: item.id,
@@ -5011,10 +5016,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           unit: '',
           qty: 0,
           ppn: 0,
-          harga: 0,
+          price: 0,
           total: 0,
-          namaSuplier: '',
-          keterangan: ''
+          supplierName: '',
+          remark: ''
         });
       }
     },
@@ -5025,10 +5030,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         unit: '',
         qty: 0,
         ppn: 0,
-        harga: 0,
+        price: 0,
         total: 0,
-        namaSuplier: '',
-        keterangan: ''
+        supplierName: '',
+        remark: ''
       });
     },
     deleteRow: function deleteRow(index) {
@@ -57019,13 +57024,13 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.harga,
-                                                    expression: "item.harga"
+                                                    value: item.price,
+                                                    expression: "item.price"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "number" },
-                                                domProps: { value: item.harga },
+                                                domProps: { value: item.price },
                                                 on: {
                                                   input: function($event) {
                                                     if (
@@ -57035,7 +57040,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "harga",
+                                                      "price",
                                                       $event.target.value
                                                     )
                                                   }
@@ -57109,15 +57114,15 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.namaSuplier,
+                                                    value: item.supplierName,
                                                     expression:
-                                                      "item.namaSuplier"
+                                                      "item.supplierName"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "text" },
                                                 domProps: {
-                                                  value: item.namaSuplier
+                                                  value: item.supplierName
                                                 },
                                                 on: {
                                                   input: function($event) {
@@ -57128,7 +57133,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "namaSuplier",
+                                                      "supplierName",
                                                       $event.target.value
                                                     )
                                                   }
@@ -57142,15 +57147,14 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.keterangan,
-                                                    expression:
-                                                      "item.keterangan"
+                                                    value: item.remark,
+                                                    expression: "item.remark"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "number" },
                                                 domProps: {
-                                                  value: item.keterangan
+                                                  value: item.remark
                                                 },
                                                 on: {
                                                   input: function($event) {
@@ -57161,7 +57165,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "keterangan",
+                                                      "remark",
                                                       $event.target.value
                                                     )
                                                   }
@@ -57278,13 +57282,13 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.harga,
-                                                    expression: "item.harga"
+                                                    value: item.price,
+                                                    expression: "item.price"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "number" },
-                                                domProps: { value: item.harga },
+                                                domProps: { value: item.price },
                                                 on: {
                                                   input: function($event) {
                                                     if (
@@ -57294,7 +57298,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "harga",
+                                                      "price",
                                                       $event.target.value
                                                     )
                                                   }
@@ -57368,15 +57372,15 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.namaSuplier,
+                                                    value: item.supplierName,
                                                     expression:
-                                                      "item.namaSuplier"
+                                                      "item.supplierName"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "text" },
                                                 domProps: {
-                                                  value: item.namaSuplier
+                                                  value: item.supplierName
                                                 },
                                                 on: {
                                                   input: function($event) {
@@ -57387,7 +57391,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "namaSuplier",
+                                                      "supplierName",
                                                       $event.target.value
                                                     )
                                                   }
@@ -57401,15 +57405,14 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.keterangan,
-                                                    expression:
-                                                      "item.keterangan"
+                                                    value: item.remark,
+                                                    expression: "item.remark"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "number" },
                                                 domProps: {
-                                                  value: item.keterangan
+                                                  value: item.remark
                                                 },
                                                 on: {
                                                   input: function($event) {
@@ -57420,7 +57423,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "keterangan",
+                                                      "remark",
                                                       $event.target.value
                                                     )
                                                   }

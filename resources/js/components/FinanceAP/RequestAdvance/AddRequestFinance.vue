@@ -147,7 +147,7 @@
                                       title="Nomor Rekening"
                                       :model="user.no_rek"
                                       disabled="true"/>
-
+                        <!--Button Add Rows-->
                         <div class="col-md-12" v-if="productType === 1">
                             <div class="form-group text-right">
                                 <button class="btn btn-primary" @click="pushRows()">
@@ -155,6 +155,7 @@
                                 </button>
                             </div>
                         </div>
+
                         <div class="col-md-6" v-if="productType === 2">
                             <div class="form-group">
                                 <label>
@@ -171,6 +172,7 @@
                                 </model-list-select>
                             </div>
                         </div>
+                        <!--Button Add Items-->
                         <div class="col-md-6 mt-4" v-if="productType === 2">
                             <div class="form-group">
                                 <button class="btn btn-sm btn-primary" @click="pushItems(itemId)">
@@ -230,7 +232,7 @@
                                         </td>
                                         <td>
                                             <input
-                                                v-model="item.harga"
+                                                v-model="item.price"
                                                 type="number"
                                                 class="form-control"
                                             />
@@ -251,14 +253,14 @@
                                         </td>
                                         <td>
                                             <input
-                                                v-model="item.namaSuplier"
+                                                v-model="item.supplierName"
                                                 type="text"
                                                 class="form-control"
                                             />
                                         </td>
                                         <td>
                                             <input
-                                                v-model="item.keterangan"
+                                                v-model="item.remark"
                                                 type="number"
                                                 class="form-control"
                                             />
@@ -291,7 +293,7 @@
                                         </td>
                                         <td>
                                             <input
-                                                v-model="item.harga"
+                                                v-model="item.price"
                                                 type="number"
                                                 class="form-control"
                                             />
@@ -312,14 +314,14 @@
                                         </td>
                                         <td>
                                             <input
-                                                v-model="item.namaSuplier"
+                                                v-model="item.supplierName"
                                                 type="text"
                                                 class="form-control"
                                             />
                                         </td>
                                         <td>
                                             <input
-                                                v-model="item.keterangan"
+                                                v-model="item.remark"
                                                 type="number"
                                                 class="form-control"
                                             />
@@ -335,6 +337,7 @@
                                 </table>
                             </div>
                         </div>
+
                         <div class="col-12">
                             <div class="card-body">
                                 <div v-if="loadingSubmit">
@@ -349,6 +352,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -386,13 +390,13 @@
                     }
                 ],
                 productType: '',
-                addresses:[
+                addresses: [
                     {
                         name: 'Office Green Lake',
                         value: 1
                     }
                 ],
-                address:'',
+                address: '',
                 requestDate: '',
                 users: [],
                 userId: '',
@@ -415,6 +419,7 @@
                     productType: this.productType,
                     requestType: this.requestType,
                     userId: this.userId,
+                    warehouseId: this.warehouseId,
                     orderDetails: this.orderDetails.map((item, idx) => ({
                         id: item.id,
                         skuid: item.skuid,
@@ -495,10 +500,10 @@
                         unit: '',
                         qty: 0,
                         ppn: 0,
-                        harga: 0,
+                        price: 0,
                         total: 0,
-                        namaSuplier: '',
-                        keterangan: ''
+                        supplierName: '',
+                        remark: ''
                     });
                 }
             },
@@ -509,10 +514,10 @@
                     unit: '',
                     qty: 0,
                     ppn: 0,
-                    harga: 0,
+                    price: 0,
                     total: 0,
-                    namaSuplier: '',
-                    keterangan: ''
+                    supplierName: '',
+                    remark: ''
                 });
             },
             deleteRow(index) {
