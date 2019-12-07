@@ -4812,6 +4812,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4832,13 +4869,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         value: 2
       }],
       productType: '',
+      addresses: [{
+        name: 'Office Green Lake',
+        value: 1
+      }],
+      address: '',
+      requestDate: '',
       users: [],
       userId: '',
       user: '',
       items: [],
       itemId: '',
       orderDetails: [],
-      remark: '',
       errors: [],
       loading: false,
       loadingSubmit: false
@@ -4848,43 +4890,102 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getData();
   },
   methods: {
+    submitForm: function () {
+      var _submitForm = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this = this;
+
+        var payload, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.loadingSubmit = true;
+                payload = {
+                  productType: this.productType,
+                  requestType: this.requestType,
+                  userId: this.userId,
+                  orderDetails: this.orderDetails.map(function (item, idx) {
+                    return {
+                      id: item.id,
+                      skuid: item.skuid,
+                      uom_id: item.uom_id,
+                      qty_do: _this.qty_do[idx].qty
+                    };
+                  })
+                };
+                _context.prev = 2;
+                _context.next = 5;
+                return axios.post("/api/v1/warehouse/delivery_order", payload);
+
+              case 5:
+                res = _context.sent;
+                Vue.swal({
+                  type: "success",
+                  title: "Success!",
+                  text: "Successfully Insert Data!"
+                }).then(function (next) {
+                  _this.$router.push({
+                    name: 'delivery_order.index'
+                  });
+                });
+                console.log(res);
+                _context.next = 15;
+                break;
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](2);
+                this.loadingSubmit = false;
+                this.errors = _context.t0.response.data.errors;
+                console.error(_context.t0.response.data);
+
+              case 15:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 10]]);
+      }));
+
+      function submitForm() {
+        return _submitForm.apply(this, arguments);
+      }
+
+      return submitForm;
+    }(),
     //Get Data Users & Items
     getData: function getData() {
-      var _this = this;
+      var _this2 = this;
 
       this.loading = true;
       axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items"))]).then(axios.spread(function (users, items) {
-        _this.users = users.data;
-        _this.items = items.data;
-        _this.loading = false;
+        _this2.users = users.data;
+        _this2.items = items.data;
+        _this2.loading = false;
       }))["catch"](function (err) {
-        if (err.response.status === 403) {
-          _this.$router.push({
-            name: "form_sales_order"
-          });
-        }
-
         if (err.response.status === 500) {
-          _this.getData();
+          _this2.getData();
         }
       });
     },
     getDetailItem: function getDetailItem() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.loading = true;
       axios.get(this.$parent.MakeUrl("api/v1/master_data/items/" + this.itemId)).then(function (res) {
-        _this2.item = res.data;
-        _this2.loading = false;
+        _this3.item = res.data;
+        _this3.loading = false;
       })["catch"](function (err) {
         console.log(err.response.data);
       });
     },
     getUser: function getUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get(this.$parent.MakeUrl("api/v1/master_data/users/" + this.userId)).then(function (res) {
-        _this3.user = res.data.data;
+        _this4.user = res.data.data;
       })["catch"](function (err) {
         console.log(err.response.data);
       });
@@ -4932,76 +5033,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     deleteRow: function deleteRow(index) {
       this.orderDetails.splice(index, 1);
-    },
-    submitForm: function () {
-      var _submitForm = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this4 = this;
-
-        var payload, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                this.loadingSubmit = true;
-                payload = {
-                  user_id: this.delivery_order.user_id,
-                  sales_order_id: this.delivery_order.sales_order_id,
-                  customer_id: this.delivery_order.customer_id,
-                  do_date: this.delivery_order.do_date,
-                  driver_id: this.delivery_order.driver_id,
-                  pic_qc: this.delivery_order.pic_qc_id,
-                  remark: this.delivery_order.remark,
-                  so_details: this.sales_order_details.map(function (item, idx) {
-                    return {
-                      id: item.id,
-                      skuid: item.skuid,
-                      uom_id: item.uom_id,
-                      qty_do: _this4.qty_do[idx].qty
-                    };
-                  })
-                };
-                _context.prev = 2;
-                _context.next = 5;
-                return axios.post("/api/v1/warehouse/delivery_order", payload);
-
-              case 5:
-                res = _context.sent;
-                Vue.swal({
-                  type: "success",
-                  title: "Success!",
-                  text: "Successfully Insert Data!"
-                }).then(function (next) {
-                  _this4.$router.push({
-                    name: 'delivery_order.index'
-                  });
-                });
-                console.log(res);
-                _context.next = 15;
-                break;
-
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](2);
-                this.loadingSubmit = false;
-                this.errors = _context.t0.response.data.errors;
-                console.error(_context.t0.response.data);
-
-              case 15:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[2, 10]]);
-      }));
-
-      function submitForm() {
-        return _submitForm.apply(this, arguments);
-      }
-
-      return submitForm;
-    }()
+    }
   },
   components: {
     ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__["ModelListSelect"]
@@ -56456,7 +56488,7 @@ var render = function() {
                 "div",
                 { staticClass: "row" },
                 [
-                  _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "col-md-3" }, [
                     _c("div", { staticClass: "form-group" }, [
                       _vm._m(1),
                       _vm._v(" "),
@@ -56509,9 +56541,60 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _vm.userId !== ""
-                    ? _c("div", { staticClass: "col-md-3" }, [
+                    ? _c("div", { staticClass: "col-md-2" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _vm._m(2),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            [
+                              _c("date-picker", {
+                                attrs: {
+                                  lang: "en",
+                                  type: "datetime",
+                                  valueType: "format",
+                                  "not-before": new Date(),
+                                  format: "YYYY-MM-DD HH:mm:ss"
+                                },
+                                model: {
+                                  value: _vm.requestDate,
+                                  callback: function($$v) {
+                                    _vm.requestDate = $$v
+                                  },
+                                  expression: "requestDate"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _vm.errors.fulfillmentDate
+                            ? _c(
+                                "div",
+                                {
+                                  staticStyle: {
+                                    "margin-top": ".25rem",
+                                    "font-size": "80%",
+                                    color: "#dc3545"
+                                  }
+                                },
+                                [
+                                  _c("p", [
+                                    _vm._v(
+                                      _vm._s(_vm.errors.fulfillmentDate[0])
+                                    )
+                                  ])
+                                ]
+                              )
+                            : _vm._e()
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.userId !== ""
+                    ? _c("div", { staticClass: "col-md-2" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(3),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -56560,9 +56643,9 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.userId !== ""
-                    ? _c("div", { staticClass: "col-md-3" }, [
+                    ? _c("div", { staticClass: "col-md-2" }, [
                         _c("div", { staticClass: "form-group" }, [
-                          _vm._m(3),
+                          _vm._m(4),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -56599,6 +56682,55 @@ var render = function() {
                                         _vm._v(
                                           _vm._s(_vm.errors.productType[0])
                                         )
+                                      ])
+                                    ]
+                                  )
+                                : _vm._e()
+                            ],
+                            1
+                          )
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.userId !== ""
+                    ? _c("div", { staticClass: "col-md-3" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(5),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            [
+                              _c("model-list-select", {
+                                class: { "is-invalid": _vm.errors.address },
+                                attrs: {
+                                  list: _vm.addresses,
+                                  "option-value": "value",
+                                  "option-text": "name",
+                                  placeholder: "Select Warehouse"
+                                },
+                                model: {
+                                  value: _vm.address,
+                                  callback: function($$v) {
+                                    _vm.address = $$v
+                                  },
+                                  expression: "address"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _vm.errors.address
+                                ? _c(
+                                    "div",
+                                    {
+                                      staticStyle: {
+                                        "margin-top": ".25rem",
+                                        "font-size": "80%",
+                                        color: "#dc3545"
+                                      }
+                                    },
+                                    [
+                                      _c("p", [
+                                        _vm._v(_vm._s(_vm.errors.address[0]))
                                       ])
                                     ]
                                   )
@@ -56683,7 +56815,7 @@ var render = function() {
                           "div",
                           { staticClass: "form-group" },
                           [
-                            _vm._m(4),
+                            _vm._m(6),
                             _vm._v(" "),
                             _c("model-list-select", {
                               attrs: {
@@ -56746,7 +56878,7 @@ var render = function() {
                                 staticStyle: { "font-size": "9pt" }
                               },
                               [
-                                _vm._m(5),
+                                _vm._m(7),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -57330,35 +57462,6 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.userId !== ""
-                    ? _c("div", { staticClass: "col-md-12" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _vm._m(6),
-                          _vm._v(" "),
-                          _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.remark,
-                                expression: "remark"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            domProps: { value: _vm.remark },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.remark = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
                   _c("div", { staticClass: "col-12" }, [
                     _c("div", { staticClass: "card-body" }, [
                       _vm.loadingSubmit
@@ -57424,6 +57527,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
+      _c("b", [_vm._v("Request Date")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
       _c("b", [_vm._v("Request Type")]),
       _vm._v(" "),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
@@ -57435,6 +57548,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", [
       _c("b", [_vm._v("Product Type")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Warehouse Address")]),
       _vm._v(" "),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])
@@ -57478,12 +57601,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [_c("b", [_vm._v("Remark")])])
   }
 ]
 render._withStripped = true

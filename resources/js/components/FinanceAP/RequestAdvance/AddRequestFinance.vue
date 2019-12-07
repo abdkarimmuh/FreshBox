@@ -8,7 +8,7 @@
                 <div class="col-12">
                     <div class="row">
                         <!-- User -->
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>
                                     <b>User</b>
@@ -31,8 +31,31 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Driver -->
-                        <div class="col-md-3" v-if="userId !== ''">
+                        <!-- Request Date -->
+                        <div class="col-md-2" v-if="userId !== ''">
+                            <div class="form-group">
+                                <label>
+                                    <b>Request Date</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div>
+                                    <date-picker
+                                        v-model="requestDate"
+                                        lang="en"
+                                        type="datetime"
+                                        valueType="format"
+                                        :not-before="new Date()"
+                                        format="YYYY-MM-DD HH:mm:ss"
+                                    />
+                                </div>
+                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                     v-if="errors.fulfillmentDate">
+                                    <p>{{ errors.fulfillmentDate[0] }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Request Type -->
+                        <div class="col-md-2" v-if="userId !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Request Type</b>
@@ -55,7 +78,7 @@
                             </div>
                         </div>
                         <!--Product Types-->
-                        <div class="col-md-3" v-if="userId !== ''">
+                        <div class="col-md-2" v-if="userId !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Product Type</b>
@@ -73,6 +96,29 @@
                                     <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
                                          v-if="errors.productType">
                                         <p>{{ errors.productType[0] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Alamat Kirim-->
+                        <div class="col-md-3" v-if="userId !== ''">
+                            <div class="form-group">
+                                <label>
+                                    <b>Warehouse Address</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div>
+                                    <model-list-select
+                                        v-bind:class="{'is-invalid': errors.address}"
+                                        :list="addresses"
+                                        v-model="address"
+                                        option-value="value"
+                                        option-text="name"
+                                        placeholder="Select Warehouse"
+                                    />
+                                    <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                         v-if="errors.address">
+                                        <p>{{ errors.address[0] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -289,15 +335,6 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col-md-12" v-if="userId !== ''">
-                            <div class="form-group">
-                                <label>
-                                    <b>Remark</b>
-                                </label>
-                                <textarea v-model="remark" class="form-control"></textarea>
-                            </div>
-                        </div>
-
                         <div class="col-12">
                             <div class="card-body">
                                 <div v-if="loadingSubmit">
@@ -349,13 +386,20 @@
                     }
                 ],
                 productType: '',
+                addresses:[
+                    {
+                        name: 'Office Green Lake',
+                        value: 1
+                    }
+                ],
+                address:'',
+                requestDate: '',
                 users: [],
                 userId: '',
                 user: '',
                 items: [],
                 itemId: '',
                 orderDetails: [],
-                remark: '',
                 errors: [],
                 loading: false,
                 loadingSubmit: false
@@ -365,6 +409,36 @@
             this.getData();
         },
         methods: {
+            async submitForm() {
+                this.loadingSubmit = true;
+                const payload = {
+                    productType: this.productType,
+                    requestType: this.requestType,
+                    userId: this.userId,
+                    orderDetails: this.orderDetails.map((item, idx) => ({
+                        id: item.id,
+                        skuid: item.skuid,
+                        uom_id: item.uom_id,
+                        qty_do: this.qty_do[idx].qty
+                    }))
+                };
+                try {
+                    const res = await axios.post("/api/v1/warehouse/delivery_order", payload);
+                    Vue.swal({
+                        type: "success",
+                        title: "Success!",
+                        text: "Successfully Insert Data!"
+                    }).then(next => {
+                        this.$router.push({name: 'delivery_order.index'})
+                    });
+                    console.log(res);
+                } catch (e) {
+                    this.loadingSubmit = false;
+                    this.errors = e.response.data.errors;
+                    console.error(e.response.data);
+                }
+            },
+
             //Get Data Users & Items
             getData() {
                 this.loading = true;
@@ -378,11 +452,6 @@
                         this.loading = false;
                     })
                 ).catch(err => {
-                    if (err.response.status === 403) {
-                        this.$router.push({
-                            name: "form_sales_order"
-                        });
-                    }
                     if (err.response.status === 500) {
                         this.getData()
                     }
@@ -448,39 +517,6 @@
             },
             deleteRow(index) {
                 this.orderDetails.splice(index, 1);
-            },
-            async submitForm() {
-                this.loadingSubmit = true;
-                const payload = {
-                    user_id: this.delivery_order.user_id,
-                    sales_order_id: this.delivery_order.sales_order_id,
-                    customer_id: this.delivery_order.customer_id,
-                    do_date: this.delivery_order.do_date,
-                    driver_id: this.delivery_order.driver_id,
-                    pic_qc: this.delivery_order.pic_qc_id,
-                    remark: this.delivery_order.remark,
-                    so_details: this.sales_order_details.map((item, idx) => ({
-                        id: item.id,
-                        skuid: item.skuid,
-                        uom_id: item.uom_id,
-                        qty_do: this.qty_do[idx].qty
-                    }))
-                };
-                try {
-                    const res = await axios.post("/api/v1/warehouse/delivery_order", payload);
-                    Vue.swal({
-                        type: "success",
-                        title: "Success!",
-                        text: "Successfully Insert Data!"
-                    }).then(next => {
-                        this.$router.push({name: 'delivery_order.index'})
-                    });
-                    console.log(res);
-                } catch (e) {
-                    this.loadingSubmit = false;
-                    this.errors = e.response.data.errors;
-                    console.error(e.response.data);
-                }
             },
         },
         components: {
