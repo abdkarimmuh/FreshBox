@@ -7,6 +7,7 @@ use App\Model\FinanceAP\RequestFinance;
 use App\Model\FinanceAP\RequestFinanceDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RequestFinanceController extends Controller
 {
@@ -30,7 +31,10 @@ class RequestFinanceController extends Controller
             'productType' => 'required',
         ];
         $request->validate($rules);
+
+        $noRequest = $this->generateRequestNo($request->date);
         $data = [
+            'no_request' => $noRequest,
             'user_id' => $request->userId,
             'master_warehouse_id' => $request->warehouseId,
             'request_date' => $request->requestDate,
@@ -38,29 +42,29 @@ class RequestFinanceController extends Controller
             'product_type' => $request->productType
         ];
         $requestFinance = RequestFinance::insertGetId($data);
-
         $orderDetails = $request->orderDetails;
         foreach ($orderDetails as $i => $detail) {
             $requestFinanceDetails[] = [
-                'request_finance_id' => $requestFinance->id,
+                'request_finance_id' => $requestFinance,
+                'item_name' => $detail['name'],
                 'type_of_goods' => $detail['typeOfGoods'],
                 'qty' => $detail['qty'],
                 'unit' => $detail['unit'],
-                'price' => $data['price'],
-                'ppn' => $data['ppn'],
-                'total' => $data['total'],
-                'supplier_name' => $data['supplierName'],
-                'remarks' => $data['remark'],
+                'price' => $detail['price'],
+                'ppn' => $detail['ppn'],
+                'total' => $detail['total'],
+                'supplier_name' => $detail['supplierName'],
+                'remarks' => $detail['remark'],
             ];
         }
         RequestFinanceDetail::insert($requestFinanceDetails);
     }
 
-    public function generateSalesOrderNo($date)
+    public function generateRequestNo($date)
     {
         $year_month = Carbon::parse($date)->format('/m/Y');
         $latestRequestFinance = RequestFinance::where(DB::raw("DATE_FORMAT(created_at, '/%y/%m')"), $year_month)->latest()->first();
-        $latestRequestFinanceNo = isset($latestRequestFinance->no_request) ? $latestRequestFinance->no_request : '1/GF-FB';
+        $latestRequestFinanceNo = isset($latestRequestFinance->no_request) ? $latestRequestFinance->no_request : '0/GF-FB';
         $cutString = str_replace('/GF-FB', '', $latestRequestFinanceNo);
         return ($cutString + 1) . '/GF-FB' . $year_month;
     }

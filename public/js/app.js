@@ -4895,14 +4895,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this = this;
-
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                this.loadingSubmit = true;
+                // this.loadingSubmit = true;
                 payload = {
                   userId: this.userId,
                   warehouseId: this.warehouseId,
@@ -4923,38 +4921,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     };
                   })
                 };
-                _context.prev = 2;
-                _context.next = 5;
-                return axios.post("/api/v1/warehouse/delivery_order", payload);
+                _context.prev = 1;
+                _context.next = 4;
+                return axios.post("/api/v1/finance-ap/request-finance", payload);
 
-              case 5:
+              case 4:
                 res = _context.sent;
                 Vue.swal({
                   type: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
-                }).then(function (next) {
-                  _this.$router.push({
-                    name: 'delivery_order.index'
-                  });
+                }).then(function (next) {// this.$router.push({name: 'delivery_order.index'})
                 });
                 console.log(res);
-                _context.next = 15;
+                _context.next = 14;
                 break;
 
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](2);
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](1);
                 this.loadingSubmit = false;
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
 
-              case 15:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 10]]);
+        }, _callee, this, [[1, 9]]);
       }));
 
       function submitForm() {
@@ -4965,36 +4960,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     //Get Data Users & Items
     getData: function getData() {
-      var _this2 = this;
+      var _this = this;
 
       this.loading = true;
       axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse"))]).then(axios.spread(function (users, items, warehouses) {
-        _this2.users = users.data;
-        _this2.items = items.data;
-        _this2.warehouses = warehouses.data;
-        _this2.loading = false;
+        _this.users = users.data;
+        _this.items = items.data;
+        _this.warehouses = warehouses.data;
+        _this.loading = false;
       }))["catch"](function (err) {
         if (err.response.status === 500) {
-          _this2.getData();
+          _this.getData();
         }
       });
     },
     getDetailItem: function getDetailItem() {
-      var _this3 = this;
+      var _this2 = this;
 
       this.loading = true;
       axios.get(this.$parent.MakeUrl("api/v1/master_data/items/" + this.itemId)).then(function (res) {
-        _this3.item = res.data;
-        _this3.loading = false;
+        _this2.item = res.data;
+        _this2.loading = false;
       })["catch"](function (err) {
         console.log(err.response.data);
       });
     },
     getUser: function getUser() {
-      var _this4 = this;
+      var _this3 = this;
 
       axios.get(this.$parent.MakeUrl("api/v1/master_data/users/" + this.userId)).then(function (res) {
-        _this4.user = res.data.data;
+        _this3.user = res.data.data;
       })["catch"](function (err) {
         console.log(err.response.data);
       });
@@ -57156,7 +57151,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: { type: "text" },
                                                 domProps: {
                                                   value: item.remark
                                                 },
@@ -57414,7 +57409,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: { type: "text" },
                                                 domProps: {
                                                   value: item.remark
                                                 },

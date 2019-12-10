@@ -261,7 +261,7 @@
                                         <td>
                                             <input
                                                 v-model="item.remark"
-                                                type="number"
+                                                type="text"
                                                 class="form-control"
                                             />
                                         </td>
@@ -322,7 +322,7 @@
                                         <td>
                                             <input
                                                 v-model="item.remark"
-                                                type="number"
+                                                type="text"
                                                 class="form-control"
                                             />
                                         </td>
@@ -409,7 +409,7 @@
         },
         methods: {
             async submitForm() {
-                this.loadingSubmit = true;
+                // this.loadingSubmit = true;
                 const payload = {
                     userId: this.userId,
                     warehouseId: this.warehouseId,
@@ -429,13 +429,13 @@
                     }))
                 };
                 try {
-                    const res = await axios.post("/api/v1/warehouse/delivery_order", payload);
+                    const res = await axios.post("/api/v1/finance-ap/request-finance", payload);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        this.$router.push({name: 'delivery_order.index'})
+                        // this.$router.push({name: 'delivery_order.index'})
                     });
                     console.log(res);
                 } catch (e) {

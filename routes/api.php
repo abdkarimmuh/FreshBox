@@ -141,9 +141,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         });
 //        Request Finance
         Route::group(['prefix' => 'request-finance'], function () {
-            Route::get('/', 'ReqeustFinanceController@index');
-            Route::get('/show/{id}', 'ReqeustFinanceController@show');
-            Route::post('/', 'ReqeustFinanceController@store');
+            Route::get('/', 'RequestFinanceController@index');
+            Route::get('/show/{id}', 'RequestFinanceController@show');
+            Route::post('/', 'RequestFinanceController@store');
         });
     });
 
