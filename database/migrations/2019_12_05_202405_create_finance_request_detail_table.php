@@ -28,7 +28,7 @@ class CreateFinanceRequestDetailTable extends Migration
             $table->integer('price_confirm')->nullable();
             $table->integer('total_confirm')->nullable();
             $table->float('qty_confirm')->default(0);
-            $table->tinyInteger('checked')->default(0)->comment('0 = false/returned ,1 = true/notReturned');
+            $table->tinyInteger('checked')->default(0)->comment('0 = default ,1 = notReturned, 2 = returned');
             $table->timestamps();
         });
     }

@@ -126,16 +126,24 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
      * Route Finance AP API
      */
     Route::group(['prefix' => 'finance-ap', 'namespace' => 'FinanceAP\\'], function () {
+//        Replenish
         Route::group(['prefix' => 'replenish'], function () {
             Route::get('/', 'ReplenishAPIController@index');
             Route::post('/store', 'ReplenishAPIController@store');
             Route::patch('/{id}', 'ReplenishAPIController@replenish');
         });
+//        TopUp
         Route::group(['prefix' => 'topup'], function () {
             Route::get('/', 'TopUpProcAPIController@index');
             Route::get('/get', 'TopUpProcAPIController@indexApi');
             Route::get('/show/{id}', 'TopUpProcAPIController@show');
             Route::post('/', 'TopUpProcAPIController@store');
+        });
+//        Request Finance
+        Route::group(['prefix' => 'request-finance'], function () {
+            Route::get('/', 'ReqeustFinanceController@index');
+            Route::get('/show/{id}', 'ReqeustFinanceController@show');
+            Route::post('/', 'ReqeustFinanceController@store');
         });
     });
 

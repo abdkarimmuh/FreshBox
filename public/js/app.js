@@ -4873,11 +4873,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         value: 2
       }],
       productType: '',
-      addresses: [{
-        name: 'Office Green Lake',
-        value: 1
-      }],
-      address: '',
+      warehouses: [],
+      warehouseId: '',
       requestDate: '',
       users: [],
       userId: '',
@@ -4907,16 +4904,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 this.loadingSubmit = true;
                 payload = {
-                  productType: this.productType,
-                  requestType: this.requestType,
                   userId: this.userId,
                   warehouseId: this.warehouseId,
+                  requestDate: this.requestDate,
+                  productType: this.productType,
+                  requestType: this.requestType,
                   orderDetails: this.orderDetails.map(function (item, idx) {
                     return {
-                      id: item.id,
-                      skuid: item.skuid,
-                      uom_id: item.uom_id,
-                      qty_do: _this.qty_do[idx].qty
+                      name: item.name,
+                      typeOfGoods: item.skuid,
+                      unit: item.unit,
+                      qty: item.qty,
+                      ppn: item.ppn,
+                      price: item.price,
+                      total: item.total,
+                      supplierName: item.supplierName,
+                      remark: item.remark
                     };
                   })
                 };
@@ -4965,9 +4968,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.loading = true;
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items"))]).then(axios.spread(function (users, items) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse"))]).then(axios.spread(function (users, items, warehouses) {
         _this2.users = users.data;
         _this2.items = items.data;
+        _this2.warehouses = warehouses.data;
         _this2.loading = false;
       }))["catch"](function (err) {
         if (err.response.status === 500) {
@@ -56559,7 +56563,7 @@ var render = function() {
                                   type: "datetime",
                                   valueType: "format",
                                   "not-before": new Date(),
-                                  format: "YYYY-MM-DD HH:mm:ss"
+                                  format: "YYYY-MM-DD"
                                 },
                                 model: {
                                   value: _vm.requestDate,
@@ -56709,17 +56713,17 @@ var render = function() {
                               _c("model-list-select", {
                                 class: { "is-invalid": _vm.errors.address },
                                 attrs: {
-                                  list: _vm.addresses,
-                                  "option-value": "value",
-                                  "option-text": "name",
+                                  list: _vm.warehouses,
+                                  "option-value": "id",
+                                  "option-text": "address",
                                   placeholder: "Select Warehouse"
                                 },
                                 model: {
-                                  value: _vm.address,
+                                  value: _vm.warehouseId,
                                   callback: function($$v) {
-                                    _vm.address = $$v
+                                    _vm.warehouseId = $$v
                                   },
-                                  expression: "address"
+                                  expression: "warehouseId"
                                 }
                               }),
                               _vm._v(" "),

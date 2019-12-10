@@ -45,7 +45,7 @@
                                         type="datetime"
                                         valueType="format"
                                         :not-before="new Date()"
-                                        format="YYYY-MM-DD HH:mm:ss"
+                                        format="YYYY-MM-DD"
                                     />
                                 </div>
                                 <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
@@ -110,10 +110,10 @@
                                 <div>
                                     <model-list-select
                                         v-bind:class="{'is-invalid': errors.address}"
-                                        :list="addresses"
-                                        v-model="address"
-                                        option-value="value"
-                                        option-text="name"
+                                        :list="warehouses"
+                                        v-model="warehouseId"
+                                        option-value="id"
+                                        option-text="address"
                                         placeholder="Select Warehouse"
                                     />
                                     <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
@@ -390,13 +390,8 @@
                     }
                 ],
                 productType: '',
-                addresses: [
-                    {
-                        name: 'Office Green Lake',
-                        value: 1
-                    }
-                ],
-                address: '',
+                warehouses: [],
+                warehouseId: '',
                 requestDate: '',
                 users: [],
                 userId: '',
@@ -416,15 +411,21 @@
             async submitForm() {
                 this.loadingSubmit = true;
                 const payload = {
-                    productType: this.productType,
-                    requestType: this.requestType,
                     userId: this.userId,
                     warehouseId: this.warehouseId,
+                    requestDate: this.requestDate,
+                    productType: this.productType,
+                    requestType: this.requestType,
                     orderDetails: this.orderDetails.map((item, idx) => ({
-                        id: item.id,
-                        skuid: item.skuid,
-                        uom_id: item.uom_id,
-                        qty_do: this.qty_do[idx].qty
+                        name: item.name,
+                        typeOfGoods: item.skuid,
+                        unit: item.unit,
+                        qty: item.qty,
+                        ppn: item.ppn,
+                        price: item.price,
+                        total: item.total,
+                        supplierName: item.supplierName,
+                        remark: item.remark,
                     }))
                 };
                 try {
@@ -450,10 +451,12 @@
                 axios.all([
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/users")),
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/items")),
+                    axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")),
                 ]).then(
-                    axios.spread((users, items) => {
+                    axios.spread((users, items, warehouses) => {
                         this.users = users.data;
                         this.items = items.data;
+                        this.warehouses = warehouses.data;
                         this.loading = false;
                     })
                 ).catch(err => {
