@@ -5363,20 +5363,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             method: 'post',
             url: _this3.$parent.MakeUrl("api/v1/import-data-price-temp/generate")
           });
-
-          if (res.response.status === 200) {
-            Vue.swal('Generated!', 'Master Price has been generated.', 'success').then(function (next) {
-              window.location.href = "/admin/import/price";
-            });
-          } else {
-            Vue.swal('Fail!', 'Master Price failed to generate.', 'danger').then(function (next) {
-              window.location.href = "/admin/import/price";
-            });
-          }
-
+          Vue.swal('Generated!', 'Master Price has been generated.', 'success').then(function (next) {
+            window.location.href = "/admin/import/price";
+          });
           console.log(res);
         } catch (e) {
+          Vue.swal('Fail!', 'Master Price failed to generate.', 'danger').then(function (next) {
+            window.location.href = "/admin/import/price";
+          });
           console.error(e);
+          console.error(e.response.data);
         }
       });
     }
