@@ -3,11 +3,18 @@
 namespace App\Model\FinanceAP;
 
 use App\Model\MasterData\Warehouse;
-use Illuminate\Database\Eloquent\Model;
+use App\MyModel;
+use App\Traits\SearchTraits;
+use App\User;
 
-class RequestFinance extends Model
+class RequestFinance extends MyModel
 {
+    use SearchTraits;
     protected $table = 'finance_request';
+    protected $dates = [
+        'request_date',
+        'request_confirm_date'
+    ];
 
     public function user()
     {

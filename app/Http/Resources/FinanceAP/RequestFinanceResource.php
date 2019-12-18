@@ -16,9 +16,14 @@ class RequestFinanceResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'no_request' => $this->no_request,
-            'request_date' => $this->request_date,
-            'warehouse' => $this->warehouse->address
+            'no_request' => $this->no_request . '/' . $this->created_at->format('m/Y'),
+            'request_date' => $this->request_date->formatLocalized('%d %B %Y'),
+            'shipping_address' => $this->warehouse->address,
+            'status' => isset($this->no_request_confirm) ? 2 : 1,
+            'user_name' => $this->user->name,
+            'dept' => $this->user->UserProfile->dept,
+            'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
+            'created_by_name' => $this->created_by_name
         ];
     }
 }

@@ -14,7 +14,7 @@
                     title: "Request Finance",
                     action: true,
                     base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-finance"),
-                    route_replenish: "finance.requestFinance.show",
+                    route_view: "finance.requestFinance.show",
                     route_create: "finance.requestFinance.create"
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },
@@ -44,12 +44,6 @@
                         field: "dept",
                         filterable: true
                     },
-                    // {
-                    //     title: "Status",
-                    //     field: "status_html",
-                    //     type: "html",
-                    //     filterable: true
-                    // },
                     {
                         title: "Created At",
                         field: "created_at",

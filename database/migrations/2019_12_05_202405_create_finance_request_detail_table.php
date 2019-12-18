@@ -21,7 +21,7 @@ class CreateFinanceRequestDetailTable extends Migration
             $table->float('qty')->index();
             $table->string('unit')->index();
             $table->integer('price')->index();
-            $table->integer('ppn');
+            $table->integer('ppn')->nullable();
             $table->integer('total')->index();
             $table->string('supplier_name');
             $table->string('remarks')->nullable();
