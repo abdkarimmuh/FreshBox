@@ -25,6 +25,8 @@ class CreateMasterPriceLog extends Migration
             $table->string('remarks')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('audit_user')->nullable();
+            $table->timestamp('audit_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->index('uom_id');

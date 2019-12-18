@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiV1\FinanceAP;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FinanceAP\RequestFinanceResource;
 use App\Model\FinanceAP\RequestFinance;
 use App\Model\FinanceAP\RequestFinanceDetail;
 use Carbon\Carbon;
@@ -13,7 +14,7 @@ class RequestFinanceController extends Controller
 {
     public function index()
     {
-
+        return RequestFinanceResource::collection(RequestFinance::whereNull('no_request_confirm')->get());
     }
 
     public function create()
