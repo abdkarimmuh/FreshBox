@@ -10,6 +10,7 @@ use App\Model\WarehouseIn\Confirm;
 use App\UserProc;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReplenishAPIController extends Controller
 {
@@ -68,7 +69,7 @@ class ReplenishAPIController extends Controller
         if ($data['status'] == 1) {
             $status = 4;
 
-            $userProc = UserProc::where('user_id', $data['userProcId'])->first();
+            $userProc = UserProc::find($data['userProcId']);
             $saldo = $userProc->saldo + $data['total_amount'];
             $userProc->saldo = $saldo;
             $userProc->save();
@@ -78,6 +79,11 @@ class ReplenishAPIController extends Controller
             $confirm->save();
         } elseif ($data['status'] == 2) {
             $status = 5;
+
+            $confirm = Confirm::where('list_procurement_id', $request->listProcId)->first();
+            $confirm_id = $confirm->id;
+
+            DB::select('call insert_notification_procurement(?, ?, ?)', array(intval($request->userProcId), $confirm_id, 2));
         }
 
         ListProcurement::findOrFail($data['list_proc_id'])->update(['status' => $status]);

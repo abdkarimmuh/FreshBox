@@ -17,7 +17,7 @@
                                     @if ($data[$item['field']] !== null)
                                         <div class="col-md-12 mt-4">
                                             <h6><small class="text-muted">{{ $item['title']}}</small></h6>
-                                            <h5>{{ $data[$item['field']] }}</h5>
+                                            <p>{{ $data[$item['field']] }}</p>
                                         </div>
                                     @endif
                                 @else
@@ -26,6 +26,7 @@
                                             <h6><small class="text-muted">{{ $item['title']}}</small></h6>
                                             <div>{!! $data[$item['field']] !!}</div>
                                         @elseif(isset($item['type']) ? $item['type'] === 'price' : '')
+                                            <h6><small class="text-muted">{{ $item['title']}}</small></h6>
                                             <h5>{{ format_price($data[$item['field']]) }}</h5>
                                         @elseif($item['field'] === 'file')
                                             <h6><small class="text-muted">{{ $item['title']}}</small></h6>

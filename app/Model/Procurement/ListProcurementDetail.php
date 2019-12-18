@@ -22,7 +22,7 @@ class ListProcurementDetail extends MyModel
 
     public function ListProcurement()
     {
-        return $this->belongsTo(ListProcurement::class);
+        return $this->belongsTo(ListProcurement::class, 'trx_list_procurement_id', 'id');
     }
 
     public function AssignListProcurementDetail()

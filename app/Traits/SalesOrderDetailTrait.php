@@ -13,7 +13,7 @@ trait SalesOrderDetailTrait
         } elseif ($this->status === 3) {
             return '<span class="badge badge-primary">Procure</span>';
         } elseif ($this->status === 4) {
-            return '<span class="badge badge-success">Package</span>';
+            return '<span class="badge badge-success">Confirm</span>';
         } else {
             return 'Status NotFound';
         }

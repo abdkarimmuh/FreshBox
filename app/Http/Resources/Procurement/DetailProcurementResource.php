@@ -18,7 +18,7 @@ class DetailProcurementResource extends JsonResource
         $qty_assign = 0;
 
         foreach ($this->AssignListProcurementDetail as $item) {
-            $qty_assign += $item->AssignProcurement->qty;
+            $qty_assign += $item->AssignProcurement['qty'];
         }
 
         return [

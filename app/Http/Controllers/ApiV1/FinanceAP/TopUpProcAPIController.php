@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\FinanceAP\TopUpResource;
 use App\Http\Resources\Mobile\TopUpResource as AppTopUpResource;
 use App\Model\FinanceAP\TopUpProc;
+use App\UserProc;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -33,8 +34,10 @@ class TopUpProcAPIController extends Controller
     public function indexApi()
     {
         $date = Carbon::today()->subDays(7);
+        $user_proc = UserProc::where('user_id', auth('api')->user()->id)->first();
+        $user_proc_id = $user_proc->id;
 
-        $query = TopUpProc::where('user_proc_id', auth('api')->user()->id)
+        $query = TopUpProc::where('user_proc_id', $user_proc_id)
             ->where('created_at', '>=', $date)
             ->orderBy('id', 'desc')
             ->get();
@@ -64,14 +67,15 @@ class TopUpProcAPIController extends Controller
             'amount' => 'required',
         ]);
 
-        $userId = auth('api')->user()->id;
+        $user_proc = UserProc::where('user_id', auth('api')->user()->id)->first();
+        $user_proc_id = $user_proc->id;
 
         TopUpProc::create([
-            'user_proc_id' => $userId,
+            'user_proc_id' => $user_proc_id,
             'amount' => $request->amount,
             'status' => 1,
             'remark' => $request->remark,
-            'created_by' => $userId,
+            'created_by' => auth('api')->user()->id,
         ]);
 
         return response()->json([

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Procurement;
 
 use App\Http\Controllers\Controller;
+use App\Model\Marketing\SalesOrderDetail;
+use App\Model\Procurement\AssignListProcurementDetail;
+use App\Model\Procurement\AssignProcurement;
 use App\Model\Procurement\ListProcurement;
 use App\Model\Procurement\ListProcurementDetail;
+use App\Model\WarehouseIn\Confirm;
 use Illuminate\Http\Request;
 
 class ListProcurementController extends Controller
@@ -37,6 +41,8 @@ class ListProcurementController extends Controller
             'route-view' => 'admin.procurement.list_procurement.show',
             //Route For Button Search
             'route-search' => 'admin.procurement.list_procurement.index',
+            //Route For Button Action Return
+            'route-action-return' => 'admin.procurement.list_procurement.editReject',
         ];
 
         $query = ListProcurement::dataTableQuery($searchValue);
@@ -122,7 +128,7 @@ class ListProcurementController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param int                      $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -139,5 +145,79 @@ class ListProcurementController extends Controller
      */
     public function destroy($id)
     {
+    }
+
+    public function editReject($id)
+    {
+        //Form Generator
+        $forms = [
+            array('type' => 'number', 'label' => 'Change Total Amount', 'name' => 'total_amount', 'place_holder' => 'Change Total Amount', 'mandatory' => true),
+        ];
+        $config = [
+            //Form Title
+            'title' => 'Reject Procurement',
+            //Form Action Using Route Name
+            'action' => 'admin.procurement.list_procurement.updateReject',
+            //Form Method
+            'method' => 'PATCH',
+            //Back Button Using Route Name
+            'back-button' => 'admin.procurement.list_procurement.index',
+        ];
+
+        $data = ListProcurement::findOrFail($id);
+        $detail = ListProcurementDetail::where('trx_list_procurement_id', $id)->get();
+
+        $columns = [
+            array('title' => 'Procurement No', 'field' => 'procurement_no'),
+            array('title' => 'User Procurement', 'field' => 'proc_name'),
+            array('title' => 'Amount', 'field' => 'total_amount', 'type' => 'price'),
+            array('title' => 'Status', 'field' => 'status_name'),
+        ];
+
+        $detailColumns = [
+            array('title' => 'Item', 'field' => 'item_name'),
+            array('title' => 'Qty', 'field' => 'qty'),
+            array('title' => 'Qty Minus', 'field' => 'qty_minus'),
+            array('title' => 'Uom', 'field' => 'uom_name'),
+            array('title' => 'Amount', 'field' => 'amount', 'type' => 'price'),
+            array('title' => 'Status', 'field' => 'status_name'),
+        ];
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'data', 'detail', 'columns', 'detailColumns'));
+    }
+
+    public function updateReject(Request $request)
+    {
+        $request->validate([
+            'total_amount' => 'required',
+        ]);
+
+        $listProcurement = ListProcurement::find($request->id);
+        $confirm = Confirm::where('list_procurement_id', $listProcurement->id)->first();
+
+        $listProcurement->total_amount = $request->total_amount;
+        $listProcurement->status = 2;
+        $listProcurement->save();
+
+        $confirm->status = 1;
+        $confirm->save();
+
+        $listProcurementDetail = ListProcurementDetail::where('trx_list_procurement_id', $listProcurement->id)->get();
+
+        foreach ($listProcurementDetail as $item) {
+            $assignListProcurementDetail = AssignListProcurementDetail::where('list_procurement_detail_id', $item->id)->first();
+
+            $assignProcurement = AssignProcurement::find($assignListProcurementDetail->assign_id);
+            $soDetail = SalesOrderDetail::find($assignProcurement->sales_order_detail_id);
+
+            $item->status = 2;
+            $item->save();
+
+            $sisaQtyProc = $soDetail->sisa_qty_proc + $item->qty_minus;
+            $soDetail->sisa_qty_proc = $sisaQtyProc;
+            $soDetail->save();
+        }
+
+        return redirect('admin/procurement/list_procurement');
     }
 }

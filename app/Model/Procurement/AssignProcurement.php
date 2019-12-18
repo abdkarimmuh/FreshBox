@@ -7,13 +7,14 @@ use App\Model\MasterData\Item;
 use App\Model\MasterData\Uom;
 use App\MyModel;
 use App\Traits\SearchTraits;
+use App\UserProc;
 
 class AssignProcurement extends MyModel
 {
     use SearchTraits;
 
     protected $table = 'trx_assign_procurement';
-    protected $fillable = ['skuid', 'status', 'user_proc_id', 'sales_order_detail_id', 'created_by'];
+    protected $fillable = ['skuid', 'status', 'user_proc_id', 'sales_order_detail_id', 'qty', 'uom_id', 'created_by', 'updated_by'];
 
     protected $appends = [
         'created_by_name',
@@ -82,7 +83,7 @@ class AssignProcurement extends MyModel
 
     public function UserProc()
     {
-        return $this->belongsTo(UserProcurement::class, 'user_proc_id', 'id');
+        return $this->belongsTo(UserProc::class, 'user_proc_id', 'id');
     }
 
     public function SalesOrderDetail()

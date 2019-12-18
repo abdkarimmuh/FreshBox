@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router';
 import UsersComponent from './components/UsersComponent';
 import AdduserComponent from './components/AdduserComponent';
+import DashboardComponent from './components/Dashboard';
 
 import FormSalesOrder from './components/Marketing/SalesOrder/IndexSalesOrder';
 import AddSalesOrder from "./components/Marketing/SalesOrder/AddSalesOrder";
@@ -12,7 +13,6 @@ import MultiplePrintSalesOrder from "./components/Marketing/SalesOrder/MultipleP
 import IndexInvoice from './components/Finance/Invoice/IndexInvoice';
 import PrintInvoice from './components/Finance/Invoice/PrintInvoiceOrder';
 import AddInvoice from './components/Finance/Invoice/AddInvoice';
-
 
 import IndexInvoiceRecap from './components/Finance/Invoice/IndexInvoiceRecap';
 import MultiplePrintInvoiceOrder from './components/Finance/Invoice/MultiplePrintInvoiceOrder';
@@ -49,6 +49,11 @@ Vue.use(VueRouter);
 const router = new VueRouter({
     mode: 'history',
     routes: [
+        {
+            path: '/admin/dashboard',
+            name: "dashboard",
+            component: DashboardComponent
+        },
         {
             path: '/admin/import/price',
             name: "import.price",

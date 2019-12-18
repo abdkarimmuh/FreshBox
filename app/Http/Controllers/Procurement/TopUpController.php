@@ -117,7 +117,7 @@ class TopUpController extends Controller
             $topUp->status = 2;
             $topUp->save();
 
-            $userProc = UserProc::where('user_id', $topUp->user_proc_id)->first();
+            $userProc = UserProc::find($topUp->user_proc_id);
             $userProc->saldo = intval($userProc->saldo) + $topUp->amount;
             $userProc->save();
         }
