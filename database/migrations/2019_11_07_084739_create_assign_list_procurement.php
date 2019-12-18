@@ -15,10 +15,6 @@ class CreateAssignListProcurement extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('list_procurement_detail_id');
             $table->unsignedBigInteger('assign_id');
-
-            $table->foreign('list_procurement_detail_id')->on('trx_list_procurement_detail')->references('id')->onDelete('cascade');
-            $table->foreign('assign_id')->on('trx_assign_procurement')->references('id')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

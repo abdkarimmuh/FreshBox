@@ -35,10 +35,14 @@ class Notifications extends MyModel
 
     public function getMessageAttribute()
     {
-        if (isset($this->Confirm->remark)) {
-            return $this->Confirm->remark;
-        } else {
-            return 'Item Reject';
+        if ($this->status == 1) {
+            if (isset($this->Confirm->remark)) {
+                return $this->Confirm->remark;
+            } else {
+                return 'Item Reject';
+            }
+        } elseif ($this->status == 2) {
+            return 'Return Replenish';
         }
     }
 }

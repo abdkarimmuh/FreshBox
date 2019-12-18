@@ -58,10 +58,12 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         Route::name('list_procurement.')->prefix('list_procurement')->group(function () {
             Route::get('/', 'Procurement\ListProcurementController@index')->name('index');
             Route::get('/{id}', 'Procurement\ListProcurementController@show')->name('show');
-            Route::get('/create', 'Procurement\ListProcurementController@create')->name('create');
-            Route::post('/create', 'Procurement\ListProcurementController@store')->name('store');
-            Route::get('/{id}/edit', 'Procurement\ListProcurementController@edit')->name('edit');
-            Route::patch('/edit', 'Procurement\ListProcurementController@update')->name('update');
+            // Route::get('/create', 'Procurement\ListProcurementController@create')->name('create');
+            // Route::post('/create', 'Procurement\ListProcurementController@store')->name('store');
+            // Route::get('/{id}/edit', 'Procurement\ListProcurementController@edit')->name('edit');
+            // Route::patch('/edit', 'Procurement\ListProcurementController@update')->name('update');
+            Route::get('/reject/{id}', 'Procurement\ListProcurementController@editReject')->name('editReject');
+            Route::patch('/reject', 'Procurement\ListProcurementController@updateReject')->name('updateReject');
         });
     });
 

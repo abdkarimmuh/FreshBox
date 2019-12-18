@@ -55,12 +55,33 @@ class ConfirmItemsAPIController extends Controller
             'created_by' => $userId,
         ];
 
+        $minus = 0;
+
         $confirm_id = Confirm::insertGetId($data);
+
+        $listProcurement = ListProcurement::find($data['list_procurement_id']);
+
+        if (substr($listProcurement->procurement_no, -1) == 'R') {
+            $procurementNo = $listProcurement->procurement_no;
+            $no = str_replace('PROC', '', $procurementNo);
+            $noR = str_replace('R', '', $no);
+            $procNo = 'PROC'.$noR;
+
+            $listProcurementParent = ListProcurement::where('procurement_no', $procNo)->first();
+
+            $listProcurementParent->status = 2;
+            $listProcurementParent->save();
+
+            $confirmParent = Confirm::where('list_procurement_id', $listProcurementParent->id)->first();
+            $confirmParent->status = 1;
+            $confirmParent->save();
+        }
 
         ListProcurement::find($data['list_procurement_id'])->update(['status' => 2]);
 
         foreach ($request->items as $i => $item) {
             if ($item['qty_minus'] != 0) {
+                $minus = $minus + 1;
                 ListProcurementDetail::find($item['id'])->update([
                     'status' => 3,
                     'qty_minus' => $item['qty_minus'],
@@ -75,35 +96,33 @@ class ConfirmItemsAPIController extends Controller
                 ]);
                 Confirm::find($confirm_id)->update(['status' => 2]);
                 ListProcurement::find($data['list_procurement_id'])->update(['status' => 3]);
-                DB::select('call insert_notification_procurement(?, ?, ?)', array($userProcId, $confirm_id, 1));
                 $this->insertInventory($item['id'], $item['netto']);
             } else {
                 ListProcurementDetail::find($item['id'])->update([
                     'status' => 2,
-                    ]);
+                ]);
                 ConfirmDetail::insert([
-                        'warehouse_confirm_id' => $confirm_id,
-                        'list_proc_detail_id' => $item['id'],
-                        'bruto' => $item['bruto'],
-                        'netto' => $item['netto'],
-                        'created_by' => $userId,
-                        'created_at' => Carbon::now(),
-                        ]);
+                    'warehouse_confirm_id' => $confirm_id,
+                    'list_proc_detail_id' => $item['id'],
+                    'bruto' => $item['bruto'],
+                    'netto' => $item['netto'],
+                    'created_by' => $userId,
+                    'created_at' => Carbon::now(),
+                ]);
 
                 $listProcurementDetail = ListProcurementDetail::find($item['id']);
                 $assignListProcurementDetail = AssignListProcurementDetail::where('list_procurement_detail_id', $listProcurementDetail->id)->first();
-                $assignProcurement = AssignProcurement::find($assignListProcurementDetail->assign_id);
-                $soDetail = SalesOrderDetail::find($assignProcurement->sales_order_detail_id);
+                $assignProcurement = AssignProcurement::find($assignListProcurementDetail['assign_id']);
+                SalesOrderDetail::find($assignProcurement['sales_order_detail_id'])->update(['status' => 4]);
 
-                $soDetail->status = 4;
-                $soDetail->save();
                 $this->insertInventory($item['id'], $item['netto']);
             }
         }
+        if ($minus > 0) {
+            DB::select('call insert_notification_procurement(?, ?, ?)', array($userProcId, $confirm_id, 1));
+        }
 
-        return response()->json([
-            'status' => 'success',
-        ], 200);
+        return response()->json(['status' => 'success'], 200);
     }
 
     public function insertInventory($procDetailId, $qty)

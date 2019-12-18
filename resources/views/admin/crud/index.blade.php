@@ -80,6 +80,15 @@
                                                                     View
                                                                 </a>
                                                             @endisset
+                                                            @isset($config['route-action-return'])
+                                                                @if ($row['status'] == 7)
+                                                                    <a href="{{ route($config['route-action-return'], ['id' => $row->id]) }}"
+                                                                    class="badge badge-warning"
+                                                                    title="Action Return">
+                                                                        Action Return
+                                                                    </a>
+                                                                @endif
+                                                            @endisset
                                                             @isset ($config['route-reject-topup'] )
                                                             @isset ($config['route-approve-topup'])
                                                                 @if ($row['status'] == 1)

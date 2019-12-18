@@ -51,7 +51,9 @@ class ProcurementAPIController extends Controller
      */
     public function listProcurementConfirmed()
     {
-        return ListProcurementResource::collection(ListProcurement::where('status', 2)->get());
+        return ListProcurementResource::collection(ListProcurement::where('status', 2)
+        ->where('procurement_no', 'not like', '%R')
+        ->get());
     }
 
     /**
@@ -59,8 +61,11 @@ class ProcurementAPIController extends Controller
      */
     public function userProcHasProc()
     {
+        $user_proc = UserProc::where('user_id', auth('api')->user()->id)->first();
+        $user_proc_id = $user_proc->id;
+
         $date = Carbon::today()->subDays(7);
-        $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)
+        $query = ListProcurement::where('user_proc_id', $user_proc_id)
             ->where('created_at', '>=', $date)
             ->orderBy('id', 'desc')
             ->get();
@@ -77,8 +82,6 @@ class ProcurementAPIController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
-
         $rules = [
             'vendor' => 'required',
             'total_amount' => 'required|not_in:0',
@@ -92,7 +95,9 @@ class ProcurementAPIController extends Controller
         ];
         $request->validate($rules);
 
-        $user_proc_id = auth('api')->user()->id;
+        $user_proc = UserProc::where('user_id', auth('api')->user()->id)->first();
+        $user_proc_id = $user_proc->id;
+
         $vendor = $request->vendor;
         $total_amount = $request->total_amount;
         $payment = $request->payment;
@@ -122,17 +127,15 @@ class ProcurementAPIController extends Controller
             $file_name = '';
         }
 
-        $userProc = UserProc::where('user_id', $user_proc_id)->first();
-
-        if ($userProc->saldo < $total_amount) {
+        if ($user_proc->saldo < $total_amount) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Saldo tidak mencukupi',
             ]);
         }
 
-        $userProc->saldo = intval($userProc->saldo) - intval($total_amount);
-        $userProc->save();
+        $user_proc->saldo = intval($user_proc->saldo) - intval($total_amount);
+        $user_proc->save();
 
         $procurement = ListProcurement::create([
             'procurement_no' => $this->generateProcOrderNo(),
@@ -190,14 +193,87 @@ class ProcurementAPIController extends Controller
 
     public function selectBy($id)
     {
+        $user_proc = UserProc::where('user_id', auth('api')->user()->id)->first();
+        $user_proc_id = $user_proc->id;
+
         $date = Carbon::today()->subDays(7);
-        $query = ListProcurement::where('user_proc_id', auth('api')->user()->id)
+        $query = ListProcurement::where('user_proc_id', $user_proc_id)
             ->where('status', $id)
             ->where('created_at', '>=', $date)
             ->orderBy('id', 'desc')
             ->get();
 
         return ListProcurementHasItemsResource::collection($query);
+    }
+
+    public function reject(Request $request)
+    {
+        $request->validate([
+            'action' => 'required',
+            'id' => 'required',
+        ]);
+
+        $user_proc = UserProc::where('user_id', auth('api')->user()->id)->first();
+        $user_proc_id = $user_proc->id;
+
+        $listProcurement = ListProcurement::find($request->id);
+
+        if ($request->action == 1) {
+            $procNo = $listProcurement->procurement_no.'R';
+
+            $procurement = ListProcurement::create([
+                'procurement_no' => $procNo,
+                'user_proc_id' => $user_proc_id,
+                'vendor' => $listProcurement->vendor,
+                'total_amount' => 0,
+                'payment' => $listProcurement->payment,
+                'file' => $listProcurement->file_name,
+                'status' => 1,
+                'remarks' => $listProcurement->remarks,
+                'created_by' => $user_proc_id,
+                'created_at' => Carbon::now(),
+                ]);
+
+            $listProcurementDetail = ListProcurementDetail::where('trx_list_procurement_id', $request->id)->get();
+
+            foreach ($listProcurementDetail as $item) {
+                if ($item->qty_minus > 0) {
+                    $listProcDetails = ListProcurementDetail::create([
+                        'trx_list_procurement_id' => $procurement->id,
+                        'skuid' => $item->skuid,
+                        'qty' => $item->qty_minus,
+                        'uom_id' => $item->uom_id,
+                        'amount' => $item->amount,
+                        'status' => 1,
+                        'created_by' => $user_proc_id,
+                        'created_at' => Carbon::now(),
+                    ]);
+
+                    $assignListProcurementDetail = AssignListProcurementDetail::where('list_procurement_detail_id', $item->id)->get();
+
+                    foreach ($assignListProcurementDetail as $itemAssign) {
+                        AssignListProcurementDetail::create([
+                            'list_procurement_detail_id' => $listProcDetails->id,
+                            'assign_id' => $itemAssign->assign_id,
+                        ]);
+                    }
+                }
+            }
+
+            $listProcurement->status = 6;
+            $listProcurement->save();
+
+            return response()->json([
+                'status' => 'success',
+            ]);
+        } elseif ($request->action == 2) {
+            $listProcurement->status = 7;
+            $listProcurement->save();
+
+            return response()->json([
+                'status' => 'success',
+            ]);
+        }
     }
 
     /**
@@ -223,6 +299,10 @@ class ProcurementAPIController extends Controller
         $latest_proc = ListProcurement::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
         $get_last_proc_no = isset($latest_proc->procurement_no) ? $latest_proc->procurement_no : 'PROC'.$year_month.'00000';
         $cut_string_proc = str_replace('PROC', '', $get_last_proc_no);
+
+        if (substr($cut_string_proc, -1) == 'R') {
+            $cut_string_proc = str_replace('R', '', $cut_string_proc);
+        }
 
         return 'PROC'.($cut_string_proc + 1);
     }

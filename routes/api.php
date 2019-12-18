@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     Route::post('register', 'AuthAPIController@register');
     Route::get('logout', 'AuthAPIController@logout');
     Route::post('changePassword', 'AuthAPIController@changePassword');
+    Route::get('dashboard/all', 'DashboardAPIController@all');
 
     Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'proc'], function () {
@@ -56,6 +57,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
                     Route::get('/selectBy/{id}', 'ProcurementAPIController@selectBy');
                     Route::post('/', 'ProcurementAPIController@store');
                     Route::post('/storeUser', 'ProcurementAPIController@storeUserProc');
+                    Route::post('/reject', 'ProcurementAPIController@reject');
                 });
 
                 Route::group(['prefix' => 'so_detail'], function () {
@@ -225,7 +227,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         Route::group(['prefix' => 'users'], function () {
             Route::get('/', 'MasterDataController@getUser');
             Route::get('/{id}', 'MasterDataController@getDetailUser');
-
         });
 
         Route::get('customer', 'CustomerAPIController@index')->name('api.customer');
@@ -252,7 +253,6 @@ Route::resource('users', 'UserController', [
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 
 Route::get('/users ', function (Request $request) {
     $length = $request->input('length');

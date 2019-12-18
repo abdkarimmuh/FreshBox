@@ -2,6 +2,7 @@
 
 namespace App\Model\Procurement;
 
+use App\Model\FinanceAP\Replenish;
 use App\MyModel;
 use App\Traits\SearchTraits;
 
@@ -62,6 +63,11 @@ class ListProcurement extends MyModel
         return $this->hasMany(ListProcurementDetail::class, 'trx_list_procurement_id', 'id');
     }
 
+    public function Replenish()
+    {
+        return $this->hasMany(Replenish::class, 'list_proc_id', 'id');
+    }
+
     public function getItemsAttribute()
     {
         return $this->ListProcurementDetail;
@@ -88,6 +94,10 @@ class ListProcurement extends MyModel
             return '<span class="badge badge-primary">Replenish</span>';
         } elseif ($this->status == 5) {
             return '<span class="badge badge-dark">Return Replenish</span>';
+        } elseif ($this->status == 6) {
+            return '<span class="badge badge-secondary">Action Return Item</span>';
+        } elseif ($this->status == 7) {
+            return '<span class="badge badge-secondary">Action Return Fund</span>';
         } else {
             return 'Status NotFound';
         }

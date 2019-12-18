@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\Mobile;
 
-use App\Http\Resources\Procurement\DetailProcurementResource;
+use App\Model\FinanceAP\Replenish;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DetailNotificationsItemResource extends JsonResource
+class DetailNotificationsReplenishResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,18 +16,18 @@ class DetailNotificationsItemResource extends JsonResource
      */
     public function toArray($request)
     {
+        $listProcurementId = $this->Confirm->ListProcurement->id;
+        $replenish = Replenish::where('list_proc_id', $listProcurementId)->first();
+
         return [
             'id' => $this->Confirm->ListProcurement->id,
             'no_proc' => $this->Confirm->ListProcurement->procurement_no,
-            'user_proc_id' => $this->Confirm->ListProcurement->user_proc_id,
             'proc_name' => $this->Confirm->ListProcurement->proc_name,
             'vendor' => $this->Confirm->ListProcurement->vendor,
             'total_amount' => $this->Confirm->ListProcurement->total_amount,
             'payment' => $this->Confirm->ListProcurement->payment,
-            'file' => $this->Confirm->ListProcurement->file,
-            'remarks' => $this->Confirm->ListProcurement->remarks,
+            'remarks' => $replenish->remark,
             'status' => $this->Confirm->ListProcurement->status,
-            'items' => DetailProcurementResource::collection($this->Confirm->ListProcurement->ListProcurementDetail),
         ];
     }
 }

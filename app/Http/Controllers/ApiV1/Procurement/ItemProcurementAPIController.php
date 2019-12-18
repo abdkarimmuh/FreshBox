@@ -7,6 +7,7 @@ use App\Http\Resources\Procurement\AssignProcurementResource;
 use App\Model\Marketing\SalesOrder;
 use App\Model\Marketing\SalesOrderDetail;
 use App\Model\Procurement\AssignProcurement;
+use App\UserProc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,8 +27,11 @@ class ItemProcurementAPIController extends Controller
 
     public function indexAPI()
     {
+        $user_proc = UserProc::where('user_id', auth('api')->user()->id)->first();
+        $user_proc_id = $user_proc->id;
+
         $query = AssignProcurement::selectRaw('*, sum(qty) as qty')
-            ->where('user_proc_id', auth('api')->user()->id)
+            ->where('user_proc_id', $user_proc_id)
             ->where('status', 1)
             ->groupBy('skuid')
             ->groupBy('uom_id')
@@ -62,7 +66,8 @@ class ItemProcurementAPIController extends Controller
         ];
         $request->validate(array_merge($rules));
 
-        $user_proc_id = auth('api')->user()->id;
+        $user_proc = UserProc::where('user_id', auth('api')->user()->id)->first();
+        $user_proc_id = $user_proc->id;
         $items = $request->items;
 
         foreach ($items as $item) {
