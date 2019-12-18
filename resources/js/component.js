@@ -55,7 +55,7 @@ Vue.component('s-btn-confirm', ConfirmButton);
 
 Vue.component('back-button', BackButton);
 Vue.component('loading-button', LoadingButton);
-Vue.component('loading-table', LoadingButton);
+Vue.component('loading-table', LoadingTable);
 
 Vue.component('AddUserProc', AddUserProc);
 Vue.component('ImageModal', ImageModal);

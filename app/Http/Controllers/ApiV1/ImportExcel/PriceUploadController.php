@@ -92,11 +92,10 @@ class PriceUploadController extends Controller
      */
     public function generateMasterPriceAll()
     {
-        $generate = DB::select('call GeneMAsterPriceAll(?)', array(auth('api')->user()->id));
+        DB::select('call GeneMasterPriceAll(?)', array(auth('api')->user()->id));
 
         return response()->json([
             'success' => true,
-            'data' => $generate
         ]);
     }
 
