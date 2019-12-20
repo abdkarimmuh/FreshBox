@@ -50,11 +50,11 @@
         <li class="dropdown {{ request()->segment(2) == 'warehouseIn' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-warehouse"></i><span>Warehouse In</span></a>
             <ul class="dropdown-menu">
-{{--                <router-link :to="{ name: 'warehouseIn.confirm'}" v-slot="{ href, navigate, isActive }">--}}
-{{--                    <li :class="[isActive && 'active']">--}}
-{{--                        <a class="nav-link" :href="href" @click="navigate">Confirm Incoming Items</a>--}}
-{{--                    </li>--}}
-{{--                </router-link>--}}
+                {{--                <router-link :to="{ name: 'warehouseIn.confirm'}" v-slot="{ href, navigate, isActive }">--}}
+                {{--                    <li :class="[isActive && 'active']">--}}
+                {{--                        <a class="nav-link" :href="href" @click="navigate">Confirm Incoming Items</a>--}}
+                {{--                    </li>--}}
+                {{--                </router-link>--}}
                 <li class="{{ request()->route()->getName() == 'admin.warehouseIn.confirm.index' ? ' active' : '' }}">
                     <a class="nav-link"
                        href="{{route('admin.warehouseIn.confirm.index')}}"><span>Confirm Incoming Items</span></a>
@@ -104,6 +104,10 @@
                 </li>
                 <li class="{{ request()->segment(3) == 'topup' ? ' active' : '' }}">
                     <a href="{{ url('admin/finance-ap/topup') }}" class="nav-link"><span>TopUp Procurement</span></a>
+                </li>
+                <li class="{{ request()->segment(3) == 'request-finance' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance-ap/request-finance') }}"
+                       class="nav-link"><span>Request Finance</span></a>
                 </li>
             </ul>
         </li>

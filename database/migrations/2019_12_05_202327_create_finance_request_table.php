@@ -23,6 +23,7 @@ class CreateFinanceRequestTable extends Migration
             $table->date('request_confirm_date')->nullable();
             $table->tinyInteger('request_type')->comment('1 = cash , 2 = advance');
             $table->tinyInteger('product_type')->comment('1 = non core , 2 = core');
+            $table->unsignedBigInteger('created_by');
             $table->binary('file')->nullable();
             $table->timestamps();
         });

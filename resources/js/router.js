@@ -235,7 +235,16 @@ const router = new VueRouter({
             name: 'finance.requestFinance.create',
             component: AddRequestFinance
         },
-
+        {
+            path: '/admin/finance-ap/request-finance/show/:id',
+            name: 'finance.requestFinance.show',
+            component: AddRequestFinance
+        },
+        {
+            path: '/admin/finance-ap/request-finance/:id/confirm',
+            name: 'finance.requestFinance.confirm',
+            component: AddRequestFinance
+        },
         {
             path: '/admin/users',
             name: 'users',
