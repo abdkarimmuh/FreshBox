@@ -18,6 +18,7 @@ class FormSalesOrderAPIController extends Controller
 {
     /**
      * @param Request $request
+     *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Request $request)
@@ -145,7 +146,7 @@ class FormSalesOrderAPIController extends Controller
                     'notes' => $detail['notes'],
                     'status' => 1,
                     'created_by' => $user,
-                    'created_at' => Carbon::now()
+                    'created_at' => Carbon::now(),
                 ];
             } else {
                 unset($items[$i]);
@@ -317,6 +318,7 @@ class FormSalesOrderAPIController extends Controller
      * Download File.
      *
      * @param $fileName
+     *
      * @return mixed
      */
     public function DownloadFile($fileName)

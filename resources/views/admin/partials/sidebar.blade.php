@@ -59,10 +59,11 @@
                     <a class="nav-link"
                        href="{{route('admin.warehouseIn.confirm.index')}}"><span>Confirm Incoming Items</span></a>
                 </li>
-                <li class="{{ request()->route()->getName() == 'admin.warehouseIn.packageItem.index' ? ' active' : '' }}">
-                    <a class="nav-link"
-                       href="{{route('admin.warehouseIn.packageItem.index')}}"><span>Package Items</span></a>
-                </li>
+                <router-link :to="{ name: 'warehouseIn.packageItem' }" v-slot="{ href, navigate, isActive }">
+                    <li :class="[isActive && 'active']">
+                        <a class="nav-link" :href="href" @click="navigate">Package Item</a>
+                    </li>
+                </router-link>
             </ul>
         </li>
         {{--Warehous Out--}}

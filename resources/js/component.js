@@ -23,7 +23,6 @@ import IndexReportFinanceAR from "./components/Report/SO/IndexReportFinanceAR"
 
 import AddUserProc from "./components/MasterData/AddUserProc"
 import AddWarehouseConfirm from "./components/WarehouseIn/AddWarehouseConfirm"
-import AddWarehousePackageItem from "./components/WarehouseIn/AddWarehousePackageItem"
 import LoadingButton from "./components/Button/LoadingButton";
 import BackButton from "./components/Button/BackButton";
 import LoadingTable from "./components/Template/Table/partials/LoadingTable";
@@ -31,7 +30,6 @@ import LoadingTable from "./components/Template/Table/partials/LoadingTable";
 
 
 Vue.component('AddWarehouseConfirm', AddWarehouseConfirm);
-Vue.component('AddWarehousePackageItem', AddWarehousePackageItem);
 Vue.component('index-report-so', IndexReportSO);
 Vue.component('index-report-finance-ar', IndexReportFinanceAR);
 

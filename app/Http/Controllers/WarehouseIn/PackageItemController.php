@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\WarehouseIn;
 
 use App\Http\Controllers\Controller;
-use App\Model\WarehouseIn\PackageItem;
+use App\Model\Marketing\SalesOrderDetail;
 use Illuminate\Http\Request;
 
 class PackageItemController extends Controller
@@ -31,15 +31,13 @@ class PackageItemController extends Controller
             /*
              * Route Can Be Null
              */
-            //Route For Button Add
-            'route-add' => 'admin.warehouseIn.packageItem.create',
             //Route For Button View
-            'route-view' => 'admin.warehouseIn.packageItem.show',
+            // 'route-view' => 'admin.warehouseIn.packageItem.show',
             //Route For Button Search
             'route-search' => 'admin.warehouseIn.packageItem.index',
         ];
 
-        $query = PackageItem::dataTableQuery($searchValue);
+        $query = SalesOrderDetail::dataTableQuery($searchValue);
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
