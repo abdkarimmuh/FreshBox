@@ -5225,6 +5225,10 @@ __webpack_require__.r(__webpack_exports__);
         field: "dept",
         filterable: true
       }, {
+        title: 'Status',
+        field: 'status_name',
+        type: 'html'
+      }, {
         title: "Created At",
         field: "created_at",
         filterable: true
@@ -94290,6 +94294,14 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/finance-ap/request-finance/create',
     name: 'finance.requestFinance.create',
+    component: _components_FinanceAP_RequestAdvance_AddRequestFinance__WEBPACK_IMPORTED_MODULE_33__["default"]
+  }, {
+    path: '/admin/finance-ap/request-finance/show/:id',
+    name: 'finance.requestFinance.show',
+    component: _components_FinanceAP_RequestAdvance_AddRequestFinance__WEBPACK_IMPORTED_MODULE_33__["default"]
+  }, {
+    path: '/admin/finance-ap/request-finance/:id/confirm',
+    name: 'finance.requestFinance.confirm',
     component: _components_FinanceAP_RequestAdvance_AddRequestFinance__WEBPACK_IMPORTED_MODULE_33__["default"]
   }, {
     path: '/admin/users',

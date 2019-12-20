@@ -45,6 +45,11 @@
                         filterable: true
                     },
                     {
+                        title: 'Status',
+                        field: 'status_name',
+                        type: 'html',
+                    },
+                    {
                         title: "Created At",
                         field: "created_at",
                         filterable: true
