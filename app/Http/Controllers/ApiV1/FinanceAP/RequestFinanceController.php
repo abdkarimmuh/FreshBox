@@ -29,6 +29,11 @@ class RequestFinanceController extends Controller
         return RequestFinanceResource::collection($query);
     }
 
+    public function show($id)
+    {
+        return RequestFinance::find($id);
+    }
+
     public function create()
     {
 

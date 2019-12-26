@@ -42,6 +42,7 @@ import AddFinanceReplenish from './components/FinanceAP/Replenish/AddReplenish';
 import IndexReplenish from './components/FinanceAP/Replenish/IndexReplenish';
 import IndexRequestFinance from './components/FinanceAP/RequestAdvance/IndexRequestFinance';
 import AddRequestFinance from './components/FinanceAP/RequestAdvance/AddRequestFinance';
+import PrintRequestFinance from './components/FinanceAP/RequestAdvance/PrintRequestFinance';
 
 Vue.component('import-price-temp', ImportPriceTemp);
 Vue.use(VueRouter);
@@ -232,7 +233,7 @@ const router = new VueRouter({
         {
             path: '/admin/finance-ap/request-finance/show/:id',
             name: 'finance.requestFinance.show',
-            component: AddRequestFinance
+            component: PrintRequestFinance
         },
         {
             path: '/admin/finance-ap/request-finance/:id/confirm',
