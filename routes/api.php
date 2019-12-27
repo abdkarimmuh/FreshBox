@@ -104,6 +104,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/', 'ConfirmItemsAPIController@index');
             Route::post('/store', 'ConfirmItemsAPIController@store');
         });
+        Route::group(['prefix' => 'packageItem'], function () {
+            Route::get('/', 'PackageItemAPIController@index');
+            Route::post('/store', 'PackageItemAPIController@store');
+        });
     });
 
     /*
@@ -240,7 +244,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         Route::group(['prefix' => 'items'], function () {
             Route::get('/', 'MasterDataController@getItems');
             Route::get('/{id}', 'MasterDataController@getDetailItem');
-
         });
         Route::group(['prefix' => 'warehouse'], function () {
             Route::get('/', 'MasterDataController@getWarehouse');
