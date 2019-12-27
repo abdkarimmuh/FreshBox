@@ -5431,6 +5431,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
@@ -58293,16 +58335,6 @@ var render = function() {
       "div",
       { staticClass: "card card-body printableArea", attrs: { id: "printMe" } },
       [
-        _c("br"),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
         _c("h3", [
           _c("span", { staticClass: "logo-text" }, [
             _c("img", {
@@ -58314,8 +58346,6 @@ var render = function() {
             })
           ])
         ]),
-        _vm._v(" "),
-        _c("hr"),
         _vm._v(" "),
         _vm.loading
           ? _c("div", { staticClass: "row" }, [
@@ -58432,6 +58462,14 @@ var render = function() {
                             _vm._v(_vm._s(_vm._f("toIDR")(item.price)))
                           ]),
                           _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
                           _c("td")
                         ])
                       }),
@@ -58441,40 +58479,26 @@ var render = function() {
                     _c("tfoot", [
                       _vm._m(7),
                       _vm._v(" "),
-                      _vm._m(8),
-                      _vm._v(" "),
                       _c("tr", [
                         _c("td"),
                         _vm._v(" "),
-                        _c("td"),
+                        _c("td", [_vm._v("TOTAL")]),
                         _vm._v(" "),
                         _c("td"),
                         _vm._v(" "),
                         _c("td"),
                         _vm._v(" "),
-                        _c("td", { staticClass: "text-center" }, [
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
                           _vm._v(_vm._s(_vm._f("toIDR")(_vm.subTotal)))
-                        ])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _vm._m(9),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("div", { staticClass: "text-right mr-4" }, [
-                        _c("h6", [
-                          _vm._v("Jakarta, " + _vm._s(_vm.customer.recap_date))
                         ]),
                         _vm._v(" "),
-                        _c("h6", [_vm._v("Dibuat oleh,")])
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td")
                       ])
                     ])
                   ])
@@ -58482,9 +58506,23 @@ var render = function() {
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
+                _vm._m(8),
+                _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(10)
+                _vm._m(9),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _vm._m(10),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _vm._m(11)
               ])
             ])
           : _c("div", { staticClass: "text-center p-4 text-muted" }, [
@@ -58553,15 +58591,23 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "text-center" }, [_vm._v("NO")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("No.")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Nomor Invoice")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Nama Barang")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Tanggal Kirim")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Jenis Barang")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Harga")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Subtotal")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Unit")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Harga + PPn")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Nama Supplier")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Keterangan")])
       ])
     ])
   },
@@ -58570,6 +58616,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
+      _c("td", { attrs: { height: "20" } }),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
       _c("td"),
       _vm._v(" "),
       _c("td"),
@@ -58585,25 +58639,86 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td")
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              { staticStyle: { color: "black" }, attrs: { width: "100%" } },
+              [
+                _c("tbody", [
+                  _c("tr", [
+                    _c("td", [
+                      _c(
+                        "b",
+                        { staticStyle: { "text-decoration": "underline" } },
+                        [_vm._v("Terbilang")]
+                      ),
+                      _vm._v(
+                        " \n                                               Seratus\n                                        "
+                      )
+                    ])
+                  ])
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6" }, [
-      _c("div", { staticClass: "text-left ml-4" }, [
-        _c("h6", [_vm._v("Diterima Oleh,")])
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              { staticStyle: { color: "black" }, attrs: { width: "100%" } },
+              [
+                _c("tbody", [
+                  _c("tr", [
+                    _c("td", { attrs: { width: "70" } }, [
+                      _c("b", [_vm._v("No Rek")])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("0121")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { width: "50" } }),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Yashinta")])
+                  ])
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "text-left ml-4" }, [
+            _c("h6", [_vm._v("Diajukan Oleh,")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "text-right mr-4" }, [
+            _c("h6", [_vm._v("Disetujui oleh,")])
+          ])
+        ])
       ])
     ])
   },
@@ -94759,9 +94874,10 @@ __webpack_require__.r(__webpack_exports__);
 
 Vue.filter('toIDR', function (value) {
   if (!value) return '';
-  return value.toLocaleString("id-ID", {
+  var number = value.toLocaleString("id-ID", {
     minimumFractionDigits: false
   });
+  return number.replace(".", ",");
 });
 Vue.filter('toDate', function (value) {
   if (!value) return '';

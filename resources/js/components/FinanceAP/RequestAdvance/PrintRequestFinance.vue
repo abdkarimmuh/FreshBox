@@ -11,20 +11,13 @@
             </button>
         </div>
         <div class="card card-body printableArea" id="printMe">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
             <h3>
         <span class="logo-text">
           <img v-bind:src="$parent.MakeUrl('assets/img/logo-frbox.png')"
                alt="homepage"
                class="light-logo">
         </span>
-
             </h3>
-            <hr>
             <div class="row" v-if="loading">
                 <div class="col-md-12">
                     <div class="text-center">
@@ -86,11 +79,15 @@
                         <table border="1" width="100%">
                             <thead>
                             <tr>
-                                <th class="text-center">NO</th>
-                                <th class="text-center">Nomor Invoice</th>
-                                <th class="text-center">Tanggal Kirim</th>
-                                <th class="text-center">Harga</th>
-                                <th class="text-center">Subtotal</th>
+                                <th class="text-center">No.</th>
+                                <th class="text-center">Nama Barang</th>
+                                <th class="text-center">Jenis Barang</th>
+                                <th class="text-center">Qty</th>
+                                <th class="text-center">Unit</th>
+                                <th class="text-center">Harga + PPn</th>
+                                <th class="text-center">Total</th>
+                                <th class="text-center">Nama Supplier</th>
+                                <th class="text-center">Keterangan</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -100,10 +97,18 @@
                                 <td class="text-center">{{ item.send_date }}</td>
                                 <td class="text-center">{{ item.price | toIDR }}</td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             </tbody>
                             <tfoot>
                             <tr>
+                                <td height="20"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -112,20 +117,58 @@
                             </tr>
                             <tr>
                                 <td></td>
+                                <td>TOTAL</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                            </tr>
-                            <tr>
+                                <td class="text-right">{{ subTotal | toIDR}}</td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="text-center">{{ subTotal | toIDR}}</td>
                             </tr>
                             </tfoot>
                         </table>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="table-responsive">
+                                    <table width="100%" style="color: black">
+                                        <tbody>
+                                        <tr>
+                                            <td><b style="text-decoration: underline">Terbilang</b>&nbsp;
+                                                &nbsp;&nbsp; Seratus
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="table-responsive">
+                                    <table width="100%" style="color: black">
+                                        <tbody>
+                                        <tr>
+                                            <td width="70">
+                                                <b>No Rek</b>
+                                            </td>
+                                            <td>0121</td>
+                                        </tr>
+                                        <tr>
+                                            <td width="50"></td>
+                                            <td>Yashinta</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <br>
                     <br>
@@ -133,13 +176,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="text-left ml-4">
-                                    <h6>Diterima Oleh,</h6>
+                                    <h6>Diajukan Oleh,</h6>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-right mr-4">
-                                    <h6>Jakarta, {{ customer.recap_date }}</h6>
-                                    <h6>Dibuat oleh,</h6>
+                                    <h6>Disetujui oleh,</h6>
                                 </div>
                             </div>
                         </div>
