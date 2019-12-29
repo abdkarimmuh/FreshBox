@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="text-right">
-            <button class="btn btn-secondary" type="button" @click="back()">
+            <button class="btn btn-secondary" type="button" onlclick="history.back()">
                 Back
             </button>
             <button
@@ -22,13 +22,13 @@
                 <div class="col-md-12">
                     <div class="text-center">
                         <h4>
-                            <b style="color: black; text-decoration: underline">FORM PERMINTAAN PERMINTAAN BARANG /
-                                JASA</b>
+                            <b style="color: black; text-decoration: underline">
+                                FORM PERMINTAAN PERMINTAAN BARANG / JASA
+                            </b>
                         </h4>
                     </div>
                     <br>
                     <br>
-
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-8">
@@ -38,12 +38,12 @@
                                         <tr>
                                             <td width="13%"><b>No</b></td>
                                             <td width="2%">:</td>
-                                            <td width="40%">{{ customer.customer_name }}</td>
+                                            <td width="40%">{{ requestFinance.no_request }}</td>
                                         </tr>
                                         <tr>
                                             <td width="13%"><b>Tanggal</b></td>
                                             <td width="2%">:</td>
-                                            <td width="40%">{{ customer.recap_date }}</td>
+                                            <td width="40%">{{ requestFinance.request_date }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -56,17 +56,17 @@
                                         <tr>
                                             <td width="13%"><b>Nama</b></td>
                                             <td width="2%">:</td>
-                                            <td width="40%">{{ customer.customer_name }}</td>
+                                            <td width="40%">{{ requestFinance.user_name }}</td>
                                         </tr>
                                         <tr>
                                             <td width="13%"><b>Dept</b></td>
                                             <td width="2%">:</td>
-                                            <td width="40%">{{ customer.recap_date }}</td>
+                                            <td width="40%">{{ requestFinance.dept }}</td>
                                         </tr>
                                         <tr>
                                             <td width="25%"><b>Alamat Kirim</b></td>
                                             <td width="2%">:</td>
-                                            <td width="40%">{{ customer.up }}</td>
+                                            <td width="40%">{{ requestFinance.shipping_address }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -84,28 +84,30 @@
                                 <th class="text-center">Jenis Barang</th>
                                 <th class="text-center">Qty</th>
                                 <th class="text-center">Unit</th>
-                                <th class="text-center">Harga + PPn</th>
+                                <th class="text-center" colspan="2">Harga + PPn</th>
                                 <th class="text-center">Total</th>
                                 <th class="text-center">Nama Supplier</th>
                                 <th class="text-center">Keterangan</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="(item, index) in invoices">
+                            <tr v-for="(item, index) in details">
                                 <td class="text-center">{{ index + 1}}</td>
-                                <td class="text-center">{{ item.invoice_no }}</td>
-                                <td class="text-center">{{ item.send_date }}</td>
-                                <td class="text-center">{{ item.price | toIDR }}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td class="text-left">{{ item.itemName }}</td>
+                                <td class="text-center">{{ item.typeOfGoods }}</td>
+                                <td class="text-center">{{ item.qty }}</td>
+                                <td class="text-center">{{ item.unit }}</td>
+                                <td class="text-right">{{ item.price | toIDR }}</td>
+                                <td class="text-right" width="100">{{ item.ppn | toIDR }}</td>
+                                <td class="text-right">{{ item.total | toIDR }}</td>
+                                <td class="text-left">{{ item.supplierName }}</td>
+                                <td class="text-left">{{ item.remarks }}</td>
                             </tr>
                             </tbody>
                             <tfoot>
                             <tr>
                                 <td height="20"></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -123,6 +125,7 @@
                                 <td></td>
                                 <td></td>
                                 <td class="text-right">{{ subTotal | toIDR}}</td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -207,10 +210,7 @@
                 <h5>Loading</h5>
                 <p>Please wait, data is being loaded...</p>
             </div>
-
         </div>
-
-
     </div>
 
 </template>
@@ -220,9 +220,9 @@
         props: ['id'],
         data() {
             return {
-                customer_id: "",
-                customer: {},
-                invoices: [],
+                requestFinance_id: "",
+                requestFinance: {},
+                details: [],
                 loading: false,
             }
         },
@@ -231,12 +231,11 @@
         },
         methods: {
             getInvoice() {
-                axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/show/' + this.$route.params.id))
+                axios.get(this.$parent.MakeUrl('api/v1/finance-ap/request-finance/show/' + this.$route.params.id))
                     .then(res => {
-                        this.customer = res.data.data;
-                        this.invoices = res.data.data.invoice_recap_detail;
+                        this.requestFinance = res.data.data;
+                        this.details = res.data.data.details;
                         this.loading = true;
-                        console.log(this.customer);
                     }).catch(e => {
 
                 })
@@ -257,15 +256,12 @@
                     }
                 })
             },
-            back() {
-                return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
-            }
         },
         computed: {
             subTotal: function () {
                 let sum = 0;
-                this.invoices.forEach(function (item) {
-                    sum += item.price
+                this.details.forEach(function (item) {
+                    sum += item.total
                 });
                 return sum
             }

@@ -5472,9 +5472,9 @@ __webpack_require__.r(__webpack_exports__);
   props: ['id'],
   data: function data() {
     return {
-      customer_id: "",
-      customer: {},
-      invoices: [],
+      requestFinance_id: "",
+      requestFinance: {},
+      details: [],
       loading: false
     };
   },
@@ -5485,11 +5485,10 @@ __webpack_require__.r(__webpack_exports__);
     getInvoice: function getInvoice() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_recap/show/' + this.$route.params.id)).then(function (res) {
-        _this.customer = res.data.data;
-        _this.invoices = res.data.data.invoice_recap_detail;
+      axios.get(this.$parent.MakeUrl('api/v1/finance-ap/request-finance/show/' + this.$route.params.id)).then(function (res) {
+        _this.requestFinance = res.data.data;
+        _this.details = res.data.data.details;
         _this.loading = true;
-        console.log(_this.customer);
       })["catch"](function (e) {});
     },
     print: function print() {
@@ -5509,16 +5508,13 @@ __webpack_require__.r(__webpack_exports__);
 
         }
       });
-    },
-    back: function back() {
-      return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
     }
   },
   computed: {
     subTotal: function subTotal() {
       var sum = 0;
-      this.invoices.forEach(function (item) {
-        sum += item.price;
+      this.details.forEach(function (item) {
+        sum += item.total;
       });
       return sum;
     }
@@ -58183,12 +58179,7 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-secondary",
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.back()
-            }
-          }
+          attrs: { type: "button", onlclick: "history.back()" }
         },
         [_vm._v("\n            Back\n        ")]
       ),
@@ -58239,7 +58230,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.customer.customer_name))
+                                _vm._v(_vm._s(_vm.requestFinance.no_request))
                               ])
                             ]),
                             _vm._v(" "),
@@ -58251,7 +58242,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.customer.recap_date))
+                                _vm._v(_vm._s(_vm.requestFinance.request_date))
                               ])
                             ])
                           ])
@@ -58271,7 +58262,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.customer.customer_name))
+                                _vm._v(_vm._s(_vm.requestFinance.user_name))
                               ])
                             ]),
                             _vm._v(" "),
@@ -58283,7 +58274,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.customer.recap_date))
+                                _vm._v(_vm._s(_vm.requestFinance.dept))
                               ])
                             ]),
                             _vm._v(" "),
@@ -58295,7 +58286,9 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.customer.up))
+                                _vm._v(
+                                  _vm._s(_vm.requestFinance.shipping_address)
+                                )
                               ])
                             ])
                           ])
@@ -58313,33 +58306,52 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.invoices, function(item, index) {
+                      _vm._l(_vm.details, function(item, index) {
                         return _c("tr", [
                           _c("td", { staticClass: "text-center" }, [
                             _vm._v(_vm._s(index + 1))
                           ]),
                           _vm._v(" "),
-                          _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(item.invoice_no))
+                          _c("td", { staticClass: "text-left" }, [
+                            _vm._v(_vm._s(item.itemName))
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(item.send_date))
+                            _vm._v(_vm._s(item.typeOfGoods))
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
+                            _vm._v(_vm._s(item.qty))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            _vm._v(_vm._s(item.unit))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-right" }, [
                             _vm._v(_vm._s(_vm._f("toIDR")(item.price)))
                           ]),
                           _vm._v(" "),
-                          _c("td"),
+                          _c(
+                            "td",
+                            {
+                              staticClass: "text-right",
+                              attrs: { width: "100" }
+                            },
+                            [_vm._v(_vm._s(_vm._f("toIDR")(item.ppn)))]
+                          ),
                           _vm._v(" "),
-                          _c("td"),
+                          _c("td", { staticClass: "text-right" }, [
+                            _vm._v(_vm._s(_vm._f("toIDR")(item.total)))
+                          ]),
                           _vm._v(" "),
-                          _c("td"),
+                          _c("td", { staticClass: "text-left" }, [
+                            _vm._v(_vm._s(item.supplierName))
+                          ]),
                           _vm._v(" "),
-                          _c("td"),
-                          _vm._v(" "),
-                          _c("td")
+                          _c("td", { staticClass: "text-left" }, [
+                            _vm._v(_vm._s(item.remarks))
+                          ])
                         ])
                       }),
                       0
@@ -58364,6 +58376,8 @@ var render = function() {
                         _c("td", { staticClass: "text-right" }, [
                           _vm._v(_vm._s(_vm._f("toIDR")(_vm.subTotal)))
                         ]),
+                        _vm._v(" "),
+                        _c("td"),
                         _vm._v(" "),
                         _c("td"),
                         _vm._v(" "),
@@ -58415,7 +58429,7 @@ var staticRenderFns = [
           { staticStyle: { color: "black", "text-decoration": "underline" } },
           [
             _vm._v(
-              "FORM PERMINTAAN PERMINTAAN BARANG /\n                            JASA"
+              "\n                            FORM PERMINTAAN PERMINTAAN BARANG / JASA\n                        "
             )
           ]
         )
@@ -58470,7 +58484,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Unit")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Harga + PPn")]),
+        _c("th", { staticClass: "text-center", attrs: { colspan: "2" } }, [
+          _vm._v("Harga + PPn")
+        ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
         _vm._v(" "),
@@ -58486,6 +58502,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("tr", [
       _c("td", { attrs: { height: "20" } }),
+      _vm._v(" "),
+      _c("td"),
       _vm._v(" "),
       _c("td"),
       _vm._v(" "),
