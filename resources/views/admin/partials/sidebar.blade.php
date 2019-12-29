@@ -109,6 +109,14 @@
                     <a href="{{ url('admin/finance-ap/request-finance') }}"
                        class="nav-link"><span>Request Finance</span></a>
                 </li>
+                <li class="{{ request()->segment(3) == 'petty-cash' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance-ap/petty-cash') }}"
+                       class="nav-link"><span>Petty Cash</span></a>
+                </li>
+                <li class="{{ request()->segment(3) == 'in-out-payment' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance-ap/in-out-payment') }}"
+                       class="nav-link"><span>In/Out Payment</span></a>
+                </li>
             </ul>
         </li>
         {{--Finance AR--}}

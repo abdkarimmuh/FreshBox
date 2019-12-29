@@ -3919,8 +3919,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
@@ -3962,9 +3960,6 @@ __webpack_require__.r(__webpack_exports__);
 
         }
       });
-    },
-    back: function back() {
-      return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
     }
   },
   computed: {
@@ -55925,27 +55920,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "text-right" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button" },
-          on: {
-            click: function($event) {
-              return _vm.back()
-            }
-          }
-        },
-        [_vm._v("\n            Back\n        ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-success", on: { click: _vm.print } },
-        [_vm._v("\n            Print\n        ")]
-      )
-    ]),
+    _c(
+      "div",
+      { staticClass: "text-right" },
+      [
+        _c("back-button"),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-success", on: { click: _vm.print } },
+          [_vm._v("\n            Print\n        ")]
+        )
+      ],
+      1
+    ),
     _vm._v(" "),
     _c(
       "div",

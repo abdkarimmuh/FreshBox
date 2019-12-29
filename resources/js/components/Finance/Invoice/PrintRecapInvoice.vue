@@ -1,9 +1,7 @@
 <template>
     <div>
         <div class="text-right">
-            <button class="btn btn-secondary" type="button" @click="back()">
-                Back
-            </button>
+            <back-button/>
             <button
                 class="btn btn-success"
                 @click="print">
@@ -11,7 +9,7 @@
             </button>
         </div>
         <div class="card card-body printableArea" id="printMe">
-            <br>
+            <br>x
             <br>
             <br>
             <br>
@@ -209,9 +207,6 @@
                     }
                 })
             },
-            back() {
-                return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
-            }
         },
         computed: {
             subTotal: function () {
