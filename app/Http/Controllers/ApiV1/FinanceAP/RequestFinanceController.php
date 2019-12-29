@@ -44,7 +44,7 @@ class RequestFinanceController extends Controller
     {
         $rules = [
             'userId' => 'required',
-            'warehouseId' => 'required',
+            'warehouse' => 'required',
             'requestDate' => 'required',
             'requestType' => 'required',
             'productType' => 'required',
@@ -55,7 +55,7 @@ class RequestFinanceController extends Controller
         $data = [
             'no_request' => $noRequest,
             'user_id' => $request->userId,
-            'master_warehouse_id' => $request->warehouseId,
+            'master_warehouse_id' => $request->warehouse,
             'request_date' => $request->requestDate,
             'request_type' => $request->requestType,
             'product_type' => $request->productType,
@@ -73,7 +73,7 @@ class RequestFinanceController extends Controller
                 'unit' => $detail['unit'],
                 'price' => $detail['price'],
                 'ppn' => $detail['ppn'],
-                'total' => $detail['total'],
+                'total' => $detail['price'] * $detail['qty'] + $detail['ppn'] ,
                 'supplier_name' => $detail['supplierName'],
                 'remarks' => $detail['remark'],
             ];

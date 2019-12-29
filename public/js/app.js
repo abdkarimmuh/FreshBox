@@ -4978,6 +4978,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5020,15 +5021,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this = this;
+
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // this.loadingSubmit = true;
+                this.loadingSubmit = true;
                 payload = {
                   userId: this.userId,
-                  warehouseId: this.warehouseId,
+                  warehouse: this.warehouseId,
                   requestDate: this.requestDate,
                   productType: this.productType,
                   requestType: this.requestType,
@@ -5040,41 +5043,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       qty: item.qty,
                       ppn: item.ppn,
                       price: item.price,
-                      total: item.total,
+                      // total: item.total,
                       supplierName: item.supplierName,
                       remark: item.remark
                     };
                   })
                 };
-                _context.prev = 1;
-                _context.next = 4;
+                _context.prev = 2;
+                _context.next = 5;
                 return axios.post("/api/v1/finance-ap/request-finance", payload);
 
-              case 4:
+              case 5:
                 res = _context.sent;
                 Vue.swal({
                   type: "success",
                   title: "Success!",
                   text: "Successfully Insert Data!"
-                }).then(function (next) {// this.$router.push({name: 'delivery_order.index'})
+                }).then(function (next) {
+                  _this.$router.push({
+                    name: 'finance.requestFinance'
+                  });
                 });
                 console.log(res);
-                _context.next = 14;
+                _context.next = 15;
                 break;
 
-              case 9:
-                _context.prev = 9;
-                _context.t0 = _context["catch"](1);
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](2);
                 this.loadingSubmit = false;
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 9]]);
+        }, _callee, this, [[2, 10]]);
       }));
 
       function submitForm() {
@@ -5085,36 +5091,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     //Get Data Users & Items
     getData: function getData() {
-      var _this = this;
+      var _this2 = this;
 
       this.loading = true;
       axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse"))]).then(axios.spread(function (users, items, warehouses) {
-        _this.users = users.data;
-        _this.items = items.data;
-        _this.warehouses = warehouses.data;
-        _this.loading = false;
+        _this2.users = users.data;
+        _this2.items = items.data;
+        _this2.warehouses = warehouses.data;
+        _this2.loading = false;
       }))["catch"](function (err) {
         if (err.response.status === 500) {
-          _this.getData();
+          _this2.getData();
         }
       });
     },
     getDetailItem: function getDetailItem() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.loading = true;
       axios.get(this.$parent.MakeUrl("api/v1/master_data/items/" + this.itemId)).then(function (res) {
-        _this2.item = res.data;
-        _this2.loading = false;
+        _this3.item = res.data;
+        _this3.loading = false;
       })["catch"](function (err) {
         console.log(err.response.data);
       });
     },
     getUser: function getUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get(this.$parent.MakeUrl("api/v1/master_data/users/" + this.userId)).then(function (res) {
-        _this3.user = res.data.data;
+        _this4.user = res.data.data;
       })["catch"](function (err) {
         console.log(err.response.data);
       });
@@ -5159,6 +5165,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         supplierName: '',
         remark: ''
       });
+    },
+    clearOrderDetails: function clearOrderDetails() {
+      this.orderDetails = [];
     },
     deleteRow: function deleteRow(index) {
       this.orderDetails.splice(index, 1);
@@ -57061,7 +57070,7 @@ var render = function() {
                               _c("date-picker", {
                                 attrs: {
                                   lang: "en",
-                                  type: "datetime",
+                                  type: "date",
                                   valueType: "format",
                                   "not-before": new Date(),
                                   format: "YYYY-MM-DD"
@@ -57078,7 +57087,7 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          _vm.errors.fulfillmentDate
+                          _vm.errors.requestDate
                             ? _c(
                                 "div",
                                 {
@@ -57090,9 +57099,7 @@ var render = function() {
                                 },
                                 [
                                   _c("p", [
-                                    _vm._v(
-                                      _vm._s(_vm.errors.fulfillmentDate[0])
-                                    )
+                                    _vm._v(_vm._s(_vm.errors.requestDate[0]))
                                   ])
                                 ]
                               )
@@ -57168,6 +57175,7 @@ var render = function() {
                                   "option-text": "name",
                                   placeholder: "Select Product Type"
                                 },
+                                on: { input: _vm.clearOrderDetails },
                                 model: {
                                   value: _vm.productType,
                                   callback: function($$v) {
@@ -57228,7 +57236,7 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              _vm.errors.address
+                              _vm.errors.warehouse
                                 ? _c(
                                     "div",
                                     {
@@ -57240,7 +57248,7 @@ var render = function() {
                                     },
                                     [
                                       _c("p", [
-                                        _vm._v(_vm._s(_vm.errors.address[0]))
+                                        _vm._v(_vm._s(_vm.errors.warehouse[0]))
                                       ])
                                     ]
                                   )
@@ -57311,7 +57319,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                Add Row\n                            "
+                                "\n                                    Add Row\n                                "
                               )
                             ]
                           )
@@ -57364,7 +57372,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                Add Items\n                            "
+                                "\n                                    Add Items\n                                "
                               )
                             ]
                           )
@@ -57576,36 +57584,6 @@ var render = function() {
                                                     _vm.$set(
                                                       item,
                                                       "ppn",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: item.total,
-                                                    expression: "item.total"
-                                                  }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { type: "number" },
-                                                domProps: { value: item.total },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      item,
-                                                      "total",
                                                       $event.target.value
                                                     )
                                                   }
@@ -57847,36 +57825,6 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.total,
-                                                    expression: "item.total"
-                                                  }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { type: "number" },
-                                                domProps: { value: item.total },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      item,
-                                                      "total",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("td", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
                                                     value: item.supplierName,
                                                     expression:
                                                       "item.supplierName"
@@ -57990,7 +57938,7 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                                    Submit\n                                "
+                                        "\n                                        Submit\n                                    "
                                       )
                                     ]
                                   )
@@ -58099,8 +58047,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center", attrs: { colspan: "2" } }, [
           _vm._v("Harga + PPN")
         ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Nama Suplier")]),
         _vm._v(" "),
