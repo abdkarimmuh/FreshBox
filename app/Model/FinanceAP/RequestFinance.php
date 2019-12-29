@@ -25,4 +25,9 @@ class RequestFinance extends MyModel
     {
         return $this->belongsTo(Warehouse::class, 'master_warehouse_id');
     }
+
+    public function detail()
+    {
+        return $this->hasMany(RequestFinanceDetail::class, 'request_finance_id', 'id');
+    }
 }

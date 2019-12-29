@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiV1\FinanceAP;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FinanceAP\RequestFinanceResource;
+use App\Http\Resources\FinanceAP\RequestFinanceWithDetailResource;
 use App\Model\FinanceAP\RequestFinance;
 use App\Model\FinanceAP\RequestFinanceDetail;
 use Carbon\Carbon;
@@ -31,7 +32,7 @@ class RequestFinanceController extends Controller
 
     public function show($id)
     {
-        return RequestFinance::find($id);
+        return new RequestFinanceWithDetailResource(RequestFinance::find($id));
     }
 
     public function create()
