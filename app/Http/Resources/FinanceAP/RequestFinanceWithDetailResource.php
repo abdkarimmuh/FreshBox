@@ -3,6 +3,7 @@
 namespace App\Http\Resources\FinanceAP;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Riskihajar\Terbilang\Facades\Terbilang;
 
 class RequestFinanceWithDetailResource extends JsonResource
 {
@@ -23,6 +24,10 @@ class RequestFinanceWithDetailResource extends JsonResource
             'user_name' => $this->user->name,
             'status_name' => isset($this->no_request_confirm) ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-info">Not Confirmed</span>',
             'dept' => $this->user->UserProfile->dept,
+            'namaRek' => $this->user->UserProfile->nama_rek,
+            'noRek' => $this->user->UserProfile->no_rek,
+            'total' => $this->total,
+            'terbilang' => Terbilang::make($this->total) . ' rupiah',
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
             'created_by_name' => $this->created_by_name,
             'details' => RequestFinanceDetailResource::collection($this->detail)

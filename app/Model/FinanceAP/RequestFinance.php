@@ -30,4 +30,13 @@ class RequestFinance extends MyModel
     {
         return $this->hasMany(RequestFinanceDetail::class, 'request_finance_id', 'id');
     }
+
+    public function getTotalAttribute()
+    {
+        $total = 0;
+        foreach ($this->detail as $detail) {
+            $total += $detail->total;
+        }
+        return $total;
+    }
 }

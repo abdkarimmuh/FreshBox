@@ -124,8 +124,8 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td class="text-right">{{ subTotal | toIDR}}</td>
                                 <td></td>
+                                <td class="text-right">{{ requestFinance.total | toIDR}}</td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -141,7 +141,7 @@
                                         <tbody>
                                         <tr>
                                             <td><b style="text-decoration: underline">Terbilang</b>&nbsp;
-                                                &nbsp;&nbsp; Seratus
+                                                &nbsp;&nbsp; {{ requestFinance.terbilang }}
                                             </td>
                                         </tr>
                                         </tbody>
@@ -161,11 +161,11 @@
                                             <td width="70">
                                                 <b>No Rek</b>
                                             </td>
-                                            <td>0121</td>
+                                            <td>{{ requestFinance.noRek }}</td>
                                         </tr>
                                         <tr>
                                             <td width="50"></td>
-                                            <td>Yashinta</td>
+                                            <td>{{ requestFinance.namaRek }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -256,15 +256,6 @@
                     }
                 })
             },
-        },
-        computed: {
-            subTotal: function () {
-                let sum = 0;
-                this.details.forEach(function (item) {
-                    sum += item.total
-                });
-                return sum
-            }
         }
     }
 </script>

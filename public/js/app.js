@@ -5509,15 +5509,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
-  },
-  computed: {
-    subTotal: function subTotal() {
-      var sum = 0;
-      this.details.forEach(function (item) {
-        sum += item.total;
-      });
-      return sum;
-    }
   }
 });
 
@@ -58373,11 +58364,13 @@ var render = function() {
                         _vm._v(" "),
                         _c("td"),
                         _vm._v(" "),
-                        _c("td", { staticClass: "text-right" }, [
-                          _vm._v(_vm._s(_vm._f("toIDR")(_vm.subTotal)))
-                        ]),
-                        _vm._v(" "),
                         _c("td"),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _vm._v(
+                            _vm._s(_vm._f("toIDR")(_vm.requestFinance.total))
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("td"),
                         _vm._v(" "),
@@ -58389,7 +58382,82 @@ var render = function() {
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(8),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c("div", { staticClass: "table-responsive" }, [
+                        _c(
+                          "table",
+                          {
+                            staticStyle: { color: "black" },
+                            attrs: { width: "100%" }
+                          },
+                          [
+                            _c("tbody", [
+                              _c("tr", [
+                                _c("td", [
+                                  _c(
+                                    "b",
+                                    {
+                                      staticStyle: {
+                                        "text-decoration": "underline"
+                                      }
+                                    },
+                                    [_vm._v("Terbilang")]
+                                  ),
+                                  _vm._v(
+                                    " \n                                               " +
+                                      _vm._s(_vm.requestFinance.terbilang) +
+                                      "\n                                        "
+                                  )
+                                ])
+                              ])
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c("div", { staticClass: "table-responsive" }, [
+                        _c(
+                          "table",
+                          {
+                            staticStyle: { color: "black" },
+                            attrs: { width: "100%" }
+                          },
+                          [
+                            _c("tbody", [
+                              _c("tr", [
+                                _vm._m(8),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.requestFinance.noRek))
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("tr", [
+                                _c("td", { attrs: { width: "50" } }),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.requestFinance.namaRek))
+                                ])
+                              ])
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("br"),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
@@ -58399,13 +58467,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(10),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _vm._m(11)
+                _vm._m(10)
               ])
             ])
           : _c("div", { staticClass: "text-center p-4 text-muted" }, [
@@ -58526,68 +58588,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "table-responsive" }, [
-            _c(
-              "table",
-              { staticStyle: { color: "black" }, attrs: { width: "100%" } },
-              [
-                _c("tbody", [
-                  _c("tr", [
-                    _c("td", [
-                      _c(
-                        "b",
-                        { staticStyle: { "text-decoration": "underline" } },
-                        [_vm._v("Terbilang")]
-                      ),
-                      _vm._v(
-                        " \n                                               Seratus\n                                        "
-                      )
-                    ])
-                  ])
-                ])
-              ]
-            )
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "table-responsive" }, [
-            _c(
-              "table",
-              { staticStyle: { color: "black" }, attrs: { width: "100%" } },
-              [
-                _c("tbody", [
-                  _c("tr", [
-                    _c("td", { attrs: { width: "70" } }, [
-                      _c("b", [_vm._v("No Rek")])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("0121")])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", { attrs: { width: "50" } }),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Yashinta")])
-                  ])
-                ])
-              ]
-            )
-          ])
-        ])
-      ])
-    ])
+    return _c("td", { attrs: { width: "70" } }, [_c("b", [_vm._v("No Rek")])])
   },
   function() {
     var _vm = this
