@@ -48,6 +48,7 @@ class RequestFinanceController extends Controller
             'requestDate' => 'required',
             'requestType' => 'required',
             'productType' => 'required',
+            'orderDetails' => 'required'
         ];
         $request->validate($rules);
 
@@ -73,7 +74,7 @@ class RequestFinanceController extends Controller
                 'unit' => $detail['unit'],
                 'price' => $detail['price'],
                 'ppn' => $detail['ppn'],
-                'total' => $detail['price'] * $detail['qty'] + $detail['ppn'] ,
+                'total' => $detail['price'] * $detail['qty'] + $detail['ppn'],
                 'supplier_name' => $detail['supplierName'],
                 'remarks' => $detail['remark'],
             ];
@@ -90,5 +91,15 @@ class RequestFinanceController extends Controller
         return ($cutString + 1) . '/GF-FB';
     }
 
+    public function confirm(Request $request)
+    {
+        $rules = [
+            'confirmDate' => 'required',
+            'orderDetails' => 'required'
+        ];
+        $request->validate($rules);
 
+
+    }
 }
+

@@ -11,7 +11,7 @@
         data() {
             return {
                 config: {
-                    title: "Request Finance",
+                    title: "In/Out Payment",
                     action: true,
                     base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-finance"),
                     route_view: "finance.requestFinance.show",

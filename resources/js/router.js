@@ -44,6 +44,7 @@ import IndexReplenish from './components/FinanceAP/Replenish/IndexReplenish';
 import IndexRequestFinance from './components/FinanceAP/RequestAdvance/IndexRequestFinance';
 import AddRequestFinance from './components/FinanceAP/RequestAdvance/AddRequestFinance';
 import PrintRequestFinance from './components/FinanceAP/RequestAdvance/PrintRequestFinance';
+import ConfirmRequestFinance from './components/FinanceAP/RequestAdvance/ConfirmRequestFinance';
 
 Vue.component('import-price-temp', ImportPriceTemp);
 Vue.use(VueRouter);
@@ -81,7 +82,6 @@ const router = new VueRouter({
             path: '/admin/marketing/form_sales_order/printMultiple/',
             name: "form_sales_order.multiplePrint",
             component: MultiplePrintSalesOrder,
-            props: true
         },
         // Create Sales Order
         {
@@ -244,7 +244,7 @@ const router = new VueRouter({
         {
             path: '/admin/finance-ap/request-finance/:id/confirm',
             name: 'finance.requestFinance.confirm',
-            component: AddRequestFinance
+            component: ConfirmRequestFinance
         },
         {
             path: '/admin/users',

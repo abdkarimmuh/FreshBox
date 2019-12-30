@@ -39,4 +39,14 @@ class RequestFinance extends MyModel
         }
         return $total;
     }
+
+    public function scopeCash($q)
+    {
+        return $q->where('request_type', 1);
+    }
+
+    public function scopeAdvance($q)
+    {
+        return $q->where('request_type', 2);
+    }
 }

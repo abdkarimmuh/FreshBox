@@ -7,351 +7,149 @@
                 </div>
                 <div class="col-12">
                     <div class="row">
-                      <!-- Request Confirm Date -->
-                        <div class="col-md-2" v-if="userId !== ''">
+                        <!-- Confirm Date -->
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>
-                                    <b>Request Date</b>
+                                    <b>Confirm Date</b>
                                     <span style="color: red;">*</span>
                                 </label>
                                 <div>
                                     <date-picker
-                                        v-model="requestDate"
+                                        v-model="confirmDate"
                                         lang="en"
-                                        type="datetime"
+                                        type="date"
                                         valueType="format"
                                         :not-before="new Date()"
                                         format="YYYY-MM-DD"
                                     />
                                 </div>
                                 <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                     v-if="errors.fulfillmentDate">
-                                    <p>{{ errors.fulfillmentDate[0] }}</p>
+                                     v-if="errors.confirmDate">
+                                    <p>{{ errors.confirmDate[0] }}</p>
                                 </div>
                             </div>
                         </div>
-                        <!-- Request Date -->
-                        <div class="col-md-2" v-if="userId !== ''">
-                            <div class="form-group">
-                                <label>
-                                    <b>Request Date</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <date-picker
-                                        v-model="requestDate"
-                                        lang="en"
-                                        type="datetime"
-                                        valueType="format"
-                                        :not-before="new Date()"
-                                        format="YYYY-MM-DD"
-                                    />
-                                </div>
-                                <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                     v-if="errors.fulfillmentDate">
-                                    <p>{{ errors.fulfillmentDate[0] }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Request Type -->
-                        <div class="col-md-2" v-if="userId !== ''">
-                            <div class="form-group">
-                                <label>
-                                    <b>Request Type</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <model-list-select
-                                        v-bind:class="{'is-invalid': errors.requestType}"
-                                        :list="requestTypes"
-                                        v-model="requestType"
-                                        option-value="value"
-                                        option-text="name"
-                                        placeholder="Select Request Type"
-                                    />
-                                    <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                         v-if="errors.requestType">
-                                        <p>{{ errors.requestType[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Product Types-->
-                        <div class="col-md-2" v-if="userId !== ''">
-                            <div class="form-group">
-                                <label>
-                                    <b>Product Type</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <model-list-select
-                                        v-bind:class="{'is-invalid': errors.productType}"
-                                        :list="productTypes"
-                                        v-model="productType"
-                                        option-value="value"
-                                        option-text="name"
-                                        placeholder="Select Product Type"
-                                    />
-                                    <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                         v-if="errors.productType">
-                                        <p>{{ errors.productType[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Alamat Kirim-->
-                        <div class="col-md-3" v-if="userId !== ''">
-                            <div class="form-group">
-                                <label>
-                                    <b>Warehouse Address</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <model-list-select
-                                        v-bind:class="{'is-invalid': errors.address}"
-                                        :list="warehouses"
-                                        v-model="warehouseId"
-                                        option-value="id"
-                                        option-text="address"
-                                        placeholder="Select Warehouse"
-                                    />
-                                    <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                         v-if="errors.address">
-                                        <p>{{ errors.address[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <s-form-input
+                            col="2"
+                            title="No Request"
+                            :model="requestFinance.no_request"
+                            disabled="true"/>
+                        <s-form-input
+                            col="2"
+                            title="Request Date"
+                            :model="requestFinance.request_date"
+                            disabled="true"/>
 
-                        <s-form-input v-if="userId !== ''"
-                                      col="3"
-                                      title="Name"
-                                      :model="user.name"
-                                      disabled="true"/>
+                        <s-form-input
+                            col="2"
+                            title="Dept"
+                            :model="requestFinance.dept"
+                            disabled="true"/>
+                        <s-form-input
+                            col="2"
+                            title="Nama Rekening"
+                            :model="requestFinance.namaRek"
+                            disabled="true"/>
+                        <s-form-input
+                            col="2"
+                            title="Nomor Rekening"
+                            :model="requestFinance.noRek"
+                            disabled="true"/>
 
-                        <s-form-input v-if="userId !== ''"
-                                      col="3"
-                                      title="Dept"
-                                      :model="user.dept"
-                                      disabled="true"/>
-
-                        <s-form-input v-if="userId !== ''"
-                                      col="3"
-                                      title="Nama Rekening"
-                                      :model="user.nama_rek"
-                                      disabled="true"/>
-
-                        <s-form-input v-if="userId !== ''"
-                                      col="3"
-                                      title="Nomor Rekening"
-                                      :model="user.no_rek"
-                                      disabled="true"/>
+                        <s-form-input
+                            col="2"
+                            title="Alamat Kirim"
+                            :model="requestFinance.shipping_address"
+                            disabled="true"/>
+                        <s-form-input
+                            col="2"
+                            title="Nominal Permintaan"
+                            :model="requestFinance.total | toIDR"
+                            disabled="true"/>
                         <!--Button Add Rows-->
-                        <div class="col-md-12" v-if="productType === 1">
-                            <div class="form-group text-right">
-                                <button class="btn btn-primary" @click="pushRows()">
-                                    Add Row
-                                </button>
-                            </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="table-responsive m-t-40" style="clear: both;">
+                        <table class="table table-hover" style="font-size: 9pt;">
+                            <thead>
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nama Barang</th>
+                                <th class="text-center">Jenis Barang</th>
+                                <th class="text-center">Qty</th>
+                                <th class="text-center">Unit</th>
+                                <th class="text-center" colspan="2">Harga + PPN</th>
+                                <th class="text-center">Total</th>
+                                <th class="text-center">Qty Confirm</th>
+                                <th class="text-center">Price Confirm</th>
+                                <th class="text-center">Keterangan</th>
+                                <th class="text-center">Checkbox</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(item, index) in orderDetails" v-bind:key="index">
+                                <td>{{ index + 1}}</td>
+                                <td>{{ item.itemName }}</td>
+                                <td>{{ item.typeOfGoods }}</td>
+                                <td>{{ item.qty }}</td>
+                                <td>{{ item.unit }}</td>
+                                <td>{{ item.price }}</td>
+                                <td>{{ item.ppn }}</td>
+                                <td>{{ item.total }}</td>
+                                <td>
+                                    <input
+                                        v-model="item.qty_confirm"
+                                        type="number"
+                                        class="form-control"
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        v-model="item.price_confirm"
+                                        type="number"
+                                        class="form-control"
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                        v-model="item.remarks"
+                                        type="text"
+                                        class="form-control"
+                                    />
+                                </td>
+                                <td>
+                                    <div class="custom-checkbox custom-control">
+                                        <input
+                                            type="checkbox"
+                                            class="custom-control-input"
+                                            value="1"
+                                            v-model="item.checked"
+                                            :id="'checkbox-'+ index"
+                                        />
+                                        <label
+                                            :for="'checkbox-'+index"
+                                            class="custom-control-label"
+                                        >&nbsp;</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card-body">
+                        <div v-if="loadingSubmit">
+                            <loading-button/>
                         </div>
-
-                        <div class="col-md-6" v-if="productType === 2">
-                            <div class="form-group">
-                                <label>
-                                    <b>Items</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <model-list-select
-                                    :list="items"
-                                    v-model="itemId"
-                                    v-on:input="getDetailItem"
-                                    option-value="id"
-                                    option-text="name_item"
-                                    placeholder="Select Item">
-                                </model-list-select>
-                            </div>
+                        <div v-else>
+                            <button class="btn btn-danger" v-on:click="submitForm()">
+                                Submit
+                            </button>
+                            <back-button/>
                         </div>
-                        <!--Button Add Items-->
-                        <div class="col-md-6 mt-4" v-if="productType === 2">
-                            <div class="form-group">
-                                <button class="btn btn-sm btn-primary" @click="pushItems(itemId)">
-                                    Add Items
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="col-12" v-if="productType !== ''">
-                            <div class="table-responsive m-t-40" style="clear: both;">
-                                <table class="table table-hover" style="font-size: 9pt;">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">Nama Barang</th>
-                                        <th class="text-center">Jenis Barang</th>
-                                        <th class="text-center">Qty</th>
-                                        <th class="text-center">Unit</th>
-                                        <th class="text-center" colspan="2">Harga + PPN</th>
-                                        <th class="text-center">Total</th>
-                                        <th class="text-center">Nama Suplier</th>
-                                        <th class="text-center">Keterangan</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr v-for="(item, index) in orderDetails" v-bind:key="index"
-                                        v-if="productType === 1">
-                                        <td>{{ index + 1}}</td>
-                                        <td>
-                                            <input
-                                                v-model="item.name"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.skuid"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.qty"
-                                                type="number"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.unit"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.price"
-                                                type="number"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.ppn"
-                                                type="number"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.total"
-                                                type="number"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.supplierName"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.remark"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-icon btn-sm btn-danger"
-                                                    @click="deleteRow(index)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr v-for="(item, index) in orderDetails" v-bind:key="index"
-                                        v-if="productType === 2">
-                                        <td>{{ index + 1}}</td>
-                                        <td>{{ item.name }}</td>
-                                        <td>{{ item.skuid }}</td>
-                                        <td>
-                                            <input
-                                                v-model="item.qty"
-                                                type="number"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.unit"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.price"
-                                                type="number"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.ppn"
-                                                type="number"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.total"
-                                                type="number"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.supplierName"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                v-model="item.remark"
-                                                type="text"
-                                                class="form-control"
-                                            />
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-icon btn-sm btn-danger"
-                                                    @click="deleteRow(index)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="card-body">
-                                <div v-if="loadingSubmit">
-                                    <loading-button/>
-                                </div>
-                                <div v-else>
-                                    <button class="btn btn-danger" v-on:click="submitForm()"
-                                            v-if="userId !== ''">
-                                        Submit
-                                    </button>
-                                    <back-button/>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -367,39 +165,11 @@
     export default {
         data() {
             return {
-                requestTypes: [
-                    {
-                        name: 'Cash',
-                        value: 1
-                    },
-                    {
-                        name: 'Advance',
-                        value: 2
-                    }
-                ],
-                requestType: '',
-                productTypes: [
-                    {
-                        name: 'Non Core',
-                        value: 1
-                    },
-                    {
-                        name: 'Core',
-                        value: 2
-                    }
-                ],
-                productType: '',
-                warehouses: [],
-                warehouseId: '',
-                requestDate: '',
-                users: [],
-                userId: '',
-                user: '',
-                items: [],
-                itemId: '',
+                confirmDate: '',
+                requestFinance: '',
                 orderDetails: [],
                 errors: [],
-                loading: false,
+                loading: true,
                 loadingSubmit: false
             };
         },
@@ -408,33 +178,25 @@
         },
         methods: {
             async submitForm() {
-                // this.loadingSubmit = true;
+                this.loadingSubmit = true;
                 const payload = {
-                    userId: this.userId,
-                    warehouseId: this.warehouseId,
-                    requestDate: this.requestDate,
-                    productType: this.productType,
-                    requestType: this.requestType,
+                    confirmDate: this.confirmDate,
                     orderDetails: this.orderDetails.map((item, idx) => ({
-                        name: item.name,
-                        typeOfGoods: item.skuid,
-                        unit: item.unit,
-                        qty: item.qty,
-                        ppn: item.ppn,
-                        price: item.price,
-                        total: item.total,
-                        supplierName: item.supplierName,
-                        remark: item.remark,
+                        id: item.id,
+                        qtyConfirm: item.qty_confirm,
+                        priceConfirm: item.price_confirm,
+                        checked: item.checked,
+                        remarks: item.remarks
                     }))
                 };
                 try {
-                    const res = await axios.post("/api/v1/finance-ap/request-finance", payload);
+                    const res = await axios.patch("/api/v1/finance-ap/request-finance", payload);
                     Vue.swal({
                         type: "success",
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        // this.$router.push({name: 'delivery_order.index'})
+                        this.$router.push({name: 'finance.requestFinance'})
                     });
                     console.log(res);
                 } catch (e) {
@@ -443,26 +205,16 @@
                     console.error(e.response.data);
                 }
             },
-
             //Get Data Users & Items
             getData() {
-                this.loading = true;
-                axios.all([
-                    axios.get(this.$parent.MakeUrl("api/v1/master_data/users")),
-                    axios.get(this.$parent.MakeUrl("api/v1/master_data/items")),
-                    axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")),
-                ]).then(
-                    axios.spread((users, items, warehouses) => {
-                        this.users = users.data;
-                        this.items = items.data;
-                        this.warehouses = warehouses.data;
+                axios.get(this.$parent.MakeUrl('api/v1/finance-ap/request-finance/show/' + this.$route.params.id))
+                    .then(res => {
+                        this.requestFinance = res.data.data;
+                        this.orderDetails = res.data.data.details;
                         this.loading = false;
-                    })
-                ).catch(err => {
-                    if (err.response.status === 500) {
-                        this.getData()
-                    }
-                });
+                    }).catch(e => {
+
+                })
             },
             getDetailItem() {
                 this.loading = true;
@@ -521,9 +273,6 @@
                     supplierName: '',
                     remark: ''
                 });
-            },
-            deleteRow(index) {
-                this.orderDetails.splice(index, 1);
             },
         },
         components: {

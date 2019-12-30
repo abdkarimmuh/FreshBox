@@ -109,6 +109,14 @@
                     <a href="{{ url('admin/finance-ap/request-finance') }}"
                        class="nav-link"><span>Request Finance</span></a>
                 </li>
+                <li class="{{ request()->segment(3) == 'request-finance' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance-ap/request-cash-advance') }}"
+                       class="nav-link"><span>Request Cash Advance</span></a>
+                </li>
+                <li class="{{ request()->segment(3) == 'request-finance' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance-ap/settlement-cash-advance') }}"
+                       class="nav-link"><span>Settlement Cash Advance</span></a>
+                </li>
                 <li class="{{ request()->segment(3) == 'petty-cash' ? ' active' : '' }}">
                     <a href="{{ url('admin/finance-ap/petty-cash') }}"
                        class="nav-link"><span>Petty Cash</span></a>
