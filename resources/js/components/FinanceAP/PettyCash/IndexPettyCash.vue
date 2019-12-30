@@ -11,11 +11,10 @@
         data() {
             return {
                 config: {
-                    title: "Request Finance",
+                    title: "Petty Cash",
                     action: true,
-                    base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-finance"),
+                    base_url: this.$parent.MakeUrl("api/v1/finance-ap/petty-cash"),
                     route_view: "finance.requestFinance.show",
-                    route_create: "finance.requestFinance.create"
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },
                 columns: [

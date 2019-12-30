@@ -13,9 +13,8 @@
                 config: {
                     title: "In/Out Payment",
                     action: true,
-                    base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-finance"),
+                    base_url: this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment"),
                     route_view: "finance.requestFinance.show",
-                    route_create: "finance.requestFinance.create"
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },
                 columns: [

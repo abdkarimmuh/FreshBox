@@ -4211,6 +4211,146 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      config: {
+        title: "In/Out Payment",
+        action: true,
+        base_url: this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment"),
+        route_view: "finance.requestFinance.show" // route_multiple_print: 'invoice_order.multiplePrint',
+
+      },
+      columns: [{
+        title: "No Request",
+        field: "no_request",
+        filterable: true
+      }, {
+        title: "Request Date",
+        field: "request_date",
+        filterable: true
+      }, {
+        title: "User Name",
+        field: "user_name",
+        filterable: false
+      }, {
+        title: "Shipping Address",
+        field: "shipping_address",
+        filterable: true
+      }, {
+        title: "Dept",
+        field: "dept",
+        filterable: true
+      }, {
+        title: 'Status',
+        field: 'status_name',
+        type: 'html'
+      }, {
+        title: "Created At",
+        field: "created_at",
+        filterable: true
+      }, {
+        title: "Created By",
+        field: "created_by_name",
+        filterable: true
+      }],
+      error: {
+        code: 403,
+        description: "You do not have access to this page"
+      }
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      config: {
+        title: "Petty Cash",
+        action: true,
+        base_url: this.$parent.MakeUrl("api/v1/finance-ap/petty-cash"),
+        route_view: "finance.requestFinance.show" // route_multiple_print: 'invoice_order.multiplePrint',
+
+      },
+      columns: [{
+        title: "No Request",
+        field: "no_request",
+        filterable: true
+      }, {
+        title: "Request Date",
+        field: "request_date",
+        filterable: true
+      }, {
+        title: "User Name",
+        field: "user_name",
+        filterable: false
+      }, {
+        title: "Shipping Address",
+        field: "shipping_address",
+        filterable: true
+      }, {
+        title: "Dept",
+        field: "dept",
+        filterable: true
+      }, {
+        title: 'Status',
+        field: 'status_name',
+        type: 'html'
+      }, {
+        title: "Created At",
+        field: "created_at",
+        filterable: true
+      }, {
+        title: "Created By",
+        field: "created_by_name",
+        filterable: true
+      }],
+      error: {
+        code: 403,
+        description: "You do not have access to this page"
+      }
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Replenish/AddReplenish.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Replenish/AddReplenish.vue?vue&type=script&lang=js& ***!
@@ -56839,6 +56979,70 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=template&id=7d66b94e&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=template&id=7d66b94e& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.$parent.userRole("Admin")
+    ? _c(
+        "div",
+        [
+          _c("s-table", { attrs: { config: _vm.config, columns: _vm.columns } })
+        ],
+        1
+      )
+    : _c("div", [_c("s-error-page", { attrs: { error: _vm.error } })], 1)
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue?vue&type=template&id=31c4308e&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue?vue&type=template&id=31c4308e& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.$parent.userRole("Admin")
+    ? _c(
+        "div",
+        [
+          _c("s-table", { attrs: { config: _vm.config, columns: _vm.columns } })
+        ],
+        1
+      )
+    : _c("div", [_c("s-error-page", { attrs: { error: _vm.error } })], 1)
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Replenish/AddReplenish.vue?vue&type=template&id=143afdbf&":
 /*!***********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Replenish/AddReplenish.vue?vue&type=template&id=143afdbf& ***!
@@ -92372,6 +92576,144 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _IndexInOutPayment_vue_vue_type_template_id_7d66b94e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IndexInOutPayment.vue?vue&type=template&id=7d66b94e& */ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=template&id=7d66b94e&");
+/* harmony import */ var _IndexInOutPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndexInOutPayment.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _IndexInOutPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _IndexInOutPayment_vue_vue_type_template_id_7d66b94e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _IndexInOutPayment_vue_vue_type_template_id_7d66b94e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexInOutPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexInOutPayment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexInOutPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=template&id=7d66b94e&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=template&id=7d66b94e& ***!
+  \*************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexInOutPayment_vue_vue_type_template_id_7d66b94e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexInOutPayment.vue?vue&type=template&id=7d66b94e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=template&id=7d66b94e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexInOutPayment_vue_vue_type_template_id_7d66b94e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexInOutPayment_vue_vue_type_template_id_7d66b94e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _IndexPettyCash_vue_vue_type_template_id_31c4308e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IndexPettyCash.vue?vue&type=template&id=31c4308e& */ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue?vue&type=template&id=31c4308e&");
+/* harmony import */ var _IndexPettyCash_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndexPettyCash.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _IndexPettyCash_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _IndexPettyCash_vue_vue_type_template_id_31c4308e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _IndexPettyCash_vue_vue_type_template_id_31c4308e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexPettyCash_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexPettyCash.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexPettyCash_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue?vue&type=template&id=31c4308e&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue?vue&type=template&id=31c4308e& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexPettyCash_vue_vue_type_template_id_31c4308e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexPettyCash.vue?vue&type=template&id=31c4308e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue?vue&type=template&id=31c4308e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexPettyCash_vue_vue_type_template_id_31c4308e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexPettyCash_vue_vue_type_template_id_31c4308e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/FinanceAP/Replenish/AddReplenish.vue":
 /*!**********************************************************************!*\
   !*** ./resources/js/components/FinanceAP/Replenish/AddReplenish.vue ***!
@@ -95467,6 +95809,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_FinanceAP_RequestAdvance_AddRequestFinance__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/AddRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/AddRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_RequestAdvance_PrintRequestFinance__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/PrintRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/PrintRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_RequestAdvance_ConfirmRequestFinance__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/ConfirmRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue");
+/* harmony import */ var _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/IndexPettyCash */ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/IndexInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue");
+
+
 
 
 
@@ -95669,6 +96015,14 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/admin/finance-ap/request-finance/:id/confirm',
     name: 'finance.requestFinance.confirm',
     component: _components_FinanceAP_RequestAdvance_ConfirmRequestFinance__WEBPACK_IMPORTED_MODULE_36__["default"]
+  }, {
+    path: '/admin/finance-ap/in-out-payment',
+    name: 'finance.inOutPayment',
+    component: _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_38__["default"]
+  }, {
+    path: '/admin/finance-ap/petty-cash',
+    name: 'finance.pettyCash',
+    component: _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_37__["default"]
   }, {
     path: '/admin/users',
     name: 'users',

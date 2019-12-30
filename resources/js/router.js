@@ -46,6 +46,9 @@ import AddRequestFinance from './components/FinanceAP/RequestAdvance/AddRequestF
 import PrintRequestFinance from './components/FinanceAP/RequestAdvance/PrintRequestFinance';
 import ConfirmRequestFinance from './components/FinanceAP/RequestAdvance/ConfirmRequestFinance';
 
+import PettyCash from './components/FinanceAP/PettyCash/IndexPettyCash';
+import InOutPayment from './components/FinanceAP/InOutPayment/IndexInOutPayment';
+
 Vue.component('import-price-temp', ImportPriceTemp);
 Vue.use(VueRouter);
 
@@ -245,6 +248,16 @@ const router = new VueRouter({
             path: '/admin/finance-ap/request-finance/:id/confirm',
             name: 'finance.requestFinance.confirm',
             component: ConfirmRequestFinance
+        },
+        {
+            path: '/admin/finance-ap/in-out-payment',
+            name: 'finance.inOutPayment',
+            component: InOutPayment
+        },
+        {
+            path: '/admin/finance-ap/petty-cash',
+            name: 'finance.pettyCash',
+            component: PettyCash
         },
         {
             path: '/admin/users',
