@@ -109,11 +109,11 @@
                     <a href="{{ url('admin/finance-ap/request-finance') }}"
                        class="nav-link"><span>Request Finance</span></a>
                 </li>
-                <li class="{{ request()->segment(3) == 'request-finance' ? ' active' : '' }}">
+                <li class="{{ request()->segment(3) == 'request-cash-advance' ? ' active' : '' }}">
                     <a href="{{ url('admin/finance-ap/request-cash-advance') }}"
                        class="nav-link"><span>Request Cash Advance</span></a>
                 </li>
-                <li class="{{ request()->segment(3) == 'request-finance' ? ' active' : '' }}">
+                <li class="{{ request()->segment(3) == 'settlement-cash-advance' ? ' active' : '' }}">
                     <a href="{{ url('admin/finance-ap/settlement-cash-advance') }}"
                        class="nav-link"><span>Settlement Cash Advance</span></a>
                 </li>
