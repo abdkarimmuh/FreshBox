@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiV1\Finance;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Finance\InvoiceRecapHasDetailResource;
 use App\Http\Resources\Finance\InvoiceRecapResource;
+use App\Http\Resources\Finance\InvoiceRecapSubmittedResource;
 use App\Model\Finance\InvoiceRecap;
 use Illuminate\Http\Request;
 
@@ -63,7 +64,8 @@ class InvoiceRecapAPIController extends Controller
 
     public function InvoiceSubmitted()
     {
-        return InvoiceRecapResource::collection(InvoiceRecap::IsNotPaid()->isSubmitted()->get());
+//        return InvoiceRecap::select('recap_invoice_no','id')->IsNotPaid()->isSubmitted()->get();
+        return InvoiceRecapSubmittedResource::collection(InvoiceRecap::IsNotPaid()->isSubmitted()->get());
     }
 
     public function InvoicePaid()
