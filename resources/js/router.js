@@ -36,6 +36,7 @@ import AddConfirmDeliveryOrder from './components/Warehouse/ConfirmDeliveryOrder
 import IndexWarehouseConfirm from "./components/WarehouseIn/IndexWarehouseConfirm";
 import AddWarehouseConfirm from "./components/WarehouseIn/AddWarehouseConfirm";
 import IndexPackageItem from './components/WarehouseIn/IndexWarehousePackageItem';
+import PrintLabel from './components/WarehouseIn/PrintLabel';
 
 import ImportPriceTemp from "./components/ImportExcel/ImportPriceTemp";
 
@@ -215,6 +216,11 @@ const router = new VueRouter({
             path: '/admin/warehouseIn/packageItem',
             name: 'warehouseIn.packageItem',
             component: IndexPackageItem
+        },
+        {
+            path: '/admin/warehouseIn/printLabel',
+            name: 'warehouseIn.packageItem.printLabel',
+            component: PrintLabel,
         },
 
         //Finance AP Replenish

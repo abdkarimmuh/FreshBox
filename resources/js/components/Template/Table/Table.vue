@@ -3,7 +3,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div v-bind:class="{ 'col-lg-7': config.daterange, 'col-lg-8' : config.action}">
+                    <div
+                        v-bind:class="{ 'col-lg-7': config.daterange, 'col-lg-8' : config.action || config.actionPrint}"
+                    >
                         <div class="row">
                             <h4 class="text-danger">{{ config.title }}</h4>
                             <router-link
@@ -39,7 +41,9 @@
                             >
                                 Generate Recap
                                 Invoice
-                                <i class="fas fa-print"></i>
+                                <i
+                                    class="fas fa-print"
+                                ></i>
                             </a>
 
                             <router-link
@@ -50,7 +54,9 @@
                             >
                                 Print All Invoice
                                 Invoice
-                                <i class="fas fa-print"></i>
+                                <i
+                                    class="fas fa-print"
+                                ></i>
                             </router-link>
 
                             <router-link
@@ -64,7 +70,7 @@
                             </router-link>
                         </div>
                     </div>
-                    <div class="card-header-action ml-0 mt-3 mb-3">
+                    <div class="card-header-action ml-auto mt-3 mb-3">
                         <div class="input-group" v-if="config.daterange">
                             <date-picker
                                 v-model="params.start"
@@ -82,6 +88,30 @@
                                 placeholder="End Date"
                                 format="YYYY-MM-DD"
                             ></date-picker>
+                            <input
+                                type="text"
+                                class="form-control ml-2"
+                                placeholder="Search"
+                                v-model="params.query"
+                            />
+                            <div class="input-group-btn ml-1">
+                                <button
+                                    class="btn btn-danger"
+                                    v-on:click="search"
+                                    :disabled="!loading"
+                                >
+                                    <i class="fas fa-search" v-if="loading"></i>
+                                    <span
+                                        class="spinner-border spinner-border-sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                        v-if="!loading"
+                                    ></span>
+                                    <span class="sr-only" v-if="!loading">Loading...</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-group" v-else-if="config.noStartEnd">
                             <input
                                 type="text"
                                 class="form-control ml-2"
@@ -162,7 +192,7 @@
                     <table class="table table-bordered" v-if="data.length" id="vuetable">
                         <tbody>
                             <tr>
-                                <th v-if="config.action">
+                                <th v-if="config.action || config.actionPrint">
                                     <div class="custom-checkbox custom-control">
                                         <input
                                             type="checkbox"
@@ -184,7 +214,7 @@
                             </tr>
                             <tr v-for="(item, index) in data">
                                 <!--CheckBox-->
-                                <td v-if="config.action">
+                                <td v-if="config.action || config.actionPrint">
                                     <div class="custom-checkbox custom-control">
                                         <input
                                             type="checkbox"

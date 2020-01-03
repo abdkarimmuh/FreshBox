@@ -106,7 +106,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         });
         Route::group(['prefix' => 'packageItem'], function () {
             Route::get('/', 'PackageItemAPIController@index');
-            Route::post('/store', 'PackageItemAPIController@store');
+            Route::get('/show', 'PackageItemAPIController@show');
+            Route::post('/print', 'PackageItemAPIController@print');
         });
     });
 

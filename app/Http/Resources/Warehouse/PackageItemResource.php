@@ -23,7 +23,7 @@ class PackageItemResource extends JsonResource
             'qty' => $this->qty,
             'uom_name' => $this->uom_name,
             'created_by_name' => $this->created_by_name,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
         ];
     }
 }

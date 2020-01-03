@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiV1\WarehouseIn;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Warehouse\PackageItemResource;
+use App\Http\Resources\Warehouse\PrintLabelResource;
 use App\Model\Marketing\SalesOrderDetail;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -28,7 +29,25 @@ class PackageItemAPIController extends Controller
         return PackageItemResource::collection($query);
     }
 
-    public function store(Request $request)
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function show(Request $request)
+    {
+        if (is_array($request->id)) {
+            $soDetail = SalesOrderDetail::whereIn('id', $request->id)->orderBy('created_at', 'desc')->get();
+            $print = PrintLabelResource::collection($soDetail);
+        } else {
+            $soDetail = SalesOrderDetail::findOrFail($request->id);
+            $print = new PrintLabelResource($soDetail);
+        }
+
+        return response()->json($print, 200);
+    }
+
+    public function print(Request $request)
     {
     }
 }
