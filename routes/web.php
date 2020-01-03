@@ -58,10 +58,6 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         Route::name('list_procurement.')->prefix('list_procurement')->group(function () {
             Route::get('/', 'Procurement\ListProcurementController@index')->name('index');
             Route::get('/{id}', 'Procurement\ListProcurementController@show')->name('show');
-            // Route::get('/create', 'Procurement\ListProcurementController@create')->name('create');
-            // Route::post('/create', 'Procurement\ListProcurementController@store')->name('store');
-            // Route::get('/{id}/edit', 'Procurement\ListProcurementController@edit')->name('edit');
-            // Route::patch('/edit', 'Procurement\ListProcurementController@update')->name('update');
             Route::get('/reject/{id}', 'Procurement\ListProcurementController@editReject')->name('editReject');
             Route::patch('/reject', 'Procurement\ListProcurementController@updateReject')->name('updateReject');
         });
@@ -72,18 +68,11 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
      */
     Route::name('warehouseIn.')->prefix('warehouseIn')->middleware('auth')->group(function () {
         Route::name('confirm.')->prefix('confirm')->group(function () {
-//            Route::get('/', 'DashboardController')->where('any', '.*');
-//            Route::get('/{any}', 'DashboardController')->where('any', '.*');
-//
             Route::get('/', 'WarehouseIn\ConfirmController@index')->name('index');
             Route::get('/create', 'WarehouseIn\ConfirmController@create')->name('create');
             Route::get('/show/{id}', 'WarehouseIn\ConfirmController@show')->name('show');
         });
         Route::name('packageItem.')->prefix('packageItem')->group(function () {
-            // Route::get('/', 'WarehouseIn\PackageItemController@index')->name('index');
-            // Route::get('/create', 'WarehouseIn\PackageItemController@create')->name('create');
-            // Route::get('/show/{id}', 'WarehouseIn\PackageItemController@show')->name('show');
-
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });

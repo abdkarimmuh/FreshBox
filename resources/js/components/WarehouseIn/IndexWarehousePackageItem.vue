@@ -12,11 +12,12 @@ export default {
         return {
             config: {
                 title: "Package Item",
-                action: true,
+                actionPrint: true,
+                noStartEnd: true,
                 base_url: this.$parent.MakeUrl(
                     "api/v1/warehouseIn/packageItem"
                 ),
-                route_multiple_print: "form_sales_order.multiplePrint"
+                route_multiple_print: "warehouseIn.packageItem.printLabel"
             },
             columns: [
                 {

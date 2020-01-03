@@ -9,6 +9,7 @@ use App\Model\Procurement\AssignProcurement;
 use App\Model\Procurement\ListProcurement;
 use App\Model\Procurement\ListProcurementDetail;
 use App\Model\WarehouseIn\Confirm;
+use App\UserProc;
 use Illuminate\Http\Request;
 
 class ListProcurementController extends Controller
@@ -45,7 +46,7 @@ class ListProcurementController extends Controller
             'route-action-return' => 'admin.procurement.list_procurement.editReject',
         ];
 
-        $query = ListProcurement::dataTableQuery($searchValue);
+        $query = ListProcurement::dataTableQuery($searchValue)->orderBy('created_at', 'desc');
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
@@ -194,6 +195,11 @@ class ListProcurementController extends Controller
 
         $listProcurement = ListProcurement::find($request->id);
         $confirm = Confirm::where('list_procurement_id', $listProcurement->id)->first();
+
+        $user_proc = UserProc::find($listProcurement->user_proc_id);
+        $saldo = $user_proc->saldo;
+        $user_proc->saldo = $saldo + $request->total_amount;
+        $user_proc->save();
 
         $listProcurement->total_amount = $request->total_amount;
         $listProcurement->status = 2;

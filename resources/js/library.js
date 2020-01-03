@@ -6,7 +6,7 @@ import DatePicker from 'vue2-datepicker';
 import iosAlertView from 'vue-ios-alertview';
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueHtmlToPaper from 'vue-html-to-paper';
-import {ModelListSelect} from 'vue-search-select';
+import { ModelListSelect } from 'vue-search-select';
 import 'vue-search-select/dist/VueSearchSelect.css'
 import 'sweetalert2/dist/sweetalert2.css';
 import 'sweetalert2/dist/sweetalert2.all.js';
@@ -20,7 +20,9 @@ const options = {
     ],
     styles: [
         bootstrap,
-        ''
+        '../../public/assets/css/style.css',
+        '../../public/assets/css/components.css',
+        '../../public/css/custom.css',
     ]
 };
 

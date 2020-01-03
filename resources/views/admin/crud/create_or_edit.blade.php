@@ -18,7 +18,7 @@
                             <input type="hidden" name="id" value="{{ $data['id'] }}">
                         @endisset
                         <div class="col-12">
-                            @if ($columns)
+                            @if (isset($columns))
                             <div class="row mt-4">
                                     @foreach ($columns as $item)
                                     @if ($item['field'] === 'remarks')

@@ -83,3 +83,14 @@ textarea.form-control {
     margin-top: 2px;
     margin-bottom: 2px;
 }
+
+page {
+    background: white;
+    display: block;
+    margin: 0 auto;
+}
+
+page[size="label"] {
+    width: 21.5cm;
+    height: 16.5cm;
+}

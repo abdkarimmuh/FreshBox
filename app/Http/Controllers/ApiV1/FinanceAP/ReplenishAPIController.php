@@ -102,7 +102,23 @@ class ReplenishAPIController extends Controller
      */
     public function replenish($id)
     {
-        Replenish::findOrFail($id)->update(['status' => 1]);
+        $replenish = Replenish::findOrFail($id);
+        $replenish->status = 1;
+
+        $listProcurement = ListProcurement::findOrFail($replenish->list_proc_id);
+        $listProcurement->status = 4;
+
+        $userProc = UserProc::find($replenish->created_by);
+        $saldo = $userProc->saldo + $listProcurement->total_amount;
+        $userProc->saldo = $saldo;
+
+        $confirm = Confirm::where('list_procurement_id', $listProcurement->id)->first();
+        $confirm->status = 3;
+
+        $listProcurement->save();
+        $replenish->save();
+        $userProc->save();
+        $confirm->save();
 
         return response()->json([
             'success' => true,
