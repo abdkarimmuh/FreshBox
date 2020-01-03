@@ -13,7 +13,6 @@
         "doctrine/dbal": "^2.9",
         "facade/ignition": "^1.4",
         "fideloper/proxy": "^4.0",
-        "jamesdordoy/laravelvuedatatable": "^1.1",
         "laravel/framework": "^6.0",
         "laravel/passport": "^7.4",
         "laravel/tinker": "^1.0",

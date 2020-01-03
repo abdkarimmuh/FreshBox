@@ -16,7 +16,7 @@ class User extends Authenticatable
     use HasRoles;
     use UserTrait;
     use HasApiTokens;
-    use \JamesDordoy\LaravelVueDatatable\Traits\LaravelVueDatatableTrait;
+    use SearchTraits;
 
     /**
      * The attributes that are mass assignable.
@@ -29,7 +29,7 @@ class User extends Authenticatable
 
     protected $appends = ['allPermissions', 'profilelink', 'avatarlink', 'isme','all_roles','is_procurement'];
 
-    protected $dataTableColumns = [
+    protected $columns = [
         'id' => [
             'searchable' => false,
         ],
