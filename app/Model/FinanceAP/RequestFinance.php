@@ -25,4 +25,28 @@ class RequestFinance extends MyModel
     {
         return $this->belongsTo(Warehouse::class, 'master_warehouse_id');
     }
+
+    public function detail()
+    {
+        return $this->hasMany(RequestFinanceDetail::class, 'request_finance_id', 'id');
+    }
+
+    public function getTotalAttribute()
+    {
+        $total = 0;
+        foreach ($this->detail as $detail) {
+            $total += $detail->total;
+        }
+        return $total;
+    }
+
+    public function scopeCash($q)
+    {
+        return $q->where('request_type', 1);
+    }
+
+    public function scopeAdvance($q)
+    {
+        return $q->where('request_type', 2);
+    }
 }

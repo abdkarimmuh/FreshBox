@@ -42,15 +42,15 @@
                                     <date-picker
                                         v-model="requestDate"
                                         lang="en"
-                                        type="datetime"
+                                        type="date"
                                         valueType="format"
                                         :not-before="new Date()"
                                         format="YYYY-MM-DD"
                                     />
                                 </div>
                                 <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                     v-if="errors.fulfillmentDate">
-                                    <p>{{ errors.fulfillmentDate[0] }}</p>
+                                     v-if="errors.requestDate">
+                                    <p>{{ errors.requestDate[0] }}</p>
                                 </div>
                             </div>
                         </div>
@@ -92,6 +92,7 @@
                                         option-value="value"
                                         option-text="name"
                                         placeholder="Select Product Type"
+                                        v-on:input="clearOrderDetails"
                                     />
                                     <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
                                          v-if="errors.productType">
@@ -117,8 +118,8 @@
                                         placeholder="Select Warehouse"
                                     />
                                     <div style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                         v-if="errors.address">
-                                        <p>{{ errors.address[0] }}</p>
+                                         v-if="errors.warehouse">
+                                        <p>{{ errors.warehouse[0] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +193,7 @@
                                         <th class="text-center">Qty</th>
                                         <th class="text-center">Unit</th>
                                         <th class="text-center" colspan="2">Harga + PPN</th>
-                                        <th class="text-center">Total</th>
+<!--                                        <th class="text-center">Total</th>-->
                                         <th class="text-center">Nama Suplier</th>
                                         <th class="text-center">Keterangan</th>
                                         <th class="text-center">Action</th>
@@ -244,13 +245,13 @@
                                                 class="form-control"
                                             />
                                         </td>
-                                        <td>
-                                            <input
-                                                v-model="item.total"
-                                                type="number"
-                                                class="form-control"
-                                            />
-                                        </td>
+<!--                                        <td>-->
+<!--                                            <input-->
+<!--                                                v-model="item.total"-->
+<!--                                                type="number"-->
+<!--                                                class="form-control"-->
+<!--                                            />-->
+<!--                                        </td>-->
                                         <td>
                                             <input
                                                 v-model="item.supplierName"
@@ -305,13 +306,13 @@
                                                 class="form-control"
                                             />
                                         </td>
-                                        <td>
-                                            <input
-                                                v-model="item.total"
-                                                type="number"
-                                                class="form-control"
-                                            />
-                                        </td>
+<!--                                        <td>-->
+<!--                                            <input-->
+<!--                                                v-model="item.total"-->
+<!--                                                type="number"-->
+<!--                                                class="form-control"-->
+<!--                                            />-->
+<!--                                        </td>-->
                                         <td>
                                             <input
                                                 v-model="item.supplierName"
@@ -409,10 +410,10 @@
         },
         methods: {
             async submitForm() {
-                // this.loadingSubmit = true;
+                this.loadingSubmit = true;
                 const payload = {
                     userId: this.userId,
-                    warehouseId: this.warehouseId,
+                    warehouse: this.warehouseId,
                     requestDate: this.requestDate,
                     productType: this.productType,
                     requestType: this.requestType,
@@ -423,7 +424,7 @@
                         qty: item.qty,
                         ppn: item.ppn,
                         price: item.price,
-                        total: item.total,
+                        // total: item.total,
                         supplierName: item.supplierName,
                         remark: item.remark,
                     }))
@@ -435,7 +436,7 @@
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        // this.$router.push({name: 'delivery_order.index'})
+                        this.$router.push({name: 'finance.requestFinance'})
                     });
                     console.log(res);
                 } catch (e) {
@@ -522,6 +523,9 @@
                     supplierName: '',
                     remark: ''
                 });
+            },
+            clearOrderDetails() {
+                this.orderDetails = [];
             },
             deleteRow(index) {
                 this.orderDetails.splice(index, 1);

@@ -152,6 +152,18 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/show/{id}', 'RequestFinanceController@show');
             Route::post('/', 'RequestFinanceController@store');
         });
+
+        Route::group(['prefix' => 'in-out-payment'], function () {
+            Route::get('/', 'InOutPaymentController@index');
+            Route::get('/show/{id}', 'InOutPaymentController@show');
+            Route::post('/', 'InOutPaymentController@store');
+        });
+
+        Route::group(['prefix' => 'petty-cash'], function () {
+            Route::get('/', 'PettyCashController@index');
+            Route::get('/show/{id}', 'PettyCashController@show');
+            Route::post('/', 'PettyCashController@store');
+        });
     });
 
     /*

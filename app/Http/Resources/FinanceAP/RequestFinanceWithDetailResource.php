@@ -5,7 +5,7 @@ namespace App\Http\Resources\FinanceAP;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Riskihajar\Terbilang\Facades\Terbilang;
 
-class RequestFinanceResource extends JsonResource
+class RequestFinanceWithDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -29,7 +29,8 @@ class RequestFinanceResource extends JsonResource
             'total' => $this->total,
             'terbilang' => Terbilang::make($this->total) . ' rupiah',
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
-            'created_by_name' => $this->created_by_name
+            'created_by_name' => $this->created_by_name,
+            'details' => RequestFinanceDetailResource::collection($this->detail)
         ];
     }
 }

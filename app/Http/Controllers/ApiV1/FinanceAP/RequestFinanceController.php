@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiV1\FinanceAP;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FinanceAP\RequestFinanceResource;
+use App\Http\Resources\FinanceAP\RequestFinanceWithDetailResource;
 use App\Model\FinanceAP\RequestFinance;
 use App\Model\FinanceAP\RequestFinanceDetail;
 use Carbon\Carbon;
@@ -31,7 +32,7 @@ class RequestFinanceController extends Controller
 
     public function show($id)
     {
-        return RequestFinance::find($id);
+        return new RequestFinanceWithDetailResource(RequestFinance::find($id));
     }
 
     public function create()
@@ -43,10 +44,11 @@ class RequestFinanceController extends Controller
     {
         $rules = [
             'userId' => 'required',
-            'warehouseId' => 'required',
+            'warehouse' => 'required',
             'requestDate' => 'required',
             'requestType' => 'required',
             'productType' => 'required',
+            'orderDetails' => 'required'
         ];
         $request->validate($rules);
 
@@ -54,7 +56,7 @@ class RequestFinanceController extends Controller
         $data = [
             'no_request' => $noRequest,
             'user_id' => $request->userId,
-            'master_warehouse_id' => $request->warehouseId,
+            'master_warehouse_id' => $request->warehouse,
             'request_date' => $request->requestDate,
             'request_type' => $request->requestType,
             'product_type' => $request->productType,
@@ -72,7 +74,7 @@ class RequestFinanceController extends Controller
                 'unit' => $detail['unit'],
                 'price' => $detail['price'],
                 'ppn' => $detail['ppn'],
-                'total' => $detail['total'],
+                'total' => $detail['price'] * $detail['qty'] + $detail['ppn'],
                 'supplier_name' => $detail['supplierName'],
                 'remarks' => $detail['remark'],
             ];
@@ -89,5 +91,15 @@ class RequestFinanceController extends Controller
         return ($cutString + 1) . '/GF-FB';
     }
 
+    public function confirm(Request $request)
+    {
+        $rules = [
+            'confirmDate' => 'required',
+            'orderDetails' => 'required'
+        ];
+        $request->validate($rules);
 
+
+    }
 }
+
