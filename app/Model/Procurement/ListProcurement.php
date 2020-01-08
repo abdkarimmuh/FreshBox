@@ -98,6 +98,8 @@ class ListProcurement extends MyModel
             return '<span class="badge badge-secondary">Action Return Item</span>';
         } elseif ($this->status == 7) {
             return '<span class="badge badge-secondary">Action Return Fund</span>';
+        } elseif ($this->status == 8) {
+            return '<span class="badge badge-secondary">Action Return Replenish</span>';
         } else {
             return 'Status NotFound';
         }

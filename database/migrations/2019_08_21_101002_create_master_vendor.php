@@ -8,8 +8,6 @@ class CreateMasterVendor extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -21,12 +19,14 @@ class CreateMasterVendor extends Migration
             $table->string('tlp_pic', 20);
             $table->string('bank_account');
             $table->unsignedBigInteger('bank_id');
+            $table->float('ppn')->default(0);
+            $table->float('pph')->default(0);
             $table->string('remarks')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('category_id')->on('master_category')->references('id')->onDelete('cascade');
             $table->foreign('bank_id')->on('master_bank')->references('id')->onDelete('cascade');
-            $table->index(['name','pic_vendor']);
+            $table->index(['name', 'pic_vendor']);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,8 +34,6 @@ class CreateMasterVendor extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

@@ -251,7 +251,7 @@
                                     <button
                                         @click="replenish(item.id)"
                                         class="badge badge-warning"
-                                        v-if="config.route_replenish && item.status === 2"
+                                        v-if="config.route_replenish && item.status === 3"
                                     >Replenish</button>
                                 </td>
                                 <td v-for="column in columns">

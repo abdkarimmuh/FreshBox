@@ -19,7 +19,7 @@ class PackageItemAPIController extends Controller
     {
         $searchValue = $request->input('query');
         $perPage = $request->perPage;
-        $query = SalesOrderDetail::dataTableQuery($searchValue);
+        $query = SalesOrderDetail::dataTableQuery($searchValue)->where('status', '>', '3');
         if ($searchValue) {
             $query = $query->take(20)->paginate(20);
         } else {

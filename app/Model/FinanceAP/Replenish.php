@@ -56,6 +56,8 @@ class Replenish extends MyModel
             return '<span class="badge badge-success">Replenish</span>';
         } elseif ($this->status === 2) {
             return '<span class="badge badge-danger">Return Replenish</span>';
+        } elseif ($this->status === 3) {
+            return '<span class="badge badge-warning">Update Document</span>';
         } else {
             return 'Status NotFound';
         }

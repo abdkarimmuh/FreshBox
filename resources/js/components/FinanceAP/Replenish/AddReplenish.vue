@@ -115,7 +115,7 @@
                                 <th class="text-center">Item Name</th>
                                 <th class="text-center">Qty</th>
                                 <th class="text-center">UOM</th>
-                                <th class="text-center">Amount</th>
+                                <th class="text-center">Confirmed Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -136,7 +136,7 @@
                                 <td
                                     class="text-center"
                                     style="overflow:hidden; white-space:nowrap"
-                                >{{ item.amount }}</td>
+                                >{{ item.confirm_date }}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -10,7 +10,9 @@ use App\Model\WarehouseIn\Confirm;
 use App\UserProc;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ReplenishAPIController extends Controller
 {
@@ -87,6 +89,48 @@ class ReplenishAPIController extends Controller
         }
 
         ListProcurement::findOrFail($data['list_proc_id'])->update(['status' => $status]);
+
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
+    /**
+     *Insert the replenish data.
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function returnReplenish(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'file' => 'required',
+        ]);
+
+        $listProcurement = ListProcurement::find($request->id);
+        $listProcurement->status = 8;
+
+        $fileName = $listProcurement->file;
+        $procNo = $listProcurement->procurement_no;
+
+        if ($request->file) {
+            $file = $request->file;
+            @list($type, $file_data) = explode(';', $file);
+            @list(, $file_data) = explode(',', $file_data);
+            $file_name = $procNo.'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->delete('public/files/procurement/'.$fileName);
+            Storage::disk('local')->put('public/files/procurement/'.$file_name, base64_decode($file_data), 'public');
+        } else {
+            $file_name = '';
+        }
+
+        $listProcurement->save();
+
+        $replenish = Replenish::where('list_proc_id', $listProcurement->id)->first();
+        $replenish->status = 3;
+        $replenish->save();
 
         return response()->json([
             'success' => true,

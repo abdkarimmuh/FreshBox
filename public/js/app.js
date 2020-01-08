@@ -57431,7 +57431,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("th", { staticClass: "text-center" }, [
-                                _vm._v("Amount")
+                                _vm._v("Confirmed Date")
                               ])
                             ])
                           ]),
@@ -57488,7 +57488,7 @@ var render = function() {
                                       "white-space": "nowrap"
                                     }
                                   },
-                                  [_vm._v(_vm._s(item.amount))]
+                                  [_vm._v(_vm._s(item.confirm_date))]
                                 )
                               ])
                             }),
@@ -63969,7 +63969,7 @@ var render = function() {
                                             : _vm._e(),
                                           _vm._v(" "),
                                           _vm.config.route_replenish &&
-                                          item.status === 2
+                                          item.status === 3
                                             ? _c(
                                                 "button",
                                                 {

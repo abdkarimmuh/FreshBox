@@ -113,7 +113,9 @@ class ConfirmItemsAPIController extends Controller
                 $listProcurementDetail = ListProcurementDetail::find($item['id']);
                 $assignListProcurementDetail = AssignListProcurementDetail::where('list_procurement_detail_id', $listProcurementDetail->id)->first();
                 $assignProcurement = AssignProcurement::find($assignListProcurementDetail['assign_id']);
-                SalesOrderDetail::find($assignProcurement['sales_order_detail_id'])->update(['status' => 4]);
+                $salesOrderDetail = SalesOrderDetail::find($assignProcurement['sales_order_detail_id']);
+                $salesOrderDetail->status = 4;
+                $salesOrderDetail->save();
 
                 $this->insertInventory($item['id'], $item['netto']);
             }
