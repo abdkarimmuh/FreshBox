@@ -8,8 +8,6 @@ class CreateMasterItem extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -17,6 +15,7 @@ class CreateMasterItem extends Migration
             $table->bigIncrements('id');
             $table->integer('skuid');
             $table->string('name_item');
+            $table->string('name_item_b2c')->nullable();
             $table->string('name_item_latin')->nullable();
             $table->string('description')->nullable();
             $table->string('is_trf_item')->nullable();
@@ -28,7 +27,7 @@ class CreateMasterItem extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
-            $table->index(['skuid','name_item','tax']);
+            $table->index(['skuid', 'name_item', 'tax']);
 
             $table->foreign('category_id')->on('master_category')->references('id')->onDelete('cascade');
             $table->foreign('uom_id')->on('master_uom')->references('id')->onDelete('cascade');
@@ -38,8 +37,6 @@ class CreateMasterItem extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
