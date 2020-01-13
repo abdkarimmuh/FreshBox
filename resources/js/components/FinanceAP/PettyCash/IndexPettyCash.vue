@@ -19,35 +19,32 @@
                 },
                 columns: [
                     {
-                        title: "No Request",
-                        field: "no_request",
+                        title: "Status",
+                        field: "status",
+                        filterable: true,
+                        type: "html"
+                    },
+                    {
+                        title: "Vendor Name",
+                        field: "vendor_name",
                         filterable: true
                     },
                     {
-                        title: "Request Date",
-                        field: "request_date",
-                        filterable: true
-                    },
-                    {
-                        title: "User Name",
-                        field: "user_name",
+                        title: "Amount",
+                        field: "amount",
                         filterable: false
                     },
                     {
-                        title: "Shipping Address",
-                        field: "shipping_address",
+                        title: "Type Transaction",
+                        field: "type_transaction",
                         filterable: true
                     },
                     {
-                        title: "Dept",
-                        field: "dept",
+                        title: "No Trx",
+                        field: "no_trx",
                         filterable: true
                     },
-                    {
-                        title: 'Status',
-                        field: 'status_name',
-                        type: 'html',
-                    },
+
                     {
                         title: "Created At",
                         field: "created_at",

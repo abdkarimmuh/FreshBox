@@ -4302,29 +4302,26 @@ __webpack_require__.r(__webpack_exports__);
 
       },
       columns: [{
-        title: "No Request",
-        field: "no_request",
+        title: "Status",
+        field: "status",
+        filterable: true,
+        type: "html"
+      }, {
+        title: "Vendor Name",
+        field: "vendor_name",
         filterable: true
       }, {
-        title: "Request Date",
-        field: "request_date",
-        filterable: true
-      }, {
-        title: "User Name",
-        field: "user_name",
+        title: "Amount",
+        field: "amount",
         filterable: false
       }, {
-        title: "Shipping Address",
-        field: "shipping_address",
+        title: "Type Transaction",
+        field: "type_transaction",
         filterable: true
       }, {
-        title: "Dept",
-        field: "dept",
+        title: "No Trx",
+        field: "no_trx",
         filterable: true
-      }, {
-        title: 'Status',
-        field: 'status_name',
-        type: 'html'
       }, {
         title: "Created At",
         field: "created_at",
@@ -96643,8 +96640,13 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 __webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
+=======
+__webpack_require__(/*! C:\laragon\www\FreshBox\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
+>>>>>>> 2a8dc6fd822f1a3fe62a5cedf1ba91fec41d7ed5
 
 
 /***/ })
