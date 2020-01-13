@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Procurement\ListProcurementHasItemsResource;
 use App\Http\Resources\Procurement\ListProcurementResource;
 use App\Model\Marketing\SalesOrderDetail;
+use App\Model\MasterData\Vendor;
 use App\Model\Procurement\AssignListProcurementDetail;
 use App\Model\Procurement\AssignProcurement;
 use App\Model\Procurement\AssignSalesOrderDetail;
@@ -331,6 +332,7 @@ class ProcurementAPIController extends Controller
             'user_id' => $user->id,
             'bank_account' => $request->bank_account,
             'bank_id' => $request->bank,
+            'saldo' => 5000000,
             'origin_id' => $request->origin,
             'category_id' => $request->category,
             'created_by' => auth('api')->user()->id,
@@ -339,6 +341,16 @@ class ProcurementAPIController extends Controller
         if ($role) {
             $user->assignRole($role);
         }
+
+        Vendor::create([
+            'name' => '[Procurement] '.$request->name,
+            'category_id' => $request->category,
+            'pic_vendor' => $request->name,
+            'tlp_pic' => '0',
+            'bank_account' => $request->bank_account,
+            'bank_id' => $request->bank,
+            'created_by' => auth('api')->user()->id,
+        ]);
 
         return response()->json($procurement);
     }

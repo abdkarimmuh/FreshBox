@@ -7924,22 +7924,88 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      name: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
-      bank: '',
-      bank_account: '',
-      category: '',
-      origin: '',
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+      bank: "",
+      bank_account: "",
+      category: "",
+      origin: "",
       errors: [],
       banks: [],
       categories: [],
       origins: [],
-      message: '',
+      message: "",
       loading: false
     };
   },
@@ -7950,7 +8016,7 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this2 = this;
 
-      axios.all([axios.get(this.$parent.MakeUrl('api/v1/master_data/bank')), axios.get(this.$parent.MakeUrl('api/v1/master_data/category')), axios.get(this.$parent.MakeUrl('api/v1/master_data/origin'))]).then(axios.spread(function (bank, category, origin) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/bank")), axios.get(this.$parent.MakeUrl("api/v1/master_data/category")), axios.get(this.$parent.MakeUrl("api/v1/master_data/origin"))]).then(axios.spread(function (bank, category, origin) {
         _this2.banks = bank.data;
         _this2.categories = category.data;
         _this2.origins = origin.data;
@@ -7960,25 +8026,26 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       _this.errors = [];
-      _this.message = '';
+      _this.message = "";
       _this.loading = true;
-      axios.post(this.$parent.MakeUrl('api/v1/users/proc/procurement/storeUser'), {
-        'name': this.name,
-        'role': this.role,
-        'email': this.email,
-        'current_password': this.current_password,
-        'password': this.password,
-        'password_confirmation': this.password_confirmation,
-        'bank_account': _this.bank_account,
-        'bank': _this.bank,
-        'category': _this.category,
-        'origin': _this.origin
+      axios.post(this.$parent.MakeUrl("api/v1/users/proc/procurement/storeUser"), {
+        name: this.name,
+        role: this.role,
+        email: this.email,
+        current_password: this.current_password,
+        password: this.password,
+        password_confirmation: this.password_confirmation,
+        bank_account: _this.bank_account,
+        bank: _this.bank,
+        category: _this.category,
+        origin: _this.origin
       }).then(function (res) {
         _this.loading = false;
 
         _this.resetForm();
 
-        _this.message = 'User account has been successfully created!';
+        _this.message = "User account has been successfully created!";
+        window.location.href = "/admin/procurement/user_procurement";
       })["catch"](function (err) {
         _this.errors = err.response.data.errors;
         _this.loading = false;
@@ -7986,14 +8053,14 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     resetForm: function resetForm() {
-      this.name = '';
-      this.email = '';
-      this.password = '';
-      this.bank = '';
-      this.bank_account = '';
-      this.origin = '';
-      this.category = '';
-      this.password_confirmation = '';
+      this.name = "";
+      this.email = "";
+      this.password = "";
+      this.bank = "";
+      this.bank_account = "";
+      this.origin = "";
+      this.category = "";
+      this.password_confirmation = "";
     }
   }
 });
@@ -61896,7 +61963,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _vm.message
         ? _c("div", { staticClass: "alert alert-primary" }, [
-            _vm._v("\n            " + _vm._s(_vm.message) + "\n        ")
+            _vm._v(_vm._s(_vm.message))
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -62131,10 +62198,7 @@ var render = function() {
                 },
                 _vm._l(_vm.origins, function(origin) {
                   return _c("option", { domProps: { value: origin.id } }, [
-                    _vm._v(
-                      _vm._s(origin.description) +
-                        "\n                            "
-                    )
+                    _vm._v(_vm._s(origin.description))
                   ])
                 }),
                 0
@@ -62143,6 +62207,62 @@ var render = function() {
               _vm.errors.origin
                 ? _c("div", { staticClass: "invalid-feedback" }, [
                     _c("p", [_vm._v(_vm._s(_vm.errors.origin[0]))])
+                  ])
+                : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row mb-4" }, [
+            _c(
+              "label",
+              {
+                staticClass:
+                  "col-form-label text-md-right col-12 col-md-3 col-lg-3"
+              },
+              [_vm._v("Category")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12 col-md-7" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.category,
+                      expression: "category"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: { "is-invalid": _vm.errors.category },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.category = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(_vm.categories, function(category) {
+                  return _c("option", { domProps: { value: category.id } }, [
+                    _vm._v(_vm._s(category.name))
+                  ])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _vm.errors.category
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _c("p", [_vm._v(_vm._s(_vm.errors.category[0]))])
                   ])
                 : _vm._e()
             ])
@@ -62252,7 +62372,7 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-primary",
+                  staticClass: "btn btn-danger",
                   attrs: { disabled: _vm.loading },
                   on: { click: _vm.addUser }
                 },
@@ -62275,7 +62395,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h4", [_vm._v("Add a New User Proc")])
+      _c("h4", { staticClass: "text-danger" }, [_vm._v("Add a New User Proc")])
     ])
   }
 ]

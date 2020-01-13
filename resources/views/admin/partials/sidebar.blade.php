@@ -16,7 +16,7 @@
         <li class="dropdown {{ request()->segment(2) == 'marketing' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
             <ul class="dropdown-menu">
-                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
+                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' && request()->segment(2) != 'warehouseIn')
                     <router-link :to="{ name: 'form_sales_order'}" v-slot="{ href, navigate, isActive }">
                         <li :class="[isActive && 'active']">
                             <a class="nav-link" :href="href" @click="navigate">Form Sales Order</a>
@@ -50,27 +50,30 @@
         <li class="dropdown {{ request()->segment(2) == 'warehouseIn' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-warehouse"></i><span>Warehouse In</span></a>
             <ul class="dropdown-menu">
-                {{-- <router-link :to="{ name: 'warehouseIn.confirm'}" v-slot="{ href, navigate, isActive }">
-                    <li :class="[isActive && 'active']">
-                        <a class="nav-link" :href="href" @click="navigate">Confirm Incoming Items</a>
-                    </li>
-                </router-link> --}}
                 <li class="{{ request()->route()->getName() == 'admin.warehouseIn.confirm.index' ? ' active' : '' }}">
                     <a class="nav-link"
                        href="{{route('admin.warehouseIn.confirm.index')}}"><span>Confirm Incoming Items</span></a>
                 </li>
-                <router-link :to="{ name: 'warehouseIn.packageItem' }" v-slot="{ href, navigate, isActive }">
-                    <li :class="[isActive && 'active']">
-                        <a class="nav-link" :href="href" @click="navigate">Package Item</a>
+                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' && request()->segment(2) != 'warehouseIn')
+                    <router-link :to="{ name: 'warehouseIn.packageItem' }" v-slot="{ href, navigate, isActive }">
+                        <li :class="[isActive && 'active']">
+                            <a class="nav-link" :href="href" @click="navigate">Package Item</a>
+                        </li>
+                    </router-link>
+                @else
+                    <li class="{{ request()->segment(3) == 'packageItem' ? ' active' : '' }}">
+                        <a class="nav-link"
+                           href="{{url('admin/warehouseIn/packageItem')}}"><span>Package Item</span></a>
                     </li>
-                </router-link>
+                @endif
+
             </ul>
         </li>
         {{--Warehous Out--}}
         <li class="dropdown {{ request()->segment(2) == 'warehouse' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-truck"></i><span>Warehouse Out</span></a>
             <ul class="dropdown-menu">
-                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
+                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' && request()->segment(2) != 'warehouseIn')
                     <router-link :to="{ name: 'delivery_order.index'}" v-slot="{ href, navigate, isActive }">
                         <li :class="[isActive && 'active']">
                             <a class="nav-link" :href="href" @click="navigate">Form Delivery Order</a>
@@ -105,12 +108,12 @@
                 </li>
                 <li class="{{ request()->segment(3) == 'request-finance' ? ' active' : '' }}">
                     <a href="{{ url('admin/finance-ap/request-finance') }}"
-                       class="nav-link"><span>Request Finance</span></a>
-                </li>
-                <li class="{{ request()->segment(3) == 'request-cash-advance' ? ' active' : '' }}">
-                    <a href="{{ url('admin/finance-ap/request-cash-advance') }}"
                        class="nav-link"><span>Request Cash Advance</span></a>
                 </li>
+                {{-- <li class="{{ request()->segment(3) == 'request-cash-advance' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance-ap/request-cash-advance') }}"
+                       class="nav-link"><span>Request Cash Advance</span></a>
+                </li> --}}
                 <li class="{{ request()->segment(3) == 'settlement-cash-advance' ? ' active' : '' }}">
                     <a href="{{ url('admin/finance-ap/settlement-cash-advance') }}"
                        class="nav-link"><span>Settlement Cash Advance</span></a>
@@ -129,7 +132,7 @@
         <li class="dropdown {{ request()->segment(2) == 'finance' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-chart-line"></i><span>Finance AR</span></a>
             <ul class="dropdown-menu">
-                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' )
+                @if(request()->segment(2) != 'master_data' && request()->segment(2) != 'procurement' && request()->segment(2) != 'report' && request()->segment(2) != 'warehouseIn')
                     <router-link :to="{ name: 'invoice_order'}" v-slot="{ href, navigate, isActive }">
                         <li :class="[isActive && 'active']">
                             <a class="nav-link" :href="href" @click="navigate">Form Invoice Order</a>
@@ -154,6 +157,14 @@
                     <li class="{{ request()->segment(3) == 'invoice_order' ? ' active' : '' }}">
                         <a href="{{ url('admin/finance/invoice-order') }}"
                            class="nav-link"><span>Form Invoice Order</span></a>
+                    </li>
+                    <li class="{{ request()->segment(3) == 'invoice_order.recap' ? ' active' : '' }}">
+                        <a href="{{ url('admin/finance/recap-invoice') }}"
+                        class="nav-link"><span>Recap Invoice</span></a>
+                    </li>
+                    <li class="{{ request()->segment(3) == 'submitRecap' ? ' active' : '' }}">
+                        <a href="{{ url('admin/finance/submitted-recap') }}"
+                        class="nav-link"><span>Submitted Recap Invoice</span></a>
                     </li>
                     <li class="{{ request()->segment(3) == 'paid-recap' ? ' active' : '' }}">
                         <a href="{{ url('admin/finance/paid-recap') }}"
@@ -194,19 +205,16 @@
                         <a class="nav-link" href="{{ route('admin.master_data.customer_type.index') }}"><span>Customer Type</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.inventory.index' ? ' active' : '' }}">
-                        <a class="nav-link"
-                           href="{{ route('admin.master_data.inventory.index') }}"><span>Inventory</span></a>
+                        <a class="nav-link" href="{{ route('admin.master_data.inventory.index') }}"><span>Inventory</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.item.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.item.index') }}"><span>Item</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.modules.index' ? ' active' : '' }}">
-                        <a class="nav-link"
-                           href="{{ route('admin.master_data.modules.index') }}"><span>Modules</span></a>
+                        <a class="nav-link" href="{{ route('admin.master_data.modules.index') }}"><span>Modules</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.officer.index' ? ' active' : '' }}">
-                        <a class="nav-link"
-                           href="{{ route('admin.master_data.officer.index') }}"><span>Officer</span></a>
+                        <a class="nav-link" href="{{ route('admin.master_data.officer.index') }}"><span>Officer</span></a>
                     </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.origin.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.origin.index') }}"><span>Origin</span></a>

@@ -13,11 +13,27 @@ class Vendor extends MyModel
 
     protected $table = 'master_vendor';
 
+    protected $fillable = [
+        'name',
+        'category_id',
+        'pic_vendor',
+        'tlp_pic',
+        'bank_account',
+        'bank_id',
+        'ppn',
+        'pph',
+        'remarks',
+        'created_by',
+        'updated_by',
+        'created_at',
+        'updated_at',
+    ];
+
     protected $appends = [
         'created_by_name',
         'updated_by_name',
         'category_name',
-        'bank_name'
+        'bank_name',
     ];
 
     protected $columns = [
@@ -33,13 +49,13 @@ class Vendor extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'Category',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'bank_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'Bank',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'created_at' => [
             'searchable' => true,
@@ -49,14 +65,14 @@ class Vendor extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'create_by',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'updated_by_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'update_by',
-            'relation_field' => 'name'
-        ]
+            'relation_field' => 'name',
+        ],
     ];
 
     public function Category()
