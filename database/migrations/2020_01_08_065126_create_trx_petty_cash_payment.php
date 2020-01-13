@@ -16,7 +16,7 @@ class CreateTrxPettyCashPayment extends Migration
             $table->tinyInteger('status')->default(0);
             $table->unsignedBigInteger('vendor_id');
             $table->bigInteger('amount')->default(0);
-            $table->tinyInteger('type_transcation')->default(0);
+            $table->tinyInteger('type_transaction')->default(0);
             $table->string('no_trx');
             $table->timestamps();
         });
