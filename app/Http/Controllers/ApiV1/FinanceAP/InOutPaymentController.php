@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\ApiV1\FinanceAP;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FinanceAp\InOutPaymentResource;
 use App\Http\Resources\FinanceAP\RequestFinanceResource;
+use App\Model\FinanceAp\InOutPayment;
 use App\Model\FinanceAP\RequestFinance;
 use Illuminate\Http\Request;
 
@@ -13,16 +15,13 @@ class InOutPaymentController extends Controller
     {
         $searchValue = $request->input('query');
         $perPage = $request->perPage;
-        $query = RequestFinance::dataTableQuery($searchValue)->Advance();
-        if ($request->start && $request->end) {
-            $query->whereBetween('no_request', [$request->start, $request->end]);
-        }
+        $query = InOutPayment::dataTableQuery($searchValue);
         if ($searchValue) {
-            $query = $query->orderBy('no_request', 'desc')->take(20)->paginate(20);
+            $query = $query->take(20)->paginate(20);
         } else {
-            $query = $query->orderBy('no_request', 'desc')->paginate($perPage);
+            $query = $query->paginate($perPage);
         }
 
-        return RequestFinanceResource::collection($query);
+        return InOutPaymentResource::collection($query);
     }
 }

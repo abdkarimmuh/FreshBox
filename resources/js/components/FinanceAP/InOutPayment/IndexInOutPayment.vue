@@ -19,34 +19,25 @@
                 },
                 columns: [
                     {
-                        title: "No Request",
-                        field: "no_request",
+                        title: "Status",
+                        field: "status",
+                        filterable: true,
+                        type: 'html'
+                    },
+                    {
+                        title: "Nama Vendor",
+                        field: "vendor_name",
                         filterable: true
                     },
                     {
-                        title: "Request Date",
-                        field: "request_date",
-                        filterable: true
-                    },
-                    {
-                        title: "User Name",
-                        field: "user_name",
+                        title: "Jumlah",
+                        field: "amount",
                         filterable: false
                     },
                     {
-                        title: "Shipping Address",
-                        field: "shipping_address",
+                        title: "Tipe Transaksi",
+                        field: "type_transaction",
                         filterable: true
-                    },
-                    {
-                        title: "Dept",
-                        field: "dept",
-                        filterable: true
-                    },
-                    {
-                        title: 'Status',
-                        field: 'status_name',
-                        type: 'html',
                     },
                     {
                         title: "Created At",
