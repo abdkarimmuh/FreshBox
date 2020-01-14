@@ -52,7 +52,9 @@ class PriceController extends Controller
         ];
 
         $month = Carbon::now()->subMonth(2)->format('y-m-d');
-        $query = Price::where('start_periode', '>', $month)->dataTableQuery($searchValue);
+        $now = Carbon::now()->format('y-m-d');
+
+        $query = Price::where('end_periode', '>', $now)->where('start_periode', '>', $month)->dataTableQuery($searchValue);
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
