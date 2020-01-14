@@ -5297,7 +5297,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       requestDate: '',
       users: [],
       userId: '',
-      user: '',
+      user: {},
       items: [],
       itemId: '',
       orderDetails: [],

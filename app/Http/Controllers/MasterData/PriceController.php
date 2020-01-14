@@ -8,6 +8,7 @@ use App\Model\MasterData\Uom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\MasterData\Price;
+use Carbon\Carbon;
 
 class PriceController extends Controller
 {
@@ -50,11 +51,11 @@ class PriceController extends Controller
             'route-upload' => 'admin/import/price',
         ];
 
-        // $query = Price::dataTableQuery($searchValue);
-        // $data = $query->paginate(10);
+        $month = Carbon::now()->subMonth(2)->format('y-m-d');
+        $query = Price::where('start_periode', '>', $month)->dataTableQuery($searchValue);
+        $data = $query->paginate(10);
 
-        // return view('admin.crud.index', compact('columns', 'data', 'config'));
-        return view('admin.crud.index', compact('columns', 'config'));
+        return view('admin.crud.index', compact('columns', 'data', 'config'));
     }
 
     /**

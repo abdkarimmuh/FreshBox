@@ -396,7 +396,7 @@
                 requestDate: '',
                 users: [],
                 userId: '',
-                user: '',
+                user: {},
                 items: [],
                 itemId: '',
                 orderDetails: [],
