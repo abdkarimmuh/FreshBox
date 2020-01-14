@@ -94166,13 +94166,8 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-__webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
-=======
 __webpack_require__(/*! /var/www/html/FreshBox/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /var/www/html/FreshBox/resources/sass/custom.scss */"./resources/sass/custom.scss");
->>>>>>> 73fdfe51022c87d34ee655ec39287bc2627203b6
 
 
 /***/ })
