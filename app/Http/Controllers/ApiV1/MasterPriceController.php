@@ -28,9 +28,13 @@ class MasterPriceController extends Controller
     {
         $searchValue = $request->input('query');
         $perPage = $request->perPage;
-        $query = Price::dataTableQuery($searchValue);
+
+        $month = Carbon::now()->subMonth(2)->format('y-m-d');
+        $now = Carbon::now()->format('y-m-d');
+
+        $query = Price::where('end_periode', '>', $now)->where('start_periode', '>', $month)->dataTableQuery($searchValue);
         if ($searchValue) {
-            $query = $query->take(20)->paginate(20);
+            $query = $query->take(10)->paginate(10);
         } else {
             $query = $query->paginate($perPage);
         }
