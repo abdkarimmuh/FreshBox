@@ -12,7 +12,7 @@ class InOutPayment extends MyModel
 {
     use SearchTraits;
     protected $table = 'trx_in_out_payment';
-    protected $fillable = ['status', 'vendor_id', 'amount', 'type_transaction','created_at', 'update_at' ];
+    protected $fillable = ['status', 'vendor_id', 'amount', 'type_transaction', 'created_at', 'update_at'];
     protected $appends = ['status_html'];
 
     protected $columns = [
@@ -38,12 +38,7 @@ class InOutPayment extends MyModel
             'searchable' => true,
             'search_relation' => false,
         ],
-        'created_by_name' => [
-            'searchable' => true,
-            'search_relation' => true,
-            'relation_name' => 'create_by',
-            'relation_field' => 'name',
-        ],
+
     ];
 
     public function vendor()
@@ -54,11 +49,9 @@ class InOutPayment extends MyModel
     public function getStatusHtmlAttribute()
     {
         if ($this->status === 1) {
-            return '<span class="badge badge-success">Replenish</span>';
+            return '<span class="badge badge-danger">OUT</span>';
         } elseif ($this->status === 2) {
-            return '<span class="badge badge-danger">Return Replenish</span>';
-        } elseif ($this->status === 3) {
-            return '<span class="badge badge-warning">Update Document</span>';
+            return '<span class="badge badge-success">IN</span>';
         } else {
             return 'Status NotFound';
         }
@@ -68,5 +61,4 @@ class InOutPayment extends MyModel
     {
         return $this->columns;
     }
-
 }

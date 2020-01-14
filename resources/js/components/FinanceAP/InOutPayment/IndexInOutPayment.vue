@@ -14,13 +14,13 @@
                     title: "In/Out Payment",
                     action: true,
                     base_url: this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment"),
-                    route_view: "finance.requestFinance.show",
+                    route_view: "finance.inOutPayment.show",
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },
                 columns: [
                     {
                         title: "Status",
-                        field: "status",
+                        field: "status_name",
                         filterable: true,
                         type: 'html'
                     },
@@ -35,20 +35,11 @@
                         filterable: false
                     },
                     {
-                        title: "Tipe Transaksi",
-                        field: "type_transaction",
-                        filterable: true
-                    },
-                    {
                         title: "Created At",
                         field: "created_at",
                         filterable: true
                     },
-                    {
-                        title: "Created By",
-                        field: "created_by_name",
-                        filterable: true
-                    }
+
                 ],
                 error: {
                     code: 403,

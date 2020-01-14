@@ -49,6 +49,7 @@ import ConfirmRequestFinance from './components/FinanceAP/RequestAdvance/Confirm
 
 import PettyCash from './components/FinanceAP/PettyCash/IndexPettyCash';
 import InOutPayment from './components/FinanceAP/InOutPayment/IndexInOutPayment';
+import PrintInOutPayment from './components/FinanceAP/InOutPayment/PrintInOutPayment';
 
 Vue.component('import-price-temp', ImportPriceTemp);
 Vue.use(VueRouter);
@@ -259,6 +260,11 @@ const router = new VueRouter({
             path: '/admin/finance-ap/in-out-payment',
             name: 'finance.inOutPayment',
             component: InOutPayment
+        },
+        {
+            path: '/admin/finance-ap/in-out-payment/show/:id', 
+            name: 'finance.inOutPayment.show',
+            component: PrintInOutPayment
         },
         {
             path: '/admin/finance-ap/petty-cash',

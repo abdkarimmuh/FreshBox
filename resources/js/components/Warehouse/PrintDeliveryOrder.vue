@@ -137,6 +137,7 @@
                         this.delivery_order = res.data.data;
                         this.details = res.data.data.do_details;
                         this.loading = true;
+                        console.log(this.delivery_order)
                     })
                     .catch(err => {
                         if (err.response.status === 500) {
