@@ -24,7 +24,7 @@
                             >Export Excel</a>
 
                             <a
-                                href="config.route_add"
+                                :href="config.route_add"
                                 v-if="config.route_add"
                                 class="btn btn-danger ml-2"
                             >
@@ -33,7 +33,7 @@
                             </a>
 
                             <a
-                                href="config.route_upload"
+                                :href="config.route_upload"
                                 v-if="config.route_upload"
                                 class="btn btn-success ml-2"
                             >

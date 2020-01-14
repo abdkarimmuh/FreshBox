@@ -63984,7 +63984,7 @@ var render = function() {
                         "a",
                         {
                           staticClass: "btn btn-danger ml-2",
-                          attrs: { href: "config.route_add" }
+                          attrs: { href: _vm.config.route_add }
                         },
                         [
                           _vm._v(
@@ -64000,7 +64000,7 @@ var render = function() {
                         "a",
                         {
                           staticClass: "btn btn-success ml-2",
-                          attrs: { href: "config.route_upload" }
+                          attrs: { href: _vm.config.route_upload }
                         },
                         [
                           _vm._v(
