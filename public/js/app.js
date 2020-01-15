@@ -4315,22 +4315,15 @@ __webpack_require__.r(__webpack_exports__);
         field: "amount",
         filterable: false
       }, {
-        title: "Type Transaction",
-        field: "type_transaction",
-        filterable: true
-      }, {
-        title: "No Trx",
-        field: "no_trx",
-        filterable: true
-      }, {
         title: "Created At",
         field: "created_at",
         filterable: true
-      }, {
-        title: "Created By",
-        field: "created_by_name",
-        filterable: true
-      }],
+      } // {
+      //     title: "Created By",
+      //     field: "created_by_name",
+      //     filterable: true
+      // }
+      ],
       error: {
         code: 403,
         description: "You do not have access to this page"
@@ -96640,13 +96633,8 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-__webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
-=======
 __webpack_require__(/*! C:\laragon\www\FreshBox\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\laragon\www\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
->>>>>>> 2a8dc6fd822f1a3fe62a5cedf1ba91fec41d7ed5
 
 
 /***/ })

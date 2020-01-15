@@ -58,11 +58,9 @@ class PettyCash extends MyModel
     public function getStatusHtmlAttribute()
     {
         if ($this->status === 1) {
-            return '<span class="badge badge-success">Replenish</span>';
+            return '<span class="badge badge-success">Out</span>';
         } elseif ($this->status === 2) {
-            return '<span class="badge badge-danger">Return Replenish</span>';
-        } elseif ($this->status === 3) {
-            return '<span class="badge badge-warning">Update Document</span>';
+            return '<span class="badge badge-danger">In</span>';
         } else {
             return 'Status NotFound';
         }
