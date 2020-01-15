@@ -49,6 +49,9 @@ import ConfirmRequestFinance from './components/FinanceAP/RequestAdvance/Confirm
 
 import PettyCash from './components/FinanceAP/PettyCash/IndexPettyCash';
 import InOutPayment from './components/FinanceAP/InOutPayment/IndexInOutPayment';
+import PrintInOutPayment from './components/FinanceAP/InOutPayment/PrintInOutPayment';
+
+import IndexMasterPrice from './components/MasterData/IndexPrice';
 
 Vue.component('import-price-temp', ImportPriceTemp);
 Vue.use(VueRouter);
@@ -261,6 +264,11 @@ const router = new VueRouter({
             component: InOutPayment
         },
         {
+            path: '/admin/finance-ap/in-out-payment/show/:id',
+            name: 'finance.inOutPayment.show',
+            component: PrintInOutPayment
+        },
+        {
             path: '/admin/finance-ap/petty-cash',
             name: 'finance.pettyCash',
             component: PettyCash
@@ -274,6 +282,12 @@ const router = new VueRouter({
             path: '/admin/users/adduser',
             name: 'adduser',
             component: AdduserComponent
+        },
+
+        {
+            path: '/admin/master_data/price',
+            name: 'master_data.price',
+            component: IndexMasterPrice
         },
 
     ],

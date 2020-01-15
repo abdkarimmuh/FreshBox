@@ -24,4 +24,20 @@ class InOutPaymentController extends Controller
 
         return InOutPaymentResource::collection($query);
     }
+
+    public function show(Request $request)
+    {
+        if (is_array($request->id)) {
+            $inv = InOutPayment::whereIn('id', $request->id)->get();
+            $invoice_order = InOutPaymentResource::collection($inv);
+        } elseif ($request->printAll == true) {
+            $inv = InOutPayment::where('is_printed', 0)->get();
+            $invoice_order = InOutPaymentResource::collection($inv);
+        } else {
+            $inv = InOutPayment::findOrFail($request->id);
+            $invoice_order = new InOutPaymentResource($inv);
+        }
+
+        return response()->json($invoice_order, 200);
+    }
 }

@@ -46,6 +46,7 @@
                         <form action="{{ route($config['route-multiple-print']) }}" id="checked-form" method="get">
                             @endisset
                             <div class="table-responsive">
+                                @if(isset($data))
                                 @if($data->count() > 0)
                                     <table class="table table-bordered table-md">
                                         <tbody>
@@ -182,6 +183,7 @@
                                         @endforeach
                                         </tbody>
                                     </table>
+                                    @endif
                                 @else
                                     <div class="text-center p-3 text-muted">
                                         <h5>No Results</h5>
@@ -193,12 +195,14 @@
                         </form>
                     @endisset
                 </div>
+                @if (isset($data))
                 @if($data->count() > 0)
                     <div class="card-footer text-right">
                         <nav class="d-inline-block">
                             {{ $data->links() }}
                         </nav>
                     </div>
+                @endif
                 @endif
             </div>
         </div>

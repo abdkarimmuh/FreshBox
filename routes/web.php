@@ -276,7 +276,8 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         });
 
         Route::name('price.')->prefix('price')->group(function () {
-            Route::get('/', 'MasterData\PriceController@index')->name('index');
+            // Route::get('/', 'MasterData\PriceController@index')->name('index');
+            Route::get('/', 'DashboardController')->where('any', '.*')->name('index');
             Route::get('/create', 'MasterData\PriceController@create')->name('create');
             Route::post('/create', 'MasterData\PriceController@store')->name('store');
         });

@@ -24,9 +24,28 @@ class MasterPriceController extends Controller
         return new DataCollectionResource($data);
     }
 
+    public function getPrice(Request $request)
+    {
+        $searchValue = $request->input('query');
+        $perPage = $request->perPage;
+
+        $month = Carbon::now()->subMonth(2)->format('y-m-d');
+        $now = Carbon::now()->format('y-m-d');
+
+        $query = Price::where('end_periode', '>', $now)->where('start_periode', '>', $month)->dataTableQuery($searchValue);
+        if ($searchValue) {
+            $query = $query->take(10)->paginate(10);
+        } else {
+            $query = $query->paginate($perPage);
+        }
+
+        return new DataCollectionResource($query);
+    }
+
     public function show($customer_id, $skuid, Request $request)
     {
         $data = Price::where('customer_id', $customer_id)->where('skuid', $skuid)->first();
+
         return new PriceResource($data);
     }
 
@@ -40,10 +59,11 @@ class MasterPriceController extends Controller
             ->get();
         if (isset($data)) {
             $data = PriceResource::collection($data);
+
             return response()->json(
                 [
                     'status' => 'success',
-                    'data' => $data
+                    'data' => $data,
                 ],
                 200
             );

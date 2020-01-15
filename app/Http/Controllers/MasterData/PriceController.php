@@ -8,6 +8,7 @@ use App\Model\MasterData\Uom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\MasterData\Price;
+use Carbon\Carbon;
 
 class PriceController extends Controller
 {
@@ -37,7 +38,7 @@ class PriceController extends Controller
         $config = [
             //Title Required
             'title' => 'Price',
-            /**
+            /*
              * Route Can Be Null
              */
             //Route For Button Add
@@ -47,10 +48,13 @@ class PriceController extends Controller
             //Route For Button Search
             'route-search' => 'admin.master_data.price.index',
             //Route Upload
-            'route-upload' => 'admin/import/price'
+            'route-upload' => 'admin/import/price',
         ];
 
-        $query = Price::dataTableQuery($searchValue);
+        $month = Carbon::now()->subMonth(2)->format('y-m-d');
+        $now = Carbon::now()->format('y-m-d');
+
+        $query = Price::where('end_periode', '>', $now)->where('start_periode', '>', $month)->dataTableQuery($searchValue);
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));
@@ -88,7 +92,7 @@ class PriceController extends Controller
             //Form Method
             'method' => 'POST',
             //Back Button Using Route Name
-            'back-button' => 'admin.master_data.price.index'
+            'back-button' => 'admin.master_data.price.index',
         ];
 
         return view('admin.crud.create_or_edit', compact('forms', 'config', 'items', 'uoms', 'customers'));
@@ -98,6 +102,7 @@ class PriceController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -109,7 +114,6 @@ class PriceController extends Controller
             'amount_basic' => 'required',
             'start_periode' => 'required',
             'end_periode' => 'required',
-
         ]);
         $amount = $request->amount_basic - $request->amount_discount;
         $price = [
@@ -122,7 +126,7 @@ class PriceController extends Controller
             'tax_value' => $request->tax_value,
             'start_periode' => $request->start_periode,
             'end_periode' => $request->end_periode,
-            'created_by' => auth()->user()->id
+            'created_by' => auth()->user()->id,
         ];
         Price::create($price);
 
@@ -133,44 +137,44 @@ class PriceController extends Controller
      * Display the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
     }
 }

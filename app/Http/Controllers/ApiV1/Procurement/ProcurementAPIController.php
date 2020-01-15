@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Procurement\ListProcurementHasItemsResource;
 use App\Http\Resources\Procurement\ListProcurementResource;
 use App\Model\Marketing\SalesOrderDetail;
+use App\Model\MasterData\Bank;
 use App\Model\MasterData\Vendor;
 use App\Model\Procurement\AssignListProcurementDetail;
 use App\Model\Procurement\AssignProcurement;
@@ -14,6 +15,7 @@ use App\Model\Procurement\ListProcurement;
 use App\Model\Procurement\ListProcurementDetail;
 use App\User;
 use App\UserProc;
+use App\UserProfile;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -349,6 +351,17 @@ class ProcurementAPIController extends Controller
             'tlp_pic' => '0',
             'bank_account' => $request->bank_account,
             'bank_id' => $request->bank,
+            'created_by' => auth('api')->user()->id,
+        ]);
+
+        $bank = Bank::find($request->bank);
+        $bank_name = $bank->name;
+
+        UserProfile::create([
+            'user_id' => $user->id,
+            'dept' => 'Procurement',
+            'no_rek' => $request->bank_account,
+            'nama_rek' => $bank_name,
             'created_by' => auth('api')->user()->id,
         ]);
 

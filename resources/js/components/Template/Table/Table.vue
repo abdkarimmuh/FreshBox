@@ -7,7 +7,7 @@
                         v-bind:class="{ 'col-lg-7': config.daterange, 'col-lg-8' : config.action || config.actionPrint}"
                     >
                         <div class="row">
-                            <h4 class="text-danger">{{ config.title }}</h4>
+                            <h4 class="text-danger ml-2">{{ config.title }}</h4>
                             <router-link
                                 :to="{ name: config.route_create }"
                                 class="btn btn-danger ml-2"
@@ -22,6 +22,24 @@
                                 style="color: white"
                                 v-if="config.export_excel"
                             >Export Excel</a>
+
+                            <a
+                                :href="config.route_add"
+                                v-if="config.route_add"
+                                class="btn btn-danger ml-2"
+                            >
+                                Add
+                                <i class="fas fa-plus"></i>
+                            </a>
+
+                            <a
+                                :href="config.route_upload"
+                                v-if="config.route_upload"
+                                class="btn btn-success ml-2"
+                            >
+                                Bulk Upload
+                                <i class="fas fa-plus"></i>
+                            </a>
 
                             <a
                                 class="btn btn-info ml-2"

@@ -9,7 +9,7 @@
             </button>
         </div>
         <div class="card card-body printableArea" id="printMe">
-            <br>x
+            <br>
             <br>
             <br>
             <br>
