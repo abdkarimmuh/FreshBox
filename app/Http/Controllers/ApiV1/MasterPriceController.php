@@ -8,6 +8,8 @@ use App\Model\MasterData\Price;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\MasterData\Customer;
+use App\Model\MasterData\PriceGroupCust;
 
 class MasterPriceController extends Controller
 {
@@ -32,7 +34,7 @@ class MasterPriceController extends Controller
         $month = Carbon::now()->subMonth(2)->format('y-m-d');
         $now = Carbon::now()->format('y-m-d');
 
-        $query = Price::where('end_periode', '>', $now)->where('start_periode', '>', $month)->dataTableQuery($searchValue);
+        $query = PriceGroupCust::where('end_periode', '>', $now)->where('start_periode', '>', $month)->dataTableQuery($searchValue);
         if ($searchValue) {
             $query = $query->take(10)->paginate(10);
         } else {
@@ -44,7 +46,8 @@ class MasterPriceController extends Controller
 
     public function show($customer_id, $skuid, Request $request)
     {
-        $data = Price::where('customer_id', $customer_id)->where('skuid', $skuid)->first();
+        $customer = Customer::find($customer_id);
+        $data = PriceGroupCust::where('customer_group_id', $customer->customer_group_id)->where('skuid', $skuid)->first();
 
         return new PriceResource($data);
     }
@@ -53,7 +56,9 @@ class MasterPriceController extends Controller
     {
         $fulfillment_date = Carbon::create($request->fulfillment_date)->format('Y-m-d');
 
-        $data = Price::where('customer_id', $id)
+        $customer = Customer::find($id);
+
+        $data = PriceGroupCust::where('customer_group_id', $customer->customer_group_id)
             ->where('start_periode', '<=', $fulfillment_date)
             ->where('end_periode', '>=', $fulfillment_date)
             ->get();

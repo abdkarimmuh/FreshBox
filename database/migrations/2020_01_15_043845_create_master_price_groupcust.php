@@ -4,15 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterPriceLog extends Migration
+class CreateMasterPriceGroupcust extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up()
     {
-        Schema::create('master_price_log', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
+        Schema::create('master_price_groupcust', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->bigInteger('skuid');
             $table->unsignedBigInteger('uom_id');
             $table->unsignedBigInteger('customer_group_id');
@@ -25,17 +25,9 @@ class CreateMasterPriceLog extends Migration
             $table->string('remarks')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();
-            $table->unsignedBigInteger('audit_user')->nullable();
-            $table->timestamp('audit_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
-            $table->index('uom_id');
-            $table->index('skuid');
-            $table->index('amount');
-            $table->index('customer_id');
-            $table->index('start_periode');
-            $table->index('end_periode');
-            $table->index('id');
+            $table->index(['skuid', 'amount', 'amount_basic', 'amount_discount']);
         });
     }
 
@@ -44,6 +36,6 @@ class CreateMasterPriceLog extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_price_log');
+        Schema::dropIfExists('master_price_groupcust');
     }
 }

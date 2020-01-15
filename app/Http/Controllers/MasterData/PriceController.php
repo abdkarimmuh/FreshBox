@@ -8,6 +8,7 @@ use App\Model\MasterData\Uom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\MasterData\Price;
+use App\Model\MasterData\PriceGroupCust;
 use Carbon\Carbon;
 
 class PriceController extends Controller
@@ -25,7 +26,7 @@ class PriceController extends Controller
             array('title' => 'SKUID', 'field' => 'skuid'),
             array('title' => 'Item Name', 'field' => 'item_name'),
             array('title' => 'UOM', 'field' => 'uom_name'),
-            array('title' => 'Customer Name', 'field' => 'customer_name'),
+            array('title' => 'Customer Group Name', 'field' => 'customer_group_name'),
             array('title' => 'Amount', 'field' => 'amount'),
             array('title' => 'Tax', 'field' => 'tax_value'),
             array('title' => 'Start Periode', 'field' => 'start_periode'),
@@ -54,7 +55,7 @@ class PriceController extends Controller
         $month = Carbon::now()->subMonth(2)->format('y-m-d');
         $now = Carbon::now()->format('y-m-d');
 
-        $query = Price::where('end_periode', '>', $now)->where('start_periode', '>', $month)->dataTableQuery($searchValue);
+        $query = PriceGroupCust::where('end_periode', '>', $now)->where('start_periode', '>', $month)->dataTableQuery($searchValue);
         $data = $query->paginate(10);
 
         return view('admin.crud.index', compact('columns', 'data', 'config'));

@@ -15,8 +15,10 @@ use Maatwebsite\Excel\Facades\Excel;
 class PriceUploadController extends Controller
 {
     /**
-     * Insert Price Temp from Upload Excel
+     * Insert Price Temp from Upload Excel.
+     *
      * @param Request $request
+     *
      * @return Collection
      */
     public function store(Request $request)
@@ -81,18 +83,18 @@ class PriceUploadController extends Controller
 
         return response()->json([
             'success' => true,
-            'duplicate' => PriceTemp::whereNotNull('updated_at')->get()
+            'duplicate' => PriceTemp::whereNotNull('updated_at')->get(),
         ]);
-
     }
 
     /**
-     * Generate Master Price
+     * Generate Master Price.
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function generateMasterPriceAll()
     {
-        DB::select('call GeneMasterPriceAll(?)', array(auth('api')->user()->id));
+        DB::select('call GenGroupMasterPriceAll(?)', array(auth('api')->user()->id));
 
         return response()->json([
             'success' => true,
@@ -102,6 +104,7 @@ class PriceUploadController extends Controller
     public function exportDuplicateData()
     {
         $now = Carbon::now()->formatLocalized('%d-%B-%Y');
-        return (new ExportDuplicatePrice())->download('Duplicate Price - ' . $now . '.xlsx');
+
+        return (new ExportDuplicatePrice())->download('Duplicate Price - '.$now.'.xlsx');
     }
 }
