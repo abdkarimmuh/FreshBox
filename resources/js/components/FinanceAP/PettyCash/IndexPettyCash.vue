@@ -34,27 +34,17 @@
                         field: "amount",
                         filterable: false
                     },
-                    {
-                        title: "Type Transaction",
-                        field: "type_transaction",
-                        filterable: true
-                    },
-                    {
-                        title: "No Trx",
-                        field: "no_trx",
-                        filterable: true
-                    },
 
                     {
                         title: "Created At",
                         field: "created_at",
                         filterable: true
-                    },
-                    {
-                        title: "Created By",
-                        field: "created_by_name",
-                        filterable: true
                     }
+                    // {
+                    //     title: "Created By",
+                    //     field: "created_by_name",
+                    //     filterable: true
+                    // }
                 ],
                 error: {
                     code: 403,
