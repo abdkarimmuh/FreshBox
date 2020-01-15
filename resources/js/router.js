@@ -48,6 +48,7 @@ import PrintRequestFinance from './components/FinanceAP/RequestAdvance/PrintRequ
 import ConfirmRequestFinance from './components/FinanceAP/RequestAdvance/ConfirmRequestFinance';
 
 import PettyCash from './components/FinanceAP/PettyCash/IndexPettyCash';
+import PrintPettyCash from './components/FinanceAP/PettyCash/PrintPettyCash';
 import InOutPayment from './components/FinanceAP/InOutPayment/IndexInOutPayment';
 import PrintInOutPayment from './components/FinanceAP/InOutPayment/PrintInOutPayment';
 
@@ -272,6 +273,11 @@ const router = new VueRouter({
             path: '/admin/finance-ap/petty-cash',
             name: 'finance.pettyCash',
             component: PettyCash
+        },
+        {
+            path: '/admin/finance-ap/petty-cash/show/:id',
+            name: 'finance.pettyCash.show',
+            component: PrintPettyCash
         },
         {
             path: '/admin/users',

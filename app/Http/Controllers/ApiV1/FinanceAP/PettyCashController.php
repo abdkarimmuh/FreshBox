@@ -26,4 +26,20 @@ class PettyCashController extends Controller
 
         return PettyCashResource::collection($query);
     }
+
+    public function show(Request $request)
+    {
+        if (is_array($request->id)) {
+            $inv = PettyCash::whereIn('id', $request->id)->get();
+            $pettycash = PettyCashResource::collection($inv);
+        } elseif ($request->printAll == true) {
+            $inv = PettyCash::where('is_printed', 0)->get();
+            $pettycash = PettyCashResource::collection($inv);
+        } else {
+            $inv = PettyCash::findOrFail($request->id);
+            $pettycash = new PettyCashResource($inv);
+        }
+
+        return response()->json($pettycash, 200);
+    }
 }

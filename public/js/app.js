@@ -4461,17 +4461,17 @@ __webpack_require__.r(__webpack_exports__);
         title: "Petty Cash",
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/petty-cash"),
-        route_view: "finance.requestFinance.show" // route_multiple_print: 'invoice_order.multiplePrint',
+        route_view: "finance.pettyCash.show" // route_multiple_print: 'invoice_order.multiplePrint',
 
       },
       columns: [{
         title: "Status",
-        field: "status",
+        field: "status_name",
         filterable: true,
         type: "html"
       }, {
-        title: "Vendor Name",
-        field: "vendor_name",
+        title: "User Request Name",
+        field: "user_request_name",
         filterable: true
       }, {
         title: "Amount",
@@ -4481,17 +4481,291 @@ __webpack_require__.r(__webpack_exports__);
         title: "Created At",
         field: "created_at",
         filterable: true
-      } // {
-      //     title: "Created By",
-      //     field: "created_by_name",
-      //     filterable: true
-      // }
-      ],
+      }],
       error: {
         code: 403,
         description: "You do not have access to this page"
       }
     };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id'],
+  data: function data() {
+    return {
+      pettyCash_id: "",
+      pettyCash: {},
+      details: [],
+      loading: false
+    };
+  },
+  mounted: function mounted() {
+    this.getPettyCash();
+  },
+  methods: {
+    getPettyCash: function getPettyCash() {
+      var _this = this;
+
+      axios.get(this.$parent.MakeUrl('api/v1/finance-ap/petty-cash/show/' + this.$route.params.id)).then(function (res) {
+        console.log(res.data);
+        _this.pettyCash = res.data;
+        _this.details = res.data.details;
+        console.log(_this.pettyCash);
+        _this.loading = true;
+      })["catch"](function (e) {});
+    },
+    print: function print() {
+      var _this2 = this;
+
+      Vue.swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Print it!'
+      }).then(function (result) {
+        if (result.value) {
+          _this2.$htmlToPaper('printMe'); // axios.post(this.$parent.MakeUrl('admin/finance/invoice_order/' + this.id + '/print'))
+
+        }
+      });
+    }
   }
 });
 
@@ -16875,6 +17149,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 // module
 exports.push([module.i, "\n.table-centered {\r\n  margin: 0 auto;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.table-centered {\n    margin: 0 auto\n}\n", ""]);
 
 // exports
 
@@ -50095,6 +50388,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintPettyCash.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/RequestAdvance/PrintRequestFinance.vue?vue&type=style&index=0&lang=css&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/RequestAdvance/PrintRequestFinance.vue?vue&type=style&index=0&lang=css& ***!
@@ -57725,6 +58048,506 @@ var render = function() {
     : _c("div", [_c("s-error-page", { attrs: { error: _vm.error } })], 1)
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=template&id=44fc7ada&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=template&id=44fc7ada& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "text-right" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", onlclick: "history.back()" }
+        },
+        [_vm._v("\n            Back\n        ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-success", on: { click: _vm.print } },
+        [_vm._v("\n            Print\n        ")]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "card card-body printableArea", attrs: { id: "printMe" } },
+      [
+        _c("h3", [
+          _c("span", { staticClass: "logo-text" }, [
+            _c("img", {
+              staticClass: "light-logo",
+              attrs: {
+                src: _vm.$parent.MakeUrl("assets/img/logo-frbox.png"),
+                alt: "homepage"
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _vm.loading
+          ? _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-12" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c("div", { staticClass: "table-responsive" }, [
+                        _c("table", { attrs: { width: "100%" } }, [
+                          _c("tbody", [
+                            _c("tr", [
+                              _vm._m(1),
+                              _vm._v(" "),
+                              _c("td", { attrs: { width: "2%" } }, [
+                                _vm._v(":")
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { attrs: { width: "40%" } }, [
+                                _vm._v(_vm._s(_vm.pettyCash.no_request))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _vm._m(2),
+                              _vm._v(" "),
+                              _c("td", { attrs: { width: "2%" } }, [
+                                _vm._v(":")
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { attrs: { width: "40%" } }, [
+                                _vm._v(_vm._s(_vm.pettyCash.created_at))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(3)
+                          ])
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4" }, [
+                      _c("div", { staticClass: "table-responsive" }, [
+                        _c("table", { attrs: { width: "100%" } }, [
+                          _c("tbody", [
+                            _c("tr", [
+                              _vm._m(4),
+                              _vm._v(" "),
+                              _c("td", { attrs: { width: "2%" } }, [
+                                _vm._v(":")
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { attrs: { width: "40%" } }, [
+                                _vm._v(_vm._s(_vm.pettyCash.user_request_name))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _vm._m(5),
+                              _vm._v(" "),
+                              _c("td", { attrs: { width: "2%" } }, [
+                                _vm._v(":")
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { attrs: { width: "40%" } }, [
+                                _vm._v(_vm._s(_vm.pettyCash.dept))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("tr", [
+                              _vm._m(6),
+                              _vm._v(" "),
+                              _c("td", { attrs: { width: "2%" } }, [
+                                _vm._v(":")
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { attrs: { width: "40%" } }, [
+                                _vm._v(_vm._s(_vm.pettyCash.address))
+                              ])
+                            ])
+                          ])
+                        ])
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("table", { attrs: { border: "1", width: "100%" } }, [
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.details, function(item, index) {
+                        return _c("tr", [
+                          _c("td", { staticClass: "text-center" }, [
+                            _vm._v(_vm._s(index + 1))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-left" }, [
+                            _vm._v(_vm._s(item.itemName))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            _vm._v(_vm._s(item.typeOfGoods))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            _vm._v(_vm._s(item.qty))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-center" }, [
+                            _vm._v(_vm._s(item.unit))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-right" }, [
+                            _vm._v(_vm._s(_vm._f("toIDR")(item.price)))
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass: "text-right",
+                              attrs: { width: "100" }
+                            },
+                            [_vm._v(_vm._s(_vm._f("toIDR")(item.ppn)))]
+                          ),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-right" }, [
+                            _vm._v(_vm._s(_vm._f("toIDR")(item.total)))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-left" }, [
+                            _vm._v(_vm._s(item.supplierName))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-left" }, [
+                            _vm._v(_vm._s(item.remarks))
+                          ])
+                        ])
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c("tfoot", [
+                      _vm._m(8),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td", [_vm._v("TOTAL")]),
+                        _vm._v(" "),
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _vm._v(_vm._s(_vm._f("toIDR")(_vm.pettyCash.total)))
+                        ]),
+                        _vm._v(" "),
+                        _c("td"),
+                        _vm._v(" "),
+                        _c("td")
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c("div", { staticClass: "table-responsive" }, [
+                        _c(
+                          "table",
+                          {
+                            staticStyle: { color: "black" },
+                            attrs: { width: "100%" }
+                          },
+                          [
+                            _c("tbody", [
+                              _c("tr", [
+                                _c("td", [
+                                  _c(
+                                    "b",
+                                    {
+                                      staticStyle: {
+                                        "text-decoration": "underline"
+                                      }
+                                    },
+                                    [_vm._v("Terbilang")]
+                                  ),
+                                  _vm._v(
+                                    " \n                                               " +
+                                      _vm._s(_vm.pettyCash.terbilang) +
+                                      "\n                                        "
+                                  )
+                                ])
+                              ])
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c("div", { staticClass: "table-responsive" }, [
+                        _c(
+                          "table",
+                          {
+                            staticStyle: { color: "black" },
+                            attrs: { width: "100%" }
+                          },
+                          [
+                            _c("tbody", [
+                              _c("tr", [
+                                _vm._m(9),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(_vm.pettyCash.noRek))])
+                              ]),
+                              _vm._v(" "),
+                              _c("tr", [
+                                _c("td", { attrs: { width: "50" } }),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.pettyCash.namaRek))
+                                ])
+                              ])
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _vm._m(10),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _vm._m(11)
+              ])
+            ])
+          : _c("div", { staticClass: "text-center p-4 text-muted" }, [
+              _c("h5", [_vm._v("Loading")]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Please wait, data is being loaded...")])
+            ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c("h4", [
+        _c(
+          "b",
+          { staticStyle: { color: "black", "text-decoration": "underline" } },
+          [
+            _vm._v(
+              "\n                            FORM PERMINTAAN PETTY CASH\n                        "
+            )
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { width: "13%" } }, [_c("b", [_vm._v("No")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { width: "13%" } }, [_c("b", [_vm._v("Tanggal")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { width: "13%" } }, [
+        _c("b", [_vm._v("Jenis Permintaan")])
+      ]),
+      _vm._v(" "),
+      _c("td", { attrs: { width: "2%" } }, [_vm._v(":")]),
+      _vm._v(" "),
+      _c("td", { attrs: { width: "40%" } }, [_vm._v("Petty Cash")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { width: "13%" } }, [_c("b", [_vm._v("Nama")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { width: "13%" } }, [_c("b", [_vm._v("Dept")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { width: "25%" } }, [
+      _c("b", [_vm._v("Alamat Kirim")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "text-center" }, [_vm._v("No.")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Nama Barang")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Jenis Barang")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Unit")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center", attrs: { colspan: "2" } }, [
+          _vm._v("Harga + PPn")
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Nama Supplier")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Keterangan")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { height: "20" } }),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { width: "70" } }, [_c("b", [_vm._v("No Rek")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "text-left ml-4" }, [
+            _c("h6", [_vm._v("Diajukan Oleh,")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "text-right mr-4" }, [
+            _c("h6", [_vm._v("Disetujui oleh,")])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(
+            "\n                            (........................................)\n                        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "text-right" }, [
+            _vm._v(
+              "\n                                (........................................)\n                            "
+            )
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -93752,6 +94575,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PrintPettyCash_vue_vue_type_template_id_44fc7ada___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PrintPettyCash.vue?vue&type=template&id=44fc7ada& */ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=template&id=44fc7ada&");
+/* harmony import */ var _PrintPettyCash_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PrintPettyCash.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _PrintPettyCash_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PrintPettyCash.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _PrintPettyCash_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PrintPettyCash_vue_vue_type_template_id_44fc7ada___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PrintPettyCash_vue_vue_type_template_id_44fc7ada___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintPettyCash_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintPettyCash.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintPettyCash_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintPettyCash_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintPettyCash.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintPettyCash_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintPettyCash_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintPettyCash_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintPettyCash_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintPettyCash_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=template&id=44fc7ada&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=template&id=44fc7ada& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintPettyCash_vue_vue_type_template_id_44fc7ada___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintPettyCash.vue?vue&type=template&id=44fc7ada& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue?vue&type=template&id=44fc7ada&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintPettyCash_vue_vue_type_template_id_44fc7ada___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintPettyCash_vue_vue_type_template_id_44fc7ada___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/FinanceAP/Replenish/AddReplenish.vue":
 /*!**********************************************************************!*\
   !*** ./resources/js/components/FinanceAP/Replenish/AddReplenish.vue ***!
@@ -96987,9 +97897,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_FinanceAP_RequestAdvance_PrintRequestFinance__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/PrintRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/PrintRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_RequestAdvance_ConfirmRequestFinance__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/ConfirmRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/IndexPettyCash */ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue");
-/* harmony import */ var _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/IndexInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/PrintInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/PrintInOutPayment.vue");
-/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
+/* harmony import */ var _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/PrintPettyCash */ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/IndexInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/PrintInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/PrintInOutPayment.vue");
+/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
+
 
 
 
@@ -97204,15 +98116,19 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/finance-ap/in-out-payment',
     name: 'finance.inOutPayment',
-    component: _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_39__["default"]
+    component: _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_40__["default"]
   }, {
     path: '/admin/finance-ap/in-out-payment/show/:id',
     name: 'finance.inOutPayment.show',
-    component: _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_40__["default"]
+    component: _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_41__["default"]
   }, {
     path: '/admin/finance-ap/petty-cash',
     name: 'finance.pettyCash',
     component: _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_38__["default"]
+  }, {
+    path: '/admin/finance-ap/petty-cash/show/:id',
+    name: 'finance.pettyCash.show',
+    component: _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_39__["default"]
   }, {
     path: '/admin/users',
     name: 'users',
@@ -97224,7 +98140,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/master_data/price',
     name: 'master_data.price',
-    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_41__["default"]
+    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_42__["default"]
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
