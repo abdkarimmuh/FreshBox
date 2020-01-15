@@ -5,14 +5,13 @@ namespace App\Model\FinanceAP;
 use App\Model\MasterData\Vendor;
 use App\MyModel;
 use App\Traits\SearchTraits;
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Model;
 
 class PettyCash extends MyModel
 {
     use SearchTraits;
     protected $table = 'trx_petty_cash_payment';
-    protected $fillable = ['status', 'vendor_id', 'amount', 'type_transaction', 'no_trx', 'created_at', 'updated_at'];
-    protected $appends = ['status_html'];
+    protected $fillable = ['finance_request_id', 'amount', 'no_trx', 'created_at', 'updated_at'];
 
     protected $columns = [
         'id' => [
@@ -20,17 +19,13 @@ class PettyCash extends MyModel
             'search_relation' => false,
         ],
 
-        'vendor_name' => [
+        'user_request_name' => [
             'searchable' => true,
             'search_relation' => false,
-            'relation_name' => 'Vendor',
-            'relation_field' => 'name',
+            'relation_name' => 'RequestFinance',
+            'relation_field' => 'user.name',
         ],
         'amount' => [
-            'searchable' => true,
-            'search_relation' => false,
-        ],
-        'type_transaction' => [
             'searchable' => true,
             'search_relation' => false,
         ],
@@ -50,22 +45,9 @@ class PettyCash extends MyModel
         ],
     ];
 
-    public function Vendor()
+    public function RequestFinance()
     {
-        return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
-    }
-
-    public function getStatusHtmlAttribute()
-    {
-        if ($this->status === 1) {
-            return '<span class="badge badge-success">Replenish</span>';
-        } elseif ($this->status === 2) {
-            return '<span class="badge badge-danger">Return Replenish</span>';
-        } elseif ($this->status === 3) {
-            return '<span class="badge badge-warning">Update Document</span>';
-        } else {
-            return 'Status NotFound';
-        }
+        return $this->belongsTo(RequestFinance::class, 'finance_request_id', 'id');
     }
 
     public function getColumns()

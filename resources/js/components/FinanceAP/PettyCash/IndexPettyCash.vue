@@ -14,19 +14,19 @@
                     title: "Petty Cash",
                     action: true,
                     base_url: this.$parent.MakeUrl("api/v1/finance-ap/petty-cash"),
-                    route_view: "finance.requestFinance.show",
+                    route_view: "finance.pettyCash.show",
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },
                 columns: [
                     {
                         title: "Status",
-                        field: "status",
+                        field: "status_name",
                         filterable: true,
                         type: "html"
                     },
                     {
-                        title: "Vendor Name",
-                        field: "vendor_name",
+                        title: "User Request Name",
+                        field: "user_request_name",
                         filterable: true
                     },
                     {
@@ -34,25 +34,10 @@
                         field: "amount",
                         filterable: false
                     },
-                    {
-                        title: "Type Transaction",
-                        field: "type_transaction",
-                        filterable: true
-                    },
-                    {
-                        title: "No Trx",
-                        field: "no_trx",
-                        filterable: true
-                    },
 
                     {
                         title: "Created At",
                         field: "created_at",
-                        filterable: true
-                    },
-                    {
-                        title: "Created By",
-                        field: "created_by_name",
                         filterable: true
                     }
                 ],

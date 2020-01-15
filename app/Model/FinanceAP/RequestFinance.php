@@ -16,6 +16,8 @@ class RequestFinance extends MyModel
         'request_confirm_date'
     ];
 
+    protected $appends = ['status_html'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -48,5 +50,21 @@ class RequestFinance extends MyModel
     public function scopeAdvance($q)
     {
         return $q->where('request_type', 2);
+    }
+
+    public function getStatusHtmlAttribute()
+    {
+        if ($this->status === 1) {
+            return '<span class="badge badge-secondary">Submit</span>';
+        } elseif ($this->status === 2) {
+            return '<span class="badge badge-warning">Confirm</span>';
+        } elseif ($this->status === 3) {
+            return '<span class="badge badge-success">Settlement</span>';
+        }elseif ($this->status === 4) {
+            return '<span class="badge badge-primary">Done</span>';
+        }
+        else {
+            return 'Status NotFound';
+        }
     }
 }
