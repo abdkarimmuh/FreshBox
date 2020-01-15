@@ -4,9 +4,7 @@ namespace App\Http\Controllers\ApiV1\FinanceAP;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FinanceAp\InOutPaymentResource;
-use App\Http\Resources\FinanceAP\RequestFinanceResource;
 use App\Model\FinanceAp\InOutPayment;
-use App\Model\FinanceAP\RequestFinance;
 use Illuminate\Http\Request;
 
 class InOutPaymentController extends Controller

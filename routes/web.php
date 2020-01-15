@@ -128,6 +128,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
+        Route::name('settlementFinance.')->prefix('settlement-cash-advance')->group(function () {
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+        });
     });
 
     /*
