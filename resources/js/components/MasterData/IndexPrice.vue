@@ -39,8 +39,8 @@ export default {
                     filterable: false
                 },
                 {
-                    title: "Customer Name",
-                    field: "customer_name",
+                    title: "Customer Group Name",
+                    field: "customer_group_name",
                     filterable: true
                 },
                 {
