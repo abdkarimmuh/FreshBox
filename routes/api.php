@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::get('users/roles', 'UserController@roles')->name('users.roles');
 Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
     App::setLocale('id');
@@ -133,27 +134,35 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
      * Route Finance AP API
      */
     Route::group(['prefix' => 'finance-ap', 'namespace' => 'FinanceAP\\'], function () {
-//        Replenish
+        //        Replenish
         Route::group(['prefix' => 'replenish'], function () {
             Route::get('/', 'ReplenishAPIController@index');
             Route::post('/store', 'ReplenishAPIController@store');
             Route::post('/action', 'ReplenishAPIController@returnReplenish');
             Route::patch('/{id}', 'ReplenishAPIController@replenish');
         });
-//        TopUp
+        //        TopUp
         Route::group(['prefix' => 'topup'], function () {
             Route::get('/', 'TopUpProcAPIController@index');
             Route::get('/get', 'TopUpProcAPIController@indexApi');
             Route::get('/show/{id}', 'TopUpProcAPIController@show');
             Route::post('/', 'TopUpProcAPIController@store');
         });
-//        Request Finance
+        //        Request Finance
         Route::group(['prefix' => 'request-finance'], function () {
             Route::get('/', 'RequestFinanceController@index');
             Route::get('/show/{id}', 'RequestFinanceController@show');
             Route::post('/', 'RequestFinanceController@store');
         });
 
+        // Settlement Finance
+        Route::group(['prefix' => 'settlement-cash-advance'], function () {
+            Route::get('/', 'SettlementFinanceController@index');
+            Route::get('/show/{id}', 'SettlementFinanceController@show');
+            Route::post('/', 'SettlementFinanceController@store');
+        });
+
+        // In/Out Payment
         Route::group(['prefix' => 'in-out-payment'], function () {
             Route::get('/', 'InOutPaymentController@index');
             Route::get('/show/{id}', 'InOutPaymentController@show');

@@ -5,6 +5,7 @@ namespace App\Model\FinanceAp;
 // use Illuminate\Database\Eloquent\Model;
 
 use App\Model\MasterData\Vendor;
+use App\Model\MasterData\Bank;
 use App\MyModel;
 use App\Traits\SearchTraits;
 
@@ -12,7 +13,8 @@ class InOutPayment extends MyModel
 {
     use SearchTraits;
     protected $table = 'trx_in_out_payment';
-    protected $fillable = ['status', 'vendor_id', 'amount', 'type_transaction', 'created_at', 'update_at'];
+    // protected $fillable = ['status', 'vendor_id', 'amount', 'type_transaction', 'created_at', 'update_at'];
+    protected $fillable = ['vendor', 'type_transaction', 'bank_id', 'created_at', 'update_at'];
     protected $appends = ['status_html'];
 
     protected $columns = [
@@ -20,10 +22,10 @@ class InOutPayment extends MyModel
             'searchable' => false,
             'search_relation' => false,
         ],
-        'vendor_name' => [
+        'bank_name' => [
             'searchable' => true,
             'search_relation' => true,
-            'relation_name' => 'vendor',
+            'relation_name' => 'bank',
             'relation_field' => 'name',
         ],
         'amount' => [
@@ -46,7 +48,25 @@ class InOutPayment extends MyModel
         return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
     }
 
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class, 'bank_id', 'id');
+    }
+
     public function getStatusHtmlAttribute()
+    {
+        if ($this->status === 1) {
+            return '<span class="badge badge-info">Submit</span>';
+        } elseif ($this->status === 2) {
+            return '<span class="badge badge-warning">Confirm</span>';
+        } elseif ($this->status === 3) {
+            return '<span class="badge badge-success">Done</span>';
+        } else {
+            return 'Status NotFound';
+        }
+    }
+
+    public function getTypeHtmlAttribute()
     {
         if ($this->status === 1) {
             return '<span class="badge badge-danger">OUT</span>';
