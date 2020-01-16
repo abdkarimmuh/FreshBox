@@ -116,7 +116,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/approve/{id}', 'Procurement\TopUpController@approve')->name('approve');
             Route::get('/reject/{id}', 'Procurement\TopUpController@reject')->name('reject');
         });
-        Route::name('requestAdvance.')->prefix('request-finance')->group(function () {
+        Route::name('requestAdvance.')->prefix('payment-advance')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
@@ -125,6 +125,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
         Route::name('inOutPayment.')->prefix('in-out-payment')->group(function () {
+            Route::get('/', 'DashboardController')->where('any', '.*');
+            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+        });
+        Route::name('settlementFinance.')->prefix('settlement-cash-advance')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });

@@ -16,6 +16,7 @@ class CreateFinanceRequestTable extends Migration
         Schema::create('finance_request', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->index();
+            $table->tinyInteger('status');
             $table->unsignedBigInteger('master_warehouse_id')->index();
             $table->string('no_request')->index();
             $table->date('request_date')->index();

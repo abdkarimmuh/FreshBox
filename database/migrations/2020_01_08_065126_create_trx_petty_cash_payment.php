@@ -13,10 +13,8 @@ class CreateTrxPettyCashPayment extends Migration
     {
         Schema::create('trx_petty_cash_payment', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('status')->default(0);
-            $table->unsignedBigInteger('vendor_id');
+            $table->bigIncrements('finance_request_id');
             $table->bigInteger('amount')->default(0);
-            $table->tinyInteger('type_transaction')->default(0);
             $table->string('no_trx');
             $table->timestamps();
         });

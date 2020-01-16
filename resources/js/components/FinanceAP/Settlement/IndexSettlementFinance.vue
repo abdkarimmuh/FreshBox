@@ -11,12 +11,13 @@
         data() {
             return {
                 config: {
-                    title: "Payment Advance",
-                    action: true,
-                    base_url: this.$parent.MakeUrl("api/v1/finance-ap/payment-advance"),
-                    route_view: "finance.paymentAdvance.show",
-                    route_create: "finance.paymentAdvance.create"
+                    title: "Settlement Cash Advance",
+                    // action: true,
+                    base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-finance"),
+                    // route_view: "finance.settlementFinance.show",
+                    // route_create: "finance.requestFinance.create"
                     // route_multiple_print: 'invoice_order.multiplePrint',
+
                 },
                 columns: [
                     {
@@ -44,11 +45,11 @@
                         field: "dept",
                         filterable: true
                     },
-                    {
-                        title: 'Status',
-                        field: 'status_name',
-                        type: 'html',
-                    },
+                    // {
+                    //     title: 'Status',
+                    //     field: 'status_name',
+                    //     type: 'html',
+                    // },
                     {
                         title: "Created At",
                         field: "created_at",
