@@ -14,7 +14,7 @@ export default {
         title: "In/Out Payment",
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment"),
-        route_create: "form_sales_order.create",
+        route_create: "finance.inOutPayment.create",
         route_confirm_in_out_payment: "finance.inOutPayment.show",
         route_done_in_out_payment: "finance.inOutPayment.show"
       },
@@ -37,7 +37,8 @@ export default {
         {
           title: "Jumlah",
           field: "amount",
-          filterable: false
+          filterable: false,
+          type: 'price'
         },
         {
           title: "Status",

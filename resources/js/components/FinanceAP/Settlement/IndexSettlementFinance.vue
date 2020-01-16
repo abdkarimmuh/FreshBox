@@ -13,7 +13,7 @@
                 config: {
                     title: "Settlement Cash Advance",
                     // action: true,
-                    base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-finance"),
+                    base_url: this.$parent.MakeUrl("api/v1/finance-ap/payment-advance"),
                     // route_view: "finance.settlementFinance.show",
                     // route_create: "finance.requestFinance.create"
                     // route_multiple_print: 'invoice_order.multiplePrint',
