@@ -106,9 +106,9 @@
                 <li class="{{ request()->segment(3) == 'topup' ? ' active' : '' }}">
                     <a href="{{ url('admin/finance-ap/topup') }}" class="nav-link"><span>TopUp Procurement</span></a>
                 </li>
-                <li class="{{ request()->segment(3) == 'request-finance' ? ' active' : '' }}">
-                    <a href="{{ url('admin/finance-ap/request-finance') }}"
-                       class="nav-link"><span>Request Cash Advance</span></a>
+                <li class="{{ request()->segment(3) == 'payment-advance' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance-ap/payment-advance') }}"
+                       class="nav-link"><span>Payment Advance</span></a>
                 </li>
                 {{-- <li class="{{ request()->segment(3) == 'request-cash-advance' ? ' active' : '' }}">
                     <a href="{{ url('admin/finance-ap/request-cash-advance') }}"

@@ -231,7 +231,7 @@
         },
         methods: {
             getInvoice() {
-                axios.get(this.$parent.MakeUrl('api/v1/finance-ap/request-finance/show/' + this.$route.params.id))
+                axios.get(this.$parent.MakeUrl('api/v1/finance-ap/payment-advance/show/' + this.$route.params.id))
                     .then(res => {
                         this.requestFinance = res.data.data;
                         this.details = res.data.data.details;

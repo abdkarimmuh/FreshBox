@@ -5620,7 +5620,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post("/api/v1/finance-ap/request-finance", payload);
+                return axios.post("/api/v1/finance-ap/payment-advance", payload);
 
               case 5:
                 res = _context.sent;
@@ -6109,11 +6109,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       config: {
-        title: "Request Finance",
+        title: "Payment Advance",
         action: true,
-        base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-finance"),
-        route_view: "finance.requestFinance.show",
-        route_create: "finance.requestFinance.create" // route_multiple_print: 'invoice_order.multiplePrint',
+        base_url: this.$parent.MakeUrl("api/v1/finance-ap/payment-advance"),
+        route_view: "finance.paymentAdvance.show",
+        route_create: "finance.paymentAdvance.create" // route_multiple_print: 'invoice_order.multiplePrint',
 
       },
       columns: [{
@@ -6402,7 +6402,7 @@ __webpack_require__.r(__webpack_exports__);
     getInvoice: function getInvoice() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl('api/v1/finance-ap/request-finance/show/' + this.$route.params.id)).then(function (res) {
+      axios.get(this.$parent.MakeUrl('api/v1/finance-ap/payment-advance/show/' + this.$route.params.id)).then(function (res) {
         _this.requestFinance = res.data.data;
         _this.details = res.data.data.details;
         _this.loading = true;
@@ -98079,16 +98079,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_FinanceAP_RequestAdvance_PrintRequestFinance__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/PrintRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/PrintRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_RequestAdvance_ConfirmRequestFinance__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/ConfirmRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/IndexPettyCash */ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue");
-<<<<<<< HEAD
-/* harmony import */ var _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/IndexInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/PrintInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/PrintInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/IndexSettlementFinance */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue");
-=======
 /* harmony import */ var _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/PrintPettyCash */ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue");
 /* harmony import */ var _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/IndexInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue");
 /* harmony import */ var _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/PrintInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/PrintInOutPayment.vue");
->>>>>>> 910ad784e6d3f2787a920b6ea248a48ab060d605
-/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
+/* harmony import */ var _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/IndexSettlementFinance */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue");
+/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
+
 
 
 
@@ -98286,20 +98282,20 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'finance.replenish.create',
     component: _components_FinanceAP_Replenish_AddReplenish__WEBPACK_IMPORTED_MODULE_32__["default"]
   }, {
-    path: '/admin/finance-ap/request-finance',
-    name: 'finance.requestFinance',
+    path: '/admin/finance-ap/payment-advance',
+    name: 'finance.paymentAdvance',
     component: _components_FinanceAP_RequestAdvance_IndexRequestFinance__WEBPACK_IMPORTED_MODULE_34__["default"]
   }, {
-    path: '/admin/finance-ap/request-finance/create',
-    name: 'finance.requestFinance.create',
+    path: '/admin/finance-ap/payment-advance/create',
+    name: 'finance.paymentAdvance.create',
     component: _components_FinanceAP_RequestAdvance_AddRequestFinance__WEBPACK_IMPORTED_MODULE_35__["default"]
   }, {
-    path: '/admin/finance-ap/request-finance/show/:id',
-    name: 'finance.requestFinance.show',
+    path: '/admin/finance-ap/payment-advance/show/:id',
+    name: 'finance.paymentAdvance.show',
     component: _components_FinanceAP_RequestAdvance_PrintRequestFinance__WEBPACK_IMPORTED_MODULE_36__["default"]
   }, {
-    path: '/admin/finance-ap/request-finance/:id/confirm',
-    name: 'finance.requestFinance.confirm',
+    path: '/admin/finance-ap/payment-advance/:id/confirm',
+    name: 'finance.paymentAdvance.confirm',
     component: _components_FinanceAP_RequestAdvance_ConfirmRequestFinance__WEBPACK_IMPORTED_MODULE_37__["default"]
   }, {
     path: '/admin/finance-ap/in-out-payment',
@@ -98312,7 +98308,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/finance-ap/settlement-cash-advance',
     name: 'finance.settlementFinance',
-    component: _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_41__["default"]
+    component: _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_42__["default"]
   }, {
     path: '/admin/finance-ap/petty-cash',
     name: 'finance.pettyCash',
@@ -98332,7 +98328,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/master_data/price',
     name: 'master_data.price',
-    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_42__["default"]
+    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_43__["default"]
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
@@ -98482,8 +98478,8 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! C:\laragon\www\FreshBox\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
 
 
 /***/ })
