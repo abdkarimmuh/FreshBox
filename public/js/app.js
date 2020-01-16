@@ -5548,6 +5548,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5560,6 +5563,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         value: 2
       }],
       requestType: '',
+      uom: [],
       productTypes: [{
         name: 'Non Core',
         value: 1
@@ -5608,7 +5612,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return {
                       name: item.name,
                       typeOfGoods: item.skuid,
-                      unit: item.unit,
+                      unit: item.uomid,
                       qty: item.qty,
                       ppn: item.ppn,
                       price: item.price,
@@ -5630,7 +5634,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
                   _this.$router.push({
-                    name: 'finance.requestFinance'
+                    name: 'finance.paymentAdvance'
                   });
                 });
                 console.log(res);
@@ -5663,10 +5667,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.loading = true;
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse"))]).then(axios.spread(function (users, items, warehouses) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, items, warehouses, uom) {
         _this2.users = users.data;
         _this2.items = items.data;
         _this2.warehouses = warehouses.data;
+        _this2.uom = uom.data.data;
         _this2.loading = false;
       }))["catch"](function (err) {
         if (err.response.status === 500) {
@@ -59195,7 +59200,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _vm.userId !== ""
-                    ? _c("div", { staticClass: "col-md-2" }, [
+                    ? _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _vm._m(2),
                           _vm._v(" "),
@@ -59244,7 +59249,7 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.userId !== ""
-                    ? _c("div", { staticClass: "col-md-2" }, [
+                    ? _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _vm._m(3),
                           _vm._v(" "),
@@ -59295,7 +59300,7 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.userId !== ""
-                    ? _c("div", { staticClass: "col-md-2" }, [
+                    ? _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _vm._m(4),
                           _vm._v(" "),
@@ -59353,6 +59358,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "div",
+                            { staticStyle: { "margin-top": ".15rem" } },
                             [
                               _c("model-list-select", {
                                 class: { "is-invalid": _vm.errors.address },
@@ -59393,17 +59399,6 @@ var render = function() {
                           )
                         ])
                       ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.userId !== ""
-                    ? _c("s-form-input", {
-                        attrs: {
-                          col: "3",
-                          title: "Name",
-                          model: _vm.user.name,
-                          disabled: "true"
-                        }
-                      })
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.userId !== ""
@@ -59520,7 +59515,7 @@ var render = function() {
                         _c(
                           "div",
                           {
-                            staticClass: "table-responsive m-t-40",
+                            staticClass: "table-responsive",
                             staticStyle: { clear: "both" }
                           },
                           [
@@ -59636,35 +59631,35 @@ var render = function() {
                                               })
                                             ]),
                                             _vm._v(" "),
-                                            _c("td", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: item.unit,
-                                                    expression: "item.unit"
+                                            _c(
+                                              "td",
+                                              [
+                                                _c("model-list-select", {
+                                                  class: {
+                                                    "is-invalid":
+                                                      _vm.errors.sales_order_id
+                                                  },
+                                                  attrs: {
+                                                    list: _vm.uom,
+                                                    "option-value": "name",
+                                                    "option-text": "name",
+                                                    placeholder: "Select"
+                                                  },
+                                                  model: {
+                                                    value: item.uomid,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        item,
+                                                        "uomid",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression: "item.uomid"
                                                   }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { type: "text" },
-                                                domProps: { value: item.unit },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      item,
-                                                      "unit",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
-                                            ]),
+                                                })
+                                              ],
+                                              1
+                                            ),
                                             _vm._v(" "),
                                             _c("td", [
                                               _c("input", {
@@ -59864,35 +59859,35 @@ var render = function() {
                                               })
                                             ]),
                                             _vm._v(" "),
-                                            _c("td", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: item.unit,
-                                                    expression: "item.unit"
+                                            _c(
+                                              "td",
+                                              [
+                                                _c("model-list-select", {
+                                                  class: {
+                                                    "is-invalid":
+                                                      _vm.errors.sales_order_id
+                                                  },
+                                                  attrs: {
+                                                    list: _vm.uom,
+                                                    "option-value": "name",
+                                                    "option-text": "name",
+                                                    placeholder: "Select"
+                                                  },
+                                                  model: {
+                                                    value: item.uomid,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        item,
+                                                        "uomid",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression: "item.uomid"
                                                   }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { type: "text" },
-                                                domProps: { value: item.unit },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      item,
-                                                      "unit",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
-                                            ]),
+                                                })
+                                              ],
+                                              1
+                                            ),
                                             _vm._v(" "),
                                             _c("td", [
                                               _c("input", {
@@ -60100,7 +60095,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "text-danger" }, [_vm._v("Add Request Finance")])
+      _c("h4", { staticClass: "text-danger" }, [_vm._v("Add Payment Advance")])
     ])
   },
   function() {
@@ -60177,11 +60172,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Unit")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Uom")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center", attrs: { colspan: "2" } }, [
-          _vm._v("Harga + PPN")
-        ]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Harga")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("PPN")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Nama Suplier")]),
         _vm._v(" "),

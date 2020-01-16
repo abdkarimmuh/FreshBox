@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card col-12" v-if="!loading">
                 <div class="card-header">
-                    <h4 class="text-danger">Add Request Finance</h4>
+                    <h4 class="text-danger">Add Payment Advance</h4>
                 </div>
                 <div class="col-12">
                     <div class="row">
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <!-- Request Date -->
-                        <div class="col-md-2" v-if="userId !== ''">
+                        <div class="col-md-3" v-if="userId !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Request Date</b>
@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         <!-- Request Type -->
-                        <div class="col-md-2" v-if="userId !== ''">
+                        <div class="col-md-3" v-if="userId !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Request Type</b>
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <!--Product Types-->
-                        <div class="col-md-2" v-if="userId !== ''">
+                        <div class="col-md-3" v-if="userId !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Product Type</b>
@@ -101,6 +101,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!--Alamat Kirim-->
                         <div class="col-md-3" v-if="userId !== ''">
                             <div class="form-group">
@@ -108,7 +109,7 @@
                                     <b>Warehouse Address</b>
                                     <span style="color: red;">*</span>
                                 </label>
-                                <div>
+                                <div style="margin-top: .15rem;">
                                     <model-list-select
                                         v-bind:class="{'is-invalid': errors.address}"
                                         :list="warehouses"
@@ -125,11 +126,6 @@
                             </div>
                         </div>
 
-                        <s-form-input v-if="userId !== ''"
-                                      col="3"
-                                      title="Name"
-                                      :model="user.name"
-                                      disabled="true"/>
 
                         <s-form-input v-if="userId !== ''"
                                       col="3"
@@ -183,16 +179,17 @@
                         </div>
 
                         <div class="col-12" v-if="productType !== ''">
-                            <div class="table-responsive m-t-40" style="clear: both;">
+                            <div class="table-responsive" style="clear: both;">
                                 <table class="table table-hover" style="font-size: 9pt;">
                                     <thead>
                                     <tr>
                                         <th class="text-center">No</th>
                                         <th class="text-center">Nama Barang</th>
                                         <th class="text-center">Jenis Barang</th>
-                                        <th class="text-center">Qty</th>
-                                        <th class="text-center">Unit</th>
-                                        <th class="text-center" colspan="2">Harga + PPN</th>
+                                        <th class="text-center" >Qty</th>
+                                        <th class="text-center" >Uom</th>
+                                        <th class="text-center">Harga</th>
+                                        <th class="text-center">PPN</th>
 <!--                                        <th class="text-center">Total</th>-->
                                         <th class="text-center">Nama Suplier</th>
                                         <th class="text-center">Keterangan</th>
@@ -225,10 +222,13 @@
                                             />
                                         </td>
                                         <td>
-                                            <input
-                                                v-model="item.unit"
-                                                type="text"
-                                                class="form-control"
+                                            <model-list-select
+                                                v-bind:class="{'is-invalid': errors.sales_order_id}"
+                                                :list="uom"
+                                                v-model="item.uomid"
+                                                option-value="name"
+                                                option-text="name"
+                                                placeholder="Select"
                                             />
                                         </td>
                                         <td>
@@ -286,10 +286,13 @@
                                             />
                                         </td>
                                         <td>
-                                            <input
-                                                v-model="item.unit"
-                                                type="text"
-                                                class="form-control"
+                                            <model-list-select
+                                                v-bind:class="{'is-invalid': errors.sales_order_id}"
+                                                :list="uom"
+                                                v-model="item.uomid"
+                                                option-value="name"
+                                                option-text="name"
+                                                placeholder="Select"
                                             />
                                         </td>
                                         <td>
@@ -380,6 +383,7 @@
                     }
                 ],
                 requestType: '',
+                uom: [],
                 productTypes: [
                     {
                         name: 'Non Core',
@@ -420,7 +424,7 @@
                     orderDetails: this.orderDetails.map((item, idx) => ({
                         name: item.name,
                         typeOfGoods: item.skuid,
-                        unit: item.unit,
+                        unit: item.uomid,
                         qty: item.qty,
                         ppn: item.ppn,
                         price: item.price,
@@ -436,7 +440,7 @@
                         title: "Success!",
                         text: "Successfully Insert Data!"
                     }).then(next => {
-                        this.$router.push({name: 'finance.requestFinance'})
+                        this.$router.push({name: 'finance.paymentAdvance'})
                     });
                     console.log(res);
                 } catch (e) {
@@ -453,11 +457,13 @@
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/users")),
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/items")),
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")),
+                    axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))
                 ]).then(
-                    axios.spread((users, items, warehouses) => {
+                    axios.spread((users, items, warehouses, uom) => {
                         this.users = users.data;
                         this.items = items.data;
                         this.warehouses = warehouses.data;
+                        this.uom = uom.data.data;
                         this.loading = false;
                     })
                 ).catch(err => {
