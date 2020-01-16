@@ -430,7 +430,7 @@
                     }))
                 };
                 try {
-                    const res = await axios.post("/api/v1/finance-ap/request-finance", payload);
+                    const res = await axios.post("/api/v1/finance-ap/payment-advance", payload);
                     Vue.swal({
                         type: "success",
                         title: "Success!",

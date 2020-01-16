@@ -241,23 +241,23 @@ const router = new VueRouter({
         },
 
         {
-            path: '/admin/finance-ap/request-finance',
-            name: 'finance.requestFinance',
+            path: '/admin/finance-ap/payment-advance',
+            name: 'finance.paymentAdvance',
             component: IndexRequestFinance
         },
         {
-            path: '/admin/finance-ap/request-finance/create',
-            name: 'finance.requestFinance.create',
+            path: '/admin/finance-ap/payment-advance/create',
+            name: 'finance.paymentAdvance.create',
             component: AddRequestFinance
         },
         {
-            path: '/admin/finance-ap/request-finance/show/:id',
-            name: 'finance.requestFinance.show',
+            path: '/admin/finance-ap/payment-advance/show/:id',
+            name: 'finance.paymentAdvance.show',
             component: PrintRequestFinance
         },
         {
-            path: '/admin/finance-ap/request-finance/:id/confirm',
-            name: 'finance.requestFinance.confirm',
+            path: '/admin/finance-ap/payment-advance/:id/confirm',
+            name: 'finance.paymentAdvance.confirm',
             component: ConfirmRequestFinance
         },
         {

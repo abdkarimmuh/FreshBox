@@ -11,11 +11,11 @@
         data() {
             return {
                 config: {
-                    title: "Request Finance",
+                    title: "Payment Advance",
                     action: true,
-                    base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-finance"),
-                    route_view: "finance.requestFinance.show",
-                    route_create: "finance.requestFinance.create"
+                    base_url: this.$parent.MakeUrl("api/v1/finance-ap/payment-advance"),
+                    route_view: "finance.paymentAdvance.show",
+                    route_create: "finance.paymentAdvance.create"
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },
                 columns: [

@@ -149,7 +149,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::post('/', 'TopUpProcAPIController@store');
         });
         //        Request Finance
-        Route::group(['prefix' => 'request-finance'], function () {
+        Route::group(['prefix' => 'payment-advance'], function () {
             Route::get('/', 'RequestFinanceController@index');
             Route::get('/show/{id}', 'RequestFinanceController@show');
             Route::post('/', 'RequestFinanceController@store');
