@@ -8546,7 +8546,7 @@ __webpack_require__.r(__webpack_exports__);
         field: "start_periode",
         filterable: true
       }, {
-        title: "Start Periode",
+        title: "End Periode",
         field: "end_periode",
         filterable: true
       }, {

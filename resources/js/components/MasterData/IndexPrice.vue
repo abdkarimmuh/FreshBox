@@ -61,7 +61,7 @@ export default {
                     filterable: true
                 },
                 {
-                    title: "Start Periode",
+                    title: "End Periode",
                     field: "end_periode",
                     filterable: true
                 },

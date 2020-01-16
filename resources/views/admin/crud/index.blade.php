@@ -183,12 +183,12 @@
                                         @endforeach
                                         </tbody>
                                     </table>
+                                    @else
+                                        <div class="text-center p-3 text-muted">
+                                            <h5>No Results</h5>
+                                            <p>Looks like you have not added any {{ $config['title'] }} yet!</p>
+                                        </div>
                                     @endif
-                                @else
-                                    <div class="text-center p-3 text-muted">
-                                        <h5>No Results</h5>
-                                        <p>Looks like you have not added any {{ $config['title'] }} yet!</p>
-                                    </div>
                                 @endif
                             </div>
                             @isset($config['route-multiple-print'])
