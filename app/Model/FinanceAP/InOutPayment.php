@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Model\FinanceAp;
-
-// use Illuminate\Database\Eloquent\Model;
+namespace App\Model\FinanceAP;
 
 use App\Model\MasterData\Vendor;
 use App\Model\MasterData\Bank;
@@ -13,7 +11,7 @@ class InOutPayment extends MyModel
 {
     use SearchTraits;
     protected $table = 'trx_in_out_payment';
-    protected $fillable = ['vendor', 'type_transaction', 'bank_id', 'created_at', 'update_at', 'no_rek', 'amount', 'remarks', 'status',];
+    protected $fillable = ['vendor', 'type_transaction', 'bank_id', 'created_at', 'update_at', 'no_rek', 'amount', 'remarks', 'status'];
     protected $appends = ['status_html'];
 
     protected $columns = [
@@ -39,7 +37,6 @@ class InOutPayment extends MyModel
             'searchable' => true,
             'search_relation' => false,
         ],
-
     ];
 
     public function vendor()

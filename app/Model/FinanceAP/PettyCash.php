@@ -2,10 +2,8 @@
 
 namespace App\Model\FinanceAP;
 
-use App\Model\MasterData\Vendor;
 use App\MyModel;
 use App\Traits\SearchTraits;
-// use Illuminate\Database\Eloquent\Model;
 
 class PettyCash extends MyModel
 {

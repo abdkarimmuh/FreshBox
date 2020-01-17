@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\ApiV1\FinanceAP;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\FinanceAp\InOutPaymentResource;
-use App\Model\FinanceAp\InOutPayment;
+use App\Http\Resources\FinanceAP\InOutPaymentResource;
+use App\Model\FinanceAP\InOutPayment;
 use Illuminate\Http\Request;
-
 use Carbon\Carbon;
 
 class InOutPaymentController extends Controller
@@ -73,7 +72,7 @@ class InOutPaymentController extends Controller
         InOutPayment::create($in_out_payment);
 
         return response()->json([
-            'status' => 'success', 'request' => $request->all()
+            'status' => 'success', 'request' => $request->all(),
         ], 200);
     }
 
