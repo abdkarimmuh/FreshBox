@@ -53,6 +53,12 @@ class InOutPaymentController extends Controller
 
         $request->validate($rules);
 
+        if ($request->type_transaction === 1) {
+            $status = 1;
+        } else {
+            $status = 3;
+        }
+
         $in_out_payment = [
             'vendor' => $request->vendor,
             'bank_id' => $request->bank_id,
@@ -60,7 +66,7 @@ class InOutPaymentController extends Controller
             'type_transaction' => $request->type_transaction,
             'amount' => $request->amount,
             'remarks' => $request->remark,
-            'status' => 1,
+            'status' => $status,
             'created_at' => Carbon::now(),
         ];
 
@@ -69,5 +75,12 @@ class InOutPaymentController extends Controller
         return response()->json([
             'status' => 'success', 'request' => $request->all()
         ], 200);
+    }
+
+    public function changeStatus($id)
+    {
+        $inout = InOutPayment::find($id);
+        $inout->status = $inout->status + 1;
+        $inout->save();
     }
 }

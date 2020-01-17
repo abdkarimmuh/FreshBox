@@ -266,11 +266,28 @@
                                         class="badge badge-warning"
                                         :to="{ name: config.route_confirm , params:{ id: item.id }}"
                                     >Confirm</router-link>
+
                                     <button
                                         @click="replenish(item.id)"
                                         class="badge badge-warning"
                                         v-if="config.route_replenish && item.status === 3"
                                     >Replenish</button>
+
+                                    <!-- <a href="#" onclick="someFunction(); return false;">LINK</a> -->
+
+                                    <a
+                                        @click="changeStatus(item.id)"
+                                        v-if="config.route_confirm_status && item.status === 1"
+                                        class="badge badge-warning"
+                                        style="color: white"
+                                    >Confirm</a>
+
+                                    <a
+                                        @click="changeStatus(item.id)"
+                                        v-if="config.route_done_status && item.status === 2"
+                                        class="badge badge-success"
+                                        style="color: white"
+                                    >Done</a>
                                 </td>
                                 <td v-for="column in columns">
                                     <span v-html="item[column.field]" v-if="column.type === 'html'"></span>
@@ -487,6 +504,31 @@ export default {
                 }
             });
             console.log(id);
+        },
+        changeStatus(id) {
+            Vue.swal({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes!"
+            }).then(result => {
+                if (result.value) {
+                    axios.post(
+                        BaseUrl("api/v1/finance-ap/in-out-payment/" + id)
+                    );
+                    Vue.swal(
+                        "Success!",
+                        "Status has been changed!",
+                        "success"
+                    ).then(next => {
+                        this.getData();
+                    });
+                }
+            });
+            console.log("Test", id);
         },
         showFile(fileUrl, fileName) {
             Vue.swal({

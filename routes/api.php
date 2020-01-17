@@ -167,6 +167,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/', 'InOutPaymentController@index');
             Route::get('/show/{id}', 'InOutPaymentController@show');
             Route::post('/store', 'InOutPaymentController@store');
+            Route::post('/{id}', 'InOutPaymentController@changeStatus');
             Route::post('/', 'InOutPaymentController@store');
         });
 

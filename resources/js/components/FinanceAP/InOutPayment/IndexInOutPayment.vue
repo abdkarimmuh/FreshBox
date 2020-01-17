@@ -15,8 +15,8 @@ export default {
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment"),
         route_create: "finance.inOutPayment.create",
-        route_confirm_in_out_payment: "finance.inOutPayment.show",
-        route_done_in_out_payment: "finance.inOutPayment.show"
+        route_confirm_status: true,
+        route_done_status: true
       },
       columns: [
         {
