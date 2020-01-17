@@ -14,14 +14,13 @@ class CreateTrxInOutPayment extends Migration
         Schema::create('trx_in_out_payment', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('vendor');
-            $table->bigInteger('bank_id')->default(0) ;
+            $table->unsignedBigInteger('bank_id');
             $table->string('no_rek', 20);
             $table->bigInteger('amount')->default(0);
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('type_transaction')->default(0);
-            $table->timestamps('created_at');
-            $table->timestamp('updated_at');
+            $table->timestamps();
         });
     }
 

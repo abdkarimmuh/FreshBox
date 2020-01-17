@@ -67,10 +67,10 @@ class InOutPayment extends MyModel
 
     public function getTypeHtmlAttribute()
     {
-        if ($this->status === 1) {
-            return '<span class="badge badge-danger">OUT</span>';
-        } elseif ($this->status === 2) {
-            return '<span class="badge badge-success">IN</span>';
+        if ($this->type_transaction === 1) {
+            return '<span class="badge badge-primary">OUT</span>';
+        } elseif ($this->type_transaction === 2) {
+            return '<span class="badge badge-warning">IN</span>';
         } else {
             return 'Status NotFound';
         }
