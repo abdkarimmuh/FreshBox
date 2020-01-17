@@ -2659,58 +2659,58 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       config: {
-        title: 'Form Invoice Order',
+        title: "Form Invoice Order",
         action: true,
-        base_url: this.$parent.MakeUrl('api/v1/finance/invoice_order'),
-        route_create: 'invoice_order.create',
-        route_view: 'invoice_order.print',
-        route_edit: 'invoice_order.edit',
-        route_print_all: 'invoice_order.printAll',
-        route_multiple_print: 'invoice_order.multiplePrint',
-        route_print_recap: 'invoice_order.recap.show'
+        base_url: this.$parent.MakeUrl("api/v1/finance/invoice_order"),
+        route_create: "invoice_order.create",
+        route_view: "invoice_order.print",
+        route_edit: "invoice_order.edit",
+        route_print_all: "invoice_order.printAll",
+        route_multiple_print: "invoice_order.multiplePrint",
+        route_print_recap: "invoice_order.recap.show"
       },
       columns: [{
-        title: 'Invoice Order NO',
-        field: 'invoice_no',
+        title: "Status",
+        field: "status_name",
+        type: "html",
         filterable: true
       }, {
-        title: 'Delivery Order No',
-        field: 'delivery_order_no',
+        title: "Invoice Order NO",
+        field: "invoice_no",
         filterable: true
       }, {
-        title: 'Sales Order No',
-        field: 'sales_order_no',
+        title: "Delivery Order No",
+        field: "delivery_order_no",
         filterable: true
       }, {
-        title: 'Customer Name',
-        field: 'customer_name',
+        title: "Sales Order No",
+        field: "sales_order_no",
+        filterable: true
+      }, {
+        title: "Customer Name",
+        field: "customer_name",
         filterable: false
       }, {
-        title: 'Invoice Date',
-        field: 'invoice_date',
+        title: "Invoice Date",
+        field: "invoice_date",
         filterable: true
       }, {
-        title: 'Total Amount',
-        field: 'total_price',
-        type: 'price',
+        title: "Total Amount",
+        field: "total_price",
+        type: "price",
         filterable: true
       }, {
-        title: 'Status',
-        field: 'status_name',
-        type: 'html',
+        title: "Created At",
+        field: "created_at",
         filterable: true
       }, {
-        title: 'Created At',
-        field: 'created_at',
-        filterable: true
-      }, {
-        title: 'Created By',
-        field: 'created_by_name',
+        title: "Created By",
+        field: "created_by_name",
         filterable: true
       }],
       error: {
         code: 403,
-        description: 'You do not have access to this page'
+        description: "You do not have access to this page"
       }
     };
   }
@@ -4709,8 +4709,8 @@ __webpack_require__.r(__webpack_exports__);
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment"),
         route_create: "finance.inOutPayment.create",
-        route_confirm_in_out_payment: "finance.inOutPayment.show",
-        route_done_in_out_payment: "finance.inOutPayment.show"
+        route_confirm_status: true,
+        route_done_status: true
       },
       columns: [{
         title: "Nama Vendor",
@@ -6627,7 +6627,8 @@ __webpack_require__.r(__webpack_exports__);
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/payment-advance"),
         route_view: "finance.paymentAdvance.show",
-        route_create: "finance.paymentAdvance.create" // route_multiple_print: 'invoice_order.multiplePrint',
+        route_create: "finance.paymentAdvance.create",
+        route_confirmPaymentAdvance: true // route_multiple_print: 'invoice_order.multiplePrint',
 
       },
       columns: [{
@@ -10280,6 +10281,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -10489,8 +10513,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         console.log(res);
       })["catch"](function (e) {});
     },
-    replenish: function replenish(id) {
+    confirmPaymentAdvance: function confirmPaymentAdvance(id) {
       var _this3 = this;
+
+      Vue.swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, confirm it!"
+      }).then(function (result) {
+        if (result.value) {
+          axios.post(BaseUrl("api/v1/finance-ap/payment-advance/" + id));
+          Vue.swal("Confirm!", "The data has been confirm.", "success").then(function (next) {
+            console.log(next);
+
+            _this3.getData();
+          });
+        }
+      });
+      console.log(id);
+    },
+    replenish: function replenish(id) {
+      var _this4 = this;
 
       Vue.swal({
         title: "Are you sure?",
@@ -10504,11 +10551,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (result.value) {
           axios.patch(BaseUrl("api/v1/finance-ap/replenish/" + id));
           Vue.swal("Replenish!", "The data has been replenish.", "success").then(function (next) {
-            _this3.getData();
+            _this4.getData();
           });
         }
       });
       console.log(id);
+    },
+    changeStatus: function changeStatus(id) {
+      var _this5 = this;
+
+      Vue.swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!"
+      }).then(function (result) {
+        if (result.value) {
+          axios.post(BaseUrl("api/v1/finance-ap/in-out-payment/" + id));
+          Vue.swal("Success!", "Status has been changed!", "success").then(function (next) {
+            _this5.getData();
+          });
+        }
+      });
+      console.log("Test", id);
     },
     showFile: function showFile(fileUrl, fileName) {
       Vue.swal({
@@ -66476,6 +66544,26 @@ var render = function() {
                                               )
                                             : _vm._e(),
                                           _vm._v(" "),
+                                          _vm.config
+                                            .route_confirmPaymentAdvance &&
+                                          item.status === 1
+                                            ? _c(
+                                                "button",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-warning",
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.confirmPaymentAdvance(
+                                                        item.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [_vm._v("Confirm")]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
                                           _vm.config.route_replenish &&
                                           item.status === 3
                                             ? _c(
@@ -66492,6 +66580,50 @@ var render = function() {
                                                   }
                                                 },
                                                 [_vm._v("Replenish")]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.config.route_confirm_status &&
+                                          item.status === 1
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-warning",
+                                                  staticStyle: {
+                                                    color: "white"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.changeStatus(
+                                                        item.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [_vm._v("Confirm")]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.config.route_done_status &&
+                                          item.status === 2
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-success",
+                                                  staticStyle: {
+                                                    color: "white"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.changeStatus(
+                                                        item.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [_vm._v("Done")]
                                               )
                                             : _vm._e()
                                         ],

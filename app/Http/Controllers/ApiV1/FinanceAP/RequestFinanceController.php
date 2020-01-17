@@ -105,12 +105,23 @@ class RequestFinanceController extends Controller
         return ($cutString + 1).'/GF-FB';
     }
 
-    public function confirm(Request $request)
+    public function setDate(Request $request)
     {
         $rules = [
             'confirmDate' => 'required',
             'orderDetails' => 'required',
         ];
         $request->validate($rules);
+    }
+
+    public function confirm($id)
+    {
+        $requestFinance = RequestFinance::find($id);
+        $requestFinance->status = 2;
+        $requestFinance->save();
+        return response()->json([
+            'success' => true,
+            'requestFinance' => $requestFinance
+        ]);
     }
 }
