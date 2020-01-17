@@ -267,11 +267,18 @@
                                         :to="{ name: config.route_confirm , params:{ id: item.id }}"
                                     >Confirm</router-link>
 
-                                    <button
+                                    <router-link
+                                        v-if="config.route_edit && item.status === 1"
+                                        class="badge badge-secondary"
+                                        :to="{ name: config.route_edit , params:{ id: item.id }}"
+                                    >Edit</router-link>
+
+                                    <a
                                         @click="confirmPaymentAdvance(item.id)"
                                         class="badge badge-warning"
                                         v-if="config.route_confirmPaymentAdvance && item.status === 1"
-                                    >Confirm</button>
+                                        style="color: white"
+                                    >Confirm</a>
 
                                     <button
                                         @click="replenish(item.id)"

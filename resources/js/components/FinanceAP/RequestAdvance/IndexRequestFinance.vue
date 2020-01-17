@@ -16,6 +16,7 @@
                     base_url: this.$parent.MakeUrl("api/v1/finance-ap/payment-advance"),
                     route_view: "finance.paymentAdvance.show",
                     route_create: "finance.paymentAdvance.create",
+                    route_edit: "finance.paymentAdvance.edit",
                     route_confirmPaymentAdvance: true
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },

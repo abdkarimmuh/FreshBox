@@ -154,6 +154,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::post('/{id}', 'RequestFinanceController@confirm');
             Route::get('/show/{id}', 'RequestFinanceController@show');
             Route::post('/', 'RequestFinanceController@store');
+
         });
 
         // Settlement Finance
