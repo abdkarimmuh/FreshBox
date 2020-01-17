@@ -59,6 +59,7 @@ class InvoiceAPIController extends Controller
      */
     public function store(Request $request)
     {
+
         $rules = [
             'invoice_date' => 'required',
             'do_id' => 'required|unique:trx_invoice',

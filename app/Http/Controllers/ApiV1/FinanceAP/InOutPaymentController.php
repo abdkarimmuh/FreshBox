@@ -7,6 +7,8 @@ use App\Http\Resources\FinanceAp\InOutPaymentResource;
 use App\Model\FinanceAp\InOutPayment;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+
 class InOutPaymentController extends Controller
 {
     public function index(Request $request)
@@ -37,5 +39,35 @@ class InOutPaymentController extends Controller
         }
 
         return response()->json($invoice_order, 200);
+    }
+
+    public function store(Request $request)
+    {
+        $rules = [
+            'vendor' => 'required',
+            'bank_id' => 'required',
+            'no_rek' => 'required',
+            'type_transaction' => 'required',
+            'amount' => 'required',
+        ];
+
+        $request->validate($rules);
+
+        $in_out_payment = [
+            'vendor' => $request->vendor,
+            'bank_id' => $request->bank_id,
+            'no_rek' => $request->no_rek,
+            'type_transaction' => $request->type_transaction,
+            'amount' => $request->amount,
+            'remarks' => $request->remark,
+            'status' => 1,
+            'created_at' => Carbon::now(),
+        ];
+
+        InOutPayment::create($in_out_payment);
+
+        return response()->json([
+            'status' => 'success', 'request' => $request->all()
+        ], 200);
     }
 }

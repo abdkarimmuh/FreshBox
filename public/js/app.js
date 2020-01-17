@@ -4211,6 +4211,479 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-search-select */ "./node_modules/vue-search-select/dist/VueSearchSelect.common.js");
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_search_select__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Template_Table_partials_LoadingTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Template/Table/partials/LoadingTable */ "./resources/js/components/Template/Table/partials/LoadingTable.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      in_out_payment: {
+        vendor: "",
+        bank_id: "",
+        no_rek: "",
+        type_transaction: "",
+        amount: "",
+        remark: ""
+      },
+      banks: [],
+      types: [{
+        id: 2,
+        name: "IN"
+      }, {
+        id: 1,
+        name: "OUT"
+      }],
+      errors: [],
+      // orders_detail: [],
+      // sales_order: {
+      //     user_id: UserID,
+      //     fulfillmentDate: "",
+      //     fileName: "",
+      //     file: "",
+      //     remark: "",
+      //     no_po: "",
+      //     customerId: 0,
+      //     driver_id: 0,
+      //     sourceOrderId: 0
+      // },
+      // skuid: null,
+      // source_orders: [],
+      // item: {},
+      // items: [],
+      // customers: [],
+      // drivers: [],
+      loading: false,
+      loadingSubmit: false,
+      header: {}
+    };
+  },
+  mounted: function () {
+    var _mounted = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return this.getData();
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function mounted() {
+      return _mounted.apply(this, arguments);
+    }
+
+    return mounted;
+  }(),
+  methods: {
+    /**
+     * Get All Data
+     * Customer | Source Order | Driver
+     */
+    getData: function getData() {
+      var _this = this;
+
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/bank"))]).then(axios.spread(function (banks) {
+        _this.banks = banks.data;
+        _this.loading = true;
+      }))["catch"](function (err) {
+        if (err.response.status === 403) {
+          _this.$router.push({
+            name: "inOutPayment"
+          });
+        }
+
+        if (err.response.status === 500) {
+          _this.getData();
+        }
+      });
+    },
+
+    /**
+     * Insert Sales Order
+     */
+    submitForm: function () {
+      var _submitForm = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var _this2 = this;
+
+        var payload, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                this.loadingSubmit = true;
+                payload = {
+                  vendor: this.in_out_payment.vendor,
+                  bank_id: this.in_out_payment.bank_id,
+                  no_rek: this.in_out_payment.no_rek,
+                  type_transaction: this.in_out_payment.type_transaction,
+                  amount: this.in_out_payment.amount,
+                  remark: this.in_out_payment.remark
+                };
+                _context2.prev = 2;
+                _context2.next = 5;
+                return axios.post(this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment/store"), payload);
+
+              case 5:
+                res = _context2.sent;
+                console.log(res);
+                Vue.swal({
+                  type: "success",
+                  title: "Success!",
+                  text: "Successfully Insert Data!"
+                }).then(function (next) {
+                  _this2.$router.push({
+                    name: "finance.inOutPayment"
+                  });
+                });
+                _context2.next = 15;
+                break;
+
+              case 10:
+                _context2.prev = 10;
+                _context2.t0 = _context2["catch"](2);
+                this.loadingSubmit = false;
+                this.errors = _context2.t0.response.data.errors;
+                console.error(_context2.t0.response.data);
+
+              case 15:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[2, 10]]);
+      }));
+
+      function submitForm() {
+        return _submitForm.apply(this, arguments);
+      }
+
+      return submitForm;
+    }(),
+    onFileChange: function onFileChange(e) {
+      var fileData = e.target.files || e.dataTransfer.files;
+      this.sales_order.fileName = fileData[0].name;
+      if (!fileData.length) return;
+      this.createFile(fileData[0]);
+    },
+    createFile: function createFile(file) {
+      var _this3 = this;
+
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this3.sales_order.file = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+
+    /**
+     * Get List Items
+     * @returns {number}
+     */
+    getItems: function getItems() {
+      var _this4 = this;
+
+      this.loading = false;
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId + "?fulfillment_date=" + this.sales_order.fulfillmentDate)).then(function (res) {
+        _this4.items = res.data.data;
+        _this4.orders_detail = [];
+        _this4.loading = true;
+      })["catch"](function (err) {
+        if (err.response.status === 500) {
+          _this4.getItems();
+        }
+      });
+    },
+    getItem: function getItem() {
+      var _this5 = this;
+
+      if (!this.skuid) return;
+      this.loading = false;
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid)).then(function (res) {
+        _this5.item = res.data.data;
+        _this5.loading = true;
+      })["catch"](function (err) {
+        if (err.response.status === 500) {
+          _this5.getItem();
+        }
+      });
+    },
+
+    /**
+     *
+     * @param skuid
+     * @returns {number}
+     */
+    pushOrderDetails: function pushOrderDetails(skuid) {
+      if (!skuid) return;
+      var indexItem = this.orders_detail.findIndex(function (x) {
+        return x.skuid === skuid;
+      });
+
+      if (indexItem >= 0) {
+        Vue.swal({
+          type: "error",
+          title: "ERROR!",
+          text: "Item Already Added!"
+        });
+        console.log("GAGAL");
+      } else {
+        return this.orders_detail.push({
+          total_amount: 0,
+          qty: 0,
+          skuid: this.item.skuid,
+          uom: this.item.uom,
+          item_name: this.item.item_name,
+          amount: this.item.amount,
+          notes: null
+        });
+      }
+    },
+
+    /**
+     * Delete Item
+     * @param index
+     */
+    removeOrderDetails: function removeOrderDetails(index) {
+      this.orders_detail.splice(index, 1);
+    },
+    back: function back() {
+      this.$router.push({
+        name: "form_sales_order"
+      });
+    },
+    updateTotalAmount: function updateTotalAmount() {
+      this.orders_detail.map(function (item, idx) {
+        return item.total_amount = item.amount * item.qty;
+      });
+    },
+    resetField: function resetField() {
+      this.sales_order.fulfillmentDate = "";
+    }
+  },
+  components: {
+    LoadingTable: _Template_Table_partials_LoadingTable__WEBPACK_IMPORTED_MODULE_2__["default"],
+    ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__["ModelListSelect"]
+  },
+  computed: {
+    /**
+     * Calculate Total Item
+     * @returns {string}
+     */
+    totalItem: function totalItem() {
+      var sum = 0;
+      this.orders_detail.forEach(function (item) {
+        sum += parseFloat(item.total_amount);
+      });
+      return sum.toLocaleString("id-ID", {
+        minimumFractionDigits: 2
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=script&lang=js& ***!
@@ -4235,7 +4708,7 @@ __webpack_require__.r(__webpack_exports__);
         title: "In/Out Payment",
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment"),
-        route_create: "form_sales_order.create",
+        route_create: "finance.inOutPayment.create",
         route_confirm_in_out_payment: "finance.inOutPayment.show",
         route_done_in_out_payment: "finance.inOutPayment.show"
       },
@@ -4254,7 +4727,8 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: "Jumlah",
         field: "amount",
-        filterable: false
+        filterable: false,
+        type: 'price'
       }, {
         title: "Status",
         field: "status_html",
@@ -5548,6 +6022,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5560,6 +6037,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         value: 2
       }],
       requestType: '',
+      uom: [],
       productTypes: [{
         name: 'Non Core',
         value: 1
@@ -5608,7 +6086,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return {
                       name: item.name,
                       typeOfGoods: item.skuid,
-                      unit: item.unit,
+                      unit: item.uomid,
                       qty: item.qty,
                       ppn: item.ppn,
                       price: item.price,
@@ -5630,7 +6108,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
                   _this.$router.push({
-                    name: 'finance.requestFinance'
+                    name: 'finance.paymentAdvance'
                   });
                 });
                 console.log(res);
@@ -5663,10 +6141,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.loading = true;
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse"))]).then(axios.spread(function (users, items, warehouses) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, items, warehouses, uom) {
         _this2.users = users.data;
         _this2.items = items.data;
         _this2.warehouses = warehouses.data;
+        _this2.uom = uom.data.data;
         _this2.loading = false;
       }))["catch"](function (err) {
         if (err.response.status === 500) {
@@ -6454,7 +6933,7 @@ __webpack_require__.r(__webpack_exports__);
       config: {
         title: "Settlement Cash Advance",
         // action: true,
-        base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-finance") // route_view: "finance.settlementFinance.show",
+        base_url: this.$parent.MakeUrl("api/v1/finance-ap/payment-advance") // route_view: "finance.settlementFinance.show",
         // route_create: "finance.requestFinance.create"
         // route_multiple_print: 'invoice_order.multiplePrint',
 
@@ -57878,6 +58357,426 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue?vue&type=template&id=3b47f8dd&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue?vue&type=template&id=3b47f8dd& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _vm.loading
+      ? _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "card col-12" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.in_out_payment.vendor,
+                            expression: "in_out_payment.vendor"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: { "is-invalid": _vm.errors.vendor },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Vendor Name",
+                          required: ""
+                        },
+                        domProps: { value: _vm.in_out_payment.vendor },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.in_out_payment,
+                              "vendor",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.vendor
+                        ? _c(
+                            "div",
+                            {
+                              staticStyle: {
+                                "margin-top": ".25rem",
+                                "font-size": "80%",
+                                color: "#dc3545"
+                              }
+                            },
+                            [_c("p", [_vm._v(_vm._s(_vm.errors.vendor[0]))])]
+                          )
+                        : _vm._e()
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.in_out_payment.amount,
+                            expression: "in_out_payment.amount"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: { "is-invalid": _vm.errors.amount },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Amount",
+                          required: ""
+                        },
+                        domProps: { value: _vm.in_out_payment.amount },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.in_out_payment,
+                              "amount",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.amount
+                        ? _c(
+                            "div",
+                            {
+                              staticStyle: {
+                                "margin-top": ".25rem",
+                                "font-size": "80%",
+                                color: "#dc3545"
+                              }
+                            },
+                            [_c("p", [_vm._v(_vm._s(_vm.errors.amount[0]))])]
+                          )
+                        : _vm._e()
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      [
+                        _c("model-list-select", {
+                          attrs: {
+                            list: _vm.banks,
+                            "option-value": "id",
+                            "option-text": "name",
+                            placeholder: "Select Bank"
+                          },
+                          model: {
+                            value: _vm.in_out_payment.bank_id,
+                            callback: function($$v) {
+                              _vm.$set(_vm.in_out_payment, "bank_id", $$v)
+                            },
+                            expression: "in_out_payment.bank_id"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.bank_id
+                          ? _c(
+                              "div",
+                              {
+                                staticStyle: {
+                                  "margin-top": ".25rem",
+                                  "font-size": "80%",
+                                  color: "#dc3545"
+                                }
+                              },
+                              [_c("p", [_vm._v(_vm._s(_vm.errors.bank_id[0]))])]
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.in_out_payment.no_rek,
+                            expression: "in_out_payment.no_rek"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        class: { "is-invalid": _vm.errors.no_rek },
+                        attrs: {
+                          type: "text",
+                          placeholder: "Nomor Rekening",
+                          required: ""
+                        },
+                        domProps: { value: _vm.in_out_payment.no_rek },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.in_out_payment,
+                              "no_rek",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.no_rek
+                        ? _c(
+                            "div",
+                            {
+                              staticStyle: {
+                                "margin-top": ".25rem",
+                                "font-size": "80%",
+                                color: "#dc3545"
+                              }
+                            },
+                            [_c("p", [_vm._v(_vm._s(_vm.errors.no_rek[0]))])]
+                          )
+                        : _vm._e()
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      [
+                        _c("model-list-select", {
+                          attrs: {
+                            list: _vm.types,
+                            "option-value": "id",
+                            "option-text": "name",
+                            placeholder: "Select Tipe Transaksi"
+                          },
+                          model: {
+                            value: _vm.in_out_payment.type_transaction,
+                            callback: function($$v) {
+                              _vm.$set(
+                                _vm.in_out_payment,
+                                "type_transaction",
+                                $$v
+                              )
+                            },
+                            expression: "in_out_payment.type_transaction"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.type_transaction
+                          ? _c(
+                              "div",
+                              {
+                                staticStyle: {
+                                  "margin-top": ".25rem",
+                                  "font-size": "80%",
+                                  color: "#dc3545"
+                                }
+                              },
+                              [
+                                _c("p", [
+                                  _vm._v(_vm._s(_vm.errors.type_transaction[0]))
+                                ])
+                              ]
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._m(6),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.in_out_payment.remark,
+                          expression: "in_out_payment.remark"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.errors.remark },
+                      attrs: { id: "Remarks", name: "Remarks" },
+                      domProps: { value: _vm.in_out_payment.remark },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.in_out_payment,
+                            "remark",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.remark
+                      ? _c("div", { staticClass: "invalid-feedback" }, [
+                          _c("p", [_vm._v(_vm._s(_vm.errors.remark[0]))])
+                        ])
+                      : _vm._e()
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12" }, [
+                  _c("div", { staticClass: "card-body" }, [
+                    _vm.loadingSubmit
+                      ? _c("div", [_c("loading-button")], 1)
+                      : _c(
+                          "div",
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.submitForm()
+                                  }
+                                }
+                              },
+                              [_vm._v("Submit")]
+                            ),
+                            _vm._v(" "),
+                            _c("back-button")
+                          ],
+                          1
+                        )
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      : _c("div", { staticClass: "card col-12" }, [_c("loading-table")], 1)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h4", { staticClass: "text-danger" }, [
+        _vm._v("Add a New In/Out Payment")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Vendor")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Amount")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Nama Bank")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Nomor Rekening")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Tipe Transaksi")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("b", [_vm._v("Remarks")])])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=template&id=7d66b94e&":
 /*!*******************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue?vue&type=template&id=7d66b94e& ***!
@@ -59195,7 +60094,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _vm.userId !== ""
-                    ? _c("div", { staticClass: "col-md-2" }, [
+                    ? _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _vm._m(2),
                           _vm._v(" "),
@@ -59244,7 +60143,7 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.userId !== ""
-                    ? _c("div", { staticClass: "col-md-2" }, [
+                    ? _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _vm._m(3),
                           _vm._v(" "),
@@ -59295,7 +60194,7 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.userId !== ""
-                    ? _c("div", { staticClass: "col-md-2" }, [
+                    ? _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _vm._m(4),
                           _vm._v(" "),
@@ -59353,6 +60252,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "div",
+                            { staticStyle: { "margin-top": ".15rem" } },
                             [
                               _c("model-list-select", {
                                 class: { "is-invalid": _vm.errors.address },
@@ -59393,17 +60293,6 @@ var render = function() {
                           )
                         ])
                       ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.userId !== ""
-                    ? _c("s-form-input", {
-                        attrs: {
-                          col: "3",
-                          title: "Name",
-                          model: _vm.user.name,
-                          disabled: "true"
-                        }
-                      })
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.userId !== ""
@@ -59520,7 +60409,7 @@ var render = function() {
                         _c(
                           "div",
                           {
-                            staticClass: "table-responsive m-t-40",
+                            staticClass: "table-responsive",
                             staticStyle: { clear: "both" }
                           },
                           [
@@ -59636,35 +60525,35 @@ var render = function() {
                                               })
                                             ]),
                                             _vm._v(" "),
-                                            _c("td", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: item.unit,
-                                                    expression: "item.unit"
+                                            _c(
+                                              "td",
+                                              [
+                                                _c("model-list-select", {
+                                                  class: {
+                                                    "is-invalid":
+                                                      _vm.errors.sales_order_id
+                                                  },
+                                                  attrs: {
+                                                    list: _vm.uom,
+                                                    "option-value": "name",
+                                                    "option-text": "name",
+                                                    placeholder: "Select"
+                                                  },
+                                                  model: {
+                                                    value: item.uomid,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        item,
+                                                        "uomid",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression: "item.uomid"
                                                   }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { type: "text" },
-                                                domProps: { value: item.unit },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      item,
-                                                      "unit",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
-                                            ]),
+                                                })
+                                              ],
+                                              1
+                                            ),
                                             _vm._v(" "),
                                             _c("td", [
                                               _c("input", {
@@ -59864,35 +60753,35 @@ var render = function() {
                                               })
                                             ]),
                                             _vm._v(" "),
-                                            _c("td", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: item.unit,
-                                                    expression: "item.unit"
+                                            _c(
+                                              "td",
+                                              [
+                                                _c("model-list-select", {
+                                                  class: {
+                                                    "is-invalid":
+                                                      _vm.errors.sales_order_id
+                                                  },
+                                                  attrs: {
+                                                    list: _vm.uom,
+                                                    "option-value": "name",
+                                                    "option-text": "name",
+                                                    placeholder: "Select"
+                                                  },
+                                                  model: {
+                                                    value: item.uomid,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        item,
+                                                        "uomid",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression: "item.uomid"
                                                   }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { type: "text" },
-                                                domProps: { value: item.unit },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      item,
-                                                      "unit",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
-                                            ]),
+                                                })
+                                              ],
+                                              1
+                                            ),
                                             _vm._v(" "),
                                             _c("td", [
                                               _c("input", {
@@ -60100,7 +60989,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "text-danger" }, [_vm._v("Add Request Finance")])
+      _c("h4", { staticClass: "text-danger" }, [_vm._v("Add Payment Advance")])
     ])
   },
   function() {
@@ -60177,11 +61066,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Unit")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Uom")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center", attrs: { colspan: "2" } }, [
-          _vm._v("Harga + PPN")
-        ]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Harga")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("PPN")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Nama Suplier")]),
         _vm._v(" "),
@@ -94463,6 +95352,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AddInOutPayment_vue_vue_type_template_id_3b47f8dd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddInOutPayment.vue?vue&type=template&id=3b47f8dd& */ "./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue?vue&type=template&id=3b47f8dd&");
+/* harmony import */ var _AddInOutPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddInOutPayment.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AddInOutPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddInOutPayment_vue_vue_type_template_id_3b47f8dd___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddInOutPayment_vue_vue_type_template_id_3b47f8dd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddInOutPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AddInOutPayment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddInOutPayment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue?vue&type=template&id=3b47f8dd&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue?vue&type=template&id=3b47f8dd& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddInOutPayment_vue_vue_type_template_id_3b47f8dd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AddInOutPayment.vue?vue&type=template&id=3b47f8dd& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue?vue&type=template&id=3b47f8dd&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddInOutPayment_vue_vue_type_template_id_3b47f8dd___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddInOutPayment_vue_vue_type_template_id_3b47f8dd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue":
 /*!******************************************************************************!*\
   !*** ./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue ***!
@@ -98081,9 +99039,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/IndexPettyCash */ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue");
 /* harmony import */ var _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/PrintPettyCash */ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue");
 /* harmony import */ var _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/IndexInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/PrintInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/PrintInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/IndexSettlementFinance */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue");
-/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_AddInOutPayment__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/AddInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/PrintInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/PrintInOutPayment.vue");
+/* harmony import */ var _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/IndexSettlementFinance */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue");
+/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
+
 
 
 
@@ -98304,11 +99264,15 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/finance-ap/in-out-payment/show/:id',
     name: 'finance.inOutPayment.show',
-    component: _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_41__["default"]
+    component: _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_42__["default"]
+  }, {
+    path: '/admin/finance-ap/in-out-payment/create',
+    name: 'finance.inOutPayment.create',
+    component: _components_FinanceAP_InOutPayment_AddInOutPayment__WEBPACK_IMPORTED_MODULE_41__["default"]
   }, {
     path: '/admin/finance-ap/settlement-cash-advance',
     name: 'finance.settlementFinance',
-    component: _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_42__["default"]
+    component: _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_43__["default"]
   }, {
     path: '/admin/finance-ap/petty-cash',
     name: 'finance.pettyCash',
@@ -98328,7 +99292,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/master_data/price',
     name: 'master_data.price',
-    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_43__["default"]
+    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_44__["default"]
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
@@ -98478,8 +99442,8 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\FreshBox\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
 
 
 /***/ })

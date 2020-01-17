@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiV1\FinanceAP;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FinanceAP\RequestFinanceResource;
 use App\Http\Resources\FinanceAP\RequestFinanceWithDetailResource;
+use App\Model\FinanceAP\PettyCash;
 use App\Model\FinanceAP\RequestFinance;
 use App\Model\FinanceAP\RequestFinanceDetail;
 use Carbon\Carbon;
@@ -56,6 +57,7 @@ class RequestFinanceController extends Controller
         $data = [
             'no_request' => $noRequest,
             'user_id' => $request->userId,
+            'status' => 1,
             'master_warehouse_id' => $request->warehouse,
             'request_date' => $request->requestDate,
             'request_type' => $request->requestType,
@@ -65,6 +67,7 @@ class RequestFinanceController extends Controller
         ];
         $requestFinance = RequestFinance::insertGetId($data);
         $orderDetails = $request->orderDetails;
+        $total = 0;
         foreach ($orderDetails as $i => $detail) {
             $requestFinanceDetails[] = [
                 'request_finance_id' => $requestFinance,
@@ -78,8 +81,20 @@ class RequestFinanceController extends Controller
                 'supplier_name' => $detail['supplierName'],
                 'remarks' => $detail['remark'],
             ];
+
+            $total = $total + ($detail['price'] * $detail['qty'] + $detail['ppn']);
         }
         RequestFinanceDetail::insert($requestFinanceDetails);
+
+        if($request->requestType == 1)
+        {
+            PettyCash::create([
+                'finance_request_id' => $requestFinance,
+                'amount' => $total,
+                'no_trx' => $noRequest,
+                'created_at' => now()
+            ]);
+        }
     }
 
     public function generateRequestNo($date)
