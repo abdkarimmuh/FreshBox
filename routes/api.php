@@ -151,6 +151,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         //        Request Finance
         Route::group(['prefix' => 'payment-advance'], function () {
             Route::get('/', 'RequestFinanceController@index');
+            Route::post('/confirm/{id}', 'RequestFinanceController@confirm');
             Route::get('/show/{id}', 'RequestFinanceController@show');
             Route::post('/', 'RequestFinanceController@store');
         });

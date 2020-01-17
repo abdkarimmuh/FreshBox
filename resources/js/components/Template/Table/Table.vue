@@ -266,6 +266,13 @@
                                         class="badge badge-warning"
                                         :to="{ name: config.route_confirm , params:{ id: item.id }}"
                                     >Confirm</router-link>
+
+                                    <button
+                                        @click="confirmPaymentAdvance(item.id)"
+                                        class="badge badge-warning"
+                                        v-if="config.route_confirmPaymentAdvance && item.status === 1"
+                                    >Confirm</button>
+
                                     <button
                                         @click="replenish(item.id)"
                                         class="badge badge-warning"
@@ -464,6 +471,30 @@ export default {
                     console.log(res);
                 })
                 .catch(e => {});
+        },
+        confirmPaymentAdvance(id) {
+            Vue.swal({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, confirm it!"
+            }).then(result => {
+                if (result.value) {
+                    axios.post(BaseUrl("api/v1/finance-ap/payment-advance/confirm/" + id));
+                    Vue.swal(
+                        "Confirm!",
+                        "The data has been confirm.",
+                        "success"
+                    ).then(next => {
+                        console.log(next);
+                        this.getData();
+                    });
+                }
+            });
+            console.log(id);
         },
         replenish(id) {
             Vue.swal({

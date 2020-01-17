@@ -11,6 +11,7 @@ class RequestFinance extends MyModel
 {
     use SearchTraits;
     protected $table = 'finance_request';
+    protected $fillable = ['status'];
     protected $dates = [
         'request_date',
         'request_confirm_date'

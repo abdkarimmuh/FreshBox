@@ -6592,7 +6592,8 @@ __webpack_require__.r(__webpack_exports__);
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/payment-advance"),
         route_view: "finance.paymentAdvance.show",
-        route_create: "finance.paymentAdvance.create" // route_multiple_print: 'invoice_order.multiplePrint',
+        route_create: "finance.paymentAdvance.create",
+        route_confirmPaymentAdvance: true // route_multiple_print: 'invoice_order.multiplePrint',
 
       },
       columns: [{
@@ -10241,6 +10242,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -10450,8 +10458,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         console.log(res);
       })["catch"](function (e) {});
     },
-    replenish: function replenish(id) {
+    confirmPaymentAdvance: function confirmPaymentAdvance(id) {
       var _this3 = this;
+
+      Vue.swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, confirm it!"
+      }).then(function (result) {
+        if (result.value) {
+          axios.post(BaseUrl("api/v1/finance-ap/payment-advance/confirm/" + id));
+          Vue.swal("Confirm!", "The data has been confirm.", "success").then(function (next) {
+            console.log(next);
+
+            _this3.getData();
+          });
+        }
+      });
+      console.log(id);
+    },
+    replenish: function replenish(id) {
+      var _this4 = this;
 
       Vue.swal({
         title: "Are you sure?",
@@ -10465,7 +10496,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (result.value) {
           axios.patch(BaseUrl("api/v1/finance-ap/replenish/" + id));
           Vue.swal("Replenish!", "The data has been replenish.", "success").then(function (next) {
-            _this3.getData();
+            _this4.getData();
           });
         }
       });
@@ -66517,6 +66548,26 @@ var render = function() {
                                               )
                                             : _vm._e(),
                                           _vm._v(" "),
+                                          _vm.config
+                                            .route_confirmPaymentAdvance &&
+                                          item.status === 1
+                                            ? _c(
+                                                "button",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-warning",
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.confirmPaymentAdvance(
+                                                        item.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [_vm._v("Confirm")]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
                                           _vm.config.route_replenish &&
                                           item.status === 3
                                             ? _c(
@@ -99442,8 +99493,8 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! C:\laragon\www\FreshBox\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
 
 
 /***/ })
