@@ -8,8 +8,6 @@ class CreateFinanceRequestDetailTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -19,7 +17,7 @@ class CreateFinanceRequestDetailTable extends Migration
             $table->string('item_name')->index();
             $table->string('type_of_goods')->index();
             $table->float('qty')->index();
-            $table->string('unit')->index();
+            $table->unsignedBigInteger('uom_id')->index();
             $table->integer('price')->index();
             $table->integer('ppn')->nullable();
             $table->integer('total')->index();
@@ -35,8 +33,6 @@ class CreateFinanceRequestDetailTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

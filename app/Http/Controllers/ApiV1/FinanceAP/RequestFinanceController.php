@@ -38,7 +38,6 @@ class RequestFinanceController extends Controller
 
     public function create()
     {
-
     }
 
     public function store(Request $request)
@@ -49,7 +48,7 @@ class RequestFinanceController extends Controller
             'requestDate' => 'required',
             'requestType' => 'required',
             'productType' => 'required',
-            'orderDetails' => 'required'
+            'orderDetails' => 'required',
         ];
         $request->validate($rules);
 
@@ -63,7 +62,7 @@ class RequestFinanceController extends Controller
             'request_type' => $request->requestType,
             'product_type' => $request->productType,
             'created_at' => now(),
-            'created_by' => auth('api')->user()->id
+            'created_by' => auth('api')->user()->id,
         ];
         $requestFinance = RequestFinance::insertGetId($data);
         $orderDetails = $request->orderDetails;
@@ -74,7 +73,7 @@ class RequestFinanceController extends Controller
                 'item_name' => $detail['name'],
                 'type_of_goods' => $detail['typeOfGoods'],
                 'qty' => $detail['qty'],
-                'unit' => $detail['unit'],
+                'uom_id' => $detail['uom_id'],
                 'price' => $detail['price'],
                 'ppn' => $detail['ppn'],
                 'total' => $detail['price'] * $detail['qty'] + $detail['ppn'],
@@ -86,13 +85,12 @@ class RequestFinanceController extends Controller
         }
         RequestFinanceDetail::insert($requestFinanceDetails);
 
-        if($request->requestType == 1)
-        {
+        if ($request->requestType == 1) {
             PettyCash::create([
                 'finance_request_id' => $requestFinance,
                 'amount' => $total,
                 'no_trx' => $noRequest,
-                'created_at' => now()
+                'created_at' => now(),
             ]);
         }
     }
@@ -103,18 +101,16 @@ class RequestFinanceController extends Controller
         $latestRequestFinance = RequestFinance::where(DB::raw("DATE_FORMAT(request_date, '%y-%m')"), $year_month)->latest()->first();
         $latestRequestFinanceNo = isset($latestRequestFinance->no_request) ? $latestRequestFinance->no_request : '0/GF-FB';
         $cutString = str_replace('/GF-FB', '', $latestRequestFinanceNo);
-        return ($cutString + 1) . '/GF-FB';
+
+        return ($cutString + 1).'/GF-FB';
     }
 
     public function confirm(Request $request)
     {
         $rules = [
             'confirmDate' => 'required',
-            'orderDetails' => 'required'
+            'orderDetails' => 'required',
         ];
         $request->validate($rules);
-
-
     }
 }
-

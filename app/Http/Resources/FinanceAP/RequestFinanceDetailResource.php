@@ -10,6 +10,7 @@ class RequestFinanceDetailResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
@@ -20,7 +21,8 @@ class RequestFinanceDetailResource extends JsonResource
             'itemName' => $this->item_name,
             'typeOfGoods' => $this->type_of_goods,
             'qty' => $this->qty,
-            'unit' => $this->unit,
+            'uom_id' => $this->uom_id,
+            'uom_name' => $this->Uom->name,
             'price' => $this->price,
             'ppn' => $this->ppn,
             'total' => $this->total,
