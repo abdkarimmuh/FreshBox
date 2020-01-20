@@ -15,11 +15,19 @@ class RequestFinanceWithDetailResource extends JsonResource
      */
     public function toArray($request)
     {
+        if($this->request_type==1){
+            $requestType = 'Cash';
+        }
+        else{
+            $requestType = 'Advance';
+        }
         return [
             'id' => $this->id,
             'no_request' => $this->no_request . '/' . $this->created_at->format('m/Y'),
             'request_date' => $this->request_date->formatLocalized('%d %B %Y'),
             'shipping_address' => $this->warehouse->address,
+            'request_type' => $requestType,
+            'product_type' =>$this->product_type,
             'status' => isset($this->no_request_confirm) ? 2 : 1,
             'user_name' => $this->user->name,
             'status_name' => isset($this->no_request_confirm) ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-info">Not Confirmed</span>',
@@ -30,6 +38,8 @@ class RequestFinanceWithDetailResource extends JsonResource
             'terbilang' => Terbilang::make($this->total) . ' rupiah',
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
             'created_by_name' => $this->created_by_name,
+            'user_id' => $this->user_id,
+            'master_warehouse_id' => $this->master_warehouse_id,
             'details' => RequestFinanceDetailResource::collection($this->detail)
         ];
     }

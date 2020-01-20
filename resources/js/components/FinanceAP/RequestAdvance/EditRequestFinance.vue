@@ -7,82 +7,21 @@
                 </div>
                 <div class="col-12">
                     <div class="row">
-                        <!-- User -->
-                        <!-- <div class="col-md-3">
-                            <div class="form-group">
-                                <label>
-                                    <b>User</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <model-list-select
-                                    disabled
-                                        v-bind:class="{'is-invalid': errors.sales_order_id}"
-                                        :list="users"
-                                        v-model="userId"
-                                        v-on:input="getUser(paymentAdvance.userId)"
-                                        option-value="id"
-                                        option-text="name"
-                                        placeholder="Select User"
-                                    />
-                                    <div
-                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.sales_order_id"
-                                    >
-                                        <p>{{ errors.sales_order_id[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                         <!-- Request Date -->
                         <div class="col-md-3">
-                            <div class="form-group">
-                                <label>
-                                    <b>Request Date</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <date-picker
-                                        v-model="requestDate"
-                                        lang="en"
-                                        type="date"
-                                        valuetype="format"
-                                        :not-before="new Date()"
-                                        format="YYYY-MM-DD"
-                                    />
-                                </div>
-                                <div
-                                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                    v-if="errors.requestDate"
-                                >
-                                    <p>{{ errors.requestDate[0] }}</p>
-                                </div>
-                            </div>
+                            <s-form-input
+                            title="Request Date"
+                            :model="paymentAdvance.request_date"
+                            disabled="true"
+                        />
                         </div>
                         <!-- Request Type -->
                         <div class="col-md-3">
-                            <div class="form-group">
-                                <label>
-                                    <b>Request Type</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <model-list-select
-                                        v-bind:class="{'is-invalid': errors.requestType}"
-                                        :list="requestTypes"
-                                        v-model="requestType"
-                                        option-value="value"
-                                        option-text="name"
-                                        placeholder="Select Request Type"
-                                    />
-                                    <div
-                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.requestType"
-                                    >
-                                        <p>{{ errors.requestType[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <s-form-input
+                            title="Request Type"
+                            :model="paymentAdvance.request_type"
+                            disabled="true"
+                        />
                         </div>
                         <!--Product Types-->
                         <div class="col-md-3" >
@@ -440,6 +379,7 @@ export default {
     },
     mounted() {
         this.getData();
+
     },
     methods: {
         async submitForm() {
@@ -498,18 +438,24 @@ export default {
                 .then(
                     axios.spread((users, paymentAdvance ,items, warehouses, uom) => {
                         this.users = users.data;
-                        this.paymentAdvance = paymentAdvance.data;
+                        this.paymentAdvance = paymentAdvance.data.data;
+                        this.productType = paymentAdvance.data.data.product_type;
+                        this.warehouseId = paymentAdvance.data.data.master_warehouse_id;
                         this.items = items.data;
                         this.warehouses = warehouses.data;
                         this.uom = uom.data.data;
                         this.loading = false;
+                        console.log(paymentAdvance)
+                        this.getUser(this.paymentAdvance.user_id);
                     })
+
                 )
                 .catch(err => {
                     if (err.response.status === 500) {
                         this.getData();
                     }
                 });
+
         },
         getDetailItem() {
             this.loading = true;

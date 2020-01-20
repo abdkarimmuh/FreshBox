@@ -15,6 +15,12 @@ class RequestFinanceResource extends JsonResource
      */
     public function toArray($request)
     {
+        if($this->request_type==1){
+            $requestType = 'Cash';
+        }
+        else{
+            $requestType = 'Advance';
+        }
         return [
             'id' => $this->id,
             'no_request' => $this->no_request . '/' . $this->created_at->format('m/Y'),
@@ -22,6 +28,8 @@ class RequestFinanceResource extends JsonResource
             'shipping_address' => $this->warehouse->address,
             // 'status' => isset($this->no_request_confirm) ? 2 : 1,
             'status' =>$this->status,
+            'request_type' => $requestType,
+            'product_type' =>$this->product_type,
             'user_name' => $this->user->name,
             'status_name' => $this->status_html,
             // 'status_name' => isset($this->no_request_confirm) ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-info">Not Confirmed</span>',

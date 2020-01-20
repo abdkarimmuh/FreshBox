@@ -6956,67 +6956,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7136,11 +7075,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.loading = true;
       axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/payment-advance/show/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, paymentAdvance, items, warehouses, uom) {
         _this2.users = users.data;
-        _this2.paymentAdvance = paymentAdvance.data;
+        _this2.paymentAdvance = paymentAdvance.data.data;
+        _this2.productType = paymentAdvance.data.data.product_type;
+        _this2.warehouseId = paymentAdvance.data.data.master_warehouse_id;
         _this2.items = items.data;
         _this2.warehouses = warehouses.data;
         _this2.uom = uom.data.data;
         _this2.loading = false;
+        console.log(paymentAdvance);
+
+        _this2.getUser(_this2.paymentAdvance.user_id);
       }))["catch"](function (err) {
         if (err.response.status === 500) {
           _this2.getData();
@@ -62260,103 +62204,39 @@ var render = function() {
                 "div",
                 { staticClass: "row" },
                 [
+                  _c(
+                    "div",
+                    { staticClass: "col-md-3" },
+                    [
+                      _c("s-form-input", {
+                        attrs: {
+                          title: "Request Date",
+                          model: _vm.paymentAdvance.request_date,
+                          disabled: "true"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-3" },
+                    [
+                      _c("s-form-input", {
+                        attrs: {
+                          title: "Request Type",
+                          model: _vm.paymentAdvance.request_type,
+                          disabled: "true"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
                   _c("div", { staticClass: "col-md-3" }, [
                     _c("div", { staticClass: "form-group" }, [
                       _vm._m(1),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        [
-                          _c("date-picker", {
-                            attrs: {
-                              lang: "en",
-                              type: "date",
-                              valuetype: "format",
-                              "not-before": new Date(),
-                              format: "YYYY-MM-DD"
-                            },
-                            model: {
-                              value: _vm.requestDate,
-                              callback: function($$v) {
-                                _vm.requestDate = $$v
-                              },
-                              expression: "requestDate"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _vm.errors.requestDate
-                        ? _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "margin-top": ".25rem",
-                                "font-size": "80%",
-                                color: "#dc3545"
-                              }
-                            },
-                            [
-                              _c("p", [
-                                _vm._v(_vm._s(_vm.errors.requestDate[0]))
-                              ])
-                            ]
-                          )
-                        : _vm._e()
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _vm._m(2),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        [
-                          _c("model-list-select", {
-                            class: { "is-invalid": _vm.errors.requestType },
-                            attrs: {
-                              list: _vm.requestTypes,
-                              "option-value": "value",
-                              "option-text": "name",
-                              placeholder: "Select Request Type"
-                            },
-                            model: {
-                              value: _vm.requestType,
-                              callback: function($$v) {
-                                _vm.requestType = $$v
-                              },
-                              expression: "requestType"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm.errors.requestType
-                            ? _c(
-                                "div",
-                                {
-                                  staticStyle: {
-                                    "margin-top": ".25rem",
-                                    "font-size": "80%",
-                                    color: "#dc3545"
-                                  }
-                                },
-                                [
-                                  _c("p", [
-                                    _vm._v(_vm._s(_vm.errors.requestType[0]))
-                                  ])
-                                ]
-                              )
-                            : _vm._e()
-                        ],
-                        1
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _vm._m(3),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -62404,7 +62284,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-3" }, [
                     _c("div", { staticClass: "form-group" }, [
-                      _vm._m(4),
+                      _vm._m(2),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -62511,7 +62391,7 @@ var render = function() {
                           "div",
                           { staticClass: "form-group" },
                           [
-                            _vm._m(5),
+                            _vm._m(3),
                             _vm._v(" "),
                             _c("model-list-select", {
                               attrs: {
@@ -62570,7 +62450,7 @@ var render = function() {
                                 staticStyle: { "font-size": "9pt" }
                               },
                               [
-                                _vm._m(6),
+                                _vm._m(4),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -63134,26 +63014,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h4", { staticClass: "text-danger" }, [_vm._v("Edit Payment Advance")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("b", [_vm._v("Request Date")]),
-      _vm._v(" "),
-      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("b", [_vm._v("Request Type")]),
-      _vm._v(" "),
-      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])
   },
   function() {
@@ -100880,7 +100740,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_FinanceAP_RequestAdvance_IndexRequestFinance__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/IndexRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/IndexRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_RequestAdvance_AddRequestFinance__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/AddRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/AddRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_RequestAdvance_PrintRequestFinance__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/PrintRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/PrintRequestFinance.vue");
-/* harmony import */ var _components_FinanceAP_RequestAdvance_EditRequestFinance__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/EditRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/EditRequestFinance.vue");
+/* harmony import */ var _components_FinanceAP_RequestAdvance_EditRequestFinance__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/EditRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/EditRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_RequestAdvance_ConfirmRequestFinance__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/ConfirmRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/IndexPettyCash */ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue");
 /* harmony import */ var _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/PrintPettyCash */ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue");
@@ -101103,7 +100963,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/finance-ap/payment-advance/edit/:id',
     name: 'finance.paymentAdvance.edit',
-    component: _components_FinanceAP_RequestAdvance_EditRequestFinance__WEBPACK_IMPORTED_MODULE_46__["default"]
+    component: _components_FinanceAP_RequestAdvance_EditRequestFinance__WEBPACK_IMPORTED_MODULE_37__["default"]
   }, {
     path: '/admin/finance-ap/payment-advance/:id/confirm',
     name: 'finance.paymentAdvance.confirm',
