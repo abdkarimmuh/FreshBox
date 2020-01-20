@@ -115,14 +115,15 @@ class RequestFinanceController extends Controller
         $request->validate($rules);
     }
 
-    public function confirm($id)
+    public function confirmed($id)
     {
         $requestFinance = RequestFinance::find($id);
         $requestFinance->status = 2;
         $requestFinance->save();
+
         return response()->json([
             'success' => true,
-            'requestFinance' => $requestFinance
+            'requestFinance' => $requestFinance,
         ]);
     }
 
@@ -132,8 +133,7 @@ class RequestFinanceController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $requestFinanceDetail
-
+            'data' => $requestFinanceDetail,
         ]);
     }
 
@@ -145,7 +145,7 @@ class RequestFinanceController extends Controller
         $requestFinance->updated_at = now();
         $requestFinance->save();
 
-        $requestFinanceDetail = RequestFinanceDetail::where('request_finance_id', $request->id )->delete();
+        RequestFinanceDetail::where('request_finance_id', $request->id)->delete();
 
         foreach ($request->detail as $detail) {
             $items[] = [
@@ -167,8 +167,7 @@ class RequestFinanceController extends Controller
         RequestFinanceDetail::insert($items);
 
         return response()->json([
-            'success' => true
-
+            'success' => true,
         ]);
     }
 }
