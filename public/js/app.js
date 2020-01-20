@@ -7019,7 +7019,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       user: {},
       items: [],
       itemId: "",
-      orderDetails: [],
       errors: [],
       loading: false,
       loadingSubmit: false,
@@ -7044,30 +7043,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 this.loadingSubmit = true;
                 payload = {
+                  id: this.$route.params.id,
                   userId: this.userId,
                   warehouse: this.warehouseId,
                   requestDate: this.requestDate,
                   productType: this.productType,
                   requestType: this.requestType,
-                  orderDetails: this.orderDetails.map(function (item, idx) {
+                  detail: this.detail.map(function (item, idx) {
                     return {
-                      name: item.name,
-                      typeOfGoods: item.skuid,
-                      uom_id: item.uomid,
+                      item_name: item.item_name,
+                      type_of_goods: item.type_of_goods,
+                      uom_id: item.uom_id,
                       qty: item.qty,
                       ppn: item.ppn,
                       price: item.price,
                       // total: item.total,
-                      supplierName: item.supplierName,
-                      remark: item.remark
+                      supplier_name: item.supplier_name,
+                      remarks: item.remarks
                     };
                   })
                 };
-                _context.prev = 2;
-                _context.next = 5;
-                return axios.post("/api/v1/finance-ap/payment-advance", payload);
+                console.log(payload);
+                _context.prev = 3;
+                _context.next = 6;
+                return axios.post("/api/v1/finance-ap/payment-advance/update", payload);
 
-              case 5:
+              case 6:
                 res = _context.sent;
                 Vue.swal({
                   type: "success",
@@ -7079,22 +7080,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
                 console.log(res);
-                _context.next = 15;
+                _context.next = 16;
                 break;
 
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](2);
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](3);
                 this.loadingSubmit = false;
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
 
-              case 15:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 10]]);
+        }, _callee, this, [[3, 11]]);
       }));
 
       function submitForm() {
@@ -7121,7 +7122,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         _this2.getUser(_this2.paymentAdvance.user_id);
 
-        console.log(detail);
+        console.log(paymentAdvance);
       }))["catch"](function (err) {
         if (err.response.status === 500) {
           _this2.getData();
@@ -7149,6 +7150,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     pushItems: function pushItems(id) {
+      console.log(this.detail);
       if (!id) return;
       var indexItem = this.detail.findIndex(function (x) {
         return x.id === id;
@@ -7164,8 +7166,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       } else {
         return this.detail.push({
           id: this.item.id,
-          name: this.item.name_item,
-          skuid: this.item.skuid,
+          item_name: this.item.name_item,
+          type_of_goods: this.item.skuid,
           uom_id: 0,
           qty: 0,
           ppn: 0,
@@ -7175,8 +7177,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           remark: ""
         });
       }
-
-      console.log(this.detail);
     },
     pushRows: function pushRows() {
       return this.detail.push({
@@ -62495,7 +62495,7 @@ var render = function() {
                       ])
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm.productType === 2
+                  _vm.productType == 2
                     ? _c("div", { staticClass: "col-md-6 mt-4" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _c(

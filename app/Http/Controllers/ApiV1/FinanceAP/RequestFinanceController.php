@@ -128,13 +128,46 @@ class RequestFinanceController extends Controller
 
     public function requestFinanceDetail($id)
     {
-        $requestFinance = RequestFinance::find($id);
-        $date = $requestFinance->created_at;
-        $requestFinanceDetail = RequestFinanceDetail::where('request_finance_id', '=', $id)->where('created_at', '=', $date)->get();
+        $requestFinanceDetail = RequestFinanceDetail::where('request_finance_id', $id)->get();
 
         return response()->json([
             'success' => true,
             'data' => $requestFinanceDetail
+
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $requestFinance = RequestFinance::find($request->id);
+        $requestFinance->product_type = $request->productType;
+        $requestFinance->master_warehouse_id = $request->warehouse;
+        $requestFinance->updated_at = now();
+        $requestFinance->save();
+
+        $requestFinanceDetail = RequestFinanceDetail::where('request_finance_id', $request->id )->delete();
+
+        foreach ($request->detail as $detail) {
+            $items[] = [
+                'request_finance_id' => $request->id,
+                'item_name' => $detail['item_name'],
+                'type_of_goods' => $detail['type_of_goods'],
+                'qty' => $detail['qty'],
+                'uom_id' => $detail['uom_id'],
+                'price' => $detail['price'],
+                'ppn' => $detail['ppn'],
+                'total' => $detail['price'] * $detail['qty'] + $detail['ppn'],
+                'supplier_name' => $detail['supplier_name'],
+                'remarks' => $detail['remarks'],
+                'created_at' => $requestFinance->created_at,
+                'updated_at' => now(),
+            ];
+        }
+
+        RequestFinanceDetail::insert($items);
+
+        return response()->json([
+            'success' => true
 
         ]);
     }

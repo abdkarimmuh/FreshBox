@@ -136,7 +136,7 @@
                             </div>
                         </div>
                         <!--Button Add Items-->
-                        <div class="col-md-6 mt-4" v-if="productType === 2">
+                        <div class="col-md-6 mt-4" v-if="productType == 2">
                             <div class="form-group">
                                 <button
                                     class="btn btn-sm btn-primary"
@@ -388,7 +388,6 @@ export default {
             user: {},
             items: [],
             itemId: "",
-            orderDetails: [],
             errors: [],
             loading: false,
             loadingSubmit: false,
@@ -404,26 +403,28 @@ export default {
         async submitForm() {
             this.loadingSubmit = true;
             const payload = {
+                id: this.$route.params.id,
                 userId: this.userId,
                 warehouse: this.warehouseId,
                 requestDate: this.requestDate,
                 productType: this.productType,
                 requestType: this.requestType,
-                orderDetails: this.orderDetails.map((item, idx) => ({
-                    name: item.name,
-                    typeOfGoods: item.skuid,
-                    uom_id: item.uomid,
+                detail: this.detail.map((item, idx) => ({
+                    item_name: item.item_name,
+                    type_of_goods: item.type_of_goods,
+                    uom_id: item.uom_id,
                     qty: item.qty,
                     ppn: item.ppn,
                     price: item.price,
                     // total: item.total,
-                    supplierName: item.supplierName,
-                    remark: item.remark
+                    supplier_name: item.supplier_name,
+                    remarks: item.remarks
                 }))
             };
+            console.log(payload)
             try {
                 const res = await axios.post(
-                    "/api/v1/finance-ap/payment-advance",
+                    "/api/v1/finance-ap/payment-advance/update",
                     payload
                 );
                 Vue.swal({
@@ -477,7 +478,7 @@ export default {
                         this.uom = uom.data.data;
                         this.loading = false;
                         this.getUser(this.paymentAdvance.user_id);
-                        console.log(detail)
+                        console.log(paymentAdvance)
                     })
 
                 )
@@ -515,6 +516,7 @@ export default {
                 });
         },
         pushItems(id) {
+            console.log(this.detail)
             if (!id) return;
             const indexItem = this.detail.findIndex(x => x.id === id);
             if (indexItem >= 0) {
@@ -527,8 +529,8 @@ export default {
             } else {
                 return this.detail.push({
                     id: this.item.id,
-                    name: this.item.name_item,
-                    skuid: this.item.skuid,
+                    item_name: this.item.name_item,
+                    type_of_goods: this.item.skuid,
                     uom_id: 0,
                     qty: 0,
                     ppn: 0,
@@ -539,7 +541,7 @@ export default {
                 });
             }
 
-            console.log(this.detail)
+
         },
         pushRows() {
             return this.detail.push({
