@@ -8,6 +8,7 @@ use App\Model\FinanceAP\Replenish;
 use App\Model\Procurement\ListProcurement;
 use App\Model\WarehouseIn\Confirm;
 use App\UserProc;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -164,8 +165,60 @@ class ReplenishAPIController extends Controller
         $userProc->save();
         $confirm->save();
 
+        // $noRequest = $this->generateRequestNo(Carbon::now());
+        // $data = [
+        //     'no_request' => $noRequest,
+        //     'user_id' => $request->userId,
+        //     'status' => 1,
+        //     'master_warehouse_id' => $request->warehouse,
+        //     'request_date' => $request->requestDate,
+        //     'request_type' => $request->requestType,
+        //     'product_type' => $request->productType,
+        //     'created_at' => now(),
+        //     'created_by' => auth('api')->user()->id,
+        // ];
+        // $requestFinance = RequestFinance::insertGetId($data);
+        // $orderDetails = $request->orderDetails;
+        // $total = 0;
+        // foreach ($orderDetails as $i => $detail) {
+        //     $requestFinanceDetails[] = [
+        //         'request_finance_id' => $requestFinance,
+        //         'item_name' => $detail['name'],
+        //         'type_of_goods' => $detail['typeOfGoods'],
+        //         'qty' => $detail['qty'],
+        //         'uom_id' => $detail['uom_id'],
+        //         'price' => $detail['price'],
+        //         'ppn' => $detail['ppn'],
+        //         'total' => $detail['price'] * $detail['qty'] + $detail['ppn'],
+        //         'supplier_name' => $detail['supplierName'],
+        //         'remarks' => $detail['remark'],
+        //     ];
+
+        //     $total = $total + ($detail['price'] * $detail['qty'] + $detail['ppn']);
+        // }
+        // RequestFinanceDetail::insert($requestFinanceDetails);
+
+        // if ($request->requestType == 1) {
+        //     PettyCash::create([
+        //         'finance_request_id' => $requestFinance,
+        //         'amount' => $total,
+        //         'no_trx' => $noRequest,
+        //         'created_at' => now(),
+        //     ]);
+        // }
+
         return response()->json([
             'success' => true,
         ]);
+    }
+
+    public function generateRequestNo($date)
+    {
+        $year_month = Carbon::parse($date)->format('y-m');
+        $latestRequestFinance = RequestFinance::where(DB::raw("DATE_FORMAT(request_date, '%y-%m')"), $year_month)->latest()->first();
+        $latestRequestFinanceNo = isset($latestRequestFinance->no_request) ? $latestRequestFinance->no_request : '0/GF-FB';
+        $cutString = str_replace('/GF-FB', '', $latestRequestFinanceNo);
+
+        return ($cutString + 1).'/GF-FB';
     }
 }

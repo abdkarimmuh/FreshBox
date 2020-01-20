@@ -24,7 +24,7 @@
                         />
                         </div>
                         <!--Product Types-->
-                        <div class="col-md-3" >
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>
                                     <b>Product Type</b>
@@ -32,7 +32,9 @@
                                 </label>
                                 <div>
                                     <model-list-select
-                                        v-bind:class="{'is-invalid': errors.productType}"
+                                        v-bind:class="{
+                                            'is-invalid': errors.productType
+                                        }"
                                         :list="productTypes"
                                         v-model="productType"
                                         option-value="value"
@@ -51,7 +53,7 @@
                         </div>
 
                         <!--Alamat Kirim-->
-                        <div class="col-md-3" >
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>
                                     <b>Warehouse Address</b>
@@ -59,7 +61,9 @@
                                 </label>
                                 <div style="margin-top: .15rem;">
                                     <model-list-select
-                                        v-bind:class="{'is-invalid': errors.address}"
+                                        v-bind:class="{
+                                            'is-invalid': errors.address
+                                        }"
                                         :list="warehouses"
                                         v-model="warehouseId"
                                         option-value="id"
@@ -106,7 +110,12 @@
                         <!--Button Add Rows-->
                         <div class="col-md-12" v-if="productType === 1">
                             <div class="form-group text-right">
-                                <button class="btn btn-primary" @click="pushRows()">Add Row</button>
+                                <button
+                                    class="btn btn-primary"
+                                    @click="pushRows()"
+                                >
+                                    Add Row
+                                </button>
                             </div>
                         </div>
 
@@ -132,35 +141,49 @@
                                 <button
                                     class="btn btn-sm btn-primary"
                                     @click="pushItems(itemId)"
-                                >Add Items</button>
+                                >
+                                    Add Items
+                                </button>
                             </div>
                         </div>
 
                         <div class="col-12" v-if="productType !== ''">
                             <div class="table-responsive" style="clear: both;">
-                                <table class="table table-hover" style="font-size: 9pt;">
+                                <table
+                                    class="table table-hover"
+                                    style="font-size: 9pt;"
+                                >
                                     <thead>
                                         <tr>
                                             <th class="text-center">No</th>
-                                            <th class="text-center">Nama Barang</th>
-                                            <th class="text-center">Jenis Barang</th>
+                                            <th class="text-center">
+                                                Nama Barang
+                                            </th>
+                                            <th class="text-center">
+                                                Jenis Barang
+                                            </th>
                                             <th class="text-center">Qty</th>
                                             <th class="text-center">Uom</th>
                                             <th class="text-center">Harga</th>
                                             <th class="text-center">PPN</th>
                                             <!--                                        <th class="text-center">Total</th>-->
-                                            <th class="text-center">Nama Suplier</th>
-                                            <th class="text-center">Keterangan</th>
+                                            <th class="text-center">
+                                                Nama Suplier
+                                            </th>
+                                            <th class="text-center">
+                                                Keterangan
+                                            </th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr
-                                            v-for="(item, index) in orderDetails"
+                                            v-for="(item,
+                                            index) in orderDetails"
                                             v-bind:key="index"
                                             v-if="productType === 1"
                                         >
-                                            <td>{{ index + 1}}</td>
+                                            <td>{{ index + 1 }}</td>
                                             <td>
                                                 <input
                                                     v-model="item.name"
@@ -184,7 +207,10 @@
                                             </td>
                                             <td>
                                                 <model-list-select
-                                                    v-bind:class="{'is-invalid': errors.sales_order_id}"
+                                                    v-bind:class="{
+                                                        'is-invalid':
+                                                            errors.sales_order_id
+                                                    }"
                                                     :list="uom"
                                                     v-model="item.uomid"
                                                     option-value="id"
@@ -237,11 +263,12 @@
                                             </td>
                                         </tr>
                                         <tr
-                                            v-for="(item, index) in orderDetails"
+                                            v-for="(item,
+                                            index) in orderDetails"
                                             v-bind:key="index"
                                             v-if="productType === 2"
                                         >
-                                            <td>{{ index + 1}}</td>
+                                            <td>{{ index + 1 }}</td>
                                             <td>{{ item.name }}</td>
                                             <td>{{ item.skuid }}</td>
                                             <td>
@@ -253,7 +280,10 @@
                                             </td>
                                             <td>
                                                 <model-list-select
-                                                    v-bind:class="{'is-invalid': errors.sales_order_id}"
+                                                    v-bind:class="{
+                                                        'is-invalid':
+                                                            errors.sales_order_id
+                                                    }"
                                                     :list="uom"
                                                     v-model="item.uomid"
                                                     option-value="id"
@@ -319,7 +349,9 @@
                                     <button
                                         class="btn btn-danger"
                                         v-on:click="submitForm()"
-                                    >Submit</button>
+                                    >
+                                        Submit
+                                    </button>
                                     <back-button />
                                 </div>
                             </div>
@@ -374,7 +406,7 @@ export default {
             errors: [],
             loading: false,
             loadingSubmit: false,
-            paymentAdvance:{}
+            paymentAdvance: {}
         };
     },
     mounted() {
@@ -428,7 +460,12 @@ export default {
             axios
                 .all([
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/users")),
-                    axios.get(this.$parent.MakeUrl("api/v1/finance-ap/payment-advance/show/"+ this.$route.params.id)),
+                    axios.get(
+                        this.$parent.MakeUrl(
+                            "api/v1/finance-ap/payment-advance/show/" +
+                                this.$route.params.id
+                        )
+                    ),
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/items")),
                     axios.get(
                         this.$parent.MakeUrl("api/v1/master_data/warehouse")
@@ -475,11 +512,7 @@ export default {
         },
         getUser(userId) {
             axios
-                .get(
-                    this.$parent.MakeUrl(
-                        "api/v1/master_data/users/" + userId
-                    )
-                )
+                .get(this.$parent.MakeUrl("api/v1/master_data/users/" + userId))
                 .then(res => {
                     this.user = res.data.data;
                 })
@@ -537,4 +570,3 @@ export default {
     }
 };
 </script>
-

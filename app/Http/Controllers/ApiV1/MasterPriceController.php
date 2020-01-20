@@ -56,6 +56,13 @@ class MasterPriceController extends Controller
     {
         $fulfillment_date = Carbon::create($request->fulfillment_date)->format('Y-m-d');
 
+        // return response()->json(
+        //     [
+        //         'fulfillment_date' => $fulfillment_date,
+        //     ],
+        //     200
+        // );
+
         $customer = Customer::find($id);
 
         $data = PriceGroupCust::where('customer_group_id', $customer->customer_group_id)

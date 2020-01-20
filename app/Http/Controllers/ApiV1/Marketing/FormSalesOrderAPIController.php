@@ -4,13 +4,14 @@ namespace App\Http\Controllers\ApiV1\Marketing;
 
 use App\Http\Resources\MasterData\PriceResource;
 use App\Model\Marketing\SalesOrderDetail;
-use App\Model\MasterData\Price;
-use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SalesOrderResource;
 use App\Model\Marketing\SalesOrder;
+use App\Model\MasterData\Customer;
+use App\Model\MasterData\PriceGroupCust;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -80,7 +81,6 @@ class FormSalesOrderAPIController extends Controller
             'fulfillmentDate' => 'required',
             'customerId' => 'required|not_in:0',
             'sourceOrderId' => 'required|not_in:0',
-//            'file' => 'file64:jpeg,jpg,png,pdf',
             'items' => 'required',
             'driver_id' => 'required|not_in:0',
             'items.*.qty' => 'required|not_in:0',
@@ -129,27 +129,28 @@ class FormSalesOrderAPIController extends Controller
             }
         }
         $skuidsStr = implode(',', $skuids);
-        $listItems = Price::whereIn('skuid', $skuids)
-            ->where('customer_id', $customer_id)
+        $customer = Customer::find($customer_id);
+        $listItems = PriceGroupCust::whereIn('skuid', $skuids)
+            ->where('customer_group_id', $customer->customer_group_id)
             ->orderByRaw(DB::raw("FIND_IN_SET(skuid, '$skuidsStr')"))
             ->get();
-        foreach ($items as $i => $detail) {
+        foreach ($items as $index => $detail) {
             if (isset($detail['qty'])) {
                 $salesOrderDetails[] = [
                     'sales_order_id' => $sales_order->id,
                     'skuid' => $detail['skuid'],
-                    'uom_id' => $listItems[$i]->uom_id,
+                    'uom_id' => $detail['uom_id'],
                     'qty' => $detail['qty'],
                     'sisa_qty_proc' => $detail['qty'],
-                    'amount_price' => $listItems[$i]->amount,
-                    'total_amount' => $listItems[$i]->amount * $detail['qty'],
+                    'amount_price' => $listItems[$index]->amount,
+                    'total_amount' => $listItems[$index]->amount * $detail['qty'],
                     'notes' => $detail['notes'],
                     'status' => 1,
                     'created_by' => $user,
                     'created_at' => Carbon::now(),
                 ];
             } else {
-                unset($items[$i]);
+                unset($items[$index]);
             }
         }
         //Insert Data Array Sales Order Details
@@ -171,8 +172,9 @@ class FormSalesOrderAPIController extends Controller
     public function edit($id, Request $request)
     {
         $sales_order = new SalesOrderResource(SalesOrder::findOrFail($id));
+        $customer = Customer::find($sales_order->customer_id);
 
-        $price = Price::where('customer_id', $sales_order->customer_id)->get();
+        $price = PriceGroupCust::where('customer_group_id', $customer->customer_group_id)->get();
         if (isset($price)) {
             $price = PriceResource::collection($price);
         } else {
@@ -255,7 +257,9 @@ class FormSalesOrderAPIController extends Controller
                 $OnlySKUIDStr = implode(',', $OnlySKUIDs);
                 //Mengambil List Data Di Table Price
                 //Untuk Perhitungan Total Amount Via Backend
-                $PriceLists = Price::where('customer_id', $customer_id)
+                $custom = Customer::find($customer_id);
+                $customer_group_id = $custom->id;
+                $PriceLists = PriceGroupCust::where('customer_group_id', $customer_group_id)
                     ->whereIn('skuid', $OnlySKUIDs)
                     ->orderByRaw(DB::raw("FIND_IN_SET(skuid, '$OnlySKUIDStr')"))
                     ->get();

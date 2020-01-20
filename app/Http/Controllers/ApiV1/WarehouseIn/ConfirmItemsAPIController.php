@@ -53,6 +53,7 @@ class ConfirmItemsAPIController extends Controller
             'remark' => $request->remark,
             'status' => 1,
             'created_by' => $userId,
+            'created_at' => Carbon::now(),
         ];
 
         $minus = 0;

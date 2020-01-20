@@ -6443,6 +6443,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6621,6 +6637,38 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7192,7 +7240,7 @@ __webpack_require__.r(__webpack_exports__);
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/payment-advance"),
         route_view: "finance.paymentAdvance.show",
         route_create: "finance.paymentAdvance.create",
-        route_edit: "finance.paymentAdvance.edit",
+        route_edit_payment: "finance.paymentAdvance.edit",
         route_confirmPaymentAdvance: true // route_multiple_print: 'invoice_order.multiplePrint',
 
       },
@@ -7217,9 +7265,9 @@ __webpack_require__.r(__webpack_exports__);
         field: "dept",
         filterable: true
       }, {
-        title: 'Status',
-        field: 'status_name',
-        type: 'html'
+        title: "Status",
+        field: "status_name",
+        type: "html"
       }, {
         title: "Created At",
         field: "created_at",
@@ -8201,6 +8249,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8311,15 +8380,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return {
                       skuid: item.skuid,
                       qty: item.qty,
-                      notes: item.notes
+                      notes: item.notes,
+                      uom_id: item.uom_id
                     };
                   })
                 };
-                _context2.prev = 2;
-                _context2.next = 5;
+                console.log("payload : ", payload);
+                _context2.prev = 3;
+                _context2.next = 6;
                 return axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order/store"), payload);
 
-              case 5:
+              case 6:
                 res = _context2.sent;
                 Vue.swal({
                   type: "success",
@@ -8327,25 +8398,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
                   _this2.$router.push({
-                    name: 'form_sales_order'
+                    name: "form_sales_order"
                   });
                 });
-                _context2.next = 14;
+                _context2.next = 15;
                 break;
 
-              case 9:
-                _context2.prev = 9;
-                _context2.t0 = _context2["catch"](2);
+              case 10:
+                _context2.prev = 10;
+                _context2.t0 = _context2["catch"](3);
                 this.loadingSubmit = false;
                 this.errors = _context2.t0.response.data.errors;
                 console.error(_context2.t0.response.data);
 
-              case 14:
+              case 15:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[2, 9]]);
+        }, _callee2, this, [[3, 10]]);
       }));
 
       function submitForm() {
@@ -8380,7 +8451,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this4 = this;
 
       this.loading = false;
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId + '?fulfillment_date=' + this.sales_order.fulfillmentDate)).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId), {
+        fulfillment_date: this.sales_order.fulfillmentDate
+      }).then(function (res) {
+        console.log("price : ", res.data);
         _this4.items = res.data.data;
         _this4.orders_detail = [];
         _this4.loading = true;
@@ -8424,11 +8498,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
         console.log("GAGAL");
       } else {
+        console.log("Order Detail : ", this.orders_detail);
         return this.orders_detail.push({
           total_amount: 0,
           qty: 0,
           skuid: this.item.skuid,
           uom: this.item.uom,
+          uom_id: this.item.uom_id,
           item_name: this.item.item_name,
           amount: this.item.amount,
           notes: null
@@ -8445,7 +8521,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     back: function back() {
       this.$router.push({
-        name: 'form_sales_order'
+        name: "form_sales_order"
       });
     },
     updateTotalAmount: function updateTotalAmount() {
@@ -8454,7 +8530,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     resetField: function resetField() {
-      this.sales_order.fulfillmentDate = '';
+      this.sales_order.fulfillmentDate = "";
     }
   },
   components: {
@@ -60776,7 +60852,7 @@ var render = function() {
                                 attrs: {
                                   lang: "en",
                                   type: "date",
-                                  valuetype: "format",
+                                  valueType: "format",
                                   "not-before": new Date(),
                                   format: "YYYY-MM-DD"
                                 },
@@ -61783,7 +61859,7 @@ var render = function() {
                             attrs: {
                               lang: "en",
                               type: "date",
-                              valuetype: "format",
+                              valueType: "format",
                               "not-before": new Date(),
                               format: "YYYY-MM-DD"
                             },
@@ -62104,7 +62180,11 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Submit")]
+                          [
+                            _vm._v(
+                              "\n                            Submit\n                        "
+                            )
+                          ]
                         ),
                         _vm._v(" "),
                         _c("back-button")
@@ -62156,7 +62236,9 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Unit")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { colspan: "2" } }, [
-          _vm._v("Harga + PPN")
+          _vm._v(
+            "\n                                    Harga + PPN\n                                "
+          )
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
@@ -62242,7 +62324,9 @@ var render = function() {
                         "div",
                         [
                           _c("model-list-select", {
-                            class: { "is-invalid": _vm.errors.productType },
+                            class: {
+                              "is-invalid": _vm.errors.productType
+                            },
                             attrs: {
                               list: _vm.productTypes,
                               "option-value": "value",
@@ -62291,7 +62375,9 @@ var render = function() {
                         { staticStyle: { "margin-top": ".15rem" } },
                         [
                           _c("model-list-select", {
-                            class: { "is-invalid": _vm.errors.address },
+                            class: {
+                              "is-invalid": _vm.errors.address
+                            },
                             attrs: {
                               list: _vm.warehouses,
                               "option-value": "id",
@@ -62379,7 +62465,11 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Add Row")]
+                            [
+                              _vm._v(
+                                "\n                                Add Row\n                            "
+                              )
+                            ]
                           )
                         ])
                       ])
@@ -62428,7 +62518,11 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Add Items")]
+                            [
+                              _vm._v(
+                                "\n                                Add Items\n                            "
+                              )
+                            ]
                           )
                         ])
                       ])
@@ -62989,7 +63083,11 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("Submit")]
+                                [
+                                  _vm._v(
+                                    "\n                                    Submit\n                                "
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c("back-button")
@@ -63054,9 +63152,17 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { staticClass: "text-center" }, [_vm._v("No")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Nama Barang")]),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Nama Barang\n                                        "
+          )
+        ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Jenis Barang")]),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Jenis Barang\n                                        "
+          )
+        ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
         _vm._v(" "),
@@ -63066,9 +63172,17 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("PPN")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Nama Suplier")]),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Nama Suplier\n                                        "
+          )
+        ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Keterangan")]),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Keterangan\n                                        "
+          )
+        ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
@@ -64127,13 +64241,11 @@ var render = function() {
                           _vm._v(" "),
                           _c("label", { staticClass: "custom-file-label" }, [
                             _vm._v(
-                              "\n                                    " +
-                                _vm._s(
-                                  _vm.sales_order.fileName
-                                    ? _vm.sales_order.fileName
-                                    : "Choose File"
-                                ) +
-                                "\n                                "
+                              _vm._s(
+                                _vm.sales_order.fileName
+                                  ? _vm.sales_order.fileName
+                                  : "Choose File"
+                              )
                             )
                           ]),
                           _vm._v(" "),
@@ -64392,11 +64504,7 @@ var render = function() {
                               }
                             }
                           },
-                          [
-                            _vm._v(
-                              "\n                                Add Items\n                            "
-                            )
-                          ]
+                          [_vm._v("Add Items")]
                         )
                       ])
                     ])
@@ -64601,11 +64709,7 @@ var render = function() {
                                         staticStyle: { "text-align": "right" },
                                         attrs: { colspan: "5" }
                                       },
-                                      [
-                                        _vm._v(
-                                          "\n                                        Grand Total\n                                    "
-                                        )
-                                      ]
+                                      [_vm._v("Grand Total")]
                                     ),
                                     _vm._v(" "),
                                     _c(
@@ -64712,11 +64816,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [
-                                _vm._v(
-                                  "\n                                    Submit\n                                "
-                                )
-                              ]
+                              [_vm._v("Submit")]
                             ),
                             _vm._v(" "),
                             _c("back-button")
@@ -67520,7 +67620,7 @@ var render = function() {
                         lang: "en",
                         type: "date",
                         placeholder: "Start Date",
-                        valuetype: "format",
+                        valueType: "format",
                         format: "YYYY-MM-DD"
                       },
                       model: {
@@ -67536,7 +67636,7 @@ var render = function() {
                       attrs: {
                         lang: "en",
                         type: "date",
-                        valuetype: "format",
+                        valueType: "format",
                         placeholder: "End Date",
                         format: "YYYY-MM-DD"
                       },
@@ -68067,7 +68167,7 @@ var render = function() {
                                               )
                                             : _vm._e(),
                                           _vm._v(" "),
-                                          _vm.config.route_edit &&
+                                          _vm.config.route_edit_payment &&
                                           item.status === 1
                                             ? _c(
                                                 "router-link",
@@ -68077,7 +68177,8 @@ var render = function() {
                                                   attrs: {
                                                     to: {
                                                       name:
-                                                        _vm.config.route_edit,
+                                                        _vm.config
+                                                          .route_edit_payment,
                                                       params: { id: item.id }
                                                     }
                                                   }

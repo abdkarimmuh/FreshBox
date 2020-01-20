@@ -45,7 +45,7 @@
                                         v-model="requestDate"
                                         lang="en"
                                         type="date"
-                                        valuetype="format"
+                                        valueType="format"
                                         :not-before="new Date()"
                                         format="YYYY-MM-DD"
                                     />
