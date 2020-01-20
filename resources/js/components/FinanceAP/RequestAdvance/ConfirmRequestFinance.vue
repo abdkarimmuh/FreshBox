@@ -19,7 +19,7 @@
                                         v-model="confirmDate"
                                         lang="en"
                                         type="date"
-                                        valuetype="format"
+                                        valueType="format"
                                         :not-before="new Date()"
                                         format="YYYY-MM-DD"
                                     />
@@ -81,7 +81,10 @@
                 </div>
                 <div class="col-12">
                     <div class="table-responsive m-t-40" style="clear: both;">
-                        <table class="table table-hover" style="font-size: 9pt;">
+                        <table
+                            class="table table-hover"
+                            style="font-size: 9pt;"
+                        >
                             <thead>
                                 <tr>
                                     <th class="text-center">No</th>
@@ -89,7 +92,9 @@
                                     <th class="text-center">Jenis Barang</th>
                                     <th class="text-center">Qty</th>
                                     <th class="text-center">Unit</th>
-                                    <th class="text-center" colspan="2">Harga + PPN</th>
+                                    <th class="text-center" colspan="2">
+                                        Harga + PPN
+                                    </th>
                                     <th class="text-center">Total</th>
                                     <th class="text-center">Qty Confirm</th>
                                     <th class="text-center">Price Confirm</th>
@@ -98,8 +103,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in orderDetails" v-bind:key="index">
-                                    <td>{{ index + 1}}</td>
+                                <tr
+                                    v-for="(item, index) in orderDetails"
+                                    v-bind:key="index"
+                                >
+                                    <td>{{ index + 1 }}</td>
                                     <td>{{ item.itemName }}</td>
                                     <td>{{ item.typeOfGoods }}</td>
                                     <td>{{ item.qty }}</td>
@@ -129,18 +137,21 @@
                                         />
                                     </td>
                                     <td>
-                                        <div class="custom-checkbox custom-control">
+                                        <div
+                                            class="custom-checkbox custom-control"
+                                        >
                                             <input
                                                 type="checkbox"
                                                 class="custom-control-input"
                                                 value="1"
                                                 v-model="item.checked"
-                                                :id="'checkbox-'+ index"
+                                                :id="'checkbox-' + index"
                                             />
                                             <label
-                                                :for="'checkbox-'+index"
+                                                :for="'checkbox-' + index"
                                                 class="custom-control-label"
-                                            >&nbsp;</label>
+                                                >&nbsp;</label
+                                            >
                                         </div>
                                     </td>
                                 </tr>
@@ -154,7 +165,12 @@
                             <loading-button />
                         </div>
                         <div v-else>
-                            <button class="btn btn-danger" v-on:click="submitForm()">Submit</button>
+                            <button
+                                class="btn btn-danger"
+                                v-on:click="submitForm()"
+                            >
+                                Submit
+                            </button>
                             <back-button />
                         </div>
                     </div>
@@ -305,4 +321,3 @@ export default {
     }
 };
 </script>
-

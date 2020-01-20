@@ -95,14 +95,14 @@
                                 lang="en"
                                 type="date"
                                 placeholder="Start Date"
-                                valuetype="format"
+                                valueType="format"
                                 format="YYYY-MM-DD"
                             ></date-picker>
                             <date-picker
                                 v-model="params.end"
                                 lang="en"
                                 type="date"
-                                valuetype="format"
+                                valueType="format"
                                 placeholder="End Date"
                                 format="YYYY-MM-DD"
                             ></date-picker>
@@ -267,11 +267,18 @@
                                         :to="{ name: config.route_confirm , params:{ id: item.id }}"
                                     >Confirm</router-link>
 
-                                    <button
+                                    <router-link
+                                        v-if="config.route_edit_payment && item.status === 1"
+                                        class="badge badge-secondary"
+                                        :to="{ name: config.route_edit_payment , params:{ id: item.id }}"
+                                    >Edit</router-link>
+
+                                    <a
                                         @click="confirmPaymentAdvance(item.id)"
                                         class="badge badge-warning"
                                         v-if="config.route_confirmPaymentAdvance && item.status === 1"
-                                    >Confirm</button>
+                                        style="color: white"
+                                    >Confirm</a>
 
                                     <button
                                         @click="replenish(item.id)"

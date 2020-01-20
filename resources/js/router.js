@@ -45,6 +45,7 @@ import IndexReplenish from './components/FinanceAP/Replenish/IndexReplenish';
 import IndexRequestFinance from './components/FinanceAP/RequestAdvance/IndexRequestFinance';
 import AddRequestFinance from './components/FinanceAP/RequestAdvance/AddRequestFinance';
 import PrintRequestFinance from './components/FinanceAP/RequestAdvance/PrintRequestFinance';
+import EditRequestFinance from './components/FinanceAP/RequestAdvance/EditRequestFinance';
 import ConfirmRequestFinance from './components/FinanceAP/RequestAdvance/ConfirmRequestFinance';
 
 import PettyCash from './components/FinanceAP/PettyCash/IndexPettyCash';
@@ -255,6 +256,11 @@ const router = new VueRouter({
             path: '/admin/finance-ap/payment-advance/show/:id',
             name: 'finance.paymentAdvance.show',
             component: PrintRequestFinance
+        },
+        {
+            path: '/admin/finance-ap/payment-advance/edit/:id',
+            name: 'finance.paymentAdvance.edit',
+            component: EditRequestFinance
         },
         {
             path: '/admin/finance-ap/payment-advance/:id/confirm',
