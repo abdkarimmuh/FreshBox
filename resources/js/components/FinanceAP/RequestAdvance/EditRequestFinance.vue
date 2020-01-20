@@ -165,7 +165,7 @@
                                             <th class="text-center">Qty</th>
                                             <th class="text-center">Uom</th>
                                             <th class="text-center">Harga</th>
-                                            <th class="text-center">PPN</th>
+                                            <th class="text-center">PPN(%)</th>
                                             <!--                                        <th class="text-center">Total</th>-->
                                             <th class="text-center">
                                                 Nama Suplier
@@ -536,8 +536,8 @@ export default {
                     ppn: 0,
                     price: 0,
                     total: 0,
-                    supplierName: "",
-                    remark: ""
+                    supplier_name: "",
+                    remarks: ""
                 });
             }
 
@@ -545,15 +545,15 @@ export default {
         },
         pushRows() {
             return this.detail.push({
-                name: "",
-                skuid: "",
+                item_name: "",
+                type_of_goods: "",
                 uom_id: 0,
                 qty: 0,
                 ppn: 0,
                 price: 0,
                 total: 0,
-                supplierName: "",
-                remark: ""
+                supplier_name: "",
+                remarks: ""
             });
         },
         clearOrderDetails() {

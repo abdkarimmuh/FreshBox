@@ -76,13 +76,13 @@ class RequestFinanceController extends Controller
                 'uom_id' => $detail['uom_id'],
                 'price' => $detail['price'],
                 'ppn' => $detail['ppn'],
-                'total' => $detail['price'] * $detail['qty'] + $detail['ppn'],
+                'total' => $detail['price'] * $detail['qty'] + ($detail['price'] * $detail['qty'] * $detail['ppn'] /100),
                 'supplier_name' => $detail['supplierName'],
                 'remarks' => $detail['remark'],
                 'created_at' => now(),
             ];
 
-            $total = $total + ($detail['price'] * $detail['qty'] + $detail['ppn']);
+            $total = $total + ($detail['price'] * $detail['qty'] + ($detail['price'] * $detail['qty'] * $detail['ppn'] /100));
         }
         RequestFinanceDetail::insert($requestFinanceDetails);
 
@@ -156,7 +156,7 @@ class RequestFinanceController extends Controller
                 'uom_id' => $detail['uom_id'],
                 'price' => $detail['price'],
                 'ppn' => $detail['ppn'],
-                'total' => $detail['price'] * $detail['qty'] + $detail['ppn'],
+                'total' => $detail['price'] * $detail['qty'] + ($detail['price'] * $detail['qty'] * $detail['ppn'] /100),
                 'supplier_name' => $detail['supplier_name'],
                 'remarks' => $detail['remarks'],
                 'created_at' => $requestFinance->created_at,

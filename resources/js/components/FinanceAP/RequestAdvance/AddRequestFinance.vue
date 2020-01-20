@@ -203,7 +203,7 @@
                                             <th class="text-center">Qty</th>
                                             <th class="text-center">Uom</th>
                                             <th class="text-center">Harga</th>
-                                            <th class="text-center">PPN</th>
+                                            <th class="text-center">PPN(%)</th>
                                             <!--                                        <th class="text-center">Total</th>-->
                                             <th class="text-center">Nama Suplier</th>
                                             <th class="text-center">Keterangan</th>

@@ -92,7 +92,7 @@
                                     <th class="text-center">Jenis Barang</th>
                                     <th class="text-center">Qty</th>
                                     <th class="text-center">Unit</th>
-                                    <th class="text-center" colspan="2">Harga + PPn</th>
+                                    <th class="text-center" colspan="2">Harga + PPn(%)</th>
                                     <th class="text-center">Total</th>
                                     <th class="text-center">Nama Supplier</th>
                                     <th class="text-center">Keterangan</th>
@@ -106,7 +106,7 @@
                                     <td class="text-center">{{ item.qty }}</td>
                                     <td class="text-center">{{ item.uom_name }}</td>
                                     <td class="text-right">{{ item.price | toIDR }}</td>
-                                    <td class="text-right" width="100">{{ item.ppn | toIDR }}</td>
+                                    <td class="text-right" width="100">{{ item.ppn }} %</td>
                                     <td class="text-right">{{ item.total | toIDR }}</td>
                                     <td class="text-left">{{ item.supplierName }}</td>
                                     <td class="text-left">{{ item.remarks }}</td>
