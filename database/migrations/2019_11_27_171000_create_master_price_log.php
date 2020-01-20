@@ -32,7 +32,7 @@ class CreateMasterPriceLog extends Migration
             $table->index('uom_id');
             $table->index('skuid');
             $table->index('amount');
-            $table->index('customer_id');
+            $table->index('customer_group_id');
             $table->index('start_periode');
             $table->index('end_periode');
             $table->index('id');

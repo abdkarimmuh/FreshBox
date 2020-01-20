@@ -27,7 +27,10 @@ class CreateMasterPriceGroupcust extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
-            $table->index(['skuid', 'amount', 'amount_basic', 'amount_discount']);
+            $table->index('skuid');
+            $table->index('amount');
+            $table->index('amount_basic');
+            $table->index('amount_discount');
         });
     }
 

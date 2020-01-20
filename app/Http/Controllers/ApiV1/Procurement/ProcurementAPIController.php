@@ -338,6 +338,7 @@ class ProcurementAPIController extends Controller
             'origin_id' => $request->origin,
             'category_id' => $request->category,
             'created_by' => auth('api')->user()->id,
+            'created_at' => Carbon::now(),
         ]);
         $role = Role::find(4);
         if ($role) {
@@ -352,6 +353,7 @@ class ProcurementAPIController extends Controller
             'bank_account' => $request->bank_account,
             'bank_id' => $request->bank,
             'created_by' => auth('api')->user()->id,
+            'created_at' => Carbon::now(),
         ]);
 
         $bank = Bank::find($request->bank);
@@ -363,6 +365,7 @@ class ProcurementAPIController extends Controller
             'no_rek' => $request->bank_account,
             'nama_rek' => $bank_name,
             'created_by' => auth('api')->user()->id,
+            'created_at' => Carbon::now(),
         ]);
 
         return response()->json($procurement);

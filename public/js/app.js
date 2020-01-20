@@ -7636,6 +7636,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7746,15 +7767,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return {
                       skuid: item.skuid,
                       qty: item.qty,
-                      notes: item.notes
+                      notes: item.notes,
+                      uom_id: item.uom_id
                     };
                   })
                 };
-                _context2.prev = 2;
-                _context2.next = 5;
+                console.log("payload : ", payload);
+                _context2.prev = 3;
+                _context2.next = 6;
                 return axios.post(this.$parent.MakeUrl("api/v1/marketing/sales_order/store"), payload);
 
-              case 5:
+              case 6:
                 res = _context2.sent;
                 Vue.swal({
                   type: "success",
@@ -7762,25 +7785,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
                   _this2.$router.push({
-                    name: 'form_sales_order'
+                    name: "form_sales_order"
                   });
                 });
-                _context2.next = 14;
+                _context2.next = 15;
                 break;
 
-              case 9:
-                _context2.prev = 9;
-                _context2.t0 = _context2["catch"](2);
+              case 10:
+                _context2.prev = 10;
+                _context2.t0 = _context2["catch"](3);
                 this.loadingSubmit = false;
                 this.errors = _context2.t0.response.data.errors;
                 console.error(_context2.t0.response.data);
 
-              case 14:
+              case 15:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[2, 9]]);
+        }, _callee2, this, [[3, 10]]);
       }));
 
       function submitForm() {
@@ -7815,7 +7838,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this4 = this;
 
       this.loading = false;
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId + '?fulfillment_date=' + this.sales_order.fulfillmentDate)).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId), {
+        fulfillment_date: this.sales_order.fulfillmentDate
+      }).then(function (res) {
+        console.log("price : ", res.data);
         _this4.items = res.data.data;
         _this4.orders_detail = [];
         _this4.loading = true;
@@ -7859,11 +7885,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
         console.log("GAGAL");
       } else {
+        console.log("Order Detail : ", this.orders_detail);
         return this.orders_detail.push({
           total_amount: 0,
           qty: 0,
           skuid: this.item.skuid,
           uom: this.item.uom,
+          uom_id: this.item.uom_id,
           item_name: this.item.item_name,
           amount: this.item.amount,
           notes: null
@@ -7880,7 +7908,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     back: function back() {
       this.$router.push({
-        name: 'form_sales_order'
+        name: "form_sales_order"
       });
     },
     updateTotalAmount: function updateTotalAmount() {
@@ -7889,7 +7917,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     resetField: function resetField() {
-      this.sales_order.fulfillmentDate = '';
+      this.sales_order.fulfillmentDate = "";
     }
   },
   components: {
@@ -62604,13 +62632,11 @@ var render = function() {
                           _vm._v(" "),
                           _c("label", { staticClass: "custom-file-label" }, [
                             _vm._v(
-                              "\n                                    " +
-                                _vm._s(
-                                  _vm.sales_order.fileName
-                                    ? _vm.sales_order.fileName
-                                    : "Choose File"
-                                ) +
-                                "\n                                "
+                              _vm._s(
+                                _vm.sales_order.fileName
+                                  ? _vm.sales_order.fileName
+                                  : "Choose File"
+                              )
                             )
                           ]),
                           _vm._v(" "),
@@ -62869,11 +62895,7 @@ var render = function() {
                               }
                             }
                           },
-                          [
-                            _vm._v(
-                              "\n                                Add Items\n                            "
-                            )
-                          ]
+                          [_vm._v("Add Items")]
                         )
                       ])
                     ])
@@ -63078,11 +63100,7 @@ var render = function() {
                                         staticStyle: { "text-align": "right" },
                                         attrs: { colspan: "5" }
                                       },
-                                      [
-                                        _vm._v(
-                                          "\n                                        Grand Total\n                                    "
-                                        )
-                                      ]
+                                      [_vm._v("Grand Total")]
                                     ),
                                     _vm._v(" "),
                                     _c(
@@ -63189,11 +63207,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [
-                                _vm._v(
-                                  "\n                                    Submit\n                                "
-                                )
-                              ]
+                              [_vm._v("Submit")]
                             ),
                             _vm._v(" "),
                             _c("back-button")
