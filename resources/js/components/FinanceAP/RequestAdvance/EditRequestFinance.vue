@@ -40,7 +40,7 @@
                                         option-value="value"
                                         option-text="name"
                                         placeholder="Select Product Type"
-                                        v-on:input="clearOrderDetails"
+
                                     />
                                     <div
                                         style="margin-top: .25rem; font-size: 80%;color: #dc3545"
@@ -179,21 +179,21 @@
                                     <tbody>
                                         <tr
                                             v-for="(item,
-                                            index) in orderDetails"
+                                            index) in detail"
                                             v-bind:key="index"
                                             v-if="productType === 1"
                                         >
                                             <td>{{ index + 1 }}</td>
                                             <td>
                                                 <input
-                                                    v-model="item.name"
+                                                    v-model="item.item_name"
                                                     type="text"
                                                     class="form-control"
                                                 />
                                             </td>
                                             <td>
                                                 <input
-                                                    v-model="item.skuid"
+                                                    v-model="item.type_of_goods "
                                                     type="text"
                                                     class="form-control"
                                                 />
@@ -212,7 +212,7 @@
                                                             errors.sales_order_id
                                                     }"
                                                     :list="uom"
-                                                    v-model="item.uomid"
+                                                    v-model="item.uom_id"
                                                     option-value="id"
                                                     option-text="name"
                                                     placeholder="Select"
@@ -232,23 +232,16 @@
                                                     class="form-control"
                                                 />
                                             </td>
-                                            <!--                                        <td>-->
-                                            <!--                                            <input-->
-                                            <!--                                                v-model="item.total"-->
-                                            <!--                                                type="number"-->
-                                            <!--                                                class="form-control"-->
-                                            <!--                                            />-->
-                                            <!--                                        </td>-->
                                             <td>
                                                 <input
-                                                    v-model="item.supplierName"
+                                                    v-model="item.supplier_name"
                                                     type="text"
                                                     class="form-control"
                                                 />
                                             </td>
                                             <td>
                                                 <input
-                                                    v-model="item.remark"
+                                                    v-model="item.remarks"
                                                     type="text"
                                                     class="form-control"
                                                 />
@@ -264,13 +257,13 @@
                                         </tr>
                                         <tr
                                             v-for="(item,
-                                            index) in orderDetails"
+                                            index) in detail"
                                             v-bind:key="index"
                                             v-if="productType === 2"
                                         >
                                             <td>{{ index + 1 }}</td>
-                                            <td>{{ item.name }}</td>
-                                            <td>{{ item.skuid }}</td>
+                                            <td>{{ item.item_name }}</td>
+                                            <td>{{ item.type_of_goods  }}</td>
                                             <td>
                                                 <input
                                                     v-model="item.qty"
@@ -285,7 +278,7 @@
                                                             errors.sales_order_id
                                                     }"
                                                     :list="uom"
-                                                    v-model="item.uomid"
+                                                    v-model="item.uom_id"
                                                     option-value="id"
                                                     option-text="name"
                                                     placeholder="Select"
@@ -305,23 +298,16 @@
                                                     class="form-control"
                                                 />
                                             </td>
-                                            <!--                                        <td>-->
-                                            <!--                                            <input-->
-                                            <!--                                                v-model="item.total"-->
-                                            <!--                                                type="number"-->
-                                            <!--                                                class="form-control"-->
-                                            <!--                                            />-->
-                                            <!--                                        </td>-->
                                             <td>
                                                 <input
-                                                    v-model="item.supplierName"
+                                                    v-model="item.supplier_name"
                                                     type="text"
                                                     class="form-control"
                                                 />
                                             </td>
                                             <td>
                                                 <input
-                                                    v-model="item.remark"
+                                                    v-model="item.remarks"
                                                     type="text"
                                                     class="form-control"
                                                 />
@@ -406,7 +392,8 @@ export default {
             errors: [],
             loading: false,
             loadingSubmit: false,
-            paymentAdvance: {}
+            paymentAdvance: {},
+            detail:[]
         };
     },
     mounted() {
@@ -466,6 +453,12 @@ export default {
                                 this.$route.params.id
                         )
                     ),
+                    axios.get(
+                        this.$parent.MakeUrl(
+                            "api/v1/finance-ap/payment-advance/requestFinanceDetail/" +
+                                this.$route.params.id
+                        )
+                    ),
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/items")),
                     axios.get(
                         this.$parent.MakeUrl("api/v1/master_data/warehouse")
@@ -473,17 +466,18 @@ export default {
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))
                 ])
                 .then(
-                    axios.spread((users, paymentAdvance ,items, warehouses, uom) => {
+                    axios.spread((users, paymentAdvance, detail, items, warehouses, uom) => {
                         this.users = users.data;
                         this.paymentAdvance = paymentAdvance.data.data;
+                        this.detail = detail.data.data;
                         this.productType = paymentAdvance.data.data.product_type;
                         this.warehouseId = paymentAdvance.data.data.master_warehouse_id;
                         this.items = items.data;
                         this.warehouses = warehouses.data;
                         this.uom = uom.data.data;
                         this.loading = false;
-                        console.log(paymentAdvance)
                         this.getUser(this.paymentAdvance.user_id);
+                        console.log(detail)
                     })
 
                 )
@@ -522,7 +516,7 @@ export default {
         },
         pushItems(id) {
             if (!id) return;
-            const indexItem = this.orderDetails.findIndex(x => x.id === id);
+            const indexItem = this.detail.findIndex(x => x.id === id);
             if (indexItem >= 0) {
                 Vue.swal({
                     type: "error",
@@ -531,7 +525,7 @@ export default {
                 });
                 console.log("GAGAL");
             } else {
-                return this.orderDetails.push({
+                return this.detail.push({
                     id: this.item.id,
                     name: this.item.name_item,
                     skuid: this.item.skuid,
@@ -544,9 +538,11 @@ export default {
                     remark: ""
                 });
             }
+
+            console.log(this.detail)
         },
         pushRows() {
-            return this.orderDetails.push({
+            return this.detail.push({
                 name: "",
                 skuid: "",
                 uom_id: 0,
@@ -559,10 +555,10 @@ export default {
             });
         },
         clearOrderDetails() {
-            this.orderDetails = [];
+            this.detail = [];
         },
         deleteRow(index) {
-            this.orderDetails.splice(index, 1);
+            this.detail.splice(index, 1);
         }
     },
     components: {

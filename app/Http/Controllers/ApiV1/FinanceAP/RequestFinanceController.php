@@ -79,6 +79,7 @@ class RequestFinanceController extends Controller
                 'total' => $detail['price'] * $detail['qty'] + $detail['ppn'],
                 'supplier_name' => $detail['supplierName'],
                 'remarks' => $detail['remark'],
+                'created_at' => now(),
             ];
 
             $total = $total + ($detail['price'] * $detail['qty'] + $detail['ppn']);
@@ -122,6 +123,19 @@ class RequestFinanceController extends Controller
         return response()->json([
             'success' => true,
             'requestFinance' => $requestFinance
+        ]);
+    }
+
+    public function requestFinanceDetail($id)
+    {
+        $requestFinance = RequestFinance::find($id);
+        $date = $requestFinance->created_at;
+        $requestFinanceDetail = RequestFinanceDetail::where('request_finance_id', '=', $id)->where('created_at', '=', $date)->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $requestFinanceDetail
+
         ]);
     }
 }

@@ -6990,20 +6990,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7037,7 +7023,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       errors: [],
       loading: false,
       loadingSubmit: false,
-      paymentAdvance: {}
+      paymentAdvance: {},
+      detail: []
     };
   },
   mounted: function mounted() {
@@ -7121,18 +7108,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.loading = true;
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/payment-advance/show/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, paymentAdvance, items, warehouses, uom) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/payment-advance/show/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/payment-advance/requestFinanceDetail/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, paymentAdvance, detail, items, warehouses, uom) {
         _this2.users = users.data;
         _this2.paymentAdvance = paymentAdvance.data.data;
+        _this2.detail = detail.data.data;
         _this2.productType = paymentAdvance.data.data.product_type;
         _this2.warehouseId = paymentAdvance.data.data.master_warehouse_id;
         _this2.items = items.data;
         _this2.warehouses = warehouses.data;
         _this2.uom = uom.data.data;
         _this2.loading = false;
-        console.log(paymentAdvance);
 
         _this2.getUser(_this2.paymentAdvance.user_id);
+
+        console.log(detail);
       }))["catch"](function (err) {
         if (err.response.status === 500) {
           _this2.getData();
@@ -7161,7 +7150,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     pushItems: function pushItems(id) {
       if (!id) return;
-      var indexItem = this.orderDetails.findIndex(function (x) {
+      var indexItem = this.detail.findIndex(function (x) {
         return x.id === id;
       });
 
@@ -7173,7 +7162,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
         console.log("GAGAL");
       } else {
-        return this.orderDetails.push({
+        return this.detail.push({
           id: this.item.id,
           name: this.item.name_item,
           skuid: this.item.skuid,
@@ -7186,9 +7175,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           remark: ""
         });
       }
+
+      console.log(this.detail);
     },
     pushRows: function pushRows() {
-      return this.orderDetails.push({
+      return this.detail.push({
         name: "",
         skuid: "",
         uom_id: 0,
@@ -7201,10 +7192,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     clearOrderDetails: function clearOrderDetails() {
-      this.orderDetails = [];
+      this.detail = [];
     },
     deleteRow: function deleteRow(index) {
-      this.orderDetails.splice(index, 1);
+      this.detail.splice(index, 1);
     }
   },
   components: {
@@ -62333,7 +62324,6 @@ var render = function() {
                               "option-text": "name",
                               placeholder: "Select Product Type"
                             },
-                            on: { input: _vm.clearOrderDetails },
                             model: {
                               value: _vm.productType,
                               callback: function($$v) {
@@ -62549,10 +62539,7 @@ var render = function() {
                                 _c(
                                   "tbody",
                                   [
-                                    _vm._l(_vm.orderDetails, function(
-                                      item,
-                                      index
-                                    ) {
+                                    _vm._l(_vm.detail, function(item, index) {
                                       return _vm.productType === 1
                                         ? _c("tr", { key: index }, [
                                             _c("td", [
@@ -62565,13 +62552,15 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.name,
-                                                    expression: "item.name"
+                                                    value: item.item_name,
+                                                    expression: "item.item_name"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "text" },
-                                                domProps: { value: item.name },
+                                                domProps: {
+                                                  value: item.item_name
+                                                },
                                                 on: {
                                                   input: function($event) {
                                                     if (
@@ -62581,7 +62570,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "name",
+                                                      "item_name",
                                                       $event.target.value
                                                     )
                                                   }
@@ -62595,13 +62584,16 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.skuid,
-                                                    expression: "item.skuid"
+                                                    value: item.type_of_goods,
+                                                    expression:
+                                                      "item.type_of_goods "
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "text" },
-                                                domProps: { value: item.skuid },
+                                                domProps: {
+                                                  value: item.type_of_goods
+                                                },
                                                 on: {
                                                   input: function($event) {
                                                     if (
@@ -62611,7 +62603,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "skuid",
+                                                      "type_of_goods",
                                                       $event.target.value
                                                     )
                                                   }
@@ -62664,15 +62656,15 @@ var render = function() {
                                                     placeholder: "Select"
                                                   },
                                                   model: {
-                                                    value: item.uomid,
+                                                    value: item.uom_id,
                                                     callback: function($$v) {
                                                       _vm.$set(
                                                         item,
-                                                        "uomid",
+                                                        "uom_id",
                                                         $$v
                                                       )
                                                     },
-                                                    expression: "item.uomid"
+                                                    expression: "item.uom_id"
                                                   }
                                                 })
                                               ],
@@ -62745,15 +62737,15 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.supplierName,
+                                                    value: item.supplier_name,
                                                     expression:
-                                                      "item.supplierName"
+                                                      "item.supplier_name"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "text" },
                                                 domProps: {
-                                                  value: item.supplierName
+                                                  value: item.supplier_name
                                                 },
                                                 on: {
                                                   input: function($event) {
@@ -62764,7 +62756,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "supplierName",
+                                                      "supplier_name",
                                                       $event.target.value
                                                     )
                                                   }
@@ -62778,14 +62770,14 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.remark,
-                                                    expression: "item.remark"
+                                                    value: item.remarks,
+                                                    expression: "item.remarks"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "text" },
                                                 domProps: {
-                                                  value: item.remark
+                                                  value: item.remarks
                                                 },
                                                 on: {
                                                   input: function($event) {
@@ -62796,7 +62788,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "remark",
+                                                      "remarks",
                                                       $event.target.value
                                                     )
                                                   }
@@ -62829,10 +62821,7 @@ var render = function() {
                                         : _vm._e()
                                     }),
                                     _vm._v(" "),
-                                    _vm._l(_vm.orderDetails, function(
-                                      item,
-                                      index
-                                    ) {
+                                    _vm._l(_vm.detail, function(item, index) {
                                       return _vm.productType === 2
                                         ? _c("tr", { key: index }, [
                                             _c("td", [
@@ -62840,11 +62829,11 @@ var render = function() {
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
-                                              _vm._v(_vm._s(item.name))
+                                              _vm._v(_vm._s(item.item_name))
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
-                                              _vm._v(_vm._s(item.skuid))
+                                              _vm._v(_vm._s(item.type_of_goods))
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
@@ -62892,15 +62881,15 @@ var render = function() {
                                                     placeholder: "Select"
                                                   },
                                                   model: {
-                                                    value: item.uomid,
+                                                    value: item.uom_id,
                                                     callback: function($$v) {
                                                       _vm.$set(
                                                         item,
-                                                        "uomid",
+                                                        "uom_id",
                                                         $$v
                                                       )
                                                     },
-                                                    expression: "item.uomid"
+                                                    expression: "item.uom_id"
                                                   }
                                                 })
                                               ],
@@ -62973,15 +62962,15 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.supplierName,
+                                                    value: item.supplier_name,
                                                     expression:
-                                                      "item.supplierName"
+                                                      "item.supplier_name"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "text" },
                                                 domProps: {
-                                                  value: item.supplierName
+                                                  value: item.supplier_name
                                                 },
                                                 on: {
                                                   input: function($event) {
@@ -62992,7 +62981,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "supplierName",
+                                                      "supplier_name",
                                                       $event.target.value
                                                     )
                                                   }
@@ -63006,14 +62995,14 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.remark,
-                                                    expression: "item.remark"
+                                                    value: item.remarks,
+                                                    expression: "item.remarks"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "text" },
                                                 domProps: {
-                                                  value: item.remark
+                                                  value: item.remarks
                                                 },
                                                 on: {
                                                   input: function($event) {
@@ -63024,7 +63013,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "remark",
+                                                      "remarks",
                                                       $event.target.value
                                                     )
                                                   }
