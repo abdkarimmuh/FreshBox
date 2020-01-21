@@ -471,9 +471,9 @@ export default {
                 )
                 .then(res => {
                     console.log("price : ", res.data);
-                    this.items = res.data.data;
-                    this.orders_detail = [];
-                    this.loading = true;
+                    // this.items = res.data.data;
+                    // this.orders_detail = [];
+                    // this.loading = true;
                 })
                 .catch(err => {
                     if (err.response.status === 500) {

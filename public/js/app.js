@@ -8521,10 +8521,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.loading = false;
       console.log(this.sales_order.fulfillmentDate);
       axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId + "/" + this.sales_order.fulfillmentDate)).then(function (res) {
-        console.log("price : ", res.data);
-        _this4.items = res.data.data;
-        _this4.orders_detail = [];
-        _this4.loading = true;
+        console.log("price : ", res.data); // this.items = res.data.data;
+        // this.orders_detail = [];
+        // this.loading = true;
       })["catch"](function (err) {
         if (err.response.status === 500) {
           _this4.getItems();
