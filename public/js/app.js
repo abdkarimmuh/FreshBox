@@ -8568,9 +8568,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.loading = false;
       console.log(this.sales_order.fulfillmentDate);
-      var payload = {
-        fulfillment_date: this.sales_order.fulfillmentDate
-      };
       axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId + "/" + this.sales_order.fulfillmentDate)).then(function (res) {
         console.log("price : ", res.data);
         _this4.items = res.data.data;

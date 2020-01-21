@@ -508,13 +508,13 @@ export default {
         getItems() {
             this.loading = false;
             console.log(this.sales_order.fulfillmentDate);
-
-            const payload = { fulfillment_date: this.sales_order.fulfillmentDate }
             axios
                 .get(
                     this.$parent.MakeUrl(
                         "api/v1/master_data/price/customer/" +
-                            this.sales_order.customerId + "/" +  this.sales_order.fulfillmentDate
+                            this.sales_order.customerId +
+                            "/" +
+                            this.sales_order.fulfillmentDate
                     )
                 )
                 .then(res => {
