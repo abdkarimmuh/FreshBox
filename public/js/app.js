@@ -8338,54 +8338,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8574,9 +8526,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this4.orders_detail = [];
         _this4.loading = true;
       })["catch"](function (err) {
-        console.log(err); //if (err.response.status === 500) {
-        //    this.getItems();
-        //}
+        if (err.response.status === 500) {
+          _this4.getItems();
+        }
       });
     },
     getItem: function getItem() {
@@ -64357,11 +64309,13 @@ var render = function() {
                           _vm._v(" "),
                           _c("label", { staticClass: "custom-file-label" }, [
                             _vm._v(
-                              _vm._s(
-                                _vm.sales_order.fileName
-                                  ? _vm.sales_order.fileName
-                                  : "Choose File"
-                              )
+                              "\n                                    " +
+                                _vm._s(
+                                  _vm.sales_order.fileName
+                                    ? _vm.sales_order.fileName
+                                    : "Choose File"
+                                ) +
+                                "\n                                "
                             )
                           ]),
                           _vm._v(" "),
@@ -64486,7 +64440,7 @@ var render = function() {
                               attrs: {
                                 lang: "en",
                                 type: "datetime",
-                                valueType: "format",
+                                valuetype: "format",
                                 "not-before": new Date(),
                                 format: "YYYY-MM-DD HH:mm:ss"
                               },
@@ -64626,11 +64580,7 @@ var render = function() {
                               }
                             }
                           },
-                          [
-                            _vm._v(
-                              "\n                                Add Items\n                            "
-                            )
-                          ]
+                          [_vm._v("Add Items")]
                         )
                       ])
                     ])
@@ -64744,11 +64694,9 @@ var render = function() {
                                           },
                                           [
                                             _vm._v(
-                                              "\n                                            " +
-                                                _vm._s(
-                                                  _vm._f("toIDR")(order.amount)
-                                                ) +
-                                                "\n                                        "
+                                              _vm._s(
+                                                _vm._f("toIDR")(order.amount)
+                                              )
                                             )
                                           ]
                                         ),
@@ -64762,13 +64710,11 @@ var render = function() {
                                           },
                                           [
                                             _vm._v(
-                                              "\n                                            " +
-                                                _vm._s(
-                                                  _vm._f("toIDR")(
-                                                    order.total_amount
-                                                  )
-                                                ) +
-                                                "\n                                        "
+                                              _vm._s(
+                                                _vm._f("toIDR")(
+                                                  order.total_amount
+                                                )
+                                              )
                                             )
                                           ]
                                         ),
@@ -64839,11 +64785,7 @@ var render = function() {
                                         staticStyle: { "text-align": "right" },
                                         attrs: { colspan: "5" }
                                       },
-                                      [
-                                        _vm._v(
-                                          "\n                                            Grand Total\n                                        "
-                                        )
-                                      ]
+                                      [_vm._v("Grand Total")]
                                     ),
                                     _vm._v(" "),
                                     _c(
@@ -64851,13 +64793,7 @@ var render = function() {
                                       {
                                         staticStyle: { "text-align": "right" }
                                       },
-                                      [
-                                        _vm._v(
-                                          "\n                                            " +
-                                            _vm._s(_vm.totalItem) +
-                                            "\n                                        "
-                                        )
-                                      ]
+                                      [_vm._v(_vm._s(_vm.totalItem))]
                                     ),
                                     _vm._v(" "),
                                     _c("td")
@@ -64958,11 +64894,7 @@ var render = function() {
                                   }
                                 }
                               },
-                              [
-                                _vm._v(
-                                  "\n                                    Submit\n                                "
-                                )
-                              ]
+                              [_vm._v("Submit")]
                             ),
                             _vm._v(" "),
                             _c("back-button")
@@ -65061,27 +64993,15 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { staticClass: "text-center" }, [_vm._v("SKUID")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _vm._v(
-            "\n                                            Item Name\n                                        "
-          )
-        ]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Item Name")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("UOM")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _vm._v(
-            "\n                                            Amount Price\n                                        "
-          )
-        ]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Amount Price")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _vm._v(
-            "\n                                            Total Amount\n                                        "
-          )
-        ]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Total Amount")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Notes")]),
         _vm._v(" "),
