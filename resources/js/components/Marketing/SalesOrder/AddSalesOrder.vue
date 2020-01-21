@@ -31,30 +31,43 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group" v-if="sales_order.sourceOrderId">
+                            <div
+                                class="form-group"
+                                v-if="sales_order.sourceOrderId"
+                            >
                                 <label>
                                     <b>File</b>
                                 </label>
                                 <div class="custom-file">
                                     <input
-                                        v-bind:class="{'is-invalid': errors.file}"
+                                        v-bind:class="{
+                                            'is-invalid': errors.file
+                                        }"
                                         type="file"
                                         name="site_logo"
                                         class="custom-file-input"
                                         id="site-logo"
                                         v-on:change="onFileChange"
                                     />
-                                    <label
-                                        class="custom-file-label"
-                                    >{{ sales_order.fileName ? sales_order.fileName : 'Choose File'}}</label>
-                                    <div class="invalid-feedback" v-if="errors.file">
+                                    <label class="custom-file-label">{{
+                                        sales_order.fileName
+                                            ? sales_order.fileName
+                                            : "Choose File"
+                                    }}</label>
+                                    <div
+                                        class="invalid-feedback"
+                                        v-if="errors.file"
+                                    >
                                         <p>{{ errors.file[0] }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group" v-if="sales_order.sourceOrderId === 1">
+                            <div
+                                class="form-group"
+                                v-if="sales_order.sourceOrderId === 1"
+                            >
                                 <label>
                                     <b>No PO</b>
                                     <span style="color: red;">*</span>
@@ -62,13 +75,18 @@
                                 <div>
                                     <input
                                         type="text"
-                                        v-bind:class="{'is-invalid': errors.no_po}"
+                                        v-bind:class="{
+                                            'is-invalid': errors.no_po
+                                        }"
                                         placeholder="No PO"
                                         class="form-control"
                                         v-model="sales_order.no_po"
                                         required
                                     />
-                                    <div class="invalid-feedback" v-if="errors.no_po">
+                                    <div
+                                        class="invalid-feedback"
+                                        v-if="errors.no_po"
+                                    >
                                         <p>{{ errors.no_po[0] }}</p>
                                     </div>
                                 </div>
@@ -82,7 +100,9 @@
                                 </label>
                                 <div>
                                     <model-list-select
-                                        v-bind:class="{'is-invalid': errors.customerId}"
+                                        v-bind:class="{
+                                            'is-invalid': errors.customerId
+                                        }"
                                         :list="customers"
                                         v-on:input="resetField"
                                         v-model="sales_order.customerId"
@@ -100,7 +120,10 @@
                             </div>
                         </div>
                         <!--Fulfillment Date-->
-                        <div class="col-md-3" v-if="sales_order.customerId !== 0">
+                        <div
+                            class="col-md-3"
+                            v-if="sales_order.customerId !== 0"
+                        >
                             <div class="form-group">
                                 <label>
                                     <b>Fulfillment Date</b>
@@ -133,7 +156,9 @@
                                 </label>
                                 <div>
                                     <model-list-select
-                                        v-bind:class="{'is-invalid': errors.driver_id}"
+                                        v-bind:class="{
+                                            'is-invalid': errors.driver_id
+                                        }"
                                         :list="drivers"
                                         v-model="sales_order.driver_id"
                                         option-value="id"
@@ -150,7 +175,10 @@
                             </div>
                         </div>
                         <!--Items-->
-                        <div class="col-md-6" v-if="sales_order.fulfillmentDate !== ''">
+                        <div
+                            class="col-md-6"
+                            v-if="sales_order.fulfillmentDate !== ''"
+                        >
                             <div class="form-group">
                                 <label>
                                     <b>Items</b>
@@ -172,7 +200,9 @@
                                 <button
                                     class="btn btn-sm btn-primary"
                                     @click="pushOrderDetails(skuid)"
-                                >Add Items</button>
+                                >
+                                    Add Items
+                                </button>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -184,23 +214,36 @@
                             </div>
                         </div>
                         <div v-if="sales_order.customerId !== 0" class="col-12">
-                            <div class="table-responsive m-t-40" style="clear: both;">
-                                <table class="table table-hover" style="font-size: 9pt;">
+                            <div
+                                class="table-responsive m-t-40"
+                                style="clear: both;"
+                            >
+                                <table
+                                    class="table table-hover"
+                                    style="font-size: 9pt;"
+                                >
                                     <thead>
                                         <tr>
                                             <th class="text-center">SKUID</th>
-                                            <th class="text-center">Item Name</th>
+                                            <th class="text-center">
+                                                Item Name
+                                            </th>
                                             <th class="text-center">Qty</th>
                                             <th class="text-center">UOM</th>
-                                            <th class="text-center">Amount Price</th>
-                                            <th class="text-center">Total Amount</th>
+                                            <th class="text-center">
+                                                Amount Price
+                                            </th>
+                                            <th class="text-center">
+                                                Total Amount
+                                            </th>
                                             <th class="text-center">Notes</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr
-                                            v-for="(order, index) in orders_detail"
+                                            v-for="(order,
+                                            index) in orders_detail"
                                             track-by="index"
                                             v-bind:key="index"
                                         >
@@ -217,12 +260,12 @@
                                                 />
                                             </td>
                                             <td>{{ order.uom }}</td>
-                                            <td
-                                                style="text-align: right;"
-                                            >{{ order.amount | toIDR }}</td>
-                                            <td
-                                                style="text-align: right"
-                                            >{{ order.total_amount | toIDR }}</td>
+                                            <td style="text-align: right;">
+                                                {{ order.amount | toIDR }}
+                                            </td>
+                                            <td style="text-align: right">
+                                                {{ order.total_amount | toIDR }}
+                                            </td>
                                             <td>
                                                 <input
                                                     v-model="order.notes"
@@ -234,7 +277,11 @@
                                             <td>
                                                 <button
                                                     class="btn btn-icon btn-sm btn-danger"
-                                                    @click="removeOrderDetails(index)"
+                                                    @click="
+                                                        removeOrderDetails(
+                                                            index
+                                                        )
+                                                    "
                                                 >
                                                     <i class="fa fa-trash"></i>
                                                 </button>
@@ -243,19 +290,33 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="5" style="text-align: right;">Grand Total</td>
-                                            <td style="text-align: right;">{{ totalItem }}</td>
+                                            <td
+                                                colspan="5"
+                                                style="text-align: right;"
+                                            >
+                                                Grand Total
+                                            </td>
+                                            <td style="text-align: right;">
+                                                {{ totalItem }}
+                                            </td>
                                             <td></td>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
-                            <div v-for="(orders, index) in orders_detail" v-bind:key="index">
+                            <div
+                                v-for="(orders, index) in orders_detail"
+                                v-bind:key="index"
+                            >
                                 <div
                                     style="margin-top: .25rem; font-size: 80%;color: #dc3545"
                                     v-if="errors[`items.${index}.qty`]"
                                 >
-                                    <p>The {{ orders_detail[index].item_name }} of qty field is required.</p>
+                                    <p>
+                                        The
+                                        {{ orders_detail[index].item_name }} of
+                                        qty field is required.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -265,13 +326,18 @@
                                     <b>Remarks</b>
                                 </label>
                                 <textarea
-                                    v-bind:class="{'is-invalid': errors.remark}"
+                                    v-bind:class="{
+                                        'is-invalid': errors.remark
+                                    }"
                                     v-model="sales_order.remark"
                                     class="form-control"
                                     id="Remarks"
                                     name="Remarks"
                                 ></textarea>
-                                <div class="invalid-feedback" v-if="errors.remark">
+                                <div
+                                    class="invalid-feedback"
+                                    v-if="errors.remark"
+                                >
                                     <p>{{ errors.remark[0] }}</p>
                                 </div>
                             </div>
@@ -282,7 +348,12 @@
                                     <loading-button />
                                 </div>
                                 <div v-else>
-                                    <button class="btn btn-danger" v-on:click="submitForm()">Submit</button>
+                                    <button
+                                        class="btn btn-danger"
+                                        v-on:click="submitForm()"
+                                    >
+                                        Submit
+                                    </button>
                                     <back-button />
                                 </div>
                             </div>
@@ -436,13 +507,15 @@ export default {
          */
         getItems() {
             this.loading = false;
+            console.log(this.sales_order.fulfillmentDate);
+
+            const payload = { fulfillment_date: this.sales_order.fulfillmentDate }
             axios
                 .get(
                     this.$parent.MakeUrl(
                         "api/v1/master_data/price/customer/" +
-                            this.sales_order.customerId
-                    ),
-                    { fulfillment_date: this.sales_order.fulfillmentDate }
+                            this.sales_order.customerId + "/" +  this.sales_order.fulfillmentDate
+                    )
                 )
                 .then(res => {
                     console.log("price : ", res.data);

@@ -16,7 +16,9 @@
                                 <div>
                                     <input
                                         type="text"
-                                        v-bind:class="{'is-invalid': errors.vendor}"
+                                        v-bind:class="{
+                                            'is-invalid': errors.vendor
+                                        }"
                                         placeholder="Vendor Name"
                                         class="form-control"
                                         v-model="in_out_payment.vendor"
@@ -41,7 +43,9 @@
                                 <div>
                                     <input
                                         type="text"
-                                        v-bind:class="{'is-invalid': errors.amount}"
+                                        v-bind:class="{
+                                            'is-invalid': errors.amount
+                                        }"
                                         placeholder="Amount"
                                         class="form-control"
                                         v-model="in_out_payment.amount"
@@ -90,7 +94,9 @@
                                 <div>
                                     <input
                                         type="text"
-                                        v-bind:class="{'is-invalid': errors.no_rek}"
+                                        v-bind:class="{
+                                            'is-invalid': errors.no_rek
+                                        }"
                                         placeholder="Nomor Rekening"
                                         class="form-control"
                                         v-model="in_out_payment.no_rek"
@@ -115,7 +121,9 @@
                                 <div>
                                     <model-list-select
                                         :list="types"
-                                        v-model="in_out_payment.type_transaction"
+                                        v-model="
+                                            in_out_payment.type_transaction
+                                        "
                                         option-value="id"
                                         option-text="name"
                                         placeholder="Select Tipe Transaksi"
@@ -136,13 +144,18 @@
                                     <b>Remarks</b>
                                 </label>
                                 <textarea
-                                    v-bind:class="{'is-invalid': errors.remark}"
+                                    v-bind:class="{
+                                        'is-invalid': errors.remark
+                                    }"
                                     v-model="in_out_payment.remark"
                                     class="form-control"
                                     id="Remarks"
                                     name="Remarks"
                                 ></textarea>
-                                <div class="invalid-feedback" v-if="errors.remark">
+                                <div
+                                    class="invalid-feedback"
+                                    v-if="errors.remark"
+                                >
                                     <p>{{ errors.remark[0] }}</p>
                                 </div>
                             </div>
@@ -153,7 +166,12 @@
                                     <loading-button />
                                 </div>
                                 <div v-else>
-                                    <button class="btn btn-danger" v-on:click="submitForm()">Submit</button>
+                                    <button
+                                        class="btn btn-danger"
+                                        v-on:click="submitForm()"
+                                    >
+                                        Submit
+                                    </button>
                                     <back-button />
                                 </div>
                             </div>
@@ -268,7 +286,7 @@ export default {
                     ),
                     payload
                 );
-                console.log(res)
+                console.log(res);
                 Vue.swal({
                     type: "success",
                     title: "Success!",
@@ -309,7 +327,7 @@ export default {
                     this.$parent.MakeUrl(
                         "api/v1/master_data/price/customer/" +
                             this.sales_order.customerId +
-                            "?fulfillment_date=" +
+                            "/" +
                             this.sales_order.fulfillmentDate
                     )
                 )

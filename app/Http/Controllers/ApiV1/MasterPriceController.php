@@ -52,16 +52,9 @@ class MasterPriceController extends Controller
         return new PriceResource($data);
     }
 
-    public function CustomerPrice($id, Request $request)
+    public function CustomerPrice($id, $date)
     {
-        $fulfillment_date = Carbon::create($request->fulfillment_date)->format('Y-m-d');
-
-        // return response()->json(
-        //     [
-        //         'fulfillment_date' => $fulfillment_date,
-        //     ],
-        //     200
-        // );
+        $fulfillment_date = Carbon::create($date)->format('Y-m-d');
 
         $customer = Customer::find($id);
 
@@ -76,6 +69,8 @@ class MasterPriceController extends Controller
                 [
                     'status' => 'success',
                     'data' => $data,
+                    'fulfillment_date' => $fulfillment_date,
+                    'customer' => $customer,
                 ],
                 200
             );

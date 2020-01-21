@@ -227,7 +227,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/', 'MasterPriceController@index')->name('api.price');
             Route::get('/getPrice', 'MasterPriceController@getPrice');
             Route::get('/{id}', 'MasterPriceController@show');
-            Route::get('customer/{id}', 'MasterPriceController@CustomerPrice');
+            Route::get('customer/{id}/{date}', 'MasterPriceController@CustomerPrice');
             Route::get('/{customer_id}/{skuid}', 'MasterPriceController@show');
         });
         Route::group(['prefix' => 'source_order'], function () {
