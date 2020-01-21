@@ -8574,9 +8574,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this4.orders_detail = [];
         _this4.loading = true;
       })["catch"](function (err) {
-        if (err.response.status === 500) {
-          _this4.getItems();
-        }
+        console.log(err); //if (err.response.status === 500) {
+        //    this.getItems();
+        //}
       });
     },
     getItem: function getItem() {

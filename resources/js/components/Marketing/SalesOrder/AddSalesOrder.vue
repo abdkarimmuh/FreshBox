@@ -524,9 +524,10 @@ export default {
                     this.loading = true;
                 })
                 .catch(err => {
-                    if (err.response.status === 500) {
-                        this.getItems();
-                    }
+                    console.log(err);
+                    //if (err.response.status === 500) {
+                    //    this.getItems();
+                    //}
                 });
         },
         getItem() {
