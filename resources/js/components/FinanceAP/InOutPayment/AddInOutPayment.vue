@@ -332,7 +332,7 @@ export default {
                     )
                 )
                 .then(res => {
-                    this.items = res.data.data;
+                    this.items = res.data.price;
                     this.orders_detail = [];
                     this.loading = true;
                 })

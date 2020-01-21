@@ -46,14 +46,6 @@ class MasterPriceController extends Controller
 
     public function show($customer_id, $skuid, Request $request)
     {
-        return response()->json(
-            [
-                'status' => 'success',
-                'skuid' => $skuid,
-            ],
-            200
-        );
-
         $customer = Customer::find($customer_id);
         $data = PriceGroupCust::where('customer_group_id', $customer->customer_group_id)->where('skuid', $skuid)->first();
 
@@ -70,13 +62,14 @@ class MasterPriceController extends Controller
             ->where('start_periode', '<=', $fulfillment_date)
             ->where('end_periode', '>=', $fulfillment_date)
             ->get();
+
         if (isset($data)) {
-            $data = PriceResource::collection($data);
+            $price = PriceResource::collection($data);
 
             return response()->json(
                 [
                     'status' => 'success',
-                    'data' => $data,
+                    'price' => $price,
                     'fulfillment_date' => $fulfillment_date,
                     'customer' => $customer,
                 ],

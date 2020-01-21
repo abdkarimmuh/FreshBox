@@ -4603,7 +4603,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.loading = false;
       axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId + "/" + this.sales_order.fulfillmentDate)).then(function (res) {
-        _this4.items = res.data.data;
+        _this4.items = res.data.price;
         _this4.orders_detail = [];
         _this4.loading = true;
       })["catch"](function (err) {
@@ -8572,9 +8572,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       console.log(this.sales_order.fulfillmentDate);
       axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId + "/" + this.sales_order.fulfillmentDate)).then(function (res) {
         console.log("price : ", res.data);
-        _this4.items = res.data.data;
+        _this4.items = res.data.price;
         _this4.orders_detail = [];
         _this4.loading = true;
+        console.log(_this4.items);
       })["catch"](function (err) {
         if (err.response.status === 500) {
           _this4.getItems();
@@ -8589,6 +8590,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid)).then(function (res) {
         _this5.item = res.data.data;
         _this5.loading = true;
+        console.log("click item : ", res.data.data);
       })["catch"](function (err) {
         if (err.response.status === 500) {
           _this5.getItem();

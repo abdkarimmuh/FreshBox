@@ -521,9 +521,11 @@ export default {
                 )
                 .then(res => {
                     console.log("price : ", res.data);
-                    this.items = res.data.data;
+                    this.items = res.data.price;
                     this.orders_detail = [];
                     this.loading = true;
+
+                    console.log(this.items);
                 })
                 .catch(err => {
                     if (err.response.status === 500) {
@@ -546,6 +548,7 @@ export default {
                 .then(res => {
                     this.item = res.data.data;
                     this.loading = true;
+                    console.log("click item : ", res.data.data);
                 })
                 .catch(err => {
                     if (err.response.status === 500) {

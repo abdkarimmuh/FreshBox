@@ -100,7 +100,7 @@ class PriceGroupCust extends MyModel
 
     public function Uom()
     {
-        return $this->belongsTo(Uom::class);
+        return $this->belongsTo(Uom::class, 'uom_id', 'id');
     }
 
     public function CustomerGroup()
