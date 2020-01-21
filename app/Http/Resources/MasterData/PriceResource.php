@@ -18,10 +18,10 @@ class PriceResource extends JsonResource
         return [
             'id' => $this->id,
             'skuid' => $this->skuid,
-            'uom' => $this->uom->name,
-            'uom_id' => $this->uom->id,
+            'uom' => isset($this->uom->name) ? $this->uom->name : '',
+            'uom_id' => isset($this->uom->id) ? $this->uom->id : 0,
             'amount' => round($this->amount, 2),
-            'item_name' => $this->item->name_item,
+            'item_name' => isset($this->item->name_item) ? $this->item->name_item : '',
         ];
     }
 }
