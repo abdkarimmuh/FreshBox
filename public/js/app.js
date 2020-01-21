@@ -64440,7 +64440,7 @@ var render = function() {
                               attrs: {
                                 lang: "en",
                                 type: "datetime",
-                                valuetype: "format",
+                                valueType: "format",
                                 "not-before": new Date(),
                                 format: "YYYY-MM-DD HH:mm:ss"
                               },

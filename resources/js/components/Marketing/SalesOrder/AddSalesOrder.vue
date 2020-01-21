@@ -122,7 +122,7 @@
                                         lang="en"
                                         type="datetime"
                                         v-on:input="getItems()"
-                                        valuetype="format"
+                                        valueType="format"
                                         :not-before="new Date()"
                                         format="YYYY-MM-DD HH:mm:ss"
                                     />
