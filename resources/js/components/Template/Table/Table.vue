@@ -273,7 +273,7 @@
                                 <td v-if="config.action">
                                     <router-link
                                         v-if="config.route_view"
-                                        class="badge badge-primary"
+                                        class="badge badge-primary ml-1 mr-1 mt-1 mb-1"
                                         :to="{
                                             name: config.route_view,
                                             params: { id: item.id }
@@ -287,7 +287,7 @@
                                                 item.status === 1 &&
                                                 item.is_printed === 0
                                         "
-                                        class="badge badge-warning"
+                                        class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
                                         :to="{
                                             name: config.route_edit,
                                             params: { id: item.id }
@@ -297,7 +297,7 @@
 
                                     <router-link
                                         v-if="config.route_confirm"
-                                        class="badge badge-warning"
+                                        class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
                                         :to="{
                                             name: config.route_confirm,
                                             params: { id: item.id }
@@ -310,7 +310,7 @@
                                             config.route_edit_payment &&
                                                 item.status === 1
                                         "
-                                        class="badge badge-secondary"
+                                        class="badge badge-secondary ml-1 mr-1 mt-1 mb-1"
                                         :to="{
                                             name: config.route_edit_payment,
                                             params: { id: item.id }
@@ -318,27 +318,30 @@
                                         >Edit</router-link
                                     >
 
-                                    <a
-                                        @click="confirmRequestAdvance(item.id)"
-                                        class="badge badge-warning"
+                                    <router-link
                                         v-if="
-                                            config.route_confirmRequestAdvance &&
+                                            config.route_upload_payment &&
                                                 item.status === 1
                                         "
-                                        style="color: white"
-                                        >Confirm</a
+                                        class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
+                                        :to="{
+                                            name: config.route_upload_payment,
+                                            params: { id: item.id }
+                                        }"
+                                        >Upload Dokumen</router-link
                                     >
 
-                                    <button
+                                    <a
                                         @click="replenish(item.id)"
-                                        class="badge badge-warning"
+                                        class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
+                                        style="color: white"
                                         v-if="
                                             config.route_replenish &&
                                                 item.status === 3
                                         "
                                     >
                                         Replenish
-                                    </button>
+                                    </a>
 
                                     <!-- <a href="#" onclick="someFunction(); return false;">LINK</a> -->
 
@@ -348,7 +351,7 @@
                                             config.route_receive_inout &&
                                                 item.status === 2
                                         "
-                                        class="badge badge-warning"
+                                        class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
                                         style="color: white"
                                         >Receive</a
                                     >
@@ -359,7 +362,7 @@
                                             config.route_confirm_inout &&
                                                 item.status === 3
                                         "
-                                        class="badge badge-success"
+                                        class="badge badge-success ml-1 mr-1 mt-1 mb-1"
                                         style="color: white"
                                         >Confirm</a
                                     >
@@ -372,7 +375,7 @@
                                     <p v-else-if="column.type === 'file'">
                                         <a
                                             href="#"
-                                            class="badge badge-info"
+                                            class="badge badge-info ml-1 mr-1 mt-1 mb-1"
                                             @click="
                                                 showFile(
                                                     item[column.field],

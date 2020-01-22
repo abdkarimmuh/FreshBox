@@ -47,6 +47,7 @@ import AddRequestFinance from './components/FinanceAP/RequestAdvance/AddRequestF
 import PrintRequestFinance from './components/FinanceAP/RequestAdvance/PrintRequestFinance';
 import EditRequestFinance from './components/FinanceAP/RequestAdvance/EditRequestFinance';
 import ConfirmRequestFinance from './components/FinanceAP/RequestAdvance/ConfirmRequestFinance';
+import UploadRequestFinance from './components/FinanceAP/RequestAdvance/UploadRequestFinance';
 
 import PettyCash from './components/FinanceAP/PettyCash/IndexPettyCash';
 import PrintPettyCash from './components/FinanceAP/PettyCash/PrintPettyCash';
@@ -263,9 +264,14 @@ const router = new VueRouter({
             component: EditRequestFinance
         },
         {
-            path: '/admin/finance-ap/request-advance/:id/confirm',
+            path: '/admin/finance-ap/request-advance/confirm/:id',
             name: 'finance.requestAdvance.confirm',
             component: ConfirmRequestFinance
+        },
+        {
+            path: '/admin/finance-ap/request-advance/upload/:id',
+            name: 'finance.requestAdvance.upload',
+            component: UploadRequestFinance
         },
         {
             path: '/admin/finance-ap/in-out-payment',
