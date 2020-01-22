@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiV1\FinanceAP;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FinanceAP\InOutPaymentResource;
 use App\Model\FinanceAP\InOutPayment;
+use App\Model\FinanceAP\RequestFinance;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -75,8 +76,13 @@ class InOutPaymentController extends Controller
 
     public function changeStatus($id)
     {
-        $inout = InOutPayment::find($id);
+
+        $inout = InOutPayment::where('finance_request_id', $id)->first();
         $inout->status = $inout->status + 1;
         $inout->save();
+
+        $req_finance = RequestFinance::find($id);
+        $req_finance->status = $req_finance->status + 1;
+        $req_finance->save();
     }
 }

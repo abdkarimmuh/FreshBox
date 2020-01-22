@@ -27,6 +27,7 @@ class InOutPaymentResource extends JsonResource
             'id' => $this->id,
             'source_data' => $source_data,
             'type_transaction' => $this->type_html,
+            'finance_request_id' => $this->finance_request_id,
             'type' => $this->type_transaction,
             'bank_name' => $this->bank->name,
             'no_rek' => $this->no_rek,

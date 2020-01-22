@@ -60,9 +60,9 @@ class InOutPayment extends MyModel
         if ($this->status === 2) {
             return '<span class="badge badge-info">Uploaded</span>';
         } elseif ($this->status === 3) {
-            return '<span class="badge badge-warning">Receive</span>';
+            return '<span class="badge badge-primary">Receive</span>';
         } elseif ($this->status === 4) {
-            return '<span class="badge badge-success">Confirm</span>';
+            return '<span class="badge badge-warning">Confirm</span>';
         } else {
             return 'Status NotFound';
         }
@@ -73,7 +73,7 @@ class InOutPayment extends MyModel
         if ($this->type_transaction === 1) {
             return '<span class="badge badge-primary">OUT</span>';
         } elseif ($this->type_transaction === 2) {
-            return '<span class="badge badge-warning">IN</span>';
+            return '<span class="badge badge-dark">IN</span>';
         } else {
             return 'Status NotFound';
         }

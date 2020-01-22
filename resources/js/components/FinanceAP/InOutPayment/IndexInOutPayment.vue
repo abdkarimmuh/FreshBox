@@ -16,7 +16,7 @@ export default {
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment"),
         route_create: "finance.inOutPayment.create",
         route_receive_inout: true,
-        route_confirm_inout: true
+        route_confirm_inout: "finance.inOutPayment.confirm"
       },
       columns: [
         {

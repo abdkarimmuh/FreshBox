@@ -52,6 +52,7 @@ import PettyCash from './components/FinanceAP/PettyCash/IndexPettyCash';
 import PrintPettyCash from './components/FinanceAP/PettyCash/PrintPettyCash';
 import InOutPayment from './components/FinanceAP/InOutPayment/IndexInOutPayment';
 import AddInOutPayment from './components/FinanceAP/InOutPayment/AddInOutPayment';
+import ConfirmInOutPayment from './components/FinanceAP/InOutPayment/ConfirmInOutPayment';
 import PrintInOutPayment from './components/FinanceAP/InOutPayment/PrintInOutPayment';
 import SettlementFinance from './components/FinanceAP/Settlement/IndexSettlementFinance';
 
@@ -281,6 +282,11 @@ const router = new VueRouter({
             path: '/admin/finance-ap/in-out-payment/create',
             name: 'finance.inOutPayment.create',
             component: AddInOutPayment
+        },
+        {
+            path: '/admin/finance-ap/in-out-payment/confirm',
+            name: 'finance.inOutPayment.confirm',
+            component: ConfirmInOutPayment
         },
         {
             path: '/admin/finance-ap/settlement-cash-advance',
