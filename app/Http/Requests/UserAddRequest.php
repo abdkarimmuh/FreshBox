@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Auth;
+
 class UserAddRequest extends FormRequest
 {
     /**
@@ -27,7 +28,7 @@ class UserAddRequest extends FormRequest
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|unique:users',
             'role' => 'required|exists:roles,id',
-            'password' => 'required|min:5|confirmed'
+            'password' => 'required|min:5|confirmed',
         ];
     }
 }

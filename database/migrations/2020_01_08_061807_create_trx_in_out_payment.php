@@ -13,7 +13,9 @@ class CreateTrxInOutPayment extends Migration
     {
         Schema::create('trx_in_out_payment', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('vendor');
+            $table->unsignedBigInteger('finance_request_id')->nullable();
+            $table->string('source')->nullable();
+            $table->date('transaction_date');
             $table->unsignedBigInteger('bank_id');
             $table->string('no_rek', 20);
             $table->bigInteger('amount')->default(0);

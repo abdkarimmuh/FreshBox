@@ -11,15 +11,15 @@ export default {
     data() {
         return {
             config: {
-                title: "Payment Advance",
+                title: "Request Cash Advance",
                 action: true,
                 base_url: this.$parent.MakeUrl(
-                    "api/v1/finance-ap/payment-advance"
+                    "api/v1/finance-ap/request-advance"
                 ),
-                route_view: "finance.paymentAdvance.show",
-                route_create: "finance.paymentAdvance.create",
-                route_edit_payment: "finance.paymentAdvance.edit",
-                route_confirmPaymentAdvance: true
+                route_view: "finance.requestAdvance.show",
+                route_create: "finance.requestAdvance.create",
+                route_edit_payment: "finance.requestAdvance.edit",
+                route_confirmrequestAdvance: true
                 // route_multiple_print: 'invoice_order.multiplePrint',
             },
             columns: [

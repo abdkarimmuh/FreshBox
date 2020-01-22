@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card col-12" v-if="!loading">
                 <div class="card-header">
-                    <h4 class="text-danger">Confirm Request Finance</h4>
+                    <h4 class="text-danger">Confirm Request Cash Finance</h4>
                 </div>
                 <div class="col-12">
                     <div class="row">

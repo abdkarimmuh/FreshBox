@@ -8,14 +8,12 @@ class CreateFinanceRequestTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
         Schema::create('finance_request', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('vendor_id')->index();
             $table->tinyInteger('status');
             $table->unsignedBigInteger('master_warehouse_id')->index();
             $table->string('no_request')->index();
@@ -32,8 +30,6 @@ class CreateFinanceRequestTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

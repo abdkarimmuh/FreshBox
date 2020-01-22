@@ -11,7 +11,7 @@ class InOutPayment extends MyModel
 {
     use SearchTraits;
     protected $table = 'trx_in_out_payment';
-    protected $fillable = ['vendor', 'type_transaction', 'bank_id', 'created_at', 'update_at', 'no_rek', 'amount', 'remarks', 'status'];
+    protected $fillable = ['source', 'finance_request_id', 'transaction_date', 'type_transaction', 'bank_id', 'created_at', 'update_at', 'no_rek', 'amount', 'remarks', 'status'];
     protected $appends = ['status_html'];
 
     protected $columns = [
@@ -47,6 +47,11 @@ class InOutPayment extends MyModel
     public function bank()
     {
         return $this->belongsTo(Bank::class, 'bank_id', 'id');
+    }
+
+    public function RequestFinance()
+    {
+        return $this->belongsTo(RequestFinance::class, 'finance_request_id', 'id');
     }
 
     public function getStatusHtmlAttribute()

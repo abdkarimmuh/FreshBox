@@ -7,8 +7,6 @@ class CategoryTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
@@ -20,6 +18,8 @@ class CategoryTableSeeder extends Seeder
             (4, 'Bahan Pokok', 1, NULL, NULL, '2019-05-06 19:15:24', NULL),
             (5, 'Bahan Makanan', 1, NULL, NULL, '2019-05-06 19:15:24', NULL),
             (6, 'Hydroponic', 1, NULL, NULL, '2019-05-07 10:00:00', NULL);
+            (8, 'Buah', 1, NULL, NULL, '2019-05-07 10:00:00', NULL);
+            (9, 'Other', 1, NULL, NULL, '2019-05-07 10:00:00', NULL);
         ");
     }
 }
