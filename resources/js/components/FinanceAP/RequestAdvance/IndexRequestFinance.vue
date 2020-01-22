@@ -19,8 +19,7 @@ export default {
                 route_view: "finance.requestAdvance.show",
                 route_create: "finance.requestAdvance.create",
                 route_edit_payment: "finance.requestAdvance.edit",
-                route_confirmrequestAdvance: true
-                // route_multiple_print: 'invoice_order.multiplePrint',
+                route_upload_payment: "finance.requestAdvance.upload"
             },
             columns: [
                 {

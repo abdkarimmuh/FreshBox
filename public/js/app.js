@@ -6645,20 +6645,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7836,8 +7822,7 @@ __webpack_require__.r(__webpack_exports__);
         route_view: "finance.requestAdvance.show",
         route_create: "finance.requestAdvance.create",
         route_edit_payment: "finance.requestAdvance.edit",
-        route_confirmrequestAdvance: true // route_multiple_print: 'invoice_order.multiplePrint',
-
+        route_upload_payment: "finance.requestAdvance.upload"
       },
       columns: [{
         title: "No Request",
@@ -8210,6 +8195,186 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-search-select */ "./node_modules/vue-search-select/dist/VueSearchSelect.common.js");
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_search_select__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      fileName: "",
+      file: "",
+      errors: [],
+      loading: false,
+      loadingSubmit: false
+    };
+  },
+  mounted: function mounted() {},
+  methods: {
+    submitForm: function () {
+      var _submitForm = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this = this;
+
+        var payload, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.loadingSubmit = true;
+                payload = {
+                  file: this.file
+                };
+                _context.prev = 2;
+                _context.next = 5;
+                return axios.post("/api/v1/finance-ap/request-advance/upload/" + this.$route.params.id, payload);
+
+              case 5:
+                res = _context.sent;
+                Vue.swal({
+                  type: "success",
+                  title: "Success!",
+                  text: "Successfully Upload Document!"
+                }).then(function (next) {
+                  _this.$router.push({
+                    name: "finance.requestAdvance"
+                  });
+                });
+                console.log(res);
+                _context.next = 15;
+                break;
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](2);
+                this.loadingSubmit = false;
+                this.errors = _context.t0.response.data.errors;
+                console.error(_context.t0.response.data);
+
+              case 15:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 10]]);
+      }));
+
+      function submitForm() {
+        return _submitForm.apply(this, arguments);
+      }
+
+      return submitForm;
+    }(),
+    onFileChange: function onFileChange(e) {
+      var fileData = e.target.files || e.dataTransfer.files;
+      this.fileName = fileData[0].name;
+      if (!fileData.length) return;
+      this.createFile(fileData[0]);
+    },
+    createFile: function createFile(file) {
+      var _this2 = this;
+
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this2.file = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  },
+  components: {
+    ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__["ModelListSelect"]
   }
 });
 
@@ -11313,6 +11478,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -60115,7 +60286,7 @@ var render = function() {
                           attrs: {
                             lang: "en",
                             type: "date",
-                            valuetype: "format",
+                            valueType: "format",
                             "not-before": new Date(),
                             format: "YYYY-MM-DD"
                           },
@@ -65069,6 +65240,131 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue?vue&type=template&id=fd602d32&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue?vue&type=template&id=fd602d32& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-12" }, [
+      !_vm.loading
+        ? _c("div", { staticClass: "card col-12" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-3" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "custom-file" }, [
+                      _c("input", {
+                        staticClass: "custom-file-input",
+                        class: {
+                          "is-invalid": _vm.errors.file
+                        },
+                        attrs: {
+                          type: "file",
+                          name: "site_logo",
+                          id: "site-logo"
+                        },
+                        on: { change: _vm.onFileChange }
+                      }),
+                      _vm._v(" "),
+                      _c("label", { staticClass: "custom-file-label" }, [
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(
+                              _vm.fileName ? _vm.fileName : "Choose File"
+                            ) +
+                            "\n                                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.errors.file
+                        ? _c("div", { staticClass: "invalid-feedback" }, [
+                            _c("p", [_vm._v(_vm._s(_vm.errors.file[0]))])
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12" }, [
+                  _c("div", { staticClass: "card-body" }, [
+                    _vm.loadingSubmit
+                      ? _c("div", [_c("loading-button")], 1)
+                      : _c(
+                          "div",
+                          [
+                            _vm.file !== ""
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.submitForm()
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    Submit\n                                "
+                                    )
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("back-button")
+                          ],
+                          1
+                        )
+                  ])
+                ])
+              ])
+            ])
+          ])
+        : _c("div", { staticClass: "card col-12" }, [_c("loading-table")], 1)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h4", { staticClass: "text-danger" }, [
+        _vm._v(
+          "\n                    Upload Dokumen Request Cash Advance\n                "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("b", [_vm._v("File")])])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=template&id=16a7f3c4&":
 /*!**********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=template&id=16a7f3c4& ***!
@@ -69521,7 +69817,7 @@ var render = function() {
                                                 "router-link",
                                                 {
                                                   staticClass:
-                                                    "badge badge-primary",
+                                                    "badge badge-primary ml-1 mr-1 mt-1 mb-1",
                                                   attrs: {
                                                     to: {
                                                       name:
@@ -69541,7 +69837,7 @@ var render = function() {
                                                 "router-link",
                                                 {
                                                   staticClass:
-                                                    "badge badge-warning",
+                                                    "badge badge-warning ml-1 mr-1 mt-1 mb-1",
                                                   attrs: {
                                                     to: {
                                                       name:
@@ -69559,7 +69855,7 @@ var render = function() {
                                                 "router-link",
                                                 {
                                                   staticClass:
-                                                    "badge badge-warning",
+                                                    "badge badge-warning ml-1 mr-1 mt-1 mb-1",
                                                   attrs: {
                                                     to: {
                                                       name:
@@ -69579,7 +69875,7 @@ var render = function() {
                                                 "router-link",
                                                 {
                                                   staticClass:
-                                                    "badge badge-secondary",
+                                                    "badge badge-secondary ml-1 mr-1 mt-1 mb-1",
                                                   attrs: {
                                                     to: {
                                                       name:
@@ -69593,36 +69889,36 @@ var render = function() {
                                               )
                                             : _vm._e(),
                                           _vm._v(" "),
-                                          _vm.config
-                                            .route_confirmRequestAdvance &&
+                                          _vm.config.route_upload_payment &&
                                           item.status === 1
                                             ? _c(
-                                                "a",
+                                                "router-link",
                                                 {
                                                   staticClass:
-                                                    "badge badge-warning",
-                                                  staticStyle: {
-                                                    color: "white"
-                                                  },
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.confirmRequestAdvance(
-                                                        item.id
-                                                      )
+                                                    "badge badge-warning ml-1 mr-1 mt-1 mb-1",
+                                                  attrs: {
+                                                    to: {
+                                                      name:
+                                                        _vm.config
+                                                          .route_upload_payment,
+                                                      params: { id: item.id }
                                                     }
                                                   }
                                                 },
-                                                [_vm._v("Confirm")]
+                                                [_vm._v("Upload Dokumen")]
                                               )
                                             : _vm._e(),
                                           _vm._v(" "),
                                           _vm.config.route_replenish &&
                                           item.status === 3
                                             ? _c(
-                                                "button",
+                                                "a",
                                                 {
                                                   staticClass:
-                                                    "badge badge-warning",
+                                                    "badge badge-warning ml-1 mr-1 mt-1 mb-1",
+                                                  staticStyle: {
+                                                    color: "white"
+                                                  },
                                                   on: {
                                                     click: function($event) {
                                                       return _vm.replenish(
@@ -69631,7 +69927,11 @@ var render = function() {
                                                     }
                                                   }
                                                 },
-                                                [_vm._v("Replenish")]
+                                                [
+                                                  _vm._v(
+                                                    "\n                                    Replenish\n                                "
+                                                  )
+                                                ]
                                               )
                                             : _vm._e(),
                                           _vm._v(" "),
@@ -69641,7 +69941,7 @@ var render = function() {
                                                 "a",
                                                 {
                                                   staticClass:
-                                                    "badge badge-primary",
+                                                    "badge badge-warning ml-1 mr-1 mt-1 mb-1",
                                                   staticStyle: {
                                                     color: "white"
                                                   },
@@ -69700,7 +70000,7 @@ var render = function() {
                                                   "a",
                                                   {
                                                     staticClass:
-                                                      "badge badge-info",
+                                                      "badge badge-info ml-1 mr-1 mt-1 mb-1",
                                                     attrs: { href: "#" },
                                                     on: {
                                                       click: function($event) {
@@ -99444,6 +99744,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _UploadRequestFinance_vue_vue_type_template_id_fd602d32___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UploadRequestFinance.vue?vue&type=template&id=fd602d32& */ "./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue?vue&type=template&id=fd602d32&");
+/* harmony import */ var _UploadRequestFinance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UploadRequestFinance.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _UploadRequestFinance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UploadRequestFinance_vue_vue_type_template_id_fd602d32___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UploadRequestFinance_vue_vue_type_template_id_fd602d32___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UploadRequestFinance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./UploadRequestFinance.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UploadRequestFinance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue?vue&type=template&id=fd602d32&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue?vue&type=template&id=fd602d32& ***!
+  \******************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UploadRequestFinance_vue_vue_type_template_id_fd602d32___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./UploadRequestFinance.vue?vue&type=template&id=fd602d32& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue?vue&type=template&id=fd602d32&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UploadRequestFinance_vue_vue_type_template_id_fd602d32___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UploadRequestFinance_vue_vue_type_template_id_fd602d32___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue":
 /*!*********************************************************************************!*\
   !*** ./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue ***!
@@ -102316,14 +102685,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_FinanceAP_RequestAdvance_PrintRequestFinance__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/PrintRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/PrintRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_RequestAdvance_EditRequestFinance__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/EditRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/EditRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_RequestAdvance_ConfirmRequestFinance__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/ConfirmRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue");
-/* harmony import */ var _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/IndexPettyCash */ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue");
-/* harmony import */ var _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/PrintPettyCash */ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue");
-/* harmony import */ var _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/IndexInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_InOutPayment_AddInOutPayment__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/AddInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_InOutPayment_ConfirmInOutPayment__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/ConfirmInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/ConfirmInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/PrintInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/PrintInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/IndexSettlementFinance */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue");
-/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
+/* harmony import */ var _components_FinanceAP_RequestAdvance_UploadRequestFinance__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/UploadRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue");
+/* harmony import */ var _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/IndexPettyCash */ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue");
+/* harmony import */ var _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/PrintPettyCash */ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/IndexInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_AddInOutPayment__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/AddInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_ConfirmInOutPayment__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/ConfirmInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/ConfirmInOutPayment.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/PrintInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/PrintInOutPayment.vue");
+/* harmony import */ var _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/IndexSettlementFinance */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue");
+/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
+
 
 
 
@@ -102541,37 +102912,41 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'finance.requestAdvance.edit',
     component: _components_FinanceAP_RequestAdvance_EditRequestFinance__WEBPACK_IMPORTED_MODULE_37__["default"]
   }, {
-    path: '/admin/finance-ap/request-advance/:id/confirm',
+    path: '/admin/finance-ap/request-advance/confirm/:id',
     name: 'finance.requestAdvance.confirm',
     component: _components_FinanceAP_RequestAdvance_ConfirmRequestFinance__WEBPACK_IMPORTED_MODULE_38__["default"]
   }, {
+    path: '/admin/finance-ap/request-advance/upload/:id',
+    name: 'finance.requestAdvance.upload',
+    component: _components_FinanceAP_RequestAdvance_UploadRequestFinance__WEBPACK_IMPORTED_MODULE_39__["default"]
+  }, {
     path: '/admin/finance-ap/in-out-payment',
     name: 'finance.inOutPayment',
-    component: _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_41__["default"]
+    component: _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_42__["default"]
   }, {
     path: '/admin/finance-ap/in-out-payment/show/:id',
     name: 'finance.inOutPayment.show',
-    component: _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_44__["default"]
+    component: _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_45__["default"]
   }, {
     path: '/admin/finance-ap/in-out-payment/create',
     name: 'finance.inOutPayment.create',
-    component: _components_FinanceAP_InOutPayment_AddInOutPayment__WEBPACK_IMPORTED_MODULE_42__["default"]
+    component: _components_FinanceAP_InOutPayment_AddInOutPayment__WEBPACK_IMPORTED_MODULE_43__["default"]
   }, {
     path: '/admin/finance-ap/in-out-payment/confirm',
     name: 'finance.inOutPayment.confirm',
-    component: _components_FinanceAP_InOutPayment_ConfirmInOutPayment__WEBPACK_IMPORTED_MODULE_43__["default"]
+    component: _components_FinanceAP_InOutPayment_ConfirmInOutPayment__WEBPACK_IMPORTED_MODULE_44__["default"]
   }, {
     path: '/admin/finance-ap/settlement-cash-advance',
     name: 'finance.settlementFinance',
-    component: _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_45__["default"]
+    component: _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_46__["default"]
   }, {
     path: '/admin/finance-ap/petty-cash',
     name: 'finance.pettyCash',
-    component: _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_39__["default"]
+    component: _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_40__["default"]
   }, {
     path: '/admin/finance-ap/petty-cash/show/:id',
     name: 'finance.pettyCash.show',
-    component: _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_40__["default"]
+    component: _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_41__["default"]
   }, {
     path: '/admin/users',
     name: 'users',
@@ -102583,7 +102958,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/master_data/price',
     name: 'master_data.price',
-    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_46__["default"]
+    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_47__["default"]
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);

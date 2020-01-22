@@ -154,6 +154,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/show/{id}', 'RequestFinanceController@show');
             Route::post('/update', 'RequestFinanceController@update');
             Route::get('/requestFinanceDetail/{id}', 'RequestFinanceController@requestFinanceDetail');
+            Route::post('/upload/{id}', 'RequestFinanceController@upload');
             Route::post('/{id}', 'RequestFinanceController@confirm');
             Route::post('/', 'RequestFinanceController@store');
         });

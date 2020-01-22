@@ -59,11 +59,13 @@ class RequestFinance extends MyModel
         if ($this->status === 1) {
             return '<span class="badge badge-secondary">Submit</span>';
         } elseif ($this->status === 2) {
-            return '<span class="badge badge-warning">Confirm</span>';
+            return '<span class="badge badge-warning">Upload Document</span>';
         } elseif ($this->status === 3) {
-            return '<span class="badge badge-success">Settlement</span>';
+            return '<span class="badge badge-warning">Receive Document</span>';
         } elseif ($this->status === 4) {
-            return '<span class="badge badge-primary">Done</span>';
+            return '<span class="badge badge-success">Confirm</span>';
+        } elseif ($this->status === 5) {
+            return '<span class="badge badge-primary">Settlement</span>';
         } else {
             return 'Status NotFound';
         }
