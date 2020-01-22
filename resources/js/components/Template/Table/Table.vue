@@ -345,23 +345,23 @@
                                     <a
                                         @click="changeStatus(item.id)"
                                         v-if="
-                                            config.route_confirm_status &&
-                                                item.status === 1
+                                            config.route_receive_inout &&
+                                                item.status === 2
                                         "
                                         class="badge badge-warning"
                                         style="color: white"
-                                        >Confirm</a
+                                        >Receive</a
                                     >
 
                                     <a
                                         @click="changeStatus(item.id)"
                                         v-if="
-                                            config.route_done_status &&
-                                                item.status === 2
+                                            config.route_confirm_inout &&
+                                                item.status === 3
                                         "
                                         class="badge badge-success"
                                         style="color: white"
-                                        >Done</a
+                                        >Confirm</a
                                     >
                                 </td>
                                 <td v-for="column in columns">

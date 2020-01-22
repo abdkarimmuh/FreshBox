@@ -14,7 +14,7 @@ class InOutPaymentController extends Controller
     {
         $searchValue = $request->input('query');
         $perPage = $request->perPage;
-        $query = InOutPayment::dataTableQuery($searchValue);
+        $query = InOutPayment::where('status', '>', 1)->dataTableQuery($searchValue);
         if ($searchValue) {
             $query = $query->take(20)->paginate(20);
         } else {
@@ -43,29 +43,26 @@ class InOutPaymentController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'vendor' => 'required',
+            'source' => 'required',
             'bank_id' => 'required',
             'no_rek' => 'required',
             'type_transaction' => 'required',
+            'transaction_date' => 'required',
             'amount' => 'required',
+
         ];
 
         $request->validate($rules);
 
-        if ($request->type_transaction === 1) {
-            $status = 1;
-        } else {
-            $status = 3;
-        }
-
         $in_out_payment = [
-            'vendor' => $request->vendor,
+            'source' => $request->source,
             'bank_id' => $request->bank_id,
             'no_rek' => $request->no_rek,
             'type_transaction' => $request->type_transaction,
+            'transaction_date' => $request->transaction_date,
             'amount' => $request->amount,
             'remarks' => $request->remark,
-            'status' => $status,
+            'status' => 4,
             'created_at' => Carbon::now(),
         ];
 

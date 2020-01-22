@@ -518,7 +518,7 @@ export default {
             this.loading = true;
             axios
                 .all([
-                    axios.get(this.$parent.MakeUrl("api/v1/master_data/users")),
+                    axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor")),
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/items")),
                     axios.get(
                         this.$parent.MakeUrl("api/v1/master_data/warehouse")
@@ -527,10 +527,11 @@ export default {
                 ])
                 .then(
                     axios.spread((users, items, warehouses, uom) => {
-                        this.users = users.data;
+                        this.users = users.data.data;
                         this.items = items.data;
                         this.warehouses = warehouses.data;
                         this.uom = uom.data.data;
+                        console.log(users);
                         this.loading = false;
                     })
                 )
@@ -560,7 +561,7 @@ export default {
             axios
                 .get(
                     this.$parent.MakeUrl(
-                        "api/v1/master_data/users/" + this.userId
+                        "api/v1/master_data/users/getUserVendor/" + this.userId
                     )
                 )
                 .then(res => {

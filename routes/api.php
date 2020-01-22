@@ -267,7 +267,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
 
         Route::group(['prefix' => 'users'], function () {
             Route::get('/', 'MasterDataController@getUser');
-            Route::get('/getUserVendor', 'MasterDataController@getUserVendor');
+            Route::get('/getUserVendor/{id}', 'MasterDataController@getUserVendor');
             Route::get('/{id}', 'MasterDataController@getDetailUser');
         });
 
