@@ -5,9 +5,13 @@ namespace App\Http\Controllers\ApiV1\FinanceAP;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FinanceAP\RequestFinanceResource;
 use App\Http\Resources\FinanceAP\RequestFinanceWithDetailResource;
+use App\Model\FinanceAP\InOutPayment;
 use App\Model\FinanceAP\PettyCash;
 use App\Model\FinanceAP\RequestFinance;
 use App\Model\FinanceAP\RequestFinanceDetail;
+use App\Model\MasterData\Vendor;
+use App\User;
+use App\UserProfile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -91,6 +95,31 @@ class RequestFinanceController extends Controller
                 'finance_request_id' => $requestFinance,
                 'amount' => $total,
                 'no_trx' => $noRequest,
+                'created_at' => now(),
+            ]);
+        }
+        else {
+            $vendor = Vendor::find($request->userId);
+            $user = User::where('name', 'like', $vendor->name)->first();
+            if ($user == null) {
+                $bank_id = $this->vendor->bank_id;
+                $norek = $this->vendor->bank_account;
+            } else {
+                $user_profile = UserProfile::where('user_id', $user->id)->first();
+                $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
+                $norek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
+
+            }
+            InOutPayment::create([
+                'finance_request_id' => $requestFinance,
+                'source' => null,
+                'transaction_date' => now()->toDateString(),
+                'bank_id' => $bank_id,
+                'no_rek' => $norek,
+                'amount' => $total,
+                'remarks' => null,
+                'status' => 1,
+                'type_transaction' => 1,
                 'created_at' => now(),
             ]);
         }

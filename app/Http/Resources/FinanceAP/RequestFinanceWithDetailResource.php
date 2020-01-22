@@ -35,7 +35,7 @@ class RequestFinanceWithDetailResource extends JsonResource
         } else {
             $user_profile = UserProfile::where('user_id', $user->id)->first();
             $dept = isset($user_profile->dept) ? $user_profile->dept : '';
-            $nama_rek = isset($user_profile->nama_rek) ? $user_profile->nama_rek : '';
+            $nama_rek = isset($user_profile->bank->name) ? $user_profile->bank->name : '';
             $user_name = isset($user->name) ? $user->name : '';
             $no_rek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
         }

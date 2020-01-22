@@ -70,13 +70,11 @@ class UserController extends Controller
             $user->assignRole($request->role);
         }
 
-        $bank = Bank::find($request->bank);
-
         $user_profile = UserProfile::create([
             'user_id' => $user->id,
             'dept' => $request->dept,
             'no_rek' => $request->bank_account,
-            'nama_rek' => $bank->name,
+            'bank_id' => $request->bank,
             'created_at' => Carbon::now(),
         ]);
 
@@ -96,7 +94,7 @@ class UserController extends Controller
             'user_profile' => $user_profile,
             'vendor' => $vendor,
             'request_all' => $request->all(),
-            'bank' => $bank->id,
+
         ]);
     }
 
