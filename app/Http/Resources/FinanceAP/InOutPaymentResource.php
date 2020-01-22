@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\FinanceAp;
 
+use App\Model\FinanceAP\RequestFinance;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class InOutPaymentResource extends JsonResource
@@ -15,10 +16,18 @@ class InOutPaymentResource extends JsonResource
      */
     public function toArray($request)
     {
+        if ($this->finance_request_id == null) {
+            $source_data = $this->source;
+        } else {
+            $finance = RequestFinance::find($this->finance_request_id);
+            $source_data = $finance->no_request;
+        }
+
         return [
             'id' => $this->id,
-            'vendor' => $this->vendor,
+            'source_data' => $source_data,
             'type_transaction' => $this->type_html,
+            'finance_request_id' => $this->finance_request_id,
             'type' => $this->type_transaction,
             'bank_name' => $this->bank->name,
             'no_rek' => $this->no_rek,

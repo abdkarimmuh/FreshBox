@@ -295,13 +295,6 @@
                                                     min=0
                                                 />
                                             </td>
-                                            <!--                                        <td>-->
-                                            <!--                                            <input-->
-                                            <!--                                                v-model="item.total"-->
-                                            <!--                                                type="number"-->
-                                            <!--                                                class="form-control"-->
-                                            <!--                                            />-->
-                                            <!--                                        </td>-->
                                             <td>
                                                 <input
                                                     v-model="item.supplierName"
@@ -371,13 +364,6 @@
                                                     min=0
                                                 />
                                             </td>
-                                            <!--                                        <td>-->
-                                            <!--                                            <input-->
-                                            <!--                                                v-model="item.total"-->
-                                            <!--                                                type="number"-->
-                                            <!--                                                class="form-control"-->
-                                            <!--                                            />-->
-                                            <!--                                        </td>-->
                                             <td>
                                                 <input
                                                     v-model="item.supplierName"

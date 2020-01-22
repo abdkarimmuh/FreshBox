@@ -15,6 +15,7 @@ use App\UserProfile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class RequestFinanceController extends Controller
 {
@@ -98,13 +99,13 @@ class RequestFinanceController extends Controller
                 'uom_id' => $detail['uom_id'],
                 'price' => $detail['price'],
                 'ppn' => $detail['ppn'],
-                'total' => $detail['price'] * $detail['qty'] + ($detail['price'] * $detail['qty'] * $detail['ppn'] /100),
+                'total' => $detail['price'] * $detail['qty'] + ($detail['price'] * $detail['qty'] * $detail['ppn'] / 100),
                 'supplier_name' => $detail['supplierName'],
                 'remarks' => $detail['remark'],
                 'created_at' => now(),
             ];
 
-            $total = $total + ($detail['price'] * $detail['qty'] + ($detail['price'] * $detail['qty'] * $detail['ppn'] /100));
+            $total = $total + ($detail['price'] * $detail['qty'] + ($detail['price'] * $detail['qty'] * $detail['ppn'] / 100));
         }
         RequestFinanceDetail::insert($requestFinanceDetails);
 
@@ -115,8 +116,7 @@ class RequestFinanceController extends Controller
                 'no_trx' => $noRequest,
                 'created_at' => now(),
             ]);
-        }
-        else {
+        } else {
             $vendor = Vendor::find($request->userId);
             $user = User::where('name', 'like', $vendor->name)->first();
             if ($user == null) {
@@ -126,7 +126,6 @@ class RequestFinanceController extends Controller
                 $user_profile = UserProfile::where('user_id', $user->id)->first();
                 $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
                 $norek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
-
             }
             InOutPayment::create([
                 'finance_request_id' => $requestFinance,
@@ -143,14 +142,42 @@ class RequestFinanceController extends Controller
         }
     }
 
+    public function upload(Request $request, $id)
+    {
+        $requestFinance = RequestFinance::find($id);
+
+        //Untuk Mengupload File Ke Storage
+        if ($request->file) {
+            $file = $request->file;
+            @list($type, $file_data) = explode(';', $file);
+            @list(, $file_data) = explode(',', $file_data);
+            $file_name = $this->generateRequestNo(Carbon::now()->toDateString()).'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/request-advance/'.$file_name, base64_decode($file_data), 'public');
+        } else {
+            $file_name = '';
+        }
+
+        $requestFinance->file = $file_name;
+        $requestFinance->status = 2;
+        $requestFinance->save();
+
+        $inOutPayment = InOutPayment::where('finance_request_id', $id)->first();
+        $inOutPayment->status = 2;
+        $inOutPayment->save();
+
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
     public function generateRequestNo($date)
     {
         $year_month = Carbon::parse($date)->format('y-m');
         $latestRequestFinance = RequestFinance::where(DB::raw("DATE_FORMAT(request_date, '%y-%m')"), $year_month)->latest()->first();
-        $latestRequestFinanceNo = isset($latestRequestFinance->no_request) ? $latestRequestFinance->no_request : '0/GF-FB';
-        $cutString = str_replace('/GF-FB', '', $latestRequestFinanceNo);
+        $latestRequestFinanceNo = isset($latestRequestFinance->no_request) ? $latestRequestFinance->no_request : '0-GF-FB';
+        $cutString = str_replace('-GF-FB', '', $latestRequestFinanceNo);
 
-        return ($cutString + 1).'/GF-FB';
+        return ($cutString + 1).'-GF-FB';
     }
 
     public function setDate(Request $request)
@@ -203,7 +230,7 @@ class RequestFinanceController extends Controller
                 'uom_id' => $detail['uom_id'],
                 'price' => $detail['price'],
                 'ppn' => $detail['ppn'],
-                'total' => $detail['price'] * $detail['qty'] + ($detail['price'] * $detail['qty'] * $detail['ppn'] /100),
+                'total' => $detail['price'] * $detail['qty'] + ($detail['price'] * $detail['qty'] * $detail['ppn'] / 100),
                 'supplier_name' => $detail['supplier_name'],
                 'remarks' => $detail['remarks'],
                 'created_at' => $requestFinance->created_at,

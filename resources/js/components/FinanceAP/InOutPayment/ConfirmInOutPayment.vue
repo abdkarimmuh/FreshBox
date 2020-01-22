@@ -3,32 +3,32 @@
         <div class="col-12" v-if="loading">
             <div class="card col-12">
                 <div class="card-header">
-                    <h4 class="text-danger">Add a New In/Out Payment</h4>
+                    <h4 class="text-danger">Confirm In/Out Payment</h4>
                 </div>
                 <div class="col-12">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    <b>Source Data</b>
+                                    <b>Payment Number</b>
                                     <span style="color: red;">*</span>
                                 </label>
                                 <div>
                                     <input
                                         type="text"
                                         v-bind:class="{
-                                            'is-invalid': errors.source
+                                            'is-invalid': errors.no_payment
                                         }"
-                                        placeholder="Source Data"
+                                        placeholder="Payment Number"
                                         class="form-control"
-                                        v-model="in_out_payment.source"
+                                        v-model="in_out_payment.no_payment"
                                         required
                                     />
                                     <div
                                         style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.source"
+                                        v-if="errors.no_payment"
                                     >
-                                        <p>{{ errors.source[0] }}</p>
+                                        <p>{{ errors.no_payment[0] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -37,153 +37,31 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    <b>Request Date</b>
+                                    <b>Fillment Date</b>
                                     <span style="color: red;">*</span>
                                 </label>
                                 <div>
                                     <date-picker
                                         v-model="
-                                            in_out_payment.transaction_date
+                                            in_out_payment.confirm_date
                                         "
                                         lang="en"
                                         type="date"
-                                        valueType="format"
+                                        valuetype="format"
                                         :not-before="new Date()"
                                         format="YYYY-MM-DD"
                                     />
                                 </div>
                                 <div
                                     style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                    v-if="errors.transaction_date"
+                                    v-if="errors.confirm_date"
                                 >
-                                    <p>{{ errors.transaction_date[0] }}</p>
+                                    <p>{{ errors.confirm_date[0] }}</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>
-                                    <b>Tipe Transaksi</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <model-list-select
-                                        :list="types"
-                                        v-model="
-                                            in_out_payment.type_transaction
-                                        "
-                                        option-value="id"
-                                        option-text="name"
-                                        placeholder="Select Tipe Transaksi"
-                                    ></model-list-select>
-                                    <div
-                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.type_transaction"
-                                    >
-                                        <p>{{ errors.type_transaction[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>
-                                    <b>Amount</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <input
-                                        type="number"
-                                        v-bind:class="{
-                                            'is-invalid': errors.amount
-                                        }"
-                                        placeholder="Amount"
-                                        class="form-control"
-                                        v-model="in_out_payment.amount"
-                                        required
-                                    />
-                                    <div
-                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.amount"
-                                    >
-                                        <p>{{ errors.amount[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>
-                                    <b>Nama Bank</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <model-list-select
-                                        :list="banks"
-                                        v-model="in_out_payment.bank_id"
-                                        option-value="id"
-                                        option-text="name"
-                                        placeholder="Select Bank"
-                                    ></model-list-select>
-                                    <div
-                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.bank_id"
-                                    >
-                                        <p>{{ errors.bank_id[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>
-                                    <b>Nomor Rekening</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <input
-                                        type="number"
-                                        v-bind:class="{
-                                            'is-invalid': errors.no_rek
-                                        }"
-                                        placeholder="Nomor Rekening"
-                                        class="form-control"
-                                        v-model="in_out_payment.no_rek"
-                                        required
-                                    />
-                                    <div
-                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.no_rek"
-                                    >
-                                        <p>{{ errors.no_rek[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>
-                                    <b>Remarks</b>
-                                </label>
-                                <textarea
-                                    v-bind:class="{
-                                        'is-invalid': errors.remark
-                                    }"
-                                    v-model="in_out_payment.remark"
-                                    class="form-control"
-                                    id="Remarks"
-                                    name="Remarks"
-                                ></textarea>
-                                <div class="invalid-feedback" v-if="errors.remark">
-                                    <p>{{ errors.remark[0] }}</p>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-12">
                             <div class="card-body">
                                 <div v-if="loadingSubmit">
@@ -213,13 +91,8 @@ export default {
     data() {
         return {
             in_out_payment: {
-                source: "",
-                type_transaction: "",
-                transaction_date: "",
-                amount: "",
-                bank_id: "",
-                no_rek: "",
-                remark: ""
+                no_payment: '',
+                confirm_date: ''
             },
             banks: [],
             types: [
@@ -274,35 +147,30 @@ export default {
         async submitForm() {
             this.loadingSubmit = true;
             const payload = {
-                source: this.in_out_payment.source,
-                bank_id: this.in_out_payment.bank_id,
-                no_rek: this.in_out_payment.no_rek,
-                type_transaction: this.in_out_payment.type_transaction,
-                amount: this.in_out_payment.amount,
-                remark: this.in_out_payment.remark,
-                transaction_date: this.in_out_payment.transaction_date
+              no_payment: this.in_out_payment.no_payment,
+              confirm_date: this.in_out_payment.confirm_date
             };
             console.log(payload);
-            try {
-                const res = await axios.post(
-                    this.$parent.MakeUrl(
-                        "api/v1/finance-ap/in-out-payment/store"
-                    ),
-                    payload
-                );
-                console.log(res);
-                Vue.swal({
-                    type: "success",
-                    title: "Success!",
-                    text: "Successfully Insert Data!"
-                }).then(next => {
-                    this.$router.push({ name: "finance.inOutPayment" });
-                });
-            } catch (e) {
-                this.loadingSubmit = false;
-                this.errors = e.response.data.errors;
-                console.error(e.response.data);
-            }
+            // try {
+            //     const res = await axios.post(
+            //         this.$parent.MakeUrl(
+            //             "api/v1/finance-ap/in-out-payment/store"
+            //         ),
+            //         payload
+            //     );
+            //     console.log(res);
+            //     Vue.swal({
+            //         type: "success",
+            //         title: "Success!",
+            //         text: "Successfully Insert Data!"
+            //     }).then(next => {
+            //         this.$router.push({ name: "finance.inOutPayment" });
+            //     });
+            // } catch (e) {
+            //     this.loadingSubmit = false;
+            //     this.errors = e.response.data.errors;
+            //     console.error(e.response.data);
+            // }
         },
 
         onFileChange(e) {

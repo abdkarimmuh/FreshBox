@@ -47,11 +47,13 @@ import AddRequestFinance from './components/FinanceAP/RequestAdvance/AddRequestF
 import PrintRequestFinance from './components/FinanceAP/RequestAdvance/PrintRequestFinance';
 import EditRequestFinance from './components/FinanceAP/RequestAdvance/EditRequestFinance';
 import ConfirmRequestFinance from './components/FinanceAP/RequestAdvance/ConfirmRequestFinance';
+import UploadRequestFinance from './components/FinanceAP/RequestAdvance/UploadRequestFinance';
 
 import PettyCash from './components/FinanceAP/PettyCash/IndexPettyCash';
 import PrintPettyCash from './components/FinanceAP/PettyCash/PrintPettyCash';
 import InOutPayment from './components/FinanceAP/InOutPayment/IndexInOutPayment';
 import AddInOutPayment from './components/FinanceAP/InOutPayment/AddInOutPayment';
+import ConfirmInOutPayment from './components/FinanceAP/InOutPayment/ConfirmInOutPayment';
 import PrintInOutPayment from './components/FinanceAP/InOutPayment/PrintInOutPayment';
 import SettlementFinance from './components/FinanceAP/Settlement/IndexSettlementFinance';
 import Settlement from './components/FinanceAP/Settlement/Settlement';
@@ -264,9 +266,14 @@ const router = new VueRouter({
             component: EditRequestFinance
         },
         {
-            path: '/admin/finance-ap/request-advance/:id/confirm',
+            path: '/admin/finance-ap/request-advance/confirm/:id',
             name: 'finance.requestAdvance.confirm',
             component: ConfirmRequestFinance
+        },
+        {
+            path: '/admin/finance-ap/request-advance/upload/:id',
+            name: 'finance.requestAdvance.upload',
+            component: UploadRequestFinance
         },
         {
             path: '/admin/finance-ap/in-out-payment',
@@ -282,6 +289,11 @@ const router = new VueRouter({
             path: '/admin/finance-ap/in-out-payment/create',
             name: 'finance.inOutPayment.create',
             component: AddInOutPayment
+        },
+        {
+            path: '/admin/finance-ap/in-out-payment/confirm',
+            name: 'finance.inOutPayment.confirm',
+            component: ConfirmInOutPayment
         },
         {
             path: '/admin/finance-ap/settlement-cash-advance',

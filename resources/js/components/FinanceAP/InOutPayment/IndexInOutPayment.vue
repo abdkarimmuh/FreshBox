@@ -15,13 +15,13 @@ export default {
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment"),
         route_create: "finance.inOutPayment.create",
-        route_confirm_status: true,
-        route_done_status: true
+        route_receive_inout: true,
+        route_confirm_inout: "finance.inOutPayment.confirm"
       },
       columns: [
         {
-          title: "Nama Vendor",
-          field: "vendor",
+          title: "Source Data",
+          field: "source_data",
           filterable: true
         },
         {
