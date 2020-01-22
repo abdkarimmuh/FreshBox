@@ -3,6 +3,9 @@
 namespace App\Http\Resources\FinanceAP;
 
 use App\Model\FinanceAP\RequestFinanceDetail;
+use App\Model\MasterData\Vendor;
+use App\User;
+use App\UserProfile;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Riskihajar\Terbilang\Facades\Terbilang;
 
@@ -17,14 +20,28 @@ class PettyCashResource extends JsonResource
     public function toArray($request)
     {
         $detail = RequestFinanceDetail::where('request_finance_id', $this->finance_request_id)->get();
+        $vendor = Vendor::find($this->RequestFinance->vendor_id);
+        $user = User::where('name', 'like', $vendor->name)->first();
+        if ($user == null) {
+            $dept = 'Vendor';
+            $nama_rek = $vendor->bank_name;
+            $user_name = $vendor->name;
+            $no_rek = $vendor->bank_account;
+        } else {
+            $user_profile = UserProfile::where('user_id', $user->id)->first();
+            $dept = isset($user_profile->dept) ? $user_profile->dept : '';
+            $nama_rek = isset($user_profile->bank->name) ? $user_profile->bank->name : '';
+            $user_name = isset($user->name) ? $user->name : '';
+            $no_rek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
+        }
         return [
             'id' => $this->id,
             'status_name' => $this->RequestFinance->status_html,
-            'user_request_name' => $this->RequestFinance->user->name,
-            'dept' => $this->RequestFinance->user->UserProfile->dept,
+            'user_request_name' => $user_name,
+            'dept' => $dept,
             'address' => $this->RequestFinance->warehouse->address,
-            'namaRek' => $this->RequestFinance->user->UserProfile->nama_rek,
-            'noRek' => $this->RequestFinance->user->UserProfile->no_rek,
+            'namaRek' => $nama_rek,
+            'noRek' => $no_rek,
             'amount' => $this->amount,
             'terbilang' => Terbilang::make($this->RequestFinance->total) . ' rupiah',
             'no_request' => $this->no_trx,

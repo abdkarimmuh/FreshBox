@@ -6420,11 +6420,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.loading = true;
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, items, warehouses, uom) {
-        _this2.users = users.data;
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, items, warehouses, uom) {
+        _this2.users = users.data.data;
         _this2.items = items.data;
         _this2.warehouses = warehouses.data;
         _this2.uom = uom.data.data;
+        console.log(users);
         _this2.loading = false;
       }))["catch"](function (err) {
         if (err.response.status === 500) {
@@ -6446,7 +6447,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getUser: function getUser() {
       var _this4 = this;
 
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/users/" + this.userId)).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/users/getUserVendor/" + this.userId)).then(function (res) {
         _this4.user = res.data.data;
       })["catch"](function (err) {
         console.log(err.response.data);
@@ -7357,8 +7358,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.loading = true;
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/show/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/requestFinanceDetail/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, requestAdvance, detail, items, warehouses, uom) {
-        _this2.users = users.data;
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor")), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/show/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/requestFinanceDetail/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, requestAdvance, detail, items, warehouses, uom) {
+        _this2.users = users.data.data;
         _this2.requestAdvance = requestAdvance.data.data;
         _this2.detail = detail.data.data;
         _this2.productType = requestAdvance.data.data.product_type;
@@ -7391,7 +7392,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getUser: function getUser(userId) {
       var _this4 = this;
 
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/users/" + userId)).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/users/getUserVendor/" + userId)).then(function (res) {
         _this4.user = res.data.data;
       })["catch"](function (err) {
         console.log(err.response.data);
@@ -102140,8 +102141,13 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 __webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
+=======
+__webpack_require__(/*! C:\laragon\www\FreshBox\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
+>>>>>>> f7f1c36b513d6c14ab9799ac794be02d3c95bb09
 
 
 /***/ })

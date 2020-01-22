@@ -11,7 +11,7 @@ class InOutPayment extends MyModel
 {
     use SearchTraits;
     protected $table = 'trx_in_out_payment';
-    protected $fillable = ['source', 'finance_request_id', 'transaction_date', 'type_transaction', 'bank_id', 'created_at', 'update_at', 'no_rek', 'amount', 'remarks', 'status'];
+    protected $fillable = ['finance_request_id', 'source', 'transaction_date', 'bank_id', 'no_rek', 'amount', 'remarks', 'status', 'type_transaction', 'created_at', 'update_at'];
     protected $appends = ['status_html'];
 
 

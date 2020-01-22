@@ -18,7 +18,7 @@ class CreateUserProfileTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('dept');
             $table->string('no_rek');
-            $table->string('nama_rek');
+            $table->unsignedBigInteger('bank_id');
             $table->timestamps();
         });
     }
