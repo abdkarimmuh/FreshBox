@@ -47,7 +47,7 @@
                                         "
                                         lang="en"
                                         type="date"
-                                        valuetype="format"
+                                        valueType="format"
                                         :not-before="new Date()"
                                         format="YYYY-MM-DD"
                                     />
@@ -112,7 +112,8 @@ export default {
         };
     },
     async mounted() {
-        await this.getData();
+        // await this.getData();
+        this.loading = true
     },
     methods: {
         /**
@@ -151,26 +152,26 @@ export default {
               confirm_date: this.in_out_payment.confirm_date
             };
             console.log(payload);
-            // try {
-            //     const res = await axios.post(
-            //         this.$parent.MakeUrl(
-            //             "api/v1/finance-ap/in-out-payment/store"
-            //         ),
-            //         payload
-            //     );
-            //     console.log(res);
-            //     Vue.swal({
-            //         type: "success",
-            //         title: "Success!",
-            //         text: "Successfully Insert Data!"
-            //     }).then(next => {
-            //         this.$router.push({ name: "finance.inOutPayment" });
-            //     });
-            // } catch (e) {
-            //     this.loadingSubmit = false;
-            //     this.errors = e.response.data.errors;
-            //     console.error(e.response.data);
-            // }
+            try {
+                const res = await axios.post(
+                    this.$parent.MakeUrl(
+                        "api/v1/finance-ap/in-out-payment/confirm/" + this.$route.params.id
+                    ),
+                    payload
+                );
+                console.log(res);
+                Vue.swal({
+                    type: "success",
+                    title: "Success!",
+                    text: "Successfully Insert Data!"
+                }).then(next => {
+                    this.$router.push({ name: "finance.inOutPayment" });
+                });
+            } catch (e) {
+                this.loadingSubmit = false;
+                this.errors = e.response.data.errors;
+                console.error(e.response.data);
+            }
         },
 
         onFileChange(e) {

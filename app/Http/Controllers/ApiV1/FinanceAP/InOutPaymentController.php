@@ -85,4 +85,29 @@ class InOutPaymentController extends Controller
         $req_finance->status = $req_finance->status + 1;
         $req_finance->save();
     }
+
+    public function confirm(Request $request, $id)
+    {
+        $rules = [
+            'no_payment' => 'required',
+            'confirm_date' => 'required',
+        ];
+
+        $request->validate($rules);
+
+        $inout = InOutPayment::find($id);
+        $req_finance = RequestFinance::find($inout->finance_request_id);
+
+        $inout->status = $inout->status + 1;
+        $inout->save();
+
+        $req_finance->status = $req_finance->status + 1;
+        $req_finance->no_request_confirm = $request->no_payment;
+        $req_finance->request_confirm_date = $request->confirm_date;
+        $req_finance->save();
+
+        return response()->json([
+            'status' => 'success', 'request' => $request->all(),
+        ], 200);
+    }
 }

@@ -342,7 +342,7 @@
 
                                     <router-link
                                         v-if="config.route_confirm_inout && item.status === 3"
-                                        class="badge badge-warning"
+                                        class="badge badge-success"
                                         :to="{
                                             name: config.route_confirm_inout,
                                             params: { id: item.id }

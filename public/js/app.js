@@ -4988,10 +4988,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return this.getData();
+              // await this.getData();
+              this.loading = true;
 
-            case 2:
+            case 1:
             case "end":
               return _context.stop();
           }
@@ -5036,7 +5036,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var payload;
+        var _this2 = this;
+
+        var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -5046,33 +5048,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   no_payment: this.in_out_payment.no_payment,
                   confirm_date: this.in_out_payment.confirm_date
                 };
-                console.log(payload); // try {
-                //     const res = await axios.post(
-                //         this.$parent.MakeUrl(
-                //             "api/v1/finance-ap/in-out-payment/store"
-                //         ),
-                //         payload
-                //     );
-                //     console.log(res);
-                //     Vue.swal({
-                //         type: "success",
-                //         title: "Success!",
-                //         text: "Successfully Insert Data!"
-                //     }).then(next => {
-                //         this.$router.push({ name: "finance.inOutPayment" });
-                //     });
-                // } catch (e) {
-                //     this.loadingSubmit = false;
-                //     this.errors = e.response.data.errors;
-                //     console.error(e.response.data);
-                // }
+                console.log(payload);
+                _context2.prev = 3;
+                _context2.next = 6;
+                return axios.post(this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment/confirm/" + this.$route.params.id), payload);
 
-              case 3:
+              case 6:
+                res = _context2.sent;
+                console.log(res);
+                Vue.swal({
+                  type: "success",
+                  title: "Success!",
+                  text: "Successfully Insert Data!"
+                }).then(function (next) {
+                  _this2.$router.push({
+                    name: "finance.inOutPayment"
+                  });
+                });
+                _context2.next = 16;
+                break;
+
+              case 11:
+                _context2.prev = 11;
+                _context2.t0 = _context2["catch"](3);
+                this.loadingSubmit = false;
+                this.errors = _context2.t0.response.data.errors;
+                console.error(_context2.t0.response.data);
+
+              case 16:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee2, this, [[3, 11]]);
       }));
 
       function submitForm() {
@@ -5088,12 +5096,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.createFile(fileData[0]);
     },
     createFile: function createFile(file) {
-      var _this2 = this;
+      var _this3 = this;
 
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        _this2.sales_order.file = e.target.result;
+        _this3.sales_order.file = e.target.result;
       };
 
       reader.readAsDataURL(file);
@@ -5104,30 +5112,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * @returns {number}
      */
     getItems: function getItems() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.loading = false;
       axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId + "/" + this.sales_order.fulfillmentDate)).then(function (res) {
-        _this3.items = res.data.price;
-        _this3.orders_detail = [];
-        _this3.loading = true;
+        _this4.items = res.data.price;
+        _this4.orders_detail = [];
+        _this4.loading = true;
       })["catch"](function (err) {
         if (err.response.status === 500) {
-          _this3.getItems();
+          _this4.getItems();
         }
       });
     },
     getItem: function getItem() {
-      var _this4 = this;
+      var _this5 = this;
 
       if (!this.skuid) return;
       this.loading = false;
       axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid)).then(function (res) {
-        _this4.item = res.data.data;
-        _this4.loading = true;
+        _this5.item = res.data.data;
+        _this5.loading = true;
       })["catch"](function (err) {
         if (err.response.status === 500) {
-          _this4.getItem();
+          _this5.getItem();
         }
       });
     },
@@ -61092,7 +61100,7 @@ var render = function() {
                           attrs: {
                             lang: "en",
                             type: "date",
-                            valuetype: "format",
+                            valueType: "format",
                             "not-before": new Date(),
                             format: "YYYY-MM-DD"
                           },
@@ -70650,7 +70658,7 @@ var render = function() {
                                                 "router-link",
                                                 {
                                                   staticClass:
-                                                    "badge badge-warning",
+                                                    "badge badge-success",
                                                   attrs: {
                                                     to: {
                                                       name:
@@ -103870,8 +103878,8 @@ var actions = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\FreshBox\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
+__webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\FreshBox\resources\sass\custom.scss */"./resources/sass/custom.scss");
 
 
 /***/ })

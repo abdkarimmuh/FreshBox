@@ -58,11 +58,11 @@ class InOutPayment extends MyModel
     public function getStatusHtmlAttribute()
     {
         if ($this->status === 2) {
-            return '<span class="badge badge-info">Uploaded</span>';
+            return '<span class="badge badge-warning">Upload Document</span>';
         } elseif ($this->status === 3) {
-            return '<span class="badge badge-primary">Receive</span>';
+            return '<span class="badge badge-info">Receive Document</span>';
         } elseif ($this->status === 4) {
-            return '<span class="badge badge-warning">Confirm</span>';
+            return '<span class="badge badge-success">Confirm</span>';
         } else {
             return 'Status NotFound';
         }
