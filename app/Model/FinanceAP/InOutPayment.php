@@ -14,8 +14,13 @@ class InOutPayment extends MyModel
     protected $fillable = ['source', 'finance_request_id', 'transaction_date', 'type_transaction', 'bank_id', 'created_at', 'update_at', 'no_rek', 'amount', 'remarks', 'status'];
     protected $appends = ['status_html'];
 
+
     protected $columns = [
         'id' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'source' => [
             'searchable' => false,
             'search_relation' => false,
         ],
@@ -39,11 +44,6 @@ class InOutPayment extends MyModel
         ],
     ];
 
-    public function vendor()
-    {
-        return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
-    }
-
     public function bank()
     {
         return $this->belongsTo(Bank::class, 'bank_id', 'id');
@@ -54,14 +54,15 @@ class InOutPayment extends MyModel
         return $this->belongsTo(RequestFinance::class, 'finance_request_id', 'id');
     }
 
+
     public function getStatusHtmlAttribute()
     {
-        if ($this->status === 1) {
-            return '<span class="badge badge-info">Submit</span>';
-        } elseif ($this->status === 2) {
-            return '<span class="badge badge-warning">Confirm</span>';
+        if ($this->status === 2) {
+            return '<span class="badge badge-info">Uploaded</span>';
         } elseif ($this->status === 3) {
-            return '<span class="badge badge-success">Done</span>';
+            return '<span class="badge badge-warning">Receive</span>';
+        } elseif ($this->status === 4) {
+            return '<span class="badge badge-success">Confirm</span>';
         } else {
             return 'Status NotFound';
         }

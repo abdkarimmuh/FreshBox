@@ -10,25 +10,78 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>
-                                    <b>Vendor</b>
+                                    <b>Source Data</b>
                                     <span style="color: red;">*</span>
                                 </label>
                                 <div>
                                     <input
                                         type="text"
                                         v-bind:class="{
-                                            'is-invalid': errors.vendor
+                                            'is-invalid': errors.source
                                         }"
-                                        placeholder="Vendor Name"
+                                        placeholder="Source Data"
                                         class="form-control"
-                                        v-model="in_out_payment.vendor"
+                                        v-model="in_out_payment.source"
                                         required
                                     />
                                     <div
                                         style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.vendor"
+                                        v-if="errors.source"
                                     >
-                                        <p>{{ errors.vendor[0] }}</p>
+                                        <p>{{ errors.source[0] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    <b>Request Date</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div>
+                                    <date-picker
+                                        v-model="
+                                            in_out_payment.transaction_date
+                                        "
+                                        lang="en"
+                                        type="date"
+                                        valuetype="format"
+                                        :not-before="new Date()"
+                                        format="YYYY-MM-DD"
+                                    />
+                                </div>
+                                <div
+                                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                    v-if="errors.transaction_date"
+                                >
+                                    <p>{{ errors.transaction_date[0] }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    <b>Tipe Transaksi</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div>
+                                    <model-list-select
+                                        :list="types"
+                                        v-model="
+                                            in_out_payment.type_transaction
+                                        "
+                                        option-value="id"
+                                        option-text="name"
+                                        placeholder="Select Tipe Transaksi"
+                                    ></model-list-select>
+                                    <div
+                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                        v-if="errors.type_transaction"
+                                    >
+                                        <p>{{ errors.type_transaction[0] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +95,7 @@
                                 </label>
                                 <div>
                                     <input
-                                        type="text"
+                                        type="number"
                                         v-bind:class="{
                                             'is-invalid': errors.amount
                                         }"
@@ -93,7 +146,7 @@
                                 </label>
                                 <div>
                                     <input
-                                        type="text"
+                                        type="number"
                                         v-bind:class="{
                                             'is-invalid': errors.no_rek
                                         }"
@@ -107,32 +160,6 @@
                                         v-if="errors.no_rek"
                                     >
                                         <p>{{ errors.no_rek[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>
-                                    <b>Tipe Transaksi</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <model-list-select
-                                        :list="types"
-                                        v-model="
-                                            in_out_payment.type_transaction
-                                        "
-                                        option-value="id"
-                                        option-text="name"
-                                        placeholder="Select Tipe Transaksi"
-                                    ></model-list-select>
-                                    <div
-                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.type_transaction"
-                                    >
-                                        <p>{{ errors.type_transaction[0] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -152,10 +179,7 @@
                                     id="Remarks"
                                     name="Remarks"
                                 ></textarea>
-                                <div
-                                    class="invalid-feedback"
-                                    v-if="errors.remark"
-                                >
+                                <div class="invalid-feedback" v-if="errors.remark">
                                     <p>{{ errors.remark[0] }}</p>
                                 </div>
                             </div>
@@ -166,12 +190,7 @@
                                     <loading-button />
                                 </div>
                                 <div v-else>
-                                    <button
-                                        class="btn btn-danger"
-                                        v-on:click="submitForm()"
-                                    >
-                                        Submit
-                                    </button>
+                                    <button class="btn btn-danger" v-on:click="submitForm()">Submit</button>
                                     <back-button />
                                 </div>
                             </div>
@@ -194,11 +213,12 @@ export default {
     data() {
         return {
             in_out_payment: {
-                vendor: "",
+                source: "",
+                type_transaction: "",
+                transaction_date: "",
+                amount: "",
                 bank_id: "",
                 no_rek: "",
-                type_transaction: "",
-                amount: "",
                 remark: ""
             },
             banks: [],
@@ -213,24 +233,6 @@ export default {
                 }
             ],
             errors: [],
-            // orders_detail: [],
-            // sales_order: {
-            //     user_id: UserID,
-            //     fulfillmentDate: "",
-            //     fileName: "",
-            //     file: "",
-            //     remark: "",
-            //     no_po: "",
-            //     customerId: 0,
-            //     driver_id: 0,
-            //     sourceOrderId: 0
-            // },
-            // skuid: null,
-            // source_orders: [],
-            // item: {},
-            // items: [],
-            // customers: [],
-            // drivers: [],
             loading: false,
             loadingSubmit: false,
             header: {}
@@ -272,13 +274,15 @@ export default {
         async submitForm() {
             this.loadingSubmit = true;
             const payload = {
-                vendor: this.in_out_payment.vendor,
+                source: this.in_out_payment.source,
                 bank_id: this.in_out_payment.bank_id,
                 no_rek: this.in_out_payment.no_rek,
                 type_transaction: this.in_out_payment.type_transaction,
                 amount: this.in_out_payment.amount,
-                remark: this.in_out_payment.remark
+                remark: this.in_out_payment.remark,
+                transaction_date: this.in_out_payment.transaction_date
             };
+            console.log(payload);
             try {
                 const res = await axios.post(
                     this.$parent.MakeUrl(
