@@ -443,7 +443,7 @@ export default {
             this.loading = true;
             axios
                 .all([
-                    axios.get(this.$parent.MakeUrl("api/v1/master_data/users")),
+                    axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor")),
                     axios.get(
                         this.$parent.MakeUrl(
                             "api/v1/finance-ap/request-advance/show/" +
@@ -472,7 +472,7 @@ export default {
                             warehouses,
                             uom
                         ) => {
-                            this.users = users.data;
+                            this.users = users.data.data;
                             this.requestAdvance = requestAdvance.data.data;
                             this.detail = detail.data.data;
                             this.productType =
@@ -512,7 +512,7 @@ export default {
         },
         getUser(userId) {
             axios
-                .get(this.$parent.MakeUrl("api/v1/master_data/users/" + userId))
+                .get(this.$parent.MakeUrl("api/v1/master_data/users/getUserVendor/" + userId))
                 .then(res => {
                     this.user = res.data.data;
                 })

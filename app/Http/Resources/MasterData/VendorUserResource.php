@@ -18,7 +18,7 @@ class VendorUserResource extends JsonResource
     public function toArray($request)
     {
         $user = User::where('name', 'like', $this->name)->first();
-        if ($user->isEmpty()) {
+        if ($user == null) {
             $dept = 'Vendor';
             $nama_rek = $this->bank_name;
             $no_rek = $this->bank_account;

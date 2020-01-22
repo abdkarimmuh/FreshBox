@@ -1999,6 +1999,9 @@ __webpack_require__.r(__webpack_exports__);
       this.password = "";
       this.role = "";
       this.password_confirmation = "";
+      this.dept = "";
+      this.bank = "";
+      this.bank_account = "";
     }
   }
 });
@@ -6413,11 +6416,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.loading = true;
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, items, warehouses, uom) {
-        _this2.users = users.data;
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, items, warehouses, uom) {
+        _this2.users = users.data.data;
         _this2.items = items.data;
         _this2.warehouses = warehouses.data;
         _this2.uom = uom.data.data;
+        console.log(users);
         _this2.loading = false;
       }))["catch"](function (err) {
         if (err.response.status === 500) {
@@ -6439,7 +6443,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getUser: function getUser() {
       var _this4 = this;
 
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/users/" + this.userId)).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/users/getUserVendor/" + this.userId)).then(function (res) {
         _this4.user = res.data.data;
       })["catch"](function (err) {
         console.log(err.response.data);
@@ -7350,8 +7354,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.loading = true;
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/show/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/requestFinanceDetail/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, requestAdvance, detail, items, warehouses, uom) {
-        _this2.users = users.data;
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor")), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/show/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/requestFinanceDetail/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, requestAdvance, detail, items, warehouses, uom) {
+        _this2.users = users.data.data;
         _this2.requestAdvance = requestAdvance.data.data;
         _this2.detail = detail.data.data;
         _this2.productType = requestAdvance.data.data.product_type;
@@ -7384,7 +7388,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getUser: function getUser(userId) {
       var _this4 = this;
 
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/users/" + userId)).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/users/getUserVendor/" + userId)).then(function (res) {
         _this4.user = res.data.data;
       })["catch"](function (err) {
         console.log(err.response.data);
@@ -18939,7 +18943,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.table-centered {\n    margin: 0 auto;\n}\n", ""]);
+exports.push([module.i, "\n.table-centered {\r\n    margin: 0 auto;\n}\r\n", ""]);
 
 // exports
 
@@ -56430,7 +56434,7 @@ var render = function() {
     _c("div", { staticClass: "col-12" }, [
       _vm.message
         ? _c("div", { staticClass: "alert alert-primary" }, [
-            _vm._v("\r\n            " + _vm._s(_vm.message) + "\r\n        ")
+            _vm._v("\n            " + _vm._s(_vm.message) + "\n        ")
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -62407,7 +62411,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("b", [_vm._v("User")]),
+      _c("b", [_vm._v("Requester")]),
       _vm._v(" "),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])

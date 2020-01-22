@@ -55,7 +55,7 @@ class RequestFinanceController extends Controller
         $noRequest = $this->generateRequestNo($request->date);
         $data = [
             'no_request' => $noRequest,
-            'user_id' => $request->userId,
+            'vendor_id' => $request->userId,
             'status' => 1,
             'master_warehouse_id' => $request->warehouse,
             'request_date' => $request->requestDate,

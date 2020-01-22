@@ -74,9 +74,9 @@ class MasterDataController extends Controller
      *
      * @return Collection
      */
-    public function getUserVendor()
+    public function getUserVendor($id)
     {
-        return VendorUserResource::collection(Vendor::all());
+        return new VendorUserResource(Vendor::find($id));
     }
 
     /**
