@@ -302,14 +302,9 @@
                                         class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
                                         :to="{
                                             name: config.route_settlement,
-                                            params: { id: item.id }
-                                        }"
-                                        >Settlement</router-link
-                                    >
+                                            params: { id: item.id }}">Settlement</router-link>
 
-                                    <a
-                                        @click="confirmRequestAdvance(item.id)"
-                                        class="badge badge-warning"
+                                    <router-link
                                         v-if="
                                             config.route_upload_payment &&
                                                 item.status === 1
@@ -319,8 +314,7 @@
                                             name: config.route_upload_payment,
                                             params: { id: item.id }
                                         }"
-                                        >Upload Dokumen</router-link
-                                    >
+                                        >Upload Dokumen</router-link>
 
                                     <a
                                         @click="replenish(item.id)"
