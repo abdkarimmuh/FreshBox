@@ -106,14 +106,14 @@
                 <li class="{{ request()->segment(3) == 'topup' ? ' active' : '' }}">
                     <a href="{{ url('admin/finance-ap/topup') }}" class="nav-link"><span>TopUp Procurement</span></a>
                 </li>
-                <li class="{{ request()->segment(3) == 'payment-advance' ? ' active' : '' }}">
+                {{-- <li class="{{ request()->segment(3) == 'payment-advance' ? ' active' : '' }}">
                     <a href="{{ url('admin/finance-ap/payment-advance') }}"
                        class="nav-link"><span>Payment Advance</span></a>
-                </li>
-                {{-- <li class="{{ request()->segment(3) == 'request-cash-advance' ? ' active' : '' }}">
-                    <a href="{{ url('admin/finance-ap/request-cash-advance') }}"
-                       class="nav-link"><span>Request Cash Advance</span></a>
                 </li> --}}
+                <li class="{{ request()->segment(3) == 'request-advance' ? ' active' : '' }}">
+                    <a href="{{ url('admin/finance-ap/request-advance') }}"
+                       class="nav-link"><span>Request Cash Advance</span></a>
+                </li>
                 <li class="{{ request()->segment(3) == 'settlement-cash-advance' ? ' active' : '' }}">
                     <a href="{{ url('admin/finance-ap/settlement-cash-advance') }}"
                        class="nav-link"><span>Settlement Cash Advance</span></a>

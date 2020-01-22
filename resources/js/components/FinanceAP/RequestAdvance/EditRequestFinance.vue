@@ -3,25 +3,25 @@
         <div class="col-12">
             <div class="card col-12" v-if="!loading">
                 <div class="card-header">
-                    <h4 class="text-danger">Edit Payment Advance</h4>
+                    <h4 class="text-danger">Edit Request Cash Advance</h4>
                 </div>
                 <div class="col-12">
                     <div class="row">
                         <!-- Request Date -->
                         <div class="col-md-3">
                             <s-form-input
-                            title="Request Date"
-                            :model="paymentAdvance.request_date"
-                            disabled="true"
-                        />
+                                title="Request Date"
+                                :model="requestAdvance.request_date"
+                                disabled="true"
+                            />
                         </div>
                         <!-- Request Type -->
                         <div class="col-md-3">
                             <s-form-input
-                            title="Request Type"
-                            :model="paymentAdvance.request_type"
-                            disabled="true"
-                        />
+                                title="Request Type"
+                                :model="requestAdvance.request_type"
+                                disabled="true"
+                            />
                         </div>
                         <!--Product Types-->
                         <div class="col-md-3">
@@ -40,7 +40,6 @@
                                         option-value="value"
                                         option-text="name"
                                         placeholder="Select Product Type"
-
                                     />
                                     <div
                                         style="margin-top: .25rem; font-size: 80%;color: #dc3545"
@@ -178,8 +177,7 @@
                                     </thead>
                                     <tbody>
                                         <tr
-                                            v-for="(item,
-                                            index) in detail"
+                                            v-for="(item, index) in detail"
                                             v-bind:key="index"
                                             v-if="productType === 1"
                                         >
@@ -193,7 +191,7 @@
                                             </td>
                                             <td>
                                                 <input
-                                                    v-model="item.type_of_goods "
+                                                    v-model="item.type_of_goods"
                                                     type="text"
                                                     class="form-control"
                                                 />
@@ -256,14 +254,13 @@
                                             </td>
                                         </tr>
                                         <tr
-                                            v-for="(item,
-                                            index) in detail"
+                                            v-for="(item, index) in detail"
                                             v-bind:key="index"
                                             v-if="productType === 2"
                                         >
                                             <td>{{ index + 1 }}</td>
                                             <td>{{ item.item_name }}</td>
-                                            <td>{{ item.type_of_goods  }}</td>
+                                            <td>{{ item.type_of_goods }}</td>
                                             <td>
                                                 <input
                                                     v-model="item.qty"
@@ -391,13 +388,12 @@ export default {
             errors: [],
             loading: false,
             loadingSubmit: false,
-            paymentAdvance: {},
-            detail:[]
+            requestAdvance: {},
+            detail: []
         };
     },
     mounted() {
         this.getData();
-
     },
     methods: {
         async submitForm() {
@@ -421,10 +417,10 @@ export default {
                     remarks: item.remarks
                 }))
             };
-            console.log(payload)
+            console.log(payload);
             try {
                 const res = await axios.post(
-                    "/api/v1/finance-ap/payment-advance/update",
+                    "/api/v1/finance-ap/request-advance/update",
                     payload
                 );
                 Vue.swal({
@@ -432,7 +428,7 @@ export default {
                     title: "Success!",
                     text: "Successfully Insert Data!"
                 }).then(next => {
-                    this.$router.push({ name: "finance.paymentAdvance" });
+                    this.$router.push({ name: "finance.requestAdvance" });
                 });
                 console.log(res);
             } catch (e) {
@@ -450,13 +446,13 @@ export default {
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/users")),
                     axios.get(
                         this.$parent.MakeUrl(
-                            "api/v1/finance-ap/payment-advance/show/" +
+                            "api/v1/finance-ap/request-advance/show/" +
                                 this.$route.params.id
                         )
                     ),
                     axios.get(
                         this.$parent.MakeUrl(
-                            "api/v1/finance-ap/payment-advance/requestFinanceDetail/" +
+                            "api/v1/finance-ap/request-advance/requestFinanceDetail/" +
                                 this.$route.params.id
                         )
                     ),
@@ -467,27 +463,36 @@ export default {
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))
                 ])
                 .then(
-                    axios.spread((users, paymentAdvance, detail, items, warehouses, uom) => {
-                        this.users = users.data;
-                        this.paymentAdvance = paymentAdvance.data.data;
-                        this.detail = detail.data.data;
-                        this.productType = paymentAdvance.data.data.product_type;
-                        this.warehouseId = paymentAdvance.data.data.master_warehouse_id;
-                        this.items = items.data;
-                        this.warehouses = warehouses.data;
-                        this.uom = uom.data.data;
-                        this.loading = false;
-                        this.getUser(this.paymentAdvance.user_id);
-                        console.log(paymentAdvance)
-                    })
-
+                    axios.spread(
+                        (
+                            users,
+                            requestAdvance,
+                            detail,
+                            items,
+                            warehouses,
+                            uom
+                        ) => {
+                            this.users = users.data;
+                            this.requestAdvance = requestAdvance.data.data;
+                            this.detail = detail.data.data;
+                            this.productType =
+                                requestAdvance.data.data.product_type;
+                            this.warehouseId =
+                                requestAdvance.data.data.master_warehouse_id;
+                            this.items = items.data;
+                            this.warehouses = warehouses.data;
+                            this.uom = uom.data.data;
+                            this.loading = false;
+                            this.getUser(this.requestAdvance.user_id);
+                            console.log(requestAdvance);
+                        }
+                    )
                 )
                 .catch(err => {
                     if (err.response.status === 500) {
                         this.getData();
                     }
                 });
-
         },
         getDetailItem() {
             this.loading = true;
@@ -516,7 +521,7 @@ export default {
                 });
         },
         pushItems(id) {
-            console.log(this.detail)
+            console.log(this.detail);
             if (!id) return;
             const indexItem = this.detail.findIndex(x => x.id === id);
             if (indexItem >= 0) {
@@ -540,8 +545,6 @@ export default {
                     remarks: ""
                 });
             }
-
-
         },
         pushRows() {
             return this.detail.push({

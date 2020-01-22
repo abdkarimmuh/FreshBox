@@ -1801,61 +1801,204 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      name: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
       errors: [],
-      role: '',
-      roles: '',
-      message: '',
+      role: "",
+      roles: "",
+      banks: [],
+      bank: "",
+      bank_account: "",
+      dept: "",
+      message: "",
       loading: false
     };
   },
   mounted: function mounted() {
     this.getRoles();
+    this.getBanks();
   },
   methods: {
     getRoles: function getRoles() {
       var _this2 = this;
 
-      axios.get(this.$parent.MakeUrl('api/users/roles')).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/users/roles")).then(function (res) {
         _this2.roles = res.data;
+      })["catch"](function (err) {});
+    },
+    getBanks: function getBanks() {
+      var _this3 = this;
+
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/bank")).then(function (res) {
+        _this3.banks = res.data;
       })["catch"](function (err) {});
     },
     addUser: function addUser() {
       var _this = this;
 
       _this.errors = [];
-      _this.message = '';
+      _this.message = "";
       _this.loading = true;
-      axios.post(this.$parent.MakeUrl('admin/users'), {
-        'name': this.name,
-        'role': this.role,
-        'email': this.email,
-        'current_password': this.current_password,
-        'password': this.password,
-        'password_confirmation': this.password_confirmation
+      axios.post(this.$parent.MakeUrl("admin/users"), {
+        name: this.name,
+        role: this.role,
+        email: this.email,
+        password: this.password,
+        password_confirmation: this.password_confirmation,
+        bank: this.bank,
+        bank_account: this.bank_account,
+        dept: this.dept
       }).then(function (res) {
+        console.log(res);
         _this.loading = false;
 
         _this.resetForm();
 
-        _this.message = 'User account has been successfully created!';
+        _this.message = "User account has been successfully created!";
       })["catch"](function (err) {
         _this.errors = err.response.data.errors;
         _this.loading = false;
       });
     },
     resetForm: function resetForm() {
-      this.name = '';
-      this.email = '';
-      this.password = '';
-      this.role = '';
-      this.password_confirmation = '';
+      this.name = "";
+      this.email = "";
+      this.password = "";
+      this.role = "";
+      this.password_confirmation = "";
     }
   }
 });
@@ -5228,6 +5371,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id"],
   data: function data() {
@@ -6180,7 +6370,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 };
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post("/api/v1/finance-ap/payment-advance", payload);
+                return axios.post("/api/v1/finance-ap/request-advance", payload);
 
               case 5:
                 res = _context.sent;
@@ -6190,7 +6380,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
                   _this.$router.push({
-                    name: "finance.paymentAdvance"
+                    name: "finance.requestAdvance"
                   });
                 });
                 console.log(res);
@@ -7041,9 +7231,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7076,7 +7263,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       errors: [],
       loading: false,
       loadingSubmit: false,
-      paymentAdvance: {},
+      requestAdvance: {},
       detail: []
     };
   },
@@ -7120,7 +7307,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 console.log(payload);
                 _context.prev = 3;
                 _context.next = 6;
-                return axios.post("/api/v1/finance-ap/payment-advance/update", payload);
+                return axios.post("/api/v1/finance-ap/request-advance/update", payload);
 
               case 6:
                 res = _context.sent;
@@ -7130,7 +7317,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
                   _this.$router.push({
-                    name: "finance.paymentAdvance"
+                    name: "finance.requestAdvance"
                   });
                 });
                 console.log(res);
@@ -7163,20 +7350,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.loading = true;
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/payment-advance/show/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/payment-advance/requestFinanceDetail/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, paymentAdvance, detail, items, warehouses, uom) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/users")), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/show/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/requestFinanceDetail/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, requestAdvance, detail, items, warehouses, uom) {
         _this2.users = users.data;
-        _this2.paymentAdvance = paymentAdvance.data.data;
+        _this2.requestAdvance = requestAdvance.data.data;
         _this2.detail = detail.data.data;
-        _this2.productType = paymentAdvance.data.data.product_type;
-        _this2.warehouseId = paymentAdvance.data.data.master_warehouse_id;
+        _this2.productType = requestAdvance.data.data.product_type;
+        _this2.warehouseId = requestAdvance.data.data.master_warehouse_id;
         _this2.items = items.data;
         _this2.warehouses = warehouses.data;
         _this2.uom = uom.data.data;
         _this2.loading = false;
 
-        _this2.getUser(_this2.paymentAdvance.user_id);
+        _this2.getUser(_this2.requestAdvance.user_id);
 
-        console.log(paymentAdvance);
+        console.log(requestAdvance);
       }))["catch"](function (err) {
         if (err.response.status === 500) {
           _this2.getData();
@@ -7280,13 +7467,13 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       config: {
-        title: "Payment Advance",
+        title: "Request Cash Advance",
         action: true,
-        base_url: this.$parent.MakeUrl("api/v1/finance-ap/payment-advance"),
-        route_view: "finance.paymentAdvance.show",
-        route_create: "finance.paymentAdvance.create",
-        route_edit_payment: "finance.paymentAdvance.edit",
-        route_confirmPaymentAdvance: true // route_multiple_print: 'invoice_order.multiplePrint',
+        base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-advance"),
+        route_view: "finance.requestAdvance.show",
+        route_create: "finance.requestAdvance.create",
+        route_edit_payment: "finance.requestAdvance.edit",
+        route_confirmrequestAdvance: true // route_multiple_print: 'invoice_order.multiplePrint',
 
       },
       columns: [{
@@ -7562,6 +7749,63 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id"],
   data: function data() {
@@ -7579,7 +7823,7 @@ __webpack_require__.r(__webpack_exports__);
     getInvoice: function getInvoice() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl("api/v1/finance-ap/payment-advance/show/" + this.$route.params.id)).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/show/" + this.$route.params.id)).then(function (res) {
         _this.requestFinance = res.data.data;
         _this.details = res.data.data.details;
         _this.loading = true;
@@ -7631,7 +7875,7 @@ __webpack_require__.r(__webpack_exports__);
       config: {
         title: "Settlement Cash Advance",
         // action: true,
-        base_url: this.$parent.MakeUrl("api/v1/finance-ap/payment-advance") // route_view: "finance.settlementFinance.show",
+        base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-advance") // route_view: "finance.settlementFinance.show",
         // route_create: "finance.requestFinance.create"
         // route_multiple_print: 'invoice_order.multiplePrint',
 
@@ -11071,6 +11315,81 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -11280,7 +11599,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         console.log(res);
       })["catch"](function (e) {});
     },
-    confirmPaymentAdvance: function confirmPaymentAdvance(id) {
+    confirmRequestAdvance: function confirmRequestAdvance(id) {
       var _this3 = this;
 
       Vue.swal({
@@ -11293,7 +11612,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         confirmButtonText: "Yes, confirm it!"
       }).then(function (result) {
         if (result.value) {
-          axios.post(BaseUrl("api/v1/finance-ap/payment-advance/" + id));
+          axios.post(BaseUrl("api/v1/finance-ap/request-advance/" + id));
           Vue.swal("Confirm!", "The data has been confirm.", "success").then(function (next) {
             console.log(next);
 
@@ -56068,8 +56387,6 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "card" }, [
-        _vm._m(0),
-        _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "form-group row mb-4" }, [
             _c(
@@ -56221,6 +56538,153 @@ var render = function() {
                 staticClass:
                   "col-form-label text-md-right col-12 col-md-3 col-lg-3"
               },
+              [_vm._v("Bank Name")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12 col-md-7" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.bank,
+                      expression: "bank"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: { "is-invalid": _vm.errors.bank },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.bank = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(_vm.banks, function(bank) {
+                  return _c("option", { domProps: { value: bank.id } }, [
+                    _vm._v(_vm._s(bank.name))
+                  ])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _vm.errors.bank
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _c("p", [_vm._v(_vm._s(_vm.errors.bank[0]))])
+                  ])
+                : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row mb-4" }, [
+            _c(
+              "label",
+              {
+                staticClass:
+                  "col-form-label text-md-right col-12 col-md-3 col-lg-3"
+              },
+              [_vm._v("Bank Account")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12 col-md-7" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.bank_account,
+                    expression: "bank_account"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.errors.bank_account
+                },
+                attrs: {
+                  type: "number",
+                  placeholder: "Insert your Bank Account."
+                },
+                domProps: { value: _vm.bank_account },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.bank_account = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors.bank_account
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _c("p", [_vm._v(_vm._s(_vm.errors.bank_account[0]))])
+                  ])
+                : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row mb-4" }, [
+            _c(
+              "label",
+              {
+                staticClass:
+                  "col-form-label text-md-right col-12 col-md-3 col-lg-3"
+              },
+              [_vm._v("Department")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-12 col-md-7" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.dept,
+                    expression: "dept"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.errors.dept
+                },
+                attrs: { type: "text", placeholder: "Insert your Department." },
+                domProps: { value: _vm.dept },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.dept = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors.dept
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _c("p", [_vm._v(_vm._s(_vm.errors.dept[0]))])
+                  ])
+                : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row mb-4" }, [
+            _c(
+              "label",
+              {
+                staticClass:
+                  "col-form-label text-md-right col-12 col-md-3 col-lg-3"
+              },
               [_vm._v("Password")]
             ),
             _vm._v(" "),
@@ -56281,7 +56745,9 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                class: { "is-invalid": _vm.errors.password_confirmation },
+                class: {
+                  "is-invalid": _vm.errors.password_confirmation
+                },
                 attrs: {
                   type: "password",
                   placeholder: "Confirm account password.",
@@ -56318,7 +56784,7 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-primary",
+                  staticClass: "btn btn-danger",
                   attrs: { disabled: _vm.loading },
                   on: { click: _vm.addUser }
                 },
@@ -56335,16 +56801,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h4", [_vm._v("Add a New User")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -59894,9 +60351,9 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-secondary",
-          attrs: { type: "button", onlclick: "history.back()" }
+          attrs: { type: "button", onClick: "history.back()" }
         },
-        [_vm._v("Back")]
+        [_vm._v("\n            Back\n        ")]
       ),
       _vm._v(" "),
       _c(
@@ -59945,7 +60402,11 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.pettyCash.no_request))
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(_vm.pettyCash.no_request) +
+                                    "\n                                            "
+                                )
                               ])
                             ]),
                             _vm._v(" "),
@@ -59957,7 +60418,11 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.pettyCash.created_at))
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(_vm.pettyCash.created_at) +
+                                    "\n                                            "
+                                )
                               ])
                             ]),
                             _vm._v(" "),
@@ -59979,7 +60444,11 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.pettyCash.user_request_name))
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(_vm.pettyCash.user_request_name) +
+                                    "\n                                            "
+                                )
                               ])
                             ]),
                             _vm._v(" "),
@@ -59991,7 +60460,11 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.pettyCash.dept))
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(_vm.pettyCash.dept) +
+                                    "\n                                            "
+                                )
                               ])
                             ]),
                             _vm._v(" "),
@@ -60003,7 +60476,11 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.pettyCash.address))
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(_vm.pettyCash.address) +
+                                    "\n                                            "
+                                )
                               ])
                             ])
                           ])
@@ -60028,11 +60505,19 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-left" }, [
-                            _vm._v(_vm._s(item.itemName))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(item.itemName) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(item.typeOfGoods))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(item.typeOfGoods) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
@@ -60040,11 +60525,19 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(item.uom_name))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(item.uom_name) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
-                            _vm._v(_vm._s(_vm._f("toIDR")(item.price)))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm._f("toIDR")(item.price)) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c(
@@ -60053,19 +60546,37 @@ var render = function() {
                               staticClass: "text-right",
                               attrs: { width: "100" }
                             },
-                            [_vm._v(_vm._s(_vm._f("toIDR")(item.ppn)))]
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(_vm._f("toIDR")(item.ppn)) +
+                                  "\n                                "
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
-                            _vm._v(_vm._s(_vm._f("toIDR")(item.total)))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm._f("toIDR")(item.total)) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-left" }, [
-                            _vm._v(_vm._s(item.supplierName))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(item.supplierName) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-left" }, [
-                            _vm._v(_vm._s(item.remarks))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(item.remarks) +
+                                "\n                                "
+                            )
                           ])
                         ])
                       }),
@@ -60091,7 +60602,11 @@ var render = function() {
                         _c("td"),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-right" }, [
-                          _vm._v(_vm._s(_vm._f("toIDR")(_vm.pettyCash.total)))
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm._f("toIDR")(_vm.pettyCash.total)) +
+                              "\n                                "
+                          )
                         ]),
                         _vm._v(" "),
                         _c("td"),
@@ -60128,7 +60643,7 @@ var render = function() {
                                     [_vm._v("Terbilang")]
                                   ),
                                   _vm._v(
-                                    "\n                                                 \n                                                   " +
+                                    "\n                                                    \n                                                " +
                                       _vm._s(_vm.pettyCash.terbilang) +
                                       "\n                                            "
                                   )
@@ -60277,7 +60792,9 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Unit")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { colspan: "2" } }, [
-          _vm._v("Harga + PPn")
+          _vm._v(
+            "\n                                    Harga + PPn\n                                "
+          )
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
@@ -60347,12 +60864,16 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-12" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-6" }, [
-          _vm._v("(........................................)")
+          _vm._v(
+            "\n                            (........................................)\n                        "
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-6" }, [
           _c("div", { staticClass: "text-right" }, [
-            _vm._v("(........................................)")
+            _vm._v(
+              "\n                                (........................................)\n                            "
+            )
           ])
         ])
       ])
@@ -61828,7 +62349,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "text-danger" }, [_vm._v("Add Payment Advance")])
+      _c("h4", { staticClass: "text-danger" }, [
+        _vm._v("Add Request Cash Advance")
+      ])
     ])
   },
   function() {
@@ -62325,7 +62848,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h4", { staticClass: "text-danger" }, [
-        _vm._v("Confirm Request Finance")
+        _vm._v("Confirm Request Cash Finance")
       ])
     ])
   },
@@ -62413,7 +62936,7 @@ var render = function() {
                       _c("s-form-input", {
                         attrs: {
                           title: "Request Date",
-                          model: _vm.paymentAdvance.request_date,
+                          model: _vm.requestAdvance.request_date,
                           disabled: "true"
                         }
                       })
@@ -62428,7 +62951,7 @@ var render = function() {
                       _c("s-form-input", {
                         attrs: {
                           title: "Request Type",
-                          model: _vm.paymentAdvance.request_type,
+                          model: _vm.requestAdvance.request_type,
                           disabled: "true"
                         }
                       })
@@ -62715,7 +63238,7 @@ var render = function() {
                                                     rawName: "v-model",
                                                     value: item.type_of_goods,
                                                     expression:
-                                                      "item.type_of_goods "
+                                                      "item.type_of_goods"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
@@ -63229,7 +63752,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "text-danger" }, [_vm._v("Edit Payment Advance")])
+      _c("h4", { staticClass: "text-danger" }, [
+        _vm._v("Edit Request Cash Advance")
+      ])
     ])
   },
   function() {
@@ -63366,9 +63891,9 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-secondary",
-          attrs: { type: "button", onlclick: "history.back()" }
+          attrs: { type: "button", onClick: "history.back()" }
         },
-        [_vm._v("Back")]
+        [_vm._v("\n            Back\n        ")]
       ),
       _vm._v(" "),
       _c(
@@ -63417,7 +63942,11 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.requestFinance.no_request))
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(_vm.requestFinance.no_request) +
+                                    "\n                                            "
+                                )
                               ])
                             ]),
                             _vm._v(" "),
@@ -63429,7 +63958,11 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.requestFinance.request_date))
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(_vm.requestFinance.request_date) +
+                                    "\n                                            "
+                                )
                               ])
                             ])
                           ])
@@ -63449,7 +63982,11 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.requestFinance.user_name))
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(_vm.requestFinance.user_name) +
+                                    "\n                                            "
+                                )
                               ])
                             ]),
                             _vm._v(" "),
@@ -63461,7 +63998,11 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
-                                _vm._v(_vm._s(_vm.requestFinance.dept))
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(_vm.requestFinance.dept) +
+                                    "\n                                            "
+                                )
                               ])
                             ]),
                             _vm._v(" "),
@@ -63474,7 +64015,11 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", { attrs: { width: "40%" } }, [
                                 _vm._v(
-                                  _vm._s(_vm.requestFinance.shipping_address)
+                                  "\n                                                " +
+                                    _vm._s(
+                                      _vm.requestFinance.shipping_address
+                                    ) +
+                                    "\n                                            "
                                 )
                               ])
                             ])
@@ -63500,11 +64045,19 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-left" }, [
-                            _vm._v(_vm._s(item.itemName))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(item.itemName) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(item.typeOfGoods))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(item.typeOfGoods) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
@@ -63512,11 +64065,19 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(item.uom_name))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(item.uom_name) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
-                            _vm._v(_vm._s(_vm._f("toIDR")(item.price)))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm._f("toIDR")(item.price)) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c(
@@ -63525,19 +64086,37 @@ var render = function() {
                               staticClass: "text-right",
                               attrs: { width: "100" }
                             },
-                            [_vm._v(_vm._s(item.ppn) + " %")]
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(item.ppn) +
+                                  " %\n                                "
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
-                            _vm._v(_vm._s(_vm._f("toIDR")(item.total)))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm._f("toIDR")(item.total)) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-left" }, [
-                            _vm._v(_vm._s(item.supplierName))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(item.supplierName) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-left" }, [
-                            _vm._v(_vm._s(item.remarks))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(item.remarks) +
+                                "\n                                "
+                            )
                           ])
                         ])
                       }),
@@ -63564,7 +64143,11 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", { staticClass: "text-right" }, [
                           _vm._v(
-                            _vm._s(_vm._f("toIDR")(_vm.requestFinance.total))
+                            "\n                                    " +
+                              _vm._s(
+                                _vm._f("toIDR")(_vm.requestFinance.total)
+                              ) +
+                              "\n                                "
                           )
                         ]),
                         _vm._v(" "),
@@ -63602,7 +64185,7 @@ var render = function() {
                                     [_vm._v("Terbilang")]
                                   ),
                                   _vm._v(
-                                    "\n                                                 \n                                                   " +
+                                    "\n                                                    \n                                                " +
                                       _vm._s(_vm.requestFinance.terbilang) +
                                       "\n                                            "
                                   )
@@ -63634,7 +64217,11 @@ var render = function() {
                                 _vm._m(8),
                                 _vm._v(" "),
                                 _c("td", [
-                                  _vm._v(_vm._s(_vm.requestFinance.noRek))
+                                  _vm._v(
+                                    "\n                                                " +
+                                      _vm._s(_vm.requestFinance.noRek) +
+                                      "\n                                            "
+                                  )
                                 ])
                               ]),
                               _vm._v(" "),
@@ -63642,7 +64229,11 @@ var render = function() {
                                 _c("td", { attrs: { width: "50" } }),
                                 _vm._v(" "),
                                 _c("td", [
-                                  _vm._v(_vm._s(_vm.requestFinance.namaRek))
+                                  _vm._v(
+                                    "\n                                                " +
+                                      _vm._s(_vm.requestFinance.namaRek) +
+                                      "\n                                            "
+                                  )
                                 ])
                               ])
                             ])
@@ -63739,7 +64330,9 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Unit")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center", attrs: { colspan: "2" } }, [
-          _vm._v("Harga + PPn(%)")
+          _vm._v(
+            "\n                                    Harga + PPn(%)\n                                "
+          )
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
@@ -63809,12 +64402,16 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-12" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-6" }, [
-          _vm._v("(........................................)")
+          _vm._v(
+            "\n                            (........................................)\n                        "
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-6" }, [
           _c("div", { staticClass: "text-right" }, [
-            _vm._v("(........................................)")
+            _vm._v(
+              "\n                                (........................................)\n                            "
+            )
           ])
         ])
       ])
@@ -67722,7 +68319,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                            Generate Recap\n                            Invoice\n                            "
+                            "\n                            Generate Recap Invoice\n                            "
                           ),
                           _c("i", { staticClass: "fas fa-print" })
                         ]
@@ -67739,7 +68336,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                            Print All Invoice\n                            Invoice\n                            "
+                            "\n                            Print All Invoice Invoice\n                            "
                           ),
                           _c("i", { staticClass: "fas fa-print" })
                         ]
@@ -68178,7 +68775,13 @@ var render = function() {
                                         "white-space": "nowrap"
                                       }
                                     },
-                                    [_vm._v(_vm._s(column.title))]
+                                    [
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(column.title) +
+                                          "\n                            "
+                                      )
+                                    ]
                                   )
                                 })
                               ],
@@ -68352,7 +68955,7 @@ var render = function() {
                                             : _vm._e(),
                                           _vm._v(" "),
                                           _vm.config
-                                            .route_confirmPaymentAdvance &&
+                                            .route_confirmRequestAdvance &&
                                           item.status === 1
                                             ? _c(
                                                 "a",
@@ -68364,7 +68967,7 @@ var render = function() {
                                                   },
                                                   on: {
                                                     click: function($event) {
-                                                      return _vm.confirmPaymentAdvance(
+                                                      return _vm.confirmRequestAdvance(
                                                         item.id
                                                       )
                                                     }
@@ -68389,7 +68992,11 @@ var render = function() {
                                                     }
                                                   }
                                                 },
-                                                [_vm._v("Replenish")]
+                                                [
+                                                  _vm._v(
+                                                    "\n                                    Replenish\n                                "
+                                                  )
+                                                ]
                                               )
                                             : _vm._e(),
                                           _vm._v(" "),
@@ -68478,11 +69085,13 @@ var render = function() {
                                         : column.type === "price"
                                         ? _c("p", [
                                             _vm._v(
-                                              _vm._s(
-                                                _vm._f("toIDR")(
-                                                  item[column.field]
-                                                )
-                                              )
+                                              "\n                                    " +
+                                                _vm._s(
+                                                  _vm._f("toIDR")(
+                                                    item[column.field]
+                                                  )
+                                                ) +
+                                                "\n                                "
                                             )
                                           ])
                                         : _c("p", [
@@ -98289,24 +98898,24 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'finance.replenish.create',
     component: _components_FinanceAP_Replenish_AddReplenish__WEBPACK_IMPORTED_MODULE_32__["default"]
   }, {
-    path: '/admin/finance-ap/payment-advance',
-    name: 'finance.paymentAdvance',
+    path: '/admin/finance-ap/request-advance',
+    name: 'finance.requestAdvance',
     component: _components_FinanceAP_RequestAdvance_IndexRequestFinance__WEBPACK_IMPORTED_MODULE_34__["default"]
   }, {
-    path: '/admin/finance-ap/payment-advance/create',
-    name: 'finance.paymentAdvance.create',
+    path: '/admin/finance-ap/request-advance/create',
+    name: 'finance.requestAdvance.create',
     component: _components_FinanceAP_RequestAdvance_AddRequestFinance__WEBPACK_IMPORTED_MODULE_35__["default"]
   }, {
-    path: '/admin/finance-ap/payment-advance/show/:id',
-    name: 'finance.paymentAdvance.show',
+    path: '/admin/finance-ap/request-advance/show/:id',
+    name: 'finance.requestAdvance.show',
     component: _components_FinanceAP_RequestAdvance_PrintRequestFinance__WEBPACK_IMPORTED_MODULE_36__["default"]
   }, {
-    path: '/admin/finance-ap/payment-advance/edit/:id',
-    name: 'finance.paymentAdvance.edit',
+    path: '/admin/finance-ap/request-advance/edit/:id',
+    name: 'finance.requestAdvance.edit',
     component: _components_FinanceAP_RequestAdvance_EditRequestFinance__WEBPACK_IMPORTED_MODULE_37__["default"]
   }, {
-    path: '/admin/finance-ap/payment-advance/:id/confirm',
-    name: 'finance.paymentAdvance.confirm',
+    path: '/admin/finance-ap/request-advance/:id/confirm',
+    name: 'finance.requestAdvance.confirm',
     component: _components_FinanceAP_RequestAdvance_ConfirmRequestFinance__WEBPACK_IMPORTED_MODULE_38__["default"]
   }, {
     path: '/admin/finance-ap/in-out-payment',

@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card col-12" v-if="!loading">
                 <div class="card-header">
-                    <h4 class="text-danger">Add Payment Advance</h4>
+                    <h4 class="text-danger">Add Request Cash Advance</h4>
                 </div>
                 <div class="col-12">
                     <div class="row">
@@ -11,7 +11,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>
-                                    <b>User</b>
+                                    <b>Requester</b>
                                     <span style="color: red;">*</span>
                                 </label>
                                 <div>
@@ -495,7 +495,7 @@ export default {
             };
             try {
                 const res = await axios.post(
-                    "/api/v1/finance-ap/payment-advance",
+                    "/api/v1/finance-ap/request-advance",
                     payload
                 );
                 Vue.swal({
@@ -503,7 +503,7 @@ export default {
                     title: "Success!",
                     text: "Successfully Insert Data!"
                 }).then(next => {
-                    this.$router.push({ name: "finance.paymentAdvance" });
+                    this.$router.push({ name: "finance.requestAdvance" });
                 });
                 console.log(res);
             } catch (e) {

@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\{UserUpdateRequest, UserAddRequest};
+use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\UserAddRequest;
 use Spatie\Permission\Models\Role;
 use App;
+use App\Model\MasterData\Bank;
+use App\Model\MasterData\Vendor;
+use App\UserProfile;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -25,11 +30,12 @@ class UserController extends Controller
     {
 //        $this->authorize(User::class, 'index');
         if ($request->ajax()) {
-            $users = new User;
+            $users = new User();
             if ($request->q) {
-                $users = $users->where('name', 'like', '%' . $request->q . '%')->orWhere('email', $request->q);
+                $users = $users->where('name', 'like', '%'.$request->q.'%')->orWhere('email', $request->q);
             }
             $users = $users->paginate(config('stisla.perpage'))->appends(['q' => $request->q]);
+
             return response()->json($users);
         }
 
@@ -50,6 +56,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(UserAddRequest $request)
@@ -58,27 +65,57 @@ class UserController extends Controller
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $role = Role::find($request->role);
+
         if ($role) {
-            $user->assignRole($role);
+            $user->assignRole($request->role);
         }
-        return response()->json($user);
+
+        $bank = Bank::find($request->bank);
+
+        $user_profile = UserProfile::create([
+            'user_id' => $user->id,
+            'dept' => $request->dept,
+            'no_rek' => $request->bank_account,
+            'nama_rek' => $bank->name,
+            'created_at' => Carbon::now(),
+        ]);
+
+        $vendor = Vendor::create([
+            'name' => $request->name,
+            'category_id' => 9,
+            'pic_vendor' => $request->name,
+            'tlp_pic' => 0,
+            'bank_account' => $request->bank_account,
+            'bank_id' => $request->bank,
+            'created_by' => $user->id,
+            'created_at' => Carbon::now(),
+        ]);
+
+        return response()->json([
+            'user' => $user,
+            'user_profile' => $user_profile,
+            'vendor' => $vendor,
+            'request_all' => $request->all(),
+            'bank' => $bank->id,
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -90,14 +127,15 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UserUpdateRequest $request, User $user)
     {
         if (!App::environment('demo')) {
             $user->update($request->only([
-                'name', 'email'
+                'name', 'email',
             ]));
 
             if ($request->password) {
@@ -119,6 +157,7 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

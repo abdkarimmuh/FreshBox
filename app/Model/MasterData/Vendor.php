@@ -13,28 +13,9 @@ class Vendor extends MyModel
 
     protected $table = 'master_vendor';
 
-    protected $fillable = [
-        'name',
-        'category_id',
-        'pic_vendor',
-        'tlp_pic',
-        'bank_account',
-        'bank_id',
-        'ppn',
-        'pph',
-        'remarks',
-        'created_by',
-        'updated_by',
-        'created_at',
-        'updated_at',
-    ];
+    protected $fillable = ['name', 'category_id', 'pic_vendor', 'tlp_pic', 'bank_account', 'bank_id', 'ppn', 'pph', 'remarks', 'created_by', 'updated_by', 'created_at', 'updated_at'];
 
-    protected $appends = [
-        'created_by_name',
-        'updated_by_name',
-        'category_name',
-        'bank_name',
-    ];
+    protected $appends = ['created_by_name', 'updated_by_name', 'category_name', 'bank_name'];
 
     protected $columns = [
         'id' => [

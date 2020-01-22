@@ -2,26 +2,26 @@
 
 namespace App\Model\FinanceAP;
 
+use App\Model\MasterData\Vendor;
 use App\Model\MasterData\Warehouse;
 use App\MyModel;
 use App\Traits\SearchTraits;
-use App\User;
 
 class RequestFinance extends MyModel
 {
     use SearchTraits;
     protected $table = 'finance_request';
-    protected $fillable = ['status', 'user_id', 'master_warehouse_id', 'no_request', 'request_date', 'no_request_confirm', 'request_confirm_date', 'request_type', 'product_type', 'created_by', 'file', 'created_at', 'updated_at'];
+    protected $fillable = ['status', 'vendor_id', 'master_warehouse_id', 'no_request', 'request_date', 'no_request_confirm', 'request_confirm_date', 'request_type', 'product_type', 'created_by', 'file', 'created_at', 'updated_at'];
     protected $dates = [
         'request_date',
-        'request_confirm_date'
+        'request_confirm_date',
     ];
 
     protected $appends = ['status_html'];
 
-    public function user()
+    public function vendor()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
     }
 
     public function warehouse()
@@ -40,6 +40,7 @@ class RequestFinance extends MyModel
         foreach ($this->detail as $detail) {
             $total += $detail->total;
         }
+
         return $total;
     }
 
@@ -61,10 +62,9 @@ class RequestFinance extends MyModel
             return '<span class="badge badge-warning">Confirm</span>';
         } elseif ($this->status === 3) {
             return '<span class="badge badge-success">Settlement</span>';
-        }elseif ($this->status === 4) {
+        } elseif ($this->status === 4) {
             return '<span class="badge badge-primary">Done</span>';
-        }
-        else {
+        } else {
             return 'Status NotFound';
         }
     }

@@ -1,14 +1,22 @@
 <template>
     <div>
         <div class="text-right">
-            <button class="btn btn-secondary" type="button" onlclick="history.back()">Back</button>
+            <button
+                class="btn btn-secondary"
+                type="button"
+                onClick="history.back()"
+            >
+                Back
+            </button>
             <button class="btn btn-success" @click="print">Print</button>
         </div>
         <div class="card card-body printableArea" id="printMe">
             <h3>
                 <span class="logo-text">
                     <img
-                        v-bind:src="$parent.MakeUrl('assets/img/logo-frbox.png')"
+                        v-bind:src="
+                            $parent.MakeUrl('assets/img/logo-frbox.png')
+                        "
                         alt="homepage"
                         class="light-logo"
                     />
@@ -18,9 +26,9 @@
                 <div class="col-md-12">
                     <div class="text-center">
                         <h4>
-                            <b
-                                style="color: black; text-decoration: underline"
-                            >FORM PERMINTAAN PERMINTAAN BARANG / JASA</b>
+                            <b style="color: black; text-decoration: underline"
+                                >FORM PERMINTAAN PERMINTAAN BARANG / JASA</b
+                            >
                         </h4>
                     </div>
                     <br />
@@ -36,14 +44,22 @@
                                                     <b>No</b>
                                                 </td>
                                                 <td width="2%">:</td>
-                                                <td width="40%">{{ requestFinance.no_request }}</td>
+                                                <td width="40%">
+                                                    {{
+                                                        requestFinance.no_request
+                                                    }}
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td width="13%">
                                                     <b>Tanggal</b>
                                                 </td>
                                                 <td width="2%">:</td>
-                                                <td width="40%">{{ requestFinance.request_date }}</td>
+                                                <td width="40%">
+                                                    {{
+                                                        requestFinance.request_date
+                                                    }}
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -58,23 +74,31 @@
                                                     <b>Nama</b>
                                                 </td>
                                                 <td width="2%">:</td>
-                                                <td width="40%">{{ requestFinance.user_name }}</td>
+                                                <td width="40%">
+                                                    {{
+                                                        requestFinance.user_name
+                                                    }}
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td width="13%">
                                                     <b>Dept</b>
                                                 </td>
                                                 <td width="2%">:</td>
-                                                <td width="40%">{{ requestFinance.dept }}</td>
+                                                <td width="40%">
+                                                    {{ requestFinance.dept }}
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td width="25%">
                                                     <b>Alamat Kirim</b>
                                                 </td>
                                                 <td width="2%">:</td>
-                                                <td
-                                                    width="40%"
-                                                >{{ requestFinance.shipping_address }}</td>
+                                                <td width="40%">
+                                                    {{
+                                                        requestFinance.shipping_address
+                                                    }}
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -92,7 +116,9 @@
                                     <th class="text-center">Jenis Barang</th>
                                     <th class="text-center">Qty</th>
                                     <th class="text-center">Unit</th>
-                                    <th class="text-center" colspan="2">Harga + PPn(%)</th>
+                                    <th class="text-center" colspan="2">
+                                        Harga + PPn(%)
+                                    </th>
                                     <th class="text-center">Total</th>
                                     <th class="text-center">Nama Supplier</th>
                                     <th class="text-center">Keterangan</th>
@@ -100,16 +126,32 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(item, index) in details">
-                                    <td class="text-center">{{ index + 1}}</td>
-                                    <td class="text-left">{{ item.itemName }}</td>
-                                    <td class="text-center">{{ item.typeOfGoods }}</td>
+                                    <td class="text-center">{{ index + 1 }}</td>
+                                    <td class="text-left">
+                                        {{ item.itemName }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ item.typeOfGoods }}
+                                    </td>
                                     <td class="text-center">{{ item.qty }}</td>
-                                    <td class="text-center">{{ item.uom_name }}</td>
-                                    <td class="text-right">{{ item.price | toIDR }}</td>
-                                    <td class="text-right" width="100">{{ item.ppn }} %</td>
-                                    <td class="text-right">{{ item.total | toIDR }}</td>
-                                    <td class="text-left">{{ item.supplierName }}</td>
-                                    <td class="text-left">{{ item.remarks }}</td>
+                                    <td class="text-center">
+                                        {{ item.uom_name }}
+                                    </td>
+                                    <td class="text-right">
+                                        {{ item.price | toIDR }}
+                                    </td>
+                                    <td class="text-right" width="100">
+                                        {{ item.ppn }} %
+                                    </td>
+                                    <td class="text-right">
+                                        {{ item.total | toIDR }}
+                                    </td>
+                                    <td class="text-left">
+                                        {{ item.supplierName }}
+                                    </td>
+                                    <td class="text-left">
+                                        {{ item.remarks }}
+                                    </td>
                                 </tr>
                             </tbody>
                             <tfoot>
@@ -133,7 +175,9 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td class="text-right">{{ requestFinance.total | toIDR}}</td>
+                                    <td class="text-right">
+                                        {{ requestFinance.total | toIDR }}
+                                    </td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -149,9 +193,14 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <b style="text-decoration: underline">Terbilang</b>
-                                                    &nbsp;
-                                                    &nbsp;&nbsp; {{ requestFinance.terbilang }}
+                                                    <b
+                                                        style="text-decoration: underline"
+                                                        >Terbilang</b
+                                                    >
+                                                    &nbsp; &nbsp;&nbsp;
+                                                    {{
+                                                        requestFinance.terbilang
+                                                    }}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -171,11 +220,15 @@
                                                 <td width="70">
                                                     <b>No Rek</b>
                                                 </td>
-                                                <td>{{ requestFinance.noRek }}</td>
+                                                <td>
+                                                    {{ requestFinance.noRek }}
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td width="50"></td>
-                                                <td>{{ requestFinance.namaRek }}</td>
+                                                <td>
+                                                    {{ requestFinance.namaRek }}
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -203,9 +256,13 @@
                     <br />
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-6">(........................................)</div>
                             <div class="col-md-6">
-                                <div class="text-right">(........................................)</div>
+                                (........................................)
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-right">
+                                    (........................................)
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -238,7 +295,7 @@ export default {
             axios
                 .get(
                     this.$parent.MakeUrl(
-                        "api/v1/finance-ap/payment-advance/show/" +
+                        "api/v1/finance-ap/request-advance/show/" +
                             this.$route.params.id
                     )
                 )
