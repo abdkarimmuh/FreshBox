@@ -6300,6 +6300,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6885,6 +6891,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7878,9 +7890,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       config: {
         title: "Settlement Cash Advance",
-        // action: true,
-        base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-advance") // route_view: "finance.settlementFinance.show",
-        // route_create: "finance.requestFinance.create"
+        action: true,
+        base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-advance/settlement"),
+        route_settlement: "finance.settlementFinance.settlement" // route_create: "finance.requestFinance.create"
         // route_multiple_print: 'invoice_order.multiplePrint',
 
       },
@@ -7923,6 +7935,296 @@ __webpack_require__.r(__webpack_exports__);
         description: "You do not have access to this page"
       }
     };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-search-select */ "./node_modules/vue-search-select/dist/VueSearchSelect.common.js");
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_search_select__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      user: {},
+      errors: [],
+      loading: false,
+      loadingSubmit: false,
+      requestAdvance: {},
+      detail: []
+    };
+  },
+  mounted: function mounted() {
+    this.getData();
+  },
+  methods: {
+    submitForm: function () {
+      var _submitForm = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this = this;
+
+        var payload, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.loadingSubmit = true;
+                payload = {
+                  id: this.$route.params.id,
+                  detail: this.detail.map(function (item, idx) {
+                    return {
+                      id: item.id,
+                      qty_confirm: item.qty_confirm,
+                      price_confirm: item.price_confirm
+                    };
+                  })
+                };
+                console.log(payload);
+                _context.prev = 3;
+                _context.next = 6;
+                return axios.post("/api/v1/finance-ap/request-advance/settlement", payload);
+
+              case 6:
+                res = _context.sent;
+                Vue.swal({
+                  type: "success",
+                  title: "Success!",
+                  text: "Successfully Insert Data!"
+                }).then(function (next) {
+                  _this.$router.push({
+                    name: "finance.settlementFinance"
+                  });
+                });
+                console.log(res);
+                _context.next = 16;
+                break;
+
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](3);
+                this.loadingSubmit = false;
+                this.errors = _context.t0.response.data.errors;
+                console.error(_context.t0.response.data);
+
+              case 16:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[3, 11]]);
+      }));
+
+      function submitForm() {
+        return _submitForm.apply(this, arguments);
+      }
+
+      return submitForm;
+    }(),
+    //Get Data Users & Items
+    getData: function getData() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/show/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/requestFinanceDetail/" + this.$route.params.id))]).then(axios.spread(function (requestAdvance, detail) {
+        _this2.requestAdvance = requestAdvance.data.data;
+        _this2.detail = detail.data.data;
+        _this2.loading = false;
+
+        _this2.getUser(_this2.requestAdvance.user_id);
+
+        console.log(detail);
+      }))["catch"](function (err) {
+        if (err.response.status === 500) {
+          _this2.getData();
+        }
+      });
+    },
+    getUser: function getUser(userId) {
+      var _this3 = this;
+
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/users/getUserVendor/" + userId)).then(function (res) {
+        _this3.user = res.data.data;
+      })["catch"](function (err) {
+        console.log(err.response.data);
+      });
+    }
+  },
+  components: {
+    ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__["ModelListSelect"]
   }
 });
 
@@ -10954,6 +11256,19 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -61722,7 +62037,7 @@ var render = function() {
                     ? _c("s-form-input", {
                         attrs: {
                           col: "3",
-                          title: "Nama Rekening",
+                          title: "Bank Name",
                           model: _vm.user.nama_rek,
                           disabled: "true"
                         }
@@ -61733,7 +62048,7 @@ var render = function() {
                     ? _c("s-form-input", {
                         attrs: {
                           col: "3",
-                          title: "Nomor Rekening",
+                          title: "Bank Account",
                           model: _vm.user.no_rek,
                           disabled: "true"
                         }
@@ -61918,7 +62233,10 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: {
+                                                  type: "number",
+                                                  min: "0"
+                                                },
                                                 domProps: { value: item.qty },
                                                 on: {
                                                   input: function($event) {
@@ -61978,7 +62296,10 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: {
+                                                  type: "number",
+                                                  min: "0"
+                                                },
                                                 domProps: { value: item.price },
                                                 on: {
                                                   input: function($event) {
@@ -62008,7 +62329,10 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: {
+                                                  type: "number",
+                                                  min: "0"
+                                                },
                                                 domProps: { value: item.ppn },
                                                 on: {
                                                   input: function($event) {
@@ -62146,7 +62470,10 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: {
+                                                  type: "number",
+                                                  min: "0"
+                                                },
                                                 domProps: { value: item.qty },
                                                 on: {
                                                   input: function($event) {
@@ -62206,7 +62533,10 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: {
+                                                  type: "number",
+                                                  min: "0"
+                                                },
                                                 domProps: { value: item.price },
                                                 on: {
                                                   input: function($event) {
@@ -62236,7 +62566,10 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: {
+                                                  type: "number",
+                                                  min: "0"
+                                                },
                                                 domProps: { value: item.ppn },
                                                 on: {
                                                   input: function($event) {
@@ -62476,13 +62809,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v(
-            "\n                                            Nama Barang\n                                        "
+            "\n                                            Item Name\n                                        "
           )
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v(
-            "\n                                            Jenis Barang\n                                        "
+            "\n                                            Item Type\n                                        "
           )
         ]),
         _vm._v(" "),
@@ -62490,19 +62823,19 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Uom")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Harga")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Price")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("PPN(%)")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v(
-            "\n                                            Nama Suplier\n                                        "
+            "\n                                            Supplier Name\n                                        "
           )
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v(
-            "\n                                            Keterangan\n                                        "
+            "\n                                            Remark\n                                        "
           )
         ]),
         _vm._v(" "),
@@ -63131,7 +63464,7 @@ var render = function() {
                   _c("s-form-input", {
                     attrs: {
                       col: "3",
-                      title: "Nama Rekening",
+                      title: "Bank Name",
                       model: _vm.user.nama_rek,
                       disabled: "true"
                     }
@@ -63140,7 +63473,7 @@ var render = function() {
                   _c("s-form-input", {
                     attrs: {
                       col: "3",
-                      title: "Nomor Rekening",
+                      title: "Bank Account",
                       model: _vm.user.no_rek,
                       disabled: "true"
                     }
@@ -63326,7 +63659,10 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: {
+                                                  type: "number",
+                                                  min: "0"
+                                                },
                                                 domProps: { value: item.qty },
                                                 on: {
                                                   input: function($event) {
@@ -63386,7 +63722,10 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: {
+                                                  type: "number",
+                                                  min: "0"
+                                                },
                                                 domProps: { value: item.price },
                                                 on: {
                                                   input: function($event) {
@@ -63416,7 +63755,10 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: {
+                                                  type: "number",
+                                                  min: "0"
+                                                },
                                                 domProps: { value: item.ppn },
                                                 on: {
                                                   input: function($event) {
@@ -63551,7 +63893,10 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: {
+                                                  type: "number",
+                                                  min: "0"
+                                                },
                                                 domProps: { value: item.qty },
                                                 on: {
                                                   input: function($event) {
@@ -63611,7 +63956,10 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: {
+                                                  type: "number",
+                                                  min: "0"
+                                                },
                                                 domProps: { value: item.price },
                                                 on: {
                                                   input: function($event) {
@@ -63641,7 +63989,10 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
-                                                attrs: { type: "number" },
+                                                attrs: {
+                                                  type: "number",
+                                                  min: "0"
+                                                },
                                                 domProps: { value: item.ppn },
                                                 on: {
                                                   input: function($event) {
@@ -63849,13 +64200,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v(
-            "\n                                            Nama Barang\n                                        "
+            "\n                                            Item Name\n                                        "
           )
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v(
-            "\n                                            Jenis Barang\n                                        "
+            "\n                                            Item Type\n                                        "
           )
         ]),
         _vm._v(" "),
@@ -63863,19 +64214,19 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Uom")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Harga")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Price")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("PPN(%)")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v(
-            "\n                                            Nama Suplier\n                                        "
+            "\n                                            Suplier Name\n                                        "
           )
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v(
-            "\n                                            Keterangan\n                                        "
+            "\n                                            Remark\n                                        "
           )
         ]),
         _vm._v(" "),
@@ -64502,6 +64853,326 @@ var render = function() {
     : _c("div", [_c("s-error-page", { attrs: { error: _vm.error } })], 1)
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=template&id=1483efae&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=template&id=1483efae& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-12" }, [
+      !_vm.loading
+        ? _c("div", { staticClass: "card col-12" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12" }, [
+              _c(
+                "div",
+                { staticClass: "row" },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "col-md-3" },
+                    [
+                      _c("s-form-input", {
+                        attrs: {
+                          title: "Request Date",
+                          model: _vm.requestAdvance.request_date,
+                          disabled: "true"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-3" },
+                    [
+                      _c("s-form-input", {
+                        attrs: {
+                          title: "Request Type",
+                          model: _vm.requestAdvance.request_type,
+                          disabled: "true"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-3" },
+                    [
+                      _c("s-form-input", {
+                        attrs: {
+                          title: "Product Type",
+                          model: _vm.requestAdvance.product_type_name,
+                          disabled: "true"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-3" },
+                    [
+                      _c("s-form-input", {
+                        attrs: {
+                          title: "Warehouse Address",
+                          model: _vm.requestAdvance.shipping_address,
+                          disabled: "true"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("s-form-input", {
+                    attrs: {
+                      col: "3",
+                      title: "Name",
+                      model: _vm.user.name,
+                      disabled: "true"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("s-form-input", {
+                    attrs: {
+                      col: "3",
+                      title: "Dept",
+                      model: _vm.user.dept,
+                      disabled: "true"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("s-form-input", {
+                    attrs: {
+                      col: "3",
+                      title: "Nama Rekening",
+                      model: _vm.user.nama_rek,
+                      disabled: "true"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("s-form-input", {
+                    attrs: {
+                      col: "3",
+                      title: "Nomor Rekening",
+                      model: _vm.user.no_rek,
+                      disabled: "true"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-12",
+                      staticStyle: { "margin-top": "50px" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "table-responsive",
+                          staticStyle: { clear: "both" }
+                        },
+                        [
+                          _c(
+                            "table",
+                            {
+                              staticClass: "table table-hover",
+                              staticStyle: { "font-size": "9pt" }
+                            },
+                            [
+                              _vm._m(1),
+                              _vm._v(" "),
+                              _c(
+                                "tbody",
+                                _vm._l(_vm.detail, function(item, index) {
+                                  return _c("tr", { key: index }, [
+                                    _c("td", [_vm._v(_vm._s(index + 1))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(item.item_name))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(_vm._s(item.type_of_goods))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(item.qty))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: item.qty_confirm,
+                                            expression: "item.qty_confirm"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: { type: "number", min: "0" },
+                                        domProps: { value: item.qty_confirm },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              item,
+                                              "qty_confirm",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(item.uom_name))]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(item.price))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: item.price_confirm,
+                                            expression: "item.price_confirm"
+                                          }
+                                        ],
+                                        staticClass: "form-control",
+                                        attrs: { type: "number", min: "0" },
+                                        domProps: { value: item.price_confirm },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              item,
+                                              "price_confirm",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(item.ppn))])
+                                  ])
+                                }),
+                                0
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("div", { staticClass: "card-body" }, [
+                      _vm.loadingSubmit
+                        ? _c("div", [_c("loading-button")], 1)
+                        : _c(
+                            "div",
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.submitForm()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Submit\n                                "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("back-button")
+                            ],
+                            1
+                          )
+                    ])
+                  ])
+                ],
+                1
+              )
+            ])
+          ])
+        : _c("div", { staticClass: "card col-12" }, [_c("loading-table")], 1)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h4", { staticClass: "text-danger" }, [_vm._v("Settlement")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "text-center" }, [_vm._v("No")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Item Name\n                                        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Item Type\n                                        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Qty Confirm")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Uom")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Price")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Price Confirm")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("PPN(%)")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -69003,6 +69674,26 @@ var render = function() {
                                                   }
                                                 },
                                                 [_vm._v("Edit")]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.config.route_settlement &&
+                                          item.status === 4
+                                            ? _c(
+                                                "router-link",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-warning ml-1 mr-1 mt-1 mb-1",
+                                                  attrs: {
+                                                    to: {
+                                                      name:
+                                                        _vm.config
+                                                          .route_settlement,
+                                                      params: { id: item.id }
+                                                    }
+                                                  }
+                                                },
+                                                [_vm._v("Settlement")]
                                               )
                                             : _vm._e(),
                                           _vm._v(" "),
@@ -98865,6 +99556,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/FinanceAP/Settlement/Settlement.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/Settlement.vue ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Settlement_vue_vue_type_template_id_1483efae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Settlement.vue?vue&type=template&id=1483efae& */ "./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=template&id=1483efae&");
+/* harmony import */ var _Settlement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Settlement.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Settlement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Settlement_vue_vue_type_template_id_1483efae___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Settlement_vue_vue_type_template_id_1483efae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/FinanceAP/Settlement/Settlement.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Settlement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Settlement.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Settlement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=template&id=1483efae&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=template&id=1483efae& ***!
+  \****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Settlement_vue_vue_type_template_id_1483efae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Settlement.vue?vue&type=template&id=1483efae& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=template&id=1483efae&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Settlement_vue_vue_type_template_id_1483efae___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Settlement_vue_vue_type_template_id_1483efae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/ImportExcel/ImportPriceTemp.vue":
 /*!*****************************************************************!*\
   !*** ./resources/js/components/ImportExcel/ImportPriceTemp.vue ***!
@@ -101674,7 +102434,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_FinanceAP_InOutPayment_AddInOutPayment__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/AddInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue");
 /* harmony import */ var _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/PrintInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/PrintInOutPayment.vue");
 /* harmony import */ var _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/IndexSettlementFinance */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue");
-/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
+/* harmony import */ var _components_FinanceAP_Settlement_Settlement__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/Settlement */ "./resources/js/components/FinanceAP/Settlement/Settlement.vue");
+/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
+
 
 
 
@@ -101911,6 +102673,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'finance.settlementFinance',
     component: _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_44__["default"]
   }, {
+    path: '/admin/finance-ap/settlement-cash-advance/settlement/:id',
+    name: 'finance.settlementFinance.settlement',
+    component: _components_FinanceAP_Settlement_Settlement__WEBPACK_IMPORTED_MODULE_45__["default"]
+  }, {
     path: '/admin/finance-ap/petty-cash',
     name: 'finance.pettyCash',
     component: _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_39__["default"]
@@ -101929,7 +102695,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/master_data/price',
     name: 'master_data.price',
-    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_45__["default"]
+    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_46__["default"]
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);

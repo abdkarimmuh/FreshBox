@@ -154,16 +154,20 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/show/{id}', 'RequestFinanceController@show');
             Route::post('/update', 'RequestFinanceController@update');
             Route::get('/requestFinanceDetail/{id}', 'RequestFinanceController@requestFinanceDetail');
-            Route::post('/{id}', 'RequestFinanceController@confirm');
+            Route::get('/settlement', 'RequestFinanceController@settlement');
+            Route::post('/settlement', 'RequestFinanceController@settlementUpdate');
             Route::post('/', 'RequestFinanceController@store');
+            Route::post('/{id}', 'RequestFinanceController@confirm');
+
+
         });
 
         // Settlement Finance
-        Route::group(['prefix' => 'settlement-cash-advance'], function () {
-            Route::get('/', 'SettlementFinanceController@index');
-            Route::get('/show/{id}', 'SettlementFinanceController@show');
-            Route::post('/', 'SettlementFinanceController@store');
-        });
+        // Route::group(['prefix' => 'settlement-cash-advance'], function () {
+        //     Route::get('/', 'SettlementFinanceController@index');
+        //     Route::get('/show/{id}', 'SettlementFinanceController@show');
+        //     Route::post('/', 'SettlementFinanceController@store');
+        // });
 
         // In/Out Payment
         Route::group(['prefix' => 'in-out-payment'], function () {

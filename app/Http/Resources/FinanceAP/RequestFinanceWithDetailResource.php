@@ -25,6 +25,13 @@ class RequestFinanceWithDetailResource extends JsonResource
             $requestType = 'Advance';
         }
 
+        if($this->product_type==1){
+            $productType = 'Non Core';
+        }
+        else{
+            $productType = 'Core';
+        }
+
         $vendor = Vendor::find($this->vendor_id);
         $user = User::where('name', 'like', $vendor->name)->first();
         if ($user == null) {
@@ -47,6 +54,7 @@ class RequestFinanceWithDetailResource extends JsonResource
             'shipping_address' => $this->warehouse->address,
             'request_type' => $requestType,
             'product_type' =>$this->product_type,
+            'product_type_name' =>$productType,
             'status' => isset($this->no_request_confirm) ? 2 : 1,
             'user_name' => $user_name,
             'status_name' => isset($this->no_request_confirm) ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-info">Not Confirmed</span>',

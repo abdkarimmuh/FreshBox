@@ -35,6 +35,24 @@ class RequestFinanceController extends Controller
         return RequestFinanceResource::collection($query);
     }
 
+    public function settlement(Request $request)
+    {
+        $searchValue = $request->input('query');
+        $perPage = $request->perPage;
+        // $query = RequestFinance::where('status', 4)->dataTableQuery($searchValue);
+        $query = RequestFinance::where('status', '>=', 4)->dataTableQuery($searchValue)->orderBy('status', 'asc');
+        if ($request->start && $request->end) {
+            $query->whereBetween('no_request', [$request->start, $request->end]);
+        }
+        if ($searchValue) {
+            $query = $query->orderBy('no_request', 'desc')->take(20)->paginate(20);
+        } else {
+            $query = $query->orderBy('no_request', 'desc')->paginate($perPage);
+        }
+
+        return RequestFinanceResource::collection($query);
+    }
+
     public function show($id)
     {
         return new RequestFinanceWithDetailResource(RequestFinance::find($id));
@@ -194,6 +212,27 @@ class RequestFinanceController extends Controller
         }
 
         RequestFinanceDetail::insert($items);
+
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
+    public function settlementUpdate(Request $request)
+    {
+        $requestFinance = RequestFinance::find($request->id);
+        $requestFinance->status = 5;
+        $requestFinance->updated_at = now();
+        $requestFinance->save();
+
+        foreach ($request->detail as $detail) {
+            $requestFinanceDetail = RequestFinanceDetail::find($detail['id']);
+            $requestFinanceDetail->qty_confirm = $detail['qty_confirm'];
+            $requestFinanceDetail->price_confirm = $detail['price_confirm'];
+            $requestFinanceDetail->total_confirm = ($detail['qty_confirm']*$detail['price_confirm'])+($detail['qty_confirm']*$detail['price_confirm']*$requestFinanceDetail->ppn/100);
+            $requestFinanceDetail->updated_at = now();
+            $requestFinanceDetail->save();
+        }
 
         return response()->json([
             'success' => true,

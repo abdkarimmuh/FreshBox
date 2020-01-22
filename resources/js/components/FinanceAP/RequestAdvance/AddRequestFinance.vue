@@ -155,7 +155,7 @@
                         <s-form-input
                             v-if="userId !== ''"
                             col="3"
-                            title="Nama Rekening"
+                            title="Bank Name"
                             :model="user.nama_rek"
                             disabled="true"
                         />
@@ -163,7 +163,7 @@
                         <s-form-input
                             v-if="userId !== ''"
                             col="3"
-                            title="Nomor Rekening"
+                            title="Bank Account"
                             :model="user.no_rek"
                             disabled="true"
                         />
@@ -217,21 +217,21 @@
                                         <tr>
                                             <th class="text-center">No</th>
                                             <th class="text-center">
-                                                Nama Barang
+                                                Item Name
                                             </th>
                                             <th class="text-center">
-                                                Jenis Barang
+                                                Item Type
                                             </th>
                                             <th class="text-center">Qty</th>
                                             <th class="text-center">Uom</th>
-                                            <th class="text-center">Harga</th>
+                                            <th class="text-center">Price</th>
                                             <th class="text-center">PPN(%)</th>
                                             <!--                                        <th class="text-center">Total</th>-->
                                             <th class="text-center">
-                                                Nama Suplier
+                                                Supplier Name
                                             </th>
                                             <th class="text-center">
-                                                Keterangan
+                                                Remark
                                             </th>
                                             <th class="text-center">Action</th>
                                         </tr>
@@ -263,6 +263,7 @@
                                                     v-model="item.qty"
                                                     type="number"
                                                     class="form-control"
+                                                    min=0
                                                 />
                                             </td>
                                             <td>
@@ -283,6 +284,7 @@
                                                     v-model="item.price"
                                                     type="number"
                                                     class="form-control"
+                                                    min=0
                                                 />
                                             </td>
                                             <td>
@@ -290,6 +292,7 @@
                                                     v-model="item.ppn"
                                                     type="number"
                                                     class="form-control"
+                                                    min=0
                                                 />
                                             </td>
                                             <!--                                        <td>-->
@@ -336,6 +339,7 @@
                                                     v-model="item.qty"
                                                     type="number"
                                                     class="form-control"
+                                                    min=0
                                                 />
                                             </td>
                                             <td>
@@ -356,6 +360,7 @@
                                                     v-model="item.price"
                                                     type="number"
                                                     class="form-control"
+                                                    min=0
                                                 />
                                             </td>
                                             <td>
@@ -363,6 +368,7 @@
                                                     v-model="item.ppn"
                                                     type="number"
                                                     class="form-control"
+                                                    min=0
                                                 />
                                             </td>
                                             <!--                                        <td>-->

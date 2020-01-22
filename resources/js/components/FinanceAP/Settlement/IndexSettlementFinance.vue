@@ -12,11 +12,11 @@ export default {
         return {
             config: {
                 title: "Settlement Cash Advance",
-                // action: true,
+                action: true,
                 base_url: this.$parent.MakeUrl(
-                    "api/v1/finance-ap/request-advance"
-                )
-                // route_view: "finance.settlementFinance.show",
+                    "api/v1/finance-ap/request-advance/settlement"
+                ),
+                route_settlement: "finance.settlementFinance.settlement",
                 // route_create: "finance.requestFinance.create"
                 // route_multiple_print: 'invoice_order.multiplePrint',
             },
