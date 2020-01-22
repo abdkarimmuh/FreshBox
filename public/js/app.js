@@ -1999,6 +1999,9 @@ __webpack_require__.r(__webpack_exports__);
       this.password = "";
       this.role = "";
       this.password_confirmation = "";
+      this.dept = "";
+      this.bank = "";
+      this.bank_account = "";
     }
   }
 });
@@ -62359,7 +62362,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("b", [_vm._v("User")]),
+      _c("b", [_vm._v("Requester")]),
       _vm._v(" "),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])
