@@ -133,21 +133,21 @@
                                     <td class="text-center">
                                         {{ item.typeOfGoods }}
                                     </td>
-                                    <td class="text-center">{{ item.qty }}</td>
+                                    <td class="text-center">{{ item.qtyConfirm }}</td>
                                     <td class="text-center">
                                         {{ item.uom_name }}
                                     </td>
                                     <td class="text-right">
-                                        {{ item.price | toIDR }}
+                                        {{ item.priceConfirm | toIDR }}
                                     </td>
                                     <td class="text-right" width="100">
                                         {{ item.ppn }} %
                                     </td>
                                     <td class="text-right">
-                                        {{ item.total | toIDR }}
+                                        {{ item.totalConfirm | toIDR }}
                                     </td>
                                     <td class="text-left">
-                                        {{ item.supplierName }}
+
                                     </td>
                                     <td class="text-left">
                                         {{ item.remarks }}
@@ -169,16 +169,18 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td>TOTAL</td>
+                                    <td><b>TOTAL</b></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td class="text-right">
-                                        {{ requestFinance.total | toIDR }}
+                                       <b> {{ requestFinance.total_confirm | toIDR }} </b>
                                     </td>
-                                    <td></td>
+                                    <td class="text-right">
+                                       <b> {{ requestFinance.total | toIDR }} </b>
+                                    </td>
                                     <td></td>
                                 </tr>
                             </tfoot>
@@ -193,14 +195,9 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <b
-                                                        style="text-decoration: underline"
-                                                        >Terbilang</b
+                                                    <b> Pembayaran (Cash/Transfer)</b
                                                     >
-                                                    &nbsp; &nbsp;&nbsp;
-                                                    {{
-                                                        requestFinance.terbilang
-                                                    }}
+
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -209,7 +206,7 @@
                             </div>
                         </div>
                     </div>
-                    <br />
+
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-8">
@@ -217,15 +214,28 @@
                                     <table width="100%" style="color: black">
                                         <tbody>
                                             <tr>
-                                                <td width="70">
+                                                <td width="150">
                                                     <b>No Rek</b>
                                                 </td>
+                                                <td>:</td>
                                                 <td>
                                                     {{ requestFinance.noRek }}
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td width="50"></td>
+                                                <td width="150">
+                                                    <b>Nama Rekening</b>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    {{ requestFinance.user_name }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="150">
+                                                    <b>Bank</b>
+                                                </td>
+                                                <td>:</td>
                                                 <td>
                                                     {{ requestFinance.namaRek }}
                                                 </td>

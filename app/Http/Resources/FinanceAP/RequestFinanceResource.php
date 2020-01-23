@@ -62,8 +62,8 @@ class RequestFinanceResource extends JsonResource
             'dept' => $dept,
             'namaRek' => $nama_rek,
             'noRek' => $no_rek,
-            'total' => $total,
-            'terbilang' => Terbilang::make($total).' rupiah',
+            'total' => $this->total,
+            'terbilang' => Terbilang::make($this->total).' rupiah',
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
             'created_by_name' => $this->created_by_name,
         ];

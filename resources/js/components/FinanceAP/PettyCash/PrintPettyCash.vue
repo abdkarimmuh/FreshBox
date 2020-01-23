@@ -177,7 +177,7 @@
                                     <td></td>
                                     <td></td>
                                     <td class="text-right">
-                                        <b> {{ pettyCash.total | toIDR }} </b>
+                                        <b> {{ pettyCash.amount | toIDR }} </b>
                                     </td>
                                     <td></td>
                                     <td></td>

@@ -67,12 +67,13 @@ class RequestFinanceWithDetailResource extends JsonResource
             'dept' => $dept,
             'namaRek' => $nama_rek,
             'noRek' => $no_rek,
-            'total' => $total,
-            'terbilang' => Terbilang::make($total).' rupiah',
+            'total' => $this->total,
+            'terbilang' => Terbilang::make($this->total).' rupiah',
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
             'created_by_name' => $this->created_by_name,
             'user_id' => $this->vendor_id,
             'master_warehouse_id' => $this->master_warehouse_id,
+            'total_confirm' => $this->total_confirm,
 
             'details' => RequestFinanceDetailResource::collection($this->detail),
         ];

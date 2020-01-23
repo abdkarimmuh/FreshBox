@@ -48,9 +48,7 @@
                                 class="btn btn-info ml-2"
                                 style="color: white"
                                 @click="print()"
-                                v-if="
-                                    config.route_multiple_print && selected != 0
-                                "
+                                v-if="config.route_multiple_print && selected != 0"
                             >
                                 Print
                                 <i class="fas fa-print"></i>

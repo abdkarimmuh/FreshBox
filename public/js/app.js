@@ -8762,6 +8762,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id"],
   data: function data() {
@@ -12124,8 +12134,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
 //
 //
 //
@@ -62137,7 +62145,7 @@ var render = function() {
                           _c("b", [
                             _vm._v(
                               " " +
-                                _vm._s(_vm._f("toIDR")(_vm.pettyCash.total)) +
+                                _vm._s(_vm._f("toIDR")(_vm.pettyCash.amount)) +
                                 " "
                             )
                           ])
@@ -66356,7 +66364,7 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(item.qty))
+                            _vm._v(_vm._s(item.qtyConfirm))
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
@@ -66370,7 +66378,7 @@ var render = function() {
                           _c("td", { staticClass: "text-right" }, [
                             _vm._v(
                               "\n                                    " +
-                                _vm._s(_vm._f("toIDR")(item.price)) +
+                                _vm._s(_vm._f("toIDR")(item.priceConfirm)) +
                                 "\n                                "
                             )
                           ]),
@@ -66393,18 +66401,12 @@ var render = function() {
                           _c("td", { staticClass: "text-right" }, [
                             _vm._v(
                               "\n                                    " +
-                                _vm._s(_vm._f("toIDR")(item.total)) +
+                                _vm._s(_vm._f("toIDR")(item.totalConfirm)) +
                                 "\n                                "
                             )
                           ]),
                           _vm._v(" "),
-                          _c("td", { staticClass: "text-left" }, [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(item.supplierName) +
-                                "\n                                "
-                            )
-                          ]),
+                          _c("td", { staticClass: "text-left" }),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-left" }, [
                             _vm._v(
@@ -66424,7 +66426,7 @@ var render = function() {
                       _c("tr", [
                         _c("td"),
                         _vm._v(" "),
-                        _c("td", [_vm._v("TOTAL")]),
+                        _vm._m(8),
                         _vm._v(" "),
                         _c("td"),
                         _vm._v(" "),
@@ -66437,16 +66439,30 @@ var render = function() {
                         _c("td"),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-right" }, [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(
-                                _vm._f("toIDR")(_vm.requestFinance.total)
-                              ) +
-                              "\n                                "
-                          )
+                          _c("b", [
+                            _vm._v(
+                              " " +
+                                _vm._s(
+                                  _vm._f("toIDR")(
+                                    _vm.requestFinance.total_confirm
+                                  )
+                                ) +
+                                " "
+                            )
+                          ])
                         ]),
                         _vm._v(" "),
-                        _c("td"),
+                        _c("td", { staticClass: "text-right" }, [
+                          _c("b", [
+                            _vm._v(
+                              " " +
+                                _vm._s(
+                                  _vm._f("toIDR")(_vm.requestFinance.total)
+                                ) +
+                                " "
+                            )
+                          ])
+                        ]),
                         _vm._v(" "),
                         _c("td")
                       ])
@@ -66456,45 +66472,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-8" }, [
-                      _c("div", { staticClass: "table-responsive" }, [
-                        _c(
-                          "table",
-                          {
-                            staticStyle: { color: "black" },
-                            attrs: { width: "100%" }
-                          },
-                          [
-                            _c("tbody", [
-                              _c("tr", [
-                                _c("td", [
-                                  _c(
-                                    "b",
-                                    {
-                                      staticStyle: {
-                                        "text-decoration": "underline"
-                                      }
-                                    },
-                                    [_vm._v("Terbilang")]
-                                  ),
-                                  _vm._v(
-                                    "\n                                                    \n                                                " +
-                                      _vm._s(_vm.requestFinance.terbilang) +
-                                      "\n                                            "
-                                  )
-                                ])
-                              ])
-                            ])
-                          ]
-                        )
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("br"),
+                _vm._m(9),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12" }, [
                   _c("div", { staticClass: "row" }, [
@@ -66509,7 +66487,9 @@ var render = function() {
                           [
                             _c("tbody", [
                               _c("tr", [
-                                _vm._m(8),
+                                _vm._m(10),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(":")]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
@@ -66521,7 +66501,23 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("tr", [
-                                _c("td", { attrs: { width: "50" } }),
+                                _vm._m(11),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(":")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                                " +
+                                      _vm._s(_vm.requestFinance.user_name) +
+                                      "\n                                            "
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("tr", [
+                                _vm._m(12),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(":")]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _vm._v(
@@ -66543,13 +66539,13 @@ var render = function() {
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(9),
+                _vm._m(13),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _vm._m(10)
+                _vm._m(14)
               ])
             ])
           : _c("div", { staticClass: "text-center p-4 text-muted" }, [
@@ -66670,7 +66666,51 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "70" } }, [_c("b", [_vm._v("No Rek")])])
+    return _c("td", [_c("b", [_vm._v("TOTAL")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              { staticStyle: { color: "black" }, attrs: { width: "100%" } },
+              [
+                _c("tbody", [
+                  _c("tr", [
+                    _c("td", [_c("b", [_vm._v(" Pembayaran (Cash/Transfer)")])])
+                  ])
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { width: "150" } }, [_c("b", [_vm._v("No Rek")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { width: "150" } }, [
+      _c("b", [_vm._v("Nama Rekening")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { width: "150" } }, [_c("b", [_vm._v("Bank")])])
   },
   function() {
     var _vm = this
