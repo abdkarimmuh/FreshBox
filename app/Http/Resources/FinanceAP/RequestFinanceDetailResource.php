@@ -32,7 +32,7 @@ class RequestFinanceDetailResource extends JsonResource
             'uom_name' => $this->Uom->name,
             'price' => $this->price,
             'ppn' => $this->ppn,
-            'total' => $total,
+            'total' => $this->total,
             'supplierName' => $this->supplier_name,
             'remarks' => $this->remarks,
             'priceConfirm' => $this->price_confirm,
