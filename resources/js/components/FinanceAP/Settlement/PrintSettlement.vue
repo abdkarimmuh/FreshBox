@@ -27,7 +27,7 @@
                     <div class="text-center">
                         <h4>
                             <b style="color: black; text-decoration: underline"
-                                >FORM PERMINTAAN PEMBELIAN BARANG / JASA</b
+                                >FORM PENYELESAIAN PERMINTAAN PEMBELIAN BARANG / JASA</b
                             >
                         </h4>
                     </div>
@@ -169,16 +169,14 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><b> TOTAL </b></td>
+                                    <td>TOTAL</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td class="text-right">
-                                        <b>
                                         {{ requestFinance.total | toIDR }}
-                                        </b>
                                     </td>
                                     <td></td>
                                     <td></td>

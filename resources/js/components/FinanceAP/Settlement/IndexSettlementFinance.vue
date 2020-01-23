@@ -17,6 +17,7 @@ export default {
                     "api/v1/finance-ap/request-advance/settlement"
                 ),
                 route_settlement: "finance.settlementFinance.settlement",
+                route_view_settlement: "finance.settlementFinance.show",
                 // route_create: "finance.requestFinance.create"
                 // route_multiple_print: 'invoice_order.multiplePrint',
             },

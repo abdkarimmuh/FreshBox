@@ -260,6 +260,18 @@
                                         }"
                                     >View</router-link>
 
+                                     <router-link
+                                        v-if="
+                                            config.route_view_settlement &&
+                                                item.status === 5
+                                        "
+                                        class="badge badge-primary ml-1 mr-1 mt-1 mb-1"
+                                        :to="{
+                                            name: config.route_view_settlement,
+                                            params: { id: item.id }
+                                        }"
+                                    >View</router-link>
+
                                     <router-link
                                         v-if="
                                             config.route_edit &&

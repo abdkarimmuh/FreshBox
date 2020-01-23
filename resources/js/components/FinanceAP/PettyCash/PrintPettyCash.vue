@@ -27,7 +27,7 @@
                     <div class="text-center">
                         <h4>
                             <b style="color: black; text-decoration: underline"
-                                >FORM PERMINTAAN PETTY CASH</b
+                                >FORM PENGAJUAN CASH ADVANCE</b
                             >
                         </h4>
                     </div>
@@ -170,14 +170,14 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td>TOTAL</td>
+                                    <td><b>TOTAL</b></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td class="text-right">
-                                        {{ pettyCash.total | toIDR }}
+                                        <b> {{ pettyCash.total | toIDR }} </b>
                                     </td>
                                     <td></td>
                                     <td></td>
