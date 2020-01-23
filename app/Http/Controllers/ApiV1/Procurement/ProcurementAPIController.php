@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Procurement\ListProcurementHasItemsResource;
 use App\Http\Resources\Procurement\ListProcurementResource;
 use App\Model\Marketing\SalesOrderDetail;
-use App\Model\MasterData\Bank;
 use App\Model\MasterData\Vendor;
 use App\Model\Procurement\AssignListProcurementDetail;
 use App\Model\Procurement\AssignProcurement;
@@ -356,14 +355,11 @@ class ProcurementAPIController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
-        $bank = Bank::find($request->bank);
-        $bank_name = $bank->name;
-
         UserProfile::create([
             'user_id' => $user->id,
             'dept' => 'Procurement',
             'no_rek' => $request->bank_account,
-            'nama_rek' => $bank_name,
+            'bank_id' => $request->bank,
             'created_by' => auth('api')->user()->id,
             'created_at' => Carbon::now(),
         ]);
