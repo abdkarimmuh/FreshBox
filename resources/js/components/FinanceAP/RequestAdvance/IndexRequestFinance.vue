@@ -16,6 +16,7 @@ export default {
                 base_url: this.$parent.MakeUrl(
                     "api/v1/finance-ap/request-advance"
                 ),
+                noStartEnd: true,
                 route_view: "finance.requestAdvance.show",
                 route_create: "finance.requestAdvance.create",
                 route_edit_payment: "finance.requestAdvance.edit",

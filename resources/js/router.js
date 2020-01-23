@@ -57,6 +57,8 @@ import ConfirmInOutPayment from './components/FinanceAP/InOutPayment/ConfirmInOu
 import PrintInOutPayment from './components/FinanceAP/InOutPayment/PrintInOutPayment';
 import SettlementFinance from './components/FinanceAP/Settlement/IndexSettlementFinance';
 import Settlement from './components/FinanceAP/Settlement/Settlement';
+import PrintSettlement from './components/FinanceAP/Settlement/PrintSettlement';
+import UploadPriceReport from './components/Report/Price/IndexUploadPriceReport';
 
 import IndexMasterPrice from './components/MasterData/IndexPrice';
 
@@ -306,6 +308,11 @@ const router = new VueRouter({
             component: Settlement
         },
         {
+            path: '/admin/finance-ap/settlement-cash-advance/show/:id',
+            name: 'finance.settlementFinance.show',
+            component: PrintSettlement
+        },
+        {
             path: '/admin/finance-ap/petty-cash',
             name: 'finance.pettyCash',
             component: PettyCash
@@ -315,6 +322,15 @@ const router = new VueRouter({
             name: 'finance.pettyCash.show',
             component: PrintPettyCash
         },
+
+        //report
+        {
+            path: '/admin/report/upload-price-report',
+            name: 'report.uploadPriceReport',
+            component: UploadPriceReport
+        },
+
+        //master data
         {
             path: '/admin/users',
             name: 'users',

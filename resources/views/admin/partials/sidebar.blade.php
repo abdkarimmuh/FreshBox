@@ -183,6 +183,14 @@
                     <a class="nav-link"
                        href="{{route('admin.report.reportFinanceAR.index')}}"><span>Report Finance AR</span></a>
                 </li>
+                {{-- <li class="{{ request()->route()->getName() == 'admin.report.reportFinanceAR.index' ? ' active' : '' }}">
+                    <a class="nav-link"
+                       href="{{route('admin.report.reportFinanceAR.index')}}"><span>Upload Price Report</span></a>
+                </li> --}}
+                <li class="{{ request()->segment(3) == 'upload-price-report' ? ' active' : '' }}">
+                    <a href="{{ url('/admin/report/upload-price-report') }}"
+                       class="nav-link"><span>Upload Price Report</span></a>
+                </li>
             </ul>
         </li>
         @if(Auth::user()->can('view-users'))

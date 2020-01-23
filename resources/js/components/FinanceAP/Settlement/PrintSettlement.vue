@@ -27,7 +27,7 @@
                     <div class="text-center">
                         <h4>
                             <b style="color: black; text-decoration: underline"
-                                >FORM PENGAJUAN CASH ADVANCE</b
+                                >FORM PENYELESAIAN PERMINTAAN PEMBELIAN BARANG / JASA</b
                             >
                         </h4>
                     </div>
@@ -45,7 +45,9 @@
                                                 </td>
                                                 <td width="2%">:</td>
                                                 <td width="40%">
-                                                    {{ pettyCash.no_request }}
+                                                    {{
+                                                        requestFinance.no_request
+                                                    }}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -54,15 +56,10 @@
                                                 </td>
                                                 <td width="2%">:</td>
                                                 <td width="40%">
-                                                    {{ pettyCash.created_at }}
+                                                    {{
+                                                        requestFinance.request_date
+                                                    }}
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td width="13%">
-                                                    <b>Jenis Permintaan</b>
-                                                </td>
-                                                <td width="2%">:</td>
-                                                <td width="40%">Petty Cash</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -79,7 +76,7 @@
                                                 <td width="2%">:</td>
                                                 <td width="40%">
                                                     {{
-                                                        pettyCash.user_request_name
+                                                        requestFinance.user_name
                                                     }}
                                                 </td>
                                             </tr>
@@ -89,7 +86,7 @@
                                                 </td>
                                                 <td width="2%">:</td>
                                                 <td width="40%">
-                                                    {{ pettyCash.dept }}
+                                                    {{ requestFinance.dept }}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -98,7 +95,9 @@
                                                 </td>
                                                 <td width="2%">:</td>
                                                 <td width="40%">
-                                                    {{ pettyCash.address }}
+                                                    {{
+                                                        requestFinance.shipping_address
+                                                    }}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -118,10 +117,10 @@
                                     <th class="text-center">Qty</th>
                                     <th class="text-center">Unit</th>
                                     <th class="text-center" colspan="2">
-                                        Harga + PPn
+                                        Harga + PPn(%)
                                     </th>
                                     <th class="text-center">Total</th>
-                                    <th class="text-center">Nama Supplier</th>
+                                    <th class="text-center">Nominal Permintaan</th>
                                     <th class="text-center">Keterangan</th>
                                 </tr>
                             </thead>
@@ -134,21 +133,21 @@
                                     <td class="text-center">
                                         {{ item.typeOfGoods }}
                                     </td>
-                                    <td class="text-center">{{ item.qty }}</td>
+                                    <td class="text-center">{{ item.qtyConfirm }}</td>
                                     <td class="text-center">
                                         {{ item.uom_name }}
                                     </td>
                                     <td class="text-right">
-                                        {{ item.price | toIDR }}
+                                        {{ item.priceConfirm | toIDR }}
                                     </td>
                                     <td class="text-right" width="100">
-                                        {{ item.ppn | toIDR }}
+                                        {{ item.ppn }} %
                                     </td>
                                     <td class="text-right">
-                                        {{ item.total | toIDR }}
+                                        {{ item.totalConfirm | toIDR }}
                                     </td>
                                     <td class="text-left">
-                                        {{ item.supplierName }}
+
                                     </td>
                                     <td class="text-left">
                                         {{ item.remarks }}
@@ -177,9 +176,11 @@
                                     <td></td>
                                     <td></td>
                                     <td class="text-right">
-                                        <b> {{ pettyCash.amount | toIDR }} </b>
+                                       <b> {{ requestFinance.total_confirm | toIDR }} </b>
                                     </td>
-                                    <td></td>
+                                    <td class="text-right">
+                                       <b> {{ requestFinance.total | toIDR }} </b>
+                                    </td>
                                     <td></td>
                                 </tr>
                             </tfoot>
@@ -194,12 +195,9 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <b
-                                                        style="text-decoration: underline"
-                                                        >Terbilang</b
+                                                    <b> Pembayaran (Cash/Transfer)</b
                                                     >
-                                                    &nbsp; &nbsp;&nbsp;
-                                                    {{ pettyCash.terbilang }}
+
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -208,7 +206,7 @@
                             </div>
                         </div>
                     </div>
-                    <br />
+
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-8">
@@ -216,14 +214,31 @@
                                     <table width="100%" style="color: black">
                                         <tbody>
                                             <tr>
-                                                <td width="70">
+                                                <td width="150">
                                                     <b>No Rek</b>
                                                 </td>
-                                                <td>{{ pettyCash.noRek }}</td>
+                                                <td>:</td>
+                                                <td>
+                                                    {{ requestFinance.noRek }}
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td width="50"></td>
-                                                <td>{{ pettyCash.namaRek }}</td>
+                                                <td width="150">
+                                                    <b>Nama Rekening</b>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    {{ requestFinance.user_name }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="150">
+                                                    <b>Bank</b>
+                                                </td>
+                                                <td>:</td>
+                                                <td>
+                                                    {{ requestFinance.namaRek }}
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -276,29 +291,27 @@ export default {
     props: ["id"],
     data() {
         return {
-            pettyCash_id: "",
-            pettyCash: {},
+            requestFinance_id: "",
+            requestFinance: {},
             details: [],
             loading: false
         };
     },
     mounted() {
-        this.getPettyCash();
+        this.getInvoice();
     },
     methods: {
-        getPettyCash() {
+        getInvoice() {
             axios
                 .get(
                     this.$parent.MakeUrl(
-                        "api/v1/finance-ap/petty-cash/show/" +
+                        "api/v1/finance-ap/request-advance/show/" +
                             this.$route.params.id
                     )
                 )
                 .then(res => {
-                    console.log(res.data);
-                    this.pettyCash = res.data;
-                    this.details = res.data.details;
-                    console.log(this.pettyCash);
+                    this.requestFinance = res.data.data;
+                    this.details = res.data.data.details;
                     this.loading = true;
                 })
                 .catch(e => {});

@@ -219,6 +219,13 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         });
     });
 
+
+    //report
+    Route::group(['prefix' => 'report/', 'namespace'=> 'Report\\'], function () {
+        Route::group(['prefix' => 'upload_price_report/'], function () {
+            Route::get('/', 'ReportPriceAPIController@index');
+        });
+    });
     /*
      * Master Data Route
      */

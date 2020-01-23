@@ -44,6 +44,16 @@ class RequestFinance extends MyModel
         return $total;
     }
 
+    public function getTotalConfirmAttribute()
+    {
+        $total = 0;
+        foreach ($this->detail as $detail) {
+            $total += $detail->total_confirm;
+        }
+
+        return $total;
+    }
+
     public function scopeCash($q)
     {
         return $q->where('request_type', 1);

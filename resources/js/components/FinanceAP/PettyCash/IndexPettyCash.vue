@@ -14,6 +14,7 @@
                     title: "Petty Cash",
                     action: true,
                     base_url: this.$parent.MakeUrl("api/v1/finance-ap/petty-cash"),
+                    noStartEnd: true,
                     route_view: "finance.pettyCash.show",
                     // route_multiple_print: 'invoice_order.multiplePrint',
                 },

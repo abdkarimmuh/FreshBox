@@ -73,6 +73,7 @@ class RequestFinanceWithDetailResource extends JsonResource
             'created_by_name' => $this->created_by_name,
             'user_id' => $this->vendor_id,
             'master_warehouse_id' => $this->master_warehouse_id,
+            'total_confirm' => $this->total_confirm,
 
             'details' => RequestFinanceDetailResource::collection($this->detail),
         ];
