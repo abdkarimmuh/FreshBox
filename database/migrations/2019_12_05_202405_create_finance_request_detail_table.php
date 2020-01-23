@@ -21,7 +21,7 @@ class CreateFinanceRequestDetailTable extends Migration
             $table->integer('price')->index();
             $table->integer('ppn')->nullable();
             $table->integer('total')->index();
-            $table->string('supplier_name');
+            $table->string('supplier_name')->nullable();
             $table->string('remarks')->nullable();
             $table->integer('price_confirm')->nullable();
             $table->integer('total_confirm')->nullable();

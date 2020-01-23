@@ -66632,7 +66632,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Nama Supplier")]),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v("Nominal Permintaan")
+        ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Keterangan")])
       ])
@@ -104532,7 +104534,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/PrintInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/PrintInOutPayment.vue");
 /* harmony import */ var _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/IndexSettlementFinance */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue");
 /* harmony import */ var _components_FinanceAP_Settlement_Settlement__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/Settlement */ "./resources/js/components/FinanceAP/Settlement/Settlement.vue");
-/* harmony import */ var _components_FinanceAP_Settlement_PrintSettlement__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/PrintSettlement */ "./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue");
+/* harmony import */ var _components_FinanceAP_Settlement_PrintSettlement__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/PrintSettlement */ "./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue");
 /* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
 
 
@@ -104788,7 +104790,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/finance-ap/settlement-cash-advance/show/:id',
     name: 'finance.settlementFinance.show',
-    component: _components_FinanceAP_Settlement_PrintSettlement__WEBPACK_IMPORTED_MODULE_50__["default"]
+    component: _components_FinanceAP_Settlement_PrintSettlement__WEBPACK_IMPORTED_MODULE_48__["default"]
   }, {
     path: '/admin/finance-ap/petty-cash',
     name: 'finance.pettyCash',

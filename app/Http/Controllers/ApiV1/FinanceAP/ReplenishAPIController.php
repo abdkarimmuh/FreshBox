@@ -4,10 +4,17 @@ namespace App\Http\Controllers\ApiV1\FinanceAP;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FinanceAP\ReplenishResource;
+use App\Model\FinanceAP\InOutPayment;
 use App\Model\FinanceAP\Replenish;
+use App\Model\FinanceAP\RequestFinance;
+use App\Model\FinanceAP\RequestFinanceDetail;
+use App\Model\MasterData\Vendor;
 use App\Model\Procurement\ListProcurement;
+use App\Model\Procurement\ListProcurementDetail;
 use App\Model\WarehouseIn\Confirm;
+use App\User;
 use App\UserProc;
+use App\UserProfile;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -153,7 +160,7 @@ class ReplenishAPIController extends Controller
         $listProcurement = ListProcurement::findOrFail($replenish->list_proc_id);
         $listProcurement->status = 4;
 
-        $userProc = UserProc::find($replenish->created_by);
+        $userProc = UserProc::where('user_id', $replenish->created_by)->first();
         $saldo = $userProc->saldo + $listProcurement->total_amount;
         $userProc->saldo = $saldo;
 
@@ -165,47 +172,61 @@ class ReplenishAPIController extends Controller
         $userProc->save();
         $confirm->save();
 
-        // $noRequest = $this->generateRequestNo(Carbon::now());
-        // $data = [
-        //     'no_request' => $noRequest,
-        //     'user_id' => $request->userId,
-        //     'status' => 1,
-        //     'master_warehouse_id' => $request->warehouse,
-        //     'request_date' => $request->requestDate,
-        //     'request_type' => $request->requestType,
-        //     'product_type' => $request->productType,
-        //     'created_at' => now(),
-        //     'created_by' => auth('api')->user()->id,
-        // ];
-        // $requestFinance = RequestFinance::insertGetId($data);
-        // $orderDetails = $request->orderDetails;
-        // $total = 0;
-        // foreach ($orderDetails as $i => $detail) {
-        //     $requestFinanceDetails[] = [
-        //         'request_finance_id' => $requestFinance,
-        //         'item_name' => $detail['name'],
-        //         'type_of_goods' => $detail['typeOfGoods'],
-        //         'qty' => $detail['qty'],
-        //         'uom_id' => $detail['uom_id'],
-        //         'price' => $detail['price'],
-        //         'ppn' => $detail['ppn'],
-        //         'total' => $detail['price'] * $detail['qty'] + $detail['ppn'],
-        //         'supplier_name' => $detail['supplierName'],
-        //         'remarks' => $detail['remark'],
-        //     ];
+        $user = User::find($replenish->created_by);
+        $vendor = Vendor::where('name', 'like', $user->name)->first();
 
-        //     $total = $total + ($detail['price'] * $detail['qty'] + $detail['ppn']);
-        // }
-        // RequestFinanceDetail::insert($requestFinanceDetails);
+        $noRequest = $this->generateRequestNo(Carbon::now());
+        $data = [
+            'no_request' => $noRequest,
+            'vendor_id' => $vendor->id,
+            'status' => 1,
+            'master_warehouse_id' => 1,
+            'request_date' => Carbon::now()->toDateString(),
+            'request_type' => 2,
+            'product_type' => 2,
+            'created_at' => Carbon::now(),
+            'created_by' => $replenish->created_by,
+        ];
+        $requestFinance = RequestFinance::insertGetId($data);
 
-        // if ($request->requestType == 1) {
-        //     PettyCash::create([
-        //         'finance_request_id' => $requestFinance,
-        //         'amount' => $total,
-        //         'no_trx' => $noRequest,
-        //         'created_at' => now(),
-        //     ]);
-        // }
+        $listProcurementDetail = ListProcurementDetail::where('trx_list_procurement_id', $listProcurement->id);
+        $total = 0;
+        foreach ($listProcurementDetail as $i => $detail) {
+            $listProcurementDetails[] = [
+                'request_finance_id' => $requestFinance,
+                'item_name' => $detail->Item->name,
+                'type_of_goods' => $detail->skuid,
+                'qty' => $detail->qty,
+                'uom_id' => $detail->uom_id,
+                'price' => $detail->amount / $detail->qty,
+                'ppn' => 0,
+                'total' => $detail->amount,
+                'supplier_name' => '',
+                'remarks' => '',
+                'created_at' => now(),
+            ];
+
+            $total = $total + $detail->amount;
+        }
+
+        RequestFinanceDetail::insert($listProcurementDetails);
+
+        $user_profile = UserProfile::where('user_id', $user->id)->first();
+        $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
+        $norek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
+
+        InOutPayment::create([
+            'finance_request_id' => $requestFinance,
+            'source' => null,
+            'transaction_date' => Carbon::now()->toDateString(),
+            'bank_id' => $bank_id,
+            'no_rek' => $norek,
+            'amount' => $total,
+            'remarks' => null,
+            'status' => 1,
+            'type_transaction' => 1,
+            'created_at' => Carbon::now(),
+        ]);
 
         return response()->json([
             'success' => true,
@@ -216,9 +237,9 @@ class ReplenishAPIController extends Controller
     {
         $year_month = Carbon::parse($date)->format('y-m');
         $latestRequestFinance = RequestFinance::where(DB::raw("DATE_FORMAT(request_date, '%y-%m')"), $year_month)->latest()->first();
-        $latestRequestFinanceNo = isset($latestRequestFinance->no_request) ? $latestRequestFinance->no_request : '0/GF-FB';
-        $cutString = str_replace('/GF-FB', '', $latestRequestFinanceNo);
+        $latestRequestFinanceNo = isset($latestRequestFinance->no_request) ? $latestRequestFinance->no_request : '0-GF-FB';
+        $cutString = str_replace('-GF-FB', '', $latestRequestFinanceNo);
 
-        return ($cutString + 1).'/GF-FB';
+        return ($cutString + 1).'-GF-FB';
     }
 }

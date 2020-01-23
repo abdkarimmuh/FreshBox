@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\FinanceAP;
 
+use App\Model\FinanceAP\RequestFinanceDetail;
 use App\Model\MasterData\Vendor;
 use App\User;
 use App\UserProfile;
@@ -14,15 +15,21 @@ class RequestFinanceResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
     {
-        if($this->request_type==1){
+        if ($this->request_type == 1) {
             $requestType = 'Cash';
-        }
-        else{
+        } else {
             $requestType = 'Advance';
+        }
+
+        $total = 0;
+        $requestDetail = RequestFinanceDetail::where('request_finance_id', $this->id);
+        foreach ($requestDetail as $detail) {
+            $total = $total + ($detail->price * $detail->qty + ($detail->price * $detail->qty * $detail->ppn / 100));
         }
 
         $vendor = Vendor::find($this->vendor_id);
@@ -39,25 +46,26 @@ class RequestFinanceResource extends JsonResource
             $user_name = isset($user->name) ? $user->name : '';
             $no_rek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
         }
+
         return [
             'id' => $this->id,
-            'no_request' => $this->no_request . '/' . $this->created_at->format('m/Y'),
+            'no_request' => $this->no_request.'/'.$this->created_at->format('m/Y'),
             'request_date' => $this->request_date->formatLocalized('%d %B %Y'),
             'shipping_address' => $this->warehouse->address,
             // 'status' => isset($this->no_request_confirm) ? 2 : 1,
-            'status' =>$this->status,
+            'status' => $this->status,
             'request_type' => $requestType,
-            'product_type' =>$this->product_type,
+            'product_type' => $this->product_type,
             'user_name' => $user_name,
             'status_name' => $this->status_html,
             // 'status_name' => isset($this->no_request_confirm) ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-info">Not Confirmed</span>',
             'dept' => $dept,
             'namaRek' => $nama_rek,
             'noRek' => $no_rek,
-            'total' => $this->total,
-            'terbilang' => Terbilang::make($this->total) . ' rupiah',
+            'total' => $total,
+            'terbilang' => Terbilang::make($total).' rupiah',
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
-            'created_by_name' => $this->created_by_name
+            'created_by_name' => $this->created_by_name,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\FinanceAP;
 
+use App\Model\FinanceAP\RequestFinanceDetail;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RequestFinanceDetailResource extends JsonResource
@@ -15,6 +16,12 @@ class RequestFinanceDetailResource extends JsonResource
      */
     public function toArray($request)
     {
+        $total = 0;
+        $requestDetail = RequestFinanceDetail::where('request_finance_id', $this->id);
+        foreach ($requestDetail as $detail) {
+            $total = $total + ($detail->price * $detail->qty + ($detail->price * $detail->qty * $detail->ppn / 100));
+        }
+
         return [
             'id' => $this->id,
             'requestFinanceId' => $this->request_finance_id,

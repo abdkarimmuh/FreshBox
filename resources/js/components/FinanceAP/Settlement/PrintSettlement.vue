@@ -120,7 +120,7 @@
                                         Harga + PPn(%)
                                     </th>
                                     <th class="text-center">Total</th>
-                                    <th class="text-center">Nama Supplier</th>
+                                    <th class="text-center">Nominal Permintaan</th>
                                     <th class="text-center">Keterangan</th>
                                 </tr>
                             </thead>

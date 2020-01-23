@@ -240,6 +240,7 @@
                     <li class="">
                         <a href="{{ route('admin.users') }}" class="nav-link"><span>Users</span></a>
                     </li>
+                    <li><p></p><p></p></li>
                 </ul>
             </li>
         @endif
