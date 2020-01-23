@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Procurement;
 
+use App\Model\Procurement\AssignListProcurementDetail;
+use App\Model\Procurement\AssignProcurement;
 use App\Model\Procurement\ListProcurement;
 use App\Model\Procurement\ListProcurementDetail;
 use App\Model\WarehouseIn\ConfirmDetail;
@@ -25,13 +27,18 @@ class ListProcurementHasItemsResource extends JsonResource
             $procDetail = ListProcurementDetail::where('trx_list_procurement_id', $procurement->id)->get();
             foreach ($procDetail as $item) {
                 $confirm = ConfirmDetail::where('list_proc_detail_id', $item->id)->first();
+                $assign_list_proc = AssignListProcurementDetail::where('list_procurement_detail_id', $item->id)->first();
+                $assign = AssignProcurement::find($assign_list_proc->assign_id);
 
                 $detailProcurement[] = [
                     'id' => $item->id,
                     'name' => $item->item_name,
                     'qty' => $item->qty - $item->qty_minus,
                     'uom' => $item->uom_name,
-                    'confirm_date' => $confirm->created_at->formatLocalized('%d %B %Y'),
+                    'qty_minus' => intval($item->qty_minus),
+                    'qty_assign' => isset($assign) ? $assign->qty : 0,
+                    'uom_assign' => isset($assign) ? $assign->uom_name : '',
+                    'confirm_date' => isset($confirm) ? $confirm->created_at->formatLocalized('%d %B %Y') : '',
                 ];
             }
         }

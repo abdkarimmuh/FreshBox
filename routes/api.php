@@ -139,7 +139,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/', 'ReplenishAPIController@index');
             Route::post('/store', 'ReplenishAPIController@store');
             Route::post('/action', 'ReplenishAPIController@returnReplenish');
-            Route::patch('/{id}', 'ReplenishAPIController@replenish');
+            Route::post('/replenishUpdate/{id}', 'ReplenishAPIController@replenish');
         });
         //        TopUp
         Route::group(['prefix' => 'topup'], function () {
@@ -160,8 +160,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::post('/{id}', 'RequestFinanceController@confirm');
             Route::post('/', 'RequestFinanceController@store');
             Route::post('/{id}', 'RequestFinanceController@confirm');
-
-
         });
 
         // Settlement Finance

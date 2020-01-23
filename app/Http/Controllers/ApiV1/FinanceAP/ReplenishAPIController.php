@@ -35,7 +35,7 @@ class ReplenishAPIController extends Controller
     {
         $searchValue = $request->input('query');
         $perPage = $request->perPage;
-        $query = Replenish::dataTableQuery($searchValue);
+        $query = Replenish::dataTableQuery($searchValue)->orderBy('status', 'desc');
         if ($request->start && $request->end) {
             $query->whereHas('procurement', function ($q) use ($request) {
                 $q->whereBetween('procurement_no', [$request->start, $request->end]);
@@ -87,6 +87,64 @@ class ReplenishAPIController extends Controller
             $confirm = Confirm::where('list_procurement_id', $request->listProcId)->first();
             $confirm->status = 3;
             $confirm->save();
+
+            $user = User::find($userProc->user_id);
+            $vendor = Vendor::where('name', 'like', $user->name)->first();
+
+            $noRequest = $this->generateRequestNo(Carbon::now());
+            $data = [
+                'no_request' => $noRequest,
+                'vendor_id' => $vendor->id,
+                'status' => 3,
+                'master_warehouse_id' => 1,
+                'request_date' => Carbon::now()->toDateString(),
+                'request_type' => 2,
+                'product_type' => 2,
+                'created_at' => Carbon::now(),
+                'created_by' => $userProc->user_id,
+            ];
+            $requestFinance = RequestFinance::insertGetId($data);
+
+            $listProcurement = ListProcurement::find($request->listProcId);
+            $listProcurementDetail = ListProcurementDetail::where('trx_list_procurement_id', $listProcurement->id)->get();
+
+            $total = 0;
+
+            foreach ($listProcurementDetail as $detail) {
+                $requestFinanceDetails[] = [
+                    'request_finance_id' => $requestFinance,
+                    'item_name' => $detail->item_name,
+                    'type_of_goods' => $detail->skuid,
+                    'qty' => $detail->qty,
+                    'uom_id' => $detail->uom_id,
+                    'price' => $detail->amount / $detail->qty,
+                    'ppn' => 0,
+                    'total' => $detail->amount,
+                    'supplier_name' => $listProcurement->vendor,
+                    'remarks' => '',
+                    'created_at' => now(),
+                ];
+
+                $total = $total + $detail->amount;
+            }
+            RequestFinanceDetail::insert($requestFinanceDetails);
+
+            $user_profile = UserProfile::where('user_id', $user->id)->first();
+            $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
+            $norek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
+
+            InOutPayment::create([
+                'finance_request_id' => $requestFinance,
+                'source' => null,
+                'transaction_date' => Carbon::now()->toDateString(),
+                'bank_id' => $bank_id,
+                'no_rek' => $norek,
+                'amount' => $total,
+                'remarks' => null,
+                'status' => 3,
+                'type_transaction' => 1,
+                'created_at' => Carbon::now(),
+            ]);
         } elseif ($data['status'] == 2) {
             $status = 5;
 
@@ -96,7 +154,7 @@ class ReplenishAPIController extends Controller
             DB::select('call insert_notification_procurement(?, ?, ?)', array(intval($request->userProcId), $confirm_id, 2));
         }
 
-        ListProcurement::findOrFail($data['list_proc_id'])->update(['status' => $status]);
+        ListProcurement::findOrFail($request->listProcId)->update(['status' => $status]);
 
         return response()->json([
             'success' => true,
@@ -160,7 +218,7 @@ class ReplenishAPIController extends Controller
         $listProcurement = ListProcurement::findOrFail($replenish->list_proc_id);
         $listProcurement->status = 4;
 
-        $userProc = UserProc::where('user_id', $replenish->created_by)->first();
+        $userProc = UserProc::find($listProcurement->user_proc_id);
         $saldo = $userProc->saldo + $listProcurement->total_amount;
         $userProc->saldo = $saldo;
 
@@ -172,7 +230,7 @@ class ReplenishAPIController extends Controller
         $userProc->save();
         $confirm->save();
 
-        $user = User::find($replenish->created_by);
+        $user = User::find($userProc->user_id);
         $vendor = Vendor::where('name', 'like', $user->name)->first();
 
         $noRequest = $this->generateRequestNo(Carbon::now());
@@ -185,11 +243,11 @@ class ReplenishAPIController extends Controller
             'request_type' => 2,
             'product_type' => 2,
             'created_at' => Carbon::now(),
-            'created_by' => $replenish->created_by,
+            'created_by' => $listProcurement->created_by,
         ];
         $requestFinance = RequestFinance::insertGetId($data);
 
-        $listProcurementDetail = ListProcurementDetail::where('trx_list_procurement_id', $listProcurement->id);
+        $listProcurementDetail = ListProcurementDetail::where('trx_list_procurement_id', $listProcurement->id)->get();
         $total = 0;
         foreach ($listProcurementDetail as $i => $detail) {
             $listProcurementDetails[] = [
@@ -201,7 +259,7 @@ class ReplenishAPIController extends Controller
                 'price' => $detail->amount / $detail->qty,
                 'ppn' => 0,
                 'total' => $detail->amount,
-                'supplier_name' => '',
+                'supplier_name' => $listProcurement->vendor,
                 'remarks' => '',
                 'created_at' => now(),
             ];
@@ -223,13 +281,16 @@ class ReplenishAPIController extends Controller
             'no_rek' => $norek,
             'amount' => $total,
             'remarks' => null,
-            'status' => 1,
+            'status' => 2,
             'type_transaction' => 1,
             'created_at' => Carbon::now(),
         ]);
 
         return response()->json([
             'success' => true,
+            'user' => $user,
+            'requestFinance' => $requestFinance,
+            'listProcurementDetail' => $listProcurementDetail,
         ]);
     }
 

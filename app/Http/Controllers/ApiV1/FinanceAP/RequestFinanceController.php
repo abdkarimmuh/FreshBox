@@ -25,12 +25,12 @@ class RequestFinanceController extends Controller
         $perPage = $request->perPage;
         $query = RequestFinance::dataTableQuery($searchValue);
         if ($request->start && $request->end) {
-            $query->whereBetween('no_request', [$request->start, $request->end]);
+            $query->whereBetween('status', [$request->start, $request->end]);
         }
         if ($searchValue) {
-            $query = $query->orderBy('no_request', 'desc')->take(20)->paginate(20);
+            $query = $query->orderBy('status', 'asc')->take(20)->paginate(20);
         } else {
-            $query = $query->orderBy('no_request', 'desc')->paginate($perPage);
+            $query = $query->orderBy('status', 'asc')->paginate($perPage);
         }
 
         return RequestFinanceResource::collection($query);
@@ -118,7 +118,7 @@ class RequestFinanceController extends Controller
             ]);
         } else {
             $vendor = Vendor::find($request->userId);
-            $user = User::where('name', 'like', $vendor->name)->first();
+            $user = User::where('name', '', $vendor->name)->first();
             if ($user == null) {
                 $bank_id = $this->vendor->bank_id;
                 $norek = $this->vendor->bank_account;
@@ -256,7 +256,7 @@ class RequestFinanceController extends Controller
             $requestFinanceDetail = RequestFinanceDetail::find($detail['id']);
             $requestFinanceDetail->qty_confirm = $detail['qty_confirm'];
             $requestFinanceDetail->price_confirm = $detail['price_confirm'];
-            $requestFinanceDetail->total_confirm = ($detail['qty_confirm']*$detail['price_confirm'])+($detail['qty_confirm']*$detail['price_confirm']*$requestFinanceDetail->ppn/100);
+            $requestFinanceDetail->total_confirm = ($detail['qty_confirm'] * $detail['price_confirm']) + ($detail['qty_confirm'] * $detail['price_confirm'] * $requestFinanceDetail->ppn / 100);
             $requestFinanceDetail->updated_at = now();
             $requestFinanceDetail->save();
         }

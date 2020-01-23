@@ -15,7 +15,9 @@
                     </label>
                     <div>
                         <model-list-select
-                            v-bind:class="{ 'is-invalid': errors.procurementId }"
+                            v-bind:class="{
+                                'is-invalid': errors.procurementId
+                            }"
                             :list="procurements"
                             v-model="procurementId"
                             v-on:input="getProcurement()"
@@ -55,26 +57,39 @@
                         <b>File</b>
                     </label>
                     <div>
-                        <image-modal :file-url="procurement.file_url" :file-name="procurement.file"></image-modal>
+                        <image-modal
+                            :file-url="procurement.file_url"
+                            :file-name="procurement.file"
+                        ></image-modal>
                     </div>
                 </div>
             </div>
 
             <div v-if="procurementId !== ''" class="col-12">
                 <div class="table-responsive m-t-40" style="clear: both;">
-                    <table class="table table-hover" id="contentTable" style="font-size: 9pt;">
+                    <table
+                        class="table table-hover"
+                        id="contentTable"
+                        style="font-size: 9pt;"
+                    >
                         <thead>
                             <tr>
-                                <th style="overflow:hidden; white-space:nowrap">Item Name</th>
+                                <th style="overflow:hidden; white-space:nowrap">
+                                    Item Name
+                                </th>
                                 <th
                                     class="text-center"
                                     style="overflow:hidden; white-space:nowrap"
-                                >Qty Assign</th>
+                                >
+                                    Qty Assign
+                                </th>
                                 <th class="text-center">UOM Assign</th>
                                 <th
                                     class="text-center"
                                     style="overflow:hidden; white-space:nowrap"
-                                >Qty Buy</th>
+                                >
+                                    Qty Buy
+                                </th>
                                 <th class="text-center">UOM Buy</th>
                                 <th class="text-center">Berat Kotor</th>
                                 <th class="text-center">Berat Bersih</th>
@@ -82,23 +97,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in procurement.items" v-bind:key="index">
-                                <td style="overflow:hidden; white-space:nowrap">{{ item.name }}</td>
-                                <td class="text-center">{{ item.qty_assign }}</td>
-                                <td class="text-center">{{ item.uom_assign }}</td>
+                            <tr
+                                v-for="(item, index) in procurement.items"
+                                v-bind:key="index"
+                            >
+                                <td style="overflow:hidden; white-space:nowrap">
+                                    {{ item.name }}
+                                </td>
+                                <td class="text-center">
+                                    {{ item.qty_assign }}
+                                </td>
+                                <td class="text-center">
+                                    {{ item.uom_assign }}
+                                </td>
                                 <td class="text-center">{{ item.qty }}</td>
                                 <td class="text-center">{{ item.uom }}</td>
                                 <td>
-                                    <input v-model="item.bruto" type="number" class="form-control" />
+                                    <input
+                                        v-model="item.bruto"
+                                        type="number"
+                                        class="form-control"
+                                    />
                                 </td>
                                 <td>
-                                    <input v-model="item.netto" type="number" class="form-control" />
+                                    <input
+                                        v-model="item.netto"
+                                        type="number"
+                                        class="form-control"
+                                    />
                                 </td>
                                 <td>
                                     <input
                                         v-model="item.qty_minus"
                                         type="number"
                                         class="form-control"
+                                        min="0"
                                     />
                                 </td>
                             </tr>
@@ -111,7 +144,10 @@
                     <label>
                         <b>Remark</b>
                     </label>
-                    <textarea v-model="procurement.remark" class="form-control"></textarea>
+                    <textarea
+                        v-model="procurement.remark"
+                        class="form-control"
+                    ></textarea>
                 </div>
             </div>
             <div class="col-12" v-if="procurementId !== ''">
@@ -120,12 +156,19 @@
                         <loading-button />
                     </div>
                     <div v-else>
-                        <button class="btn btn-danger" v-on:click="submitForm()">Submit</button>
+                        <button
+                            class="btn btn-danger"
+                            v-on:click="submitForm()"
+                        >
+                            Submit
+                        </button>
                         <button
                             type="button"
                             class="btn btn-secondary"
                             onclick="history.back()"
-                        >Back</button>
+                        >
+                            Back
+                        </button>
                     </div>
                 </div>
             </div>

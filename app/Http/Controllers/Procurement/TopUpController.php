@@ -3,9 +3,17 @@
 namespace App\Http\Controllers\Procurement;
 
 use App\Http\Controllers\Controller;
+use App\Model\FinanceAP\InOutPayment;
+use App\Model\FinanceAP\RequestFinance;
+use App\Model\FinanceAP\RequestFinanceDetail;
 use App\Model\FinanceAP\TopUpProc;
+use App\Model\MasterData\Vendor;
+use App\User;
 use App\UserProc;
+use App\UserProfile;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TopUpController extends Controller
 {
@@ -120,6 +128,55 @@ class TopUpController extends Controller
             $userProc = UserProc::find($topUp->user_proc_id);
             $userProc->saldo = intval($userProc->saldo) + $topUp->amount;
             $userProc->save();
+
+            $user = User::find($userProc->user_id);
+            $vendor = Vendor::where('name', 'like', $user->name)->first();
+
+            $noRequest = $this->generateRequestNo(Carbon::now());
+            $data = [
+                'no_request' => $noRequest,
+                'vendor_id' => $vendor->id,
+                'status' => 3,
+                'master_warehouse_id' => 1,
+                'request_date' => Carbon::now()->toDateString(),
+                'request_type' => 2,
+                'product_type' => 1,
+                'created_at' => Carbon::now(),
+                'created_by' => $user->id,
+            ];
+
+            $requestFinance = RequestFinance::insertGetId($data);
+
+            RequestFinanceDetail::create([
+                'request_finance_id' => $requestFinance,
+                'item_name' => 'TopUp Procurement',
+                'type_of_goods' => '000',
+                'qty' => 1,
+                'uom_id' => 2,
+                'price' => $topUp->amount,
+                'ppn' => 0,
+                'total' => $topUp->amount,
+                'supplier_name' => $user->name,
+                'remarks' => $topUp->remark,
+                'created_at' => Carbon::now(),
+            ]);
+
+            $user_profile = UserProfile::where('user_id', $user->id)->first();
+            $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
+            $norek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
+
+            InOutPayment::create([
+                'finance_request_id' => $requestFinance,
+                'source' => null,
+                'transaction_date' => Carbon::now()->toDateString(),
+                'bank_id' => $bank_id,
+                'no_rek' => $norek,
+                'amount' => $topUp->amount,
+                'remarks' => null,
+                'status' => 3,
+                'type_transaction' => 1,
+                'created_at' => Carbon::now(),
+            ]);
         }
 
         return redirect('admin/finance-ap/topup');
@@ -135,5 +192,15 @@ class TopUpController extends Controller
         }
 
         return redirect('admin/finance-ap/topup');
+    }
+
+    public function generateRequestNo($date)
+    {
+        $year_month = Carbon::parse($date)->format('y-m');
+        $latestRequestFinance = RequestFinance::where(DB::raw("DATE_FORMAT(request_date, '%y-%m')"), $year_month)->latest()->first();
+        $latestRequestFinanceNo = isset($latestRequestFinance->no_request) ? $latestRequestFinance->no_request : '0-GF-FB';
+        $cutString = str_replace('-GF-FB', '', $latestRequestFinanceNo);
+
+        return ($cutString + 1).'-GF-FB';
     }
 }

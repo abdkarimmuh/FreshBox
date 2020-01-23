@@ -12217,6 +12217,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12462,7 +12505,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         confirmButtonText: "Yes, replenish it!"
       }).then(function (result) {
         if (result.value) {
-          axios.patch(BaseUrl("api/v1/finance-ap/replenish/" + id));
+          axios.post(BaseUrl("api/v1/finance-ap/replenish/replenishUpdate/" + id));
           Vue.swal("Replenish!", "The data has been replenish.", "success").then(function (next) {
             _this4.getData();
           });
@@ -13951,6 +13994,49 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -70341,7 +70427,13 @@ var render = function() {
                                         "white-space": "nowrap"
                                       }
                                     },
-                                    [_vm._v(_vm._s(column.title))]
+                                    [
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(column.title) +
+                                          "\n                            "
+                                      )
+                                    ]
                                   )
                                 })
                               ],
@@ -70663,11 +70755,13 @@ var render = function() {
                                         : column.type === "price"
                                         ? _c("p", [
                                             _vm._v(
-                                              _vm._s(
-                                                _vm._f("toIDR")(
-                                                  item[column.field]
-                                                )
-                                              )
+                                              "\n                                    " +
+                                                _vm._s(
+                                                  _vm._f("toIDR")(
+                                                    item[column.field]
+                                                  )
+                                                ) +
+                                                "\n                                "
                                             )
                                           ])
                                         : _c("p", [
@@ -72470,7 +72564,9 @@ var render = function() {
                   "div",
                   [
                     _c("model-list-select", {
-                      class: { "is-invalid": _vm.errors.procurementId },
+                      class: {
+                        "is-invalid": _vm.errors.procurementId
+                      },
                       attrs: {
                         list: _vm.procurements,
                         "option-value": "id",
@@ -72604,7 +72700,11 @@ var render = function() {
                                     "white-space": "nowrap"
                                   }
                                 },
-                                [_vm._v("Item Name")]
+                                [
+                                  _vm._v(
+                                    "\n                                Item Name\n                            "
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c(
@@ -72616,7 +72716,11 @@ var render = function() {
                                     "white-space": "nowrap"
                                   }
                                 },
-                                [_vm._v("Qty Assign")]
+                                [
+                                  _vm._v(
+                                    "\n                                Qty Assign\n                            "
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c("th", { staticClass: "text-center" }, [
@@ -72632,7 +72736,11 @@ var render = function() {
                                     "white-space": "nowrap"
                                   }
                                 },
-                                [_vm._v("Qty Buy")]
+                                [
+                                  _vm._v(
+                                    "\n                                Qty Buy\n                            "
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c("th", { staticClass: "text-center" }, [
@@ -72668,15 +72776,29 @@ var render = function() {
                                       "white-space": "nowrap"
                                     }
                                   },
-                                  [_vm._v(_vm._s(item.name))]
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(item.name) +
+                                        "\n                            "
+                                    )
+                                  ]
                                 ),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(item.qty_assign))
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(item.qty_assign) +
+                                      "\n                            "
+                                  )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(item.uom_assign))
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(item.uom_assign) +
+                                      "\n                            "
+                                  )
                                 ]),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
@@ -72754,7 +72876,7 @@ var render = function() {
                                       }
                                     ],
                                     staticClass: "form-control",
-                                    attrs: { type: "number" },
+                                    attrs: { type: "number", min: "0" },
                                     domProps: { value: item.qty_minus },
                                     on: {
                                       input: function($event) {
@@ -72830,7 +72952,11 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Submit")]
+                            [
+                              _vm._v(
+                                "\n                        Submit\n                    "
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c(
@@ -72842,7 +72968,11 @@ var render = function() {
                                 onclick: "history.back()"
                               }
                             },
-                            [_vm._v("Back")]
+                            [
+                              _vm._v(
+                                "\n                        Back\n                    "
+                              )
+                            ]
                           )
                         ])
                   ])

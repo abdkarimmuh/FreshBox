@@ -24,7 +24,8 @@
                                 class="btn btn-danger ml-2"
                                 style="color: white"
                                 v-if="config.export_excel"
-                            >Export Excel</a>
+                                >Export Excel</a
+                            >
 
                             <a
                                 :href="config.route_add"
@@ -48,7 +49,9 @@
                                 class="btn btn-info ml-2"
                                 style="color: white"
                                 @click="print()"
-                                v-if="config.route_multiple_print && selected != 0"
+                                v-if="
+                                    config.route_multiple_print && selected != 0
+                                "
                             >
                                 Print
                                 <i class="fas fa-print"></i>
@@ -125,7 +128,9 @@
                                         aria-hidden="true"
                                         v-if="!loading"
                                     ></span>
-                                    <span class="sr-only" v-if="!loading">Loading...</span>
+                                    <span class="sr-only" v-if="!loading"
+                                        >Loading...</span
+                                    >
                                 </button>
                             </div>
                         </div>
@@ -149,7 +154,9 @@
                                         aria-hidden="true"
                                         v-if="!loading"
                                     ></span>
-                                    <span class="sr-only" v-if="!loading">Loading...</span>
+                                    <span class="sr-only" v-if="!loading"
+                                        >Loading...</span
+                                    >
                                 </button>
                             </div>
                         </div>
@@ -185,7 +192,9 @@
                                         aria-hidden="true"
                                         v-if="!loading"
                                     ></span>
-                                    <span class="sr-only" v-if="!loading">Loading...</span>
+                                    <span class="sr-only" v-if="!loading"
+                                        >Loading...</span
+                                    >
                                 </button>
                             </div>
                         </div>
@@ -196,18 +205,27 @@
                 <label class="col-form-label ml-5">Show</label>
                 <div class="ml-3">
                     <label>
-                        <select class="form-control" v-model="params.perPage" v-on:change="getData">
+                        <select
+                            class="form-control"
+                            v-model="params.perPage"
+                            v-on:change="getData"
+                        >
                             <option
                                 v-for="(perPage, index) in perPages"
                                 :value="perPage"
-                            >{{ perPage }}</option>
+                                >{{ perPage }}</option
+                            >
                         </select>
                     </label>
                 </div>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive" v-if="loading">
-                    <table class="table table-bordered" v-if="data.length" id="vuetable">
+                    <table
+                        class="table table-bordered"
+                        v-if="data.length"
+                        id="vuetable"
+                    >
                         <tbody>
                             <tr>
                                 <th v-if="config.action || config.actionPrint">
@@ -221,14 +239,17 @@
                                         <label
                                             for="checkbox-all"
                                             class="custom-control-label"
-                                        >&nbsp;</label>
+                                            >&nbsp;</label
+                                        >
                                     </div>
                                 </th>
                                 <th v-if="config.action">Action</th>
                                 <th
                                     v-for="column in columns"
                                     style="overflow:hidden; white-space:nowrap"
-                                >{{ column.title }}</th>
+                                >
+                                    {{ column.title }}
+                                </th>
                             </tr>
                             <tr v-for="(item, index) in data">
                                 <!--CheckBox-->
@@ -244,7 +265,8 @@
                                         <label
                                             :for="'checkbox-' + index"
                                             class="custom-control-label"
-                                        >&nbsp;</label>
+                                            >&nbsp;</label
+                                        >
                                     </div>
                                 </td>
                                 <!--Button-->
@@ -256,7 +278,8 @@
                                             name: config.route_view,
                                             params: { id: item.id }
                                         }"
-                                    >View</router-link>
+                                        >View</router-link
+                                    >
 
                                     <router-link
                                         v-if="
@@ -269,7 +292,8 @@
                                             name: config.route_edit,
                                             params: { id: item.id }
                                         }"
-                                    >Edit</router-link>
+                                        >Edit</router-link
+                                    >
 
                                     <router-link
                                         v-if="config.route_confirm"
@@ -278,7 +302,8 @@
                                             name: config.route_confirm,
                                             params: { id: item.id }
                                         }"
-                                    >Confirm</router-link>
+                                        >Confirm</router-link
+                                    >
 
                                     <router-link
                                         v-if="
@@ -290,7 +315,8 @@
                                             name: config.route_edit_payment,
                                             params: { id: item.id }
                                         }"
-                                    >Edit</router-link>
+                                        >Edit</router-link
+                                    >
 
                                     <router-link
                                         v-if="
@@ -300,7 +326,10 @@
                                         class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
                                         :to="{
                                             name: config.route_settlement,
-                                            params: { id: item.id }}">Settlement</router-link>
+                                            params: { id: item.id }
+                                        }"
+                                        >Settlement</router-link
+                                    >
 
                                     <router-link
                                         v-if="
@@ -312,7 +341,8 @@
                                             name: config.route_upload_payment,
                                             params: { id: item.id }
                                         }"
-                                        >Upload Dokumen</router-link>
+                                        >Upload Dokumen</router-link
+                                    >
 
                                     <a
                                         @click="replenish(item.id)"
@@ -329,23 +359,32 @@
                                     <!-- <a href="#" onclick="someFunction(); return false;">LINK</a> -->
 
                                     <a
-                                        @click="changeStatus(item.finance_request_id)"
+                                        @click="
+                                            changeStatus(
+                                                item.finance_request_id
+                                            )
+                                        "
                                         v-if="
                                             config.route_receive_inout &&
                                                 item.status === 2
                                         "
                                         class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
                                         style="color: white"
-                                    >Receive</a>
+                                        >Receive</a
+                                    >
 
                                     <router-link
-                                        v-if="config.route_confirm_inout && item.status === 3"
+                                        v-if="
+                                            config.route_confirm_inout &&
+                                                item.status === 3
+                                        "
                                         class="badge badge-success"
                                         :to="{
                                             name: config.route_confirm_inout,
                                             params: { id: item.id }
                                         }"
-                                    >Confirm</router-link>
+                                        >Confirm</router-link
+                                    >
 
                                     <!-- <a
                                         @click="changeStatus(item.id)"
@@ -358,7 +397,10 @@
                                     >Confirm</a> -->
                                 </td>
                                 <td v-for="column in columns">
-                                    <span v-html="item[column.field]" v-if="column.type === 'html'"></span>
+                                    <span
+                                        v-html="item[column.field]"
+                                        v-if="column.type === 'html'"
+                                    ></span>
                                     <p v-else-if="column.type === 'file'">
                                         <a
                                             href="#"
@@ -374,11 +416,12 @@
                                                     item.file !== '' &&
                                                     item.file !== null
                                             "
-                                        >{{ item.file }}</a>
+                                            >{{ item.file }}</a
+                                        >
                                     </p>
-                                    <p
-                                        v-else-if="column.type === 'price'"
-                                    >{{ item[column.field] | toIDR }}</p>
+                                    <p v-else-if="column.type === 'price'">
+                                        {{ item[column.field] | toIDR }}
+                                    </p>
                                     <p v-else>{{ item[column.field] }}</p>
                                 </td>
                             </tr>
@@ -596,7 +639,11 @@ export default {
                 confirmButtonText: "Yes, replenish it!"
             }).then(result => {
                 if (result.value) {
-                    axios.patch(BaseUrl("api/v1/finance-ap/replenish/" + id));
+                    axios.post(
+                        BaseUrl(
+                            "api/v1/finance-ap/replenish/replenishUpdate/" + id
+                        )
+                    );
                     Vue.swal(
                         "Replenish!",
                         "The data has been replenish.",

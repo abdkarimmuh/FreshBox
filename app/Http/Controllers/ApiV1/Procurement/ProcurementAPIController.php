@@ -345,7 +345,7 @@ class ProcurementAPIController extends Controller
         }
 
         Vendor::create([
-            'name' => '[Procurement] '.$request->name,
+            'name' => $request->name,
             'category_id' => $request->category,
             'pic_vendor' => $request->name,
             'tlp_pic' => '0',
