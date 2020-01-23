@@ -58,6 +58,7 @@ import PrintInOutPayment from './components/FinanceAP/InOutPayment/PrintInOutPay
 import SettlementFinance from './components/FinanceAP/Settlement/IndexSettlementFinance';
 import Settlement from './components/FinanceAP/Settlement/Settlement';
 import PrintSettlement from './components/FinanceAP/Settlement/PrintSettlement';
+import UploadPriceReport from './components/Report/Price/IndexUploadPriceReport';
 
 import IndexMasterPrice from './components/MasterData/IndexPrice';
 
@@ -321,6 +322,15 @@ const router = new VueRouter({
             name: 'finance.pettyCash.show',
             component: PrintPettyCash
         },
+
+        //report
+        {
+            path: '/admin/report/upload-price-report',
+            name: 'report.uploadPriceReport',
+            component: UploadPriceReport
+        },
+
+        //master data
         {
             path: '/admin/users',
             name: 'users',

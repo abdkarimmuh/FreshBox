@@ -5239,6 +5239,7 @@ __webpack_require__.r(__webpack_exports__);
         title: "In/Out Payment",
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment"),
+        noStartEnd: true,
         route_create: "finance.inOutPayment.create",
         route_receive_inout: true,
         route_confirm_inout: "finance.inOutPayment.confirm"
@@ -5475,6 +5476,7 @@ __webpack_require__.r(__webpack_exports__);
         title: "Petty Cash",
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/petty-cash"),
+        noStartEnd: true,
         route_view: "finance.pettyCash.show" // route_multiple_print: 'invoice_order.multiplePrint',
 
       },
@@ -7839,6 +7841,7 @@ __webpack_require__.r(__webpack_exports__);
         title: "Request Cash Advance",
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-advance"),
+        noStartEnd: true,
         route_view: "finance.requestAdvance.show",
         route_create: "finance.requestAdvance.create",
         route_edit_payment: "finance.requestAdvance.edit",
@@ -8426,6 +8429,7 @@ __webpack_require__.r(__webpack_exports__);
         title: "Settlement Cash Advance",
         action: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-advance/settlement"),
+        noStartEnd: true,
         route_settlement: "finance.settlementFinance.settlement",
         route_view_settlement: "finance.settlementFinance.show" // route_create: "finance.requestFinance.create"
         // route_multiple_print: 'invoice_order.multiplePrint',
@@ -11505,6 +11509,67 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Report/Price/IndexUploadPriceReport.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Report/Price/IndexUploadPriceReport.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      config: {
+        title: "Upload Price Report",
+        action: false,
+        base_url: this.$parent.MakeUrl("api/v1/report/upload_price_report"),
+        noStartEnd: true
+      },
+      columns: [{
+        title: "Name",
+        field: "name",
+        filterable: true
+      }, {
+        title: "Total Customer",
+        field: "TotCustomer",
+        filterable: true
+      }, {
+        title: "Total SKUID",
+        field: "TotSKU",
+        filterable: false
+      }, {
+        title: "Max End Periode",
+        field: "MaxEndPeriode",
+        filterable: true
+      }, {
+        title: "Type Price",
+        field: "TypePrice",
+        filterable: true
+      }, {
+        title: "Remarks",
+        field: "remarks",
+        filterable: true
+      }],
+      error: {
+        code: 403,
+        description: "You do not have access to this page"
+      }
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Report/SO/IndexReportFinanceAR.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Report/SO/IndexReportFinanceAR.vue?vue&type=script&lang=js& ***!
@@ -12691,25 +12756,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 }).then(function (res) {
                   _this.data = res.data.data;
-                  _this.pagination = {
-                    first: res.data.links.first,
-                    last: res.data.links.last,
-                    prev: res.data.links.prev,
-                    next: res.data.links.next,
-                    from: res.data.meta.from,
-                    to: res.data.meta.to,
-                    total: res.data.meta.total,
-                    current_page: res.data.meta.current_page,
-                    last_page: res.data.meta.last_page,
-                    path: res.data.meta.path
-                  };
-                  _this.loading = true;
-                })["catch"](function (e) {
-                  if (e.response.status === 500) {
-                    _this.getData();
+
+                  if (res.data.links != undefined && res.data.meta != undefined) {
+                    _this.pagination = {
+                      first: res.data.links.first,
+                      last: res.data.links.last,
+                      prev: res.data.links.prev,
+                      next: res.data.links.next,
+                      from: res.data.meta.from,
+                      to: c.to,
+                      total: res.data.meta.total,
+                      current_page: res.data.meta.current_page,
+                      last_page: res.data.meta.last_page,
+                      path: res.data.meta.path
+                    };
                   }
 
-                  console.log(e.response);
+                  console.log(res);
+                  _this.loading = true;
+                })["catch"](function (e) {
+                  // if (e.response.status === 500) {
+                  //     this.getData();
+                  // }
+                  console.log(e);
                 });
 
               case 1:
@@ -70191,6 +70260,38 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Report/Price/IndexUploadPriceReport.vue?vue&type=template&id=dad9a4e0&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Report/Price/IndexUploadPriceReport.vue?vue&type=template&id=dad9a4e0& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.$parent.userRole("Admin")
+    ? _c(
+        "div",
+        [
+          _c("s-table", { attrs: { config: _vm.config, columns: _vm.columns } })
+        ],
+        1
+      )
+    : _c("div", [_c("s-error-page", { attrs: { error: _vm.error } })], 1)
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Report/SO/IndexReportFinanceAR.vue?vue&type=template&id=10835048&":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Report/SO/IndexReportFinanceAR.vue?vue&type=template&id=10835048& ***!
@@ -102383,6 +102484,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Report/Price/IndexUploadPriceReport.vue":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/Report/Price/IndexUploadPriceReport.vue ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _IndexUploadPriceReport_vue_vue_type_template_id_dad9a4e0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IndexUploadPriceReport.vue?vue&type=template&id=dad9a4e0& */ "./resources/js/components/Report/Price/IndexUploadPriceReport.vue?vue&type=template&id=dad9a4e0&");
+/* harmony import */ var _IndexUploadPriceReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndexUploadPriceReport.vue?vue&type=script&lang=js& */ "./resources/js/components/Report/Price/IndexUploadPriceReport.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _IndexUploadPriceReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _IndexUploadPriceReport_vue_vue_type_template_id_dad9a4e0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _IndexUploadPriceReport_vue_vue_type_template_id_dad9a4e0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Report/Price/IndexUploadPriceReport.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Report/Price/IndexUploadPriceReport.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/Report/Price/IndexUploadPriceReport.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexUploadPriceReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexUploadPriceReport.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Report/Price/IndexUploadPriceReport.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexUploadPriceReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Report/Price/IndexUploadPriceReport.vue?vue&type=template&id=dad9a4e0&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/Report/Price/IndexUploadPriceReport.vue?vue&type=template&id=dad9a4e0& ***!
+  \********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexUploadPriceReport_vue_vue_type_template_id_dad9a4e0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexUploadPriceReport.vue?vue&type=template&id=dad9a4e0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Report/Price/IndexUploadPriceReport.vue?vue&type=template&id=dad9a4e0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexUploadPriceReport_vue_vue_type_template_id_dad9a4e0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexUploadPriceReport_vue_vue_type_template_id_dad9a4e0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Report/SO/IndexReportFinanceAR.vue":
 /*!********************************************************************!*\
   !*** ./resources/js/components/Report/SO/IndexReportFinanceAR.vue ***!
@@ -104575,7 +104745,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/IndexSettlementFinance */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue");
 /* harmony import */ var _components_FinanceAP_Settlement_Settlement__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/Settlement */ "./resources/js/components/FinanceAP/Settlement/Settlement.vue");
 /* harmony import */ var _components_FinanceAP_Settlement_PrintSettlement__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/PrintSettlement */ "./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue");
-/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
+/* harmony import */ var _components_Report_Price_IndexUploadPriceReport__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./components/Report/Price/IndexUploadPriceReport */ "./resources/js/components/Report/Price/IndexUploadPriceReport.vue");
+/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
+
 
 
 
@@ -104839,7 +105011,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/admin/finance-ap/petty-cash/show/:id',
     name: 'finance.pettyCash.show',
     component: _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_41__["default"]
-  }, {
+  }, //report
+  {
+    path: '/admin/report/upload-price-report',
+    name: 'report.uploadPriceReport',
+    component: _components_Report_Price_IndexUploadPriceReport__WEBPACK_IMPORTED_MODULE_49__["default"]
+  }, //master data
+  {
     path: '/admin/users',
     name: 'users',
     component: _components_UsersComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -104850,7 +105028,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/master_data/price',
     name: 'master_data.price',
-    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_49__["default"]
+    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_50__["default"]
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);

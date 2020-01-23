@@ -16,6 +16,7 @@ export default {
                 base_url: this.$parent.MakeUrl(
                     "api/v1/finance-ap/request-advance/settlement"
                 ),
+                noStartEnd: true,
                 route_settlement: "finance.settlementFinance.settlement",
                 route_view_settlement: "finance.settlementFinance.show",
                 // route_create: "finance.requestFinance.create"

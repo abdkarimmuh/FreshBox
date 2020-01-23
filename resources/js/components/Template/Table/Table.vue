@@ -495,26 +495,30 @@ export default {
                 })
                 .then(res => {
                     this.data = res.data.data;
-                    this.pagination = {
-                        first: res.data.links.first,
-                        last: res.data.links.last,
-                        prev: res.data.links.prev,
-                        next: res.data.links.next,
-                        from: res.data.meta.from,
-                        to: res.data.meta.to,
-                        total: res.data.meta.total,
-                        current_page: res.data.meta.current_page,
-                        last_page: res.data.meta.last_page,
-                        path: res.data.meta.path
-                    };
+                    if(res.data.links != undefined && res.data.meta != undefined){
+                        this.pagination = {
+                            first: res.data.links.first,
+                            last: res.data.links.last,
+                            prev: res.data.links.prev,
+                            next: res.data.links.next,
+                            from: res.data.meta.from,
+                            to: c.to,
+                            total: res.data.meta.total,
+                            current_page: res.data.meta.current_page,
+                            last_page: res.data.meta.last_page,
+                            path: res.data.meta.path
+                        };
+                    }
+
+                    console.log(res)
 
                     this.loading = true;
                 })
                 .catch(e => {
-                    if (e.response.status === 500) {
-                        this.getData();
-                    }
-                    console.log(e.response);
+                    // if (e.response.status === 500) {
+                    //     this.getData();
+                    // }
+                    console.log(e);
                 });
         },
         changePage(page) {
