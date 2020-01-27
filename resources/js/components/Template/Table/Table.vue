@@ -281,7 +281,7 @@
                                         >View</router-link
                                     >
 
-                                     <router-link
+                                    <router-link
                                         v-if="
                                             config.route_view_settlement &&
                                                 item.status === 5
@@ -291,7 +291,8 @@
                                             name: config.route_view_settlement,
                                             params: { id: item.id }
                                         }"
-                                    >View</router-link>
+                                        >View</router-link
+                                    >
 
                                     <router-link
                                         v-if="
@@ -538,14 +539,17 @@ export default {
                 })
                 .then(res => {
                     this.data = res.data.data;
-                    if(res.data.links != undefined && res.data.meta != undefined){
+                    if (
+                        res.data.links != undefined &&
+                        res.data.meta != undefined
+                    ) {
                         this.pagination = {
                             first: res.data.links.first,
                             last: res.data.links.last,
                             prev: res.data.links.prev,
                             next: res.data.links.next,
                             from: res.data.meta.from,
-                            to: c.to,
+                            to: res.data.meta.to,
                             total: res.data.meta.total,
                             current_page: res.data.meta.current_page,
                             last_page: res.data.meta.last_page,
@@ -553,7 +557,7 @@ export default {
                         };
                     }
 
-                    console.log(res)
+                    console.log(res);
 
                     this.loading = true;
                 })

@@ -115,16 +115,16 @@ class PriceGroupCust extends MyModel
 
     public function getCustomerGroupNameAttribute()
     {
-        return $this->CustomerGroup->name;
+        return isset($this->CustomerGroup) ? $this->CustomerGroup->name : '';
     }
 
     public function getUomNameAttribute()
     {
-        return $this->Uom->name;
+        return isset($this->Uom) ? $this->Uom->name : '';
     }
 
     public function getItemNameAttribute()
     {
-        return $this->Item->name_item;
+        return isset($this->Item) ? $this->Item->name_item : '';
     }
 }

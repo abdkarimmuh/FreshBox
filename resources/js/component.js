@@ -19,10 +19,11 @@ import ImageModal from "./components/Template/ImageModal";
 
 import TablePrint from "./components/Template/Print/TablePrint";
 import IndexReportSO from "./components/Report/SO/IndexReportSO"
-import IndexReportFinanceAR from "./components/Report/SO/IndexReportFinanceAR"
+import IndexReportFinanceAR from "./components/Report/FinanceAR/IndexReportFinanceAR";
+import IndexReportPriceUpload from "./components/Report/Price/IndexUploadReport";
 
-import AddUserProc from "./components/MasterData/AddUserProc"
-import AddWarehouseConfirm from "./components/WarehouseIn/AddWarehouseConfirm"
+import AddUserProc from "./components/MasterData/AddUserProc";
+import AddWarehouseConfirm from "./components/WarehouseIn/AddWarehouseConfirm";
 import LoadingButton from "./components/Button/LoadingButton";
 import BackButton from "./components/Button/BackButton";
 import LoadingTable from "./components/Template/Table/partials/LoadingTable";
@@ -32,6 +33,7 @@ import LoadingTable from "./components/Template/Table/partials/LoadingTable";
 Vue.component('AddWarehouseConfirm', AddWarehouseConfirm);
 Vue.component('index-report-so', IndexReportSO);
 Vue.component('index-report-finance-ar', IndexReportFinanceAR);
+Vue.component('index-report-price-upload', IndexReportPriceUpload);
 
 Vue.component('users-component', UsersComponent);
 Vue.component('profile-component', ProfileComponent);

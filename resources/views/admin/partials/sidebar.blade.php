@@ -177,19 +177,15 @@
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-file"></i><span>Report</span></a>
             <ul class="dropdown-menu">
                 <li class="{{ request()->route()->getName() == 'admin.report.reportso.index' ? ' active' : '' }}">
-                    <a class="nav-link" href="{{route('admin.report.reportso.index')}}"><span>SO Report</span></a>
+                    <a class="nav-link" href="{{route('admin.report.reportso.index')}}"><span>Report SO</span></a>
                 </li>
                 <li class="{{ request()->route()->getName() == 'admin.report.reportFinanceAR.index' ? ' active' : '' }}">
                     <a class="nav-link"
                        href="{{route('admin.report.reportFinanceAR.index')}}"><span>Report Finance AR</span></a>
                 </li>
-                {{-- <li class="{{ request()->route()->getName() == 'admin.report.reportFinanceAR.index' ? ' active' : '' }}">
+                <li class="{{ request()->route()->getName() == 'admin.report.reportPriceUpload.index' ? ' active' : '' }}">
                     <a class="nav-link"
-                       href="{{route('admin.report.reportFinanceAR.index')}}"><span>Upload Price Report</span></a>
-                </li> --}}
-                <li class="{{ request()->segment(3) == 'upload-price-report' ? ' active' : '' }}">
-                    <a href="{{ url('/admin/report/upload-price-report') }}"
-                       class="nav-link"><span>Upload Price Report</span></a>
+                       href="{{route('admin.report.reportPriceUpload.index')}}"><span>Report Price Upload</span></a>
                 </li>
             </ul>
         </li>

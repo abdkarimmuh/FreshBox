@@ -169,9 +169,9 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'Report\ReportController@reportFinanceAR')->name('index');
             Route::get('/export', 'Report\ReportController@exportFinanceAR')->name('export');
         });
-        Route::name('upload-price-report.')->prefix('upload-price-report')->group(function () {
-            Route::get('/', 'DashboardController')->where('any', '.*');
-            Route::get('/{any}', 'DashboardController')->where('any', '.*');
+        Route::name('reportPriceUpload.')->prefix('report-price-upload')->group(function () {
+            Route::get('/', 'Report\ReportController@reportPriceUpload')->name('index');
+            Route::get('/export', 'Report\ReportController@exportPriceUpload')->name('export');
         });
     });
 

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Report;
 
 use App\Exports\ReportFinanceARExport;
+use App\Exports\ReportPriceUploadExport;
 use App\Exports\ReportSOExport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Report\ReportFinanceARResource;
+use App\Http\Resources\Report\ReportPriceUploadResource;
 use App\Http\Resources\Report\ReportSOResource;
+use App\Model\MasterData\PriceGroupCust;
 use App\Model\Warehouse\DeliveryOrderDetail;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
@@ -21,7 +24,9 @@ class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      * @param Request $request
+     *
      * @return Factory|AnonymousResourceCollection|View
      */
     public function reportSO(Request $request)
@@ -43,6 +48,7 @@ class ReportController extends Controller
                     });
                 });
             }
+
             return ReportSOResource::collection($query->paginate(10));
         }
 
@@ -51,7 +57,9 @@ class ReportController extends Controller
 
     /**
      * Display a listing of the resource.
+     *
      * @param Request $request
+     *
      * @return Factory|AnonymousResourceCollection|View
      */
     public function reportFinanceAR(Request $request)
@@ -72,6 +80,7 @@ class ReportController extends Controller
                     });
                 });
             }
+
             return ReportFinanceARResource::collection($query->paginate(10));
         }
 
@@ -79,22 +88,80 @@ class ReportController extends Controller
     }
 
     /**
-     * Export Data Report SO To Excel
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     *
+     * @return Factory|AnonymousResourceCollection|View
+     */
+    public function reportPriceUpload(Request $request)
+    {
+        $searchValue = $request->input('query');
+        $config = [
+            'vue-component' => '<index-report-price-upload/>',
+        ];
+
+        if ($request->ajax()) {
+            $query = PriceGroupCust::dataTableQuery($searchValue);
+            $start = $request->start;
+            $end = $request->end;
+            if ($start && $end) {
+                $query->whereBetween(DB::raw("DATE_FORMAT(start_periode, '%Y-%m-%d')"), array($start, $end));
+            }
+
+            return ReportPriceUploadResource::collection($query->groupBy('customer_group_id')
+                ->select(DB::raw('count(*) as tot_skuid, customer_group_id, start_periode, end_periode'))
+                ->where('customer_group_id', '!=', null)
+                ->orderBy('end_periode', 'asc')
+                ->paginate($request->perPage));
+        }
+
+        return view('layouts.vue-view', compact('config'));
+
+        // $query = PriceGroupCust::all();
+
+        // $query = $query->select(DB::raw('count(*) as tot_skuid, customer_group_id, start_periode, end_periode'))
+        // ->where('customer_group_id', '!=', null)
+        // ->orderBy('end_periode', 'asc')->get();
+
+        // $data = ReportPriceUploadResource::collection($query);
+
+        return response()->json([$data]);
+    }
+
+    /**
+     * Export Data Report SO To Excel.
+     *
      * @return BinaryFileResponse
      */
     public function exportSO()
     {
         $now = Carbon::now();
-        return Excel::download(new ReportSOExport, 'Report Sales Order - ' . $now . '.xlsx');
+
+        return Excel::download(new ReportSOExport(), 'Report Sales Order - '.$now.'.xlsx');
     }
 
     /**
-     * Export Data Report Finance AR To Excel
+     * Export Data Report Finance AR To Excel.
+     *
      * @return BinaryFileResponse
      */
     public function exportFinanceAR()
     {
         $now = Carbon::now();
-        return Excel::download(new ReportFinanceARExport, 'Report Finance AR - ' . $now . '.xlsx');
+
+        return Excel::download(new ReportFinanceARExport(), 'Report Finance AR - '.$now.'.xlsx');
+    }
+
+    /**
+     * Export Data Report Finance AR To Excel.
+     *
+     * @return BinaryFileResponse
+     */
+    public function exportPriceUpload()
+    {
+        $now = Carbon::now();
+
+        return Excel::download(new ReportPriceUploadExport(), 'Report Price Upload - '.$now.'.xlsx');
     }
 }
