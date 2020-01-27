@@ -120,8 +120,8 @@ class RequestFinanceController extends Controller
             $vendor = Vendor::find($request->userId);
             $user = User::where('name', '', $vendor->name)->first();
             if ($user == null) {
-                $bank_id = $this->vendor->bank_id;
-                $norek = $this->vendor->bank_account;
+                $bank_id = $vendor->bank_id;
+                $norek = $vendor->bank_account;
             } else {
                 $user_profile = UserProfile::where('user_id', $user->id)->first();
                 $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
