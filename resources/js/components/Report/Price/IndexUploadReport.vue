@@ -31,7 +31,7 @@ export default {
                 },
                 {
                     title: "Total SKUID",
-                    field: "tot_skuid",
+                    field: "total_skuid",
                     filterable: false
                 },
                 {

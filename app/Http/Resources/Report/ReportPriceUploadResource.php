@@ -47,7 +47,7 @@ class ReportPriceUploadResource extends JsonResource
             'id' => $this->customer_group_id,
             'name' => $this->customer_group_name,
             'total_cust' => $customer->count(),
-            'tot_skuid' => $this->tot_skuid,
+            'total_skuid' => $this->total_skuid,
             'start_periode' => $this->start_periode,
             'end_periode' => $this->end_periode,
             'type_price' => $type_price,

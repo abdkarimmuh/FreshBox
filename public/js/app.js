@@ -11670,7 +11670,7 @@ __webpack_require__.r(__webpack_exports__);
         filterable: false
       }, {
         title: "Total SKUID",
-        field: "tot_skuid",
+        field: "total_skuid",
         filterable: false
       }, {
         title: "Max End Periode",
@@ -14884,6 +14884,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -14932,6 +14942,7 @@ __webpack_require__.r(__webpack_exports__);
 
           var res = axios.post(_this2.$parent.MakeUrl("api/v1/warehouseIn/packageItem/print"), payload);
           console.log(res);
+          console.log(payload);
         }
       });
     }
@@ -74078,7 +74089,7 @@ var render = function() {
             staticClass: "btn btn-secondary",
             attrs: { type: "button", onclick: "history.back()" }
           },
-          [_vm._v("Back")]
+          [_vm._v("\n                Back\n            ")]
         ),
         _vm._v(" "),
         _c(
@@ -74089,55 +74100,52 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      { attrs: { id: "printMe" } },
-      [
-        _c("page", { attrs: { size: "label" } }, [
-          _vm.loading
-            ? _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c(
-                    "div",
-                    { staticClass: "row" },
-                    _vm._l(_vm.so_detail, function(item, index) {
-                      return _c("div", { staticClass: "col-md-6" }, [
-                        _c("div", { staticClass: "mt-4 mb-4 mr-4 ml-4" }, [
-                          _c("img", {
-                            staticStyle: {
-                              width: "125px",
-                              height: "25px",
-                              "object-fit": "contain"
-                            },
-                            attrs: {
-                              src:
-                                "http://freshbox.tetambastudio.com/assets/img/logo-freshbox.png"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "text" }, [
-                            _vm._v(_vm._s(item.sales_order))
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "text" }, [
-                            _vm._v(_vm._s(item.item))
-                          ])
-                        ])
+    _c("div", { attrs: { id: "printMe" } }, [
+      _vm.loading
+        ? _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c(
+                "div",
+                { staticClass: "row" },
+                _vm._l(_vm.so_detail, function(item, index) {
+                  return _c("div", { key: index, staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "mb-4" }, [
+                      _c("img", {
+                        staticStyle: {
+                          width: "125px",
+                          height: "25px",
+                          "object-fit": "contain"
+                        },
+                        attrs: {
+                          src:
+                            "http://freshbox.tetambastudio.com/assets/img/logo-freshbox.png"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "text" }, [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(item.sales_order) +
+                            "\n                            "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "text" }, [
+                        _vm._v(_vm._s(item.item))
                       ])
-                    }),
-                    0
-                  )
-                ])
-              ])
-            : _c("div", { staticClass: "text-center p-4 text-muted" }, [
-                _c("h5", [_vm._v("Loading")]),
-                _vm._v(" "),
-                _c("p", [_vm._v("Please wait, data is being loaded...")])
-              ])
-        ])
-      ],
-      1
-    )
+                    ])
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        : _c("div", { staticClass: "text-center p-4 text-muted" }, [
+            _c("h5", [_vm._v("Loading")]),
+            _vm._v(" "),
+            _c("p", [_vm._v("Please wait, data is being loaded...")])
+          ])
+    ])
   ])
 }
 var staticRenderFns = []

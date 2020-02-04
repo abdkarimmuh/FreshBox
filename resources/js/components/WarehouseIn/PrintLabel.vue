@@ -2,33 +2,43 @@
     <div>
         <div class="card card-body">
             <div class="text-right">
-                <button class="btn btn-secondary" type="button" onclick="history.back()">Back</button>
+                <button
+                    class="btn btn-secondary"
+                    type="button"
+                    onclick="history.back()"
+                >
+                    Back
+                </button>
                 <button class="btn btn-success" @click="print">Print</button>
             </div>
         </div>
         <div id="printMe">
-            <page size="label">
-                <div class="row" v-if="loading">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-6" v-for="(item, index) in so_detail">
-                                <div class="mt-4 mb-4 mr-4 ml-4">
-                                    <img
-                                        style="width: 125px; height: 25px; object-fit: contain;"
-                                        src="http://freshbox.tetambastudio.com/assets/img/logo-freshbox.png"
-                                    />
-                                    <div class="text">{{item.sales_order}}</div>
-                                    <div class="text">{{item.item}}</div>
+            <div class="row" v-if="loading">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div
+                            class="col-md-6"
+                            v-for="(item, index) in so_detail"
+                            v-bind:key="index"
+                        >
+                            <div class="mb-4">
+                                <img
+                                    style="width: 125px; height: 25px; object-fit: contain;"
+                                    src="http://freshbox.tetambastudio.com/assets/img/logo-freshbox.png"
+                                />
+                                <div class="text">
+                                    {{ item.sales_order }}
                                 </div>
+                                <div class="text">{{ item.item }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="text-center p-4 text-muted" v-else>
-                    <h5>Loading</h5>
-                    <p>Please wait, data is being loaded...</p>
-                </div>
-            </page>
+            </div>
+            <div class="text-center p-4 text-muted" v-else>
+                <h5>Loading</h5>
+                <p>Please wait, data is being loaded...</p>
+            </div>
         </div>
     </div>
 </template>
@@ -86,6 +96,7 @@ export default {
                         payload
                     );
                     console.log(res);
+                    console.log(payload);
                 }
             });
         }

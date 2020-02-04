@@ -82,14 +82,15 @@ textarea.form-control {
   margin-bottom: 2px;
 }
 
-page {
-  background: white;
-  display: block;
-  margin: 0 auto;
+@page {
+  size: 21.5cm 16.5cm;
 }
 
-page[size=label] {
-  width: 21.5cm;
-  height: 16.5cm;
+/* output size */
+
+@media print {
+@page {
+    size: 21.5cm 16.5cm;
+}
 }
 

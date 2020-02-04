@@ -27,7 +27,7 @@
             <td>{{ $idx + 1 }}</td>
             <td>{{ $row->name }}</td>
             <td>{{ $row->total_cust }}</td>
-            <td>{{ $row->tot_skuid }}</td>
+            <td>{{ $row->total_skuid }}</td>
             <td>{{ $row->end_periode }}</td>
             <td>{{ $row->type_price }}</td>
             <td>{{ $row->remarks }}</td>

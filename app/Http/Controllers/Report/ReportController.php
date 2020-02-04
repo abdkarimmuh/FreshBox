@@ -110,7 +110,7 @@ class ReportController extends Controller
             }
 
             return ReportPriceUploadResource::collection($query->groupBy('customer_group_id')
-                ->select(DB::raw('count(*) as tot_skuid, customer_group_id, start_periode, end_periode'))
+                ->select(DB::raw('count(*) as total_skuid, customer_group_id, start_periode, end_periode'))
                 ->where('customer_group_id', '!=', null)
                 ->orderBy('end_periode', 'asc')
                 ->paginate($request->perPage));
@@ -120,7 +120,7 @@ class ReportController extends Controller
 
         // $query = PriceGroupCust::all();
 
-        // $query = $query->select(DB::raw('count(*) as tot_skuid, customer_group_id, start_periode, end_periode'))
+        // $query = $query->select(DB::raw('count(*) as total_skuid, customer_group_id, start_periode, end_periode'))
         // ->where('customer_group_id', '!=', null)
         // ->orderBy('end_periode', 'asc')->get();
 
