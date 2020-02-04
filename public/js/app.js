@@ -9827,6 +9827,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      dateBeforeWeek: '',
       orders_detail: [],
       sales_order: {
         user_id: UserID,
@@ -9884,6 +9885,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this = this;
 
+      var ourDate = new Date(); //Change it so that it is 7 days in the past.
+
+      var pastDate = ourDate.getDate() - 7;
+      ourDate.setDate(pastDate);
+      this.dateBeforeWeek = ourDate;
       axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/customer/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/source_order/list")), axios.get(this.$parent.MakeUrl("api/v1/master_data/driver/driver"))]).then(axios.spread(function (customers, source_order, drivers) {
         _this.customers = customers.data.data;
         _this.source_orders = source_order.data;
@@ -67721,7 +67727,7 @@ var render = function() {
                                 lang: "en",
                                 type: "datetime",
                                 valueType: "format",
-                                "not-before": new Date(),
+                                "not-before": _vm.dateBeforeWeek,
                                 format: "YYYY-MM-DD HH:mm:ss"
                               },
                               on: {
