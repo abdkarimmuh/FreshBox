@@ -15,12 +15,14 @@ class CreateMasterVendor extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('users_id')->nullable();
             $table->string('pic_vendor');
             $table->string('tlp_pic', 20);
-            $table->string('bank_account');
             $table->unsignedBigInteger('bank_id');
+            $table->string('bank_account');
             $table->float('ppn')->default(0);
             $table->float('pph')->default(0);
+            $table->tinyInteger('type_vendor')->default(0)->comment('1 = Employee , 2 = Vendor');
             $table->string('remarks')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by')->nullable();

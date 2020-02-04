@@ -17,7 +17,7 @@
                                 <div>
                                     <model-list-select
                                         v-bind:class="{
-                                            'is-invalid': errors.sales_order_id
+                                            'is-invalid': errors.userId
                                         }"
                                         :list="users"
                                         v-model="userId"
@@ -28,9 +28,9 @@
                                     />
                                     <div
                                         style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.sales_order_id"
+                                        v-if="errors.userId"
                                     >
-                                        <p>{{ errors.sales_order_id[0] }}</p>
+                                        <p>{{ errors.userId[0] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                                         :list="warehouses"
                                         v-model="warehouseId"
                                         option-value="id"
-                                        option-text="address"
+                                        option-text="name"
                                         placeholder="Select Warehouse"
                                     />
                                     <div
@@ -156,7 +156,7 @@
                             v-if="userId !== ''"
                             col="3"
                             title="Bank Name"
-                            :model="user.nama_rek"
+                            :model="user.bank_name"
                             disabled="true"
                         />
 
@@ -164,7 +164,7 @@
                             v-if="userId !== ''"
                             col="3"
                             title="Bank Account"
-                            :model="user.no_rek"
+                            :model="user.bank_account"
                             disabled="true"
                         />
                         <!--Button Add Rows-->
@@ -226,12 +226,12 @@
                                             <th class="text-center">Uom</th>
                                             <th class="text-center">Price</th>
                                             <th class="text-center">PPN(%)</th>
-                                            <!--                                        <th class="text-center">Total</th>-->
+                                            <th class="text-center">Total</th>
                                             <th class="text-center">
                                                 Supplier Name
                                             </th>
                                             <th class="text-center">
-                                                Remark
+                                                Remarks
                                             </th>
                                             <th class="text-center">Action</th>
                                         </tr>
@@ -263,17 +263,13 @@
                                                     v-model="item.qty"
                                                     type="number"
                                                     class="form-control"
-                                                    min=0
+                                                    min="0"
                                                 />
                                             </td>
                                             <td>
                                                 <model-list-select
-                                                    v-bind:class="{
-                                                        'is-invalid':
-                                                            errors.sales_order_id
-                                                    }"
                                                     :list="uom"
-                                                    v-model="item.uomid"
+                                                    v-model="item.uom_id"
                                                     option-value="id"
                                                     option-text="name"
                                                     placeholder="Select"
@@ -284,7 +280,8 @@
                                                     v-model="item.price"
                                                     type="number"
                                                     class="form-control"
-                                                    min=0
+                                                    min="0"
+                                                    @change="updateTotalAmount"
                                                 />
                                             </td>
                                             <td>
@@ -292,19 +289,23 @@
                                                     v-model="item.ppn"
                                                     type="number"
                                                     class="form-control"
-                                                    min=0
+                                                    min="0"
+                                                    @change="updateTotalAmount"
+                                                />
+                                            </td>
+                                            <td>{{ item.total }}</td>
+                                            <td>
+                                                <model-list-select
+                                                    :list="suppliers"
+                                                    v-model="item.supplier_id"
+                                                    option-value="id"
+                                                    option-text="name"
+                                                    placeholder="Select"
                                                 />
                                             </td>
                                             <td>
                                                 <input
-                                                    v-model="item.supplierName"
-                                                    type="text"
-                                                    class="form-control"
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    v-model="item.remark"
+                                                    v-model="item.remarks"
                                                     type="text"
                                                     class="form-control"
                                                 />
@@ -332,17 +333,13 @@
                                                     v-model="item.qty"
                                                     type="number"
                                                     class="form-control"
-                                                    min=0
+                                                    min="0"
                                                 />
                                             </td>
                                             <td>
                                                 <model-list-select
-                                                    v-bind:class="{
-                                                        'is-invalid':
-                                                            errors.sales_order_id
-                                                    }"
                                                     :list="uom"
-                                                    v-model="item.uomid"
+                                                    v-model="item.uom_id"
                                                     option-value="id"
                                                     option-text="name"
                                                     placeholder="Select"
@@ -353,7 +350,8 @@
                                                     v-model="item.price"
                                                     type="number"
                                                     class="form-control"
-                                                    min=0
+                                                    min="0"
+                                                    @change="updateTotalAmount"
                                                 />
                                             </td>
                                             <td>
@@ -361,19 +359,23 @@
                                                     v-model="item.ppn"
                                                     type="number"
                                                     class="form-control"
-                                                    min=0
+                                                    min="0"
+                                                    @change="updateTotalAmount"
+                                                />
+                                            </td>
+                                            <td>{{ item.total }}</td>
+                                            <td>
+                                                <model-list-select
+                                                    :list="suppliers"
+                                                    v-model="item.supplier_id"
+                                                    option-value="id"
+                                                    option-text="name"
+                                                    placeholder="Select"
                                                 />
                                             </td>
                                             <td>
                                                 <input
-                                                    v-model="item.supplierName"
-                                                    type="text"
-                                                    class="form-control"
-                                                />
-                                            </td>
-                                            <td>
-                                                <input
-                                                    v-model="item.remark"
+                                                    v-model="item.remarks"
                                                     type="text"
                                                     class="form-control"
                                                 />
@@ -452,6 +454,7 @@ export default {
             requestDate: "",
             users: [],
             userId: "",
+            suppliers: [],
             user: {},
             items: [],
             itemId: "",
@@ -475,14 +478,17 @@ export default {
                 requestType: this.requestType,
                 orderDetails: this.orderDetails.map((item, idx) => ({
                     name: item.name,
-                    typeOfGoods: item.skuid,
-                    uom_id: item.uomid,
+                    skuid: item.skuid,
+                    uom_id: item.uom_id,
                     qty: item.qty,
                     ppn: item.ppn,
                     price: item.price,
-                    // total: item.total,
-                    supplierName: item.supplierName,
-                    remark: item.remark
+                    total: item.total,
+                    qty_confirm: 0,
+                    price_confirm: 0,
+                    total_confirm: 0,
+                    supplier_id: item.supplier_id,
+                    remarks: item.remarks
                 }))
             };
             try {
@@ -510,7 +516,12 @@ export default {
             this.loading = true;
             axios
                 .all([
-                    axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor")),
+                    axios.get(
+                        this.$parent.MakeUrl("api/v1/master_data/vendor")
+                    ),
+                    axios.get(
+                        this.$parent.MakeUrl("api/v1/master_data/vendor/pure")
+                    ),
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/items")),
                     axios.get(
                         this.$parent.MakeUrl("api/v1/master_data/warehouse")
@@ -518,12 +529,13 @@ export default {
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))
                 ])
                 .then(
-                    axios.spread((users, items, warehouses, uom) => {
+                    axios.spread((users, supplier, items, warehouses, uom) => {
                         this.users = users.data.data;
+                        this.suppliers = supplier.data.data;
                         this.items = items.data;
                         this.warehouses = warehouses.data;
                         this.uom = uom.data.data;
-                        console.log(users);
+                        console.log(uom);
                         this.loading = false;
                     })
                 )
@@ -544,6 +556,7 @@ export default {
                 .then(res => {
                     this.item = res.data;
                     this.loading = false;
+                    console.log("res get detail : ", res)
                 })
                 .catch(err => {
                     console.log(err.response.data);
@@ -574,6 +587,7 @@ export default {
                 });
                 console.log("GAGAL");
             } else {
+                console.log(this.orderDetails);
                 return this.orderDetails.push({
                     id: this.item.id,
                     name: this.item.name_item,
@@ -583,8 +597,11 @@ export default {
                     ppn: 0,
                     price: 0,
                     total: 0,
-                    supplierName: "",
-                    remark: ""
+                    qty_confirm: 0,
+                    price_confirm: 0,
+                    total_confirm: 0,
+                    supplier_id: "",
+                    remarks: ""
                 });
             }
         },
@@ -597,8 +614,11 @@ export default {
                 ppn: 0,
                 price: 0,
                 total: 0,
-                supplierName: "",
-                remark: ""
+                qty_confirm: 0,
+                price_confirm: 0,
+                total_confirm: 0,
+                supplier_id: "",
+                remarks: ""
             });
         },
         clearOrderDetails() {
@@ -606,6 +626,14 @@ export default {
         },
         deleteRow(index) {
             this.orderDetails.splice(index, 1);
+        },
+        updateTotalAmount() {
+            this.orderDetails.map(
+                (item, idx) =>
+                    (item.total =
+                        parseInt(item.price) +
+                        (parseInt(item.price) * parseInt(item.ppn)) / 100)
+            );
         }
     },
     components: {

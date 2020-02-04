@@ -66,7 +66,7 @@
                                         :list="warehouses"
                                         v-model="warehouseId"
                                         option-value="id"
-                                        option-text="address"
+                                        option-text="name"
                                         placeholder="Select Warehouse"
                                     />
                                     <div
@@ -96,14 +96,14 @@
                         <s-form-input
                             col="3"
                             title="Bank Name"
-                            :model="user.nama_rek"
+                            :model="user.bank_name"
                             disabled="true"
                         />
 
                         <s-form-input
                             col="3"
                             title="Bank Account"
-                            :model="user.no_rek"
+                            :model="user.bank_account"
                             disabled="true"
                         />
                         <!--Button Add Rows-->
@@ -165,7 +165,7 @@
                                             <th class="text-center">Uom</th>
                                             <th class="text-center">Price</th>
                                             <th class="text-center">PPN(%)</th>
-                                            <!--                                        <th class="text-center">Total</th>-->
+                                            <th class="text-center">Total</th>
                                             <th class="text-center">
                                                 Suplier Name
                                             </th>
@@ -191,7 +191,7 @@
                                             </td>
                                             <td>
                                                 <input
-                                                    v-model="item.type_of_goods"
+                                                    v-model="item.skuid"
                                                     type="text"
                                                     class="form-control"
                                                 />
@@ -201,15 +201,11 @@
                                                     v-model="item.qty"
                                                     type="number"
                                                     class="form-control"
-                                                    min=0
+                                                    min="0"
                                                 />
                                             </td>
                                             <td>
                                                 <model-list-select
-                                                    v-bind:class="{
-                                                        'is-invalid':
-                                                            errors.sales_order_id
-                                                    }"
                                                     :list="uom"
                                                     v-model="item.uom_id"
                                                     option-value="id"
@@ -222,7 +218,8 @@
                                                     v-model="item.price"
                                                     type="number"
                                                     class="form-control"
-                                                    min=0
+                                                    @change="updateTotalAmount"
+                                                    min="0"
                                                 />
                                             </td>
                                             <td>
@@ -230,14 +227,18 @@
                                                     v-model="item.ppn"
                                                     type="number"
                                                     class="form-control"
-                                                    min=0
+                                                    @change="updateTotalAmount"
+                                                    min="0"
                                                 />
                                             </td>
+                                            <td>{{ item.total }}</td>
                                             <td>
-                                                <input
-                                                    v-model="item.supplier_name"
-                                                    type="text"
-                                                    class="form-control"
+                                                <model-list-select
+                                                    :list="suppliers"
+                                                    v-model="item.supplier_id"
+                                                    option-value="id"
+                                                    option-text="name"
+                                                    placeholder="Select"
                                                 />
                                             </td>
                                             <td>
@@ -263,21 +264,17 @@
                                         >
                                             <td>{{ index + 1 }}</td>
                                             <td>{{ item.item_name }}</td>
-                                            <td>{{ item.type_of_goods }}</td>
+                                            <td>{{ item.skuid }}</td>
                                             <td>
                                                 <input
                                                     v-model="item.qty"
                                                     type="number"
                                                     class="form-control"
-                                                    min=0
+                                                    min="0"
                                                 />
                                             </td>
                                             <td>
                                                 <model-list-select
-                                                    v-bind:class="{
-                                                        'is-invalid':
-                                                            errors.sales_order_id
-                                                    }"
                                                     :list="uom"
                                                     v-model="item.uom_id"
                                                     option-value="id"
@@ -290,7 +287,8 @@
                                                     v-model="item.price"
                                                     type="number"
                                                     class="form-control"
-                                                    min=0
+                                                    @change="updateTotalAmount"
+                                                    min="0"
                                                 />
                                             </td>
                                             <td>
@@ -298,14 +296,18 @@
                                                     v-model="item.ppn"
                                                     type="number"
                                                     class="form-control"
-                                                    min=0
+                                                    @change="updateTotalAmount"
+                                                    min="0"
                                                 />
                                             </td>
+                                            <td>{{ item.total }}</td>
                                             <td>
-                                                <input
-                                                    v-model="item.supplier_name"
-                                                    type="text"
-                                                    class="form-control"
+                                                <model-list-select
+                                                    :list="suppliers"
+                                                    v-model="item.supplier_id"
+                                                    option-value="id"
+                                                    option-text="name"
+                                                    placeholder="Select"
                                                 />
                                             </td>
                                             <td>
@@ -387,6 +389,7 @@ export default {
             warehouseId: "",
             requestDate: "",
             users: [],
+            suppliers: [],
             userId: "",
             user: {},
             items: [],
@@ -413,13 +416,16 @@ export default {
                 requestType: this.requestType,
                 detail: this.detail.map((item, idx) => ({
                     item_name: item.item_name,
-                    type_of_goods: item.type_of_goods,
+                    skuid: item.skuid,
                     uom_id: item.uom_id,
                     qty: item.qty,
                     ppn: item.ppn,
                     price: item.price,
-                    // total: item.total,
-                    supplier_name: item.supplier_name,
+                    total: item.total,
+                    qty_confirm: 0,
+                    price_confirm: 0,
+                    total_confirm: 0,
+                    supplier_id: item.supplier_id,
                     remarks: item.remarks
                 }))
             };
@@ -449,19 +455,24 @@ export default {
             this.loading = true;
             axios
                 .all([
-                    axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor")),
+                    axios.get(
+                        this.$parent.MakeUrl("api/v1/master_data/vendor")
+                    ),
+                    axios.get(
+                        this.$parent.MakeUrl("api/v1/master_data/vendor/pure")
+                    ),
                     axios.get(
                         this.$parent.MakeUrl(
                             "api/v1/finance-ap/request-advance/show/" +
                                 this.$route.params.id
                         )
                     ),
-                    axios.get(
-                        this.$parent.MakeUrl(
-                            "api/v1/finance-ap/request-advance/requestFinanceDetail/" +
-                                this.$route.params.id
-                        )
-                    ),
+                    // axios.get(
+                    //     this.$parent.MakeUrl(
+                    //         "api/v1/finance-ap/request-advance/requestFinanceDetail/" +
+                    //             this.$route.params.id
+                    //     )
+                    // ),
                     axios.get(this.$parent.MakeUrl("api/v1/master_data/items")),
                     axios.get(
                         this.$parent.MakeUrl("api/v1/master_data/warehouse")
@@ -472,15 +483,17 @@ export default {
                     axios.spread(
                         (
                             users,
+                            supplier,
                             requestAdvance,
-                            detail,
+                            // detail,
                             items,
                             warehouses,
                             uom
                         ) => {
                             this.users = users.data.data;
+                            this.suppliers = supplier.data.data;
                             this.requestAdvance = requestAdvance.data.data;
-                            this.detail = detail.data.data;
+                            this.detail = requestAdvance.data.data.details;
                             this.productType =
                                 requestAdvance.data.data.product_type;
                             this.warehouseId =
@@ -495,6 +508,7 @@ export default {
                     )
                 )
                 .catch(err => {
+                    console.error(err)
                     if (err.response.status === 500) {
                         this.getData();
                     }
@@ -511,6 +525,7 @@ export default {
                 .then(res => {
                     this.item = res.data;
                     this.loading = false;
+                    console.log("res get detail : ", res)
                 })
                 .catch(err => {
                     console.log(err.response.data);
@@ -518,7 +533,11 @@ export default {
         },
         getUser(userId) {
             axios
-                .get(this.$parent.MakeUrl("api/v1/master_data/users/getUserVendor/" + userId))
+                .get(
+                    this.$parent.MakeUrl(
+                        "api/v1/master_data/users/getUserVendor/" + userId
+                    )
+                )
                 .then(res => {
                     this.user = res.data.data;
                 })
@@ -541,13 +560,16 @@ export default {
                 return this.detail.push({
                     id: this.item.id,
                     item_name: this.item.name_item,
-                    type_of_goods: this.item.skuid,
+                    skuid: this.item.skuid,
                     uom_id: 0,
                     qty: 0,
                     ppn: 0,
                     price: 0,
                     total: 0,
-                    supplier_name: "",
+                    qty_confirm: 0,
+                    price_confirm: 0,
+                    total_confirm: 0,
+                    supplier_id: "",
                     remarks: ""
                 });
             }
@@ -555,13 +577,16 @@ export default {
         pushRows() {
             return this.detail.push({
                 item_name: "",
-                type_of_goods: "",
+                skuid: "",
                 uom_id: 0,
                 qty: 0,
                 ppn: 0,
                 price: 0,
                 total: 0,
-                supplier_name: "",
+                qty_confirm: 0,
+                price_confirm: 0,
+                total_confirm: 0,
+                supplier_id: "",
                 remarks: ""
             });
         },
@@ -570,6 +595,14 @@ export default {
         },
         deleteRow(index) {
             this.detail.splice(index, 1);
+        },
+        updateTotalAmount() {
+            this.detail.map(
+                (item, idx) =>
+                    (item.total =
+                        parseInt(item.price) +
+                        (parseInt(item.price) * parseInt(item.ppn)) / 100)
+            );
         }
     },
     components: {

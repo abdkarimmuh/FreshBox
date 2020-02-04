@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\FinanceAP\InOutPaymentResource;
 use App\Model\FinanceAP\InOutPayment;
 use App\Model\FinanceAP\RequestFinance;
+use App\Model\FinanceAP\Settlement;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class InOutPaymentController extends Controller
 {
@@ -17,24 +20,24 @@ class InOutPaymentController extends Controller
         $perPage = $request->perPage;
         $query = InOutPayment::where('status', '>', 1)->dataTableQuery($searchValue);
         if ($searchValue) {
-            $query = $query->take(20)->paginate(20);
+            $query = $query->orderBy('created_at', 'desc')->take(20)->paginate(20);
         } else {
-            $query = $query->paginate($perPage);
+            $query = $query->orderBy('created_at', 'desc')->paginate($perPage);
         }
 
         return InOutPaymentResource::collection($query);
     }
 
-    public function show(Request $request)
+    public function show(Request $request, $id)
     {
-        if (is_array($request->id)) {
-            $inv = InOutPayment::whereIn('id', $request->id)->get();
+        if (is_array($id)) {
+            $inv = InOutPayment::whereIn('id', $id)->get();
             $invoice_order = InOutPaymentResource::collection($inv);
         } elseif ($request->printAll == true) {
             $inv = InOutPayment::where('is_printed', 0)->get();
             $invoice_order = InOutPaymentResource::collection($inv);
         } else {
-            $inv = InOutPayment::findOrFail($request->id);
+            $inv = InOutPayment::findOrFail($id);
             $invoice_order = new InOutPaymentResource($inv);
         }
 
@@ -44,24 +47,60 @@ class InOutPaymentController extends Controller
     public function store(Request $request)
     {
         $rules = [
+            'type_transaction' => 'required',
+            'option_transaction' => 'required',
             'source' => 'required',
             'bank_id' => 'required',
-            'no_rek' => 'required',
-            'type_transaction' => 'required',
+            'bank_account' => 'required',
             'transaction_date' => 'required',
             'amount' => 'required',
-
         ];
 
-        $request->validate($rules);
+        if ($request->option_transaction != 3) {
+            $validation_option = ['file' => 'required'];
+        } else {
+            $validation_option = [];
+        }
+
+        $request->validate(array_merge($rules, $validation_option));
+
+        //Untuk Mengupload File Ke Storage
+        if ($request->file) {
+            $file = $request->file;
+            @list($type, $file_data) = explode(';', $file);
+            @list(, $file_data) = explode(',', $file_data);
+            $file_name = $this->generateInOutNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/in-out/'.$file_name, base64_decode($file_data), 'public');
+        } else {
+            $file_name = null;
+        }
+
+        if ($request->option_transaction == 1) {
+            $requestFinance = RequestFinance::find($request->source);
+            $settlementAdvance = Settlement::where('request_finance_id', $requestFinance->id)->first();
+
+            $source = $requestFinance->no_request;
+
+            $requestFinance->status = 5;
+            $requestFinance->updated_at = Carbon::now();
+            $requestFinance->save();
+
+            $settlementAdvance->status = 1;
+            $settlementAdvance->updated_at = Carbon::now();
+            $settlementAdvance->save();
+        } else {
+            $source = $request->source;
+        }
 
         $in_out_payment = [
-            'source' => $request->source,
-            'bank_id' => $request->bank_id,
-            'no_rek' => $request->no_rek,
             'type_transaction' => $request->type_transaction,
+            'option_transaction' => $request->option_transaction,
+            'source' => $source,
             'transaction_date' => $request->transaction_date,
             'amount' => $request->amount,
+            'bank_id' => $request->bank_id,
+            'bank_account' => $request->bank_account,
+            'file' => $file_name,
             'remarks' => $request->remark,
             'status' => 4,
             'created_at' => Carbon::now(),
@@ -76,7 +115,6 @@ class InOutPaymentController extends Controller
 
     public function changeStatus($id)
     {
-
         $inout = InOutPayment::where('finance_request_id', $id)->first();
         $inout->status = $inout->status + 1;
         $inout->save();
@@ -98,16 +136,37 @@ class InOutPaymentController extends Controller
         $inout = InOutPayment::find($id);
         $req_finance = RequestFinance::find($inout->finance_request_id);
 
-        $inout->status = $inout->status + 1;
+        if ($inout->status == 3 && $req_finance->status == 3) {
+            $inout->status = $inout->status + 1;
+            $req_finance->status = $req_finance->status + 1;
+        } elseif ($inout->status == 6 && $req_finance->status == 7) {
+            $inout->status = 4;
+            $req_finance->status = 5;
+
+            $settlement = Settlement::where('request_finance_id', $inout->finance_request_id)->first();
+            $settlement->status = 1;
+            $settlement->save();
+        }
+
         $inout->save();
 
-        $req_finance->status = $req_finance->status + 1;
-        $req_finance->no_request_confirm = $request->no_payment;
-        $req_finance->request_confirm_date = $request->confirm_date;
+        $req_finance->no_payment = $request->no_payment;
+        $req_finance->confirm_date = $request->confirm_date;
         $req_finance->save();
 
         return response()->json([
             'status' => 'success', 'request' => $request->all(),
         ], 200);
+    }
+
+    public function generateInOutNo()
+    {
+        $year_month = Carbon::now()->format('ym');
+        $get_last_inout_no = 'INOUT'.$year_month.'00000';
+        $cut_string_inout = str_replace('INOUT', '', $get_last_inout_no);
+
+        $latest_inout_payment = InOutPayment::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+
+        return 'INOUT'.($cut_string_inout + ($latest_inout_payment['id'] + 1));
     }
 }

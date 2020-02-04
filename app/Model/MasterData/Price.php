@@ -18,7 +18,7 @@ class Price extends MyModel
         'updated_by_name',
         'item_name',
         'uom_name',
-        'customer_name'
+        'customer_name',
     ];
     protected $fillable = [
         'skuid',
@@ -30,7 +30,7 @@ class Price extends MyModel
         'tax_value',
         'start_periode',
         'end_periode',
-        'created_by'
+        'created_by',
     ];
 
     protected $columns = [
@@ -39,26 +39,26 @@ class Price extends MyModel
             'search_relation' => false,
         ],
         'skuid' => [
-            'searchable' => false,
-            'search_relation' => false,
+            'searchable' => true,
+            'search_relation' => true,
         ],
         'item_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'Item',
-            'relation_field' => 'name_item'
+            'relation_field' => 'name_item',
         ],
         'uom_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'Uom',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'customer_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'Customer',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'amount' => [
             'searchable' => false,
@@ -88,14 +88,14 @@ class Price extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'create_by',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'updated_by_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'update_by',
-            'relation_field' => 'name'
-        ]
+            'relation_field' => 'name',
+        ],
     ];
 
     public function Uom()

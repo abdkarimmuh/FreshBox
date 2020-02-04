@@ -5,7 +5,7 @@ namespace App\Http\Resources\FinanceAP;
 use App\Model\MasterData\Vendor;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RequestFinanceDetailResource extends JsonResource
+class SettlementDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -29,8 +29,6 @@ class RequestFinanceDetailResource extends JsonResource
             'price' => $this->price,
             'ppn' => $this->ppn,
             'total' => $this->total,
-            'price_confirm' => 0,
-            'total_confirm' => 0,
             'supplier_name' => $vendor->name,
             'supplier_id' => $this->supplier_id,
             'remarks' => $this->remarks,

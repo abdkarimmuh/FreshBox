@@ -34,18 +34,18 @@ export default {
                     filterable: true
                 },
                 {
-                    title: "User Name",
+                    title: "Requester Name",
                     field: "user_name",
                     filterable: false
                 },
                 {
-                    title: "Shipping Address",
-                    field: "shipping_address",
+                    title: "Dept",
+                    field: "dept",
                     filterable: true
                 },
                 {
-                    title: "Dept",
-                    field: "dept",
+                    title: "Shipping Address",
+                    field: "shipping_name",
                     filterable: true
                 },
                 {

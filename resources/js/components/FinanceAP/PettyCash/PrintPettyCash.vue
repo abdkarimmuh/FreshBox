@@ -129,10 +129,10 @@
                                 <tr v-for="(item, index) in details">
                                     <td class="text-center">{{ index + 1 }}</td>
                                     <td class="text-left">
-                                        {{ item.itemName }}
+                                        {{ item.item_name }}
                                     </td>
                                     <td class="text-center">
-                                        {{ item.typeOfGoods }}
+                                        {{ item.skuid }}
                                     </td>
                                     <td class="text-center">{{ item.qty }}</td>
                                     <td class="text-center">
@@ -148,7 +148,7 @@
                                         {{ item.total | toIDR }}
                                     </td>
                                     <td class="text-left">
-                                        {{ item.supplierName }}
+                                        {{ item.supplier_id }}
                                     </td>
                                     <td class="text-left">
                                         {{ item.remarks }}
@@ -219,11 +219,15 @@
                                                 <td width="70">
                                                     <b>No Rek</b>
                                                 </td>
-                                                <td>{{ pettyCash.noRek }}</td>
+                                                <td>
+                                                    {{ pettyCash.bank_account }}
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td width="50"></td>
-                                                <td>{{ pettyCash.namaRek }}</td>
+                                                <td>
+                                                    {{ pettyCash.bank_name }}
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

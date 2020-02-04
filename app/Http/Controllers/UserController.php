@@ -9,7 +9,6 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserAddRequest;
 use Spatie\Permission\Models\Role;
 use App;
-use App\Model\MasterData\Bank;
 use App\Model\MasterData\Vendor;
 use App\UserProfile;
 use Carbon\Carbon;
@@ -73,7 +72,7 @@ class UserController extends Controller
         $user_profile = UserProfile::create([
             'user_id' => $user->id,
             'dept' => $request->dept,
-            'no_rek' => $request->bank_account,
+            'bank_account' => $request->bank_account,
             'bank_id' => $request->bank,
             'created_at' => Carbon::now(),
         ]);
@@ -86,6 +85,7 @@ class UserController extends Controller
             'bank_account' => $request->bank_account,
             'bank_id' => $request->bank,
             'created_by' => $user->id,
+            'type_vendor' => 1,
             'created_at' => Carbon::now(),
         ]);
 
@@ -94,7 +94,6 @@ class UserController extends Controller
             'user_profile' => $user_profile,
             'vendor' => $vendor,
             'request_all' => $request->all(),
-
         ]);
     }
 

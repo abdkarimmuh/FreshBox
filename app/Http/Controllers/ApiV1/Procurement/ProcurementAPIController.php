@@ -351,6 +351,7 @@ class ProcurementAPIController extends Controller
             'tlp_pic' => '0',
             'bank_account' => $request->bank_account,
             'bank_id' => $request->bank,
+            'type_vendor' => 1,
             'created_by' => auth('api')->user()->id,
             'created_at' => Carbon::now(),
         ]);
@@ -358,7 +359,7 @@ class ProcurementAPIController extends Controller
         UserProfile::create([
             'user_id' => $user->id,
             'dept' => 'Procurement',
-            'no_rek' => $request->bank_account,
+            'bank_account' => $request->bank_account,
             'bank_id' => $request->bank,
             'created_by' => auth('api')->user()->id,
             'created_at' => Carbon::now(),

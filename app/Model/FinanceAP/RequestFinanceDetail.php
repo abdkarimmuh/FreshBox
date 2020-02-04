@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RequestFinanceDetail extends Model
 {
     protected $table = 'finance_request_detail';
-    protected $fillable = ['request_finance_id', 'item_name', 'type_of_goods', 'qty', 'uom_id', 'price', 'ppn', 'total', 'supplier_name', 'remarks', 'price_confirm', 'total_confirm', 'qty_confirm', 'checked', 'created_at', 'updated_at'];
+    protected $fillable = ['request_finance_id', 'item_name', 'skuid', 'qty', 'uom_id', 'price', 'ppn', 'total', 'supplier_name', 'remarks', 'price_confirm', 'total_confirm', 'qty_confirm', 'checked', 'created_at', 'updated_at'];
     protected $appends = ['uom_name'];
 
     public function Uom()

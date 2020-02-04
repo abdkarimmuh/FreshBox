@@ -27,7 +27,8 @@
                     <div class="text-center">
                         <h4>
                             <b style="color: black; text-decoration: underline"
-                                >FORM PENYELESAIAN PERMINTAAN PEMBELIAN BARANG / JASA</b
+                                >FORM PENYELESAIAN PERMINTAAN PEMBELIAN BARANG /
+                                JASA</b
                             >
                         </h4>
                     </div>
@@ -35,7 +36,7 @@
                     <br />
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="table-responsive">
                                     <table width="100%">
                                         <tbody>
@@ -46,7 +47,7 @@
                                                 <td width="2%">:</td>
                                                 <td width="40%">
                                                     {{
-                                                        requestFinance.no_request
+                                                        settlement.no_settlement
                                                     }}
                                                 </td>
                                             </tr>
@@ -57,7 +58,7 @@
                                                 <td width="2%">:</td>
                                                 <td width="40%">
                                                     {{
-                                                        requestFinance.request_date
+                                                        settlement.request_date
                                                     }}
                                                 </td>
                                             </tr>
@@ -65,7 +66,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="table-responsive">
                                     <table width="100%">
                                         <tbody>
@@ -75,9 +76,7 @@
                                                 </td>
                                                 <td width="2%">:</td>
                                                 <td width="40%">
-                                                    {{
-                                                        requestFinance.user_name
-                                                    }}
+                                                    {{ settlement.user_name }}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -86,7 +85,7 @@
                                                 </td>
                                                 <td width="2%">:</td>
                                                 <td width="40%">
-                                                    {{ requestFinance.dept }}
+                                                    {{ settlement.dept }}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -96,7 +95,7 @@
                                                 <td width="2%">:</td>
                                                 <td width="40%">
                                                     {{
-                                                        requestFinance.shipping_address
+                                                        settlement.shipping_address
                                                     }}
                                                 </td>
                                             </tr>
@@ -120,7 +119,9 @@
                                         Harga + PPn(%)
                                     </th>
                                     <th class="text-center">Total</th>
-                                    <th class="text-center">Nominal Permintaan</th>
+                                    <th class="text-center">
+                                        Nominal Permintaan
+                                    </th>
                                     <th class="text-center">Keterangan</th>
                                 </tr>
                             </thead>
@@ -128,27 +129,27 @@
                                 <tr v-for="(item, index) in details">
                                     <td class="text-center">{{ index + 1 }}</td>
                                     <td class="text-left">
-                                        {{ item.itemName }}
+                                        {{ item.item_name }}
                                     </td>
                                     <td class="text-center">
-                                        {{ item.typeOfGoods }}
+                                        {{ item.skuid }}
                                     </td>
-                                    <td class="text-center">{{ item.qtyConfirm }}</td>
+                                    <td class="text-center">
+                                        {{ item.qty }}
+                                    </td>
                                     <td class="text-center">
                                         {{ item.uom_name }}
                                     </td>
                                     <td class="text-right">
-                                        {{ item.priceConfirm | toIDR }}
+                                        Rp {{ item.price | toIDR }}
                                     </td>
                                     <td class="text-right" width="100">
                                         {{ item.ppn }} %
                                     </td>
                                     <td class="text-right">
-                                        {{ item.totalConfirm | toIDR }}
+                                        Rp {{ item.total | toIDR }}
                                     </td>
-                                    <td class="text-left">
-
-                                    </td>
+                                    <td class="text-left"></td>
                                     <td class="text-left">
                                         {{ item.remarks }}
                                     </td>
@@ -176,10 +177,15 @@
                                     <td></td>
                                     <td></td>
                                     <td class="text-right">
-                                       <b> {{ requestFinance.total_confirm | toIDR }} </b>
+                                        <b
+                                            >Rp
+                                            {{
+                                                settlement.total_confirm | toIDR
+                                            }}</b
+                                        >
                                     </td>
                                     <td class="text-right">
-                                       <b> {{ requestFinance.total | toIDR }} </b>
+                                        <b>Rp {{ settlement.total | toIDR }}</b>
                                     </td>
                                     <td></td>
                                 </tr>
@@ -195,9 +201,10 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <b> Pembayaran (Cash/Transfer)</b
+                                                    <b>
+                                                        Pembayaran
+                                                        (Cash/Transfer)</b
                                                     >
-
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -219,7 +226,9 @@
                                                 </td>
                                                 <td>:</td>
                                                 <td>
-                                                    {{ requestFinance.noRek }}
+                                                    {{
+                                                        settlement.bank_account
+                                                    }}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -228,7 +237,7 @@
                                                 </td>
                                                 <td>:</td>
                                                 <td>
-                                                    {{ requestFinance.user_name }}
+                                                    {{ settlement.pic }}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -237,7 +246,7 @@
                                                 </td>
                                                 <td>:</td>
                                                 <td>
-                                                    {{ requestFinance.namaRek }}
+                                                    {{ settlement.bank_name }}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -291,8 +300,8 @@ export default {
     props: ["id"],
     data() {
         return {
-            requestFinance_id: "",
-            requestFinance: {},
+            settlement_id: "",
+            settlement: {},
             details: [],
             loading: false
         };
@@ -305,12 +314,12 @@ export default {
             axios
                 .get(
                     this.$parent.MakeUrl(
-                        "api/v1/finance-ap/request-advance/show/" +
+                        "api/v1/finance-ap/settlement-cash-advance/show/" +
                             this.$route.params.id
                     )
                 )
                 .then(res => {
-                    this.requestFinance = res.data.data;
+                    this.settlement = res.data.data;
                     this.details = res.data.data.details;
                     this.loading = true;
                 })

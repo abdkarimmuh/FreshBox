@@ -14,7 +14,8 @@ class PettyCashResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
@@ -24,26 +25,27 @@ class PettyCashResource extends JsonResource
         $user = User::where('name', 'like', $vendor->name)->first();
         if ($user == null) {
             $dept = 'Vendor';
-            $nama_rek = $vendor->bank_name;
+            $bank_name = $vendor->bank_name;
             $user_name = $vendor->name;
-            $no_rek = $vendor->bank_account;
+            $bank_account = $vendor->bank_account;
         } else {
             $user_profile = UserProfile::where('user_id', $user->id)->first();
             $dept = isset($user_profile->dept) ? $user_profile->dept : '';
-            $nama_rek = isset($user_profile->bank->name) ? $user_profile->bank->name : '';
+            $bank_name = isset($user_profile->bank->name) ? $user_profile->bank->name : '';
             $user_name = isset($user->name) ? $user->name : '';
-            $no_rek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
+            $bank_account = isset($user_profile->bank_account) ? $user_profile->bank_account : '';
         }
+
         return [
             'id' => $this->id,
             'status_name' => $this->RequestFinance->status_html,
             'user_request_name' => $user_name,
             'dept' => $dept,
             'address' => $this->RequestFinance->warehouse->address,
-            'namaRek' => $nama_rek,
-            'noRek' => $no_rek,
+            'bank_name' => $bank_name,
+            'bank_account' => $bank_account,
             'amount' => $this->amount,
-            'terbilang' => Terbilang::make($this->RequestFinance->total) . ' rupiah',
+            'terbilang' => Terbilang::make($this->RequestFinance->total).' rupiah',
             'no_request' => $this->no_trx,
             'updated_by_name' => $this->updated_by_name,
             'created_by_name' => $this->created_by_name,

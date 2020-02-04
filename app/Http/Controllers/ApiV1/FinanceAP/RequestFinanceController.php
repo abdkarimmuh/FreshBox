@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiV1\FinanceAP;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FinanceAP\NoRequestFinanceResource;
 use App\Http\Resources\FinanceAP\RequestFinanceResource;
 use App\Http\Resources\FinanceAP\RequestFinanceWithDetailResource;
 use App\Model\FinanceAP\InOutPayment;
@@ -36,20 +37,16 @@ class RequestFinanceController extends Controller
         return RequestFinanceResource::collection($query);
     }
 
-    public function settlement(Request $request)
+    public function get(Request $request)
     {
-        $searchValue = $request->input('query');
-        $perPage = $request->perPage;
-        // $query = RequestFinance::where('status', 4)->dataTableQuery($searchValue);
-        $query = RequestFinance::where('status', '>=', 4)->dataTableQuery($searchValue)->orderBy('status', 'asc');
-        if ($request->start && $request->end) {
-            $query->whereBetween('no_request', [$request->start, $request->end]);
-        }
-        if ($searchValue) {
-            $query = $query->orderBy('no_request', 'desc')->take(20)->paginate(20);
-        } else {
-            $query = $query->orderBy('no_request', 'desc')->paginate($perPage);
-        }
+        $query = RequestFinance::all();
+
+        return RequestFinanceResource::collection($query);
+    }
+
+    public function getSettlement(Request $request)
+    {
+        $query = RequestFinance::where('status', 4)->get();
 
         return RequestFinanceResource::collection($query);
     }
@@ -75,7 +72,7 @@ class RequestFinanceController extends Controller
         ];
         $request->validate($rules);
 
-        $noRequest = $this->generateRequestNo($request->date);
+        $noRequest = $this->generateRequestNo();
         $data = [
             'no_request' => $noRequest,
             'vendor_id' => $request->userId,
@@ -90,22 +87,22 @@ class RequestFinanceController extends Controller
         $requestFinance = RequestFinance::insertGetId($data);
         $orderDetails = $request->orderDetails;
         $total = 0;
-        foreach ($orderDetails as $i => $detail) {
+        foreach ($orderDetails as $detail) {
             $requestFinanceDetails[] = [
                 'request_finance_id' => $requestFinance,
                 'item_name' => $detail['name'],
-                'type_of_goods' => $detail['typeOfGoods'],
+                'skuid' => $detail['skuid'],
                 'qty' => $detail['qty'],
                 'uom_id' => $detail['uom_id'],
                 'price' => $detail['price'],
                 'ppn' => $detail['ppn'],
-                'total' => $detail['price'] * $detail['qty'] + ($detail['price'] * $detail['qty'] * $detail['ppn'] / 100),
-                'supplier_name' => $detail['supplierName'],
-                'remarks' => $detail['remark'],
+                'total' => $detail['total'],
+                'supplier_id' => $detail['supplier_id'],
+                'remarks' => $detail['remarks'],
                 'created_at' => now(),
             ];
 
-            $total = $total + ($detail['price'] * $detail['qty'] + ($detail['price'] * $detail['qty'] * $detail['ppn'] / 100));
+            $total = $total + ($detail['total']);
         }
         RequestFinanceDetail::insert($requestFinanceDetails);
 
@@ -118,25 +115,27 @@ class RequestFinanceController extends Controller
             ]);
         } else {
             $vendor = Vendor::find($request->userId);
-            $user = User::where('name', '', $vendor->name)->first();
-            if ($user == null) {
-                $bank_id = $vendor->bank_id;
-                $norek = $vendor->bank_account;
-            } else {
+            if ($vendor->type_vendor == 1) {
+                //employee
+                $user = User::find($vendor->users_id);
                 $user_profile = UserProfile::where('user_id', $user->id)->first();
                 $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
-                $norek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
+                $bank_account = isset($user_profile->bank_account) ? $user_profile->bank_account : '';
+            } else {
+                //vendor
+                $bank_id = $vendor->bank_id;
+                $bank_account = $vendor->bank_account;
             }
             InOutPayment::create([
                 'finance_request_id' => $requestFinance,
                 'source' => null,
                 'transaction_date' => now()->toDateString(),
                 'bank_id' => $bank_id,
-                'no_rek' => $norek,
+                'bank_account' => $bank_account,
                 'amount' => $total,
                 'remarks' => null,
                 'status' => 1,
-                'type_transaction' => 1,
+                'type_transaction' => 2,
                 'created_at' => now(),
             ]);
         }
@@ -151,7 +150,7 @@ class RequestFinanceController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateRequestNo(Carbon::now()->toDateString()).'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            $file_name = $this->generateRequestNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
             Storage::disk('local')->put('public/files/request-advance/'.$file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
@@ -170,14 +169,14 @@ class RequestFinanceController extends Controller
         ]);
     }
 
-    public function generateRequestNo($date)
+    public function generateRequestNo()
     {
-        $year_month = Carbon::parse($date)->format('y-m');
-        $latestRequestFinance = RequestFinance::where(DB::raw("DATE_FORMAT(request_date, '%y-%m')"), $year_month)->latest()->first();
-        $latestRequestFinanceNo = isset($latestRequestFinance->no_request) ? $latestRequestFinance->no_request : '0-GF-FB';
-        $cutString = str_replace('-GF-FB', '', $latestRequestFinanceNo);
+        $year_month = Carbon::now()->format('ym');
+        $latest_request = RequestFinance::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+        $get_last_request_no = isset($latest_request->no_request) ? $latest_request->no_request : 'ADV'.$year_month.'00000';
+        $cut_string_request = str_replace('ADV', '', $get_last_request_no);
 
-        return ($cutString + 1).'-GF-FB';
+        return 'ADV'.($cut_string_request + 1);
     }
 
     public function setDate(Request $request)
@@ -201,16 +200,6 @@ class RequestFinanceController extends Controller
         ]);
     }
 
-    public function requestFinanceDetail($id)
-    {
-        $requestFinanceDetail = RequestFinanceDetail::where('request_finance_id', $id)->get();
-
-        return response()->json([
-            'success' => true,
-            'data' => $requestFinanceDetail,
-        ]);
-    }
-
     public function update(Request $request)
     {
         $requestFinance = RequestFinance::find($request->id);
@@ -225,13 +214,13 @@ class RequestFinanceController extends Controller
             $items[] = [
                 'request_finance_id' => $request->id,
                 'item_name' => $detail['item_name'],
-                'type_of_goods' => $detail['type_of_goods'],
+                'skuid' => $detail['skuid'],
                 'qty' => $detail['qty'],
                 'uom_id' => $detail['uom_id'],
                 'price' => $detail['price'],
                 'ppn' => $detail['ppn'],
-                'total' => $detail['price'] * $detail['qty'] + ($detail['price'] * $detail['qty'] * $detail['ppn'] / 100),
-                'supplier_name' => $detail['supplier_name'],
+                'total' => $detail['total'],
+                'supplier_id' => $detail['supplier_id'],
                 'remarks' => $detail['remarks'],
                 'created_at' => $requestFinance->created_at,
                 'updated_at' => now(),
@@ -245,24 +234,14 @@ class RequestFinanceController extends Controller
         ]);
     }
 
-    public function settlementUpdate(Request $request)
+    public function getNoRequestAdvance(Request $request, $id)
     {
-        $requestFinance = RequestFinance::find($request->id);
-        $requestFinance->status = 5;
-        $requestFinance->updated_at = now();
-        $requestFinance->save();
-
-        foreach ($request->detail as $detail) {
-            $requestFinanceDetail = RequestFinanceDetail::find($detail['id']);
-            $requestFinanceDetail->qty_confirm = $detail['qty_confirm'];
-            $requestFinanceDetail->price_confirm = $detail['price_confirm'];
-            $requestFinanceDetail->total_confirm = ($detail['qty_confirm'] * $detail['price_confirm']) + ($detail['qty_confirm'] * $detail['price_confirm'] * $requestFinanceDetail->ppn / 100);
-            $requestFinanceDetail->updated_at = now();
-            $requestFinanceDetail->save();
+        if ($id == 1) {
+            $requestFinance = RequestFinance::where('status', 6)->get();
+        } else {
+            $requestFinance = RequestFinance::where('status', 7)->get();
         }
 
-        return response()->json([
-            'success' => true,
-        ]);
+        return NoRequestFinanceResource::collection($requestFinance);
     }
 }

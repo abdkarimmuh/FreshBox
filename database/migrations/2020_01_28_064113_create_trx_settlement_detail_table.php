@@ -4,16 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFinanceRequestDetailTable extends Migration
+class CreateTrxSettlementDetailTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up()
     {
-        Schema::create('finance_request_detail', function (Blueprint $table) {
+        Schema::create('trx_settlement_detail', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('request_finance_id')->index();
+            $table->unsignedBigInteger('settlement_id')->index();
             $table->string('item_name')->index();
             $table->string('skuid')->index();
             $table->float('qty')->index();
@@ -21,8 +21,7 @@ class CreateFinanceRequestDetailTable extends Migration
             $table->integer('price')->index();
             $table->integer('ppn')->nullable();
             $table->integer('total')->index();
-            $table->unsignedBigInteger('supplier_id')->nullable();
-            $table->string('remarks')->nullable();
+            $table->string('supplier_id')->nullable();
             $table->tinyInteger('checked')->default(0)->comment('0 = Default ,1 = Not Returned, 2 = Returned');
             $table->timestamps();
         });
@@ -33,6 +32,6 @@ class CreateFinanceRequestDetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('finance_request_detail');
+        Schema::dropIfExists('trx_settlement_detail');
     }
 }

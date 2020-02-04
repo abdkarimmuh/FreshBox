@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources\FinanceAP;
 
-use App\Model\FinanceAP\RequestFinanceDetail;
+use App\Model\MasterData\Vendor;
+use App\User;
+use App\UserProfile;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Riskihajar\Terbilang\Facades\Terbilang;
 
 class SettlementFinanceResource extends JsonResource
 {
@@ -17,27 +18,30 @@ class SettlementFinanceResource extends JsonResource
      */
     public function toArray($request)
     {
-        $total = 0;
-        $requestDetail = RequestFinanceDetail::where('request_finance_id', $this->id);
-        foreach ($requestDetail as $detail) {
-            $total = $total + ($detail->price * $detail->qty + ($detail->price * $detail->qty * $detail->ppn / 100));
+        $vendor = Vendor::find($this->requestFinance->vendor_id);
+        if ($vendor->type_vendor == 1) {
+            //employee
+            $user = User::find($vendor->users_id);
+            $user_profile = UserProfile::where('user_id', $user->id)->first();
+            $dept = isset($user_profile->dept) ? $user_profile->dept : '';
+            $user_name = isset($user->name) ? $user->name : '';
+        } else {
+            //vendor
+            $dept = 'Vendor';
+            $user_name = $vendor->name;
         }
 
         return [
             'id' => $this->id,
-            'no_request' => $this->no_request.'/'.$this->created_at->format('m/Y'),
-            'request_date' => $this->request_date->formatLocalized('%d %B %Y'),
-            'shipping_address' => $this->warehouse->address,
-            'status' => isset($this->no_request_confirm) ? 2 : 1,
-            'user_name' => $this->user->name,
-            'status_name' => isset($this->no_request_confirm) ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-info">Not Confirmed</span>',
-            'dept' => $this->user->UserProfile->dept,
-            'namaRek' => $this->user->UserProfile->nama_rek,
-            'noRek' => $this->user->UserProfile->no_rek,
-            'total' => $this->total,
-            'terbilang' => Terbilang::make($this->total).' rupiah',
+            'no_settlement' => $this->no_settlement,
+            'no_request' => $this->requestFinance->no_request,
+            'request_date' => $this->requestFinance->request_date->formatLocalized('%d %B %Y'),
+            'shipping_address' => $this->requestFinance->warehouse->name,
+            'status' => $this->status,
+            'status_name' => $this->status_html,
+            'user_name' => $user_name,
+            'dept' => $dept,
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
-            'created_by_name' => $this->created_by_name,
         ];
     }
 }

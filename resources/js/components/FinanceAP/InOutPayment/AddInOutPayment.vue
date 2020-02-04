@@ -7,18 +7,81 @@
                 </div>
                 <div class="col-12">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>
+                                    <b>Tipe Transaksi</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div>
+                                    <model-list-select
+                                        :list="types"
+                                        v-model="in_out_payment.type"
+                                        option-value="id"
+                                        option-text="name"
+                                        v-on:input="getOptions()"
+                                        placeholder="Select Tipe Transaksi"
+                                    ></model-list-select>
+                                    <div
+                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                        v-if="errors.type"
+                                    >
+                                        <p>{{ errors.type[0] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3" v-if="in_out_payment.type != ''">
+                            <div class="form-group">
+                                <label>
+                                    <b>Opsi Transaksi</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div>
+                                    <model-list-select
+                                        :list="options"
+                                        v-model="in_out_payment.option"
+                                        option-value="id"
+                                        option-text="name"
+                                        placeholder="Select Opsi Transaksi"
+                                    ></model-list-select>
+                                    <div
+                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                        v-if="errors.option"
+                                    >
+                                        <p>
+                                            {{ errors.option[0] }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" v-if="in_out_payment.option">
                             <div class="form-group">
                                 <label>
                                     <b>Source Data</b>
                                     <span style="color: red;">*</span>
                                 </label>
                                 <div>
+                                    <model-list-select
+                                        :list="no_requests"
+                                        v-model="in_out_payment.source"
+                                        v-if="
+                                            in_out_payment.option == 1 &&
+                                                no_requests != []
+                                        "
+                                        option-value="id"
+                                        option-text="no_and_requester"
+                                        placeholder="Source Data"
+                                    ></model-list-select>
                                     <input
                                         type="text"
                                         v-bind:class="{
                                             'is-invalid': errors.source
                                         }"
+                                        v-else
                                         placeholder="Source Data"
                                         class="form-control"
                                         v-model="in_out_payment.source"
@@ -34,60 +97,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>
-                                    <b>Request Date</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <date-picker
-                                        v-model="
-                                            in_out_payment.transaction_date
-                                        "
-                                        lang="en"
-                                        type="date"
-                                        valueType="format"
-                                        :not-before="new Date()"
-                                        format="YYYY-MM-DD"
-                                    />
-                                </div>
-                                <div
-                                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                    v-if="errors.transaction_date"
-                                >
-                                    <p>{{ errors.transaction_date[0] }}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>
-                                    <b>Tipe Transaksi</b>
-                                    <span style="color: red;">*</span>
-                                </label>
-                                <div>
-                                    <model-list-select
-                                        :list="types"
-                                        v-model="
-                                            in_out_payment.type_transaction
-                                        "
-                                        option-value="id"
-                                        option-text="name"
-                                        placeholder="Select Tipe Transaksi"
-                                    ></model-list-select>
-                                    <div
-                                        style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.type_transaction"
-                                    >
-                                        <p>{{ errors.type_transaction[0] }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
+                        <div class="col-md-6" v-if="in_out_payment.option">
                             <div class="form-group">
                                 <label>
                                     <b>Amount</b>
@@ -114,7 +124,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6" v-if="in_out_payment.option">
                             <div class="form-group">
                                 <label>
                                     <b>Nama Bank</b>
@@ -138,7 +148,34 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3" v-if="in_out_payment.option">
+                            <div class="form-group">
+                                <label>
+                                    <b>Request Date</b>
+                                    <span style="color: red;">*</span>
+                                </label>
+                                <div>
+                                    <date-picker
+                                        v-model="
+                                            in_out_payment.transaction_date
+                                        "
+                                        lang="en"
+                                        type="date"
+                                        valueType="format"
+                                        :not-before="new Date()"
+                                        format="YYYY-MM-DD"
+                                    />
+                                </div>
+                                <div
+                                    style="margin-top: .25rem; font-size: 80%;color: #dc3545"
+                                    v-if="errors.transaction_date"
+                                >
+                                    <p>{{ errors.transaction_date[0] }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3" v-if="in_out_payment.option">
                             <div class="form-group">
                                 <label>
                                     <b>Nomor Rekening</b>
@@ -148,24 +185,65 @@
                                     <input
                                         type="number"
                                         v-bind:class="{
-                                            'is-invalid': errors.no_rek
+                                            'is-invalid': errors.bank_account
                                         }"
                                         placeholder="Nomor Rekening"
                                         class="form-control"
-                                        v-model="in_out_payment.no_rek"
+                                        v-model="in_out_payment.bank_account"
                                         required
                                     />
                                     <div
                                         style="margin-top: .25rem; font-size: 80%;color: #dc3545"
-                                        v-if="errors.no_rek"
+                                        v-if="errors.bank_account"
                                     >
-                                        <p>{{ errors.no_rek[0] }}</p>
+                                        <p>{{ errors.bank_account[0] }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div
+                                class="form-group"
+                                v-if="in_out_payment.option"
+                            >
+                                <label>
+                                    <b>File</b>
+                                    <span
+                                        style="color: red;"
+                                        v-if="in_out_payment.option != 3"
+                                        >*</span
+                                    >
+                                </label>
+                                <div class="custom-file">
+                                    <input
+                                        v-bind:class="{
+                                            'is-invalid': errors.file
+                                        }"
+                                        type="file"
+                                        name="site_logo"
+                                        class="custom-file-input"
+                                        id="site-logo"
+                                        v-on:change="onFileChange"
+                                    />
+                                    <label class="custom-file-label">
+                                        {{
+                                            in_out_payment.fileName
+                                                ? in_out_payment.fileName
+                                                : "Choose File"
+                                        }}
+                                    </label>
+                                    <div
+                                        class="invalid-feedback"
+                                        v-if="errors.file"
+                                    >
+                                        <p>{{ errors.file[0] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" v-if="in_out_payment.option">
                             <div class="form-group">
                                 <label>
                                     <b>Remarks</b>
@@ -179,7 +257,10 @@
                                     id="Remarks"
                                     name="Remarks"
                                 ></textarea>
-                                <div class="invalid-feedback" v-if="errors.remark">
+                                <div
+                                    class="invalid-feedback"
+                                    v-if="errors.remark"
+                                >
                                     <p>{{ errors.remark[0] }}</p>
                                 </div>
                             </div>
@@ -190,7 +271,16 @@
                                     <loading-button />
                                 </div>
                                 <div v-else>
-                                    <button class="btn btn-danger" v-on:click="submitForm()">Submit</button>
+                                    <button
+                                        v-if="
+                                            in_out_payment.type != '' &&
+                                                in_out_payment.option
+                                        "
+                                        class="btn btn-danger"
+                                        v-on:click="submitForm()"
+                                    >
+                                        Submit
+                                    </button>
                                     <back-button />
                                 </div>
                             </div>
@@ -213,25 +303,30 @@ export default {
     data() {
         return {
             in_out_payment: {
+                type: "",
+                option: "",
                 source: "",
-                type_transaction: "",
                 transaction_date: "",
-                amount: "",
                 bank_id: "",
-                no_rek: "",
+                bank_account: "",
+                amount: "",
+                file: "",
+                fileName: "",
                 remark: ""
             },
             banks: [],
+            no_requests: [],
             types: [
                 {
-                    id: 2,
-                    name: "IN"
+                    id: 1,
+                    name: "In Payment"
                 },
                 {
-                    id: 1,
-                    name: "OUT"
+                    id: 2,
+                    name: "Out Payment"
                 }
             ],
+            options: [],
             errors: [],
             loading: false,
             loadingSubmit: false,
@@ -248,23 +343,79 @@ export default {
          */
         getData() {
             axios
-                .all([
-                    axios.get(this.$parent.MakeUrl("api/v1/master_data/bank"))
-                ])
-                .then(
-                    axios.spread(banks => {
-                        this.banks = banks.data;
-                        this.loading = true;
-                    })
-                )
+                .get(this.$parent.MakeUrl("api/v1/master_data/bank"))
+                .then(res => {
+                    this.banks = res.data;
+                    this.loading = true;
+                })
                 .catch(err => {
                     if (err.response.status === 403) {
                         this.$router.push({
                             name: "inOutPayment"
                         });
+                    } else {
+                        console.error(err);
                     }
-                    if (err.response.status === 500) {
-                        this.getData();
+                });
+        },
+        getOptions() {
+            this.in_out_payment.option = "";
+            this.options = "";
+            this.getNoRequest();
+            if (this.in_out_payment.type == 1) {
+                this.options = [
+                    {
+                        id: 1,
+                        name: "Setlement Advance"
+                    },
+                    {
+                        id: 2,
+                        name: "Replacement"
+                    },
+                    {
+                        id: 3,
+                        name: "General Income"
+                    }
+                ];
+            } else {
+                this.options = [
+                    {
+                        id: 1,
+                        name: "Setlement Advance"
+                    },
+                    {
+                        id: 2,
+                        name: "Reimbursment"
+                    },
+                    {
+                        id: 3,
+                        name: "General Payment"
+                    }
+                ];
+            }
+        },
+        getNoRequest() {
+            this.no_requests = [];
+            this.in_out_payment.source = "";
+            axios
+                .get(
+                    this.$parent.MakeUrl(
+                        "api/v1/finance-ap/request-advance/get-no/" +
+                            this.in_out_payment.type
+                    )
+                )
+                .then(res => {
+                    this.no_requests = res.data.data;
+                    this.loading = true;
+                    console.log(res);
+                })
+                .catch(err => {
+                    if (err.response.status === 403) {
+                        this.$router.push({
+                            name: "inOutPayment"
+                        });
+                    } else {
+                        console.error(err);
                     }
                 });
         },
@@ -274,13 +425,15 @@ export default {
         async submitForm() {
             this.loadingSubmit = true;
             const payload = {
+                type_transaction: this.in_out_payment.type,
+                option_transaction: this.in_out_payment.option,
                 source: this.in_out_payment.source,
+                transaction_date: this.in_out_payment.transaction_date,
                 bank_id: this.in_out_payment.bank_id,
-                no_rek: this.in_out_payment.no_rek,
-                type_transaction: this.in_out_payment.type_transaction,
+                bank_account: this.in_out_payment.bank_account,
                 amount: this.in_out_payment.amount,
-                remark: this.in_out_payment.remark,
-                transaction_date: this.in_out_payment.transaction_date
+                file: this.in_out_payment.file,
+                remark: this.in_out_payment.remark
             };
             console.log(payload);
             try {
@@ -307,7 +460,7 @@ export default {
 
         onFileChange(e) {
             let fileData = e.target.files || e.dataTransfer.files;
-            this.sales_order.fileName = fileData[0].name;
+            this.in_out_payment.fileName = fileData[0].name;
             if (!fileData.length) return;
             this.createFile(fileData[0]);
         },
@@ -315,105 +468,15 @@ export default {
         createFile(file) {
             let reader = new FileReader();
             reader.onload = e => {
-                this.sales_order.file = e.target.result;
+                this.in_out_payment.file = e.target.result;
             };
             reader.readAsDataURL(file);
         },
-
-        /**
-         * Get List Items
-         * @returns {number}
-         */
-        getItems() {
-            this.loading = false;
-            axios
-                .get(
-                    this.$parent.MakeUrl(
-                        "api/v1/master_data/price/customer/" +
-                            this.sales_order.customerId +
-                            "/" +
-                            this.sales_order.fulfillmentDate
-                    )
-                )
-                .then(res => {
-                    this.items = res.data.price;
-                    this.orders_detail = [];
-                    this.loading = true;
-                })
-                .catch(err => {
-                    if (err.response.status === 500) {
-                        this.getItems();
-                    }
-                });
-        },
-        getItem() {
-            if (!this.skuid) return;
-            this.loading = false;
-            axios
-                .get(
-                    this.$parent.MakeUrl(
-                        "api/v1/master_data/price/" +
-                            this.sales_order.customerId +
-                            "/" +
-                            this.skuid
-                    )
-                )
-                .then(res => {
-                    this.item = res.data.data;
-                    this.loading = true;
-                })
-                .catch(err => {
-                    if (err.response.status === 500) {
-                        this.getItem();
-                    }
-                });
-        },
-        /**
-         *
-         * @param skuid
-         * @returns {number}
-         */
-        pushOrderDetails(skuid) {
-            if (!skuid) return;
-            const indexItem = this.orders_detail.findIndex(
-                x => x.skuid === skuid
-            );
-            if (indexItem >= 0) {
-                Vue.swal({
-                    type: "error",
-                    title: "ERROR!",
-                    text: "Item Already Added!"
-                });
-                console.log("GAGAL");
-            } else {
-                return this.orders_detail.push({
-                    total_amount: 0,
-                    qty: 0,
-                    skuid: this.item.skuid,
-                    uom: this.item.uom,
-                    item_name: this.item.item_name,
-                    amount: this.item.amount,
-                    notes: null
-                });
-            }
-        },
-        /**
-         * Delete Item
-         * @param index
-         */
-        removeOrderDetails(index) {
-            this.orders_detail.splice(index, 1);
-        },
         back() {
-            this.$router.push({ name: "form_sales_order" });
-        },
-        updateTotalAmount() {
-            this.orders_detail.map(
-                (item, idx) => (item.total_amount = item.amount * item.qty)
-            );
+            this.$router.push({ name: "form_in_out_payment" });
         },
         resetField() {
-            this.sales_order.fulfillmentDate = "";
+            this.in_out_payment.fulfillmentDate = "";
         }
     },
     components: {

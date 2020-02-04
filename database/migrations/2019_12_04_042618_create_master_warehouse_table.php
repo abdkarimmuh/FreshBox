@@ -8,13 +8,12 @@ class CreateMasterWarehouseTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
         Schema::create('master_warehouse', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
             $table->text('address');
             $table->timestamps();
         });
@@ -22,8 +21,6 @@ class CreateMasterWarehouseTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

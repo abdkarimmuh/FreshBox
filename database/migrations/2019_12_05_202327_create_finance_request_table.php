@@ -18,12 +18,13 @@ class CreateFinanceRequestTable extends Migration
             $table->unsignedBigInteger('master_warehouse_id')->index();
             $table->string('no_request')->index();
             $table->date('request_date')->index();
-            $table->string('no_request_confirm')->nullable();
-            $table->date('request_confirm_date')->nullable();
-            $table->tinyInteger('request_type')->comment('1 = cash , 2 = advance');
-            $table->tinyInteger('product_type')->comment('1 = non core , 2 = core');
-            $table->unsignedBigInteger('created_by');
+            $table->string('no_payment')->nullable();
+            $table->date('confirm_date')->nullable();
+            $table->tinyInteger('request_type')->comment('1 = Cash , 2 = Advance');
+            $table->tinyInteger('product_type')->comment('1 = Non Core , 2 = Core');
             $table->binary('file')->nullable();
+            $table->string('remarks')->nullable();
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
     }

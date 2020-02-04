@@ -140,7 +140,7 @@ class TopUpController extends Controller
                 'master_warehouse_id' => 1,
                 'request_date' => Carbon::now()->toDateString(),
                 'request_type' => 2,
-                'product_type' => 1,
+                'product_type' => 2,
                 'created_at' => Carbon::now(),
                 'created_by' => $user->id,
             ];
@@ -150,31 +150,38 @@ class TopUpController extends Controller
             RequestFinanceDetail::create([
                 'request_finance_id' => $requestFinance,
                 'item_name' => 'TopUp Procurement',
-                'type_of_goods' => '000',
+                'skuid' => '000',
                 'qty' => 1,
                 'uom_id' => 2,
                 'price' => $topUp->amount,
                 'ppn' => 0,
                 'total' => $topUp->amount,
-                'supplier_name' => $user->name,
+                'supplier_id' => $vendor->id,
                 'remarks' => $topUp->remark,
                 'created_at' => Carbon::now(),
             ]);
 
-            $user_profile = UserProfile::where('user_id', $user->id)->first();
-            $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
-            $norek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
+            if ($vendor->type_vendor == 1) {
+                //employee
+                $user_profile = UserProfile::where('user_id', $user->id)->first();
+                $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
+                $bank_account = isset($user_profile->bank_account) ? $user_profile->bank_account : '';
+            } else {
+                //vendor
+                $bank_id = $vendor->bank_id;
+                $bank_account = $vendor->bank_account;
+            }
 
             InOutPayment::create([
                 'finance_request_id' => $requestFinance,
                 'source' => null,
                 'transaction_date' => Carbon::now()->toDateString(),
                 'bank_id' => $bank_id,
-                'no_rek' => $norek,
+                'bank_account' => $bank_account,
                 'amount' => $topUp->amount,
                 'remarks' => null,
                 'status' => 3,
-                'type_transaction' => 1,
+                'type_transaction' => 2,
                 'created_at' => Carbon::now(),
             ]);
         }

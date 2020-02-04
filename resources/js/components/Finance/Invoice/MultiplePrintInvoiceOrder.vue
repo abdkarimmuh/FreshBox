@@ -88,7 +88,7 @@
                                 <tr>
                                     <td width="2%" class="text-right"><b>No Rekening</b></td>
                                     <td width="2%">&nbsp:</td>
-                                    <td width="30%">{{ info.no_rek }}</td>
+                                    <td width="30%">{{ info.bank_account }}</td>
                                 </tr>
                                 <tr>
                                     <td width="2%" class="text-right"><b>Bank</b></td>
@@ -137,7 +137,7 @@
                     no: "invoice_no",
                     nama_pt: "PT BERKAH TANI SEJAHTERA",
                     nama_ttd: "Faizal Finanda",
-                    no_rek: "006 500 9779",
+                    bank_account: "006 500 9779",
                     bank: "BCA Cabang SCBD"
                 },
                 columns: [

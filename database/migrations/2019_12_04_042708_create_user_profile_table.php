@@ -8,8 +8,6 @@ class CreateUserProfileTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -17,16 +15,14 @@ class CreateUserProfileTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->string('dept');
-            $table->string('no_rek');
             $table->unsignedBigInteger('bank_id');
+            $table->string('bank_account');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

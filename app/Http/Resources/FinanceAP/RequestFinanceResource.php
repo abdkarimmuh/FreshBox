@@ -2,12 +2,10 @@
 
 namespace App\Http\Resources\FinanceAP;
 
-use App\Model\FinanceAP\RequestFinanceDetail;
 use App\Model\MasterData\Vendor;
 use App\User;
 use App\UserProfile;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Riskihajar\Terbilang\Facades\Terbilang;
 
 class RequestFinanceResource extends JsonResource
 {
@@ -20,50 +18,30 @@ class RequestFinanceResource extends JsonResource
      */
     public function toArray($request)
     {
-        if ($this->request_type == 1) {
-            $requestType = 'Cash';
-        } else {
-            $requestType = 'Advance';
-        }
-
-        $total = 0;
-        $requestDetail = RequestFinanceDetail::where('request_finance_id', $this->id);
-        foreach ($requestDetail as $detail) {
-            $total = $total + ($detail->price * $detail->qty + ($detail->price * $detail->qty * $detail->ppn / 100));
-        }
-
         $vendor = Vendor::find($this->vendor_id);
-        $user = User::where('name', 'like', $vendor->name)->first();
-        if ($user == null) {
-            $dept = 'Vendor';
-            $nama_rek = $this->vendor->bank_name;
-            $user_name = $this->vendor->name;
-            $no_rek = $this->vendor->bank_account;
-        } else {
+        if ($vendor->type_vendor == 1) {
+            //employee
+            $user = User::find($vendor->users_id);
             $user_profile = UserProfile::where('user_id', $user->id)->first();
             $dept = isset($user_profile->dept) ? $user_profile->dept : '';
-            $nama_rek = isset($user_profile->bank->name) ? $user_profile->bank->name : '';
             $user_name = isset($user->name) ? $user->name : '';
-            $no_rek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
+        } else {
+            //vendor
+            $dept = 'Vendor';
+            $user_name = $vendor->name;
         }
 
         return [
             'id' => $this->id,
-            'no_request' => $this->no_request.'/'.$this->created_at->format('m/Y'),
+            'no_request' => $this->no_request,
             'request_date' => $this->request_date->formatLocalized('%d %B %Y'),
-            'shipping_address' => $this->warehouse->address,
-            // 'status' => isset($this->no_request_confirm) ? 2 : 1,
-            'status' => $this->status,
-            'request_type' => $requestType,
-            'product_type' => $this->product_type,
             'user_name' => $user_name,
-            'status_name' => $this->status_html,
-            // 'status_name' => isset($this->no_request_confirm) ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-info">Not Confirmed</span>',
             'dept' => $dept,
-            'namaRek' => $nama_rek,
-            'noRek' => $no_rek,
+            'shipping_address' => $this->warehouse->address,
+            'shipping_name' => $this->warehouse->name,
+            'status' => $this->status,
+            'status_name' => $this->status_html,
             'total' => $this->total,
-            'terbilang' => Terbilang::make($this->total).' rupiah',
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
             'created_by_name' => $this->created_by_name,
         ];

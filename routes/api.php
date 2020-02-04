@@ -134,28 +134,28 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
      * Route Finance AP API
      */
     Route::group(['prefix' => 'finance-ap', 'namespace' => 'FinanceAP\\'], function () {
-        //        Replenish
+        // Replenish
         Route::group(['prefix' => 'replenish'], function () {
             Route::get('/', 'ReplenishAPIController@index');
             Route::post('/store', 'ReplenishAPIController@store');
             Route::post('/action', 'ReplenishAPIController@returnReplenish');
             Route::post('/replenishUpdate/{id}', 'ReplenishAPIController@replenish');
         });
-        //        TopUp
+        // TopUp
         Route::group(['prefix' => 'topup'], function () {
             Route::get('/', 'TopUpProcAPIController@index');
             Route::get('/get', 'TopUpProcAPIController@indexApi');
             Route::get('/show/{id}', 'TopUpProcAPIController@show');
             Route::post('/', 'TopUpProcAPIController@store');
         });
-        //        Request Finance
+        // Request Finance
         Route::group(['prefix' => 'request-advance'], function () {
             Route::get('/', 'RequestFinanceController@index');
+            Route::get('/get', 'RequestFinanceController@get');
+            Route::get('/get-no/{id}', 'RequestFinanceController@getNoRequestAdvance');
+            Route::get('/get-settlement', 'RequestFinanceController@getSettlement');
             Route::get('/show/{id}', 'RequestFinanceController@show');
             Route::post('/update', 'RequestFinanceController@update');
-            Route::get('/requestFinanceDetail/{id}', 'RequestFinanceController@requestFinanceDetail');
-            Route::get('/settlement', 'RequestFinanceController@settlement');
-            Route::post('/settlement', 'RequestFinanceController@settlementUpdate');
             Route::post('/upload/{id}', 'RequestFinanceController@upload');
             Route::post('/{id}', 'RequestFinanceController@confirm');
             Route::post('/', 'RequestFinanceController@store');
@@ -163,11 +163,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         });
 
         // Settlement Finance
-        // Route::group(['prefix' => 'settlement-cash-advance'], function () {
-        //     Route::get('/', 'SettlementFinanceController@index');
-        //     Route::get('/show/{id}', 'SettlementFinanceController@show');
-        //     Route::post('/', 'SettlementFinanceController@store');
-        // });
+        Route::group(['prefix' => 'settlement-cash-advance'], function () {
+            Route::get('/', 'SettlementFinanceController@index');
+            Route::get('/show/{id}', 'SettlementFinanceController@show');
+            Route::post('/', 'SettlementFinanceController@store');
+        });
 
         // In/Out Payment
         Route::group(['prefix' => 'in-out-payment'], function () {
@@ -179,6 +179,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::post('/', 'InOutPaymentController@store');
         });
 
+        // Petty Cash
         Route::group(['prefix' => 'petty-cash'], function () {
             Route::get('/', 'PettyCashController@index');
             Route::get('/show/{id}', 'PettyCashController@show');
@@ -219,9 +220,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         });
     });
 
-
     //report
-    Route::group(['prefix' => 'report/', 'namespace'=> 'Report\\'], function () {
+    Route::group(['prefix' => 'report/', 'namespace' => 'Report\\'], function () {
         Route::group(['prefix' => 'upload_price_report/'], function () {
             Route::get('/', 'ReportPriceAPIController@index');
         });
@@ -264,6 +264,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         Route::group(['prefix' => 'vendor'], function () {
             Route::get('/', function () {
                 return VendorResource::collection(Vendor::all());
+            });
+            Route::get('/pure', function () {
+                return VendorResource::collection(Vendor::where('type_vendor', 2)->get());
             });
         });
 

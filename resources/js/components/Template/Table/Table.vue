@@ -212,6 +212,7 @@
                         >
                             <option
                                 v-for="(perPage, index) in perPages"
+                                v-bind:key="index"
                                 :value="perPage"
                                 >{{ perPage }}</option
                             >
@@ -245,13 +246,17 @@
                                 </th>
                                 <th v-if="config.action">Action</th>
                                 <th
-                                    v-for="column in columns"
+                                    v-for="(column, index) in columns"
+                                    v-bind:key="index"
                                     style="overflow:hidden; white-space:nowrap"
                                 >
                                     {{ column.title }}
                                 </th>
                             </tr>
-                            <tr v-for="(item, index) in data">
+                            <tr
+                                v-for="(item, index) in data"
+                                v-bind:key="index"
+                            >
                                 <!--CheckBox-->
                                 <td v-if="config.action || config.actionPrint">
                                     <div class="custom-checkbox custom-control">
@@ -276,19 +281,6 @@
                                         class="badge badge-primary ml-1 mr-1 mt-1 mb-1"
                                         :to="{
                                             name: config.route_view,
-                                            params: { id: item.id }
-                                        }"
-                                        >View</router-link
-                                    >
-
-                                    <router-link
-                                        v-if="
-                                            config.route_view_settlement &&
-                                                item.status === 5
-                                        "
-                                        class="badge badge-primary ml-1 mr-1 mt-1 mb-1"
-                                        :to="{
-                                            name: config.route_view_settlement,
                                             params: { id: item.id }
                                         }"
                                         >View</router-link
@@ -329,19 +321,6 @@
                                             params: { id: item.id }
                                         }"
                                         >Edit</router-link
-                                    >
-
-                                    <router-link
-                                        v-if="
-                                            config.route_settlement &&
-                                                item.status === 4
-                                        "
-                                        class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
-                                        :to="{
-                                            name: config.route_settlement,
-                                            params: { id: item.id }
-                                        }"
-                                        >Settlement</router-link
                                     >
 
                                     <router-link
@@ -389,7 +368,8 @@
                                     <router-link
                                         v-if="
                                             config.route_confirm_inout &&
-                                                item.status === 3
+                                                (item.status === 3 ||
+                                                    item.status === 6)
                                         "
                                         class="badge badge-success"
                                         :to="{
@@ -409,7 +389,10 @@
                                         style="color: white"
                                     >Confirm</a> -->
                                 </td>
-                                <td v-for="column in columns">
+                                <td
+                                    v-for="(column, index) in columns"
+                                    v-bind:key="index"
+                                >
                                     <span
                                         v-html="item[column.field]"
                                         v-if="column.type === 'html'"
@@ -425,8 +408,7 @@
                                                 )
                                             "
                                             v-if="
-                                                column.type === 'file' &&
-                                                    item.file !== '' &&
+                                                item.file !== '' &&
                                                     item.file !== null
                                             "
                                             >{{ item.file }}</a
@@ -449,7 +431,7 @@
                 <loading-table v-else></loading-table>
             </div>
 
-            <nav class="row" v-if="pagination">
+            <nav class="row mt-4" v-if="pagination">
                 <div class="col-md-6 text-left">
                     <span>
                         &nbsp;Showing&nbsp;

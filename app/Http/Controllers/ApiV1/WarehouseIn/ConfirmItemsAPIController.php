@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiV1\WarehouseIn;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SalesOrderResource;
 use App\Model\Marketing\SalesOrderDetail;
 use App\Model\MasterData\Inventory;
 use App\Model\Procurement\AssignListProcurementDetail;

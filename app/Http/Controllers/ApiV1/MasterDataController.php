@@ -125,7 +125,7 @@ class MasterDataController extends Controller
     public function getWarehouse()
     {
         return DB::table('master_warehouse')
-            ->select('address', 'id')
+            ->select('name', 'address', 'id')
             ->get();
     }
 }

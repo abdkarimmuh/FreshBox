@@ -35,7 +35,7 @@
                     <br />
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="table-responsive">
                                     <table width="100%">
                                         <tbody>
@@ -65,7 +65,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="table-responsive">
                                     <table width="100%">
                                         <tbody>
@@ -128,26 +128,26 @@
                                 <tr v-for="(item, index) in details">
                                     <td class="text-center">{{ index + 1 }}</td>
                                     <td class="text-left">
-                                        {{ item.itemName }}
+                                        {{ item.item_name }}
                                     </td>
                                     <td class="text-center">
-                                        {{ item.typeOfGoods }}
+                                        {{ item.skuid }}
                                     </td>
                                     <td class="text-center">{{ item.qty }}</td>
                                     <td class="text-center">
                                         {{ item.uom_name }}
                                     </td>
                                     <td class="text-right">
-                                        {{ item.price | toIDR }}
+                                        Rp {{ item.price | toIDR }}
                                     </td>
                                     <td class="text-right" width="100">
                                         {{ item.ppn }} %
                                     </td>
                                     <td class="text-right">
-                                        {{ item.total | toIDR }}
+                                        Rp {{ item.total | toIDR }}
                                     </td>
                                     <td class="text-left">
-                                        {{ item.supplierName }}
+                                        {{ item.supplier_name }}
                                     </td>
                                     <td class="text-left">
                                         {{ item.remarks }}
@@ -177,7 +177,8 @@
                                     <td></td>
                                     <td class="text-right">
                                         <b>
-                                        {{ requestFinance.total | toIDR }}
+                                            Rp
+                                            {{ requestFinance.total | toIDR }}
                                         </b>
                                     </td>
                                     <td></td>
@@ -223,13 +224,19 @@
                                                     <b>No Rek</b>
                                                 </td>
                                                 <td>
-                                                    {{ requestFinance.noRek }}
+                                                    {{
+                                                        requestFinance.bank_kode
+                                                    }}
+                                                    :
+                                                    {{
+                                                        requestFinance.bank_account
+                                                    }}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td width="50"></td>
                                                 <td>
-                                                    {{ requestFinance.namaRek }}
+                                                    {{ requestFinance.pic }}
                                                 </td>
                                             </tr>
                                         </tbody>

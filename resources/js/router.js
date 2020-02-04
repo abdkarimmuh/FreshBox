@@ -46,7 +46,6 @@ import IndexRequestFinance from './components/FinanceAP/RequestAdvance/IndexRequ
 import AddRequestFinance from './components/FinanceAP/RequestAdvance/AddRequestFinance';
 import PrintRequestFinance from './components/FinanceAP/RequestAdvance/PrintRequestFinance';
 import EditRequestFinance from './components/FinanceAP/RequestAdvance/EditRequestFinance';
-import ConfirmRequestFinance from './components/FinanceAP/RequestAdvance/ConfirmRequestFinance';
 import UploadRequestFinance from './components/FinanceAP/RequestAdvance/UploadRequestFinance';
 
 import PettyCash from './components/FinanceAP/PettyCash/IndexPettyCash';
@@ -55,9 +54,9 @@ import InOutPayment from './components/FinanceAP/InOutPayment/IndexInOutPayment'
 import AddInOutPayment from './components/FinanceAP/InOutPayment/AddInOutPayment';
 import ConfirmInOutPayment from './components/FinanceAP/InOutPayment/ConfirmInOutPayment';
 import PrintInOutPayment from './components/FinanceAP/InOutPayment/PrintInOutPayment';
-import SettlementFinance from './components/FinanceAP/Settlement/IndexSettlementFinance';
-import IndexSettlement from './components/FinanceAP/Settlement/Settlement';
-import PrintSettlement from './components/FinanceAP/Settlement/PrintSettlement';
+import IndexSettlementCashAdvance from './components/FinanceAP/Settlement/IndexSettlementCashAdvance';
+import AddSettlementCashAdvance from './components/FinanceAP/Settlement/AddSettlementCashAdvance';
+import PrintSettlementCashAdvance from './components/FinanceAP/Settlement/PrintSettlementCashAdvance';
 
 import IndexMasterPrice from './components/MasterData/IndexPrice';
 
@@ -267,11 +266,6 @@ const router = new VueRouter({
             component: EditRequestFinance
         },
         {
-            path: '/admin/finance-ap/request-advance/confirm/:id',
-            name: 'finance.requestAdvance.confirm',
-            component: ConfirmRequestFinance
-        },
-        {
             path: '/admin/finance-ap/request-advance/upload/:id',
             name: 'finance.requestAdvance.upload',
             component: UploadRequestFinance
@@ -299,17 +293,17 @@ const router = new VueRouter({
         {
             path: '/admin/finance-ap/settlement-cash-advance',
             name: 'finance.settlementFinance',
-            component: SettlementFinance
+            component: IndexSettlementCashAdvance
         },
         {
-            path: '/admin/finance-ap/settlement-cash-advance/settlement/:id',
-            name: 'finance.settlementFinance.settlement',
-            component: IndexSettlement
+            path: '/admin/finance-ap/settlement-cash-advance/create',
+            name: 'finance.settlementFinance.create',
+            component: AddSettlementCashAdvance
         },
         {
             path: '/admin/finance-ap/settlement-cash-advance/show/:id',
             name: 'finance.settlementFinance.show',
-            component: PrintSettlement
+            component: PrintSettlementCashAdvance
         },
         {
             path: '/admin/finance-ap/petty-cash',

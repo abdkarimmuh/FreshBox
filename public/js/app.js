@@ -3227,7 +3227,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         no: "invoice_no",
         nama_pt: "PT BERKAH TANI SEJAHTERA",
         nama_ttd: "Faizal Finanda",
-        no_rek: "006 500 9779",
+        bank_account: "006 500 9779",
         bank: "BCA Cabang SCBD"
       },
       columns: [{
@@ -3509,6 +3509,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3521,34 +3571,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         no: "invoice_no",
         nama_pt: "PT BERKAH TANI SEJAHTERA",
         nama_ttd: "Faizal Finanda",
-        no_rek: "006 500 9779",
+        bank_account: "006 500 9779",
         bank: "BCA Cabang SCBD"
       },
       columns: [{
-        title: 'Item No',
-        field: 'skuid',
-        type: 'text'
+        title: "Item No",
+        field: "skuid",
+        type: "text"
       }, {
-        title: 'Item Name',
-        field: 'item_name',
-        type: 'text',
+        title: "Item Name",
+        field: "item_name",
+        type: "text",
         alignmentLeft: true
       }, {
-        title: 'Qty',
-        field: 'qty_confirm',
-        type: 'text'
+        title: "Qty",
+        field: "qty_confirm",
+        type: "text"
       }, {
-        title: 'Unit',
-        field: 'uom_name',
-        type: 'text'
+        title: "Unit",
+        field: "uom_name",
+        type: "text"
       }, {
-        title: 'Price',
-        field: 'amount_price',
-        type: 'currency'
+        title: "Price",
+        field: "amount_price",
+        type: "currency"
       }, {
-        title: 'Amount',
-        field: 'total_amount',
-        type: 'currency'
+        title: "Amount",
+        field: "total_amount",
+        type: "currency"
       }],
       header_info: [{
         title: "Invoice Date",
@@ -3585,7 +3635,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var payload = {
         id: this.$route.query.id
       };
-      axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_order/show?printAll=true')).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/finance/invoice_order/show?printAll=true")).then(function (res) {
         _this.invoice_order = res.data;
         _this.loading = true;
       })["catch"](function (e) {
@@ -3609,18 +3659,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   id: this.$route.query.id
                 };
                 Vue.swal({
-                  title: 'Are you sure?',
+                  title: "Are you sure?",
                   text: "You won't be able to revert this!",
-                  type: 'warning',
+                  type: "warning",
                   showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Yes, Print it!'
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Yes, Print it!"
                 }).then(function (result) {
                   if (result.value) {
-                    _this2.$htmlToPaper('printMe');
+                    _this2.$htmlToPaper("printMe");
 
-                    axios.post(_this2.$parent.MakeUrl('api/v1/finance/invoice_order/print?printAll=true'));
+                    axios.post(_this2.$parent.MakeUrl("api/v1/finance/invoice_order/print?printAll=true"));
                   }
                 });
 
@@ -3639,7 +3689,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return print;
     }(),
     back: function back() {
-      return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
+      return window.location.href = this.$parent.MakeUrl("admin/finance/invoice_order");
     }
   }
 });
@@ -3781,34 +3831,75 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       columns: [{
-        title: 'Item No',
-        field: 'skuid',
-        type: 'text'
+        title: "Item No",
+        field: "skuid",
+        type: "text"
       }, {
-        title: 'Item Name',
-        field: 'item_name',
-        type: 'text',
+        title: "Item Name",
+        field: "item_name",
+        type: "text",
         alignmentLeft: true
       }, {
-        title: 'Qty',
-        field: 'qty_confirm',
-        type: 'text'
+        title: "Qty",
+        field: "qty_confirm",
+        type: "text"
       }, {
-        title: 'Unit',
-        field: 'uom_name',
-        type: 'text'
+        title: "Unit",
+        field: "uom_name",
+        type: "text"
       }, {
-        title: 'Price',
-        field: 'amount_price',
-        type: 'currency'
+        title: "Price",
+        field: "amount_price",
+        type: "currency"
       }, {
-        title: 'Amount',
-        field: 'total_amount',
-        type: 'currency'
+        title: "Amount",
+        field: "total_amount",
+        type: "currency"
       }],
       header_info: [{
         title: "Invoice Date",
@@ -3836,7 +3927,7 @@ __webpack_require__.r(__webpack_exports__);
         no: "invoice_no",
         nama_pt: "PT BERKAH TANI SEJAHTERA",
         nama_ttd: "Faizal Finanda",
-        no_rek: "006 500 9779",
+        bank_account: "006 500 9779",
         bank: "BCA Cabang SCBD"
       },
       invoice_order: {},
@@ -3851,7 +3942,7 @@ __webpack_require__.r(__webpack_exports__);
     getData: function getData() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl('api/v1/finance/invoice_order/show?id=' + this.$route.params.id)).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/finance/invoice_order/show?id=" + this.$route.params.id)).then(function (res) {
         _this.invoice_order = res.data;
         _this.details = res.data.do_details;
         _this.loading = true;
@@ -3865,24 +3956,24 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       Vue.swal({
-        title: 'Are you sure?',
+        title: "Are you sure?",
         text: "You won't be able to revert this!",
-        type: 'warning',
+        type: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Print it!'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Print it!"
       }).then(function (result) {
-        var res = axios.post(_this2.$parent.MakeUrl('api/v1/finance/invoice_order/print?id=' + _this2.$route.params.id));
+        var res = axios.post(_this2.$parent.MakeUrl("api/v1/finance/invoice_order/print?id=" + _this2.$route.params.id));
         console.log(res);
 
         if (result.value) {
-          _this2.$htmlToPaper('printMe');
+          _this2.$htmlToPaper("printMe");
         }
       });
     },
     back: function back() {
-      return window.location.href = this.$parent.MakeUrl('admin/finance/invoice_order');
+      return window.location.href = this.$parent.MakeUrl("admin/finance/invoice_order");
     }
   }
 });
@@ -4584,28 +4675,123 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       in_out_payment: {
+        type: "",
+        option: "",
         source: "",
-        type_transaction: "",
         transaction_date: "",
-        amount: "",
         bank_id: "",
-        no_rek: "",
+        bank_account: "",
+        amount: "",
+        file: "",
+        fileName: "",
         remark: ""
       },
       banks: [],
+      no_requests: [],
       types: [{
-        id: 2,
-        name: "IN"
-      }, {
         id: 1,
-        name: "OUT"
+        name: "In Payment"
+      }, {
+        id: 2,
+        name: "Out Payment"
       }],
+      options: [],
       errors: [],
       loading: false,
       loadingSubmit: false,
@@ -4645,18 +4831,64 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this = this;
 
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/bank"))]).then(axios.spread(function (banks) {
-        _this.banks = banks.data;
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/bank")).then(function (res) {
+        _this.banks = res.data;
         _this.loading = true;
-      }))["catch"](function (err) {
+      })["catch"](function (err) {
         if (err.response.status === 403) {
           _this.$router.push({
             name: "inOutPayment"
           });
+        } else {
+          console.error(err);
         }
+      });
+    },
+    getOptions: function getOptions() {
+      this.in_out_payment.option = "";
+      this.options = "";
+      this.getNoRequest();
 
-        if (err.response.status === 500) {
-          _this.getData();
+      if (this.in_out_payment.type == 1) {
+        this.options = [{
+          id: 1,
+          name: "Setlement Advance"
+        }, {
+          id: 2,
+          name: "Replacement"
+        }, {
+          id: 3,
+          name: "General Income"
+        }];
+      } else {
+        this.options = [{
+          id: 1,
+          name: "Setlement Advance"
+        }, {
+          id: 2,
+          name: "Reimbursment"
+        }, {
+          id: 3,
+          name: "General Payment"
+        }];
+      }
+    },
+    getNoRequest: function getNoRequest() {
+      var _this2 = this;
+
+      this.no_requests = [];
+      this.in_out_payment.source = "";
+      axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/get-no/" + this.in_out_payment.type)).then(function (res) {
+        _this2.no_requests = res.data.data;
+        _this2.loading = true;
+        console.log(res);
+      })["catch"](function (err) {
+        if (err.response.status === 403) {
+          _this2.$router.push({
+            name: "inOutPayment"
+          });
+        } else {
+          console.error(err);
         }
       });
     },
@@ -4668,7 +4900,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var _this2 = this;
+        var _this3 = this;
 
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -4677,13 +4909,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 this.loadingSubmit = true;
                 payload = {
+                  type_transaction: this.in_out_payment.type,
+                  option_transaction: this.in_out_payment.option,
                   source: this.in_out_payment.source,
+                  transaction_date: this.in_out_payment.transaction_date,
                   bank_id: this.in_out_payment.bank_id,
-                  no_rek: this.in_out_payment.no_rek,
-                  type_transaction: this.in_out_payment.type_transaction,
+                  bank_account: this.in_out_payment.bank_account,
                   amount: this.in_out_payment.amount,
-                  remark: this.in_out_payment.remark,
-                  transaction_date: this.in_out_payment.transaction_date
+                  file: this.in_out_payment.file,
+                  remark: this.in_out_payment.remark
                 };
                 console.log(payload);
                 _context2.prev = 3;
@@ -4698,7 +4932,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
-                  _this2.$router.push({
+                  _this3.$router.push({
                     name: "finance.inOutPayment"
                   });
                 });
@@ -4728,105 +4962,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     onFileChange: function onFileChange(e) {
       var fileData = e.target.files || e.dataTransfer.files;
-      this.sales_order.fileName = fileData[0].name;
+      this.in_out_payment.fileName = fileData[0].name;
       if (!fileData.length) return;
       this.createFile(fileData[0]);
     },
     createFile: function createFile(file) {
-      var _this3 = this;
+      var _this4 = this;
 
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        _this3.sales_order.file = e.target.result;
+        _this4.in_out_payment.file = e.target.result;
       };
 
       reader.readAsDataURL(file);
     },
-
-    /**
-     * Get List Items
-     * @returns {number}
-     */
-    getItems: function getItems() {
-      var _this4 = this;
-
-      this.loading = false;
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId + "/" + this.sales_order.fulfillmentDate)).then(function (res) {
-        _this4.items = res.data.price;
-        _this4.orders_detail = [];
-        _this4.loading = true;
-      })["catch"](function (err) {
-        if (err.response.status === 500) {
-          _this4.getItems();
-        }
-      });
-    },
-    getItem: function getItem() {
-      var _this5 = this;
-
-      if (!this.skuid) return;
-      this.loading = false;
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid)).then(function (res) {
-        _this5.item = res.data.data;
-        _this5.loading = true;
-      })["catch"](function (err) {
-        if (err.response.status === 500) {
-          _this5.getItem();
-        }
-      });
-    },
-
-    /**
-     *
-     * @param skuid
-     * @returns {number}
-     */
-    pushOrderDetails: function pushOrderDetails(skuid) {
-      if (!skuid) return;
-      var indexItem = this.orders_detail.findIndex(function (x) {
-        return x.skuid === skuid;
-      });
-
-      if (indexItem >= 0) {
-        Vue.swal({
-          type: "error",
-          title: "ERROR!",
-          text: "Item Already Added!"
-        });
-        console.log("GAGAL");
-      } else {
-        return this.orders_detail.push({
-          total_amount: 0,
-          qty: 0,
-          skuid: this.item.skuid,
-          uom: this.item.uom,
-          item_name: this.item.item_name,
-          amount: this.item.amount,
-          notes: null
-        });
-      }
-    },
-
-    /**
-     * Delete Item
-     * @param index
-     */
-    removeOrderDetails: function removeOrderDetails(index) {
-      this.orders_detail.splice(index, 1);
-    },
     back: function back() {
       this.$router.push({
-        name: "form_sales_order"
-      });
-    },
-    updateTotalAmount: function updateTotalAmount() {
-      this.orders_detail.map(function (item, idx) {
-        return item.total_amount = item.amount * item.qty;
+        name: "form_in_out_payment"
       });
     },
     resetField: function resetField() {
-      this.sales_order.fulfillmentDate = "";
+      this.in_out_payment.fulfillmentDate = "";
     }
   },
   components: {
@@ -5238,9 +5395,11 @@ __webpack_require__.r(__webpack_exports__);
       config: {
         title: "In/Out Payment",
         action: true,
+        actionPrint: false,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/in-out-payment"),
         noStartEnd: true,
         route_create: "finance.inOutPayment.create",
+        route_view: "finance.inOutPayment.show",
         route_receive_inout: true,
         route_confirm_inout: "finance.inOutPayment.confirm"
       },
@@ -5249,8 +5408,17 @@ __webpack_require__.r(__webpack_exports__);
         field: "source_data",
         filterable: true
       }, {
+        title: "File",
+        field: "file_url",
+        type: "file",
+        filterable: false
+      }, {
         title: "Tipe Transaksi",
         field: "type_transaction",
+        type: "html"
+      }, {
+        title: "Opsi Transaksi",
+        field: "option_transaction",
         type: "html"
       }, {
         title: "Bank",
@@ -5260,7 +5428,7 @@ __webpack_require__.r(__webpack_exports__);
         title: "Jumlah",
         field: "amount",
         filterable: false,
-        type: 'price'
+        type: "price"
       }, {
         title: "Status",
         field: "status_html",
@@ -5290,32 +5458,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -5437,6 +5579,14 @@ __webpack_require__.r(__webpack_exports__);
 
         }
       });
+    },
+    showFile: function showFile(fileUrl, fileName) {
+      Vue.swal({
+        title: fileName,
+        imageUrl: fileUrl,
+        imageAlt: "Custom image"
+      });
+      console.log(fileUrl);
     }
   },
   computed: {
@@ -5517,6 +5667,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -6661,6 +6815,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6687,6 +6843,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       requestDate: "",
       users: [],
       userId: "",
+      suppliers: [],
       user: {},
       items: [],
       itemId: "",
@@ -6721,14 +6878,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   orderDetails: this.orderDetails.map(function (item, idx) {
                     return {
                       name: item.name,
-                      typeOfGoods: item.skuid,
-                      uom_id: item.uomid,
+                      skuid: item.skuid,
+                      uom_id: item.uom_id,
                       qty: item.qty,
                       ppn: item.ppn,
                       price: item.price,
-                      // total: item.total,
-                      supplierName: item.supplierName,
-                      remark: item.remark
+                      total: item.total,
+                      qty_confirm: 0,
+                      price_confirm: 0,
+                      total_confirm: 0,
+                      supplier_id: item.supplier_id,
+                      remarks: item.remarks
                     };
                   })
                 };
@@ -6777,12 +6937,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.loading = true;
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, items, warehouses, uom) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor")), axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor/pure")), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, supplier, items, warehouses, uom) {
         _this2.users = users.data.data;
+        _this2.suppliers = supplier.data.data;
         _this2.items = items.data;
         _this2.warehouses = warehouses.data;
         _this2.uom = uom.data.data;
-        console.log(users);
+        console.log(uom);
         _this2.loading = false;
       }))["catch"](function (err) {
         if (err.response.status === 500) {
@@ -6797,6 +6958,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get(this.$parent.MakeUrl("api/v1/master_data/items/" + this.itemId)).then(function (res) {
         _this3.item = res.data;
         _this3.loading = false;
+        console.log("res get detail : ", res);
       })["catch"](function (err) {
         console.log(err.response.data);
       });
@@ -6824,6 +6986,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
         console.log("GAGAL");
       } else {
+        console.log(this.orderDetails);
         return this.orderDetails.push({
           id: this.item.id,
           name: this.item.name_item,
@@ -6833,8 +6996,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           ppn: 0,
           price: 0,
           total: 0,
-          supplierName: "",
-          remark: ""
+          qty_confirm: 0,
+          price_confirm: 0,
+          total_confirm: 0,
+          supplier_id: "",
+          remarks: ""
         });
       }
     },
@@ -6847,8 +7013,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         ppn: 0,
         price: 0,
         total: 0,
-        supplierName: "",
-        remark: ""
+        qty_confirm: 0,
+        price_confirm: 0,
+        total_confirm: 0,
+        supplier_id: "",
+        remarks: ""
       });
     },
     clearOrderDetails: function clearOrderDetails() {
@@ -6856,367 +7025,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     deleteRow: function deleteRow(index) {
       this.orderDetails.splice(index, 1);
-    }
-  },
-  components: {
-    ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__["ModelListSelect"]
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-search-select */ "./node_modules/vue-search-select/dist/VueSearchSelect.common.js");
-/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_search_select__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      confirmDate: "",
-      requestFinance: "",
-      orderDetails: [],
-      errors: [],
-      loading: true,
-      loadingSubmit: false
-    };
-  },
-  mounted: function mounted() {
-    this.getData();
-  },
-  methods: {
-    submitForm: function () {
-      var _submitForm = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this = this;
-
-        var payload, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                this.loadingSubmit = true;
-                payload = {
-                  confirmDate: this.confirmDate,
-                  orderDetails: this.orderDetails.map(function (item, idx) {
-                    return {
-                      id: item.id,
-                      qtyConfirm: item.qty_confirm,
-                      priceConfirm: item.price_confirm,
-                      checked: item.checked,
-                      remarks: item.remarks
-                    };
-                  })
-                };
-                _context.prev = 2;
-                _context.next = 5;
-                return axios.patch("/api/v1/finance-ap/request-finance", payload);
-
-              case 5:
-                res = _context.sent;
-                Vue.swal({
-                  type: "success",
-                  title: "Success!",
-                  text: "Successfully Insert Data!"
-                }).then(function (next) {
-                  _this.$router.push({
-                    name: "finance.requestFinance"
-                  });
-                });
-                console.log(res);
-                _context.next = 15;
-                break;
-
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](2);
-                this.loadingSubmit = false;
-                this.errors = _context.t0.response.data.errors;
-                console.error(_context.t0.response.data);
-
-              case 15:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[2, 10]]);
-      }));
-
-      function submitForm() {
-        return _submitForm.apply(this, arguments);
-      }
-
-      return submitForm;
-    }(),
-    //Get Data Users & Items
-    getData: function getData() {
-      var _this2 = this;
-
-      axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-finance/show/" + this.$route.params.id)).then(function (res) {
-        _this2.requestFinance = res.data.data;
-        _this2.orderDetails = res.data.data.details;
-        _this2.loading = false;
-      })["catch"](function (e) {});
     },
-    getDetailItem: function getDetailItem() {
-      var _this3 = this;
-
-      this.loading = true;
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/items/" + this.itemId)).then(function (res) {
-        _this3.item = res.data;
-        _this3.loading = false;
-      })["catch"](function (err) {
-        console.log(err.response.data);
-      });
-    },
-    getUser: function getUser() {
-      var _this4 = this;
-
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/users/" + this.userId)).then(function (res) {
-        _this4.user = res.data.data;
-      })["catch"](function (err) {
-        console.log(err.response.data);
-      });
-    },
-    pushItems: function pushItems(id) {
-      if (!id) return;
-      var indexItem = this.orderDetails.findIndex(function (x) {
-        return x.id === id;
-      });
-
-      if (indexItem >= 0) {
-        Vue.swal({
-          type: "error",
-          title: "ERROR!",
-          text: "Item Already Added!"
-        });
-        console.log("GAGAL");
-      } else {
-        return this.orderDetails.push({
-          id: this.item.id,
-          name: this.item.name_item,
-          skuid: this.item.skuid,
-          uom_id: 0,
-          qty: 0,
-          ppn: 0,
-          price: 0,
-          total: 0,
-          supplierName: "",
-          remark: ""
-        });
-      }
-    },
-    pushRows: function pushRows() {
-      return this.orderDetails.push({
-        name: "",
-        skuid: "",
-        uom_id: 0,
-        qty: 0,
-        ppn: 0,
-        price: 0,
-        total: 0,
-        supplierName: "",
-        remark: ""
+    updateTotalAmount: function updateTotalAmount() {
+      this.orderDetails.map(function (item, idx) {
+        return item.total = parseInt(item.price) + parseInt(item.price) * parseInt(item.ppn) / 100;
       });
     }
   },
@@ -7602,6 +7414,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7627,6 +7441,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       warehouseId: "",
       requestDate: "",
       users: [],
+      suppliers: [],
       userId: "",
       user: {},
       items: [],
@@ -7664,13 +7479,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   detail: this.detail.map(function (item, idx) {
                     return {
                       item_name: item.item_name,
-                      type_of_goods: item.type_of_goods,
+                      skuid: item.skuid,
                       uom_id: item.uom_id,
                       qty: item.qty,
                       ppn: item.ppn,
                       price: item.price,
-                      // total: item.total,
-                      supplier_name: item.supplier_name,
+                      total: item.total,
+                      qty_confirm: 0,
+                      price_confirm: 0,
+                      total_confirm: 0,
+                      supplier_id: item.supplier_id,
                       remarks: item.remarks
                     };
                   })
@@ -7721,10 +7539,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       this.loading = true;
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor")), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/show/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/requestFinanceDetail/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, requestAdvance, detail, items, warehouses, uom) {
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor")), axios.get(this.$parent.MakeUrl("api/v1/master_data/vendor/pure")), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/show/" + this.$route.params.id)), // axios.get(
+      //     this.$parent.MakeUrl(
+      //         "api/v1/finance-ap/request-advance/requestFinanceDetail/" +
+      //             this.$route.params.id
+      //     )
+      // ),
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/items")), axios.get(this.$parent.MakeUrl("api/v1/master_data/warehouse")), axios.get(this.$parent.MakeUrl("api/v1/master_data/uom"))]).then(axios.spread(function (users, supplier, requestAdvance, // detail,
+      items, warehouses, uom) {
         _this2.users = users.data.data;
+        _this2.suppliers = supplier.data.data;
         _this2.requestAdvance = requestAdvance.data.data;
-        _this2.detail = detail.data.data;
+        _this2.detail = requestAdvance.data.data.details;
         _this2.productType = requestAdvance.data.data.product_type;
         _this2.warehouseId = requestAdvance.data.data.master_warehouse_id;
         _this2.items = items.data;
@@ -7736,6 +7562,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         console.log(requestAdvance);
       }))["catch"](function (err) {
+        console.error(err);
+
         if (err.response.status === 500) {
           _this2.getData();
         }
@@ -7748,6 +7576,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.get(this.$parent.MakeUrl("api/v1/master_data/items/" + this.itemId)).then(function (res) {
         _this3.item = res.data;
         _this3.loading = false;
+        console.log("res get detail : ", res);
       })["catch"](function (err) {
         console.log(err.response.data);
       });
@@ -7779,13 +7608,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return this.detail.push({
           id: this.item.id,
           item_name: this.item.name_item,
-          type_of_goods: this.item.skuid,
+          skuid: this.item.skuid,
           uom_id: 0,
           qty: 0,
           ppn: 0,
           price: 0,
           total: 0,
-          supplier_name: "",
+          qty_confirm: 0,
+          price_confirm: 0,
+          total_confirm: 0,
+          supplier_id: "",
           remarks: ""
         });
       }
@@ -7793,13 +7625,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     pushRows: function pushRows() {
       return this.detail.push({
         item_name: "",
-        type_of_goods: "",
+        skuid: "",
         uom_id: 0,
         qty: 0,
         ppn: 0,
         price: 0,
         total: 0,
-        supplier_name: "",
+        qty_confirm: 0,
+        price_confirm: 0,
+        total_confirm: 0,
+        supplier_id: "",
         remarks: ""
       });
     },
@@ -7808,6 +7643,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     deleteRow: function deleteRow(index) {
       this.detail.splice(index, 1);
+    },
+    updateTotalAmount: function updateTotalAmount() {
+      this.detail.map(function (item, idx) {
+        return item.total = parseInt(item.price) + parseInt(item.price) * parseInt(item.ppn) / 100;
+      });
     }
   },
   components: {
@@ -7856,16 +7696,16 @@ __webpack_require__.r(__webpack_exports__);
         field: "request_date",
         filterable: true
       }, {
-        title: "User Name",
+        title: "Requester Name",
         field: "user_name",
         filterable: false
       }, {
-        title: "Shipping Address",
-        field: "shipping_address",
-        filterable: true
-      }, {
         title: "Dept",
         field: "dept",
+        filterable: true
+      }, {
+        title: "Shipping Address",
+        field: "shipping_name",
         filterable: true
       }, {
         title: "Status",
@@ -7899,6 +7739,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8405,10 +8252,449 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-search-select */ "./node_modules/vue-search-select/dist/VueSearchSelect.common.js");
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_search_select__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      user: {},
+      requestId: "",
+      remarks: "",
+      fileName: "",
+      file: "",
+      errors: [],
+      details: [],
+      loading: false,
+      loadingSubmit: false,
+      requestAdvance: {},
+      requestAdvances: []
+    };
+  },
+  mounted: function mounted() {
+    this.getData();
+  },
+  methods: {
+    submitForm: function () {
+      var _submitForm = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this = this;
+
+        var payload, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.loadingSubmit = true;
+                payload = {
+                  requestId: this.requestId,
+                  file: this.file,
+                  remarks: this.remarks,
+                  items: this.details.map(function (item, idx) {
+                    return {
+                      id: item.id,
+                      qty_confirm: item.qty_confirm,
+                      price_confirm: item.price_confirm,
+                      total_confirm: item.total_confirm
+                    };
+                  })
+                };
+                console.log(payload);
+                _context.prev = 3;
+                _context.next = 6;
+                return axios.post("/api/v1/finance-ap/settlement-cash-advance", payload);
+
+              case 6:
+                res = _context.sent;
+                Vue.swal({
+                  type: "success",
+                  title: "Success!",
+                  text: "Successfully Insert Data!"
+                }).then(function (next) {
+                  _this.$router.push({
+                    name: "finance.settlementFinance"
+                  });
+                });
+                console.log(res);
+                _context.next = 16;
+                break;
+
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](3);
+                this.loadingSubmit = false;
+                this.errors = _context.t0.response.data.errors;
+                console.error(_context.t0.response.data);
+
+              case 16:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[3, 11]]);
+      }));
+
+      function submitForm() {
+        return _submitForm.apply(this, arguments);
+      }
+
+      return submitForm;
+    }(),
+    //Get Data Users & Items
+    getData: function getData() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/get-settlement")).then(function (res) {
+        _this2.requestAdvances = res.data.data;
+        _this2.loading = false;
+        console.log(res);
+      })["catch"](function (err) {
+        if (err.response.status === 500) {
+          _this2.getData();
+        }
+      });
+    },
+    getRequest: function getRequest() {
+      var _this3 = this;
+
+      this.loading = true;
+      axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/show/" + this.requestId)).then(function (res) {
+        _this3.requestAdvance = res.data.data;
+        _this3.details = res.data.data.details;
+        _this3.loading = false;
+
+        _this3.getUser(_this3.requestAdvance.user_id);
+
+        console.log(res);
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    },
+    getUser: function getUser(userId) {
+      var _this4 = this;
+
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/users/getUserVendor/" + userId)).then(function (res) {
+        _this4.user = res.data.data;
+      })["catch"](function (err) {
+        console.log(err.response.data);
+      });
+    },
+    updateTotalAmount: function updateTotalAmount() {
+      this.details.map(function (item, idx) {
+        return item.total_confirm = parseInt(item.price_confirm) + parseInt(item.price_confirm) * parseInt(item.ppn) / 100;
+      });
+    },
+    onFileChange: function onFileChange(e) {
+      var fileData = e.target.files || e.dataTransfer.files;
+      this.fileName = fileData[0].name;
+      if (!fileData.length) return;
+      this.createFile(fileData[0]);
+    },
+    createFile: function createFile(file) {
+      var _this5 = this;
+
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this5.file = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  },
+  components: {
+    ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__["ModelListSelect"]
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -8428,14 +8714,16 @@ __webpack_require__.r(__webpack_exports__);
       config: {
         title: "Settlement Cash Advance",
         action: true,
-        base_url: this.$parent.MakeUrl("api/v1/finance-ap/request-advance/settlement"),
+        base_url: this.$parent.MakeUrl("api/v1/finance-ap/settlement-cash-advance"),
         noStartEnd: true,
-        route_settlement: "finance.settlementFinance.settlement",
-        route_view_settlement: "finance.settlementFinance.show" // route_create: "finance.requestFinance.create"
-        // route_multiple_print: 'invoice_order.multiplePrint',
-
+        route_add: "/admin/finance-ap/settlement-cash-advance/create",
+        route_view: "finance.settlementFinance.show"
       },
       columns: [{
+        title: "No Settlement",
+        field: "no_settlement",
+        filterable: true
+      }, {
         title: "No Request",
         field: "no_request",
         filterable: true
@@ -8444,7 +8732,11 @@ __webpack_require__.r(__webpack_exports__);
         field: "request_date",
         filterable: true
       }, {
-        title: "User Name",
+        title: "Status",
+        field: "status_name",
+        type: "html"
+      }, {
+        title: "Requester Name",
         field: "user_name",
         filterable: false
       }, {
@@ -8455,18 +8747,9 @@ __webpack_require__.r(__webpack_exports__);
         title: "Dept",
         field: "dept",
         filterable: true
-      }, // {
-      //     title: 'Status',
-      //     field: 'status_name',
-      //     type: 'html',
-      // },
-      {
+      }, {
         title: "Created At",
         field: "created_at",
-        filterable: true
-      }, {
-        title: "Created By",
-        field: "created_by_name",
         filterable: true
       }],
       error: {
@@ -8479,15 +8762,24 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8780,8 +9072,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ["id"],
   data: function data() {
     return {
-      requestFinance_id: "",
-      requestFinance: {},
+      settlement_id: "",
+      settlement: {},
       details: [],
       loading: false
     };
@@ -8793,8 +9085,8 @@ __webpack_require__.r(__webpack_exports__);
     getInvoice: function getInvoice() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/show/" + this.$route.params.id)).then(function (res) {
-        _this.requestFinance = res.data.data;
+      axios.get(this.$parent.MakeUrl("api/v1/finance-ap/settlement-cash-advance/show/" + this.$route.params.id)).then(function (res) {
+        _this.settlement = res.data.data;
         _this.details = res.data.data.details;
         _this.loading = true;
       })["catch"](function (e) {});
@@ -8817,296 +9109,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-search-select */ "./node_modules/vue-search-select/dist/VueSearchSelect.common.js");
-/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_search_select__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      user: {},
-      errors: [],
-      loading: false,
-      loadingSubmit: false,
-      requestAdvance: {},
-      detail: []
-    };
-  },
-  mounted: function mounted() {
-    this.getData();
-  },
-  methods: {
-    submitForm: function () {
-      var _submitForm = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this = this;
-
-        var payload, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                this.loadingSubmit = true;
-                payload = {
-                  id: this.$route.params.id,
-                  detail: this.detail.map(function (item, idx) {
-                    return {
-                      id: item.id,
-                      qty_confirm: item.qty_confirm,
-                      price_confirm: item.price_confirm
-                    };
-                  })
-                };
-                console.log(payload);
-                _context.prev = 3;
-                _context.next = 6;
-                return axios.post("/api/v1/finance-ap/request-advance/settlement", payload);
-
-              case 6:
-                res = _context.sent;
-                Vue.swal({
-                  type: "success",
-                  title: "Success!",
-                  text: "Successfully Insert Data!"
-                }).then(function (next) {
-                  _this.$router.push({
-                    name: "finance.settlementFinance"
-                  });
-                });
-                console.log(res);
-                _context.next = 16;
-                break;
-
-              case 11:
-                _context.prev = 11;
-                _context.t0 = _context["catch"](3);
-                this.loadingSubmit = false;
-                this.errors = _context.t0.response.data.errors;
-                console.error(_context.t0.response.data);
-
-              case 16:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[3, 11]]);
-      }));
-
-      function submitForm() {
-        return _submitForm.apply(this, arguments);
-      }
-
-      return submitForm;
-    }(),
-    //Get Data Users & Items
-    getData: function getData() {
-      var _this2 = this;
-
-      this.loading = true;
-      axios.all([axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/show/" + this.$route.params.id)), axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/requestFinanceDetail/" + this.$route.params.id))]).then(axios.spread(function (requestAdvance, detail) {
-        _this2.requestAdvance = requestAdvance.data.data;
-        _this2.detail = detail.data.data;
-        _this2.loading = false;
-
-        _this2.getUser(_this2.requestAdvance.user_id);
-
-        console.log(detail);
-      }))["catch"](function (err) {
-        if (err.response.status === 500) {
-          _this2.getData();
-        }
-      });
-    },
-    getUser: function getUser(userId) {
-      var _this3 = this;
-
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/users/getUserVendor/" + userId)).then(function (res) {
-        _this3.user = res.data.data;
-      })["catch"](function (err) {
-        console.log(err.response.data);
-      });
-    }
-  },
-  components: {
-    ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_1__["ModelListSelect"]
   }
 });
 
@@ -12201,24 +12203,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -20243,7 +20227,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.table-centered {\n  margin: 0 auto;\n}\n", ""]);
+exports.push([module.i, "\n.table-centered {\n    margin: 0 auto;\n}\n", ""]);
 
 // exports
 
@@ -20288,10 +20272,10 @@ exports.push([module.i, "\n.table-centered {\n    margin: 0 auto;\n}\n", ""]);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=style&index=0&lang=css&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=style&index=0&lang=css& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -53562,15 +53546,15 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=style&index=0&lang=css&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=style&index=0&lang=css& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintSettlement.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintSettlementCashAdvance.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -59496,7 +59480,7 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "30%" } }, [
-                                _vm._v(_vm._s(_vm.info.no_rek))
+                                _vm._v(_vm._s(_vm.info.bank_account))
                               ])
                             ]),
                             _vm._v(" "),
@@ -59689,13 +59673,13 @@ var render = function() {
             }
           }
         },
-        [_vm._v(" Back\n        ")]
+        [_vm._v("\n            Back\n        ")]
       ),
       _vm._v(" "),
       _c(
         "button",
         { staticClass: "btn btn-success", on: { click: _vm.print } },
-        [_vm._v(" Print\n        ")]
+        [_vm._v("Print")]
       )
     ]),
     _vm._v(" "),
@@ -59757,7 +59741,11 @@ var render = function() {
                                           "border-bottom": "1px solid black"
                                         }
                                       },
-                                      [_vm._v("Subtotal Rp")]
+                                      [
+                                        _vm._v(
+                                          "\n                                        Subtotal Rp\n                                    "
+                                        )
+                                      ]
                                     ),
                                     _vm._v(" "),
                                     _c(
@@ -59770,10 +59758,11 @@ var render = function() {
                                       },
                                       [
                                         _vm._v(
-                                          _vm._s(
-                                            _vm._f("toIDR")(item.total_price)
-                                          ) +
-                                            "\n                                "
+                                          "\n                                        " +
+                                            _vm._s(
+                                              _vm._f("toIDR")(item.total_price)
+                                            ) +
+                                            "\n                                    "
                                         )
                                       ]
                                     )
@@ -59799,10 +59788,11 @@ var render = function() {
                                       _vm._v(" "),
                                       _c("td", { staticClass: "text-right" }, [
                                         _vm._v(
-                                          _vm._s(
-                                            _vm._f("toIDR")(item.total_price)
-                                          ) +
-                                            "\n                                "
+                                          "\n                                        " +
+                                            _vm._s(
+                                              _vm._f("toIDR")(item.total_price)
+                                            ) +
+                                            "\n                                    "
                                         )
                                       ])
                                     ]
@@ -59819,7 +59809,7 @@ var render = function() {
                                       _c("td", { attrs: { width: "56%" } }, [
                                         _c("b", [
                                           _vm._v(
-                                            "   Terbilang : " +
+                                            "   Terbilang :\n                                            " +
                                               _vm._s(item.terbilang)
                                           )
                                         ])
@@ -59882,7 +59872,11 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("td", { attrs: { width: "30%" } }, [
-                                    _vm._v(_vm._s(_vm.info.no_rek))
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(_vm.info.bank_account) +
+                                        "\n                                    "
+                                    )
                                   ])
                                 ]),
                                 _vm._v(" "),
@@ -59946,7 +59940,11 @@ var staticRenderFns = [
           staticClass: "text-right",
           staticStyle: { "border-bottom": "1px solid black" }
         },
-        [_vm._v("Discount Rp")]
+        [
+          _vm._v(
+            "\n                                        Discount Rp\n                                    "
+          )
+        ]
       ),
       _vm._v(" "),
       _c("td", {
@@ -59968,7 +59966,11 @@ var staticRenderFns = [
           staticClass: "text-right",
           staticStyle: { "border-bottom": "1px solid black" }
         },
-        [_vm._v("Pajak Rp")]
+        [
+          _vm._v(
+            "\n                                        Pajak Rp\n                                    "
+          )
+        ]
       ),
       _vm._v(" "),
       _c("td", {
@@ -60029,7 +60031,7 @@ var staticRenderFns = [
       _c("td", { attrs: { width: "10%", colspan: "5" } }, [
         _c("i", [
           _vm._v(
-            "\n                                        *) Pembayaran dianggap sah jika bukti transfer sudah dikirimkan kepada kami\n                                    "
+            "\n                                            *) Pembayaran dianggap sah jika\n                                            bukti transfer sudah dikirimkan\n                                            kepada kami\n                                        "
           )
         ])
       ])
@@ -60043,7 +60045,7 @@ var staticRenderFns = [
       _c("td", { attrs: { width: "10%", colspan: "5" } }, [
         _c("i", [
           _vm._v(
-            "\n                                        *) Nilai tagihan dibuat berdasarkan pesanan yang diterima. Tidak ada\n                                        coretan,\n                                        berarti pesanan diterima\n                                    "
+            "\n                                            *) Nilai tagihan dibuat\n                                            berdasarkan pesanan yang\n                                            diterima. Tidak ada coretan,\n                                            berarti pesanan diterima\n                                        "
           )
         ])
       ])
@@ -60118,7 +60120,11 @@ var render = function() {
                                   "border-bottom": "1px solid black"
                                 }
                               },
-                              [_vm._v("Subtotal Rp")]
+                              [
+                                _vm._v(
+                                  "\n                                    Subtotal Rp\n                                "
+                                )
+                              ]
                             ),
                             _vm._v(" "),
                             _c(
@@ -60131,11 +60137,13 @@ var render = function() {
                               },
                               [
                                 _vm._v(
-                                  _vm._s(
-                                    _vm._f("toIDR")(
-                                      _vm.invoice_order.total_price
-                                    )
-                                  ) + "\n                            "
+                                  "\n                                    " +
+                                    _vm._s(
+                                      _vm._f("toIDR")(
+                                        _vm.invoice_order.total_price
+                                      )
+                                    ) +
+                                    "\n                                "
                                 )
                               ]
                             )
@@ -60161,11 +60169,13 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", { staticClass: "text-right" }, [
                                 _vm._v(
-                                  _vm._s(
-                                    _vm._f("toIDR")(
-                                      _vm.invoice_order.total_price
-                                    )
-                                  ) + "\n                            "
+                                  "\n                                    " +
+                                    _vm._s(
+                                      _vm._f("toIDR")(
+                                        _vm.invoice_order.total_price
+                                      )
+                                    ) +
+                                    "\n                                "
                                 )
                               ])
                             ]
@@ -60182,7 +60192,7 @@ var render = function() {
                               _c("td", { attrs: { width: "56%" } }, [
                                 _c("b", [
                                   _vm._v(
-                                    "   Terbilang : " +
+                                    "   Terbilang :\n                                        " +
                                       _vm._s(_vm.invoice_order.terbilang)
                                   )
                                 ])
@@ -60239,7 +60249,7 @@ var render = function() {
                           _c("td", { attrs: { width: "2%" } }, [_vm._v(" :")]),
                           _vm._v(" "),
                           _c("td", { attrs: { width: "30%" } }, [
-                            _vm._v(_vm._s(_vm.info.no_rek))
+                            _vm._v(_vm._s(_vm.info.bank_account))
                           ])
                         ]),
                         _vm._v(" "),
@@ -60288,13 +60298,13 @@ var render = function() {
             }
           }
         },
-        [_vm._v("Back\n        ")]
+        [_vm._v("\n            Back\n        ")]
       ),
       _vm._v(" "),
       _c(
         "button",
         { staticClass: "btn btn-success", on: { click: _vm.print } },
-        [_vm._v("Print\n        ")]
+        [_vm._v("Print")]
       )
     ])
   ])
@@ -60321,7 +60331,11 @@ var staticRenderFns = [
           staticClass: "text-right",
           staticStyle: { "border-bottom": "1px solid black" }
         },
-        [_vm._v("Discount Rp")]
+        [
+          _vm._v(
+            "\n                                    Discount Rp\n                                "
+          )
+        ]
       ),
       _vm._v(" "),
       _c("td", {
@@ -60343,7 +60357,11 @@ var staticRenderFns = [
           staticClass: "text-right",
           staticStyle: { "border-bottom": "1px solid black" }
         },
-        [_vm._v("Pajak Rp")]
+        [
+          _vm._v(
+            "\n                                    Pajak Rp\n                                "
+          )
+        ]
       ),
       _vm._v(" "),
       _c("td", {
@@ -60404,7 +60422,7 @@ var staticRenderFns = [
       _c("td", { attrs: { width: "10%", colspan: "5" } }, [
         _c("i", [
           _vm._v(
-            "\n                                    *) Pembayaran dianggap sah jika bukti transfer sudah dikirimkan kepada kami\n                                "
+            "\n                                        *) Pembayaran dianggap sah jika\n                                        bukti transfer sudah dikirimkan\n                                        kepada kami\n                                    "
           )
         ])
       ])
@@ -60418,7 +60436,7 @@ var staticRenderFns = [
       _c("td", { attrs: { width: "10%", colspan: "5" } }, [
         _c("i", [
           _vm._v(
-            "\n                                    *) Nilai tagihan dibuat berdasarkan pesanan yang diterima. Tidak ada coretan,\n                                    berarti pesanan diterima\n                                "
+            "\n                                        *) Nilai tagihan dibuat berdasarkan\n                                        pesanan yang diterima. Tidak ada\n                                        coretan, berarti pesanan diterima\n                                    "
           )
         ])
       ])
@@ -61054,116 +61072,9 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-12" }, [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "col-md-3" }, [
                   _c("div", { staticClass: "form-group" }, [
                     _vm._m(1),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.in_out_payment.source,
-                            expression: "in_out_payment.source"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        class: {
-                          "is-invalid": _vm.errors.source
-                        },
-                        attrs: {
-                          type: "text",
-                          placeholder: "Source Data",
-                          required: ""
-                        },
-                        domProps: { value: _vm.in_out_payment.source },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.in_out_payment,
-                              "source",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.errors.source
-                        ? _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "margin-top": ".25rem",
-                                "font-size": "80%",
-                                color: "#dc3545"
-                              }
-                            },
-                            [_c("p", [_vm._v(_vm._s(_vm.errors.source[0]))])]
-                          )
-                        : _vm._e()
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      [
-                        _c("date-picker", {
-                          attrs: {
-                            lang: "en",
-                            type: "date",
-                            valueType: "format",
-                            "not-before": new Date(),
-                            format: "YYYY-MM-DD"
-                          },
-                          model: {
-                            value: _vm.in_out_payment.transaction_date,
-                            callback: function($$v) {
-                              _vm.$set(
-                                _vm.in_out_payment,
-                                "transaction_date",
-                                $$v
-                              )
-                            },
-                            expression:
-                              "\n                                        in_out_payment.transaction_date\n                                    "
-                          }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _vm.errors.transaction_date
-                      ? _c(
-                          "div",
-                          {
-                            staticStyle: {
-                              "margin-top": ".25rem",
-                              "font-size": "80%",
-                              color: "#dc3545"
-                            }
-                          },
-                          [
-                            _c("p", [
-                              _vm._v(_vm._s(_vm.errors.transaction_date[0]))
-                            ])
-                          ]
-                        )
-                      : _vm._e()
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(3),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -61175,21 +61086,322 @@ var render = function() {
                             "option-text": "name",
                             placeholder: "Select Tipe Transaksi"
                           },
+                          on: {
+                            input: function($event) {
+                              return _vm.getOptions()
+                            }
+                          },
                           model: {
-                            value: _vm.in_out_payment.type_transaction,
+                            value: _vm.in_out_payment.type,
                             callback: function($$v) {
-                              _vm.$set(
-                                _vm.in_out_payment,
-                                "type_transaction",
-                                $$v
-                              )
+                              _vm.$set(_vm.in_out_payment, "type", $$v)
                             },
-                            expression:
-                              "\n                                        in_out_payment.type_transaction\n                                    "
+                            expression: "in_out_payment.type"
                           }
                         }),
                         _vm._v(" "),
-                        _vm.errors.type_transaction
+                        _vm.errors.type
+                          ? _c(
+                              "div",
+                              {
+                                staticStyle: {
+                                  "margin-top": ".25rem",
+                                  "font-size": "80%",
+                                  color: "#dc3545"
+                                }
+                              },
+                              [_c("p", [_vm._v(_vm._s(_vm.errors.type[0]))])]
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm.in_out_payment.type != ""
+                  ? _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          [
+                            _c("model-list-select", {
+                              attrs: {
+                                list: _vm.options,
+                                "option-value": "id",
+                                "option-text": "name",
+                                placeholder: "Select Opsi Transaksi"
+                              },
+                              model: {
+                                value: _vm.in_out_payment.option,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.in_out_payment, "option", $$v)
+                                },
+                                expression: "in_out_payment.option"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors.option
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticStyle: {
+                                      "margin-top": ".25rem",
+                                      "font-size": "80%",
+                                      color: "#dc3545"
+                                    }
+                                  },
+                                  [
+                                    _c("p", [
+                                      _vm._v(
+                                        "\n                                        " +
+                                          _vm._s(_vm.errors.option[0]) +
+                                          "\n                                    "
+                                      )
+                                    ])
+                                  ]
+                                )
+                              : _vm._e()
+                          ],
+                          1
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.in_out_payment.option
+                  ? _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(3),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          [
+                            _vm.in_out_payment.option == 1 &&
+                            _vm.no_requests != []
+                              ? _c("model-list-select", {
+                                  attrs: {
+                                    list: _vm.no_requests,
+                                    "option-value": "id",
+                                    "option-text": "no_and_requester",
+                                    placeholder: "Source Data"
+                                  },
+                                  model: {
+                                    value: _vm.in_out_payment.source,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.in_out_payment,
+                                        "source",
+                                        $$v
+                                      )
+                                    },
+                                    expression: "in_out_payment.source"
+                                  }
+                                })
+                              : _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.in_out_payment.source,
+                                      expression: "in_out_payment.source"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  class: {
+                                    "is-invalid": _vm.errors.source
+                                  },
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Source Data",
+                                    required: ""
+                                  },
+                                  domProps: {
+                                    value: _vm.in_out_payment.source
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.in_out_payment,
+                                        "source",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                            _vm._v(" "),
+                            _vm.errors.source
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticStyle: {
+                                      "margin-top": ".25rem",
+                                      "font-size": "80%",
+                                      color: "#dc3545"
+                                    }
+                                  },
+                                  [
+                                    _c("p", [
+                                      _vm._v(_vm._s(_vm.errors.source[0]))
+                                    ])
+                                  ]
+                                )
+                              : _vm._e()
+                          ],
+                          1
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.in_out_payment.option
+                  ? _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(4),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.in_out_payment.amount,
+                                expression: "in_out_payment.amount"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.errors.amount
+                            },
+                            attrs: {
+                              type: "number",
+                              placeholder: "Amount",
+                              required: ""
+                            },
+                            domProps: { value: _vm.in_out_payment.amount },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.in_out_payment,
+                                  "amount",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.amount
+                            ? _c(
+                                "div",
+                                {
+                                  staticStyle: {
+                                    "margin-top": ".25rem",
+                                    "font-size": "80%",
+                                    color: "#dc3545"
+                                  }
+                                },
+                                [
+                                  _c("p", [
+                                    _vm._v(_vm._s(_vm.errors.amount[0]))
+                                  ])
+                                ]
+                              )
+                            : _vm._e()
+                        ])
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.in_out_payment.option
+                  ? _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(5),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          [
+                            _c("model-list-select", {
+                              attrs: {
+                                list: _vm.banks,
+                                "option-value": "id",
+                                "option-text": "name",
+                                placeholder: "Select Bank"
+                              },
+                              model: {
+                                value: _vm.in_out_payment.bank_id,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.in_out_payment, "bank_id", $$v)
+                                },
+                                expression: "in_out_payment.bank_id"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors.bank_id
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticStyle: {
+                                      "margin-top": ".25rem",
+                                      "font-size": "80%",
+                                      color: "#dc3545"
+                                    }
+                                  },
+                                  [
+                                    _c("p", [
+                                      _vm._v(_vm._s(_vm.errors.bank_id[0]))
+                                    ])
+                                  ]
+                                )
+                              : _vm._e()
+                          ],
+                          1
+                        )
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.in_out_payment.option
+                  ? _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(6),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          [
+                            _c("date-picker", {
+                              attrs: {
+                                lang: "en",
+                                type: "date",
+                                valueType: "format",
+                                "not-before": new Date(),
+                                format: "YYYY-MM-DD"
+                              },
+                              model: {
+                                value: _vm.in_out_payment.transaction_date,
+                                callback: function($$v) {
+                                  _vm.$set(
+                                    _vm.in_out_payment,
+                                    "transaction_date",
+                                    $$v
+                                  )
+                                },
+                                expression:
+                                  "\n                                        in_out_payment.transaction_date\n                                    "
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _vm.errors.transaction_date
                           ? _c(
                               "div",
                               {
@@ -61201,209 +61413,169 @@ var render = function() {
                               },
                               [
                                 _c("p", [
-                                  _vm._v(_vm._s(_vm.errors.type_transaction[0]))
+                                  _vm._v(_vm._s(_vm.errors.transaction_date[0]))
                                 ])
                               ]
                             )
                           : _vm._e()
-                      ],
-                      1
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.in_out_payment.amount,
-                            expression: "in_out_payment.amount"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        class: {
-                          "is-invalid": _vm.errors.amount
-                        },
-                        attrs: {
-                          type: "number",
-                          placeholder: "Amount",
-                          required: ""
-                        },
-                        domProps: { value: _vm.in_out_payment.amount },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.in_out_payment,
-                              "amount",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.errors.amount
-                        ? _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "margin-top": ".25rem",
-                                "font-size": "80%",
-                                color: "#dc3545"
-                              }
-                            },
-                            [_c("p", [_vm._v(_vm._s(_vm.errors.amount[0]))])]
-                          )
-                        : _vm._e()
+                      ])
                     ])
-                  ])
-                ]),
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.in_out_payment.option
+                  ? _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(7),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.in_out_payment.bank_account,
+                                expression: "in_out_payment.bank_account"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.errors.bank_account
+                            },
+                            attrs: {
+                              type: "number",
+                              placeholder: "Nomor Rekening",
+                              required: ""
+                            },
+                            domProps: {
+                              value: _vm.in_out_payment.bank_account
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.in_out_payment,
+                                  "bank_account",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.bank_account
+                            ? _c(
+                                "div",
+                                {
+                                  staticStyle: {
+                                    "margin-top": ".25rem",
+                                    "font-size": "80%",
+                                    color: "#dc3545"
+                                  }
+                                },
+                                [
+                                  _c("p", [
+                                    _vm._v(_vm._s(_vm.errors.bank_account[0]))
+                                  ])
+                                ]
+                              )
+                            : _vm._e()
+                        ])
+                      ])
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      [
-                        _c("model-list-select", {
-                          attrs: {
-                            list: _vm.banks,
-                            "option-value": "id",
-                            "option-text": "name",
-                            placeholder: "Select Bank"
-                          },
-                          model: {
-                            value: _vm.in_out_payment.bank_id,
-                            callback: function($$v) {
-                              _vm.$set(_vm.in_out_payment, "bank_id", $$v)
+                  _vm.in_out_payment.option
+                    ? _c("div", { staticClass: "form-group" }, [
+                        _c("label", [
+                          _c("b", [_vm._v("File")]),
+                          _vm._v(" "),
+                          _vm.in_out_payment.option != 3
+                            ? _c("span", { staticStyle: { color: "red" } }, [
+                                _vm._v("*")
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "custom-file" }, [
+                          _c("input", {
+                            staticClass: "custom-file-input",
+                            class: {
+                              "is-invalid": _vm.errors.file
                             },
-                            expression: "in_out_payment.bank_id"
+                            attrs: {
+                              type: "file",
+                              name: "site_logo",
+                              id: "site-logo"
+                            },
+                            on: { change: _vm.onFileChange }
+                          }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "custom-file-label" }, [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(
+                                  _vm.in_out_payment.fileName
+                                    ? _vm.in_out_payment.fileName
+                                    : "Choose File"
+                                ) +
+                                "\n                                "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _vm.errors.file
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _c("p", [_vm._v(_vm._s(_vm.errors.file[0]))])
+                              ])
+                            : _vm._e()
+                        ])
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _vm.in_out_payment.option
+                  ? _c("div", { staticClass: "col-md-12" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(8),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.in_out_payment.remark,
+                              expression: "in_out_payment.remark"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.errors.remark
+                          },
+                          attrs: { id: "Remarks", name: "Remarks" },
+                          domProps: { value: _vm.in_out_payment.remark },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.in_out_payment,
+                                "remark",
+                                $event.target.value
+                              )
+                            }
                           }
                         }),
                         _vm._v(" "),
-                        _vm.errors.bank_id
-                          ? _c(
-                              "div",
-                              {
-                                staticStyle: {
-                                  "margin-top": ".25rem",
-                                  "font-size": "80%",
-                                  color: "#dc3545"
-                                }
-                              },
-                              [_c("p", [_vm._v(_vm._s(_vm.errors.bank_id[0]))])]
-                            )
+                        _vm.errors.remark
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _c("p", [_vm._v(_vm._s(_vm.errors.remark[0]))])
+                            ])
                           : _vm._e()
-                      ],
-                      1
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.in_out_payment.no_rek,
-                            expression: "in_out_payment.no_rek"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        class: {
-                          "is-invalid": _vm.errors.no_rek
-                        },
-                        attrs: {
-                          type: "number",
-                          placeholder: "Nomor Rekening",
-                          required: ""
-                        },
-                        domProps: { value: _vm.in_out_payment.no_rek },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.in_out_payment,
-                              "no_rek",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.errors.no_rek
-                        ? _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "margin-top": ".25rem",
-                                "font-size": "80%",
-                                color: "#dc3545"
-                              }
-                            },
-                            [_c("p", [_vm._v(_vm._s(_vm.errors.no_rek[0]))])]
-                          )
-                        : _vm._e()
+                      ])
                     ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-12" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.in_out_payment.remark,
-                          expression: "in_out_payment.remark"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      class: {
-                        "is-invalid": _vm.errors.remark
-                      },
-                      attrs: { id: "Remarks", name: "Remarks" },
-                      domProps: { value: _vm.in_out_payment.remark },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.in_out_payment,
-                            "remark",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.remark
-                      ? _c("div", { staticClass: "invalid-feedback" }, [
-                          _c("p", [_vm._v(_vm._s(_vm.errors.remark[0]))])
-                        ])
-                      : _vm._e()
-                  ])
-                ]),
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-12" }, [
                   _c("div", { staticClass: "card-body" }, [
@@ -61412,18 +61584,25 @@ var render = function() {
                       : _c(
                           "div",
                           [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.submitForm()
-                                  }
-                                }
-                              },
-                              [_vm._v("Submit")]
-                            ),
+                            _vm.in_out_payment.type != "" &&
+                            _vm.in_out_payment.option
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.submitForm()
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    Submit\n                                "
+                                    )
+                                  ]
+                                )
+                              : _vm._e(),
                             _vm._v(" "),
                             _c("back-button")
                           ],
@@ -61454,27 +61633,27 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("b", [_vm._v("Source Data")]),
-      _vm._v(" "),
-      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("b", [_vm._v("Request Date")]),
-      _vm._v(" "),
-      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
       _c("b", [_vm._v("Tipe Transaksi")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Opsi Transaksi")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Source Data")]),
       _vm._v(" "),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])
@@ -61495,6 +61674,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", [
       _c("b", [_vm._v("Nama Bank")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("Request Date")]),
       _vm._v(" "),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])
@@ -61771,166 +61960,124 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _vm.data.type == 1
+          ? _c("h4", { staticClass: "text-danger" }, [_vm._v("IN PAYMENT")])
+          : _c("h4", { staticClass: "text-danger" }, [_vm._v("OUT PAYMENT")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-header-action" }, [_c("back-button")], 1)
+      ])
+    ]),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "card card-body printableArea", attrs: { id: "printMe" } },
       [
-        _c("div", { staticClass: "card-header" }, [
-          _vm.data.status == 2
-            ? _c("h4", { staticClass: "text-danger" }, [_vm._v("IN PAYMENT")])
-            : _c("h4", { staticClass: "text-danger" }, [_vm._v("OUT PAYMENT")]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-header-action" },
-            [
-              _c("back-button"),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-success", on: { click: _vm.print } },
-                [_vm._v("Print")]
-              )
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c("hr"),
+        _vm.loading
+          ? _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-12 mr-4 ml-4 mt-4 mb-4" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-4 mt-4" }, [
+                    _c("div", [_vm._v("Source Data")]),
+                    _vm._v(" "),
+                    _c("h5", [_vm._v(_vm._s(_vm.data.source_data))])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4 mt-4" }, [
+                    _c("div", [_vm._v("Type Transaction")]),
+                    _vm._v(" "),
+                    _c("span", {
+                      domProps: { innerHTML: _vm._s(_vm.data.type_transaction) }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4 mt-4" }, [
+                    _c("div", [_vm._v("Option Transaction")]),
+                    _vm._v(" "),
+                    _c("span", {
+                      domProps: {
+                        innerHTML: _vm._s(_vm.data.option_transaction)
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4 mt-4" }, [
+                    _c("div", [_vm._v("Amount")]),
+                    _vm._v(" "),
+                    _c("h5", [
+                      _vm._v("Rp " + _vm._s(_vm._f("toIDR")(_vm.data.amount)))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4 mt-4" }, [
+                    _c("div", [_vm._v("Bank Name")]),
+                    _vm._v(" "),
+                    _c("h5", [_vm._v(_vm._s(_vm.data.bank_name))])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4 mt-4" }, [
+                    _c("div", [_vm._v("Bank Account")]),
+                    _vm._v(" "),
+                    _c("h5", [_vm._v(_vm._s(_vm.data.bank_account))])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4 mt-4" }, [
+                    _c("div", [_vm._v("Status")]),
+                    _vm._v(" "),
+                    _c("span", {
+                      domProps: { innerHTML: _vm._s(_vm.data.status_html) }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4 mt-4" }, [
+                    _c("div", [_vm._v("Transaction Date")]),
+                    _vm._v(" "),
+                    _c("h5", [_vm._v(_vm._s(_vm.data.transaction_date))])
+                  ]),
+                  _vm._v(" "),
+                  _vm.data.file !== "" && _vm.data.file !== null
+                    ? _c("div", { staticClass: "col-md-4 mt-4" }, [
+                        _c("div", [_vm._v("File")]),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "badge badge-info",
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                return _vm.showFile(
+                                  _vm.data.file_url,
+                                  _vm.data.file
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(_vm.data.file) +
+                                "\n                        "
+                            )
+                          ]
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              ])
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _vm.loading
           ? _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-12" }, [
-                _c("br"),
-                _vm._v(" "),
-                _vm.data.status == 2
-                  ? _c("div", { staticClass: "col-md-12" }, [
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("h6", { staticClass: "mt-6" }, [
-                            _vm._v("Vendor Name")
-                          ]),
-                          _vm._v(" "),
-                          _c("h3", [
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(_vm._s(_vm.data.vendor_name))
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("h6", { staticClass: "mt-6" }, [_vm._v("Jumlah")]),
-                          _vm._v(" "),
-                          _c("h3", [
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(_vm._s(_vm._f("toIDR")(_vm.data.amount)))
-                            ])
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row mt-4" }, [
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("h6", { staticClass: "mt-6" }, [
-                            _vm._v("Created At")
-                          ]),
-                          _vm._v(" "),
-                          _c("h3", [
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(_vm._s(_vm.data.created_at))
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("h6", { staticClass: "mt-6" }, [
-                            _vm._v("Tipe Transaksi")
-                          ]),
-                          _vm._v(" "),
-                          _c("h3", [
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(_vm._s(_vm.data.type_transaction))
-                            ])
-                          ])
-                        ])
-                      ])
-                    ])
-                  : _c("div", { staticClass: "col-md-12" }, [
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("h6", { staticClass: "mt-6" }, [
-                            _vm._v("Vendor Name")
-                          ]),
-                          _vm._v(" "),
-                          _c("h3", [
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(_vm._s(_vm.data.vendor_name))
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("h6", { staticClass: "mt-6" }, [
-                            _vm._v("No. Rekening")
-                          ]),
-                          _vm._v(" "),
-                          _c("h3", [
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(_vm._s(_vm.data.no_rek))
-                            ])
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row mt-4" }, [
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("h6", { staticClass: "mt-6" }, [_vm._v("PPn")]),
-                          _vm._v(" "),
-                          _c("h3", [
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(_vm._s(_vm.data.ppn))
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("h6", { staticClass: "mt-6" }, [_vm._v("PPh")]),
-                          _vm._v(" "),
-                          _c("h3", [
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(_vm._s(_vm.data.pph))
-                            ])
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row mt-4" }, [
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("h6", { staticClass: "mt-6" }, [
-                            _vm._v("No. Invoice")
-                          ]),
-                          _vm._v(" "),
-                          _c("h3", [
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(_vm._s(_vm.data.no_invoice))
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c("h6", { staticClass: "mt-6" }, [
-                            _vm._v("Created at")
-                          ]),
-                          _vm._v(" "),
-                          _c("h3", [
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(_vm._s(_vm.data.created_at))
-                            ])
-                          ])
-                        ])
-                      ])
-                    ])
-              ])
+              _vm.data.remarks != "" && _vm.data.remarks != null
+                ? _c("div", { staticClass: "col-md-12 mr-4 ml-4 mt-4 mb-4" }, [
+                    _c("div", [_vm._v("Remarks")]),
+                    _vm._v(" "),
+                    _c("h5", [_vm._v(_vm._s(_vm.data.remarks))])
+                  ])
+                : _vm._e()
             ])
           : _c("div", { staticClass: "text-center p-4 text-muted" }, [
               _c("h5", [_vm._v("Loading")]),
@@ -62157,7 +62304,7 @@ var render = function() {
                           _c("td", { staticClass: "text-left" }, [
                             _vm._v(
                               "\n                                    " +
-                                _vm._s(item.itemName) +
+                                _vm._s(item.item_name) +
                                 "\n                                "
                             )
                           ]),
@@ -62165,7 +62312,7 @@ var render = function() {
                           _c("td", { staticClass: "text-center" }, [
                             _vm._v(
                               "\n                                    " +
-                                _vm._s(item.typeOfGoods) +
+                                _vm._s(item.skuid) +
                                 "\n                                "
                             )
                           ]),
@@ -62216,7 +62363,7 @@ var render = function() {
                           _c("td", { staticClass: "text-left" }, [
                             _vm._v(
                               "\n                                    " +
-                                _vm._s(item.supplierName) +
+                                _vm._s(item.supplier_id) +
                                 "\n                                "
                             )
                           ]),
@@ -62326,14 +62473,24 @@ var render = function() {
                               _c("tr", [
                                 _vm._m(10),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(_vm.pettyCash.noRek))])
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                                " +
+                                      _vm._s(_vm.pettyCash.bank_account) +
+                                      "\n                                            "
+                                  )
+                                ])
                               ]),
                               _vm._v(" "),
                               _c("tr", [
                                 _c("td", { attrs: { width: "50" } }),
                                 _vm._v(" "),
                                 _c("td", [
-                                  _vm._v(_vm._s(_vm.pettyCash.namaRek))
+                                  _vm._v(
+                                    "\n                                                " +
+                                      _vm._s(_vm.pettyCash.bank_name) +
+                                      "\n                                            "
+                                  )
                                 ])
                               ])
                             ])
@@ -63060,7 +63217,7 @@ var render = function() {
                         [
                           _c("model-list-select", {
                             class: {
-                              "is-invalid": _vm.errors.sales_order_id
+                              "is-invalid": _vm.errors.userId
                             },
                             attrs: {
                               list: _vm.users,
@@ -63082,7 +63239,7 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _vm.errors.sales_order_id
+                          _vm.errors.userId
                             ? _c(
                                 "div",
                                 {
@@ -63094,7 +63251,7 @@ var render = function() {
                                 },
                                 [
                                   _c("p", [
-                                    _vm._v(_vm._s(_vm.errors.sales_order_id[0]))
+                                    _vm._v(_vm._s(_vm.errors.userId[0]))
                                   ])
                                 ]
                               )
@@ -63277,7 +63434,7 @@ var render = function() {
                                 attrs: {
                                   list: _vm.warehouses,
                                   "option-value": "id",
-                                  "option-text": "address",
+                                  "option-text": "name",
                                   placeholder: "Select Warehouse"
                                 },
                                 model: {
@@ -63329,7 +63486,7 @@ var render = function() {
                         attrs: {
                           col: "3",
                           title: "Bank Name",
-                          model: _vm.user.nama_rek,
+                          model: _vm.user.bank_name,
                           disabled: "true"
                         }
                       })
@@ -63340,7 +63497,7 @@ var render = function() {
                         attrs: {
                           col: "3",
                           title: "Bank Account",
-                          model: _vm.user.no_rek,
+                          model: _vm.user.bank_account,
                           disabled: "true"
                         }
                       })
@@ -63550,10 +63707,6 @@ var render = function() {
                                               "td",
                                               [
                                                 _c("model-list-select", {
-                                                  class: {
-                                                    "is-invalid":
-                                                      _vm.errors.sales_order_id
-                                                  },
                                                   attrs: {
                                                     list: _vm.uom,
                                                     "option-value": "id",
@@ -63561,15 +63714,15 @@ var render = function() {
                                                     placeholder: "Select"
                                                   },
                                                   model: {
-                                                    value: item.uomid,
+                                                    value: item.uom_id,
                                                     callback: function($$v) {
                                                       _vm.$set(
                                                         item,
-                                                        "uomid",
+                                                        "uom_id",
                                                         $$v
                                                       )
                                                     },
-                                                    expression: "item.uomid"
+                                                    expression: "item.uom_id"
                                                   }
                                                 })
                                               ],
@@ -63593,6 +63746,7 @@ var render = function() {
                                                 },
                                                 domProps: { value: item.price },
                                                 on: {
+                                                  change: _vm.updateTotalAmount,
                                                   input: function($event) {
                                                     if (
                                                       $event.target.composing
@@ -63626,6 +63780,7 @@ var render = function() {
                                                 },
                                                 domProps: { value: item.ppn },
                                                 on: {
+                                                  change: _vm.updateTotalAmount,
                                                   input: function($event) {
                                                     if (
                                                       $event.target.composing
@@ -63643,37 +63798,35 @@ var render = function() {
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: item.supplierName,
-                                                    expression:
-                                                      "item.supplierName"
-                                                  }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { type: "text" },
-                                                domProps: {
-                                                  value: item.supplierName
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      item,
-                                                      "supplierName",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
+                                              _vm._v(_vm._s(item.total))
                                             ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "td",
+                                              [
+                                                _c("model-list-select", {
+                                                  attrs: {
+                                                    list: _vm.suppliers,
+                                                    "option-value": "id",
+                                                    "option-text": "name",
+                                                    placeholder: "Select"
+                                                  },
+                                                  model: {
+                                                    value: item.supplier_id,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        item,
+                                                        "supplier_id",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "item.supplier_id"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            ),
                                             _vm._v(" "),
                                             _c("td", [
                                               _c("input", {
@@ -63681,14 +63834,14 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.remark,
-                                                    expression: "item.remark"
+                                                    value: item.remarks,
+                                                    expression: "item.remarks"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "text" },
                                                 domProps: {
-                                                  value: item.remark
+                                                  value: item.remarks
                                                 },
                                                 on: {
                                                   input: function($event) {
@@ -63699,7 +63852,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "remark",
+                                                      "remarks",
                                                       $event.target.value
                                                     )
                                                   }
@@ -63787,10 +63940,6 @@ var render = function() {
                                               "td",
                                               [
                                                 _c("model-list-select", {
-                                                  class: {
-                                                    "is-invalid":
-                                                      _vm.errors.sales_order_id
-                                                  },
                                                   attrs: {
                                                     list: _vm.uom,
                                                     "option-value": "id",
@@ -63798,15 +63947,15 @@ var render = function() {
                                                     placeholder: "Select"
                                                   },
                                                   model: {
-                                                    value: item.uomid,
+                                                    value: item.uom_id,
                                                     callback: function($$v) {
                                                       _vm.$set(
                                                         item,
-                                                        "uomid",
+                                                        "uom_id",
                                                         $$v
                                                       )
                                                     },
-                                                    expression: "item.uomid"
+                                                    expression: "item.uom_id"
                                                   }
                                                 })
                                               ],
@@ -63830,6 +63979,7 @@ var render = function() {
                                                 },
                                                 domProps: { value: item.price },
                                                 on: {
+                                                  change: _vm.updateTotalAmount,
                                                   input: function($event) {
                                                     if (
                                                       $event.target.composing
@@ -63863,6 +64013,7 @@ var render = function() {
                                                 },
                                                 domProps: { value: item.ppn },
                                                 on: {
+                                                  change: _vm.updateTotalAmount,
                                                   input: function($event) {
                                                     if (
                                                       $event.target.composing
@@ -63880,37 +64031,35 @@ var render = function() {
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: item.supplierName,
-                                                    expression:
-                                                      "item.supplierName"
-                                                  }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { type: "text" },
-                                                domProps: {
-                                                  value: item.supplierName
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      item,
-                                                      "supplierName",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
+                                              _vm._v(_vm._s(item.total))
                                             ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "td",
+                                              [
+                                                _c("model-list-select", {
+                                                  attrs: {
+                                                    list: _vm.suppliers,
+                                                    "option-value": "id",
+                                                    "option-text": "name",
+                                                    placeholder: "Select"
+                                                  },
+                                                  model: {
+                                                    value: item.supplier_id,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        item,
+                                                        "supplier_id",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "item.supplier_id"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            ),
                                             _vm._v(" "),
                                             _c("td", [
                                               _c("input", {
@@ -63918,14 +64067,14 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.remark,
-                                                    expression: "item.remark"
+                                                    value: item.remarks,
+                                                    expression: "item.remarks"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "text" },
                                                 domProps: {
-                                                  value: item.remark
+                                                  value: item.remarks
                                                 },
                                                 on: {
                                                   input: function($event) {
@@ -63936,7 +64085,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "remark",
+                                                      "remarks",
                                                       $event.target.value
                                                     )
                                                   }
@@ -64118,6 +64267,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("PPN(%)")]),
         _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
+        _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v(
             "\n                                            Supplier Name\n                                        "
@@ -64126,449 +64277,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v(
-            "\n                                            Remark\n                                        "
+            "\n                                            Remarks\n                                        "
           )
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue?vue&type=template&id=33343080&":
-/*!*************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue?vue&type=template&id=33343080& ***!
-  \*************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-12" }, [
-      !_vm.loading
-        ? _c("div", { staticClass: "card col-12" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-12" }, [
-              _c(
-                "div",
-                { staticClass: "row" },
-                [
-                  _c("div", { staticClass: "col-md-2" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        [
-                          _c("date-picker", {
-                            attrs: {
-                              lang: "en",
-                              type: "date",
-                              valueType: "format",
-                              "not-before": new Date(),
-                              format: "YYYY-MM-DD"
-                            },
-                            model: {
-                              value: _vm.confirmDate,
-                              callback: function($$v) {
-                                _vm.confirmDate = $$v
-                              },
-                              expression: "confirmDate"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _vm.errors.confirmDate
-                        ? _c(
-                            "div",
-                            {
-                              staticStyle: {
-                                "margin-top": ".25rem",
-                                "font-size": "80%",
-                                color: "#dc3545"
-                              }
-                            },
-                            [
-                              _c("p", [
-                                _vm._v(_vm._s(_vm.errors.confirmDate[0]))
-                              ])
-                            ]
-                          )
-                        : _vm._e()
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("s-form-input", {
-                    attrs: {
-                      col: "2",
-                      title: "No Request",
-                      model: _vm.requestFinance.no_request,
-                      disabled: "true"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("s-form-input", {
-                    attrs: {
-                      col: "2",
-                      title: "Request Date",
-                      model: _vm.requestFinance.request_date,
-                      disabled: "true"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("s-form-input", {
-                    attrs: {
-                      col: "2",
-                      title: "Dept",
-                      model: _vm.requestFinance.dept,
-                      disabled: "true"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("s-form-input", {
-                    attrs: {
-                      col: "2",
-                      title: "Nama Rekening",
-                      model: _vm.requestFinance.namaRek,
-                      disabled: "true"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("s-form-input", {
-                    attrs: {
-                      col: "2",
-                      title: "Nomor Rekening",
-                      model: _vm.requestFinance.noRek,
-                      disabled: "true"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("s-form-input", {
-                    attrs: {
-                      col: "2",
-                      title: "Alamat Kirim",
-                      model: _vm.requestFinance.shipping_address,
-                      disabled: "true"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("s-form-input", {
-                    attrs: {
-                      col: "2",
-                      title: "Nominal Permintaan",
-                      model: _vm._f("toIDR")(_vm.requestFinance.total),
-                      disabled: "true"
-                    }
-                  })
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-12" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "table-responsive m-t-40",
-                  staticStyle: { clear: "both" }
-                },
-                [
-                  _c(
-                    "table",
-                    {
-                      staticClass: "table table-hover",
-                      staticStyle: { "font-size": "9pt" }
-                    },
-                    [
-                      _vm._m(2),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.orderDetails, function(item, index) {
-                          return _c("tr", { key: index }, [
-                            _c("td", [_vm._v(_vm._s(index + 1))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(item.itemName))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(item.typeOfGoods))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(item.qty))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(item.uom_name))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(item.price))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(item.ppn))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(item.total))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: item.qty_confirm,
-                                    expression: "item.qty_confirm"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { type: "number" },
-                                domProps: { value: item.qty_confirm },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      item,
-                                      "qty_confirm",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: item.price_confirm,
-                                    expression: "item.price_confirm"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { type: "number" },
-                                domProps: { value: item.price_confirm },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      item,
-                                      "price_confirm",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: item.remarks,
-                                    expression: "item.remarks"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { type: "text" },
-                                domProps: { value: item.remarks },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      item,
-                                      "remarks",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "custom-checkbox custom-control"
-                                },
-                                [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: item.checked,
-                                        expression: "item.checked"
-                                      }
-                                    ],
-                                    staticClass: "custom-control-input",
-                                    attrs: {
-                                      type: "checkbox",
-                                      value: "1",
-                                      id: "checkbox-" + index
-                                    },
-                                    domProps: {
-                                      checked: Array.isArray(item.checked)
-                                        ? _vm._i(item.checked, "1") > -1
-                                        : item.checked
-                                    },
-                                    on: {
-                                      change: function($event) {
-                                        var $$a = item.checked,
-                                          $$el = $event.target,
-                                          $$c = $$el.checked ? true : false
-                                        if (Array.isArray($$a)) {
-                                          var $$v = "1",
-                                            $$i = _vm._i($$a, $$v)
-                                          if ($$el.checked) {
-                                            $$i < 0 &&
-                                              _vm.$set(
-                                                item,
-                                                "checked",
-                                                $$a.concat([$$v])
-                                              )
-                                          } else {
-                                            $$i > -1 &&
-                                              _vm.$set(
-                                                item,
-                                                "checked",
-                                                $$a
-                                                  .slice(0, $$i)
-                                                  .concat($$a.slice($$i + 1))
-                                              )
-                                          }
-                                        } else {
-                                          _vm.$set(item, "checked", $$c)
-                                        }
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "label",
-                                    {
-                                      staticClass: "custom-control-label",
-                                      attrs: { for: "checkbox-" + index }
-                                    },
-                                    [_vm._v(" ")]
-                                  )
-                                ]
-                              )
-                            ])
-                          ])
-                        }),
-                        0
-                      )
-                    ]
-                  )
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-12" }, [
-              _c("div", { staticClass: "card-body" }, [
-                _vm.loadingSubmit
-                  ? _c("div", [_c("loading-button")], 1)
-                  : _c(
-                      "div",
-                      [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-danger",
-                            on: {
-                              click: function($event) {
-                                return _vm.submitForm()
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                            Submit\n                        "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("back-button")
-                      ],
-                      1
-                    )
-              ])
-            ])
-          ])
-        : _c("div", { staticClass: "card col-12" }, [_c("loading-table")], 1)
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "text-danger" }, [
-        _vm._v("Confirm Request Cash Finance")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("b", [_vm._v("Confirm Date")]),
-      _vm._v(" "),
-      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { staticClass: "text-center" }, [_vm._v("No")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Nama Barang")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Jenis Barang")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Unit")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center", attrs: { colspan: "2" } }, [
-          _vm._v(
-            "\n                                    Harga + PPN\n                                "
-          )
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Qty Confirm")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Price Confirm")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Keterangan")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Checkbox")])
       ])
     ])
   }
@@ -64699,7 +64412,7 @@ var render = function() {
                             attrs: {
                               list: _vm.warehouses,
                               "option-value": "id",
-                              "option-text": "address",
+                              "option-text": "name",
                               placeholder: "Select Warehouse"
                             },
                             model: {
@@ -64756,7 +64469,7 @@ var render = function() {
                     attrs: {
                       col: "3",
                       title: "Bank Name",
-                      model: _vm.user.nama_rek,
+                      model: _vm.user.bank_name,
                       disabled: "true"
                     }
                   }),
@@ -64765,7 +64478,7 @@ var render = function() {
                     attrs: {
                       col: "3",
                       title: "Bank Account",
-                      model: _vm.user.no_rek,
+                      model: _vm.user.bank_account,
                       disabled: "true"
                     }
                   }),
@@ -64912,16 +64625,13 @@ var render = function() {
                                                   {
                                                     name: "model",
                                                     rawName: "v-model",
-                                                    value: item.type_of_goods,
-                                                    expression:
-                                                      "item.type_of_goods"
+                                                    value: item.skuid,
+                                                    expression: "item.skuid"
                                                   }
                                                 ],
                                                 staticClass: "form-control",
                                                 attrs: { type: "text" },
-                                                domProps: {
-                                                  value: item.type_of_goods
-                                                },
+                                                domProps: { value: item.skuid },
                                                 on: {
                                                   input: function($event) {
                                                     if (
@@ -64931,7 +64641,7 @@ var render = function() {
                                                     }
                                                     _vm.$set(
                                                       item,
-                                                      "type_of_goods",
+                                                      "skuid",
                                                       $event.target.value
                                                     )
                                                   }
@@ -64976,10 +64686,6 @@ var render = function() {
                                               "td",
                                               [
                                                 _c("model-list-select", {
-                                                  class: {
-                                                    "is-invalid":
-                                                      _vm.errors.sales_order_id
-                                                  },
                                                   attrs: {
                                                     list: _vm.uom,
                                                     "option-value": "id",
@@ -65019,6 +64725,7 @@ var render = function() {
                                                 },
                                                 domProps: { value: item.price },
                                                 on: {
+                                                  change: _vm.updateTotalAmount,
                                                   input: function($event) {
                                                     if (
                                                       $event.target.composing
@@ -65052,6 +64759,7 @@ var render = function() {
                                                 },
                                                 domProps: { value: item.ppn },
                                                 on: {
+                                                  change: _vm.updateTotalAmount,
                                                   input: function($event) {
                                                     if (
                                                       $event.target.composing
@@ -65069,37 +64777,35 @@ var render = function() {
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: item.supplier_name,
-                                                    expression:
-                                                      "item.supplier_name"
-                                                  }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { type: "text" },
-                                                domProps: {
-                                                  value: item.supplier_name
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      item,
-                                                      "supplier_name",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
+                                              _vm._v(_vm._s(item.total))
                                             ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "td",
+                                              [
+                                                _c("model-list-select", {
+                                                  attrs: {
+                                                    list: _vm.suppliers,
+                                                    "option-value": "id",
+                                                    "option-text": "name",
+                                                    placeholder: "Select"
+                                                  },
+                                                  model: {
+                                                    value: item.supplier_id,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        item,
+                                                        "supplier_id",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "item.supplier_id"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            ),
                                             _vm._v(" "),
                                             _c("td", [
                                               _c("input", {
@@ -65170,7 +64876,7 @@ var render = function() {
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
-                                              _vm._v(_vm._s(item.type_of_goods))
+                                              _vm._v(_vm._s(item.skuid))
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
@@ -65210,10 +64916,6 @@ var render = function() {
                                               "td",
                                               [
                                                 _c("model-list-select", {
-                                                  class: {
-                                                    "is-invalid":
-                                                      _vm.errors.sales_order_id
-                                                  },
                                                   attrs: {
                                                     list: _vm.uom,
                                                     "option-value": "id",
@@ -65253,6 +64955,7 @@ var render = function() {
                                                 },
                                                 domProps: { value: item.price },
                                                 on: {
+                                                  change: _vm.updateTotalAmount,
                                                   input: function($event) {
                                                     if (
                                                       $event.target.composing
@@ -65286,6 +64989,7 @@ var render = function() {
                                                 },
                                                 domProps: { value: item.ppn },
                                                 on: {
+                                                  change: _vm.updateTotalAmount,
                                                   input: function($event) {
                                                     if (
                                                       $event.target.composing
@@ -65303,37 +65007,35 @@ var render = function() {
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
-                                              _c("input", {
-                                                directives: [
-                                                  {
-                                                    name: "model",
-                                                    rawName: "v-model",
-                                                    value: item.supplier_name,
-                                                    expression:
-                                                      "item.supplier_name"
-                                                  }
-                                                ],
-                                                staticClass: "form-control",
-                                                attrs: { type: "text" },
-                                                domProps: {
-                                                  value: item.supplier_name
-                                                },
-                                                on: {
-                                                  input: function($event) {
-                                                    if (
-                                                      $event.target.composing
-                                                    ) {
-                                                      return
-                                                    }
-                                                    _vm.$set(
-                                                      item,
-                                                      "supplier_name",
-                                                      $event.target.value
-                                                    )
-                                                  }
-                                                }
-                                              })
+                                              _vm._v(_vm._s(item.total))
                                             ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "td",
+                                              [
+                                                _c("model-list-select", {
+                                                  attrs: {
+                                                    list: _vm.suppliers,
+                                                    "option-value": "id",
+                                                    "option-text": "name",
+                                                    placeholder: "Select"
+                                                  },
+                                                  model: {
+                                                    value: item.supplier_id,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        item,
+                                                        "supplier_id",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "item.supplier_id"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            ),
                                             _vm._v(" "),
                                             _c("td", [
                                               _c("input", {
@@ -65509,6 +65211,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("PPN(%)")]),
         _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
+        _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v(
             "\n                                            Suplier Name\n                                        "
@@ -65624,7 +65328,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12" }, [
                   _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-8" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
                       _c("div", { staticClass: "table-responsive" }, [
                         _c("table", { attrs: { width: "100%" } }, [
                           _c("tbody", [
@@ -65664,7 +65368,7 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
                       _c("div", { staticClass: "table-responsive" }, [
                         _c("table", { attrs: { width: "100%" } }, [
                           _c("tbody", [
@@ -65741,7 +65445,7 @@ var render = function() {
                           _c("td", { staticClass: "text-left" }, [
                             _vm._v(
                               "\n                                    " +
-                                _vm._s(item.itemName) +
+                                _vm._s(item.item_name) +
                                 "\n                                "
                             )
                           ]),
@@ -65749,7 +65453,7 @@ var render = function() {
                           _c("td", { staticClass: "text-center" }, [
                             _vm._v(
                               "\n                                    " +
-                                _vm._s(item.typeOfGoods) +
+                                _vm._s(item.skuid) +
                                 "\n                                "
                             )
                           ]),
@@ -65768,7 +65472,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
                             _vm._v(
-                              "\n                                    " +
+                              "\n                                    Rp " +
                                 _vm._s(_vm._f("toIDR")(item.price)) +
                                 "\n                                "
                             )
@@ -65791,7 +65495,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
                             _vm._v(
-                              "\n                                    " +
+                              "\n                                    Rp " +
                                 _vm._s(_vm._f("toIDR")(item.total)) +
                                 "\n                                "
                             )
@@ -65800,7 +65504,7 @@ var render = function() {
                           _c("td", { staticClass: "text-left" }, [
                             _vm._v(
                               "\n                                    " +
-                                _vm._s(item.supplierName) +
+                                _vm._s(item.supplier_name) +
                                 "\n                                "
                             )
                           ]),
@@ -65838,7 +65542,7 @@ var render = function() {
                         _c("td", { staticClass: "text-right" }, [
                           _c("b", [
                             _vm._v(
-                              "\n                                    " +
+                              "\n                                        Rp\n                                        " +
                                 _vm._s(
                                   _vm._f("toIDR")(_vm.requestFinance.total)
                                 ) +
@@ -65915,7 +65619,9 @@ var render = function() {
                                 _c("td", [
                                   _vm._v(
                                     "\n                                                " +
-                                      _vm._s(_vm.requestFinance.noRek) +
+                                      _vm._s(_vm.requestFinance.bank_kode) +
+                                      "\n                                                :\n                                                " +
+                                      _vm._s(_vm.requestFinance.bank_account) +
                                       "\n                                            "
                                   )
                                 ])
@@ -65927,7 +65633,7 @@ var render = function() {
                                 _c("td", [
                                   _vm._v(
                                     "\n                                                " +
-                                      _vm._s(_vm.requestFinance.namaRek) +
+                                      _vm._s(_vm.requestFinance.pic) +
                                       "\n                                            "
                                   )
                                 ])
@@ -66251,10 +65957,512 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=template&id=16a7f3c4&":
-/*!**********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=template&id=16a7f3c4& ***!
-  \**********************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue?vue&type=template&id=46b606ec&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue?vue&type=template&id=46b606ec& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-12" }, [
+      !_vm.loading
+        ? _c("div", { staticClass: "card col-12" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12" }, [
+              _c(
+                "div",
+                { staticClass: "row" },
+                [
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        [
+                          _c("model-list-select", {
+                            class: {
+                              "is-invalid": _vm.errors.requestId
+                            },
+                            attrs: {
+                              list: _vm.requestAdvances,
+                              "option-value": "id",
+                              "option-text": "no_request",
+                              placeholder: "Select No Request"
+                            },
+                            on: {
+                              input: function($event) {
+                                return _vm.getRequest()
+                              }
+                            },
+                            model: {
+                              value: _vm.requestId,
+                              callback: function($$v) {
+                                _vm.requestId = $$v
+                              },
+                              expression: "requestId"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.requestId
+                            ? _c(
+                                "div",
+                                {
+                                  staticStyle: {
+                                    "margin-top": ".25rem",
+                                    "font-size": "80%",
+                                    color: "#dc3545"
+                                  }
+                                },
+                                [
+                                  _c("p", [
+                                    _vm._v(_vm._s(_vm.errors.requestId[0]))
+                                  ])
+                                ]
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.requestId !== ""
+                    ? _c("s-form-input", {
+                        attrs: {
+                          col: "3",
+                          title: "Request Date",
+                          model: _vm.requestAdvance.request_date,
+                          disabled: "true"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.requestId !== ""
+                    ? _c("s-form-input", {
+                        attrs: {
+                          col: "2",
+                          title: "Request Type",
+                          model: _vm.requestAdvance.request_type,
+                          disabled: "true"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.requestId !== ""
+                    ? _c("s-form-input", {
+                        attrs: {
+                          col: "2",
+                          title: "Product Type",
+                          model: _vm.requestAdvance.product_type_name,
+                          disabled: "true"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.requestId !== ""
+                    ? _c("s-form-input", {
+                        attrs: {
+                          col: "2",
+                          title: "Warehouse Address",
+                          model: _vm.requestAdvance.shipping_name,
+                          disabled: "true"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.requestId !== ""
+                    ? _c("s-form-input", {
+                        attrs: {
+                          col: "2",
+                          title: "Name",
+                          model: _vm.user.name,
+                          disabled: "true"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.requestId !== ""
+                    ? _c("s-form-input", {
+                        attrs: {
+                          col: "2",
+                          title: "Dept",
+                          model: _vm.user.dept,
+                          disabled: "true"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.requestId !== ""
+                    ? _c("s-form-input", {
+                        attrs: {
+                          col: "2",
+                          title: "Nama Rekening",
+                          model: _vm.user.bank_name,
+                          disabled: "true"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.requestId !== ""
+                    ? _c("s-form-input", {
+                        attrs: {
+                          col: "3",
+                          title: "Nomor Rekening",
+                          model: _vm.user.bank_account,
+                          disabled: "true"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.requestId !== ""
+                    ? _c("div", { staticClass: "col-md-3" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(2),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "custom-file" }, [
+                            _c("input", {
+                              staticClass: "custom-file-input",
+                              class: {
+                                "is-invalid": _vm.errors.file
+                              },
+                              attrs: {
+                                type: "file",
+                                name: "site_logo",
+                                id: "site-logo"
+                              },
+                              on: { change: _vm.onFileChange }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { staticClass: "custom-file-label" }, [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(
+                                    _vm.fileName ? _vm.fileName : "Choose File"
+                                  ) +
+                                  "\n                                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm.errors.file
+                              ? _c("div", { staticClass: "invalid-feedback" }, [
+                                  _c("p", [_vm._v(_vm._s(_vm.errors.file[0]))])
+                                ])
+                              : _vm._e()
+                          ])
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.requestId !== ""
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "col-12",
+                          staticStyle: { "margin-top": "50px" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "table-responsive",
+                              staticStyle: { clear: "both" }
+                            },
+                            [
+                              _c(
+                                "table",
+                                {
+                                  staticClass: "table table-hover",
+                                  staticStyle: { "font-size": "9pt" }
+                                },
+                                [
+                                  _vm._m(3),
+                                  _vm._v(" "),
+                                  _c(
+                                    "tbody",
+                                    _vm._l(_vm.details, function(item, index) {
+                                      return _c("tr", { key: index }, [
+                                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(item.item_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.skuid))]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.qty))]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: item.qty_confirm,
+                                                expression: "item.qty_confirm"
+                                              }
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: { type: "number", min: "0" },
+                                            domProps: {
+                                              value: item.qty_confirm
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  item,
+                                                  "qty_confirm",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(item.uom_name))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.price))]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: item.price_confirm,
+                                                expression: "item.price_confirm"
+                                              }
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: { type: "number", min: "0" },
+                                            domProps: {
+                                              value: item.price_confirm
+                                            },
+                                            on: {
+                                              change: _vm.updateTotalAmount,
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  item,
+                                                  "price_confirm",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.ppn))]),
+                                        _vm._v(" "),
+                                        _c("td", [_vm._v(_vm._s(item.total))]),
+                                        _vm._v(" "),
+                                        _c("td", [
+                                          _vm._v(_vm._s(item.total_confirm))
+                                        ])
+                                      ])
+                                    }),
+                                    0
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.requestId !== ""
+                    ? _c("div", { staticClass: "col-md-12" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(4),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.remarks,
+                                expression: "remarks"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.errors.remarks
+                            },
+                            attrs: { id: "Remarks", name: "Remarks" },
+                            domProps: { value: _vm.remarks },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.remarks = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.remarks
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                _c("p", [_vm._v(_vm._s(_vm.errors.remarks[0]))])
+                              ])
+                            : _vm._e()
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12" }, [
+                    _c("div", { staticClass: "card-body" }, [
+                      _vm.loadingSubmit
+                        ? _c("div", [_c("loading-button")], 1)
+                        : _c(
+                            "div",
+                            [
+                              _vm.requestId !== ""
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.submitForm()
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                    Submit\n                                "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("back-button")
+                            ],
+                            1
+                          )
+                    ])
+                  ])
+                ],
+                1
+              )
+            ])
+          ])
+        : _c("div", { staticClass: "card col-12" }, [_c("loading-table")], 1)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h4", { staticClass: "text-danger" }, [_vm._v("Create Settlement")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [
+      _c("b", [_vm._v("No Request")]),
+      _vm._v(" "),
+      _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("b", [_vm._v("File")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticClass: "text-center" }, [_vm._v("No")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Item Name\n                                        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Item Type\n                                        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Qty Confirm\n                                            "
+          ),
+          _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Uom")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Price")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Price Confirm\n                                            "
+          ),
+          _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+        ]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("PPN(%)")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Total Confirm\n                                            "
+          ),
+          _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("b", [_vm._v("Remarks")])])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue?vue&type=template&id=24d57e39&":
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue?vue&type=template&id=24d57e39& ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -66283,10 +66491,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=template&id=4dd5d1fe&":
-/*!***************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=template&id=4dd5d1fe& ***!
-  \***************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=template&id=7f5730be&":
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=template&id=7f5730be& ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -66343,7 +66551,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12" }, [
                   _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-8" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
                       _c("div", { staticClass: "table-responsive" }, [
                         _c("table", { attrs: { width: "100%" } }, [
                           _c("tbody", [
@@ -66357,7 +66565,7 @@ var render = function() {
                               _c("td", { attrs: { width: "40%" } }, [
                                 _vm._v(
                                   "\n                                                " +
-                                    _vm._s(_vm.requestFinance.no_request) +
+                                    _vm._s(_vm.settlement.no_settlement) +
                                     "\n                                            "
                                 )
                               ])
@@ -66373,7 +66581,7 @@ var render = function() {
                               _c("td", { attrs: { width: "40%" } }, [
                                 _vm._v(
                                   "\n                                                " +
-                                    _vm._s(_vm.requestFinance.request_date) +
+                                    _vm._s(_vm.settlement.request_date) +
                                     "\n                                            "
                                 )
                               ])
@@ -66383,7 +66591,7 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
                       _c("div", { staticClass: "table-responsive" }, [
                         _c("table", { attrs: { width: "100%" } }, [
                           _c("tbody", [
@@ -66397,7 +66605,7 @@ var render = function() {
                               _c("td", { attrs: { width: "40%" } }, [
                                 _vm._v(
                                   "\n                                                " +
-                                    _vm._s(_vm.requestFinance.user_name) +
+                                    _vm._s(_vm.settlement.user_name) +
                                     "\n                                            "
                                 )
                               ])
@@ -66413,7 +66621,7 @@ var render = function() {
                               _c("td", { attrs: { width: "40%" } }, [
                                 _vm._v(
                                   "\n                                                " +
-                                    _vm._s(_vm.requestFinance.dept) +
+                                    _vm._s(_vm.settlement.dept) +
                                     "\n                                            "
                                 )
                               ])
@@ -66429,9 +66637,7 @@ var render = function() {
                               _c("td", { attrs: { width: "40%" } }, [
                                 _vm._v(
                                   "\n                                                " +
-                                    _vm._s(
-                                      _vm.requestFinance.shipping_address
-                                    ) +
+                                    _vm._s(_vm.settlement.shipping_address) +
                                     "\n                                            "
                                 )
                               ])
@@ -66460,7 +66666,7 @@ var render = function() {
                           _c("td", { staticClass: "text-left" }, [
                             _vm._v(
                               "\n                                    " +
-                                _vm._s(item.itemName) +
+                                _vm._s(item.item_name) +
                                 "\n                                "
                             )
                           ]),
@@ -66468,13 +66674,17 @@ var render = function() {
                           _c("td", { staticClass: "text-center" }, [
                             _vm._v(
                               "\n                                    " +
-                                _vm._s(item.typeOfGoods) +
+                                _vm._s(item.skuid) +
                                 "\n                                "
                             )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _vm._v(_vm._s(item.qtyConfirm))
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(item.qty) +
+                                "\n                                "
+                            )
                           ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
@@ -66487,8 +66697,8 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
                             _vm._v(
-                              "\n                                    " +
-                                _vm._s(_vm._f("toIDR")(item.priceConfirm)) +
+                              "\n                                    Rp " +
+                                _vm._s(_vm._f("toIDR")(item.price)) +
                                 "\n                                "
                             )
                           ]),
@@ -66510,8 +66720,8 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" }, [
                             _vm._v(
-                              "\n                                    " +
-                                _vm._s(_vm._f("toIDR")(item.totalConfirm)) +
+                              "\n                                    Rp " +
+                                _vm._s(_vm._f("toIDR")(item.total)) +
                                 "\n                                "
                             )
                           ]),
@@ -66551,13 +66761,10 @@ var render = function() {
                         _c("td", { staticClass: "text-right" }, [
                           _c("b", [
                             _vm._v(
-                              " " +
+                              "Rp\n                                        " +
                                 _vm._s(
-                                  _vm._f("toIDR")(
-                                    _vm.requestFinance.total_confirm
-                                  )
-                                ) +
-                                " "
+                                  _vm._f("toIDR")(_vm.settlement.total_confirm)
+                                )
                             )
                           ])
                         ]),
@@ -66565,11 +66772,8 @@ var render = function() {
                         _c("td", { staticClass: "text-right" }, [
                           _c("b", [
                             _vm._v(
-                              " " +
-                                _vm._s(
-                                  _vm._f("toIDR")(_vm.requestFinance.total)
-                                ) +
-                                " "
+                              "Rp " +
+                                _vm._s(_vm._f("toIDR")(_vm.settlement.total))
                             )
                           ])
                         ]),
@@ -66604,7 +66808,7 @@ var render = function() {
                                 _c("td", [
                                   _vm._v(
                                     "\n                                                " +
-                                      _vm._s(_vm.requestFinance.noRek) +
+                                      _vm._s(_vm.settlement.bank_account) +
                                       "\n                                            "
                                   )
                                 ])
@@ -66618,7 +66822,7 @@ var render = function() {
                                 _c("td", [
                                   _vm._v(
                                     "\n                                                " +
-                                      _vm._s(_vm.requestFinance.user_name) +
+                                      _vm._s(_vm.settlement.pic) +
                                       "\n                                            "
                                   )
                                 ])
@@ -66632,7 +66836,7 @@ var render = function() {
                                 _c("td", [
                                   _vm._v(
                                     "\n                                                " +
-                                      _vm._s(_vm.requestFinance.namaRek) +
+                                      _vm._s(_vm.settlement.bank_name) +
                                       "\n                                            "
                                   )
                                 ])
@@ -66677,7 +66881,11 @@ var staticRenderFns = [
         _c(
           "b",
           { staticStyle: { color: "black", "text-decoration": "underline" } },
-          [_vm._v("FORM PENYELESAIAN PERMINTAAN PEMBELIAN BARANG / JASA")]
+          [
+            _vm._v(
+              "FORM PENYELESAIAN PERMINTAAN PEMBELIAN BARANG /\n                            JASA"
+            )
+          ]
         )
       ])
     ])
@@ -66739,7 +66947,9 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Total")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _vm._v("Nominal Permintaan")
+          _vm._v(
+            "\n                                    Nominal Permintaan\n                                "
+          )
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Keterangan")])
@@ -66792,7 +67002,13 @@ var staticRenderFns = [
               [
                 _c("tbody", [
                   _c("tr", [
-                    _c("td", [_c("b", [_vm._v(" Pembayaran (Cash/Transfer)")])])
+                    _c("td", [
+                      _c("b", [
+                        _vm._v(
+                          "\n                                                    Pembayaran\n                                                    (Cash/Transfer)"
+                        )
+                      ])
+                    ])
                   ])
                 ])
               ]
@@ -66861,326 +67077,6 @@ var staticRenderFns = [
             )
           ])
         ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=template&id=1483efae&":
-/*!**********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=template&id=1483efae& ***!
-  \**********************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-12" }, [
-      !_vm.loading
-        ? _c("div", { staticClass: "card col-12" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-12" }, [
-              _c(
-                "div",
-                { staticClass: "row" },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "col-md-3" },
-                    [
-                      _c("s-form-input", {
-                        attrs: {
-                          title: "Request Date",
-                          model: _vm.requestAdvance.request_date,
-                          disabled: "true"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-3" },
-                    [
-                      _c("s-form-input", {
-                        attrs: {
-                          title: "Request Type",
-                          model: _vm.requestAdvance.request_type,
-                          disabled: "true"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-3" },
-                    [
-                      _c("s-form-input", {
-                        attrs: {
-                          title: "Product Type",
-                          model: _vm.requestAdvance.product_type_name,
-                          disabled: "true"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-md-3" },
-                    [
-                      _c("s-form-input", {
-                        attrs: {
-                          title: "Warehouse Address",
-                          model: _vm.requestAdvance.shipping_address,
-                          disabled: "true"
-                        }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("s-form-input", {
-                    attrs: {
-                      col: "3",
-                      title: "Name",
-                      model: _vm.user.name,
-                      disabled: "true"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("s-form-input", {
-                    attrs: {
-                      col: "3",
-                      title: "Dept",
-                      model: _vm.user.dept,
-                      disabled: "true"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("s-form-input", {
-                    attrs: {
-                      col: "3",
-                      title: "Nama Rekening",
-                      model: _vm.user.nama_rek,
-                      disabled: "true"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("s-form-input", {
-                    attrs: {
-                      col: "3",
-                      title: "Nomor Rekening",
-                      model: _vm.user.no_rek,
-                      disabled: "true"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "col-12",
-                      staticStyle: { "margin-top": "50px" }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "table-responsive",
-                          staticStyle: { clear: "both" }
-                        },
-                        [
-                          _c(
-                            "table",
-                            {
-                              staticClass: "table table-hover",
-                              staticStyle: { "font-size": "9pt" }
-                            },
-                            [
-                              _vm._m(1),
-                              _vm._v(" "),
-                              _c(
-                                "tbody",
-                                _vm._l(_vm.detail, function(item, index) {
-                                  return _c("tr", { key: index }, [
-                                    _c("td", [_vm._v(_vm._s(index + 1))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(item.item_name))]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(_vm._s(item.type_of_goods))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(item.qty))]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: item.qty_confirm,
-                                            expression: "item.qty_confirm"
-                                          }
-                                        ],
-                                        staticClass: "form-control",
-                                        attrs: { type: "number", min: "0" },
-                                        domProps: { value: item.qty_confirm },
-                                        on: {
-                                          input: function($event) {
-                                            if ($event.target.composing) {
-                                              return
-                                            }
-                                            _vm.$set(
-                                              item,
-                                              "qty_confirm",
-                                              $event.target.value
-                                            )
-                                          }
-                                        }
-                                      })
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(item.uom_name))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(item.price))]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: item.price_confirm,
-                                            expression: "item.price_confirm"
-                                          }
-                                        ],
-                                        staticClass: "form-control",
-                                        attrs: { type: "number", min: "0" },
-                                        domProps: { value: item.price_confirm },
-                                        on: {
-                                          input: function($event) {
-                                            if ($event.target.composing) {
-                                              return
-                                            }
-                                            _vm.$set(
-                                              item,
-                                              "price_confirm",
-                                              $event.target.value
-                                            )
-                                          }
-                                        }
-                                      })
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(item.ppn))])
-                                  ])
-                                }),
-                                0
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-12" }, [
-                    _c("div", { staticClass: "card-body" }, [
-                      _vm.loadingSubmit
-                        ? _c("div", [_c("loading-button")], 1)
-                        : _c(
-                            "div",
-                            [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-danger",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.submitForm()
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                    Submit\n                                "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("back-button")
-                            ],
-                            1
-                          )
-                    ])
-                  ])
-                ],
-                1
-              )
-            ])
-          ])
-        : _c("div", { staticClass: "card col-12" }, [_c("loading-table")], 1)
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "text-danger" }, [_vm._v("Settlement")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { staticClass: "text-center" }, [_vm._v("No")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _vm._v(
-            "\n                                            Item Name\n                                        "
-          )
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [
-          _vm._v(
-            "\n                                            Item Type\n                                        "
-          )
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Qty Confirm")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Uom")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Price")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Price Confirm")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("PPN(%)")])
       ])
     ])
   }
@@ -71424,9 +71320,11 @@ var render = function() {
                 }
               },
               _vm._l(_vm.perPages, function(perPage, index) {
-                return _c("option", { domProps: { value: perPage } }, [
-                  _vm._v(_vm._s(perPage))
-                ])
+                return _c(
+                  "option",
+                  { key: index, domProps: { value: perPage } },
+                  [_vm._v(_vm._s(perPage))]
+                )
               }),
               0
             )
@@ -71533,10 +71431,11 @@ var render = function() {
                                   ? _c("th", [_vm._v("Action")])
                                   : _vm._e(),
                                 _vm._v(" "),
-                                _vm._l(_vm.columns, function(column) {
+                                _vm._l(_vm.columns, function(column, index) {
                                   return _c(
                                     "th",
                                     {
+                                      key: index,
                                       staticStyle: {
                                         overflow: "hidden",
                                         "white-space": "nowrap"
@@ -71558,6 +71457,7 @@ var render = function() {
                             _vm._l(_vm.data, function(item, index) {
                               return _c(
                                 "tr",
+                                { key: index },
                                 [
                                   _vm.config.action || _vm.config.actionPrint
                                     ? _c("td", [
@@ -71662,26 +71562,6 @@ var render = function() {
                                               )
                                             : _vm._e(),
                                           _vm._v(" "),
-                                          _vm.config.route_view_settlement &&
-                                          item.status === 5
-                                            ? _c(
-                                                "router-link",
-                                                {
-                                                  staticClass:
-                                                    "badge badge-primary ml-1 mr-1 mt-1 mb-1",
-                                                  attrs: {
-                                                    to: {
-                                                      name:
-                                                        _vm.config
-                                                          .route_view_settlement,
-                                                      params: { id: item.id }
-                                                    }
-                                                  }
-                                                },
-                                                [_vm._v("View")]
-                                              )
-                                            : _vm._e(),
-                                          _vm._v(" "),
                                           _vm.config.route_edit &&
                                           item.status === 1 &&
                                           item.is_printed === 0
@@ -71738,26 +71618,6 @@ var render = function() {
                                                   }
                                                 },
                                                 [_vm._v("Edit")]
-                                              )
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _vm.config.route_settlement &&
-                                          item.status === 4
-                                            ? _c(
-                                                "router-link",
-                                                {
-                                                  staticClass:
-                                                    "badge badge-warning ml-1 mr-1 mt-1 mb-1",
-                                                  attrs: {
-                                                    to: {
-                                                      name:
-                                                        _vm.config
-                                                          .route_settlement,
-                                                      params: { id: item.id }
-                                                    }
-                                                  }
-                                                },
-                                                [_vm._v("Settlement")]
                                               )
                                             : _vm._e(),
                                           _vm._v(" "),
@@ -71830,7 +71690,8 @@ var render = function() {
                                             : _vm._e(),
                                           _vm._v(" "),
                                           _vm.config.route_confirm_inout &&
-                                          item.status === 3
+                                          (item.status === 3 ||
+                                            item.status === 6)
                                             ? _c(
                                                 "router-link",
                                                 {
@@ -71853,8 +71714,8 @@ var render = function() {
                                       )
                                     : _vm._e(),
                                   _vm._v(" "),
-                                  _vm._l(_vm.columns, function(column) {
-                                    return _c("td", [
+                                  _vm._l(_vm.columns, function(column, index) {
+                                    return _c("td", { key: index }, [
                                       column.type === "html"
                                         ? _c("span", {
                                             domProps: {
@@ -71865,7 +71726,6 @@ var render = function() {
                                           })
                                         : column.type === "file"
                                         ? _c("p", [
-                                            column.type === "file" &&
                                             item.file !== "" &&
                                             item.file !== null
                                               ? _c(
@@ -71931,7 +71791,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _vm.pagination
-        ? _c("nav", { staticClass: "row" }, [
+        ? _c("nav", { staticClass: "row mt-4" }, [
             _c("div", { staticClass: "col-md-6 text-left" }, [
               _c("span", [
                 _vm._v(
@@ -98438,75 +98298,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue ***!
-  \************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ConfirmRequestFinance_vue_vue_type_template_id_33343080___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ConfirmRequestFinance.vue?vue&type=template&id=33343080& */ "./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue?vue&type=template&id=33343080&");
-/* harmony import */ var _ConfirmRequestFinance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ConfirmRequestFinance.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ConfirmRequestFinance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ConfirmRequestFinance_vue_vue_type_template_id_33343080___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ConfirmRequestFinance_vue_vue_type_template_id_33343080___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmRequestFinance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ConfirmRequestFinance.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmRequestFinance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue?vue&type=template&id=33343080&":
-/*!*******************************************************************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue?vue&type=template&id=33343080& ***!
-  \*******************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmRequestFinance_vue_vue_type_template_id_33343080___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ConfirmRequestFinance.vue?vue&type=template&id=33343080& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue?vue&type=template&id=33343080&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmRequestFinance_vue_vue_type_template_id_33343080___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ConfirmRequestFinance_vue_vue_type_template_id_33343080___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./resources/js/components/FinanceAP/RequestAdvance/EditRequestFinance.vue":
 /*!*********************************************************************************!*\
   !*** ./resources/js/components/FinanceAP/RequestAdvance/EditRequestFinance.vue ***!
@@ -98801,17 +98592,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue ***!
-  \*********************************************************************************/
+/***/ "./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue ***!
+  \***********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _IndexSettlementFinance_vue_vue_type_template_id_16a7f3c4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IndexSettlementFinance.vue?vue&type=template&id=16a7f3c4& */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=template&id=16a7f3c4&");
-/* harmony import */ var _IndexSettlementFinance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndexSettlementFinance.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AddSettlementCashAdvance_vue_vue_type_template_id_46b606ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddSettlementCashAdvance.vue?vue&type=template&id=46b606ec& */ "./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue?vue&type=template&id=46b606ec&");
+/* harmony import */ var _AddSettlementCashAdvance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddSettlementCashAdvance.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -98821,9 +98612,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _IndexSettlementFinance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _IndexSettlementFinance_vue_vue_type_template_id_16a7f3c4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _IndexSettlementFinance_vue_vue_type_template_id_16a7f3c4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AddSettlementCashAdvance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddSettlementCashAdvance_vue_vue_type_template_id_46b606ec___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddSettlementCashAdvance_vue_vue_type_template_id_46b606ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -98833,55 +98624,124 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue"
+component.options.__file = "resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************/
+/***/ "./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSettlementFinance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexSettlementFinance.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSettlementFinance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddSettlementCashAdvance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AddSettlementCashAdvance.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddSettlementCashAdvance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=template&id=16a7f3c4&":
-/*!****************************************************************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=template&id=16a7f3c4& ***!
-  \****************************************************************************************************************/
+/***/ "./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue?vue&type=template&id=46b606ec&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue?vue&type=template&id=46b606ec& ***!
+  \******************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSettlementFinance_vue_vue_type_template_id_16a7f3c4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexSettlementFinance.vue?vue&type=template&id=16a7f3c4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue?vue&type=template&id=16a7f3c4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSettlementFinance_vue_vue_type_template_id_16a7f3c4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddSettlementCashAdvance_vue_vue_type_template_id_46b606ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AddSettlementCashAdvance.vue?vue&type=template&id=46b606ec& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue?vue&type=template&id=46b606ec&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddSettlementCashAdvance_vue_vue_type_template_id_46b606ec___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSettlementFinance_vue_vue_type_template_id_16a7f3c4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddSettlementCashAdvance_vue_vue_type_template_id_46b606ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue":
-/*!**************************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue ***!
-  \**************************************************************************/
+/***/ "./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue ***!
+  \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _PrintSettlement_vue_vue_type_template_id_4dd5d1fe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PrintSettlement.vue?vue&type=template&id=4dd5d1fe& */ "./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=template&id=4dd5d1fe&");
-/* harmony import */ var _PrintSettlement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PrintSettlement.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _PrintSettlement_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PrintSettlement.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _IndexSettlementCashAdvance_vue_vue_type_template_id_24d57e39___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IndexSettlementCashAdvance.vue?vue&type=template&id=24d57e39& */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue?vue&type=template&id=24d57e39&");
+/* harmony import */ var _IndexSettlementCashAdvance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndexSettlementCashAdvance.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _IndexSettlementCashAdvance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _IndexSettlementCashAdvance_vue_vue_type_template_id_24d57e39___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _IndexSettlementCashAdvance_vue_vue_type_template_id_24d57e39___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSettlementCashAdvance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexSettlementCashAdvance.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSettlementCashAdvance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue?vue&type=template&id=24d57e39&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue?vue&type=template&id=24d57e39& ***!
+  \********************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSettlementCashAdvance_vue_vue_type_template_id_24d57e39___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexSettlementCashAdvance.vue?vue&type=template&id=24d57e39& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue?vue&type=template&id=24d57e39&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSettlementCashAdvance_vue_vue_type_template_id_24d57e39___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexSettlementCashAdvance_vue_vue_type_template_id_24d57e39___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PrintSettlementCashAdvance_vue_vue_type_template_id_7f5730be___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PrintSettlementCashAdvance.vue?vue&type=template&id=7f5730be& */ "./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=template&id=7f5730be&");
+/* harmony import */ var _PrintSettlementCashAdvance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PrintSettlementCashAdvance.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _PrintSettlementCashAdvance_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PrintSettlementCashAdvance.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -98892,9 +98752,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _PrintSettlement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _PrintSettlement_vue_vue_type_template_id_4dd5d1fe___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _PrintSettlement_vue_vue_type_template_id_4dd5d1fe___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _PrintSettlementCashAdvance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PrintSettlementCashAdvance_vue_vue_type_template_id_7f5730be___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PrintSettlementCashAdvance_vue_vue_type_template_id_7f5730be___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -98904,123 +98764,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/FinanceAP/Settlement/PrintSettlement.vue"
+component.options.__file = "resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************/
+/***/ "./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintSettlement.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlementCashAdvance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintSettlementCashAdvance.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlementCashAdvance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=style&index=0&lang=css&":
-/*!***********************************************************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=style&index=0&lang=css& ***!
-  \***********************************************************************************************************/
+/***/ "./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlement_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintSettlement.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlement_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlement_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlement_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlement_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlement_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlementCashAdvance_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintSettlementCashAdvance.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlementCashAdvance_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlementCashAdvance_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlementCashAdvance_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlementCashAdvance_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlementCashAdvance_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=template&id=4dd5d1fe&":
-/*!*********************************************************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=template&id=4dd5d1fe& ***!
-  \*********************************************************************************************************/
+/***/ "./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=template&id=7f5730be&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=template&id=7f5730be& ***!
+  \********************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlement_vue_vue_type_template_id_4dd5d1fe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintSettlement.vue?vue&type=template&id=4dd5d1fe& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue?vue&type=template&id=4dd5d1fe&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlement_vue_vue_type_template_id_4dd5d1fe___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlementCashAdvance_vue_vue_type_template_id_7f5730be___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./PrintSettlementCashAdvance.vue?vue&type=template&id=7f5730be& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue?vue&type=template&id=7f5730be&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlementCashAdvance_vue_vue_type_template_id_7f5730be___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlement_vue_vue_type_template_id_4dd5d1fe___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/FinanceAP/Settlement/Settlement.vue":
-/*!*********************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/Settlement/Settlement.vue ***!
-  \*********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Settlement_vue_vue_type_template_id_1483efae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Settlement.vue?vue&type=template&id=1483efae& */ "./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=template&id=1483efae&");
-/* harmony import */ var _Settlement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Settlement.vue?vue&type=script&lang=js& */ "./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Settlement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Settlement_vue_vue_type_template_id_1483efae___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Settlement_vue_vue_type_template_id_1483efae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/FinanceAP/Settlement/Settlement.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Settlement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Settlement.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Settlement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=template&id=1483efae&":
-/*!****************************************************************************************************!*\
-  !*** ./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=template&id=1483efae& ***!
-  \****************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Settlement_vue_vue_type_template_id_1483efae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Settlement.vue?vue&type=template&id=1483efae& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FinanceAP/Settlement/Settlement.vue?vue&type=template&id=1483efae&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Settlement_vue_vue_type_template_id_1483efae___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Settlement_vue_vue_type_template_id_1483efae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PrintSettlementCashAdvance_vue_vue_type_template_id_7f5730be___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -101897,19 +101688,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_FinanceAP_RequestAdvance_AddRequestFinance__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/AddRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/AddRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_RequestAdvance_PrintRequestFinance__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/PrintRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/PrintRequestFinance.vue");
 /* harmony import */ var _components_FinanceAP_RequestAdvance_EditRequestFinance__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/EditRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/EditRequestFinance.vue");
-/* harmony import */ var _components_FinanceAP_RequestAdvance_ConfirmRequestFinance__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/ConfirmRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/ConfirmRequestFinance.vue");
-/* harmony import */ var _components_FinanceAP_RequestAdvance_UploadRequestFinance__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/UploadRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue");
-/* harmony import */ var _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/IndexPettyCash */ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue");
-/* harmony import */ var _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/PrintPettyCash */ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue");
-/* harmony import */ var _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/IndexInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_InOutPayment_AddInOutPayment__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/AddInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_InOutPayment_ConfirmInOutPayment__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/ConfirmInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/ConfirmInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/PrintInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/PrintInOutPayment.vue");
-/* harmony import */ var _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/IndexSettlementFinance */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementFinance.vue");
-/* harmony import */ var _components_FinanceAP_Settlement_Settlement__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/Settlement */ "./resources/js/components/FinanceAP/Settlement/Settlement.vue");
-/* harmony import */ var _components_FinanceAP_Settlement_PrintSettlement__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/PrintSettlement */ "./resources/js/components/FinanceAP/Settlement/PrintSettlement.vue");
-/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
-
+/* harmony import */ var _components_FinanceAP_RequestAdvance_UploadRequestFinance__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/FinanceAP/RequestAdvance/UploadRequestFinance */ "./resources/js/components/FinanceAP/RequestAdvance/UploadRequestFinance.vue");
+/* harmony import */ var _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/IndexPettyCash */ "./resources/js/components/FinanceAP/PettyCash/IndexPettyCash.vue");
+/* harmony import */ var _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/FinanceAP/PettyCash/PrintPettyCash */ "./resources/js/components/FinanceAP/PettyCash/PrintPettyCash.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/IndexInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/IndexInOutPayment.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_AddInOutPayment__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/AddInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/AddInOutPayment.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_ConfirmInOutPayment__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/ConfirmInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/ConfirmInOutPayment.vue");
+/* harmony import */ var _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./components/FinanceAP/InOutPayment/PrintInOutPayment */ "./resources/js/components/FinanceAP/InOutPayment/PrintInOutPayment.vue");
+/* harmony import */ var _components_FinanceAP_Settlement_IndexSettlementCashAdvance__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/IndexSettlementCashAdvance */ "./resources/js/components/FinanceAP/Settlement/IndexSettlementCashAdvance.vue");
+/* harmony import */ var _components_FinanceAP_Settlement_AddSettlementCashAdvance__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/AddSettlementCashAdvance */ "./resources/js/components/FinanceAP/Settlement/AddSettlementCashAdvance.vue");
+/* harmony import */ var _components_FinanceAP_Settlement_PrintSettlementCashAdvance__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./components/FinanceAP/Settlement/PrintSettlementCashAdvance */ "./resources/js/components/FinanceAP/Settlement/PrintSettlementCashAdvance.vue");
+/* harmony import */ var _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./components/MasterData/IndexPrice */ "./resources/js/components/MasterData/IndexPrice.vue");
 
 
 
@@ -102129,49 +101918,45 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'finance.requestAdvance.edit',
     component: _components_FinanceAP_RequestAdvance_EditRequestFinance__WEBPACK_IMPORTED_MODULE_37__["default"]
   }, {
-    path: '/admin/finance-ap/request-advance/confirm/:id',
-    name: 'finance.requestAdvance.confirm',
-    component: _components_FinanceAP_RequestAdvance_ConfirmRequestFinance__WEBPACK_IMPORTED_MODULE_38__["default"]
-  }, {
     path: '/admin/finance-ap/request-advance/upload/:id',
     name: 'finance.requestAdvance.upload',
-    component: _components_FinanceAP_RequestAdvance_UploadRequestFinance__WEBPACK_IMPORTED_MODULE_39__["default"]
+    component: _components_FinanceAP_RequestAdvance_UploadRequestFinance__WEBPACK_IMPORTED_MODULE_38__["default"]
   }, {
     path: '/admin/finance-ap/in-out-payment',
     name: 'finance.inOutPayment',
-    component: _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_42__["default"]
+    component: _components_FinanceAP_InOutPayment_IndexInOutPayment__WEBPACK_IMPORTED_MODULE_41__["default"]
   }, {
     path: '/admin/finance-ap/in-out-payment/show/:id',
     name: 'finance.inOutPayment.show',
-    component: _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_45__["default"]
+    component: _components_FinanceAP_InOutPayment_PrintInOutPayment__WEBPACK_IMPORTED_MODULE_44__["default"]
   }, {
     path: '/admin/finance-ap/in-out-payment/create',
     name: 'finance.inOutPayment.create',
-    component: _components_FinanceAP_InOutPayment_AddInOutPayment__WEBPACK_IMPORTED_MODULE_43__["default"]
+    component: _components_FinanceAP_InOutPayment_AddInOutPayment__WEBPACK_IMPORTED_MODULE_42__["default"]
   }, {
     path: '/admin/finance-ap/in-out-payment/confirm',
     name: 'finance.inOutPayment.confirm',
-    component: _components_FinanceAP_InOutPayment_ConfirmInOutPayment__WEBPACK_IMPORTED_MODULE_44__["default"]
+    component: _components_FinanceAP_InOutPayment_ConfirmInOutPayment__WEBPACK_IMPORTED_MODULE_43__["default"]
   }, {
     path: '/admin/finance-ap/settlement-cash-advance',
     name: 'finance.settlementFinance',
-    component: _components_FinanceAP_Settlement_IndexSettlementFinance__WEBPACK_IMPORTED_MODULE_46__["default"]
+    component: _components_FinanceAP_Settlement_IndexSettlementCashAdvance__WEBPACK_IMPORTED_MODULE_45__["default"]
   }, {
-    path: '/admin/finance-ap/settlement-cash-advance/settlement/:id',
-    name: 'finance.settlementFinance.settlement',
-    component: _components_FinanceAP_Settlement_Settlement__WEBPACK_IMPORTED_MODULE_47__["default"]
+    path: '/admin/finance-ap/settlement-cash-advance/create',
+    name: 'finance.settlementFinance.create',
+    component: _components_FinanceAP_Settlement_AddSettlementCashAdvance__WEBPACK_IMPORTED_MODULE_46__["default"]
   }, {
     path: '/admin/finance-ap/settlement-cash-advance/show/:id',
     name: 'finance.settlementFinance.show',
-    component: _components_FinanceAP_Settlement_PrintSettlement__WEBPACK_IMPORTED_MODULE_48__["default"]
+    component: _components_FinanceAP_Settlement_PrintSettlementCashAdvance__WEBPACK_IMPORTED_MODULE_47__["default"]
   }, {
     path: '/admin/finance-ap/petty-cash',
     name: 'finance.pettyCash',
-    component: _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_40__["default"]
+    component: _components_FinanceAP_PettyCash_IndexPettyCash__WEBPACK_IMPORTED_MODULE_39__["default"]
   }, {
     path: '/admin/finance-ap/petty-cash/show/:id',
     name: 'finance.pettyCash.show',
-    component: _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_41__["default"]
+    component: _components_FinanceAP_PettyCash_PrintPettyCash__WEBPACK_IMPORTED_MODULE_40__["default"]
   }, //master data
   {
     path: '/admin/users',
@@ -102184,7 +101969,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/admin/master_data/price',
     name: 'master_data.price',
-    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_49__["default"]
+    component: _components_MasterData_IndexPrice__WEBPACK_IMPORTED_MODULE_48__["default"]
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);

@@ -14,15 +14,18 @@ export default {
                 title: "Settlement Cash Advance",
                 action: true,
                 base_url: this.$parent.MakeUrl(
-                    "api/v1/finance-ap/request-advance/settlement"
+                    "api/v1/finance-ap/settlement-cash-advance"
                 ),
                 noStartEnd: true,
-                route_settlement: "finance.settlementFinance.settlement",
-                route_view_settlement: "finance.settlementFinance.show",
-                // route_create: "finance.requestFinance.create"
-                // route_multiple_print: 'invoice_order.multiplePrint',
+                route_add: "/admin/finance-ap/settlement-cash-advance/create",
+                route_view: "finance.settlementFinance.show"
             },
             columns: [
+                {
+                    title: "No Settlement",
+                    field: "no_settlement",
+                    filterable: true
+                },
                 {
                     title: "No Request",
                     field: "no_request",
@@ -34,7 +37,12 @@ export default {
                     filterable: true
                 },
                 {
-                    title: "User Name",
+                    title: "Status",
+                    field: "status_name",
+                    type: "html"
+                },
+                {
+                    title: "Requester Name",
                     field: "user_name",
                     filterable: false
                 },
@@ -48,19 +56,9 @@ export default {
                     field: "dept",
                     filterable: true
                 },
-                // {
-                //     title: 'Status',
-                //     field: 'status_name',
-                //     type: 'html',
-                // },
                 {
                     title: "Created At",
                     field: "created_at",
-                    filterable: true
-                },
-                {
-                    title: "Created By",
-                    field: "created_by_name",
                     filterable: true
                 }
             ],

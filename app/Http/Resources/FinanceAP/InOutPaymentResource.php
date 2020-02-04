@@ -3,7 +3,9 @@
 namespace App\Http\Resources\FinanceAp;
 
 use App\Model\FinanceAP\RequestFinance;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class InOutPaymentResource extends JsonResource
 {
@@ -18,20 +20,30 @@ class InOutPaymentResource extends JsonResource
     {
         if ($this->finance_request_id == null) {
             $source_data = $this->source;
+            $file = isset($this->file) ? $this->file : '';
+            $file_url = isset($this->file) ? url(Storage::url('public/files/in-out/'.$this->file)) : '';
         } else {
             $finance = RequestFinance::find($this->finance_request_id);
             $source_data = $finance->no_request;
+            $file = isset($finance) ? $finance->file : '';
+            $file_url = isset($finance) ? url(Storage::url('public/files/request-advance/'.$finance->file)) : '';
         }
+
+        $transaction_date = Carbon::create($this->transaction_date);
 
         return [
             'id' => $this->id,
             'source_data' => $source_data,
-            'type_transaction' => $this->type_html,
+            'file' => $file,
+            'file_url' => $file_url,
             'finance_request_id' => $this->finance_request_id,
+            'type_transaction' => $this->type_html,
+            'option_transaction' => $this->option_html,
             'type' => $this->type_transaction,
             'bank_name' => $this->bank->name,
-            'no_rek' => $this->no_rek,
+            'bank_account' => $this->bank_account,
             'amount' => $this->amount,
+            'transaction_date' => isset($transaction_date) ? $transaction_date->formatLocalized('%d %B %Y') : '',
             'status' => $this->status,
             'status_html' => $this->status_html,
             'remarks' => $this->remarks,

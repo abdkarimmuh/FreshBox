@@ -11,7 +11,7 @@ class RequestFinance extends MyModel
 {
     use SearchTraits;
     protected $table = 'finance_request';
-    protected $fillable = ['status', 'vendor_id', 'master_warehouse_id', 'no_request', 'request_date', 'no_request_confirm', 'request_confirm_date', 'request_type', 'product_type', 'created_by', 'file', 'created_at', 'updated_at'];
+    protected $fillable = ['status', 'vendor_id', 'master_warehouse_id', 'no_request', 'request_date', 'no_payment', 'confirm_date', 'request_type', 'product_type', 'created_by', 'file', 'created_at', 'updated_at'];
     protected $dates = [
         'request_date',
         'request_confirm_date',
@@ -44,16 +44,6 @@ class RequestFinance extends MyModel
         return $total;
     }
 
-    public function getTotalConfirmAttribute()
-    {
-        $total = 0;
-        foreach ($this->detail as $detail) {
-            $total += $detail->total_confirm;
-        }
-
-        return $total;
-    }
-
     public function scopeCash($q)
     {
         return $q->where('request_type', 1);
@@ -76,6 +66,10 @@ class RequestFinance extends MyModel
             return '<span class="badge badge-success">Confirm</span>';
         } elseif ($this->status === 5) {
             return '<span class="badge badge-primary">Settlement</span>';
+        } elseif ($this->status === 6) {
+            return '<span class="badge badge-danger">Remaining Money</span>';
+        } elseif ($this->status === 7) {
+            return '<span class="badge badge-danger">Less Money</span>';
         } else {
             return 'Status NotFound';
         }

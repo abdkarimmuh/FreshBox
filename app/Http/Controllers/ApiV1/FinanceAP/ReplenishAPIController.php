@@ -91,9 +91,8 @@ class ReplenishAPIController extends Controller
             $user = User::find($userProc->user_id);
             $vendor = Vendor::where('name', 'like', $user->name)->first();
 
-            $noRequest = $this->generateRequestNo(Carbon::now());
             $data = [
-                'no_request' => $noRequest,
+                'no_request' => $this->generateRequestNo(),
                 'vendor_id' => $vendor->id,
                 'status' => 3,
                 'master_warehouse_id' => 1,
@@ -114,13 +113,13 @@ class ReplenishAPIController extends Controller
                 $requestFinanceDetails[] = [
                     'request_finance_id' => $requestFinance,
                     'item_name' => $detail->item_name,
-                    'type_of_goods' => $detail->skuid,
+                    'skuid' => $detail->skuid,
                     'qty' => $detail->qty,
                     'uom_id' => $detail->uom_id,
-                    'price' => $detail->amount / $detail->qty,
+                    'price' => $detail->amount,
                     'ppn' => 0,
                     'total' => $detail->amount,
-                    'supplier_name' => $listProcurement->vendor,
+                    'supplier_id' => $listProcurement->vendor->id,
                     'remarks' => '',
                     'created_at' => now(),
                 ];
@@ -131,18 +130,19 @@ class ReplenishAPIController extends Controller
 
             $user_profile = UserProfile::where('user_id', $user->id)->first();
             $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
-            $norek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
+            $bank_account = isset($user_profile->bank_account) ? $user_profile->bank_account : '';
 
             InOutPayment::create([
                 'finance_request_id' => $requestFinance,
                 'source' => null,
                 'transaction_date' => Carbon::now()->toDateString(),
                 'bank_id' => $bank_id,
-                'no_rek' => $norek,
+                'bank_account' => $bank_account,
                 'amount' => $total,
                 'remarks' => null,
                 'status' => 3,
-                'type_transaction' => 1,
+                'type_transaction' => 2,
+                'option_transaction' => 3,
                 'created_at' => Carbon::now(),
             ]);
         } elseif ($data['status'] == 2) {
@@ -233,11 +233,10 @@ class ReplenishAPIController extends Controller
         $user = User::find($userProc->user_id);
         $vendor = Vendor::where('name', 'like', $user->name)->first();
 
-        $noRequest = $this->generateRequestNo(Carbon::now());
         $data = [
-            'no_request' => $noRequest,
+            'no_request' => $this->generateRequestNo(),
             'vendor_id' => $vendor->id,
-            'status' => 1,
+            'status' => 3,
             'master_warehouse_id' => 1,
             'request_date' => Carbon::now()->toDateString(),
             'request_type' => 2,
@@ -253,13 +252,13 @@ class ReplenishAPIController extends Controller
             $listProcurementDetails[] = [
                 'request_finance_id' => $requestFinance,
                 'item_name' => $detail->Item->name,
-                'type_of_goods' => $detail->skuid,
+                'skuid' => $detail->skuid,
                 'qty' => $detail->qty,
                 'uom_id' => $detail->uom_id,
                 'price' => $detail->amount / $detail->qty,
                 'ppn' => 0,
                 'total' => $detail->amount,
-                'supplier_name' => $listProcurement->vendor,
+                'supplier_id' => $listProcurement->vendor->id,
                 'remarks' => '',
                 'created_at' => now(),
             ];
@@ -269,20 +268,27 @@ class ReplenishAPIController extends Controller
 
         RequestFinanceDetail::insert($listProcurementDetails);
 
-        $user_profile = UserProfile::where('user_id', $user->id)->first();
-        $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
-        $norek = isset($user_profile->no_rek) ? $user_profile->no_rek : '';
+        if ($vendor->type_vendor == 1) {
+            //employee
+            $user_profile = UserProfile::where('user_id', $user->id)->first();
+            $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
+            $bank_account = isset($user_profile->bank_account) ? $user_profile->bank_account : '';
+        } else {
+            //vendor
+            $bank_id = $vendor->bank_id;
+            $bank_account = $vendor->bank_account;
+        }
 
         InOutPayment::create([
             'finance_request_id' => $requestFinance,
             'source' => null,
             'transaction_date' => Carbon::now()->toDateString(),
             'bank_id' => $bank_id,
-            'no_rek' => $norek,
+            'bank_account' => $bank_account,
             'amount' => $total,
             'remarks' => null,
-            'status' => 2,
-            'type_transaction' => 1,
+            'status' => 3,
+            'type_transaction' => 2,
             'created_at' => Carbon::now(),
         ]);
 
@@ -294,13 +300,13 @@ class ReplenishAPIController extends Controller
         ]);
     }
 
-    public function generateRequestNo($date)
+    public function generateRequestNo()
     {
-        $year_month = Carbon::parse($date)->format('y-m');
-        $latestRequestFinance = RequestFinance::where(DB::raw("DATE_FORMAT(request_date, '%y-%m')"), $year_month)->latest()->first();
-        $latestRequestFinanceNo = isset($latestRequestFinance->no_request) ? $latestRequestFinance->no_request : '0-GF-FB';
-        $cutString = str_replace('-GF-FB', '', $latestRequestFinanceNo);
+        $year_month = Carbon::now()->format('ym');
+        $latest_request = RequestFinance::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+        $get_last_request_no = isset($latest_request->no_request) ? $latest_request->no_request : 'ADV'.$year_month.'00000';
+        $cut_string_request = str_replace('ADV', '', $get_last_request_no);
 
-        return ($cutString + 1).'-GF-FB';
+        return 'ADV'.($cut_string_request + 1);
     }
 }
