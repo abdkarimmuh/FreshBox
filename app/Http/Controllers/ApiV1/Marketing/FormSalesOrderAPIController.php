@@ -199,7 +199,7 @@ class FormSalesOrderAPIController extends Controller
         $items = $request->items;
         $user = 1;
 
-        dd($customer_id);
+        // dd($customer_id);
 
         /*
          * Proses Update Data Order Details
