@@ -10510,6 +10510,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this.qty = [0];
         _this.total_amount = [0];
         _this.loading = true;
+        console.log("res : ", res.data);
       })["catch"](function (err) {
         console.error(err);
 

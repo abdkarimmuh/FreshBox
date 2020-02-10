@@ -298,6 +298,7 @@ export default {
                     this.qty = [0];
                     this.total_amount = [0];
                     this.loading = true;
+                    console.log("res : ", res.data);
                 })
                 .catch(err => {
                     console.error(err);
