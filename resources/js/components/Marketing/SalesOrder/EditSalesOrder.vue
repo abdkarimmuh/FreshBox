@@ -186,7 +186,6 @@
                                                     class="btn btn-icon btn-sm btn-danger"
                                                     @click="
                                                         removeOrderDetails(
-                                                            order.id,
                                                             index
                                                         )
                                                     "
@@ -294,7 +293,6 @@ export default {
                     this.orders_detail =
                         res.data.sales_order.sales_order_details;
                     this.items = res.data.items;
-
                     this.qty = [0];
                     this.total_amount = [0];
                     this.loading = true;
@@ -350,6 +348,7 @@ export default {
                     qty: 0,
                     total_amount: 0,
                     uom_name: this.item.uom,
+                    uom_id: this.item.uom_id,
                     item_name: this.item.item_name,
                     amount_price: this.item.amount,
                     notes: null
@@ -357,39 +356,42 @@ export default {
             }
         },
         //Remove Detail Order
-        removeOrderDetails(orderId, index) {
-            Vue.swal({
-                title: "Are you sure?",
-                text:
-                    "The item and their associated data will be permanently deleted. Proceed?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes!"
-            })
-                .then(result => {
-                    if (result.value) {
-                        axios
-                            .delete(
-                                this.$parent.MakeUrl(
-                                    "api/v1/marketing/sales_order/detail/" +
-                                        orderId
-                                )
-                            )
-                            .then(res => {
-                                this.orders_detail.splice(index, 1);
-                                this.getData();
-                                console.log(res.data);
-                            })
-                            .catch(err => {
-                                console.error(err);
-                            });
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+        // removeOrderDetails(orderId, index) {
+        //     Vue.swal({
+        //         title: "Are you sure?",
+        //         text:
+        //             "The item and their associated data will be permanently deleted. Proceed?",
+        //         type: "warning",
+        //         showCancelButton: true,
+        //         confirmButtonColor: "#3085d6",
+        //         cancelButtonColor: "#d33",
+        //         confirmButtonText: "Yes!"
+        //     })
+        //         .then(result => {
+        //             if (result.value) {
+        //                 axios
+        //                     .delete(
+        //                         this.$parent.MakeUrl(
+        //                             "api/v1/marketing/sales_order/detail/" +
+        //                                 orderId
+        //                         )
+        //                     )
+        //                     .then(res => {
+        //                         this.orders_detail.splice(index, 1);
+        //                         this.getData();
+        //                         console.log(res.data);
+        //                     })
+        //                     .catch(err => {
+        //                         console.error(err);
+        //                     });
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error(error);
+        //         });
+        // },
+        removeOrderDetails(index) {
+            this.orders_detail.splice(index, 1);
         },
 
         async submitForm() {
@@ -400,6 +402,8 @@ export default {
                 items: this.orders_detail.map((item, idx) => ({
                     order_details_id: item.id,
                     skuid: item.skuid,
+                    amount_price: item.amount_price,
+                    uom_id: item.uom_id,
                     qty: item.qty,
                     notes: item.notes
                 }))

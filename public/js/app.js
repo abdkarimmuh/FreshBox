@@ -10477,7 +10477,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -10553,6 +10552,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           qty: 0,
           total_amount: 0,
           uom_name: this.item.uom,
+          uom_id: this.item.uom_id,
           item_name: this.item.item_name,
           amount_price: this.item.amount,
           notes: null
@@ -10560,38 +10560,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     //Remove Detail Order
-    removeOrderDetails: function removeOrderDetails(orderId, index) {
-      var _this3 = this;
-
-      Vue.swal({
-        title: "Are you sure?",
-        text: "The item and their associated data will be permanently deleted. Proceed?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes!"
-      }).then(function (result) {
-        if (result.value) {
-          axios["delete"](_this3.$parent.MakeUrl("api/v1/marketing/sales_order/detail/" + orderId)).then(function (res) {
-            _this3.orders_detail.splice(index, 1);
-
-            _this3.getData();
-
-            console.log(res.data);
-          })["catch"](function (err) {
-            console.error(err);
-          });
-        }
-      })["catch"](function (error) {
-        console.error(error);
-      });
+    // removeOrderDetails(orderId, index) {
+    //     Vue.swal({
+    //         title: "Are you sure?",
+    //         text:
+    //             "The item and their associated data will be permanently deleted. Proceed?",
+    //         type: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#3085d6",
+    //         cancelButtonColor: "#d33",
+    //         confirmButtonText: "Yes!"
+    //     })
+    //         .then(result => {
+    //             if (result.value) {
+    //                 axios
+    //                     .delete(
+    //                         this.$parent.MakeUrl(
+    //                             "api/v1/marketing/sales_order/detail/" +
+    //                                 orderId
+    //                         )
+    //                     )
+    //                     .then(res => {
+    //                         this.orders_detail.splice(index, 1);
+    //                         this.getData();
+    //                         console.log(res.data);
+    //                     })
+    //                     .catch(err => {
+    //                         console.error(err);
+    //                     });
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error(error);
+    //         });
+    // },
+    removeOrderDetails: function removeOrderDetails(index) {
+      this.orders_detail.splice(index, 1);
     },
     submitForm: function () {
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this4 = this;
+        var _this3 = this;
 
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -10606,6 +10616,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     return {
                       order_details_id: item.id,
                       skuid: item.skuid,
+                      amount_price: item.amount_price,
+                      uom_id: item.uom_id,
                       qty: item.qty,
                       notes: item.notes
                     };
@@ -10623,7 +10635,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
-                  _this4.$router.push({
+                  _this3.$router.push({
                     name: "form_sales_order"
                   });
                 });
@@ -68952,7 +68964,6 @@ var render = function() {
                                             on: {
                                               click: function($event) {
                                                 return _vm.removeOrderDetails(
-                                                  order.id,
                                                   index
                                                 )
                                               }

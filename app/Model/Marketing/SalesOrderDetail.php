@@ -27,6 +27,7 @@ class SalesOrderDetail extends MyModel
         'total_amount',
         'notes',
         'created_by',
+        'status',
     ];
 
     protected $columns = [

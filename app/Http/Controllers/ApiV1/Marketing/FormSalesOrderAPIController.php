@@ -189,9 +189,11 @@ class FormSalesOrderAPIController extends Controller
 
     public function updateSalesOrderDetails(Request $request)
     {
-        // return response()->json([
-        //     'request' => $request->all(),
-        // ], 200);
+        $request->validate([
+            'customerId' => 'required',
+            'items' => 'required',
+            'items.*.qty' => 'required|not_in:0',
+        ]);
 
         $customer_id = $request->customerId;
         $remarks = $request->remark;
@@ -199,13 +201,33 @@ class FormSalesOrderAPIController extends Controller
         $items = $request->items;
         $user = 1;
 
-        // dd($customer_id);
-
         /*
          * Proses Update Data Order Details
          */
         SalesOrder::where('id', $sales_order_id)->update(['remarks' => $remarks]);
 
+        SalesOrderDetail::where('sales_order_id', $sales_order_id)->delete();
+
+        foreach ($items as $value) {
+            $salesOrderDetails[] = [
+                'sales_order_id' => $sales_order_id,
+                'skuid' => $value['skuid'],
+                'qty' => $value['qty'],
+                'amount_price' => $value['amount_price'],
+                'total_amount' => $value['amount_price'] * $value['qty'],
+                'uom_id' => $value['uom_id'],
+                'notes' => $value['notes'],
+                'created_by' => $user,
+            ];
+        }
+
+        SalesOrderDetail::insert($salesOrderDetails);
+
+        return response()->json([
+            'status' => 'success',
+        ], 200);
+
+        //GA DIPAKE
         $collection = collect($items);
         //Filter Data Untuk Di Update
         $FilterHasOrderDetailsID = $collection->filter(function ($value, $key) {
@@ -265,7 +287,6 @@ class FormSalesOrderAPIController extends Controller
                 //Untuk Perhitungan Total Amount Via Backend
                 $custom = Customer::find($customer_id);
                 $customer_group_id = $custom->customer_group_id;
-                // dd($customer_group_id);
                 $PriceLists = PriceGroupCust::where('customer_group_id', $customer_group_id)
                     ->whereIn('skuid', $OnlySKUIDs)
                     ->orderByRaw(DB::raw("FIND_IN_SET(skuid, '$OnlySKUIDStr')"))
