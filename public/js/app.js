@@ -9902,12 +9902,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      dateBeforeWeek: '',
+      dateBeforeWeek: "",
       orders_detail: [],
       sales_order: {
         user_id: UserID,
@@ -68457,30 +68463,41 @@ var render = function() {
                   _c("div", { staticClass: "card-body" }, [
                     _vm.loadingSubmit
                       ? _c("div", [_c("loading-button")], 1)
-                      : _c(
-                          "div",
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.submitForm()
-                                  }
+                      : _c("div", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              on: {
+                                click: function($event) {
+                                  return _vm.submitForm()
                                 }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                    Submit\n                                "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("back-button")
-                          ],
-                          1
-                        )
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    Submit\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary",
+                              attrs: {
+                                type: "button",
+                                onClick: "history.back()"
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    Back"
+                              )
+                            ]
+                          ),
+                          _vm._v(">\n                            ")
+                        ])
                   ])
                 ])
               ])
@@ -69049,7 +69066,7 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-secondary",
-                          attrs: { type: "button", onclick: "back()" }
+                          attrs: { type: "button", onClick: "history.back()" }
                         },
                         [
                           _vm._v(

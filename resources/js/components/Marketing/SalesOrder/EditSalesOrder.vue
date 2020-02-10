@@ -237,9 +237,9 @@
                                     Submit
                                 </button>
                                 <button
-                                    type="button"
                                     class="btn btn-secondary"
-                                    onclick="back()"
+                                    type="button"
+                                    onClick="history.back()"
                                 >
                                     Back
                                 </button>

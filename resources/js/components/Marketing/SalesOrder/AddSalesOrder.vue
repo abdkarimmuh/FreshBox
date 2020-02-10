@@ -356,7 +356,13 @@
                                     >
                                         Submit
                                     </button>
-                                    <back-button />
+                                    <button
+                                        class="btn btn-secondary"
+                                        type="button"
+                                        onClick="history.back()"
+                                    >
+                                        Back</button
+                                    >>
                                 </div>
                             </div>
                         </div>
@@ -377,7 +383,7 @@ import LoadingTable from "../../Template/Table/partials/LoadingTable";
 export default {
     data() {
         return {
-            dateBeforeWeek: '',
+            dateBeforeWeek: "",
             orders_detail: [],
             sales_order: {
                 user_id: UserID,
@@ -412,7 +418,7 @@ export default {
          */
         getData() {
             var ourDate = new Date();
- 
+
             //Change it so that it is 7 days in the past.
             var pastDate = ourDate.getDate() - 7;
             ourDate.setDate(pastDate);
