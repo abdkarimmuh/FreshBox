@@ -130,7 +130,7 @@ class TopUpController extends Controller
             $userProc->save();
 
             $user = User::find($userProc->user_id);
-            $vendor = Vendor::where('name', 'like', $user->name)->first();
+            $vendor = Vendor::where('users_id', $user->id)->first();
 
             $noRequest = $this->generateRequestNo(Carbon::now());
             $data = [

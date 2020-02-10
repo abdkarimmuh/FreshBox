@@ -37,8 +37,7 @@ export default {
                 },
                 {
                     title: "Tipe Transaksi",
-                    field: "type_transaction",
-                    type: "html"
+                    field: "type_transaction"
                 },
                 {
                     title: "Opsi Transaksi",

@@ -54,11 +54,6 @@ export default {
                     type: "html"
                 },
                 {
-                    title: "Created At",
-                    field: "created_at",
-                    filterable: true
-                },
-                {
                     title: "Created By",
                     field: "created_by_name",
                     filterable: true

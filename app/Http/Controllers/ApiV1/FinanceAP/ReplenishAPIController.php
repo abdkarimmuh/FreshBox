@@ -89,7 +89,7 @@ class ReplenishAPIController extends Controller
             $confirm->save();
 
             $user = User::find($userProc->user_id);
-            $vendor = Vendor::where('name', 'like', $user->name)->first();
+            $vendor = Vendor::where('users_id', $user->id)->first();
 
             $data = [
                 'no_request' => $this->generateRequestNo(),
@@ -231,7 +231,7 @@ class ReplenishAPIController extends Controller
         $confirm->save();
 
         $user = User::find($userProc->user_id);
-        $vendor = Vendor::where('name', 'like', $user->name)->first();
+        $vendor = Vendor::where('users_id', $user->id)->first();
 
         $data = [
             'no_request' => $this->generateRequestNo(),

@@ -64,6 +64,8 @@ class InOutPayment extends MyModel
             return '<span class="badge badge-primary">Remaining Money</span>';
         } elseif ($this->status === 6) {
             return '<span class="badge badge-danger">Less Money</span>';
+        } elseif ($this->status === 7) {
+            return '<span class="badge badge-danger">Reject Document</span>';
         } else {
             return 'Status NotFound';
         }
@@ -72,9 +74,9 @@ class InOutPayment extends MyModel
     public function getTypeHtmlAttribute()
     {
         if ($this->type_transaction === 1) {
-            return '<span class="badge badge-primary">In Payment</span>';
+            return 'In Payment';
         } elseif ($this->type_transaction === 2) {
-            return '<span class="badge badge-secondary">Out Payment</span>';
+            return 'Out Payment';
         } else {
             return 'Status NotFound';
         }

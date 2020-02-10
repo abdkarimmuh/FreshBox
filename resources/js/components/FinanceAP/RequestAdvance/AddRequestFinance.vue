@@ -246,6 +246,7 @@
                                             <td>{{ index + 1 }}</td>
                                             <td>
                                                 <input
+                                                    style="width: 170px;"
                                                     v-model="item.name"
                                                     type="text"
                                                     class="form-control"
@@ -253,6 +254,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 100px;"
                                                     v-model="item.skuid"
                                                     type="text"
                                                     class="form-control"
@@ -260,6 +262,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 100px;"
                                                     v-model="item.qty"
                                                     type="number"
                                                     class="form-control"
@@ -268,6 +271,7 @@
                                             </td>
                                             <td>
                                                 <model-list-select
+                                                    style="width: 120px;"
                                                     :list="uom"
                                                     v-model="item.uom_id"
                                                     option-value="id"
@@ -277,6 +281,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 150px;"
                                                     v-model="item.price"
                                                     type="number"
                                                     class="form-control"
@@ -286,6 +291,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 80px;"
                                                     v-model="item.ppn"
                                                     type="number"
                                                     class="form-control"
@@ -296,6 +302,7 @@
                                             <td>{{ item.total }}</td>
                                             <td>
                                                 <model-list-select
+                                                    style="width: 120px;"
                                                     :list="suppliers"
                                                     v-model="item.supplier_id"
                                                     option-value="id"
@@ -305,6 +312,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 200px;"
                                                     v-model="item.remarks"
                                                     type="text"
                                                     class="form-control"
@@ -326,10 +334,11 @@
                                             v-if="productType === 2"
                                         >
                                             <td>{{ index + 1 }}</td>
-                                            <td>{{ item.name }}</td>
+                                            <td><div style="width: 100px;">{{ item.name }}</div></td>
                                             <td>{{ item.skuid }}</td>
                                             <td>
                                                 <input
+                                                    style="width: 100px;"
                                                     v-model="item.qty"
                                                     type="number"
                                                     class="form-control"
@@ -338,6 +347,7 @@
                                             </td>
                                             <td>
                                                 <model-list-select
+                                                    style="width: 120px;"
                                                     :list="uom"
                                                     v-model="item.uom_id"
                                                     option-value="id"
@@ -347,6 +357,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 150px;"
                                                     v-model="item.price"
                                                     type="number"
                                                     class="form-control"
@@ -356,6 +367,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 80px;"
                                                     v-model="item.ppn"
                                                     type="number"
                                                     class="form-control"
@@ -366,6 +378,7 @@
                                             <td>{{ item.total }}</td>
                                             <td>
                                                 <model-list-select
+                                                    style="width: 120px;"
                                                     :list="suppliers"
                                                     v-model="item.supplier_id"
                                                     option-value="id"
@@ -375,6 +388,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 200px;"
                                                     v-model="item.remarks"
                                                     type="text"
                                                     class="form-control"
@@ -556,7 +570,7 @@ export default {
                 .then(res => {
                     this.item = res.data;
                     this.loading = false;
-                    console.log("res get detail : ", res)
+                    console.log("res get detail : ", res);
                 })
                 .catch(err => {
                     console.log(err.response.data);

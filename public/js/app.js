@@ -5414,8 +5414,7 @@ __webpack_require__.r(__webpack_exports__);
         filterable: false
       }, {
         title: "Tipe Transaksi",
-        field: "type_transaction",
-        type: "html"
+        field: "type_transaction"
       }, {
         title: "Opsi Transaksi",
         field: "option_transaction",
@@ -6817,6 +6816,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -7416,10 +7429,62 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      fileName: "",
+      file: "",
       requestTypes: [{
         name: "Cash",
         value: 1
@@ -7476,6 +7541,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   requestDate: this.requestDate,
                   productType: this.productType,
                   requestType: this.requestType,
+                  file: this.file,
                   detail: this.detail.map(function (item, idx) {
                     return {
                       item_name: item.item_name,
@@ -7553,6 +7619,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this2.detail = requestAdvance.data.data.details;
         _this2.productType = requestAdvance.data.data.product_type;
         _this2.warehouseId = requestAdvance.data.data.master_warehouse_id;
+        _this2.fileName = requestAdvance.data.data.file_name;
         _this2.items = items.data;
         _this2.warehouses = warehouses.data;
         _this2.uom = uom.data.data;
@@ -7648,6 +7715,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.detail.map(function (item, idx) {
         return item.total = parseInt(item.price) + parseInt(item.price) * parseInt(item.ppn) / 100;
       });
+    },
+    onFileChange: function onFileChange(e) {
+      var fileData = e.target.files || e.dataTransfer.files;
+      this.fileName = fileData[0].name;
+      if (!fileData.length) return;
+      this.createFile(fileData[0]);
+    },
+    createFile: function createFile(file) {
+      var _this5 = this;
+
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this5.file = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
     }
   },
   components: {
@@ -7711,10 +7795,6 @@ __webpack_require__.r(__webpack_exports__);
         title: "Status",
         field: "status_name",
         type: "html"
-      }, {
-        title: "Created At",
-        field: "created_at",
-        filterable: true
       }, {
         title: "Created By",
         field: "created_by_name",
@@ -10363,13 +10443,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       sales_order: {},
       qty: [0],
-      skuid: '',
+      skuid: "",
       total_amount: [0],
       source_orders: [],
       orders_detail: [],
@@ -10386,33 +10495,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     getData: function getData() {
-      var _this2 = this;
+      var _this = this;
 
-      axios.get(this.$parent.MakeUrl('api/v1/marketing/sales_order/' + this.$route.params.id + '/edit')).then(function (res) {
-        _this2.sales_order = res.data.sales_order;
-        _this2.orders_detail = res.data.sales_order.sales_order_details;
-        _this2.items = res.data.items;
-        _this2.qty = [0];
-        _this2.total_amount = [0];
-        _this2.loading = true;
+      axios.get(this.$parent.MakeUrl("api/v1/marketing/sales_order/" + this.$route.params.id + "/edit")).then(function (res) {
+        _this.sales_order = res.data.sales_order;
+        _this.orders_detail = res.data.sales_order.sales_order_details;
+        _this.items = res.data.items;
+        _this.qty = [0];
+        _this.total_amount = [0];
+        _this.loading = true;
       })["catch"](function (err) {
         console.error(err);
 
         if (err.response.status === 500) {
-          _this2.getData();
+          _this.getData();
         }
       });
     },
     formatPrice: function formatPrice(value) {
-      return Number.parseInt(value).toLocaleString('id-ID', {
+      return Number.parseInt(value).toLocaleString("id-ID", {
         minimumFractionDigits: 2
       });
     },
     getItem: function getItem() {
-      var _this3 = this;
+      var _this2 = this;
 
-      axios.get(this.$parent.MakeUrl('api/v1/master_data/price/' + this.sales_order.customer_id + '/' + this.skuid)).then(function (res) {
-        _this3.item = res.data.data;
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customer_id + "/" + this.skuid)).then(function (res) {
+        _this2.item = res.data.data;
       })["catch"](function (err) {});
     },
     calculateTotalAmount: function calculateTotalAmount(index) {
@@ -10428,8 +10537,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (indexItem >= 0) {
         Vue.swal({
           type: "error",
-          title: 'ERROR!',
-          text: 'Item Already Added!'
+          title: "ERROR!",
+          text: "Item Already Added!"
         });
       } else {
         return this.orders_detail.push({
@@ -10445,24 +10554,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //Remove Detail Order
     removeOrderDetails: function removeOrderDetails(orderId, index) {
-      var _this = this;
+      var _this3 = this;
 
-      this.$iosConfirm({
-        title: 'Are you sure?',
-        text: 'The item and their associated data will be permanently deleted. Proceed?'
-      }).then(function () {
-        axios["delete"](_this.$parent.MakeUrl('api/v1/marketing/sales_order/detail/' + orderId)).then(function (res) {
-          _this.orders_detail.splice(index, 1);
+      Vue.swal({
+        title: "Are you sure?",
+        text: "The item and their associated data will be permanently deleted. Proceed?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!"
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"](_this3.$parent.MakeUrl("api/v1/marketing/sales_order/detail/" + orderId)).then(function (res) {
+            _this3.orders_detail.splice(index, 1);
 
-          _this.getData();
+            _this3.getData();
 
-          console.log(res.data);
-        })["catch"](function (error) {
-          _this.$iosAlert({
-            'title': 'Error',
-            'text': error.response.data.message
+            console.log(res.data);
+          })["catch"](function (err) {
+            console.error(err);
           });
-        });
+        }
+      })["catch"](function (error) {
+        console.error(error);
       });
     },
     submitForm: function () {
@@ -10489,36 +10604,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     };
                   })
                 };
-                _context.prev = 1;
-                _context.next = 4;
-                return axios.patch(this.$parent.MakeUrl('api/v1/marketing/sales_order/update'), payload);
+                console.log(payload);
+                _context.prev = 2;
+                _context.next = 5;
+                return axios.patch(this.$parent.MakeUrl("api/v1/marketing/sales_order/update"), payload);
 
-              case 4:
+              case 5:
                 res = _context.sent;
                 Vue.swal({
                   type: "success",
-                  title: 'Success!',
-                  text: 'Successfully Insert Data!'
+                  title: "Success!",
+                  text: "Successfully Insert Data!"
                 }).then(function (next) {
                   _this4.$router.push({
-                    name: 'form_sales_order'
+                    name: "form_sales_order"
                   });
                 });
-                _context.next = 12;
+                console.log(res);
+                _context.next = 14;
                 break;
 
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](1);
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](2);
                 console.log(_context.t0);
                 this.errors = _context.t0.response.data.errors;
 
-              case 12:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 8]]);
+        }, _callee, this, [[2, 10]]);
       }));
 
       function submitForm() {
@@ -10537,7 +10654,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.orders_detail.forEach(function (item) {
         sum += parseFloat(item.total_amount);
       });
-      return sum.toLocaleString('id-ID', {
+      return sum.toLocaleString("id-ID", {
         minimumFractionDigits: 2
       });
     }
@@ -12676,6 +12793,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12949,6 +13083,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           axios.post(BaseUrl("api/v1/finance-ap/in-out-payment/" + id));
           Vue.swal("Success!", "Status has been changed!", "success").then(function (next) {
             _this5.getData();
+          });
+        }
+      });
+    },
+    changeStatusReject: function changeStatusReject(id) {
+      var _this6 = this;
+
+      Vue.swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!"
+      }).then(function (result) {
+        if (result.value) {
+          axios.post(BaseUrl("api/v1/finance-ap/in-out-payment/reject/" + id));
+          Vue.swal("Success!", "Status has been changed!", "success").then(function (next) {
+            _this6.getData();
           });
         }
       });
@@ -62004,9 +62158,7 @@ var render = function() {
                   _c("div", { staticClass: "col-md-4 mt-4" }, [
                     _c("div", [_vm._v("Type Transaction")]),
                     _vm._v(" "),
-                    _c("span", {
-                      domProps: { innerHTML: _vm._s(_vm.data.type_transaction) }
-                    })
+                    _c("h5", [_vm._v(_vm._s(_vm.data.type_transaction))])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-4 mt-4" }, [
@@ -63638,6 +63790,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "170px" },
                                                 attrs: { type: "text" },
                                                 domProps: { value: item.name },
                                                 on: {
@@ -63668,6 +63821,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "100px" },
                                                 attrs: { type: "text" },
                                                 domProps: { value: item.skuid },
                                                 on: {
@@ -63698,6 +63852,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "100px" },
                                                 attrs: {
                                                   type: "number",
                                                   min: "0"
@@ -63724,6 +63879,9 @@ var render = function() {
                                               "td",
                                               [
                                                 _c("model-list-select", {
+                                                  staticStyle: {
+                                                    width: "120px"
+                                                  },
                                                   attrs: {
                                                     list: _vm.uom,
                                                     "option-value": "id",
@@ -63757,6 +63915,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "150px" },
                                                 attrs: {
                                                   type: "number",
                                                   min: "0"
@@ -63791,6 +63950,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "80px" },
                                                 attrs: {
                                                   type: "number",
                                                   min: "0"
@@ -63822,6 +63982,9 @@ var render = function() {
                                               "td",
                                               [
                                                 _c("model-list-select", {
+                                                  staticStyle: {
+                                                    width: "120px"
+                                                  },
                                                   attrs: {
                                                     list: _vm.suppliers,
                                                     "option-value": "id",
@@ -63856,6 +64019,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "200px" },
                                                 attrs: { type: "text" },
                                                 domProps: {
                                                   value: item.remarks
@@ -63913,7 +64077,15 @@ var render = function() {
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
-                                              _vm._v(_vm._s(item.name))
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticStyle: {
+                                                    width: "100px"
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(item.name))]
+                                              )
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
@@ -63931,6 +64103,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "100px" },
                                                 attrs: {
                                                   type: "number",
                                                   min: "0"
@@ -63957,6 +64130,9 @@ var render = function() {
                                               "td",
                                               [
                                                 _c("model-list-select", {
+                                                  staticStyle: {
+                                                    width: "120px"
+                                                  },
                                                   attrs: {
                                                     list: _vm.uom,
                                                     "option-value": "id",
@@ -63990,6 +64166,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "150px" },
                                                 attrs: {
                                                   type: "number",
                                                   min: "0"
@@ -64024,6 +64201,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "80px" },
                                                 attrs: {
                                                   type: "number",
                                                   min: "0"
@@ -64055,6 +64233,9 @@ var render = function() {
                                               "td",
                                               [
                                                 _c("model-list-select", {
+                                                  staticStyle: {
+                                                    width: "120px"
+                                                  },
                                                   attrs: {
                                                     list: _vm.suppliers,
                                                     "option-value": "id",
@@ -64089,6 +64270,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "200px" },
                                                 attrs: { type: "text" },
                                                 domProps: {
                                                   value: item.remarks
@@ -64500,13 +64682,50 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "custom-file" }, [
+                        _c("input", {
+                          staticClass: "custom-file-input",
+                          class: {
+                            "is-invalid": _vm.errors.file
+                          },
+                          attrs: {
+                            type: "file",
+                            name: "site_logo",
+                            id: "site-logo"
+                          },
+                          on: { change: _vm.onFileChange }
+                        }),
+                        _vm._v(" "),
+                        _c("label", { staticClass: "custom-file-label" }, [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(
+                                _vm.fileName ? _vm.fileName : "Choose File"
+                              ) +
+                              "\n                                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm.errors.file
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              _c("p", [_vm._v(_vm._s(_vm.errors.file[0]))])
+                            ])
+                          : _vm._e()
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
                   _vm.productType === 1
-                    ? _c("div", { staticClass: "col-md-12" }, [
+                    ? _c("div", { staticClass: "col-md-9 mt-4" }, [
                         _c("div", { staticClass: "form-group text-right" }, [
                           _c(
                             "button",
                             {
-                              staticClass: "btn btn-primary",
+                              staticClass: "btn btn-sm btn-primary",
                               on: {
                                 click: function($event) {
                                   return _vm.pushRows()
@@ -64529,7 +64748,7 @@ var render = function() {
                           "div",
                           { staticClass: "form-group" },
                           [
-                            _vm._m(3),
+                            _vm._m(4),
                             _vm._v(" "),
                             _c("model-list-select", {
                               attrs: {
@@ -64554,7 +64773,7 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.productType == 2
-                    ? _c("div", { staticClass: "col-md-6 mt-4" }, [
+                    ? _c("div", { staticClass: "col-md-3 mt-4" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _c(
                             "button",
@@ -64592,7 +64811,7 @@ var render = function() {
                                 staticStyle: { "font-size": "9pt" }
                               },
                               [
-                                _vm._m(4),
+                                _vm._m(5),
                                 _vm._v(" "),
                                 _c(
                                   "tbody",
@@ -64615,6 +64834,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "170px" },
                                                 attrs: { type: "text" },
                                                 domProps: {
                                                   value: item.item_name
@@ -64647,6 +64867,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "100px" },
                                                 attrs: { type: "text" },
                                                 domProps: { value: item.skuid },
                                                 on: {
@@ -64677,6 +64898,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "100px" },
                                                 attrs: {
                                                   type: "number",
                                                   min: "0"
@@ -64703,6 +64925,9 @@ var render = function() {
                                               "td",
                                               [
                                                 _c("model-list-select", {
+                                                  staticStyle: {
+                                                    width: "120px"
+                                                  },
                                                   attrs: {
                                                     list: _vm.uom,
                                                     "option-value": "id",
@@ -64736,6 +64961,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "150px" },
                                                 attrs: {
                                                   type: "number",
                                                   min: "0"
@@ -64770,6 +64996,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "80px" },
                                                 attrs: {
                                                   type: "number",
                                                   min: "0"
@@ -64801,6 +65028,9 @@ var render = function() {
                                               "td",
                                               [
                                                 _c("model-list-select", {
+                                                  staticStyle: {
+                                                    width: "120px"
+                                                  },
                                                   attrs: {
                                                     list: _vm.suppliers,
                                                     "option-value": "id",
@@ -64835,6 +65065,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "200px" },
                                                 attrs: { type: "text" },
                                                 domProps: {
                                                   value: item.remarks
@@ -64889,7 +65120,21 @@ var render = function() {
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
-                                              _vm._v(_vm._s(item.item_name))
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticStyle: {
+                                                    width: "100px"
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                                " +
+                                                      _vm._s(item.item_name) +
+                                                      "\n                                            "
+                                                  )
+                                                ]
+                                              )
                                             ]),
                                             _vm._v(" "),
                                             _c("td", [
@@ -64907,6 +65152,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "100px" },
                                                 attrs: {
                                                   type: "number",
                                                   min: "0"
@@ -64933,6 +65179,9 @@ var render = function() {
                                               "td",
                                               [
                                                 _c("model-list-select", {
+                                                  staticStyle: {
+                                                    width: "120px"
+                                                  },
                                                   attrs: {
                                                     list: _vm.uom,
                                                     "option-value": "id",
@@ -64966,6 +65215,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "150px" },
                                                 attrs: {
                                                   type: "number",
                                                   min: "0"
@@ -65000,6 +65250,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "80px" },
                                                 attrs: {
                                                   type: "number",
                                                   min: "0"
@@ -65031,6 +65282,9 @@ var render = function() {
                                               "td",
                                               [
                                                 _c("model-list-select", {
+                                                  staticStyle: {
+                                                    width: "120px"
+                                                  },
                                                   attrs: {
                                                     list: _vm.suppliers,
                                                     "option-value": "id",
@@ -65065,6 +65319,7 @@ var render = function() {
                                                   }
                                                 ],
                                                 staticClass: "form-control",
+                                                staticStyle: { width: "200px" },
                                                 attrs: { type: "text" },
                                                 domProps: {
                                                   value: item.remarks
@@ -65189,6 +65444,12 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("b", [_vm._v("File")])])
   },
   function() {
     var _vm = this
@@ -68604,11 +68865,13 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            _vm._s(
-                                              _vm.formatPrice(
-                                                order.amount_price
-                                              )
-                                            )
+                                            "\n                                            " +
+                                              _vm._s(
+                                                _vm.formatPrice(
+                                                  order.amount_price
+                                                )
+                                              ) +
+                                              "\n                                        "
                                           )
                                         ]
                                       ),
@@ -68620,11 +68883,13 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            _vm._s(
-                                              _vm.formatPrice(
-                                                order.total_amount
-                                              )
-                                            )
+                                            "\n                                            " +
+                                              _vm._s(
+                                                _vm.formatPrice(
+                                                  order.total_amount
+                                                )
+                                              ) +
+                                              "\n                                        "
                                           )
                                         ]
                                       ),
@@ -68697,7 +68962,7 @@ var render = function() {
                                       },
                                       [
                                         _vm._v(
-                                          "Grand Total\n                                    "
+                                          "\n                                            Grand Total\n                                        "
                                         )
                                       ]
                                     ),
@@ -68707,7 +68972,13 @@ var render = function() {
                                       {
                                         staticStyle: { "text-align": "right" }
                                       },
-                                      [_vm._v(_vm._s(_vm.totalItem))]
+                                      [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(_vm.totalItem) +
+                                            "\n                                        "
+                                        )
+                                      ]
                                     ),
                                     _vm._v(" "),
                                     _c("td")
@@ -68734,7 +69005,9 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        class: { "is-invalid": _vm.errors.remark },
+                        class: {
+                          "is-invalid": _vm.errors.remark
+                        },
                         attrs: { id: "Remarks", name: "Remarks" },
                         domProps: { value: _vm.sales_order.remark },
                         on: {
@@ -68758,14 +69031,18 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-primary",
+                          staticClass: "btn btn-danger",
                           on: {
                             click: function($event) {
                               return _vm.submitForm()
                             }
                           }
                         },
-                        [_vm._v("Submit\n                            ")]
+                        [
+                          _vm._v(
+                            "\n                                Submit\n                            "
+                          )
+                        ]
                       ),
                       _vm._v(" "),
                       _c(
@@ -68774,7 +69051,11 @@ var render = function() {
                           staticClass: "btn btn-secondary",
                           attrs: { type: "button", onclick: "back()" }
                         },
-                        [_vm._v("Back\n                            ")]
+                        [
+                          _vm._v(
+                            "\n                                Back\n                            "
+                          )
+                        ]
                       )
                     ])
                   ])
@@ -68797,7 +69078,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h4", [_vm._v("Sales Order Details")])
+      _c("h4", { staticClass: "text-danger" }, [_vm._v("Sales Order Details")])
     ])
   },
   function() {
@@ -68823,15 +69104,27 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { staticClass: "text-center" }, [_vm._v("SKUID")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Item Name")]),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Item Name\n                                        "
+          )
+        ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Qty")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("UOM")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Amount Price")]),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Amount Price\n                                        "
+          )
+        ]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Total Amount")]),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v(
+            "\n                                            Total Amount\n                                        "
+          )
+        ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Notes")]),
         _vm._v(" "),
@@ -71619,7 +71912,8 @@ var render = function() {
                                             : _vm._e(),
                                           _vm._v(" "),
                                           _vm.config.route_edit_payment &&
-                                          item.status === 1
+                                          (item.status === 1 ||
+                                            item.status === 8)
                                             ? _c(
                                                 "router-link",
                                                 {
@@ -71685,7 +71979,8 @@ var render = function() {
                                             : _vm._e(),
                                           _vm._v(" "),
                                           _vm.config.route_receive_inout &&
-                                          item.status === 2
+                                          (item.status === 2 ||
+                                            item.status === 8)
                                             ? _c(
                                                 "a",
                                                 {
@@ -71703,6 +71998,28 @@ var render = function() {
                                                   }
                                                 },
                                                 [_vm._v("Receive")]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.config.route_receive_inout &&
+                                          item.status === 2
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-danger ml-1 mr-1 mt-1 mb-1",
+                                                  staticStyle: {
+                                                    color: "white"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.changeStatusReject(
+                                                        item.finance_request_id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [_vm._v("Reject")]
                                               )
                                             : _vm._e(),
                                           _vm._v(" "),

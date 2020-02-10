@@ -124,6 +124,17 @@ class InOutPaymentController extends Controller
         $req_finance->save();
     }
 
+    public function changeStatusReject($id)
+    {
+        $inout = InOutPayment::where('finance_request_id', $id)->first();
+        $inout->status = 7;
+        $inout->save();
+
+        $req_finance = RequestFinance::find($id);
+        $req_finance->status = 8;
+        $req_finance->save();
+    }
+
     public function confirm(Request $request, $id)
     {
         $rules = [

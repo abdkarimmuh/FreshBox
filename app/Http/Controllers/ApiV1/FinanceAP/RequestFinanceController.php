@@ -25,13 +25,10 @@ class RequestFinanceController extends Controller
         $searchValue = $request->input('query');
         $perPage = $request->perPage;
         $query = RequestFinance::dataTableQuery($searchValue);
-        if ($request->start && $request->end) {
-            $query->whereBetween('status', [$request->start, $request->end]);
-        }
         if ($searchValue) {
-            $query = $query->orderBy('status', 'asc')->take(20)->paginate(20);
+            $query = $query->orderBy('id', 'desc')->take(20)->paginate(20);
         } else {
-            $query = $query->orderBy('status', 'asc')->paginate($perPage);
+            $query = $query->orderBy('id', 'desc')->paginate($perPage);
         }
 
         return RequestFinanceResource::collection($query);

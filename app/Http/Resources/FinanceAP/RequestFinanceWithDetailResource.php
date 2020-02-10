@@ -72,6 +72,7 @@ class RequestFinanceWithDetailResource extends JsonResource
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
             'created_by_name' => $this->created_by_name,
             'user_id' => $this->vendor_id,
+            'file_name' => $this->file,
             'master_warehouse_id' => $this->master_warehouse_id,
 
             'details' => RequestFinanceDetailResource::collection($this->detail),

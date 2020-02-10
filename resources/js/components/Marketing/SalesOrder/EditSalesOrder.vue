@@ -3,14 +3,11 @@
         <div class="col-12">
             <div class="card col-12">
                 <div class="card-header">
-                    <h4>Sales Order Details</h4>
+                    <h4 class="text-danger">Sales Order Details</h4>
                 </div>
 
                 <div class="col-12">
-                    <div
-                        class="row"
-                        v-if="loading"
-                    >
+                    <div class="row" v-if="loading">
                         <s-form-input
                             :model="sales_order.source_order_name"
                             col="6"
@@ -26,7 +23,9 @@
                             >
                                 <label><b>File</b></label>
                                 <div>
-                                    <a v-bind:href="sales_order.file_url">{{ sales_order.file }}</a>
+                                    <a v-bind:href="sales_order.file_url">{{
+                                        sales_order.file
+                                    }}</a>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +68,10 @@
                             v-if="sales_order.customer_id != 0"
                         >
                             <div class="form-group">
-                                <label><b>Items</b><span style="color: red;">*</span></label>
+                                <label
+                                    ><b>Items</b
+                                    ><span style="color: red;">*</span></label
+                                >
                                 <model-list-select
                                     :list="items"
                                     v-model="skuid"
@@ -106,10 +108,7 @@
                             </div>
                         </div>
 
-                        <div
-                            v-if="sales_order.customer_id != 0"
-                            class="col-12"
-                        >
+                        <div v-if="sales_order.customer_id != 0" class="col-12">
                             <div
                                 class="table-responsive m-t-40"
                                 style="clear: both;"
@@ -120,65 +119,96 @@
                                     style="font-size: 9pt;"
                                 >
                                     <thead>
-                                    <tr>
-                                        <th class="text-center">SKUID</th>
-                                        <th class="text-center">Item Name</th>
-                                        <th class="text-center">Qty</th>
-                                        <th class="text-center">UOM</th>
-                                        <th class="text-center">Amount Price</th>
-                                        <th class="text-center">Total Amount</th>
-                                        <th class="text-center">Notes</th>
-                                        <th></th>
-                                    </tr>
+                                        <tr>
+                                            <th class="text-center">SKUID</th>
+                                            <th class="text-center">
+                                                Item Name
+                                            </th>
+                                            <th class="text-center">Qty</th>
+                                            <th class="text-center">UOM</th>
+                                            <th class="text-center">
+                                                Amount Price
+                                            </th>
+                                            <th class="text-center">
+                                                Total Amount
+                                            </th>
+                                            <th class="text-center">Notes</th>
+                                            <th></th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr
-                                        v-for="(order, index) in orders_detail"
-                                        v-bind:key="index"
-                                    >
-                                        <td>{{ order.skuid }}</td>
-                                        <td>{{ order.item_name }}</td>
-                                        <td>
-                                            <input
-                                                v-model="order.qty"
-                                                type="number"
-                                                placeholder="Qty"
-                                                min="0"
-                                                class="form-control qty"
-                                                v-on:input="calculateTotalAmount(index)"
-                                            >
-                                        </td>
-                                        <td>{{ order.uom_name}}</td>
-                                        <td style="text-align: right;">{{ formatPrice(order.amount_price) }}</td>
-                                        <td style="text-align: right;">{{ formatPrice(order.total_amount) }}</td>
-                                        <td>
-                                            <input
-                                                v-model="order.notes"
-                                                type="text"
-                                                placeholder="Notes"
-                                                class="form-control"
-                                            >
-                                        </td>
-                                        <td>
-                                            <button
-                                                class="btn btn-icon btn-sm btn-danger"
-                                                @click="removeOrderDetails(order.id, index)"
-                                            >
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                        <tr
+                                            v-for="(order,
+                                            index) in orders_detail"
+                                            v-bind:key="index"
+                                        >
+                                            <td>{{ order.skuid }}</td>
+                                            <td>{{ order.item_name }}</td>
+                                            <td>
+                                                <input
+                                                    v-model="order.qty"
+                                                    type="number"
+                                                    placeholder="Qty"
+                                                    min="0"
+                                                    class="form-control qty"
+                                                    v-on:input="
+                                                        calculateTotalAmount(
+                                                            index
+                                                        )
+                                                    "
+                                                />
+                                            </td>
+                                            <td>{{ order.uom_name }}</td>
+                                            <td style="text-align: right;">
+                                                {{
+                                                    formatPrice(
+                                                        order.amount_price
+                                                    )
+                                                }}
+                                            </td>
+                                            <td style="text-align: right;">
+                                                {{
+                                                    formatPrice(
+                                                        order.total_amount
+                                                    )
+                                                }}
+                                            </td>
+                                            <td>
+                                                <input
+                                                    v-model="order.notes"
+                                                    type="text"
+                                                    placeholder="Notes"
+                                                    class="form-control"
+                                                />
+                                            </td>
+                                            <td>
+                                                <button
+                                                    class="btn btn-icon btn-sm btn-danger"
+                                                    @click="
+                                                        removeOrderDetails(
+                                                            order.id,
+                                                            index
+                                                        )
+                                                    "
+                                                >
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                     <tfoot>
-                                    <tr>
-                                        <td
-                                            colspan="5"
-                                            style="text-align: right;"
-                                        >Grand Total
-                                        </td>
-                                        <td style="text-align: right;">{{ totalItem }}</td>
-                                        <td></td>
-                                    </tr>
+                                        <tr>
+                                            <td
+                                                colspan="5"
+                                                style="text-align: right;"
+                                            >
+                                                Grand Total
+                                            </td>
+                                            <td style="text-align: right;">
+                                                {{ totalItem }}
+                                            </td>
+                                            <td></td>
+                                        </tr>
                                     </tfoot>
                                 </table>
                             </div>
@@ -188,186 +218,224 @@
                             <div class="form-group">
                                 <label><b>Remarks</b></label>
                                 <textarea
-                                    v-bind:class="{'is-invalid': errors.remark}"
+                                    v-bind:class="{
+                                        'is-invalid': errors.remark
+                                    }"
                                     v-model="sales_order.remark"
                                     class="form-control"
                                     id="Remarks"
                                     name="Remarks"
                                 ></textarea>
                             </div>
-
                         </div>
                         <div class="col-12">
                             <div class="card-body">
                                 <button
-                                    class="btn btn-primary"
+                                    class="btn btn-danger"
                                     v-on:click="submitForm()"
-                                >Submit
+                                >
+                                    Submit
                                 </button>
                                 <button
                                     type="button"
                                     class="btn btn-secondary"
                                     onclick="back()"
-                                >Back
+                                >
+                                    Back
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="text-center p-4 text-muted"
-                        v-else
-                    >
+                    <div class="text-center p-4 text-muted" v-else>
                         <h5>Loading</h5>
                         <p>Please wait, data is being loaded...</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import {ModelListSelect} from 'vue-search-select';
+import { ModelListSelect } from "vue-search-select";
 
-    export default {
-        data() {
-            return {
-                sales_order: {},
-                qty: [0],
-                skuid: '',
-                total_amount: [0],
-                source_orders: [],
-                orders_detail: [],
-                item: {},
-                items: [],
-                notes: [],
-                errors: [],
-                customers: [],
-                loading: false,
-            }
-        },
-        mounted() {
-            this.getData();
-
-        },
-        methods: {
-            getData() {
-                axios.get(this.$parent.MakeUrl('api/v1/marketing/sales_order/' + this.$route.params.id + '/edit')).then((res) => {
+export default {
+    data() {
+        return {
+            sales_order: {},
+            qty: [0],
+            skuid: "",
+            total_amount: [0],
+            source_orders: [],
+            orders_detail: [],
+            item: {},
+            items: [],
+            notes: [],
+            errors: [],
+            customers: [],
+            loading: false
+        };
+    },
+    mounted() {
+        this.getData();
+    },
+    methods: {
+        getData() {
+            axios
+                .get(
+                    this.$parent.MakeUrl(
+                        "api/v1/marketing/sales_order/" +
+                            this.$route.params.id +
+                            "/edit"
+                    )
+                )
+                .then(res => {
                     this.sales_order = res.data.sales_order;
-                    this.orders_detail = res.data.sales_order.sales_order_details;
+                    this.orders_detail =
+                        res.data.sales_order.sales_order_details;
                     this.items = res.data.items;
 
                     this.qty = [0];
                     this.total_amount = [0];
                     this.loading = true;
-
-                }).catch((err) => {
+                })
+                .catch(err => {
                     console.error(err);
                     if (err.response.status === 500) {
                         this.getData();
                     }
                 });
-
-            },
-            formatPrice(value) {
-                return Number.parseInt(value).toLocaleString('id-ID', {
-                    minimumFractionDigits: 2
-                });
-            },
-            getItem() {
-                axios.get(this.$parent.MakeUrl('api/v1/master_data/price/' + this.sales_order.customer_id + '/' + this.skuid)).then((res) => {
+        },
+        formatPrice(value) {
+            return Number.parseInt(value).toLocaleString("id-ID", {
+                minimumFractionDigits: 2
+            });
+        },
+        getItem() {
+            axios
+                .get(
+                    this.$parent.MakeUrl(
+                        "api/v1/master_data/price/" +
+                            this.sales_order.customer_id +
+                            "/" +
+                            this.skuid
+                    )
+                )
+                .then(res => {
                     this.item = res.data.data;
-                }).catch((err) => {
-
+                })
+                .catch(err => {});
+        },
+        calculateTotalAmount(index) {
+            this.orders_detail[index].total_amount =
+                this.orders_detail[index].qty *
+                this.orders_detail[index].amount_price;
+        },
+        pushOrderDetails(skuid) {
+            if (!skuid) return;
+            let index = this.orders_detail.length;
+            const indexItem = this.orders_detail.findIndex(
+                x => x.skuid === skuid
+            );
+            if (indexItem >= 0) {
+                Vue.swal({
+                    type: "error",
+                    title: "ERROR!",
+                    text: "Item Already Added!"
                 });
-            },
-            calculateTotalAmount(index) {
-                this.orders_detail[index].total_amount =
-                    this.orders_detail[index].qty * this.orders_detail[index].amount_price
-            },
-            pushOrderDetails(skuid) {
-                if (!skuid) return;
-                let index = this.orders_detail.length;
-                const indexItem = this.orders_detail.findIndex(x => x.skuid === skuid);
-                if (indexItem >= 0) {
-                    Vue.swal({
-                        type: "error",
-                        title: 'ERROR!',
-                        text: 'Item Already Added!'
-                    });
-                } else {
-                    return this.orders_detail.push({
-                        skuid: this.item.skuid,
-                        qty: 0,
-                        total_amount: 0,
-                        uom_name: this.item.uom,
-                        item_name: this.item.item_name,
-                        amount_price: this.item.amount,
-                        notes: null
-                    });
-                }
-            },
-            //Remove Detail Order
-            removeOrderDetails(orderId, index) {
-                let _this = this;
-                this.$iosConfirm({
-                    title: 'Are you sure?',
-                    text: 'The item and their associated data will be permanently deleted. Proceed?'
-                }).then(function () {
-                    axios.delete(_this.$parent.MakeUrl('api/v1/marketing/sales_order/detail/' + orderId)).then((res) => {
-                        _this.orders_detail.splice(index, 1);
-                        _this.getData();
-                        console.log(res.data);
-                    }).catch(error => {
-                        _this.$iosAlert({
-                            'title': 'Error',
-                            'text': error.response.data.message
-                        });
-                    });
+            } else {
+                return this.orders_detail.push({
+                    skuid: this.item.skuid,
+                    qty: 0,
+                    total_amount: 0,
+                    uom_name: this.item.uom,
+                    item_name: this.item.item_name,
+                    amount_price: this.item.amount,
+                    notes: null
                 });
-            },
-
-            async submitForm() {
-                const payload = {
-                    customerId: this.sales_order.customer_id,
-                    salesOrderId: this.sales_order.id,
-                    remark: this.sales_order.remark,
-                    items: this.orders_detail.map((item, idx) => ({
-                        order_details_id: item.id,
-                        skuid: item.skuid,
-                        qty: item.qty,
-                        notes: item.notes
-                    }))
-                };
-                try {
-                    const res = await axios.patch(this.$parent.MakeUrl('api/v1/marketing/sales_order/update'), payload);
-                    Vue.swal({
-                        type: "success",
-                        title: 'Success!',
-                        text: 'Successfully Insert Data!'
-                    }).then(next => {
-                        this.$router.push({name: 'form_sales_order'});
-                    });
-                } catch (e) {
-                    console.log(e);
-                    this.errors = e.response.data.errors;
-                }
             }
         },
-        components: {
-            ModelListSelect
-        },
-        computed: {
-            totalItem: function () {
-                let sum = 0;
-                this.orders_detail.forEach(function (item) {
-                    sum += (parseFloat(item.total_amount));
+        //Remove Detail Order
+        removeOrderDetails(orderId, index) {
+            Vue.swal({
+                title: "Are you sure?",
+                text:
+                    "The item and their associated data will be permanently deleted. Proceed?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes!"
+            })
+                .then(result => {
+                    if (result.value) {
+                        axios
+                            .delete(
+                                this.$parent.MakeUrl(
+                                    "api/v1/marketing/sales_order/detail/" +
+                                        orderId
+                                )
+                            )
+                            .then(res => {
+                                this.orders_detail.splice(index, 1);
+                                this.getData();
+                                console.log(res.data);
+                            })
+                            .catch(err => {
+                                console.error(err);
+                            });
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
                 });
-                return sum.toLocaleString('id-ID', {
-                    minimumFractionDigits: 2
-                });
-            },
         },
+
+        async submitForm() {
+            const payload = {
+                customerId: this.sales_order.customer_id,
+                salesOrderId: this.sales_order.id,
+                remark: this.sales_order.remark,
+                items: this.orders_detail.map((item, idx) => ({
+                    order_details_id: item.id,
+                    skuid: item.skuid,
+                    qty: item.qty,
+                    notes: item.notes
+                }))
+            };
+            console.log(payload);
+            try {
+                const res = await axios.patch(
+                    this.$parent.MakeUrl("api/v1/marketing/sales_order/update"),
+                    payload
+                );
+                Vue.swal({
+                    type: "success",
+                    title: "Success!",
+                    text: "Successfully Insert Data!"
+                }).then(next => {
+                    this.$router.push({ name: "form_sales_order" });
+                });
+                console.log(res);
+            } catch (e) {
+                console.log(e);
+                this.errors = e.response.data.errors;
+            }
+        }
+    },
+    components: {
+        ModelListSelect
+    },
+    computed: {
+        totalItem: function() {
+            let sum = 0;
+            this.orders_detail.forEach(function(item) {
+                sum += parseFloat(item.total_amount);
+            });
+            return sum.toLocaleString("id-ID", {
+                minimumFractionDigits: 2
+            });
+        }
     }
+};
 </script>

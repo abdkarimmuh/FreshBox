@@ -106,11 +106,43 @@
                             :model="user.bank_account"
                             disabled="true"
                         />
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>
+                                    <b>File</b>
+                                </label>
+                                <div class="custom-file">
+                                    <input
+                                        v-bind:class="{
+                                            'is-invalid': errors.file
+                                        }"
+                                        type="file"
+                                        name="site_logo"
+                                        class="custom-file-input"
+                                        id="site-logo"
+                                        v-on:change="onFileChange"
+                                    />
+                                    <label class="custom-file-label">
+                                        {{
+                                            fileName ? fileName : "Choose File"
+                                        }}
+                                    </label>
+                                    <div
+                                        class="invalid-feedback"
+                                        v-if="errors.file"
+                                    >
+                                        <p>{{ errors.file[0] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!--Button Add Rows-->
-                        <div class="col-md-12" v-if="productType === 1">
+                        <div class="col-md-9 mt-4" v-if="productType === 1">
                             <div class="form-group text-right">
                                 <button
-                                    class="btn btn-primary"
+                                    class="btn btn-sm btn-primary"
                                     @click="pushRows()"
                                 >
                                     Add Row
@@ -135,7 +167,7 @@
                             </div>
                         </div>
                         <!--Button Add Items-->
-                        <div class="col-md-6 mt-4" v-if="productType == 2">
+                        <div class="col-md-3 mt-4" v-if="productType == 2">
                             <div class="form-group">
                                 <button
                                     class="btn btn-sm btn-primary"
@@ -184,6 +216,7 @@
                                             <td>{{ index + 1 }}</td>
                                             <td>
                                                 <input
+                                                    style="width: 170px;"
                                                     v-model="item.item_name"
                                                     type="text"
                                                     class="form-control"
@@ -191,6 +224,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 100px;"
                                                     v-model="item.skuid"
                                                     type="text"
                                                     class="form-control"
@@ -198,6 +232,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 100px;"
                                                     v-model="item.qty"
                                                     type="number"
                                                     class="form-control"
@@ -206,6 +241,7 @@
                                             </td>
                                             <td>
                                                 <model-list-select
+                                                    style="width: 120px;"
                                                     :list="uom"
                                                     v-model="item.uom_id"
                                                     option-value="id"
@@ -215,6 +251,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 150px;"
                                                     v-model="item.price"
                                                     type="number"
                                                     class="form-control"
@@ -224,6 +261,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 80px;"
                                                     v-model="item.ppn"
                                                     type="number"
                                                     class="form-control"
@@ -234,6 +272,7 @@
                                             <td>{{ item.total }}</td>
                                             <td>
                                                 <model-list-select
+                                                    style="width: 120px;"
                                                     :list="suppliers"
                                                     v-model="item.supplier_id"
                                                     option-value="id"
@@ -243,6 +282,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 200px;"
                                                     v-model="item.remarks"
                                                     type="text"
                                                     class="form-control"
@@ -263,10 +303,15 @@
                                             v-if="productType === 2"
                                         >
                                             <td>{{ index + 1 }}</td>
-                                            <td>{{ item.item_name }}</td>
+                                            <td>
+                                                <div style="width: 100px;">
+                                                    {{ item.item_name }}
+                                                </div>
+                                            </td>
                                             <td>{{ item.skuid }}</td>
                                             <td>
                                                 <input
+                                                    style="width: 100px;"
                                                     v-model="item.qty"
                                                     type="number"
                                                     class="form-control"
@@ -275,6 +320,7 @@
                                             </td>
                                             <td>
                                                 <model-list-select
+                                                    style="width: 120px;"
                                                     :list="uom"
                                                     v-model="item.uom_id"
                                                     option-value="id"
@@ -284,6 +330,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 150px;"
                                                     v-model="item.price"
                                                     type="number"
                                                     class="form-control"
@@ -293,6 +340,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 80px;"
                                                     v-model="item.ppn"
                                                     type="number"
                                                     class="form-control"
@@ -303,6 +351,7 @@
                                             <td>{{ item.total }}</td>
                                             <td>
                                                 <model-list-select
+                                                    style="width: 120px;"
                                                     :list="suppliers"
                                                     v-model="item.supplier_id"
                                                     option-value="id"
@@ -312,6 +361,7 @@
                                             </td>
                                             <td>
                                                 <input
+                                                    style="width: 200px;"
                                                     v-model="item.remarks"
                                                     type="text"
                                                     class="form-control"
@@ -362,6 +412,8 @@ import { ModelListSelect } from "vue-search-select";
 export default {
     data() {
         return {
+            fileName: "",
+            file: "",
             requestTypes: [
                 {
                     name: "Cash",
@@ -414,6 +466,7 @@ export default {
                 requestDate: this.requestDate,
                 productType: this.productType,
                 requestType: this.requestType,
+                file: this.file,
                 detail: this.detail.map((item, idx) => ({
                     item_name: item.item_name,
                     skuid: item.skuid,
@@ -498,6 +551,7 @@ export default {
                                 requestAdvance.data.data.product_type;
                             this.warehouseId =
                                 requestAdvance.data.data.master_warehouse_id;
+                            this.fileName = requestAdvance.data.data.file_name;
                             this.items = items.data;
                             this.warehouses = warehouses.data;
                             this.uom = uom.data.data;
@@ -508,7 +562,7 @@ export default {
                     )
                 )
                 .catch(err => {
-                    console.error(err)
+                    console.error(err);
                     if (err.response.status === 500) {
                         this.getData();
                     }
@@ -525,7 +579,7 @@ export default {
                 .then(res => {
                     this.item = res.data;
                     this.loading = false;
-                    console.log("res get detail : ", res)
+                    console.log("res get detail : ", res);
                 })
                 .catch(err => {
                     console.log(err.response.data);
@@ -603,6 +657,20 @@ export default {
                         parseInt(item.price) +
                         (parseInt(item.price) * parseInt(item.ppn)) / 100)
             );
+        },
+        onFileChange(e) {
+            let fileData = e.target.files || e.dataTransfer.files;
+            this.fileName = fileData[0].name;
+            if (!fileData.length) return;
+            this.createFile(fileData[0]);
+        },
+
+        createFile(file) {
+            let reader = new FileReader();
+            reader.onload = e => {
+                this.file = e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
     },
     components: {

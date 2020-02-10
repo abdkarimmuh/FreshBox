@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-md-4 mt-4">
                             <div>Type Transaction</div>
-                            <span v-html="data.type_transaction"></span>
+                            <h5>{{ data.type_transaction }}</h5>
                         </div>
                         <div class="col-md-4 mt-4">
                             <div>Option Transaction</div>

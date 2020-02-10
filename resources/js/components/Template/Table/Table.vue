@@ -313,7 +313,8 @@
                                     <router-link
                                         v-if="
                                             config.route_edit_payment &&
-                                                item.status === 1
+                                                (item.status === 1 ||
+                                                    item.status === 8)
                                         "
                                         class="badge badge-secondary ml-1 mr-1 mt-1 mb-1"
                                         :to="{
@@ -358,11 +359,27 @@
                                         "
                                         v-if="
                                             config.route_receive_inout &&
-                                                item.status === 2
+                                                (item.status === 2 ||
+                                                    item.status === 8)
                                         "
                                         class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
                                         style="color: white"
                                         >Receive</a
+                                    >
+
+                                    <a
+                                        @click="
+                                            changeStatusReject(
+                                                item.finance_request_id
+                                            )
+                                        "
+                                        v-if="
+                                            config.route_receive_inout &&
+                                                item.status === 2
+                                        "
+                                        class="badge badge-danger ml-1 mr-1 mt-1 mb-1"
+                                        style="color: white"
+                                        >Reject</a
                                     >
 
                                     <router-link
@@ -670,6 +687,30 @@ export default {
                 if (result.value) {
                     axios.post(
                         BaseUrl("api/v1/finance-ap/in-out-payment/" + id)
+                    );
+                    Vue.swal(
+                        "Success!",
+                        "Status has been changed!",
+                        "success"
+                    ).then(next => {
+                        this.getData();
+                    });
+                }
+            });
+        },
+        changeStatusReject(id) {
+            Vue.swal({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes!"
+            }).then(result => {
+                if (result.value) {
+                    axios.post(
+                        BaseUrl("api/v1/finance-ap/in-out-payment/reject/" + id)
                     );
                     Vue.swal(
                         "Success!",

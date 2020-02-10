@@ -189,6 +189,10 @@ class FormSalesOrderAPIController extends Controller
 
     public function updateSalesOrderDetails(Request $request)
     {
+        // return response()->json([
+        //     'request' => $request->all(),
+        // ], 200);
+
         $customer_id = $request->customerId;
         $remarks = $request->remark;
         $sales_order_id = $request->salesOrderId;
@@ -200,7 +204,7 @@ class FormSalesOrderAPIController extends Controller
          */
         SalesOrder::where('id', $sales_order_id)->update(['remarks' => $remarks]);
 
-        $collection = collect($items);
+        $collection = collect($request->items);
         //Filter Data Untuk Di Update
         $FilterHasOrderDetailsID = $collection->filter(function ($value, $key) {
             if (isset($value['qty']) && isset($value['order_details_id'])) {
@@ -258,7 +262,7 @@ class FormSalesOrderAPIController extends Controller
                 //Mengambil List Data Di Table Price
                 //Untuk Perhitungan Total Amount Via Backend
                 $custom = Customer::find($customer_id);
-                $customer_group_id = $custom->id;
+                $customer_group_id = $custom->customer_group_id;
                 $PriceLists = PriceGroupCust::where('customer_group_id', $customer_group_id)
                     ->whereIn('skuid', $OnlySKUIDs)
                     ->orderByRaw(DB::raw("FIND_IN_SET(skuid, '$OnlySKUIDStr')"))

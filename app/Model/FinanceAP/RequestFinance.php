@@ -70,6 +70,8 @@ class RequestFinance extends MyModel
             return '<span class="badge badge-danger">Remaining Money</span>';
         } elseif ($this->status === 7) {
             return '<span class="badge badge-danger">Less Money</span>';
+        } elseif ($this->status === 8) {
+            return '<span class="badge badge-danger">Reject Document</span>';
         } else {
             return 'Status NotFound';
         }
