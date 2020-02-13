@@ -4765,6 +4765,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4892,6 +4893,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       });
     },
+    getBankAccount: function getBankAccount() {
+      var _this3 = this;
+
+      if (this.in_out_payment.type == 2 && this.in_out_payment.option == 1) {
+        axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/get-bank-account/" + this.in_out_payment.source)).then(function (res) {
+          _this3.in_out_payment.bank_id = res.data.data.bank_id;
+          _this3.in_out_payment.bank_account = res.data.data.bank_account;
+          _this3.loading = true;
+          console.log(res);
+        })["catch"](function (err) {
+          console.error(err);
+        });
+      }
+    },
 
     /**
      * Insert Sales Order
@@ -4900,7 +4915,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var _this3 = this;
+        var _this4 = this;
 
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -4932,7 +4947,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
-                  _this3.$router.push({
+                  _this4.$router.push({
                     name: "finance.inOutPayment"
                   });
                 });
@@ -4967,12 +4982,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.createFile(fileData[0]);
     },
     createFile: function createFile(file) {
-      var _this4 = this;
+      var _this5 = this;
 
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        _this4.in_out_payment.file = e.target.result;
+        _this5.in_out_payment.file = e.target.result;
       };
 
       reader.readAsDataURL(file);
@@ -9131,7 +9146,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     updateTotalAmount: function updateTotalAmount() {
       this.details.map(function (item, idx) {
-        return item.total_confirm = parseInt(item.price_confirm) + parseInt(item.price_confirm) * parseInt(item.ppn) / 100;
+        return item.total_confirm = parseInt(item.price_confirm) + parseInt(item.price_confirm) * parseInt(item.ppn) / 100 + parseInt(item.price_confirm) * parseInt(item.pph) / 100;
       });
     },
     onFileChange: function onFileChange(e) {
@@ -9239,6 +9254,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -61790,6 +61813,11 @@ var render = function() {
                                     "option-text": "no_and_requester",
                                     placeholder: "Source Data"
                                   },
+                                  on: {
+                                    input: function($event) {
+                                      return _vm.getBankAccount()
+                                    }
+                                  },
                                   model: {
                                     value: _vm.in_out_payment.source,
                                     callback: function($$v) {
@@ -67465,7 +67493,7 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.requestId !== ""
-                    ? _c("div", { staticClass: "col-md-12" }, [
+                    ? _c("div", { staticClass: "col-md-12 mt-4" }, [
                         _c("div", { staticClass: "form-group" }, [
                           _vm._m(4),
                           _vm._v(" "),
@@ -67836,7 +67864,7 @@ var render = function() {
                     _c(
                       "tbody",
                       _vm._l(_vm.details, function(item, index) {
-                        return _c("tr", [
+                        return _c("tr", { key: index }, [
                           _c("td", { staticClass: "text-center" }, [
                             _vm._v(_vm._s(index + 1))
                           ]),
@@ -67885,12 +67913,27 @@ var render = function() {
                             "td",
                             {
                               staticClass: "text-right",
-                              attrs: { width: "100" }
+                              attrs: { width: "60" }
                             },
                             [
                               _vm._v(
                                 "\n                                    " +
                                   _vm._s(item.ppn) +
+                                  " %\n                                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass: "text-right",
+                              attrs: { width: "60" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(item.pph) +
                                   " %\n                                "
                               )
                             ]
@@ -67925,6 +67968,8 @@ var render = function() {
                         _c("td"),
                         _vm._v(" "),
                         _vm._m(8),
+                        _vm._v(" "),
+                        _c("td"),
                         _vm._v(" "),
                         _c("td"),
                         _vm._v(" "),
@@ -68116,9 +68161,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Unit")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center", attrs: { colspan: "2" } }, [
+        _c("th", { staticClass: "text-center", attrs: { colspan: "3" } }, [
           _vm._v(
-            "\n                                    Harga + PPn(%)\n                                "
+            "\n                                    Harga + PPn(%) + PPh(%)\n                                "
           )
         ]),
         _vm._v(" "),
@@ -68140,6 +68185,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("tr", [
       _c("td", { attrs: { height: "20" } }),
+      _vm._v(" "),
+      _c("td"),
       _vm._v(" "),
       _c("td"),
       _vm._v(" "),
@@ -69386,11 +69433,10 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                    Back"
+                                "\n                                    Back\n                                "
                               )
                             ]
-                          ),
-                          _vm._v(">\n                            ")
+                          )
                         ])
                   ])
                 ])

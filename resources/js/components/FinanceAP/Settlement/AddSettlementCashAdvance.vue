@@ -242,7 +242,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12" v-if="requestId !== ''">
+                        <div class="col-md-12 mt-4" v-if="requestId !== ''">
                             <div class="form-group">
                                 <label>
                                     <b>Remarks</b>
@@ -408,6 +408,8 @@ export default {
                     (item.total_confirm =
                         parseInt(item.price_confirm) +
                         (parseInt(item.price_confirm) * parseInt(item.ppn)) /
+                            100 +
+                        (parseInt(item.price_confirm) * parseInt(item.pph)) /
                             100)
             );
         },

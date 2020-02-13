@@ -103,6 +103,7 @@ class SettlementFinanceController extends Controller
                 'uom_id' => $requestDetail[$i]->uom_id,
                 'price' => $detail['price_confirm'],
                 'ppn' => $requestDetail[$i]->ppn,
+                'pph' => $requestDetail[$i]->pph,
                 'total' => $detail['total_confirm'],
                 'supplier_id' => $requestDetail[$i]->supplier_id,
                 'created_at' => now(),

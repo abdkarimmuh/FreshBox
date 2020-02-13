@@ -74,6 +74,7 @@
                                         "
                                         option-value="id"
                                         option-text="no_and_requester"
+                                        v-on:input="getBankAccount()"
                                         placeholder="Source Data"
                                     ></model-list-select>
                                     <input
@@ -418,6 +419,30 @@ export default {
                         console.error(err);
                     }
                 });
+        },
+        getBankAccount() {
+            if (
+                this.in_out_payment.type == 2 &&
+                this.in_out_payment.option == 1
+            ) {
+                axios
+                    .get(
+                        this.$parent.MakeUrl(
+                            "api/v1/finance-ap/request-advance/get-bank-account/" +
+                                this.in_out_payment.source
+                        )
+                    )
+                    .then(res => {
+                        this.in_out_payment.bank_id = res.data.data.bank_id;
+                        this.in_out_payment.bank_account =
+                            res.data.data.bank_account;
+                        this.loading = true;
+                        console.log(res);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
+            }
         },
         /**
          * Insert Sales Order

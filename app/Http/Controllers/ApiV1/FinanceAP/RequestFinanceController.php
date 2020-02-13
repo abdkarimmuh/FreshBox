@@ -287,4 +287,13 @@ class RequestFinanceController extends Controller
 
         return NoRequestFinanceResource::collection($requestFinance);
     }
+
+    public function getBankAccount($id)
+    {
+        $requestFinance = new RequestFinanceResource(RequestFinance::find($id));
+
+        return response()->json([
+            'data' => $requestFinance,
+        ]);
+    }
 }

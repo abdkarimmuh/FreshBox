@@ -25,10 +25,14 @@ class RequestFinanceResource extends JsonResource
             $user_profile = UserProfile::where('user_id', $user->id)->first();
             $dept = isset($user_profile->dept) ? $user_profile->dept : '';
             $user_name = isset($user->name) ? $user->name : '';
+            $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
+            $bank_account = isset($user_profile->bank_account) ? $user_profile->bank_account : '';
         } else {
             //vendor
             $dept = 'Vendor';
             $user_name = $vendor->name;
+            $bank_id = $vendor->bank_id;
+            $bank_account = $vendor->bank_account;
         }
 
         return [
@@ -37,6 +41,8 @@ class RequestFinanceResource extends JsonResource
             'request_date' => $this->request_date->formatLocalized('%d %B %Y'),
             'user_name' => $user_name,
             'dept' => $dept,
+            'bank_id' => $bank_id,
+            'bank_account' => $bank_account,
             'shipping_address' => $this->warehouse->address,
             'shipping_name' => $this->warehouse->name,
             'status' => $this->status,

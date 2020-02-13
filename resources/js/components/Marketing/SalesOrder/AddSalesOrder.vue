@@ -361,8 +361,8 @@
                                         type="button"
                                         onClick="history.back()"
                                     >
-                                        Back</button
-                                    >>
+                                        Back
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -10,7 +10,7 @@ class SettlementDetail extends MyModel
 {
     use SearchTraits;
     protected $table = 'trx_settlement_detail';
-    protected $fillable = ['settlement_id', 'item_name', 'skuid', 'qty', 'uom_id', 'price', 'ppn', 'total', 'supplier_id', 'checked', 'created_at', 'updated_at'];
+    protected $fillable = ['settlement_id', 'item_name', 'skuid', 'qty', 'uom_id', 'price', 'ppn', 'pph', 'total', 'supplier_id', 'checked', 'created_at', 'updated_at'];
 
     protected $appends = ['uom_name'];
 

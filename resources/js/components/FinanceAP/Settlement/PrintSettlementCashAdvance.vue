@@ -115,8 +115,8 @@
                                     <th class="text-center">Jenis Barang</th>
                                     <th class="text-center">Qty</th>
                                     <th class="text-center">Unit</th>
-                                    <th class="text-center" colspan="2">
-                                        Harga + PPn(%)
+                                    <th class="text-center" colspan="3">
+                                        Harga + PPn(%) + PPh(%)
                                     </th>
                                     <th class="text-center">Total</th>
                                     <th class="text-center">
@@ -126,7 +126,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in details">
+                                <tr
+                                    v-for="(item, index) in details"
+                                    v-bind:key="index"
+                                >
                                     <td class="text-center">{{ index + 1 }}</td>
                                     <td class="text-left">
                                         {{ item.item_name }}
@@ -143,8 +146,11 @@
                                     <td class="text-right">
                                         Rp {{ item.price | toIDR }}
                                     </td>
-                                    <td class="text-right" width="100">
+                                    <td class="text-right" width="60">
                                         {{ item.ppn }} %
+                                    </td>
+                                    <td class="text-right" width="60">
+                                        {{ item.pph }} %
                                     </td>
                                     <td class="text-right">
                                         Rp {{ item.total | toIDR }}
@@ -167,10 +173,12 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><b>TOTAL</b></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

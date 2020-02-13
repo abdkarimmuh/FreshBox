@@ -40,6 +40,7 @@ class RequestFinanceWithDetailResource extends JsonResource
             $dept = isset($user_profile->dept) ? $user_profile->dept : '';
             $user_name = isset($user->name) ? $user->name : '';
             $bank_name = isset($user_profile->bank->name) ? $user_profile->bank->name : '';
+            $bank_id = isset($user_profile->bank_id) ? $user_profile->bank_id : '';
             $bank_kode = isset($user_profile->bank->kode_bank) ? $user_profile->bank->kode_bank : '';
             $bank_account = isset($user_profile->bank_account) ? $user_profile->bank_account : '';
             $pic = isset($user->name) ? $user->name : '';
@@ -48,6 +49,7 @@ class RequestFinanceWithDetailResource extends JsonResource
             $dept = 'Vendor';
             $user_name = $vendor->name;
             $bank_name = $vendor->bank_name;
+            $bank_id = $vendor->bank_id;
             $bank_kode = $vendor->Bank->kode_bank;
             $bank_account = $vendor->bank_account;
             $pic = $vendor->pic_vendor;
@@ -65,6 +67,7 @@ class RequestFinanceWithDetailResource extends JsonResource
             'user_name' => $user_name,
             'dept' => $dept,
             'bank_name' => $bank_name,
+            'bank_id' => $bank_id,
             'bank_kode' => $bank_kode,
             'bank_account' => $bank_account,
             'pic' => $pic,
