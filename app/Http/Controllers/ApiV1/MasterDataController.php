@@ -39,6 +39,11 @@ class MasterDataController extends Controller
         return Origin::all();
     }
 
+    public function getOriginall()
+    {
+        return Origin::get();
+    }
+
     /**
      * Display a listing of the Category.
      *
@@ -101,6 +106,21 @@ class MasterDataController extends Controller
         return DB::table('master_item')
             ->select('name_item', 'id', 'skuid')
             ->get();
+    }
+
+    public function getItemsall()
+    {
+        return DB::table('master_item')->get();
+    }
+
+    public function getuomsall()
+    {
+        return DB::table('master_uom')->get();
+    }
+
+    public function getcategoryall()
+    {
+        return DB::table('master_category')->get();
     }
 
     /**

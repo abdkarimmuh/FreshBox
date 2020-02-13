@@ -260,6 +260,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/', function () {
                 return UomResource::collection(Uom::all());
             });
+            Route::get('/yeah', 'MasterDataController@getuomsall');
         });
 
         Route::group(['prefix' => 'customer-group'], function () {
@@ -276,12 +277,14 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
 
         Route::group(['prefix' => 'category'], function () {
             Route::get('/', 'MasterDataController@getCategory');
+            Route::get('/yeah', 'MasterDataController@getcategoryall');
         });
         Route::group(['prefix' => 'bank'], function () {
             Route::get('/', 'MasterDataController@getBank');
         });
         Route::group(['prefix' => 'origin'], function () {
             Route::get('/', 'MasterDataController@getOrigin');
+            Route::get('/yeah', 'MasterDataController@getoriginall');
         });
 
         Route::group(['prefix' => 'users'], function () {
@@ -292,6 +295,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
 
         Route::group(['prefix' => 'items'], function () {
             Route::get('/', 'MasterDataController@getItems');
+            Route::get('/yeah', 'MasterDataController@getItemsall');
             Route::get('/{id}', 'MasterDataController@getDetailItem');
         });
         Route::group(['prefix' => 'warehouse'], function () {
