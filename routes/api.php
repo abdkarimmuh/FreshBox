@@ -174,8 +174,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/', 'InOutPaymentController@index');
             Route::get('/show/{id}', 'InOutPaymentController@show');
             Route::post('/store', 'InOutPaymentController@store');
+            Route::post('/receive', 'InOutPaymentController@receive');
             Route::post('/{id}', 'InOutPaymentController@changeStatus');
             Route::post('/reject/{id}', 'InOutPaymentController@changeStatusReject');
+            Route::get('/getNoVoucher/{id}', 'InOutPaymentController@getNoVoucher');
             Route::post('/confirm/{id}', 'InOutPaymentController@confirm');
             Route::post('/', 'InOutPaymentController@store');
         });

@@ -10,7 +10,7 @@ class InOutPayment extends MyModel
 {
     use SearchTraits;
     protected $table = 'trx_in_out_payment';
-    protected $fillable = ['type_transaction', 'option_transaction', 'finance_request_id', 'source', 'transaction_date', 'bank_id', 'bank_account', 'amount', 'remarks', 'file', 'status',  'created_at', 'update_at'];
+    protected $fillable = ['type_transaction', 'option_transaction', 'finance_request_id', 'source', 'no_voucher', 'transaction_date', 'bank_id', 'bank_account', 'amount', 'remarks', 'file', 'status',  'created_at', 'update_at'];
     protected $appends = ['status_html'];
 
     protected $columns = [
@@ -19,6 +19,10 @@ class InOutPayment extends MyModel
             'search_relation' => false,
         ],
         'source' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'no_voucher' => [
             'searchable' => false,
             'search_relation' => false,
         ],

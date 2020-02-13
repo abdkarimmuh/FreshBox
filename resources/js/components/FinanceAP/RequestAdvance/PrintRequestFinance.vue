@@ -116,8 +116,15 @@
                                     <th class="text-center">Jenis Barang</th>
                                     <th class="text-center">Qty</th>
                                     <th class="text-center">Unit</th>
-                                    <th class="text-center" colspan="2">
+                                    <th
+                                        class="text-center"
+                                        colspan="2"
+                                        v-if="requestFinance.status < 3"
+                                    >
                                         Harga + PPn(%)
+                                    </th>
+                                    <th class="text-center" colspan="3" v-else>
+                                        Harga + PPn(%) + PPh(%)
                                     </th>
                                     <th class="text-center">Total</th>
                                     <th class="text-center">Nama Supplier</th>
@@ -125,7 +132,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in details">
+                                <tr
+                                    v-for="(item, index) in details"
+                                    v-bind:key="index"
+                                >
                                     <td class="text-center">{{ index + 1 }}</td>
                                     <td class="text-left">
                                         {{ item.item_name }}
@@ -142,6 +152,13 @@
                                     </td>
                                     <td class="text-right" width="100">
                                         {{ item.ppn }} %
+                                    </td>
+                                    <td
+                                        class="text-right"
+                                        width="100"
+                                        v-if="requestFinance.status > 2"
+                                    >
+                                        {{ item.pph }} %
                                     </td>
                                     <td class="text-right">
                                         Rp {{ item.total | toIDR }}
@@ -166,6 +183,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    <td v-if="requestFinance.status > 2"></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -183,6 +201,7 @@
                                     </td>
                                     <td></td>
                                     <td></td>
+                                    <td v-if="requestFinance.status > 2"></td>
                                 </tr>
                             </tfoot>
                         </table>

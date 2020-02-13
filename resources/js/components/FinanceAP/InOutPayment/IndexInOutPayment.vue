@@ -20,13 +20,18 @@ export default {
                 noStartEnd: true,
                 route_create: "finance.inOutPayment.create",
                 route_view: "finance.inOutPayment.show",
-                route_receive_inout: true,
+                route_receive_inout: "finance.inOutPayment.receive",
                 route_confirm_inout: "finance.inOutPayment.confirm"
             },
             columns: [
                 {
                     title: "Source Data",
                     field: "source_data",
+                    filterable: true
+                },
+                {
+                    title: "No Voucher",
+                    field: "no_voucher",
                     filterable: true
                 },
                 {

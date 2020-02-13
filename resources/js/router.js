@@ -53,6 +53,7 @@ import PrintPettyCash from './components/FinanceAP/PettyCash/PrintPettyCash';
 import InOutPayment from './components/FinanceAP/InOutPayment/IndexInOutPayment';
 import AddInOutPayment from './components/FinanceAP/InOutPayment/AddInOutPayment';
 import ConfirmInOutPayment from './components/FinanceAP/InOutPayment/ConfirmInOutPayment';
+import ReceiveInOutPayment from './components/FinanceAP/InOutPayment/ReceiveInOutPayment';
 import PrintInOutPayment from './components/FinanceAP/InOutPayment/PrintInOutPayment';
 import IndexSettlementCashAdvance from './components/FinanceAP/Settlement/IndexSettlementCashAdvance';
 import AddSettlementCashAdvance from './components/FinanceAP/Settlement/AddSettlementCashAdvance';
@@ -286,9 +287,14 @@ const router = new VueRouter({
             component: AddInOutPayment
         },
         {
-            path: '/admin/finance-ap/in-out-payment/confirm',
+            path: '/admin/finance-ap/in-out-payment/confirm/:id',
             name: 'finance.inOutPayment.confirm',
             component: ConfirmInOutPayment
+        },
+        {
+            path: '/admin/finance-ap/in-out-payment/receive/:id',
+            name: 'finance.inOutPayment.receive',
+            component: ReceiveInOutPayment
         },
         {
             path: '/admin/finance-ap/settlement-cash-advance',

@@ -351,7 +351,24 @@
 
                                     <!-- <a href="#" onclick="someFunction(); return false;">LINK</a> -->
 
-                                    <a
+                                    <router-link
+                                        v-if="
+                                            config.route_receive_inout &&
+                                                (item.status === 2 ||
+                                                    item.status === 8)
+                                        "
+                                        class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
+                                        :to="{
+                                            name: config.route_receive_inout,
+                                            params: {
+                                                id: item.finance_request_id
+                                            }
+                                        }"
+                                    >
+                                        Receive
+                                    </router-link>
+
+                                    <!-- <a
                                         @click="
                                             changeStatus(
                                                 item.finance_request_id
@@ -365,7 +382,7 @@
                                         class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
                                         style="color: white"
                                         >Receive</a
-                                    >
+                                    > -->
 
                                     <a
                                         @click="
@@ -431,8 +448,11 @@
                                             >{{ item.file }}</a
                                         >
                                     </p>
-                                    <p v-else-if="column.type === 'price'">
-                                        {{ item[column.field] | toIDR }}
+                                    <p
+                                        v-else-if="column.type === 'price'"
+                                        style="white-space: nowrap;"
+                                    >
+                                        Rp {{ item[column.field] | toIDR }}
                                     </p>
                                     <p v-else>{{ item[column.field] }}</p>
                                 </td>
@@ -674,30 +694,30 @@ export default {
             });
             console.log(id);
         },
-        changeStatus(id) {
-            Vue.swal({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes!"
-            }).then(result => {
-                if (result.value) {
-                    axios.post(
-                        BaseUrl("api/v1/finance-ap/in-out-payment/" + id)
-                    );
-                    Vue.swal(
-                        "Success!",
-                        "Status has been changed!",
-                        "success"
-                    ).then(next => {
-                        this.getData();
-                    });
-                }
-            });
-        },
+        // changeStatus(id) {
+        //     Vue.swal({
+        //         title: "Are you sure?",
+        //         text: "You won't be able to revert this!",
+        //         type: "warning",
+        //         showCancelButton: true,
+        //         confirmButtonColor: "#3085d6",
+        //         cancelButtonColor: "#d33",
+        //         confirmButtonText: "Yes!"
+        //     }).then(result => {
+        //         if (result.value) {
+        //             axios.post(
+        //                 BaseUrl("api/v1/finance-ap/in-out-payment/" + id)
+        //             );
+        //             Vue.swal(
+        //                 "Success!",
+        //                 "Status has been changed!",
+        //                 "success"
+        //             ).then(next => {
+        //                 this.getData();
+        //             });
+        //         }
+        //     });
+        // },
         changeStatusReject(id) {
             Vue.swal({
                 title: "Are you sure?",

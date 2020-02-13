@@ -165,7 +165,8 @@
                                                     >*</span
                                                 >
                                             </th>
-                                            <th class="text-center">PPN(%)</th>
+                                            <th class="text-center">PPn(%)</th>
+                                            <th class="text-center">PPh(%)</th>
                                             <th class="text-center">Total</th>
                                             <th class="text-center">
                                                 Total Confirm
@@ -181,11 +182,16 @@
                                             v-bind:key="index"
                                         >
                                             <td>{{ index + 1 }}</td>
-                                            <td>{{ item.item_name }}</td>
+                                            <td>
+                                                <div style="width: 100px;">
+                                                    {{ item.item_name }}
+                                                </div>
+                                            </td>
                                             <td>{{ item.skuid }}</td>
                                             <td>{{ item.qty }}</td>
                                             <td>
                                                 <input
+                                                    style="width: 100px;"
                                                     v-model="item.qty_confirm"
                                                     type="number"
                                                     class="form-control"
@@ -193,9 +199,16 @@
                                                 />
                                             </td>
                                             <td>{{ item.uom_name }}</td>
-                                            <td>{{ item.price }}</td>
+                                            <td>
+                                                <div
+                                                    style="white-space: nowrap;"
+                                                >
+                                                    Rp {{ item.price | toIDR }}
+                                                </div>
+                                            </td>
                                             <td>
                                                 <input
+                                                    style="width: 150px;"
                                                     v-model="item.price_confirm"
                                                     type="number"
                                                     class="form-control"
@@ -203,9 +216,26 @@
                                                     min="0"
                                                 />
                                             </td>
-                                            <td>{{ item.ppn }}</td>
-                                            <td>{{ item.total }}</td>
-                                            <td>{{ item.total_confirm }}</td>
+                                            <td>{{ item.ppn }}%</td>
+                                            <td>{{ item.pph }}%</td>
+                                            <td>
+                                                <div
+                                                    style="white-space: nowrap;"
+                                                >
+                                                    Rp {{ item.total | toIDR }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div
+                                                    style="white-space: nowrap;"
+                                                >
+                                                    Rp
+                                                    {{
+                                                        item.total_confirm
+                                                            | toIDR
+                                                    }}
+                                                </div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

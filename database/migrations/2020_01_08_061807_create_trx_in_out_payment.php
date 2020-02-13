@@ -17,6 +17,7 @@ class CreateTrxInOutPayment extends Migration
             $table->tinyInteger('option_transaction')->default(0)->comment('1 = Settlement, 2 = Replacement / Reimbursment, 3 = General');
             $table->unsignedBigInteger('finance_request_id')->nullable();
             $table->string('source')->nullable();
+            $table->string('no_voucher');
             $table->date('transaction_date');
             $table->unsignedBigInteger('bank_id');
             $table->string('bank_account', 20);

@@ -24,7 +24,7 @@ class InOutPaymentResource extends JsonResource
             $file_url = isset($this->file) ? url(Storage::url('public/files/in-out/'.$this->file)) : '';
         } else {
             $finance = RequestFinance::find($this->finance_request_id);
-            $source_data = $finance->no_request;
+            $source_data = 'No Request '.$finance->no_request;
             $file = isset($finance) ? $finance->file : '';
             $file_url = isset($finance) ? url(Storage::url('public/files/request-advance/'.$finance->file)) : '';
         }
@@ -34,6 +34,7 @@ class InOutPaymentResource extends JsonResource
         return [
             'id' => $this->id,
             'source_data' => $source_data,
+            'no_voucher' => $this->no_voucher,
             'file' => $file,
             'file_url' => $file_url,
             'finance_request_id' => $this->finance_request_id,

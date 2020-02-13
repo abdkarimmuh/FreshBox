@@ -6,6 +6,7 @@ use App\Model\MasterData\Vendor;
 use App\User;
 use App\UserProfile;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 use Riskihajar\Terbilang\Facades\Terbilang;
 
 class RequestFinanceWithDetailResource extends JsonResource
@@ -73,7 +74,9 @@ class RequestFinanceWithDetailResource extends JsonResource
             'created_by_name' => $this->created_by_name,
             'user_id' => $this->vendor_id,
             'file_name' => $this->file,
+            'file_url' => isset($this->file) ? url(Storage::url('public/files/request-advance/'.$this->file)) : '',
             'master_warehouse_id' => $this->master_warehouse_id,
+            'status' => $this->status,
 
             'details' => RequestFinanceDetailResource::collection($this->detail),
         ];

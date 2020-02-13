@@ -34,7 +34,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>
                                     <b>Fillment Date</b>
@@ -42,9 +42,7 @@
                                 </label>
                                 <div>
                                     <date-picker
-                                        v-model="
-                                            in_out_payment.confirm_date
-                                        "
+                                        v-model="in_out_payment.confirm_date"
                                         lang="en"
                                         type="date"
                                         valueType="format"
@@ -61,6 +59,12 @@
                             </div>
                         </div>
 
+                        <s-form-input
+                            col="3"
+                            title="No Voucher"
+                            :model="no_voucher"
+                            disabled="true"
+                        />
 
                         <div class="col-12">
                             <div class="card-body">
@@ -68,7 +72,12 @@
                                     <loading-button />
                                 </div>
                                 <div v-else>
-                                    <button class="btn btn-danger" v-on:click="submitForm()">Submit</button>
+                                    <button
+                                        class="btn btn-danger"
+                                        v-on:click="submitForm()"
+                                    >
+                                        Submit
+                                    </button>
                                     <back-button />
                                 </div>
                             </div>
@@ -91,29 +100,20 @@ export default {
     data() {
         return {
             in_out_payment: {
-                no_payment: '',
-                confirm_date: ''
+                no_payment: "",
+                confirm_date: ""
             },
             banks: [],
-            types: [
-                {
-                    id: 2,
-                    name: "IN"
-                },
-                {
-                    id: 1,
-                    name: "OUT"
-                }
-            ],
+            no_voucher: "",
             errors: [],
             loading: false,
             loadingSubmit: false,
             header: {}
         };
     },
-    async mounted() {
-        // await this.getData();
-        this.loading = true
+    mounted() {
+        this.getData();
+        this.loading = true;
     },
     methods: {
         /**
@@ -123,11 +123,18 @@ export default {
         getData() {
             axios
                 .all([
-                    axios.get(this.$parent.MakeUrl("api/v1/master_data/bank"))
+                    axios.get(this.$parent.MakeUrl("api/v1/master_data/bank")),
+                    axios.get(
+                        this.$parent.MakeUrl(
+                            "api/v1/finance-ap/in-out-payment/getNoVoucher/" +
+                                this.$route.params.id
+                        )
+                    )
                 ])
                 .then(
-                    axios.spread(banks => {
+                    axios.spread((banks, no_voucher) => {
                         this.banks = banks.data;
+                        this.no_voucher = no_voucher.data;
                         this.loading = true;
                     })
                 )
@@ -148,14 +155,15 @@ export default {
         async submitForm() {
             this.loadingSubmit = true;
             const payload = {
-              no_payment: this.in_out_payment.no_payment,
-              confirm_date: this.in_out_payment.confirm_date
+                no_payment: this.in_out_payment.no_payment,
+                confirm_date: this.in_out_payment.confirm_date
             };
             console.log(payload);
             try {
                 const res = await axios.post(
                     this.$parent.MakeUrl(
-                        "api/v1/finance-ap/in-out-payment/confirm/" + this.$route.params.id
+                        "api/v1/finance-ap/in-out-payment/confirm/" +
+                            this.$route.params.id
                     ),
                     payload
                 );

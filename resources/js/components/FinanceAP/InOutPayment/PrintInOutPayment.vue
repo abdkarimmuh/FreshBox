@@ -21,6 +21,10 @@
                             <h5>{{ data.source_data }}</h5>
                         </div>
                         <div class="col-md-4 mt-4">
+                            <div>No Voucher</div>
+                            <h5>{{ data.no_voucher }}</h5>
+                        </div>
+                        <div class="col-md-4 mt-4">
                             <div>Type Transaction</div>
                             <h5>{{ data.type_transaction }}</h5>
                         </div>

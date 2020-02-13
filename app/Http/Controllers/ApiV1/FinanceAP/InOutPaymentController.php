@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\FinanceAP\InOutPaymentResource;
 use App\Model\FinanceAP\InOutPayment;
 use App\Model\FinanceAP\RequestFinance;
+use App\Model\FinanceAP\RequestFinanceDetail;
 use App\Model\FinanceAP\Settlement;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -69,7 +70,7 @@ class InOutPaymentController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateInOutNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            $file_name = $this->generateNoFile().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
             Storage::disk('local')->put('public/files/in-out/'.$file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = null;
@@ -96,6 +97,7 @@ class InOutPaymentController extends Controller
             'type_transaction' => $request->type_transaction,
             'option_transaction' => $request->option_transaction,
             'source' => $source,
+            'no_voucher' => $this->generateNoVoucher(),
             'transaction_date' => $request->transaction_date,
             'amount' => $request->amount,
             'bank_id' => $request->bank_id,
@@ -170,7 +172,35 @@ class InOutPaymentController extends Controller
         ], 200);
     }
 
-    public function generateInOutNo()
+    public function receive(Request $request)
+    {
+        $req_finance = RequestFinance::find($request->requestAdvance['id']);
+        $req_finance->status = 3;
+        $req_finance->save();
+
+        $inout = InOutPayment::where('finance_request_id', $req_finance->id)->first();
+        $inout->status = 3;
+        $inout->save();
+
+        $req_finance_detail = RequestFinanceDetail::where('request_finance_id', $req_finance->id)->get();
+
+        foreach ($request->detail as $value) {
+            foreach ($req_finance_detail as $detail) {
+                if ($value['id'] == $detail->id) {
+                    $detail->pph = $value['pph'];
+                    $detail->total = $value['total'];
+                    $detail->updated_at = Carbon::now();
+                    $detail->save();
+                }
+            }
+        }
+
+        return response()->json([
+            'status' => 'success',
+        ], 200);
+    }
+
+    public function generateNoFile()
     {
         $year_month = Carbon::now()->format('ym');
         $get_last_inout_no = 'INOUT'.$year_month.'00000';
@@ -179,5 +209,36 @@ class InOutPaymentController extends Controller
         $latest_inout_payment = InOutPayment::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
 
         return 'INOUT'.($cut_string_inout + ($latest_inout_payment['id'] + 1));
+    }
+
+    public function getNoVoucher($id)
+    {
+        $inOut = InOutPayment::find($id);
+
+        return $inOut->no_voucher;
+    }
+
+    public function generateNoVoucher()
+    {
+        $year_month = Carbon::now()->format('ym');
+        $month = Carbon::now()->format('m');
+        $year = Carbon::now()->format('Y');
+        $latest_voucher = InOutPayment::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+
+        $get_last_voucher_no = isset($latest_voucher->no_voucher) ? $latest_voucher->no_voucher : '0000/BTS/PV/'.$month.'/'.$year;
+        $cut_string_voucher = substr($get_last_voucher_no, 0, 4);
+        $cut_string = $cut_string_voucher + 1;
+
+        if (strlen($cut_string) == 1) {
+            $string_voucher = '000'.$cut_string;
+        } elseif (strlen($cut_string) == 2) {
+            $string_voucher = '00'.$cut_string;
+        } elseif (strlen($cut_string) == 3) {
+            $string_voucher = '0'.$cut_string;
+        } else {
+            $string_voucher = $cut_string;
+        }
+
+        return $string_voucher.'/BTS/PV/'.$month.'/'.$year;
     }
 }

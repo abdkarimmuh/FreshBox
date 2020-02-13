@@ -126,6 +126,7 @@ class RequestFinanceController extends Controller
             InOutPayment::create([
                 'finance_request_id' => $requestFinance,
                 'source' => null,
+                'no_voucher' => $this->generateNoVoucher(),
                 'transaction_date' => now()->toDateString(),
                 'bank_id' => $bank_id,
                 'bank_account' => $bank_account,
@@ -147,7 +148,7 @@ class RequestFinanceController extends Controller
             $file = $request->file;
             @list($type, $file_data) = explode(';', $file);
             @list(, $file_data) = explode(',', $file_data);
-            $file_name = $this->generateRequestNo().'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            $file_name = $requestFinance->no_request.'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
             Storage::disk('local')->put('public/files/request-advance/'.$file_name, base64_decode($file_data), 'public');
         } else {
             $file_name = '';
@@ -174,6 +175,30 @@ class RequestFinanceController extends Controller
         $cut_string_request = str_replace('ADV', '', $get_last_request_no);
 
         return 'ADV'.($cut_string_request + 1);
+    }
+
+    public function generateNoVoucher()
+    {
+        $year_month = Carbon::now()->format('ym');
+        $month = Carbon::now()->format('m');
+        $year = Carbon::now()->format('Y');
+        $latest_voucher = InOutPayment::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+
+        $get_last_voucher_no = isset($latest_voucher->no_voucher) ? $latest_voucher->no_voucher : '0000/BTS/PV/'.$month.'/'.$year;
+        $cut_string_voucher = substr($get_last_voucher_no, 0, 4);
+        $cut_string = $cut_string_voucher + 1;
+
+        if (strlen($cut_string) == 1) {
+            $string_voucher = '000'.$cut_string;
+        } elseif (strlen($cut_string) == 2) {
+            $string_voucher = '00'.$cut_string;
+        } elseif (strlen($cut_string) == 3) {
+            $string_voucher = '0'.$cut_string;
+        } else {
+            $string_voucher = $cut_string;
+        }
+
+        return $string_voucher.'/BTS/PV/'.$month.'/'.$year;
     }
 
     public function setDate(Request $request)
@@ -203,9 +228,10 @@ class RequestFinanceController extends Controller
         $requestFinance->product_type = $request->productType;
         $requestFinance->master_warehouse_id = $request->warehouse;
         $requestFinance->updated_at = now();
-        $requestFinance->save();
 
         RequestFinanceDetail::where('request_finance_id', $request->id)->delete();
+
+        $total = 0;
 
         foreach ($request->detail as $detail) {
             $items[] = [
@@ -222,9 +248,29 @@ class RequestFinanceController extends Controller
                 'created_at' => $requestFinance->created_at,
                 'updated_at' => now(),
             ];
+            $total = $total + $detail['total'];
         }
 
         RequestFinanceDetail::insert($items);
+
+        $inOutPayment = InOutPayment::where('finance_request_id', $requestFinance->id)->first();
+        $inOutPayment->amount = $total;
+
+        if ($request->file) {
+            $file = $request->file;
+            @list($type, $file_data) = explode(';', $file);
+            @list(, $file_data) = explode(',', $file_data);
+            $file_name = $requestFinance->no_request.'.'.explode('/', explode(':', substr($file, 0, strpos($file, ';')))[1])[1];
+            Storage::disk('local')->put('public/files/request-advance/'.$file_name, base64_decode($file_data), 'public');
+
+            $requestFinance->file = $file_name;
+            $requestFinance->status = 2;
+
+            $inOutPayment->status = 2;
+        }
+        $inOutPayment->save();
+
+        $requestFinance->save();
 
         return response()->json([
             'success' => true,

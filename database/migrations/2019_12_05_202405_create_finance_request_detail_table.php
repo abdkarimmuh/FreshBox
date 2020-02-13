@@ -20,6 +20,7 @@ class CreateFinanceRequestDetailTable extends Migration
             $table->unsignedBigInteger('uom_id')->index();
             $table->integer('price')->index();
             $table->integer('ppn')->nullable();
+            $table->integer('pph')->default(0);
             $table->integer('total')->index();
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->string('remarks')->nullable();

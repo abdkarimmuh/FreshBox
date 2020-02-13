@@ -236,12 +236,11 @@
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody v-if="productType === 1">
                                         <tr
                                             v-for="(item,
                                             index) in orderDetails"
                                             v-bind:key="index"
-                                            v-if="productType === 1"
                                         >
                                             <td>{{ index + 1 }}</td>
                                             <td>
@@ -299,7 +298,13 @@
                                                     @change="updateTotalAmount"
                                                 />
                                             </td>
-                                            <td>{{ item.total }}</td>
+                                            <td>
+                                                <div
+                                                    style="white-space: nowrap;"
+                                                >
+                                                    Rp {{ item.total | toIDR }}
+                                                </div>
+                                            </td>
                                             <td>
                                                 <model-list-select
                                                     style="width: 120px;"
@@ -327,14 +332,19 @@
                                                 </button>
                                             </td>
                                         </tr>
+                                    </tbody>
+                                    <tbody v-if="productType === 2">
                                         <tr
                                             v-for="(item,
                                             index) in orderDetails"
                                             v-bind:key="index"
-                                            v-if="productType === 2"
                                         >
                                             <td>{{ index + 1 }}</td>
-                                            <td><div style="width: 100px;">{{ item.name }}</div></td>
+                                            <td>
+                                                <div style="width: 100px;">
+                                                    {{ item.name }}
+                                                </div>
+                                            </td>
                                             <td>{{ item.skuid }}</td>
                                             <td>
                                                 <input
@@ -375,7 +385,13 @@
                                                     @change="updateTotalAmount"
                                                 />
                                             </td>
-                                            <td>{{ item.total }}</td>
+                                            <td>
+                                                <div
+                                                    style="white-space: nowrap;"
+                                                >
+                                                    Rp {{ item.total | toIDR }}
+                                                </div>
+                                            </td>
                                             <td>
                                                 <model-list-select
                                                     style="width: 120px;"
@@ -516,6 +532,7 @@ export default {
                     text: "Successfully Insert Data!"
                 }).then(next => {
                     this.$router.push({ name: "finance.requestAdvance" });
+                    this.loadingSubmit = false;
                 });
                 console.log(res);
             } catch (e) {
