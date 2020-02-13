@@ -10436,7 +10436,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       skuid: item.skuid,
                       qty: item.qty,
                       notes: item.notes,
-                      uom_id: item.uom_id
+                      uom_id: item.uom_id,
+                      amount: item.amount,
+                      total_amount: item.total_amount
                     };
                   })
                 };

@@ -97,7 +97,7 @@ class InOutPaymentController extends Controller
             'type_transaction' => $request->type_transaction,
             'option_transaction' => $request->option_transaction,
             'source' => $source,
-            'no_voucher' => $this->generateNoVoucher(),
+            'no_voucher' => $this->generateNoVoucher($request->type_transaction),
             'transaction_date' => $request->transaction_date,
             'amount' => $request->amount,
             'bank_id' => $request->bank_id,
@@ -218,27 +218,48 @@ class InOutPaymentController extends Controller
         return $inOut->no_voucher;
     }
 
-    public function generateNoVoucher()
+    public function generateNoVoucher($type_transaction)
     {
         $year_month = Carbon::now()->format('ym');
         $month = Carbon::now()->format('m');
         $year = Carbon::now()->format('Y');
-        $latest_voucher = InOutPayment::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
 
-        $get_last_voucher_no = isset($latest_voucher->no_voucher) ? $latest_voucher->no_voucher : '0000/BTS/PV/'.$month.'/'.$year;
-        $cut_string_voucher = substr($get_last_voucher_no, 0, 4);
-        $cut_string = $cut_string_voucher + 1;
+        if ($type_transaction == 1) {
+            // code...
+            $latest_voucher = InOutPayment::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->where('no_voucher', 'like', '%/BTS/RV/%')->latest()->first();
+            $get_last_voucher_no = isset($latest_voucher->no_voucher) ? $latest_voucher->no_voucher : '0000/BTS/RV/'.$month.'/'.$year;
+            $cut_string_voucher = substr($get_last_voucher_no, 0, 4);
+            $cut_string = $cut_string_voucher + 1;
 
-        if (strlen($cut_string) == 1) {
-            $string_voucher = '000'.$cut_string;
-        } elseif (strlen($cut_string) == 2) {
-            $string_voucher = '00'.$cut_string;
-        } elseif (strlen($cut_string) == 3) {
-            $string_voucher = '0'.$cut_string;
+            if (strlen($cut_string) == 1) {
+                $string_voucher = '000'.$cut_string;
+            } elseif (strlen($cut_string) == 2) {
+                $string_voucher = '00'.$cut_string;
+            } elseif (strlen($cut_string) == 3) {
+                $string_voucher = '0'.$cut_string;
+            } else {
+                $string_voucher = $cut_string;
+            }
+
+            return $string_voucher.'/BTS/RV/'.$month.'/'.$year;
         } else {
-            $string_voucher = $cut_string;
-        }
+            // code...
+            $latest_voucher = InOutPayment::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->where('no_voucher', 'like', '%/BTS/PV/%')->latest()->first();
+            $get_last_voucher_no = isset($latest_voucher->no_voucher) ? $latest_voucher->no_voucher : '0000/BTS/PV/'.$month.'/'.$year;
+            $cut_string_voucher = substr($get_last_voucher_no, 0, 4);
+            $cut_string = $cut_string_voucher + 1;
 
-        return $string_voucher.'/BTS/PV/'.$month.'/'.$year;
+            if (strlen($cut_string) == 1) {
+                $string_voucher = '000'.$cut_string;
+            } elseif (strlen($cut_string) == 2) {
+                $string_voucher = '00'.$cut_string;
+            } elseif (strlen($cut_string) == 3) {
+                $string_voucher = '0'.$cut_string;
+            } else {
+                $string_voucher = $cut_string;
+            }
+
+            return $string_voucher.'/BTS/PV/'.$month.'/'.$year;
+        }
     }
 }
