@@ -480,7 +480,7 @@ export default {
                     notes: item.notes,
                     uom_id: item.uom_id,
                     amount: item.amount,
-                    total_amount: item.total_amount,
+                    total_amount: item.total_amount
                 }))
             };
 
@@ -545,9 +545,10 @@ export default {
                     console.log(this.items);
                 })
                 .catch(err => {
-                    if (err.response.status === 500) {
-                        this.getItems();
-                    }
+                    console.error(err);
+                    // if (err.response.status === 500) {
+                    //     this.getItems();
+                    // }
                 });
         },
         getItem() {
