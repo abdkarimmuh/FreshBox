@@ -59,8 +59,8 @@ class MasterPriceController extends Controller
         $customer = Customer::find($id);
 
         $data = PriceGroupCust::where('customer_group_id', $customer->customer_group_id)
-            ->where('start_periode', '<=', $fulfillment_date)
-            ->where('end_periode', '>=', $fulfillment_date)
+            ->where($fulfillment_date, '>=', 'start_periode')
+            ->where($fulfillment_date, '<=', 'end_periode')
             ->get();
 
         if (isset($data)) {
