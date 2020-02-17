@@ -46,6 +46,8 @@ class MasterPriceController extends Controller
 
     public function show($customer_id, $skuid, $fulfillment_date, Request $request)
     {
+        $fulfillment_date = Carbon::create($fulfillment_date)->format('Y-m-d');
+
         $customer = Customer::find($customer_id);
         $data = PriceGroupCust::where('customer_group_id', $customer->customer_group_id)
             ->where('skuid', $skuid)
