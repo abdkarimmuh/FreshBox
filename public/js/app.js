@@ -4766,6 +4766,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4784,6 +4795,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         remark: ""
       },
       banks: [],
+      bank_accounts: [],
       no_requests: [],
       types: [{
         id: 1,
@@ -4832,10 +4844,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getData: function getData() {
       var _this = this;
 
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/bank")).then(function (res) {
-        _this.banks = res.data;
+      axios.all([axios.get(this.$parent.MakeUrl("api/v1/master_data/bank")), axios.get(this.$parent.MakeUrl("api/v1/master_data/bank_account"))]).then(axios.spread(function (banks, bank_accounts) {
+        _this.banks = banks.data;
+        _this.bank_accounts = bank_accounts.data.data;
         _this.loading = true;
-      })["catch"](function (err) {
+      }))["catch"](function (err) {
         if (err.response.status === 403) {
           _this.$router.push({
             name: "inOutPayment"
@@ -4874,6 +4887,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }];
       }
     },
+    afterOption: function afterOption() {
+      this.in_out_payment.source = "";
+      this.in_out_payment.bank_id = "";
+      this.in_out_payment.bank_account = "";
+      this.in_out_payment.amount = "";
+      this.in_out_payment.fulfillmentDate = "";
+      this.in_out_payment.file = "";
+      this.in_out_payment.fileName = "";
+      this.in_out_payment.remark = "";
+    },
     getNoRequest: function getNoRequest() {
       var _this2 = this;
 
@@ -4893,11 +4916,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       });
     },
-    getBankAccount: function getBankAccount() {
+    getBank: function getBank() {
       var _this3 = this;
 
       if (this.in_out_payment.type == 2 && this.in_out_payment.option == 1) {
-        axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/get-bank-account/" + this.in_out_payment.source)).then(function (res) {
+        axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/get-bank/" + this.in_out_payment.source)).then(function (res) {
           _this3.in_out_payment.bank_id = res.data.data.bank_id;
           _this3.in_out_payment.bank_account = res.data.data.bank_account;
           _this3.loading = true;
@@ -4907,6 +4930,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
       }
     },
+    getBankAccount: function getBankAccount() {
+      var _this4 = this;
+
+      axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/get-bank-account/" + this.in_out_payment.bank_id)).then(function (res) {
+        _this4.in_out_payment.bank_account = res.data.data;
+        _this4.loading = true;
+        console.log(res);
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    },
 
     /**
      * Insert Sales Order
@@ -4915,7 +4949,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var _this4 = this;
+        var _this5 = this;
 
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -4947,7 +4981,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
-                  _this4.$router.push({
+                  _this5.$router.push({
                     name: "finance.inOutPayment"
                   });
                 });
@@ -4982,12 +5016,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.createFile(fileData[0]);
     },
     createFile: function createFile(file) {
-      var _this5 = this;
+      var _this6 = this;
 
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        _this5.in_out_payment.file = e.target.result;
+        _this6.in_out_payment.file = e.target.result;
       };
 
       reader.readAsDataURL(file);
@@ -61761,6 +61795,11 @@ var render = function() {
                                 "option-text": "name",
                                 placeholder: "Select Opsi Transaksi"
                               },
+                              on: {
+                                input: function($event) {
+                                  return _vm.afterOption()
+                                }
+                              },
                               model: {
                                 value: _vm.in_out_payment.option,
                                 callback: function($$v) {
@@ -61817,7 +61856,7 @@ var render = function() {
                                   },
                                   on: {
                                     input: function($event) {
-                                      return _vm.getBankAccount()
+                                      return _vm.getBank()
                                     }
                                   },
                                   model: {
@@ -61960,21 +61999,50 @@ var render = function() {
                         _c(
                           "div",
                           [
-                            _c("model-list-select", {
-                              attrs: {
-                                list: _vm.banks,
-                                "option-value": "id",
-                                "option-text": "name",
-                                placeholder: "Select Bank"
-                              },
-                              model: {
-                                value: _vm.in_out_payment.bank_id,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.in_out_payment, "bank_id", $$v)
-                                },
-                                expression: "in_out_payment.bank_id"
-                              }
-                            }),
+                            _vm.in_out_payment.type == 1
+                              ? _c("model-list-select", {
+                                  attrs: {
+                                    list: _vm.bank_accounts,
+                                    "option-value": "id",
+                                    "option-text": "name",
+                                    placeholder: "Select Bank"
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      return _vm.getBankAccount()
+                                    }
+                                  },
+                                  model: {
+                                    value: _vm.in_out_payment.bank_id,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.in_out_payment,
+                                        "bank_id",
+                                        $$v
+                                      )
+                                    },
+                                    expression: "in_out_payment.bank_id"
+                                  }
+                                })
+                              : _c("model-list-select", {
+                                  attrs: {
+                                    list: _vm.banks,
+                                    "option-value": "id",
+                                    "option-text": "name",
+                                    placeholder: "Select Bank"
+                                  },
+                                  model: {
+                                    value: _vm.in_out_payment.bank_id,
+                                    callback: function($$v) {
+                                      _vm.$set(
+                                        _vm.in_out_payment,
+                                        "bank_id",
+                                        $$v
+                                      )
+                                    },
+                                    expression: "in_out_payment.bank_id"
+                                  }
+                                }),
                             _vm._v(" "),
                             _vm.errors.bank_id
                               ? _c(

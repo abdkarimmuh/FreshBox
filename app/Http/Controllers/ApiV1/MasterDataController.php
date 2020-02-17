@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\ApiV1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MasterData\BankAccountResource;
 use App\Http\Resources\MasterData\VendorUserResource;
 use App\Http\Resources\UserResource;
 use App\Model\MasterData\Bank;
+use App\Model\MasterData\BankAccout;
 use App\Model\MasterData\Category;
 use App\Model\MasterData\CustomerGroup;
 use App\Model\MasterData\Item;
@@ -27,6 +29,16 @@ class MasterDataController extends Controller
     public function getBank()
     {
         return Bank::all();
+    }
+
+    /**
+     * Display a listing of the bank.
+     *
+     * @return BankAccount[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getBankAccount()
+    {
+        return BankAccountResource::collection(BankAccout::all());
     }
 
     /**

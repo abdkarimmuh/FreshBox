@@ -16,8 +16,8 @@ class CreateMasterBankAccountTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('bank_id');
             $table->string('bank_account');
-            $table->unsignedBigInteger('created_by');
-            $table->unsignedBigInteger('updated_by');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

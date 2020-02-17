@@ -283,6 +283,14 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::patch('/edit', 'MasterData\CustomerController@update')->name('update');
         });
 
+        Route::name('warehouse.')->prefix('warehouse')->group(function () {
+            Route::get('/', 'MasterData\WarehouseController@index')->name('index');
+            Route::get('/create', 'MasterData\WarehouseController@create')->name('create');
+            Route::post('/create', 'MasterData\WarehouseController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\WarehouseController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\WarehouseController@update')->name('update');
+        });
+
         Route::name('price.')->prefix('price')->group(function () {
             // Route::get('/', 'MasterData\PriceController@index')->name('index');
             Route::get('/', 'DashboardController')->where('any', '.*')->name('index');

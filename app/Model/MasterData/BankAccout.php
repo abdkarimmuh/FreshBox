@@ -11,6 +11,7 @@ class BankAccout extends MyModel
 
     protected $table = 'master_bank_account';
     protected $fillable = ['name', 'bank_id', 'bank_account', 'created_by', 'updated_by'];
+    protected $appends = ['bank_name'];
 
     protected $columns = [
         'id' => [
@@ -60,6 +61,11 @@ class BankAccout extends MyModel
     public function Bank()
     {
         return $this->belongsTo(Bank::class, 'bank_id', 'id');
+    }
+
+    public function getBankNameAttribute()
+    {
+        return $this->Bank->name;
     }
 
     public function getColumns()

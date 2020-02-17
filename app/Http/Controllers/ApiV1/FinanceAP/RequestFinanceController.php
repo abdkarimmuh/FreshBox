@@ -10,6 +10,7 @@ use App\Model\FinanceAP\InOutPayment;
 use App\Model\FinanceAP\PettyCash;
 use App\Model\FinanceAP\RequestFinance;
 use App\Model\FinanceAP\RequestFinanceDetail;
+use App\Model\MasterData\BankAccout;
 use App\Model\MasterData\Vendor;
 use App\User;
 use App\UserProfile;
@@ -288,12 +289,21 @@ class RequestFinanceController extends Controller
         return NoRequestFinanceResource::collection($requestFinance);
     }
 
-    public function getBankAccount($id)
+    public function getBank($id)
     {
         $requestFinance = new RequestFinanceResource(RequestFinance::find($id));
 
         return response()->json([
             'data' => $requestFinance,
+        ]);
+    }
+
+    public function getBankAccount($id)
+    {
+        $bank_account = BankAccout::find($id);
+
+        return response()->json([
+            'data' => $bank_account->bank_account,
         ]);
     }
 }

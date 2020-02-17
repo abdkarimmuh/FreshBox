@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <h4 class="text-danger">{{ $config['title'] }}</h4>
                     <div class="card-header-action">
-                        <a href="{{ route($config['back-button']) }}" class="btn btn-primary">Back</a>
+                        <a href="{{ route($config['back-button']) }}" class="btn btn-dark">Back</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -89,7 +89,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label><b>{{ $form['label'] }}</b>@if($form['mandatory']==true)<span
-                                                        style="color: red;">*</span>@endif</label>
+                                                        style="color: red;"> * </span>@endif</label>
                                                 <textarea class="form-control" name="{{ $form['name'] }}"
                                                           placeholder="{{ $form['place_holder'] ? $form['place_holder'] : '' }}">{{ isset($data) ? $data[$form['name']] : old($form['name']) }}</textarea>
                                                 @error($form['name'])

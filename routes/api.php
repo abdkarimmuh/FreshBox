@@ -153,6 +153,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/', 'RequestFinanceController@index');
             Route::get('/get', 'RequestFinanceController@get');
             Route::get('/get-no/{id}', 'RequestFinanceController@getNoRequestAdvance');
+            Route::get('/get-bank/{id}', 'RequestFinanceController@getBank');
             Route::get('/get-bank-account/{id}', 'RequestFinanceController@getBankAccount');
             Route::get('/get-settlement', 'RequestFinanceController@getSettlement');
             Route::get('/show/{id}', 'RequestFinanceController@show');
@@ -281,6 +282,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         });
         Route::group(['prefix' => 'bank'], function () {
             Route::get('/', 'MasterDataController@getBank');
+        });
+        Route::group(['prefix' => 'bank_account'], function () {
+            Route::get('/', 'MasterDataController@getBankAccount');
         });
         Route::group(['prefix' => 'origin'], function () {
             Route::get('/', 'MasterDataController@getOrigin');

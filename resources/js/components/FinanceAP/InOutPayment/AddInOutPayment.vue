@@ -44,6 +44,7 @@
                                         v-model="in_out_payment.option"
                                         option-value="id"
                                         option-text="name"
+                                        v-on:input="afterOption()"
                                         placeholder="Select Opsi Transaksi"
                                     ></model-list-select>
                                     <div
@@ -74,7 +75,7 @@
                                         "
                                         option-value="id"
                                         option-text="no_and_requester"
-                                        v-on:input="getBankAccount()"
+                                        v-on:input="getBank()"
                                         placeholder="Source Data"
                                     ></model-list-select>
                                     <input
@@ -133,6 +134,16 @@
                                 </label>
                                 <div>
                                     <model-list-select
+                                        v-if="in_out_payment.type == 1"
+                                        :list="bank_accounts"
+                                        v-model="in_out_payment.bank_id"
+                                        option-value="id"
+                                        option-text="name"
+                                        placeholder="Select Bank"
+                                        v-on:input="getBankAccount()"
+                                    ></model-list-select>
+                                    <model-list-select
+                                        v-else
                                         :list="banks"
                                         v-model="in_out_payment.bank_id"
                                         option-value="id"
@@ -316,6 +327,7 @@ export default {
                 remark: ""
             },
             banks: [],
+            bank_accounts: [],
             no_requests: [],
             types: [
                 {
@@ -344,11 +356,19 @@ export default {
          */
         getData() {
             axios
-                .get(this.$parent.MakeUrl("api/v1/master_data/bank"))
-                .then(res => {
-                    this.banks = res.data;
-                    this.loading = true;
-                })
+                .all([
+                    axios.get(this.$parent.MakeUrl("api/v1/master_data/bank")),
+                    axios.get(
+                        this.$parent.MakeUrl("api/v1/master_data/bank_account")
+                    )
+                ])
+                .then(
+                    axios.spread((banks, bank_accounts) => {
+                        this.banks = banks.data;
+                        this.bank_accounts = bank_accounts.data.data;
+                        this.loading = true;
+                    })
+                )
                 .catch(err => {
                     if (err.response.status === 403) {
                         this.$router.push({
@@ -395,6 +415,16 @@ export default {
                 ];
             }
         },
+        afterOption() {
+            this.in_out_payment.source = "";
+            this.in_out_payment.bank_id = "";
+            this.in_out_payment.bank_account = "";
+            this.in_out_payment.amount = "";
+            this.in_out_payment.fulfillmentDate = "";
+            this.in_out_payment.file = "";
+            this.in_out_payment.fileName = "";
+            this.in_out_payment.remark = "";
+        },
         getNoRequest() {
             this.no_requests = [];
             this.in_out_payment.source = "";
@@ -420,7 +450,7 @@ export default {
                     }
                 });
         },
-        getBankAccount() {
+        getBank() {
             if (
                 this.in_out_payment.type == 2 &&
                 this.in_out_payment.option == 1
@@ -428,7 +458,7 @@ export default {
                 axios
                     .get(
                         this.$parent.MakeUrl(
-                            "api/v1/finance-ap/request-advance/get-bank-account/" +
+                            "api/v1/finance-ap/request-advance/get-bank/" +
                                 this.in_out_payment.source
                         )
                     )
@@ -443,6 +473,23 @@ export default {
                         console.error(err);
                     });
             }
+        },
+        getBankAccount() {
+            axios
+                .get(
+                    this.$parent.MakeUrl(
+                        "api/v1/finance-ap/request-advance/get-bank-account/" +
+                            this.in_out_payment.bank_id
+                    )
+                )
+                .then(res => {
+                    this.in_out_payment.bank_account = res.data.data;
+                    this.loading = true;
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
         },
         /**
          * Insert Sales Order

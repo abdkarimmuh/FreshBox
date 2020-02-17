@@ -235,6 +235,9 @@
                     <li class="{{ request()->route()->getName() == 'admin.master_data.vendor.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.vendor.index') }}"><span>Vendor</span></a>
                     </li>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.warehouse.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.warehouse.index') }}"><span>Warehouse</span></a>
+                    </li>
                     {{-- <li class="{{ request()->route()->getName() == 'admin.master_data.province.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.province.index') }}"><span>Province</span></a>
                     </li>
