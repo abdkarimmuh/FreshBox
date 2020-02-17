@@ -10560,7 +10560,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (!this.skuid) return;
       this.loading = false;
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid)).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customerId + "/" + this.skuid + "/" + this.sales_order.fulfillmentDate)).then(function (res) {
         _this5.item = res.data.data;
         _this5.loading = true;
         console.log("click item : ", res.data.data);

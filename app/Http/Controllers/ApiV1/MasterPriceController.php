@@ -44,10 +44,13 @@ class MasterPriceController extends Controller
         return new DataCollectionResource($query);
     }
 
-    public function show($customer_id, $skuid, Request $request)
+    public function show($customer_id, $skuid, $fulfillment_date, Request $request)
     {
         $customer = Customer::find($customer_id);
-        $data = PriceGroupCust::where('customer_group_id', $customer->customer_group_id)->where('skuid', $skuid)->first();
+        $data = PriceGroupCust::where('customer_group_id', $customer->customer_group_id)
+            ->where('skuid', $skuid)
+            ->where('start_periode', '<=', $fulfillment_date)
+            ->where('end_periode', '>=', $fulfillment_date)->first();
 
         return new PriceResource($data);
     }
@@ -61,7 +64,6 @@ class MasterPriceController extends Controller
         $data = PriceGroupCust::where('customer_group_id', $customer->customer_group_id)
             ->where('start_periode', '<=', $fulfillment_date)
             ->where('end_periode', '>=', $fulfillment_date)
-            // ->whereBetween($fulfillment_date, ['start_periode', 'end_periode'])
             ->get();
 
         if (isset($data)) {

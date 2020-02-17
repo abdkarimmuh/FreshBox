@@ -560,7 +560,9 @@ export default {
                         "api/v1/master_data/price/" +
                             this.sales_order.customerId +
                             "/" +
-                            this.skuid
+                            this.skuid +
+                            "/" +
+                            this.sales_order.fulfillmentDate
                     )
                 )
                 .then(res => {
