@@ -5,8 +5,8 @@
                 <div class="card-header">
                     <div
                         v-bind:class="{
-                            'col-lg-7': config.daterange,
-                            'col-lg-8': config.action || config.actionPrint
+                            'col-lg-5': config.daterange,
+                            'col-lg-6': config.action || config.actionPrint
                         }"
                     >
                         <div class="row">
@@ -135,6 +135,23 @@
                             </div>
                         </div>
                         <div class="input-group" v-else-if="config.noStartEnd">
+                            <div class="col-lg-6" v-if="config.customerGroup">
+                                <model-list-select
+                                    class="form-control ml-2"
+                                    :list="customerGroups"
+                                    v-model="customerGroupId"
+                                    v-on:input="customerGroup()"
+                                    option-value="id"
+                                    option-text="name"
+                                    placeholder="Customer Group"
+                                />
+                            </div>
+                            <!-- <input
+                                type="select"
+                                class="form-control ml-2"
+                                placeholder="Select"
+                                v-model="params.query"
+                            > -->
                             <input
                                 type="text"
                                 class="form-control ml-2"
@@ -299,6 +316,15 @@
                                         }"
                                         >Edit</router-link
                                     >
+
+                                    <a
+                                        @click="editPrice(item.id)"
+                                        class="badge badge-warning ml-1 mr-1 mt-1 mb-1"
+                                        style="color: white"
+                                        v-if="config.route_edit_price"
+                                    >
+                                        Edit
+                                    </a>
 
                                     <router-link
                                         v-if="config.route_confirm"
@@ -505,9 +531,10 @@
 <script>
 import LoadingTable from "./partials/LoadingTable";
 import StislaPagination from "./partials/StislaPagination";
+import { ModelListSelect } from "vue-search-select";
 
 export default {
-    components: { LoadingTable, StislaPagination },
+    components: { LoadingTable, StislaPagination, ModelListSelect },
     props: ["columns", "config"],
     data() {
         return {
@@ -516,6 +543,8 @@ export default {
             buttonClasses: "btn btn-primary",
             selected: [0],
             data: [],
+            customerGroups: [],
+            customerGroupId: "",
             loading: false,
             pagination: {
                 current_page: 1
@@ -531,6 +560,7 @@ export default {
     },
     async mounted() {
         await this.getData();
+        this.getCustomerGroup();
         this.user = AuthUser;
     },
     methods: {
@@ -575,9 +605,7 @@ export default {
                             path: res.data.meta.path
                         };
                     }
-
                     console.log(res);
-
                     this.loading = true;
                 })
                 .catch(e => {
@@ -586,6 +614,20 @@ export default {
                     // }
                     console.log(e);
                 });
+        },
+        getCustomerGroup() {
+            if (this.config.customerGroup) {
+                axios
+                    .get("/api/v1/master_data/customer-group")
+                    .then(res => {
+                        this.customerGroups = res.data;
+                        console.log("customerGroup : ", this.customerGroups);
+                        this.loading = true;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            }
         },
         changePage(page) {
             if (page > this.pagination.last_page) {
@@ -693,6 +735,45 @@ export default {
                 }
             });
             console.log(id);
+        },
+        editPrice(id) {
+            window.location.href = `price/${id}/edit`;
+            console.log(id);
+        },
+        customerGroup() {
+            axios
+                .get(
+                    "/api/v1/master_data/price/customer_group/" +
+                        this.customerGroupId,
+                    {
+                        params: this.params
+                    }
+                )
+                .then(res => {
+                    this.data = res.data.data;
+                    if (
+                        res.data.links != undefined &&
+                        res.data.meta != undefined
+                    ) {
+                        this.pagination = {
+                            first: res.data.links.first,
+                            last: res.data.links.last,
+                            prev: res.data.links.prev,
+                            next: res.data.links.next,
+                            from: res.data.meta.from,
+                            to: res.data.meta.to,
+                            total: res.data.meta.total,
+                            current_page: res.data.meta.current_page,
+                            last_page: res.data.meta.last_page,
+                            path: res.data.meta.path
+                        };
+                    }
+                    console.log("res customerGroup: ", res);
+                    this.loading = true;
+                })
+                .catch(e => {
+                    console.log(e);
+                });
         },
         // changeStatus(id) {
         //     Vue.swal({

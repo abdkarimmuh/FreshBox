@@ -6,9 +6,6 @@
             <div class="card col-12">
                 <div class="card-header">
                     <h4 class="text-danger">{{ $config['title'] }}</h4>
-                    <div class="card-header-action">
-                        <a href="{{ route($config['back-button']) }}" class="btn btn-dark">Back</a>
-                    </div>
                 </div>
                 <div class="card-body">
                     <form action="{{ route($config['action']) }}" class="form-group" method="POST">
@@ -132,7 +129,7 @@
                                                         <span style="color: red;">*</span>
                                                     @endif
                                                 </label>
-                                                <select class="form-control select2" name="{{ $form['name'] }}">
+                                                <select class="form-control select2" style="width: 100%" name="{{ $form['name'] }}">
                                                     <option value="">--- Please Select ---</option>
                                                     @foreach(${$form['variable']} as $row)
                                                         <option value="{{ $row[$form['option_value']] }}"

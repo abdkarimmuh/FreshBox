@@ -291,11 +291,21 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::patch('/edit', 'MasterData\WarehouseController@update')->name('update');
         });
 
+        Route::name('bank_account.')->prefix('bank_account')->group(function () {
+            Route::get('/', 'MasterData\BankAccountController@index')->name('index');
+            Route::get('/create', 'MasterData\BankAccountController@create')->name('create');
+            Route::post('/create', 'MasterData\BankAccountController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\BankAccountController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\BankAccountController@update')->name('update');
+        });
+
         Route::name('price.')->prefix('price')->group(function () {
             // Route::get('/', 'MasterData\PriceController@index')->name('index');
             Route::get('/', 'DashboardController')->where('any', '.*')->name('index');
             Route::get('/create', 'MasterData\PriceController@create')->name('create');
             Route::post('/create', 'MasterData\PriceController@store')->name('store');
+            Route::get('/{id}/edit', 'MasterData\PriceController@edit')->name('edit');
+            Route::patch('/edit', 'MasterData\PriceController@update')->name('update');
         });
 
         Route::name('inventory.')->prefix('inventory')->group(function () {

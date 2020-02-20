@@ -12,15 +12,17 @@ export default {
         return {
             config: {
                 title: "Price",
-                action: false,
+                action: true,
                 noStartEnd: true,
+                customerGroup: true,
                 base_url: this.$parent.MakeUrl(
                     "api/v1/master_data/price/getPrice"
                 ),
                 route_add: this.$parent.MakeUrl(
                     "admin/master_data/price/create"
                 ),
-                route_upload: this.$parent.MakeUrl("admin/import/price")
+                route_upload: this.$parent.MakeUrl("admin/import/price"),
+                route_edit_price: true
             },
             columns: [
                 {
@@ -44,7 +46,7 @@ export default {
                     filterable: true
                 },
                 {
-                    title: "Anount",
+                    title: "Amount",
                     field: "amount",
                     type: "price",
                     filterable: true
@@ -68,16 +70,6 @@ export default {
                 {
                     title: "Remarks",
                     field: "remarks",
-                    filterable: true
-                },
-                {
-                    title: "Created At",
-                    field: "created_at",
-                    filterable: true
-                },
-                {
-                    title: "Created By",
-                    field: "created_by_name",
                     filterable: true
                 }
             ],

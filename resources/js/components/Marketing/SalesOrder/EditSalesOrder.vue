@@ -317,7 +317,9 @@ export default {
                         "api/v1/master_data/price/" +
                             this.sales_order.customer_id +
                             "/" +
-                            this.skuid
+                            this.skuid +
+                            "/" +
+                            this.sales_order.fulfillment_date
                     )
                 )
                 .then(res => {

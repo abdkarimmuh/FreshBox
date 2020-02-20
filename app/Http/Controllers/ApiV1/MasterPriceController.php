@@ -26,6 +26,24 @@ class MasterPriceController extends Controller
         return new DataCollectionResource($data);
     }
 
+    public function customerGroup(Request $request, $id)
+    {
+        $searchValue = $request->input('query');
+        $perPage = $request->perPage;
+
+        $month = Carbon::now()->subMonth(2)->format('y-m-d');
+        $now = Carbon::now()->format('y-m-d');
+
+        $query = PriceGroupCust::where('end_periode', '>', $now)->where('start_periode', '>', $month)->where('customer_group_id', $id)->dataTableQuery($searchValue);
+        if ($searchValue) {
+            $query = $query->take(10)->paginate(10);
+        } else {
+            $query = $query->paginate($perPage);
+        }
+
+        return new DataCollectionResource($query);
+    }
+
     public function getPrice(Request $request)
     {
         $searchValue = $request->input('query');

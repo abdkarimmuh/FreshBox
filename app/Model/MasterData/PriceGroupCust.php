@@ -39,7 +39,7 @@ class PriceGroupCust extends MyModel
             'search_relation' => false,
         ],
         'skuid' => [
-            'searchable' => false,
+            'searchable' => true,
             'search_relation' => false,
         ],
         'item_name' => [

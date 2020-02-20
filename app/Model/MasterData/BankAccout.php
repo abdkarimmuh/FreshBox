@@ -11,7 +11,7 @@ class BankAccout extends MyModel
 
     protected $table = 'master_bank_account';
     protected $fillable = ['name', 'bank_id', 'bank_account', 'created_by', 'updated_by'];
-    protected $appends = ['bank_name'];
+    protected $appends = ['bank_name', 'created_at_name', 'updated_at_name'];
 
     protected $columns = [
         'id' => [
@@ -66,6 +66,16 @@ class BankAccout extends MyModel
     public function getBankNameAttribute()
     {
         return $this->Bank->name;
+    }
+
+    public function getCreatedAtNameAttribute()
+    {
+        return isset($this->created_at) ? $this->created_at->formatLocalized('%d %B %Y') : '';
+    }
+
+    public function getUpdatedAtNameAttribute()
+    {
+        return isset($this->updated_at) ? $this->updated_at->formatLocalized('%d %B %Y') : '';
     }
 
     public function getColumns()

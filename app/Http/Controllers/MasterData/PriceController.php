@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\MasterData;
 
-use App\Model\MasterData\Customer;
 use App\Model\MasterData\Item;
 use App\Model\MasterData\Uom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\MasterData\Price;
+use App\Model\MasterData\CustomerGroup;
 use App\Model\MasterData\PriceGroupCust;
 use Carbon\Carbon;
 
@@ -29,8 +28,8 @@ class PriceController extends Controller
             array('title' => 'Customer Group Name', 'field' => 'customer_group_name'),
             array('title' => 'Amount', 'field' => 'amount'),
             array('title' => 'Tax', 'field' => 'tax_value'),
-            array('title' => 'Start Periode', 'field' => 'start_periode'),
-            array('title' => 'End Periode', 'field' => 'end_periode'),
+            array('title' => 'Start Periodee', 'field' => 'start_periode'),
+            array('title' => 'End Periodee', 'field' => 'end_periode'),
             array('title' => 'Remarks', 'field' => 'remarks'),
             array('title' => 'Created By', 'field' => 'created_by_name'),
             array('title' => 'Created At', 'field' => 'created_at'),
@@ -69,21 +68,20 @@ class PriceController extends Controller
     public function create()
     {
         //Form Generator
-        $items = Item::all();
-        $uoms = Uom::all();
-        $customers = Customer::all();
+        $item = Item::all();
+        $uom = Uom::all();
+        $customerGroup = CustomerGroup::all();
 
         $forms = [
-            array('type' => 'select_option', 'label' => 'Customer', 'name' => 'customer', 'variable' => 'customers', 'option_value' => 'id', 'option_text' => 'name', 'mandatory' => true),
-            array('type' => 'select_option', 'label' => 'SKUID', 'name' => 'skuid', 'variable' => 'items', 'option_value' => 'skuid', 'option_text' => 'skuid_item_name', 'mandatory' => true),
-            array('type' => 'select_option', 'label' => 'Uom', 'name' => 'uom', 'variable' => 'uoms', 'option_value' => 'id', 'option_text' => 'name', 'mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Customer', 'name' => 'customerGroup', 'variable' => 'customerGroup', 'option_value' => 'id', 'option_text' => 'name', 'mandatory' => true),
+            array('type' => 'select_option', 'label' => 'SKUID', 'name' => 'skuid', 'variable' => 'item', 'option_value' => 'skuid', 'option_text' => 'skuid_item_name', 'mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Uom', 'name' => 'uom', 'variable' => 'uom', 'option_value' => 'id', 'option_text' => 'name', 'mandatory' => true),
 
             array('type' => 'text', 'label' => 'Amount Basic', 'name' => 'amount_basic', 'place_holder' => 'Amount Basic', 'mandatory' => true),
             array('type' => 'text', 'label' => 'Amount Discount', 'name' => 'amount_discount', 'place_holder' => 'Amount Discount', 'mandatory' => true),
             array('type' => 'percentage', 'label' => 'Tax', 'name' => 'tax_value', 'place_holder' => 'Tax', 'mandatory' => false),
-            array('type' => 'datepicker', 'label' => 'Start Period', 'name' => 'start_periode', 'place_holder' => 'Start Period', 'mandatory' => true),
-            array('type' => 'datepicker', 'label' => 'End Period', 'name' => 'end_periode', 'place_holder' => 'End Period', 'mandatory' => true),
-            array('type' => 'textarea', 'label' => 'Remarks', 'name' => 'remarks', 'place_holder' => 'Remarks', 'mandatory' => false),
+            array('type' => 'datepicker', 'label' => 'Start Periode', 'name' => 'start_periode', 'place_holder' => 'Start Periode', 'mandatory' => true),
+            array('type' => 'datepicker', 'label' => 'End Periode', 'name' => 'end_periode', 'place_holder' => 'End Periode', 'mandatory' => true),
         ];
         $config = [
             //Form Title
@@ -96,7 +94,7 @@ class PriceController extends Controller
             'back-button' => 'admin.master_data.price.index',
         ];
 
-        return view('admin.crud.create_or_edit', compact('forms', 'config', 'items', 'uoms', 'customers'));
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'item', 'uom', 'customerGroup'));
     }
 
     /**
@@ -109,7 +107,7 @@ class PriceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'customer' => 'required',
+            'customerGroup' => 'required',
             'skuid' => 'required',
             'uom' => 'required',
             'amount_basic' => 'required',
@@ -120,7 +118,7 @@ class PriceController extends Controller
         $price = [
             'skuid' => $request->skuid,
             'uom_id' => $request->uom,
-            'customer_id' => $request->customer,
+            'customer_group_id' => $request->customerGroup,
             'amount_basic' => $request->amount_basic,
             'amount_discount' => $request->amount_discount,
             'amount' => $amount,
@@ -129,7 +127,7 @@ class PriceController extends Controller
             'end_periode' => $request->end_periode,
             'created_by' => auth()->user()->id,
         ];
-        Price::create($price);
+        PriceGroupCust::create($price);
 
         return redirect()->route('admin.master_data.price.index');
     }
@@ -154,6 +152,37 @@ class PriceController extends Controller
      */
     public function edit($id)
     {
+        //Form Generator
+        $item = Item::all();
+        $uom = Uom::all();
+        $customerGroup = CustomerGroup::all();
+
+        $forms = [
+            array('type' => 'select_option', 'label' => 'Customer Group', 'name' => 'customerGroup', 'variable' => 'customerGroup', 'option_value' => 'id', 'option_text' => 'name', 'mandatory' => true),
+            array('type' => 'select_option', 'label' => 'SKUID', 'name' => 'item', 'variable' => 'item', 'option_value' => 'id', 'option_text' => 'skuid_item_name', 'mandatory' => true),
+            array('type' => 'select_option', 'label' => 'Uom', 'name' => 'uom', 'variable' => 'uom', 'option_value' => 'id', 'option_text' => 'name', 'mandatory' => true),
+
+            array('type' => 'text', 'label' => 'Amount Basic', 'name' => 'amount_basic', 'place_holder' => 'Amount Basic', 'mandatory' => true),
+            array('type' => 'text', 'label' => 'Amount Discount', 'name' => 'amount_discount', 'place_holder' => 'Amount Discount', 'mandatory' => true),
+            array('type' => 'percentage', 'label' => 'Tax', 'name' => 'tax_value', 'place_holder' => 'Tax', 'mandatory' => false),
+            array('type' => 'datepicker', 'label' => 'Start Periode', 'name' => 'start_periode', 'place_holder' => 'Start Periode', 'mandatory' => true),
+            array('type' => 'datepicker', 'label' => 'End Periode', 'name' => 'end_periode', 'place_holder' => 'End Periode', 'mandatory' => true),
+        ];
+        $config = [
+            //Form Title
+            'title' => 'Update Price',
+            //Form Action Using Route Name
+            'action' => 'admin.master_data.price.update',
+            //Form Method
+            'method' => 'PATCH',
+            //Back Button Using Route Name
+            'back-button' => 'admin.master_data.price.index',
+        ];
+
+        $data = PriceGroupCust::find($id);
+        // dd($data);
+
+        return view('admin.crud.create_or_edit', compact('forms', 'config', 'item', 'uom', 'customerGroup', 'data'));
     }
 
     /**
@@ -164,8 +193,35 @@ class PriceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $request->validate([
+            'customerGroup' => 'required',
+            'item' => 'required',
+            'uom' => 'required',
+            'amount_basic' => 'required',
+            'start_periode' => 'required',
+            'end_periode' => 'required',
+        ]);
+
+        $amount = $request->amount_basic - $request->amount_discount;
+        $item = Item::find($request->item);
+
+        $priceGroupCust = PriceGroupCust::find($request->id);
+        $priceGroupCust->customer_group_id = $request->customerGroup;
+        $priceGroupCust->skuid = $item->skuid;
+        $priceGroupCust->uom_id = $request->uom;
+        $priceGroupCust->amount_basic = $request->amount_basic;
+        $priceGroupCust->amount_discount = $request->amount_discount;
+        $priceGroupCust->amount = $amount;
+        $priceGroupCust->tax_value = $request->tax_value;
+        $priceGroupCust->start_periode = $request->start_periode;
+        $priceGroupCust->end_periode = $request->end_periode;
+        $priceGroupCust->updated_by = auth()->user()->id;
+        $priceGroupCust->updated_at = Carbon::now();
+        $priceGroupCust->save();
+
+        return redirect()->route('admin.master_data.price.index');
     }
 
     /**

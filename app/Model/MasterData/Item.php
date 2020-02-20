@@ -20,7 +20,7 @@ class Item extends MyModel
         'uom_name',
         'origin_code',
         'tax_percentage',
-        'skuid_item_name'
+        'skuid_item_name',
     ];
 
     protected $columns = [
@@ -52,13 +52,13 @@ class Item extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'Category',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'uom_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'Uom',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'tax' => [
             'searchable' => true,
@@ -68,7 +68,7 @@ class Item extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'Origin',
-            'relation_field' => 'origin_code'
+            'relation_field' => 'origin_code',
         ],
         'created_at' => [
             'searchable' => true,
@@ -78,14 +78,14 @@ class Item extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'create_by',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'updated_by_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'update_by',
-            'relation_field' => 'name'
-        ]
+            'relation_field' => 'name',
+        ],
     ];
 
     public function Category()
@@ -95,7 +95,7 @@ class Item extends MyModel
 
     public function getSkuidItemNameAttribute()
     {
-        return $this->skuid .' - ' . $this->name_item;
+        return $this->skuid.' - '.$this->name_item;
     }
 
     public function getCategoryNameAttribute()
@@ -110,7 +110,7 @@ class Item extends MyModel
     public function getTaxPercentageAttribute()
     {
         if (isset($this->tax)) {
-            return $this->tax . '%';
+            return $this->tax.'%';
         } else {
             return '';
         }

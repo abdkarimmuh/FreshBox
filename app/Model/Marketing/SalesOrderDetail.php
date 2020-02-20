@@ -35,6 +35,12 @@ class SalesOrderDetail extends MyModel
             'searchable' => false,
             'search_relation' => false,
         ],
+        'item_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'Item',
+            'relation_field' => 'name_item',
+        ],
         'customer_name' => [
             'searchable' => true,
             'search_relation' => true,

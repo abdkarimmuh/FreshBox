@@ -132,15 +132,14 @@ class TopUpController extends Controller
             $user = User::find($userProc->user_id);
             $vendor = Vendor::where('users_id', $user->id)->first();
 
-            $noRequest = $this->generateRequestNo(Carbon::now());
             $data = [
-                'no_request' => $noRequest,
+                'no_request' => $this->generateRequestNo(),
                 'vendor_id' => $vendor->id,
                 'status' => 3,
                 'master_warehouse_id' => 1,
                 'request_date' => Carbon::now()->toDateString(),
                 'request_type' => 2,
-                'product_type' => 2,
+                'product_type' => 1,
                 'created_at' => Carbon::now(),
                 'created_by' => $user->id,
             ];
@@ -155,6 +154,7 @@ class TopUpController extends Controller
                 'uom_id' => 2,
                 'price' => $topUp->amount,
                 'ppn' => 0,
+                'pph' => 0,
                 'total' => $topUp->amount,
                 'supplier_id' => $vendor->id,
                 'remarks' => $topUp->remark,
@@ -175,6 +175,7 @@ class TopUpController extends Controller
             InOutPayment::create([
                 'finance_request_id' => $requestFinance,
                 'source' => null,
+                'no_voucher' => $this->generateNoVoucher(),
                 'transaction_date' => Carbon::now()->toDateString(),
                 'bank_id' => $bank_id,
                 'bank_account' => $bank_account,
@@ -182,6 +183,7 @@ class TopUpController extends Controller
                 'remarks' => null,
                 'status' => 3,
                 'type_transaction' => 2,
+                'option_transaction' => 0,
                 'created_at' => Carbon::now(),
             ]);
         }
@@ -201,13 +203,37 @@ class TopUpController extends Controller
         return redirect('admin/finance-ap/topup');
     }
 
-    public function generateRequestNo($date)
+    public function generateRequestNo()
     {
-        $year_month = Carbon::parse($date)->format('y-m');
-        $latestRequestFinance = RequestFinance::where(DB::raw("DATE_FORMAT(request_date, '%y-%m')"), $year_month)->latest()->first();
-        $latestRequestFinanceNo = isset($latestRequestFinance->no_request) ? $latestRequestFinance->no_request : '0-GF-FB';
-        $cutString = str_replace('-GF-FB', '', $latestRequestFinanceNo);
+        $year_month = Carbon::now()->format('ym');
+        $latest_request = RequestFinance::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+        $get_last_request_no = isset($latest_request->no_request) ? $latest_request->no_request : 'ADV'.$year_month.'00000';
+        $cut_string_request = str_replace('ADV', '', $get_last_request_no);
 
-        return ($cutString + 1).'-GF-FB';
+        return 'ADV'.($cut_string_request + 1);
+    }
+
+    public function generateNoVoucher()
+    {
+        $year_month = Carbon::now()->format('ym');
+        $month = Carbon::now()->format('m');
+        $year = Carbon::now()->format('Y');
+        $latest_voucher = InOutPayment::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+
+        $get_last_voucher_no = isset($latest_voucher->no_voucher) ? $latest_voucher->no_voucher : '0000/BTS/PV/'.$month.'/'.$year;
+        $cut_string_voucher = substr($get_last_voucher_no, 0, 4);
+        $cut_string = $cut_string_voucher + 1;
+
+        if (strlen($cut_string) == 1) {
+            $string_voucher = '000'.$cut_string;
+        } elseif (strlen($cut_string) == 2) {
+            $string_voucher = '00'.$cut_string;
+        } elseif (strlen($cut_string) == 3) {
+            $string_voucher = '0'.$cut_string;
+        } else {
+            $string_voucher = $cut_string;
+        }
+
+        return $string_voucher.'/BTS/PV/'.$month.'/'.$year;
     }
 }

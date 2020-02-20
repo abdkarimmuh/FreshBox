@@ -243,6 +243,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         Route::group(['prefix' => 'price'], function () {
             Route::get('/', 'MasterPriceController@index')->name('api.price');
             Route::get('/getPrice', 'MasterPriceController@getPrice');
+            Route::get('/customer_group/{id}', 'MasterPriceController@customerGroup');
             Route::get('/{id}', 'MasterPriceController@show');
             Route::get('/customer/{id}/{date}', 'MasterPriceController@CustomerPrice');
             Route::get('/{customer_id}/{skuid}/{fulfillment_date}', 'MasterPriceController@show');

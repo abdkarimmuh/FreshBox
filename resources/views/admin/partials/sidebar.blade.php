@@ -196,6 +196,9 @@
                     <li class="{{ request()->route()->getName() == 'admin.master_data.bank.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.bank.index') }}"><span>Bank</span></a>
                     </li>
+                    <li class="{{ request()->route()->getName() == 'admin.master_data.bank_account.index' ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.master_data.bank_account.index') }}"><span>Bank Account</span></a>
+                    </li>
                     <li class="{{ request()->route()->getName() == 'admin.master_data.category.index' ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.master_data.category.index') }}"><span>Category</span></a>
                     </li>

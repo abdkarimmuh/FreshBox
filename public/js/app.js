@@ -10973,7 +10973,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getItem: function getItem() {
       var _this2 = this;
 
-      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customer_id + "/" + this.skuid)).then(function (res) {
+      axios.get(this.$parent.MakeUrl("api/v1/master_data/price/" + this.sales_order.customer_id + "/" + this.skuid + "/" + this.sales_order.fulfillment_date)).then(function (res) {
         _this2.item = res.data.data;
       })["catch"](function (err) {});
     },
@@ -11892,11 +11892,13 @@ __webpack_require__.r(__webpack_exports__);
     return {
       config: {
         title: "Price",
-        action: false,
+        action: true,
         noStartEnd: true,
+        customerGroup: true,
         base_url: this.$parent.MakeUrl("api/v1/master_data/price/getPrice"),
         route_add: this.$parent.MakeUrl("admin/master_data/price/create"),
-        route_upload: this.$parent.MakeUrl("admin/import/price")
+        route_upload: this.$parent.MakeUrl("admin/import/price"),
+        route_edit_price: true
       },
       columns: [{
         title: "SKUID",
@@ -11915,7 +11917,7 @@ __webpack_require__.r(__webpack_exports__);
         field: "customer_group_name",
         filterable: true
       }, {
-        title: "Anount",
+        title: "Amount",
         field: "amount",
         type: "price",
         filterable: true
@@ -11935,14 +11937,6 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: "Remarks",
         field: "remarks",
-        filterable: true
-      }, {
-        title: "Created At",
-        field: "created_at",
-        filterable: true
-      }, {
-        title: "Created By",
-        field: "created_by_name",
         filterable: true
       }],
       error: {
@@ -12786,6 +12780,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _partials_LoadingTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./partials/LoadingTable */ "./resources/js/components/Template/Table/partials/LoadingTable.vue");
 /* harmony import */ var _partials_StislaPagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./partials/StislaPagination */ "./resources/js/components/Template/Table/partials/StislaPagination.vue");
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-search-select */ "./node_modules/vue-search-select/dist/VueSearchSelect.common.js");
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_search_select__WEBPACK_IMPORTED_MODULE_3__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -13296,12 +13292,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     LoadingTable: _partials_LoadingTable__WEBPACK_IMPORTED_MODULE_1__["default"],
-    StislaPagination: _partials_StislaPagination__WEBPACK_IMPORTED_MODULE_2__["default"]
+    StislaPagination: _partials_StislaPagination__WEBPACK_IMPORTED_MODULE_2__["default"],
+    ModelListSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_3__["ModelListSelect"]
   },
   props: ["columns", "config"],
   data: function data() {
@@ -13311,6 +13335,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       buttonClasses: "btn btn-primary",
       selected: [0],
       data: [],
+      customerGroups: [],
+      customerGroupId: "",
       loading: false,
       pagination: {
         current_page: 1
@@ -13336,9 +13362,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return this.getData();
 
             case 2:
+              this.getCustomerGroup();
               this.user = AuthUser;
 
-            case 3:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -13451,6 +13478,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return getData;
     }(),
+    getCustomerGroup: function getCustomerGroup() {
+      var _this2 = this;
+
+      if (this.config.customerGroup) {
+        axios.get("/api/v1/master_data/customer-group").then(function (res) {
+          _this2.customerGroups = res.data;
+          console.log("customerGroup : ", _this2.customerGroups);
+          _this2.loading = true;
+        })["catch"](function (e) {
+          console.log(e);
+        });
+      }
+    },
     changePage: function changePage(page) {
       if (page > this.pagination.last_page) {
         page = this.pagination.last_page;
@@ -13476,7 +13516,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     printRekap: function printRekap() {
-      var _this2 = this;
+      var _this3 = this;
 
       var payload = {
         id: this.selected,
@@ -13491,8 +13531,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             title: "Success!",
             text: "Berhasil Membuat Rekap Invoice!"
           }).then(function (next) {
-            _this2.$router.push({
-              name: _this2.config.route_print_recap,
+            _this3.$router.push({
+              name: _this3.config.route_print_recap,
               params: {
                 id: res.data.invoice_recap_id
               }
@@ -13510,7 +13550,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       })["catch"](function (e) {});
     },
     confirmRequestAdvance: function confirmRequestAdvance(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       Vue.swal({
         title: "Are you sure?",
@@ -13526,14 +13566,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           Vue.swal("Confirm!", "The data has been confirm.", "success").then(function (next) {
             console.log(next);
 
-            _this3.getData();
+            _this4.getData();
           });
         }
       });
       console.log(id);
     },
     replenish: function replenish(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       Vue.swal({
         title: "Are you sure?",
@@ -13547,11 +13587,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (result.value) {
           axios.post(BaseUrl("api/v1/finance-ap/replenish/replenishUpdate/" + id));
           Vue.swal("Replenish!", "The data has been replenish.", "success").then(function (next) {
-            _this4.getData();
+            _this5.getData();
           });
         }
       });
       console.log(id);
+    },
+    editPrice: function editPrice(id) {
+      window.location.href = "price/".concat(id, "/edit");
+      console.log(id);
+    },
+    customerGroup: function customerGroup() {
+      var _this6 = this;
+
+      axios.get("/api/v1/master_data/price/customer_group/" + this.customerGroupId, {
+        params: this.params
+      }).then(function (res) {
+        _this6.data = res.data.data;
+
+        if (res.data.links != undefined && res.data.meta != undefined) {
+          _this6.pagination = {
+            first: res.data.links.first,
+            last: res.data.links.last,
+            prev: res.data.links.prev,
+            next: res.data.links.next,
+            from: res.data.meta.from,
+            to: res.data.meta.to,
+            total: res.data.meta.total,
+            current_page: res.data.meta.current_page,
+            last_page: res.data.meta.last_page,
+            path: res.data.meta.path
+          };
+        }
+
+        console.log("res customerGroup: ", res);
+        _this6.loading = true;
+      })["catch"](function (e) {
+        console.log(e);
+      });
     },
     // changeStatus(id) {
     //     Vue.swal({
@@ -13578,7 +13651,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //     });
     // },
     changeStatusReject: function changeStatusReject(id) {
-      var _this5 = this;
+      var _this7 = this;
 
       Vue.swal({
         title: "Are you sure?",
@@ -13592,7 +13665,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (result.value) {
           axios.post(BaseUrl("api/v1/finance-ap/in-out-payment/reject/" + id));
           Vue.swal("Success!", "Status has been changed!", "success").then(function (next) {
-            _this5.getData();
+            _this7.getData();
           });
         }
       });
@@ -72214,8 +72287,8 @@ var render = function() {
             "div",
             {
               class: {
-                "col-lg-7": _vm.config.daterange,
-                "col-lg-8": _vm.config.action || _vm.config.actionPrint
+                "col-lg-5": _vm.config.daterange,
+                "col-lg-6": _vm.config.action || _vm.config.actionPrint
               }
             },
             [
@@ -72464,6 +72537,37 @@ var render = function() {
                 )
               : _vm.config.noStartEnd
               ? _c("div", { staticClass: "input-group" }, [
+                  _vm.config.customerGroup
+                    ? _c(
+                        "div",
+                        { staticClass: "col-lg-6" },
+                        [
+                          _c("model-list-select", {
+                            staticClass: "form-control ml-2",
+                            attrs: {
+                              list: _vm.customerGroups,
+                              "option-value": "id",
+                              "option-text": "name",
+                              placeholder: "Customer Group"
+                            },
+                            on: {
+                              input: function($event) {
+                                return _vm.customerGroup()
+                              }
+                            },
+                            model: {
+                              value: _vm.customerGroupId,
+                              callback: function($$v) {
+                                _vm.customerGroupId = $$v
+                              },
+                              expression: "customerGroupId"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
@@ -72915,6 +73019,31 @@ var render = function() {
                                                   }
                                                 },
                                                 [_vm._v("Edit")]
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          _vm.config.route_edit_price
+                                            ? _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "badge badge-warning ml-1 mr-1 mt-1 mb-1",
+                                                  staticStyle: {
+                                                    color: "white"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.editPrice(
+                                                        item.id
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                    Edit\n                                "
+                                                  )
+                                                ]
                                               )
                                             : _vm._e(),
                                           _vm._v(" "),

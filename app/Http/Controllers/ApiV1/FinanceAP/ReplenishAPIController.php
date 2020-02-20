@@ -240,7 +240,7 @@ class ReplenishAPIController extends Controller
             'master_warehouse_id' => 1,
             'request_date' => Carbon::now()->toDateString(),
             'request_type' => 2,
-            'product_type' => 2,
+            'product_type' => 1,
             'created_at' => Carbon::now(),
             'created_by' => $listProcurement->created_by,
         ];
@@ -255,8 +255,9 @@ class ReplenishAPIController extends Controller
                 'skuid' => $detail->skuid,
                 'qty' => $detail->qty,
                 'uom_id' => $detail->uom_id,
-                'price' => $detail->amount / $detail->qty,
+                'price' => $detail->amount,
                 'ppn' => 0,
+                'pph' => 0,
                 'total' => $detail->amount,
                 'supplier_id' => $listProcurement->vendor->id,
                 'remarks' => '',
@@ -282,6 +283,7 @@ class ReplenishAPIController extends Controller
         InOutPayment::create([
             'finance_request_id' => $requestFinance,
             'source' => null,
+            'no_voucher' => $this->generateNoVoucher(),
             'transaction_date' => Carbon::now()->toDateString(),
             'bank_id' => $bank_id,
             'bank_account' => $bank_account,
@@ -289,6 +291,7 @@ class ReplenishAPIController extends Controller
             'remarks' => null,
             'status' => 3,
             'type_transaction' => 2,
+            'option_transaction' => 0,
             'created_at' => Carbon::now(),
         ]);
 
@@ -308,5 +311,29 @@ class ReplenishAPIController extends Controller
         $cut_string_request = str_replace('ADV', '', $get_last_request_no);
 
         return 'ADV'.($cut_string_request + 1);
+    }
+
+    public function generateNoVoucher()
+    {
+        $year_month = Carbon::now()->format('ym');
+        $month = Carbon::now()->format('m');
+        $year = Carbon::now()->format('Y');
+        $latest_voucher = InOutPayment::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+
+        $get_last_voucher_no = isset($latest_voucher->no_voucher) ? $latest_voucher->no_voucher : '0000/BTS/PV/'.$month.'/'.$year;
+        $cut_string_voucher = substr($get_last_voucher_no, 0, 4);
+        $cut_string = $cut_string_voucher + 1;
+
+        if (strlen($cut_string) == 1) {
+            $string_voucher = '000'.$cut_string;
+        } elseif (strlen($cut_string) == 2) {
+            $string_voucher = '00'.$cut_string;
+        } elseif (strlen($cut_string) == 3) {
+            $string_voucher = '0'.$cut_string;
+        } else {
+            $string_voucher = $cut_string;
+        }
+
+        return $string_voucher.'/BTS/PV/'.$month.'/'.$year;
     }
 }
