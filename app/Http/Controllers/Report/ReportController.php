@@ -107,7 +107,7 @@ class ReportController extends Controller
             $start = $request->start;
             $end = $request->end;
             if ($start && $end) {
-                $query->whereBetween(DB::raw("DATE_FORMAT(start_periode, '%Y-%m-%d')"), array($start, $end));
+                $query->whereBetween(DB::raw("DATE_FORMAT(end_periode, '%Y-%m-%d')"), array($start, $end));
             }
 
             $customerGroupId = Customer::pluck('customer_group_id')->all();
