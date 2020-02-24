@@ -37,15 +37,20 @@ class CustomerGroup extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'create_by',
-            'relation_field' => 'name'
+            'relation_field' => 'name',
         ],
         'updated_by_name' => [
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'update_by',
-            'relation_field' => 'name'
-        ]
+            'relation_field' => 'name',
+        ],
     ];
+
+    public function Customer()
+    {
+        return $this->hasMany(Customer::class, 'id', 'customer_grup_id');
+    }
 
     public function getColumns()
     {

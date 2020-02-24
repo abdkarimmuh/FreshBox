@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Report\ReportFinanceARResource;
 use App\Http\Resources\Report\ReportPriceUploadResource;
 use App\Http\Resources\Report\ReportSOResource;
+use App\Model\MasterData\Customer;
 use App\Model\MasterData\PriceGroupCust;
 use App\Model\Warehouse\DeliveryOrderDetail;
 use Carbon\Carbon;
@@ -109,24 +110,22 @@ class ReportController extends Controller
                 $query->whereBetween(DB::raw("DATE_FORMAT(start_periode, '%Y-%m-%d')"), array($start, $end));
             }
 
-            return ReportPriceUploadResource::collection($query->groupBy('customer_group_id')
-                ->select(DB::raw('count(*) as total_skuid, customer_group_id, start_periode, end_periode'))
+            $customerGroupId = Customer::pluck('customer_group_id')->all();
+
+            $collections = ReportPriceUploadResource::collection(
+                $query
+                ->whereIn('customer_group_id', $customerGroupId)
+                ->select('customer_group_id', 'start_periode', 'end_periode', DB::raw('count(*) as total_skuid'))
+                ->groupBy('customer_group_id')
                 ->where('customer_group_id', '!=', null)
                 ->orderBy('end_periode', 'asc')
-                ->paginate($request->perPage));
+                ->paginate($request->perPage)
+            );
+
+            return $collections;
         }
 
         return view('layouts.vue-view', compact('config'));
-
-        // $query = PriceGroupCust::all();
-
-        // $query = $query->select(DB::raw('count(*) as total_skuid, customer_group_id, start_periode, end_periode'))
-        // ->where('customer_group_id', '!=', null)
-        // ->orderBy('end_periode', 'asc')->get();
-
-        // $data = ReportPriceUploadResource::collection($query);
-
-        return response()->json([$data]);
     }
 
     /**
