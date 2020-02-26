@@ -93,7 +93,7 @@ class SalesOrder extends MyModel
 
     public function getSoNoWithCustNameAttribute()
     {
-        return $this->sales_order_no.' - '.$this->Customer->name;
+        return $this->sales_order_no.' - '.$this->customer_name;
     }
 
     public function getDriverNameAttribute()
