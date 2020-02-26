@@ -12,7 +12,7 @@ export default {
         return {
             config: {
                 title: "Finance Replenish",
-                action: true,
+                action: false,
                 noStartEnd: true,
                 base_url: this.$parent.MakeUrl("api/v1/finance-ap/replenish"),
                 route_replenish: "finance.replenish.replenish",

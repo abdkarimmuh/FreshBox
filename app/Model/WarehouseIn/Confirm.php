@@ -15,7 +15,7 @@ class Confirm extends MyModel
 
     protected $table = 'trx_warehouse_confirm';
     protected $fillable = ['list_procurement_id', 'remark', 'status', 'created_by', 'created_at'];
-    protected $appends = ['file','file_url'];
+    protected $appends = ['file', 'file_url', 'created_at_date'];
 
     protected $columns = [
         'id' => [
@@ -78,7 +78,7 @@ class Confirm extends MyModel
     public function getFileUrlAttribute()
     {
         if (isset($this->ListProcurement->file)) {
-            return url(Storage::url('public/files/procurement/' . $this->ListProcurement->file));
+            return url(Storage::url('public/files/procurement/'.$this->ListProcurement->file));
         } else {
             return '';
         }
@@ -91,6 +91,11 @@ class Confirm extends MyModel
         } else {
             return '';
         }
+    }
+
+    public function getCreatedAtDateAttribute()
+    {
+        return isset($this->created_at) ? $this->created_at->formatLocalized('%d %B %Y') : '';
     }
 
     public function getProcNameAttribute()

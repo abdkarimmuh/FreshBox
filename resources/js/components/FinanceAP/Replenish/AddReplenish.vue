@@ -15,7 +15,9 @@
                     </label>
                     <div>
                         <model-list-select
-                            v-bind:class="{'is-invalid': errors.procurementId}"
+                            v-bind:class="{
+                                'is-invalid': errors.procurementId
+                            }"
                             :list="procurements"
                             v-model="procurementId"
                             v-on:input="getProcurement()"
@@ -101,9 +103,13 @@
                     </label>
                     <div>
                         <button
-                            @click="showFile(procurement.file_url, procurement.file)"
+                            @click="
+                                showFile(procurement.file_url, procurement.file)
+                            "
                             class="badge badge-info"
-                        >{{ procurement.file }}</button>
+                        >
+                            {{ procurement.file }}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -119,24 +125,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in procurement.items" v-bind:key="index">
+                            <tr
+                                v-for="(item, index) in procurement.items"
+                                v-bind:key="index"
+                            >
                                 <td
                                     class="text-center"
                                     style="overflow:hidden; white-space:nowrap"
-                                >{{ item.name }}</td>
+                                >
+                                    {{ item.name }}
+                                </td>
 
                                 <td
                                     class="text-center"
                                     style="overflow:hidden; white-space:nowrap"
-                                >{{ item.qty }}</td>
+                                >
+                                    {{ item.qty }}
+                                </td>
                                 <td
                                     class="text-center"
                                     style="overflow:hidden; white-space:nowrap"
-                                >{{ item.uom }}</td>
+                                >
+                                    {{ item.uom }}
+                                </td>
                                 <td
                                     class="text-center"
                                     style="overflow:hidden; white-space:nowrap"
-                                >{{ item.confirm_date }}</td>
+                                >
+                                    {{ item.confirm_date }}
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -147,7 +164,10 @@
                     <label>
                         <b>Remark</b>
                     </label>
-                    <textarea v-model="procurement.remark" class="form-control"></textarea>
+                    <textarea
+                        v-model="procurement.remark"
+                        class="form-control"
+                    ></textarea>
                 </div>
             </div>
             <div class="col-12">
@@ -160,7 +180,9 @@
                             class="btn btn-danger"
                             v-on:click="submitForm()"
                             v-if="procurementId !== ''"
-                        >Submit</button>
+                        >
+                            Submit
+                        </button>
                         <back-button />
                     </div>
                 </div>
@@ -220,6 +242,7 @@ export default {
         },
         async submitForm() {
             this.loadingSubmit = true;
+            console.log("this.procurementId : ", this.procurementId);
             const payload = {
                 listProcId: this.procurementId,
                 remark: this.procurement.remark,
@@ -262,4 +285,3 @@ export default {
     }
 };
 </script>
-

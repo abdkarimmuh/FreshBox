@@ -21,7 +21,7 @@ class Replenish extends MyModel
             'searchable' => true,
             'search_relation' => true,
             'relation_name' => 'procurement',
-            'relation_field' => 'name',
+            'relation_field' => 'procurement_no',
         ],
         'user_procurement' => [
             'searchable' => true,
@@ -29,7 +29,7 @@ class Replenish extends MyModel
             'relation_name' => 'procurement.UserProc.User',
             'relation_field' => 'name',
         ],
-        'amount' => [
+        'total_amount' => [
             'searchable' => true,
             'search_relation' => false,
         ],

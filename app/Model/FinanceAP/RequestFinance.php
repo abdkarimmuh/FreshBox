@@ -12,12 +12,29 @@ class RequestFinance extends MyModel
     use SearchTraits;
     protected $table = 'finance_request';
     protected $fillable = ['status', 'vendor_id', 'master_warehouse_id', 'no_request', 'request_date', 'no_payment', 'confirm_date', 'request_type', 'product_type', 'created_by', 'file', 'created_at', 'updated_at'];
-    protected $dates = [
-        'request_date',
-        'request_confirm_date',
-    ];
-
+    protected $dates = ['request_date', 'request_confirm_date'];
     protected $appends = ['status_html'];
+
+    protected $columns = [
+        'id' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'no_request' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+        'user_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'vendor',
+            'relation_field' => 'name',
+        ],
+        'created_at' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+    ];
 
     public function vendor()
     {
@@ -75,5 +92,10 @@ class RequestFinance extends MyModel
         } else {
             return 'Status NotFound';
         }
+    }
+
+    public function getColumns()
+    {
+        return $this->columns;
     }
 }

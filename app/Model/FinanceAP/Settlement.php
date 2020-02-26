@@ -10,8 +10,34 @@ class Settlement extends MyModel
     use SearchTraits;
     protected $table = 'trx_settlement';
     protected $fillable = ['request_finance_id', 'status', 'no_settlement', 'file', 'remarks', 'created_by', 'created_at', 'updated_at'];
-
     protected $appends = ['status_html'];
+
+    protected $columns = [
+        'id' => [
+            'searchable' => false,
+            'search_relation' => false,
+        ],
+        'no_settlement' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+        'no_request' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'requestFinance',
+            'relation_field' => 'no_request',
+        ],
+        'user_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'requestFinance.vendor',
+            'relation_field' => 'name',
+        ],
+        'created_at' => [
+            'searchable' => true,
+            'search_relation' => false,
+        ],
+    ];
 
     public function requestFinance()
     {
@@ -44,5 +70,10 @@ class Settlement extends MyModel
         } else {
             return 'Status NotFound';
         }
+    }
+
+    public function getColumns()
+    {
+        return $this->columns;
     }
 }

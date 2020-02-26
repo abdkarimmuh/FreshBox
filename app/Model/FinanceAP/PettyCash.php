@@ -16,7 +16,6 @@ class PettyCash extends MyModel
             'searchable' => false,
             'search_relation' => false,
         ],
-
         'user_request_name' => [
             'searchable' => true,
             'search_relation' => false,
@@ -24,7 +23,7 @@ class PettyCash extends MyModel
             'relation_field' => 'user.name',
         ],
         'amount' => [
-            'searchable' => true,
+            'searchable' => false,
             'search_relation' => false,
         ],
         'no_trx' => [
@@ -36,8 +35,8 @@ class PettyCash extends MyModel
             'search_relation' => false,
         ],
         'created_by_name' => [
-            'searchable' => true,
-            'search_relation' => true,
+            'searchable' => false,
+            'search_relation' => false,
             'relation_name' => 'create_by',
             'relation_field' => 'name',
         ],

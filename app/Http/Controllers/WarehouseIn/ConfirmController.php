@@ -27,8 +27,7 @@ class ConfirmController extends Controller
             array('title' => 'Remarks', 'field' => 'remark'),
             array('title' => 'File', 'field' => 'file'),
             array('title' => 'Status', 'field' => 'status_name', 'type' => 'html'),
-            array('title' => 'Created By', 'field' => 'created_by_name'),
-            array('title' => 'Created At', 'field' => 'created_at'),
+            array('title' => 'Created At', 'field' => 'created_at_date'),
         ];
 
         $config = [

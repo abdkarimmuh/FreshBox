@@ -45,7 +45,7 @@
                                                 </td>
                                                 <td width="2%">:</td>
                                                 <td width="40%">
-                                                    {{ pettyCash.no_request }}
+                                                    {{ pettyCash.no_trx }}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -126,7 +126,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in details">
+                                <tr
+                                    v-for="(item, index) in details"
+                                    v-bind:key="index"
+                                >
                                     <td class="text-center">{{ index + 1 }}</td>
                                     <td class="text-left">
                                         {{ item.item_name }}

@@ -46,7 +46,7 @@ class PettyCashResource extends JsonResource
             'bank_account' => $bank_account,
             'amount' => $this->amount,
             'terbilang' => Terbilang::make($this->RequestFinance->total).' rupiah',
-            'no_request' => $this->no_trx,
+            'no_trx' => $this->no_trx,
             'updated_by_name' => $this->updated_by_name,
             'created_by_name' => $this->created_by_name,
             'created_at' => $this->created_at->formatLocalized('%d %B %Y'),

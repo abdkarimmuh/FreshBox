@@ -41,6 +41,18 @@ class DeliveryOrder extends MyModel
             'searchable' => true,
             'search_relation' => false,
         ],
+        'pic_qc_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'picqc',
+            'relation_field' => 'name',
+        ],
+        'driver_name' => [
+            'searchable' => true,
+            'search_relation' => true,
+            'relation_name' => 'driver',
+            'relation_field' => 'name',
+        ],
         'customer_name' => [
             'searchable' => true,
             'search_relation' => true,
@@ -60,7 +72,6 @@ class DeliveryOrder extends MyModel
             'relation_field' => 'name',
         ],
     ];
-
 
     public function sales_order()
     {
@@ -135,5 +146,4 @@ class DeliveryOrder extends MyModel
             return 'Status NotFound';
         }
     }
-
 }

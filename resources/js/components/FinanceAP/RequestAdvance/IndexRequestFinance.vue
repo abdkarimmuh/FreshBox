@@ -44,18 +44,18 @@ export default {
                     filterable: true
                 },
                 {
-                    title: "Shipping Address",
-                    field: "shipping_name",
-                    filterable: true
-                },
-                {
                     title: "Status",
                     field: "status_name",
                     type: "html"
                 },
                 {
-                    title: "Created By",
-                    field: "created_by_name",
+                    title: "Shipping Address",
+                    field: "shipping_name",
+                    filterable: true
+                },
+                {
+                    title: "Created At",
+                    field: "created_at",
                     filterable: true
                 }
             ],

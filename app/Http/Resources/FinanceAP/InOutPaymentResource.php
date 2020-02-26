@@ -24,7 +24,7 @@ class InOutPaymentResource extends JsonResource
             $file_url = isset($this->file) ? url(Storage::url('public/files/in-out/'.$this->file)) : '';
         } else {
             $finance = RequestFinance::find($this->finance_request_id);
-            $source_data = 'No Request '.$finance->no_request;
+            $source_data = $finance->no_request;
             $file = isset($finance) ? $finance->file : '';
             $file_url = isset($finance) ? url(Storage::url('public/files/request-advance/'.$finance->file)) : '';
         }
@@ -41,7 +41,7 @@ class InOutPaymentResource extends JsonResource
             'type_transaction' => $this->type_html,
             'option_transaction' => $this->option_html,
             'type' => $this->type_transaction,
-            'bank_name' => $this->bank->name,
+            'bank_name' => $this->bank_name,
             'bank_account' => $this->bank_account,
             'amount' => $this->amount,
             'transaction_date' => isset($transaction_date) ? $transaction_date->formatLocalized('%d %B %Y') : '',

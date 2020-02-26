@@ -35,16 +35,11 @@ class ReplenishAPIController extends Controller
     {
         $searchValue = $request->input('query');
         $perPage = $request->perPage;
-        $query = Replenish::dataTableQuery($searchValue)->orderBy('status', 'desc');
-        if ($request->start && $request->end) {
-            $query->whereHas('procurement', function ($q) use ($request) {
-                $q->whereBetween('procurement_no', [$request->start, $request->end]);
-            });
-        }
+        $query = Replenish::dataTableQuery($searchValue);
         if ($searchValue) {
-            $query = $query->take(20)->paginate(20);
+            $query = $query->orderBy('created_at', 'desc')->take(20)->paginate(20);
         } else {
-            $query = $query->paginate($perPage);
+            $query = $query->orderBy('created_at', 'desc')->paginate($perPage);
         }
 
         return ReplenishResource::collection($query);
@@ -119,7 +114,7 @@ class ReplenishAPIController extends Controller
                     'price' => $detail->amount,
                     'ppn' => 0,
                     'total' => $detail->amount,
-                    'supplier_id' => $listProcurement->vendor->id,
+                    'supplier_id' => $vendor->id,
                     'remarks' => '',
                     'created_at' => now(),
                 ];

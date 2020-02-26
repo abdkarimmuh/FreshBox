@@ -6000,22 +6000,21 @@ __webpack_require__.r(__webpack_exports__);
 
       },
       columns: [{
+        title: "No Transaksi",
+        field: "no_trx"
+      }, {
         title: "Status",
         field: "status_name",
-        filterable: true,
         type: "html"
       }, {
         title: "User Request Name",
-        field: "user_request_name",
-        filterable: true
+        field: "user_request_name"
       }, {
         title: "Amount",
-        field: "amount",
-        filterable: false
+        field: "amount"
       }, {
         title: "Created At",
-        field: "created_at",
-        filterable: true
+        field: "created_at"
       }],
       error: {
         code: 403,
@@ -6036,6 +6035,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -6553,6 +6555,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6606,6 +6630,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 this.loadingSubmit = true;
+                console.log("this.procurementId : ", this.procurementId);
                 payload = {
                   listProcId: this.procurementId,
                   remark: this.procurement.remark,
@@ -6613,11 +6638,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   totalAmount: this.procurement.total_amount,
                   userProcId: this.procurement.user_proc_id
                 };
-                _context.prev = 2;
-                _context.next = 5;
+                _context.prev = 3;
+                _context.next = 6;
                 return axios.post("/api/v1/finance-ap/replenish/store", payload);
 
-              case 5:
+              case 6:
                 res = _context.sent;
                 console.log(res);
                 Vue.swal({
@@ -6629,22 +6654,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     name: "finance.replenish"
                   });
                 });
-                _context.next = 15;
+                _context.next = 16;
                 break;
 
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](2);
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](3);
                 this.errors = _context.t0.response.data.errors;
                 console.error(_context.t0.response.data);
                 this.loadingSubmit = false;
 
-              case 15:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 10]]);
+        }, _callee, this, [[3, 11]]);
       }));
 
       function submitForm() {
@@ -6693,7 +6718,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       config: {
         title: "Finance Replenish",
-        action: true,
+        action: false,
         noStartEnd: true,
         base_url: this.$parent.MakeUrl("api/v1/finance-ap/replenish"),
         route_replenish: "finance.replenish.replenish",
@@ -8176,16 +8201,16 @@ __webpack_require__.r(__webpack_exports__);
         field: "dept",
         filterable: true
       }, {
-        title: "Shipping Address",
-        field: "shipping_name",
-        filterable: true
-      }, {
         title: "Status",
         field: "status_name",
         type: "html"
       }, {
-        title: "Created By",
-        field: "created_by_name",
+        title: "Shipping Address",
+        field: "shipping_name",
+        filterable: true
+      }, {
+        title: "Created At",
+        field: "created_at",
         filterable: true
       }],
       error: {
@@ -11150,69 +11175,49 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       config: {
-        title: 'Form Sales Order',
+        title: "Form Sales Order",
         action: true,
-        base_url: this.$parent.MakeUrl('api/v1/marketing/sales_order'),
+        base_url: this.$parent.MakeUrl("api/v1/marketing/sales_order"),
         // route_search: 'admin.marketing.sales_order.index',
-        route_create: 'form_sales_order.create',
-        route_view: 'form_sales_order.print',
-        route_edit: 'form_sales_order.edit',
-        route_multiple_print: 'form_sales_order.multiplePrint'
+        route_create: "form_sales_order.create",
+        route_view: "form_sales_order.print",
+        route_edit: "form_sales_order.edit",
+        route_multiple_print: "form_sales_order.multiplePrint"
       },
       columns: [{
-        title: 'Sales Order NO',
-        field: 'sales_order_no',
+        title: "Sales Order NO",
+        field: "sales_order_no",
         filterable: true
       }, {
-        title: 'Customer',
-        field: 'customer_name',
+        title: "Customer",
+        field: "customer_name",
         filterable: true
       }, {
-        title: 'Source Order',
-        field: 'source_order_name',
+        title: "Source Order",
+        field: "source_order_name",
         filterable: false
       }, {
-        title: 'Fulfillment Date',
-        field: 'fulfillment_date',
+        title: "Fulfillment Date",
+        field: "fulfillment_date",
         filterable: true
       }, {
-        title: 'File',
-        field: 'file_url',
-        type: 'file',
+        title: "File",
+        field: "file_url",
+        type: "file",
         filterable: true
       }, {
-        title: 'Remarks',
-        field: 'remarks',
+        title: "Status",
+        field: "status_name",
+        type: "html",
         filterable: true
       }, {
-        title: 'Status',
-        field: 'status_name',
-        type: 'html',
-        filterable: true
-      }, {
-        title: 'Driver',
-        field: 'driver_name',
-        filterable: true
-      }, {
-        title: 'Created At',
-        field: 'created_at',
-        filterable: true
-      }, {
-        title: 'Created By',
-        field: 'created_by_name',
-        filterable: true
-      }, {
-        title: 'Updated At',
-        field: 'updated_at',
-        filterable: true
-      }, {
-        title: 'Updated By',
-        field: 'updated_by_name',
+        title: "Created At",
+        field: "created_at",
         filterable: true
       }],
       error: {
         code: 403,
-        description: 'You do not have access to this page'
+        description: "You do not have access to this page"
       }
     };
   }
@@ -15302,12 +15307,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -15475,10 +15474,6 @@ __webpack_require__.r(__webpack_exports__);
         title: "Created At",
         field: "created_at",
         filterable: true
-      }, {
-        title: "Created By",
-        field: "created_by_name",
-        filterable: true
       }],
       error: {
         code: 403,
@@ -15541,10 +15536,6 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: "Created At",
         field: "created_at",
-        filterable: true
-      }, {
-        title: "Created By",
-        field: "created_by_name",
         filterable: true
       }],
       error: {
@@ -63322,7 +63313,7 @@ var render = function() {
                               _c("td", { attrs: { width: "40%" } }, [
                                 _vm._v(
                                   "\n                                                " +
-                                    _vm._s(_vm.pettyCash.no_request) +
+                                    _vm._s(_vm.pettyCash.no_trx) +
                                     "\n                                            "
                                 )
                               ])
@@ -63417,7 +63408,7 @@ var render = function() {
                     _c(
                       "tbody",
                       _vm._l(_vm.details, function(item, index) {
-                        return _c("tr", [
+                        return _c("tr", { key: index }, [
                           _c("td", { staticClass: "text-center" }, [
                             _vm._v(_vm._s(index + 1))
                           ]),
@@ -63863,7 +63854,9 @@ var render = function() {
                   "div",
                   [
                     _c("model-list-select", {
-                      class: { "is-invalid": _vm.errors.procurementId },
+                      class: {
+                        "is-invalid": _vm.errors.procurementId
+                      },
                       attrs: {
                         list: _vm.procurements,
                         "option-value": "id",
@@ -64091,7 +64084,13 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v(_vm._s(_vm.procurement.file))]
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.procurement.file) +
+                              "\n                    "
+                          )
+                        ]
                       )
                     ])
                   ])
@@ -64150,7 +64149,13 @@ var render = function() {
                                       "white-space": "nowrap"
                                     }
                                   },
-                                  [_vm._v(_vm._s(item.name))]
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(item.name) +
+                                        "\n                            "
+                                    )
+                                  ]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -64162,7 +64167,13 @@ var render = function() {
                                       "white-space": "nowrap"
                                     }
                                   },
-                                  [_vm._v(_vm._s(item.qty))]
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(item.qty) +
+                                        "\n                            "
+                                    )
+                                  ]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -64174,7 +64185,13 @@ var render = function() {
                                       "white-space": "nowrap"
                                     }
                                   },
-                                  [_vm._v(_vm._s(item.uom))]
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(item.uom) +
+                                        "\n                            "
+                                    )
+                                  ]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -64186,7 +64203,13 @@ var render = function() {
                                       "white-space": "nowrap"
                                     }
                                   },
-                                  [_vm._v(_vm._s(item.confirm_date))]
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(item.confirm_date) +
+                                        "\n                            "
+                                    )
+                                  ]
                                 )
                               ])
                             }),
@@ -64250,7 +64273,11 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_vm._v("Submit")]
+                              [
+                                _vm._v(
+                                  "\n                        Submit\n                    "
+                                )
+                              ]
                             )
                           : _vm._e(),
                         _vm._v(" "),
@@ -75189,56 +75216,27 @@ var render = function() {
                         [
                           _c("thead", [
                             _c("tr", [
-                              _c(
-                                "th",
-                                {
-                                  staticStyle: {
-                                    overflow: "hidden",
-                                    "white-space": "nowrap"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                Item Name\n                            "
-                                  )
-                                ]
-                              ),
+                              _c("th", [
+                                _vm._v(
+                                  "\n                                Item Name\n                            "
+                                )
+                              ]),
                               _vm._v(" "),
-                              _c(
-                                "th",
-                                {
-                                  staticClass: "text-center",
-                                  staticStyle: {
-                                    overflow: "hidden",
-                                    "white-space": "nowrap"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                Qty Assign\n                            "
-                                  )
-                                ]
-                              ),
+                              _c("th", { staticClass: "text-center" }, [
+                                _vm._v(
+                                  "\n                                Qty Assign\n                            "
+                                )
+                              ]),
                               _vm._v(" "),
                               _c("th", { staticClass: "text-center" }, [
                                 _vm._v("UOM Assign")
                               ]),
                               _vm._v(" "),
-                              _c(
-                                "th",
-                                {
-                                  staticClass: "text-center",
-                                  staticStyle: {
-                                    overflow: "hidden",
-                                    "white-space": "nowrap"
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                Qty Buy\n                            "
-                                  )
-                                ]
-                              ),
+                              _c("th", { staticClass: "text-center" }, [
+                                _vm._v(
+                                  "\n                                Qty Buy\n                            "
+                                )
+                              ]),
                               _vm._v(" "),
                               _c("th", { staticClass: "text-center" }, [
                                 _vm._v("UOM Buy")
@@ -75265,22 +75263,13 @@ var render = function() {
                               index
                             ) {
                               return _c("tr", { key: index }, [
-                                _c(
-                                  "td",
-                                  {
-                                    staticStyle: {
-                                      overflow: "hidden",
-                                      "white-space": "nowrap"
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(item.name) +
-                                        "\n                            "
-                                    )
-                                  ]
-                                ),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(item.name) +
+                                      "\n                            "
+                                  )
+                                ]),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
                                   _vm._v(

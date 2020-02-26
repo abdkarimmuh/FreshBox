@@ -74,20 +74,14 @@
                     >
                         <thead>
                             <tr>
-                                <th style="overflow:hidden; white-space:nowrap">
+                                <th>
                                     Item Name
                                 </th>
-                                <th
-                                    class="text-center"
-                                    style="overflow:hidden; white-space:nowrap"
-                                >
+                                <th class="text-center">
                                     Qty Assign
                                 </th>
                                 <th class="text-center">UOM Assign</th>
-                                <th
-                                    class="text-center"
-                                    style="overflow:hidden; white-space:nowrap"
-                                >
+                                <th class="text-center">
                                     Qty Buy
                                 </th>
                                 <th class="text-center">UOM Buy</th>
@@ -101,7 +95,7 @@
                                 v-for="(item, index) in procurement.items"
                                 v-bind:key="index"
                             >
-                                <td style="overflow:hidden; white-space:nowrap">
+                                <td>
                                     {{ item.name }}
                                 </td>
                                 <td class="text-center">

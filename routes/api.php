@@ -188,7 +188,6 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
         Route::group(['prefix' => 'petty-cash'], function () {
             Route::get('/', 'PettyCashController@index');
             Route::get('/show/{id}', 'PettyCashController@show');
-            Route::post('/', 'PettyCashController@store');
         });
     });
 

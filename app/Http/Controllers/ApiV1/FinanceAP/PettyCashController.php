@@ -9,16 +9,22 @@ use Illuminate\Http\Request;
 
 class PettyCashController extends Controller
 {
+    /**
+     * List Data Petty Cash.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function index(Request $request)
     {
         $searchValue = $request->input('query');
         $perPage = $request->perPage;
-
         $query = PettyCash::dataTableQuery($searchValue);
         if ($searchValue) {
-            $query = $query->take(20)->paginate(20);
+            $query = $query->orderBy('created_at', 'desc')->take(20)->paginate(20);
         } else {
-            $query = $query->paginate($perPage);
+            $query = $query->orderBy('created_at', 'desc')->paginate($perPage);
         }
 
         return PettyCashResource::collection($query);
