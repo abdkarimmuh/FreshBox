@@ -93,7 +93,7 @@ class SalesOrder extends MyModel
 
     public function getSoNoWithCustNameAttribute()
     {
-        return $this->sales_order_no.' - '.$this->customer->name;
+        return $this->sales_order_no.' - '.$this->Customer->name;
     }
 
     public function getDriverNameAttribute()
@@ -107,6 +107,7 @@ class SalesOrder extends MyModel
     {
         return $this->hasOne(DeliveryOrder::class);
     }
+
     public function Customer()
     {
         return $this->belongsTo(Customer::class);
