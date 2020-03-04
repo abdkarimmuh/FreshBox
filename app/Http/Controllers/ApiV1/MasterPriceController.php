@@ -70,7 +70,7 @@ class MasterPriceController extends Controller
         $data = PriceGroupCust::where('customer_group_id', $customer->customer_group_id)
             ->where('skuid', $skuid)
             ->where('start_periode', '<=', $fulfillment_date)
-            ->where('end_periode', '>=', $fulfillment_date)->first();
+            ->where('end_periode', '>', $fulfillment_date)->first();
 
         return new PriceResource($data);
     }
