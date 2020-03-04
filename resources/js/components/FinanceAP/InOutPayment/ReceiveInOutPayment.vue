@@ -255,7 +255,7 @@ export default {
                 (item, idx) =>
                     (item.total =
                         parseInt(item.price) +
-                        (parseInt(item.price) * parseInt(item.ppn)) / 100 +
+                        (parseInt(item.price) * parseInt(item.ppn)) / 100 -
                         (parseInt(item.price) * parseInt(item.pph)) / 100)
             );
         },

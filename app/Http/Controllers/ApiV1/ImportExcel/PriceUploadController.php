@@ -94,7 +94,9 @@ class PriceUploadController extends Controller
      */
     public function generateMasterPriceAll()
     {
-        DB::select('call GenGroupMasterPriceAll(?)', array(auth('api')->user()->id));
+        DB::select('call GenGroupMasterPriceAll(?)', array(null));
+        // DB::select('call GenGroupMasterPriceAll(?)', array(auth('api')->user()->id));
+        // DB::select('call GenGroupMasterPriceAll(?)', array(Carbon::now()));
 
         return response()->json([
             'success' => true,

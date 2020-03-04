@@ -155,6 +155,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'ApiV1\\'], function () {
             Route::get('/get-no/{id}', 'RequestFinanceController@getNoRequestAdvance');
             Route::get('/get-bank/{id}', 'RequestFinanceController@getBank');
             Route::get('/get-bank-account/{id}', 'RequestFinanceController@getBankAccount');
+            Route::get('/get-amount/{id}', 'RequestFinanceController@getAmount');
             Route::get('/get-settlement', 'RequestFinanceController@getSettlement');
             Route::get('/show/{id}', 'RequestFinanceController@show');
             Route::post('/update', 'RequestFinanceController@update');

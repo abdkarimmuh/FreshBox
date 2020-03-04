@@ -525,6 +525,7 @@ export default {
          * @returns {number}
          */
         getItems() {
+            this.items = [];
             this.loading = false;
             console.log(this.sales_order.fulfillmentDate);
             axios

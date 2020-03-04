@@ -4777,6 +4777,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4794,6 +4799,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         fileName: "",
         remark: ""
       },
+      amount: "",
       banks: [],
       bank_accounts: [],
       no_requests: [],
@@ -4897,13 +4903,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.in_out_payment.fileName = "";
       this.in_out_payment.remark = "";
     },
-    getNoRequest: function getNoRequest() {
+    minAmount: function minAmount() {
+      if (this.in_out_payment.amount < this.amount) {
+        this.in_out_payment.amount = this.amount;
+      }
+    },
+    getAmount: function getAmount() {
       var _this2 = this;
 
-      this.no_requests = [];
-      this.in_out_payment.source = "";
-      axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/get-no/" + this.in_out_payment.type)).then(function (res) {
-        _this2.no_requests = res.data.data;
+      axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/get-amount/" + this.in_out_payment.source)).then(function (res) {
+        _this2.in_out_payment.amount = res.data.sisa;
+        _this2.amount = res.data.sisa;
         _this2.loading = true;
         console.log(res);
       })["catch"](function (err) {
@@ -4916,14 +4926,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       });
     },
-    getBank: function getBank() {
+    getNoRequest: function getNoRequest() {
       var _this3 = this;
+
+      this.no_requests = [];
+      this.in_out_payment.source = "";
+      axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/get-no/" + this.in_out_payment.type)).then(function (res) {
+        _this3.no_requests = res.data.data;
+        _this3.loading = true;
+        console.log(res);
+      })["catch"](function (err) {
+        if (err.response.status === 403) {
+          _this3.$router.push({
+            name: "inOutPayment"
+          });
+        } else {
+          console.error(err);
+        }
+      });
+    },
+    getBank: function getBank() {
+      var _this4 = this;
+
+      this.getAmount();
 
       if (this.in_out_payment.type == 2 && this.in_out_payment.option == 1) {
         axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/get-bank/" + this.in_out_payment.source)).then(function (res) {
-          _this3.in_out_payment.bank_id = res.data.data.bank_id;
-          _this3.in_out_payment.bank_account = res.data.data.bank_account;
-          _this3.loading = true;
+          _this4.in_out_payment.bank_id = res.data.data.bank_id;
+          _this4.in_out_payment.bank_account = res.data.data.bank_account;
+          _this4.loading = true;
           console.log(res);
         })["catch"](function (err) {
           console.error(err);
@@ -4931,11 +4962,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     getBankAccount: function getBankAccount() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get(this.$parent.MakeUrl("api/v1/finance-ap/request-advance/get-bank-account/" + this.in_out_payment.bank_id)).then(function (res) {
-        _this4.in_out_payment.bank_account = res.data.data;
-        _this4.loading = true;
+        _this5.in_out_payment.bank_account = res.data.data;
+        _this5.loading = true;
         console.log(res);
       })["catch"](function (err) {
         console.error(err);
@@ -4949,7 +4980,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _submitForm = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var _this5 = this;
+        var _this6 = this;
 
         var payload, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -4981,7 +5012,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   title: "Success!",
                   text: "Successfully Insert Data!"
                 }).then(function (next) {
-                  _this5.$router.push({
+                  _this6.$router.push({
                     name: "finance.inOutPayment"
                   });
                 });
@@ -5016,12 +5047,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.createFile(fileData[0]);
     },
     createFile: function createFile(file) {
-      var _this6 = this;
+      var _this7 = this;
 
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        _this6.in_out_payment.file = e.target.result;
+        _this7.in_out_payment.file = e.target.result;
       };
 
       reader.readAsDataURL(file);
@@ -5936,7 +5967,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     updateTotalAmount: function updateTotalAmount() {
       this.detail.map(function (item, idx) {
-        return item.total = parseInt(item.price) + parseInt(item.price) * parseInt(item.ppn) / 100 + parseInt(item.price) * parseInt(item.pph) / 100;
+        return item.total = parseInt(item.price) + parseInt(item.price) * parseInt(item.ppn) / 100 - parseInt(item.price) * parseInt(item.pph) / 100;
       });
     },
     showFile: function showFile(fileUrl, fileName) {
@@ -10566,6 +10597,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getItems: function getItems() {
       var _this4 = this;
 
+      this.items = [];
       this.loading = false;
       console.log(this.sales_order.fulfillmentDate);
       axios.get(this.$parent.MakeUrl("api/v1/master_data/price/customer/" + this.sales_order.customerId + "/" + this.sales_order.fulfillmentDate)).then(function (res) {
@@ -62020,16 +62052,21 @@ var render = function() {
                             },
                             domProps: { value: _vm.in_out_payment.amount },
                             on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+                              input: [
+                                function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.in_out_payment,
+                                    "amount",
+                                    $event.target.value
+                                  )
+                                },
+                                function($event) {
+                                  return _vm.minAmount()
                                 }
-                                _vm.$set(
-                                  _vm.in_out_payment,
-                                  "amount",
-                                  $event.target.value
-                                )
-                              }
+                              ]
                             }
                           }),
                           _vm._v(" "),
@@ -62206,6 +62243,9 @@ var render = function() {
                               "is-invalid": _vm.errors.bank_account
                             },
                             attrs: {
+                              disabled:
+                                _vm.in_out_payment.types == 2 ||
+                                _vm.in_out_payment.options == 1,
                               type: "number",
                               placeholder: "Nomor Rekening",
                               required: ""
@@ -62447,7 +62487,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("label", [
-      _c("b", [_vm._v("Request Date")]),
+      _c("b", [_vm._v("Date")]),
       _vm._v(" "),
       _c("span", { staticStyle: { color: "red" } }, [_vm._v("*")])
     ])

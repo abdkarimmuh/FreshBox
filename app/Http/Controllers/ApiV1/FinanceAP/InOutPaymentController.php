@@ -19,7 +19,7 @@ class InOutPaymentController extends Controller
     {
         $searchValue = $request->input('query');
         $perPage = $request->perPage;
-        $query = InOutPayment::where('status', '>', 1)->dataTableQuery($searchValue);
+        $query = InOutPayment::dataTableQuery($searchValue)->where('status', '>', 1);
         if ($searchValue) {
             $query = $query->orderBy('created_at', 'desc')->take(20)->paginate(20);
         } else {

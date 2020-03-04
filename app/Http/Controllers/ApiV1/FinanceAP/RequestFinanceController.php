@@ -306,4 +306,15 @@ class RequestFinanceController extends Controller
             'data' => $bank_account->bank_account,
         ]);
     }
+
+    public function getAmount($id)
+    {
+        $requestFinance = RequestFinance::find($id);
+
+        return response()->json([
+            'total' => $requestFinance->total,
+            'price' => $requestFinance->price,
+            'sisa' => abs($requestFinance->price - $requestFinance->total),
+        ]);
+    }
 }

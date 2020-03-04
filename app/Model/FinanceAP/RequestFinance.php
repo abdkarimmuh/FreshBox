@@ -12,8 +12,8 @@ class RequestFinance extends MyModel
     use SearchTraits;
     protected $table = 'finance_request';
     protected $fillable = ['status', 'vendor_id', 'master_warehouse_id', 'no_request', 'request_date', 'no_payment', 'confirm_date', 'request_type', 'product_type', 'created_by', 'file', 'created_at', 'updated_at'];
-    protected $dates = ['request_date', 'request_confirm_date'];
-    protected $appends = ['status_html'];
+    protected $dates = ['request_date', 'request_confirm_date', 'price', 'total'];
+    protected $appends = ['status_html', 'user_name'];
 
     protected $columns = [
         'id' => [
@@ -61,6 +61,21 @@ class RequestFinance extends MyModel
         return $total;
     }
 
+    public function getPriceAttribute()
+    {
+        $price = 0;
+        foreach ($this->detail as $detail) {
+            $price += $detail->price;
+        }
+
+        return $price;
+    }
+
+    public function getUserNameAttribute()
+    {
+        return isset($this->vendor) ? $this->vendor->name : '';
+    }
+
     public function scopeCash($q)
     {
         return $q->where('request_type', 1);
@@ -80,7 +95,7 @@ class RequestFinance extends MyModel
         } elseif ($this->status === 3) {
             return '<span class="badge badge-warning">Receive Document</span>';
         } elseif ($this->status === 4) {
-            return '<span class="badge badge-success">Confirm</span>';
+            return '<span class="badge badge-success">Paid</span>';
         } elseif ($this->status === 5) {
             return '<span class="badge badge-primary">Settlement</span>';
         } elseif ($this->status === 6) {

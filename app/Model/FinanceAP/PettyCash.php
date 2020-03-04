@@ -16,12 +16,6 @@ class PettyCash extends MyModel
             'searchable' => false,
             'search_relation' => false,
         ],
-        'user_request_name' => [
-            'searchable' => true,
-            'search_relation' => false,
-            'relation_name' => 'RequestFinance',
-            'relation_field' => 'user.name',
-        ],
         'amount' => [
             'searchable' => false,
             'search_relation' => false,

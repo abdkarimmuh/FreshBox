@@ -19,11 +19,11 @@ class InOutPayment extends MyModel
             'search_relation' => false,
         ],
         'source' => [
-            'searchable' => false,
+            'searchable' => true,
             'search_relation' => false,
         ],
         'no_voucher' => [
-            'searchable' => false,
+            'searchable' => true,
             'search_relation' => false,
         ],
         'bank_name' => [

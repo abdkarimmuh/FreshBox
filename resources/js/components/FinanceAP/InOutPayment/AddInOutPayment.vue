@@ -114,6 +114,7 @@
                                         placeholder="Amount"
                                         class="form-control"
                                         v-model="in_out_payment.amount"
+                                        v-on:input="minAmount()"
                                         required
                                     />
                                     <div
@@ -163,7 +164,7 @@
                         <div class="col-md-3" v-if="in_out_payment.option">
                             <div class="form-group">
                                 <label>
-                                    <b>Request Date</b>
+                                    <b>Date</b>
                                     <span style="color: red;">*</span>
                                 </label>
                                 <div>
@@ -195,6 +196,10 @@
                                 </label>
                                 <div>
                                     <input
+                                        :disabled="
+                                            in_out_payment.types == 2 ||
+                                                in_out_payment.options == 1
+                                        "
                                         type="number"
                                         v-bind:class="{
                                             'is-invalid': errors.bank_account
@@ -326,6 +331,7 @@ export default {
                 fileName: "",
                 remark: ""
             },
+            amount: "",
             banks: [],
             bank_accounts: [],
             no_requests: [],
@@ -425,6 +431,35 @@ export default {
             this.in_out_payment.fileName = "";
             this.in_out_payment.remark = "";
         },
+        minAmount() {
+            if (this.in_out_payment.amount < this.amount) {
+                this.in_out_payment.amount = this.amount;
+            }
+        },
+        getAmount() {
+            axios
+                .get(
+                    this.$parent.MakeUrl(
+                        "api/v1/finance-ap/request-advance/get-amount/" +
+                            this.in_out_payment.source
+                    )
+                )
+                .then(res => {
+                    this.in_out_payment.amount = res.data.sisa;
+                    this.amount = res.data.sisa;
+                    this.loading = true;
+                    console.log(res);
+                })
+                .catch(err => {
+                    if (err.response.status === 403) {
+                        this.$router.push({
+                            name: "inOutPayment"
+                        });
+                    } else {
+                        console.error(err);
+                    }
+                });
+        },
         getNoRequest() {
             this.no_requests = [];
             this.in_out_payment.source = "";
@@ -451,6 +486,7 @@ export default {
                 });
         },
         getBank() {
+            this.getAmount();
             if (
                 this.in_out_payment.type == 2 &&
                 this.in_out_payment.option == 1
