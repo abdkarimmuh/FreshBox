@@ -261,7 +261,9 @@
                                         >
                                     </div>
                                 </th>
-                                <th v-if="config.action">Action</th>
+                                <th v-if="config.action || config.pureAction">
+                                    Action
+                                </th>
                                 <th
                                     v-for="(column, index) in columns"
                                     v-bind:key="index"
@@ -292,7 +294,7 @@
                                     </div>
                                 </td>
                                 <!--Button-->
-                                <td v-if="config.action">
+                                <td v-if="config.action || config.pureAction">
                                     <router-link
                                         v-if="config.route_view"
                                         class="badge badge-primary ml-1 mr-1 mt-1 mb-1"

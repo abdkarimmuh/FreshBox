@@ -13355,6 +13355,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -14688,57 +14690,61 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       config: {
-        title: 'Form Delivery Order',
-        action: true,
-        base_url: this.$parent.MakeUrl('api/v1/warehouse/confirm-delivery-order'),
+        title: "Form Delivery Order",
+        action: false,
+        pureAction: true,
+        base_url: this.$parent.MakeUrl("api/v1/warehouse/confirm-delivery-order"),
         // route_search: 'admin.marketing.sales_order.index',
-        route_confirm: 'confirm_delivery_order.create'
+        route_confirm: "confirm_delivery_order.create"
       },
       columns: [{
-        title: 'Delivery Order No',
-        field: 'delivery_order_no',
+        title: "Delivery Order No",
+        field: "delivery_order_no",
         filterable: true
       }, {
-        title: 'Sales Order NO',
-        field: 'sales_order_no',
+        title: "Sales Order NO",
+        field: "sales_order_no",
         filterable: true
       }, {
-        title: 'Customer',
-        field: 'customer_name',
+        title: "Customer",
+        field: "customer_name",
         filterable: true
       }, {
-        title: 'PIC QC',
-        field: 'pic_qc',
+        title: "PIC QC",
+        field: "pic_qc",
         filterable: false
       }, {
-        title: 'Driver',
-        field: 'driver_name',
+        title: "Driver",
+        field: "driver_name",
         filterable: true
       }, {
-        title: 'DO Date',
-        field: 'do_date',
+        title: "DO Date",
+        field: "do_date",
         filterable: true
-      }, {
-        title: 'Remarks',
-        field: 'remarks',
+      }, // {
+      //     title: "Remarks",
+      //     field: "remarks",
+      //     filterable: true
+      // },
+      {
+        title: "Status",
+        field: "status_name",
+        type: "html",
         filterable: true
-      }, {
-        title: 'Status',
-        field: 'status_name',
-        type: 'html',
-        filterable: true
-      }, {
-        title: 'Created At',
-        field: 'created_at',
-        filterable: true
-      }, {
-        title: 'Created By',
-        field: 'created_by_name',
-        filterable: true
-      }],
+      } // {
+      //     title: "Created At",
+      //     field: "created_at",
+      //     filterable: true
+      // },
+      // {
+      //     title: "Created By",
+      //     field: "created_by_name",
+      //     filterable: true
+      // }
+      ],
       error: {
         code: 403,
-        description: 'You do not have access to this page'
+        description: "You do not have access to this page"
       }
     };
   }
@@ -14767,59 +14773,62 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       config: {
-        title: 'Form Delivery Order',
+        title: "Form Delivery Order",
         action: true,
-        base_url: this.$parent.MakeUrl('api/v1/warehouse/delivery_order'),
+        base_url: this.$parent.MakeUrl("api/v1/warehouse/delivery_order"),
         // route_search: 'admin.marketing.sales_order.index',
-        route_create: 'delivery_order.create',
-        route_view: 'delivery_order.print',
-        route_multiple_print: 'delivery_order.multiplePrint'
+        route_create: "delivery_order.create",
+        route_view: "delivery_order.print",
+        route_multiple_print: "delivery_order.multiplePrint"
       },
       columns: [{
-        title: 'Delivery Order No',
-        field: 'delivery_order_no',
+        title: "Delivery Order No",
+        field: "delivery_order_no",
         filterable: true
       }, {
-        title: 'Sales Order NO',
-        field: 'sales_order_no',
+        title: "Sales Order NO",
+        field: "sales_order_no",
         filterable: true
       }, {
-        title: 'Customer',
-        field: 'customer_name',
+        title: "Customer",
+        field: "customer_name",
         filterable: true
       }, {
-        title: 'PIC QC',
-        field: 'pic_qc',
+        title: "PIC QC",
+        field: "pic_qc",
         filterable: false
       }, {
-        title: 'Driver',
-        field: 'driver_name',
+        title: "Driver",
+        field: "driver_name",
         filterable: true
       }, {
-        title: 'DO Date',
-        field: 'do_date',
+        title: "DO Date",
+        field: "do_date",
         filterable: true
-      }, {
-        title: 'Remarks',
-        field: 'remarks',
+      }, // {
+      //     title: 'Remarks',
+      //     field: 'remarks',
+      //     filterable: true,
+      // },
+      {
+        title: "Status",
+        field: "status_name",
+        type: "html",
         filterable: true
-      }, {
-        title: 'Status',
-        field: 'status_name',
-        type: 'html',
-        filterable: true
-      }, {
-        title: 'Created At',
-        field: 'created_at',
-        filterable: true
-      }, {
-        title: 'Created By',
-        field: 'created_by_name',
-        filterable: true
-      }],
+      } // {
+      //     title: "Created At",
+      //     field: "created_at",
+      //     filterable: true
+      // },
+      // {
+      //     title: "Created By",
+      //     field: "created_by_name",
+      //     filterable: true
+      // }
+      ],
       error: {
         code: 403,
-        description: 'You do not have access to this page'
+        description: "You do not have access to this page"
       }
     };
   }
@@ -72934,8 +72943,12 @@ var render = function() {
                                     ])
                                   : _vm._e(),
                                 _vm._v(" "),
-                                _vm.config.action
-                                  ? _c("th", [_vm._v("Action")])
+                                _vm.config.action || _vm.config.pureAction
+                                  ? _c("th", [
+                                      _vm._v(
+                                        "\n                                Action\n                            "
+                                      )
+                                    ])
                                   : _vm._e(),
                                 _vm._v(" "),
                                 _vm._l(_vm.columns, function(column, index) {
@@ -73047,7 +73060,7 @@ var render = function() {
                                       ])
                                     : _vm._e(),
                                   _vm._v(" "),
-                                  _vm.config.action
+                                  _vm.config.action || _vm.config.pureAction
                                     ? _c(
                                         "td",
                                         [
