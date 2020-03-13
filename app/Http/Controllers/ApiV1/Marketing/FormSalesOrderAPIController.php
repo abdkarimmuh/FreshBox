@@ -28,7 +28,8 @@ class FormSalesOrderAPIController extends Controller
         $perPage = $request->perPage;
         $query = SalesOrder::dataTableQuery($searchValue);
         if ($request->start && $request->end) {
-            $query->whereBetween('sales_order_no', [$request->start, $request->end]);
+            $query->whereBetween(DB::raw("DATE_FORMAT(fulfillment_date, '%Y-%m-%d')"), [$request->start, $request->end]);
+            // $query->whereBetween('sales_order_no', [$request->start, $request->end]);
         }
         if ($searchValue) {
             $query = $query->orderBy('sales_order_no', 'desc')->take(20)->paginate(20);

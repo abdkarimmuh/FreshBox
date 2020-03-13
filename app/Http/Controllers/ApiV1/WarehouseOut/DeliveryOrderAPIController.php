@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\ApiV1\WarehouseOut;
 
-use App\Http\Resources\SalesOrderResource;
-use App\Model\Marketing\SalesOrder;
-use App\Model\Warehouse\DeliveryOrderDetail;
 use Carbon\Carbon;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Warehouse\DeliveryOrderResource;
-use App\Model\Warehouse\DeliveryOrder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use App\Model\Marketing\SalesOrder;
+use App\Http\Controllers\Controller;
+use App\Model\Warehouse\DeliveryOrder;
+use App\Http\Resources\SalesOrderResource;
+use App\Model\Warehouse\DeliveryOrderDetail;
+use App\Http\Resources\CreateDeliveryOrderResource;
+use App\Http\Resources\Warehouse\DeliveryOrderResource;
 
 class DeliveryOrderAPIController extends Controller
 {
@@ -44,7 +45,8 @@ class DeliveryOrderAPIController extends Controller
      */
     public function create()
     {
-        return SalesOrderResource::collection(SalesOrder::where('status', '<=',  3)->orderBy('sales_order_no','asc')->get());
+        return CreateDeliveryOrderResource::collection(SalesOrder::where('status', '<=',  3)->orderBy('sales_order_no','desc')
+                    ->get());
     }
 
 

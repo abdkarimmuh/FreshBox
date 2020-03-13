@@ -60,11 +60,11 @@
                         field: 'uom_name',
                         filterable: true,
                     },
-                    {
-                        title: 'Price / each',
-                        field: 'item_price',
-                        filterable: true,
-                    },
+                    // {
+                    //     title: 'Price / each',
+                    //     field: 'item_price',
+                    //     filterable: true,
+                    // },
                     {
                         title: 'Type Price',
                         field: 'customer_group_name',
@@ -84,22 +84,23 @@
                         title: 'Quantity',
                         field: 'qty_do',
                         filterable: true,
-                    },
-                    {
-                        title: 'Total Amount',
-                        field: 'total_amount',
-                        filterable: true,
-                    },
-                    {
-                        title: 'Disc',
-                        field: 'amount_disc',
-                        filterable: true,
-                    },
-                    {
-                        title: 'Total Amount (After Disc)',
-                        field: 'total_amount',
-                        filterable: true,
                     }
+                    // ,
+                    // {
+                    //     title: 'Total Amount',
+                    //     field: 'total_amount',
+                    //     filterable: true,
+                    // },
+                    // {
+                    //     title: 'Disc',
+                    //     field: 'amount_disc',
+                    //     filterable: true,
+                    // },
+                    // {
+                    //     title: 'Total Amount (After Disc)',
+                    //     field: 'total_amount',
+                    //     filterable: true,
+                    // }
 
                 ],
                 error:
