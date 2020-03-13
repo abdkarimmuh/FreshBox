@@ -534,6 +534,12 @@
 import LoadingTable from "./partials/LoadingTable";
 import StislaPagination from "./partials/StislaPagination";
 import { ModelListSelect } from "vue-search-select";
+import VueMoment from 'vue-moment'
+import moment from 'moment-timezone'
+
+Vue.use(VueMoment, {
+    moment,
+})
 
 export default {
     components: { LoadingTable, StislaPagination, ModelListSelect },
@@ -553,7 +559,7 @@ export default {
             },
             params: {
                 query: null,
-                start: null,
+                start: '',
                 page: 1,
                 end: null,
                 perPage: 5
@@ -564,6 +570,10 @@ export default {
         await this.getData();
         this.getCustomerGroup();
         this.user = AuthUser;
+
+        this.params.start = moment().add(-1, 'days');
+        this.params.end = moment();
+        console.log(moment() | moment("dddd, MMMM Do YYYY, h:mm:ss a"));
     },
     methods: {
         async search() {

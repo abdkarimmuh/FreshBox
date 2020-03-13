@@ -10,6 +10,13 @@ import { ModelListSelect } from 'vue-search-select';
 import 'vue-search-select/dist/VueSearchSelect.css'
 import 'sweetalert2/dist/sweetalert2.css';
 import 'sweetalert2/dist/sweetalert2.all.js';
+// import Vue from 'vue'
+// import VueMoment from 'vue-moment'
+// import moment from 'moment-timezone'
+
+// Vue.use(VueMoment, {
+//     moment,
+// })
 
 const options = {
     name: '_blank',
