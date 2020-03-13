@@ -3,11 +3,12 @@
 namespace App\Exports;
 
 use App\DeliveryOrder;
-use App\Http\Resources\Report\ReportSOResource;
-use App\Model\Warehouse\DeliveryOrderDetail;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
+use App\Model\Warehouse\DeliveryOrderDetail;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use App\Http\Resources\Report\ReportSOResource;
 
 class ReportSOExport implements FromView
 {

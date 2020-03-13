@@ -20,7 +20,7 @@
                                 <i class="fas fa-plus"></i>
                             </router-link>
                             <a
-                                :href="config.url_export"
+                                @click="exportSO()"
                                 class="btn btn-danger ml-2"
                                 style="color: white"
                                 v-if="config.export_excel"
@@ -571,9 +571,8 @@ export default {
         this.getCustomerGroup();
         this.user = AuthUser;
 
-        this.params.start = moment().add(-1, 'days');
-        this.params.end = moment();
-        console.log(moment() | moment("dddd, MMMM Do YYYY, h:mm:ss a"));
+        this.params.start = moment().add(-1, 'days').format('YYYY-MM-DD');
+        this.params.end = moment().format('YYYY-MM-DD');
     },
     methods: {
         async search() {
@@ -842,7 +841,11 @@ export default {
                 imageAlt: "Custom image"
             });
             console.log(fileUrl);
+        },
+        exportSO() {
+            window.location.href = '/admin/report/report-so/export?start=' + this.params.start + '&end=' + this.params.end;
         }
+
     },
     computed: {
         selectAll: {
