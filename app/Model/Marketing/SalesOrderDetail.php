@@ -148,8 +148,8 @@ class SalesOrderDetail extends MyModel
 
     public function getTanggalAttribute()
     {
-        if (isset($this->SalesOrder->created_at)) {
-            return $this->SalesOrder->created_at->formatLocalized('%m/%d/%Y') ?? null;
+        if (isset($this->SalesOrder->fulfillment_date)) {
+            return $this->SalesOrder->fulfillment_date->formatLocalized('%m/%d/%Y') ?? null;
         } else {
             return null;
         }
