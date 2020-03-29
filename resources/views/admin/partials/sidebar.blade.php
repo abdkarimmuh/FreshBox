@@ -50,6 +50,10 @@
         <li class="dropdown {{ request()->segment(2) == 'warehouseIn' ? ' active' : '' }}">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-warehouse"></i><span>Warehouse In</span></a>
             <ul class="dropdown-menu">
+                <li class="{{ request()->route()->getName() == 'admin.warehouseIn.shippinglable.index' ? ' active' : '' }}">
+                    <a class="nav-link"
+                       href="{{route('admin.warehouseIn.shippinglable.index')}}"><span>Shipping Label</span></a>
+                </li>
                 <li class="{{ request()->route()->getName() == 'admin.warehouseIn.confirm.index' ? ' active' : '' }}">
                     <a class="nav-link"
                        href="{{route('admin.warehouseIn.confirm.index')}}"><span>Confirm Incoming Items</span></a>

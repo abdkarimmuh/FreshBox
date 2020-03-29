@@ -25,7 +25,8 @@ class SalesOrder extends MyModel
         'created_by_name',
         'status_name',
         'so_no_with_cust_name',
-        'driver_name',
+        'driver_name'
+
     ];
     protected $fillable = [
         'sales_order_no',

@@ -72,6 +72,11 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/create', 'WarehouseIn\ConfirmController@create')->name('create');
             Route::get('/show/{id}', 'WarehouseIn\ConfirmController@show')->name('show');
         });
+        Route::name('shippinglable.')->prefix('shippinglable')->group(function () {
+            Route::get('/', 'ShipingLabelcontroller@index')->name('index');
+            Route::get('/show/{id}', 'ShipingLabelcontroller@show')->name('show');
+        });
+
         Route::name('packageItem.')->prefix('packageItem')->group(function () {
             // Route::get('/', 'WarehouseIn\ConfirmController@index')->name('index');
             // Route::get('/create', 'WarehouseIn\ConfirmController@create')->name('create');
