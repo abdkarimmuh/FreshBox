@@ -17,20 +17,17 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div
-                            class="col-md-6"
-                            v-for="(item, index) in so_detail"
-                            v-bind:key="index"
+                            v-for="(item, index) in do_detail"
+                            :key="index"
+                            class="col-md-4"
                         >
-                            <div class="mb-4">
-                                <img
-                                    style="width: 125px; height: 25px; object-fit: contain;"
-                                    src="http://freshbox.tetambastudio.com/assets/img/logo-freshbox.png"
-                                />
-                                <div class="text">
-                                    {{ item.sales_order }}
-                                </div>
-                                <div class="text">{{ item.item }}</div>
-                            </div>
+                            <p>{{ item.fullfilment_date }}</p>
+                            <barcode
+                                v-bind:value="item.barcode"
+                                format="CODE39"
+                            >
+                                Show this if the rendering fails.
+                            </barcode>
                         </div>
                     </div>
                 </div>
@@ -47,7 +44,7 @@
 export default {
     data() {
         return {
-            so_detail: [],
+            do_detail: [],
             loading: false
         };
     },
@@ -65,8 +62,9 @@ export default {
                     { params: payload }
                 )
                 .then(res => {
-                    this.so_detail = res.data;
+                    this.do_detail = res.data;
                     this.loading = true;
+                    console.log(res);
                 })
                 .catch(e => {
                     if (e.response.status === 500) {

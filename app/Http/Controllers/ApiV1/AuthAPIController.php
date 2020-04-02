@@ -48,6 +48,23 @@ class AuthAPIController extends Controller
      */
     public function login(Request $request)
     {
+    //     if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
+    //         $user = Auth::user();
+    //         $success['token'] = $user->createToken('appToken')->accessToken;
+    //        //After successfull authentication, notice how I return json parameters
+    //         return response()->json([
+    //           'success' => true,
+    //           'token' => $success,
+    //           'user' => $user
+    //       ]);
+    //     } else {
+    //    //if authentication is unsuccessfull, notice how I return json parameters
+    //       return response()->json([
+    //         'success' => false,
+    //         'message' => 'Invalid Email or Password',
+    //     ], 401);
+    //     }
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
@@ -62,12 +79,19 @@ class AuthAPIController extends Controller
             $token = $user->createToken($user->email)->accessToken;
             if (auth()->user()->is_procurement) {
                 return response()->json(['access_token' => $token, 'message' => $success], 200);
-            } else {
-                return response()->json(['error' => 'Account Invalid'], 401);
+            }
+           else{
+                return response()->json([
+                    'access_token' => $token,
+                    'message' => $success,
+                    'user' => $user
+
+                ], 200);
             }
         } else {
             return response()->json(['error' => 'Email or Password Invalid'], 401);
         }
+
     }
 
     /**

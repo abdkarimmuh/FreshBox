@@ -174,6 +174,10 @@
                                                         <td>{{ $row[$column['field']] }}</td>
                                                     @elseif(isset($column['type']) ? $column['type'] === 'price': '')
                                                         <td>{{ format_price($row[$column['field']]) }}</td>
+                                                    @elseif(isset($column['type']) ? $column['type'] === 'barcode': '')
+                                                    <td>
+                                                        {!!DNS1D::getBarcodeSVG($row[$column['field']], 'C39')!!}
+                                                    </td>
                                                     @else
                                                         <td style="overflow:hidden; white-space:nowrap">{{ $row[$column['field']] }}</td>
                                                     @endif

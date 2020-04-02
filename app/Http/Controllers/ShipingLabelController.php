@@ -16,91 +16,30 @@ class ShipingLabelController extends Controller
      */
     public function index(Request $request)
     {
+        $searchValue = $request->input('search');
 
-        $data = DeliveryOrder::orderBy('id','desc')->with(['delivery_order_details.item.Category','customer']);
+        $columns = [
+            array('title' => 'Customer Name', 'field' => 'customer_name'),
+            array('title' => 'Barcode', 'field' => 'delivery_order_no', 'type' => 'barcode'),
+        ];
 
-        if($request->has('page') ? $request->get('page') : 1)
-        {
-            $page    = $request->has('page') ? $request->get('page') : 1;
-            $total   = $data->count();
-            $perPage = 10;
-            $showingTotal  = $page * $perPage;
+        $config = [
+            //Title Required
+            'title' => 'Shipping Label',
+            /*
+             * Route Can Be Null
+             */
+            'route-search' => 'admin.warehouseIn.shippinglable.index',
+        ];
 
-            $currentShowing = $showingTotal>$total ? $total : $showingTotal;
-            $showingStarted = $showingTotal - $perPage;
-            $tableinfo = "Showing $showingStarted to $currentShowing of $total entries" ;
-        }
-
-        $data= $data->paginate($perPage);
-        $data->appends($request->all());
-        return view('admin.shippinglabel.index',compact('data','tableinfo'));
-
+        $query = DeliveryOrder::dataTableQuery($searchValue);
+        $data = $query->paginate(10);
+        return view('admin.crud.index', compact('columns', 'data', 'config'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+       return new DeliveryOrderResource(DeliveryOrder::find($id));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

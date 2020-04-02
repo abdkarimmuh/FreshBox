@@ -28,8 +28,10 @@ import LoadingButton from "./components/Button/LoadingButton";
 import BackButton from "./components/Button/BackButton";
 import LoadingTable from "./components/Template/Table/partials/LoadingTable";
 
+import VueBarcode from 'vue-barcode';
 
 
+Vue.component('barcode', VueBarcode);
 Vue.component('AddWarehouseConfirm', AddWarehouseConfirm);
 Vue.component('index-report-so', IndexReportSO);
 Vue.component('index-report-finance-ar', IndexReportFinanceAR);

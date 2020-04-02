@@ -16,9 +16,8 @@ class PrintLabelResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'sales_order' => $this->sales_order_no.' '.$this->customer_name,
-            'item' => $this->item_name.'-'.$this->skuid.' '.intval($this->qty).' '.$this->uom_name,
+            'fullfilment_date' => $this->sales_order_detail->SalesOrder->fulfillment_date->formatLocalized('%d %B %Y'),
+            'barcode' => $this->delivery_order->delivery_order_no,
         ];
     }
 }

@@ -16,14 +16,14 @@ class PackageItemResource extends JsonResource
     public function toArray($request)
     {
         return [
+
             'id' => $this->id,
-            'item_name' => $this->item_name,
-            'sales_order_no' => $this->sales_order_no,
-            'status_name' => $this->status_name,
-            'qty' => $this->qty,
-            'uom_name' => $this->uom_name,
-            'created_by_name' => $this->created_by_name,
-            'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
+            'no_do' => $this->delivery_order->delivery_order_no,
+            'customer_name' => $this->delivery_order->customer->name,
+            'item_name' => $this->item->name_item,
+            'skuid' => $this->item->skuid,
+            'qty_do' => $this->qty_do,
+            'fullfilment_date' => $this->sales_order_detail->SalesOrder->fulfillment_date->formatLocalized('%d %B %Y'),
         ];
     }
 }

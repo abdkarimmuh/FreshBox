@@ -47,6 +47,42 @@
 <script src="{{ asset('assets/js/nicesrcoll.min.js') }}"></script>
 <script src="{{ asset('assets/js/stisla.js') }}"></script>
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
+{{--
+<script type="text/javascript">
+    $("#select_all").change(function(){
+        var status = this.checked;
+        $('.checkbox').each(function(){
+            this.checked = status;
+            if(this.checked = status){
+                $("#printcheckbox").show();
+             }
+             else{
+                $("#printcheckbox").hide();
+
+             }
+        });
+
+    });
+    $('.checkbox').change(function(){
+        if(this.checked == false){
+            $("#select_all")[0].checked = false;
+        }
+        if ($('.checkbox:checked').length == $('.checkbox').length ){
+            $("#select_all")[0].checked = true;
+
+            $("#printcheckbox").hide();
+
+        }
+       $count = document.querySelectorAll("input:checked").length;
+
+       if($count>0){
+         $("#printcheckbox").show();
+       }
+       else{
+         $("#printcheckbox").hide();
+       }
+    });
+</script> --}}
 
 @stack('js')
 </body>

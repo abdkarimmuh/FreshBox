@@ -20,35 +20,36 @@ export default {
                 route_multiple_print: "warehouseIn.packageItem.printLabel"
             },
             columns: [
+                 {
+                    title: "Barcode",
+                    field: "no_do",
+                    filterable: true,
+                    type: "barcode"
+                },
+                {
+                    title: "Fullfilment Date",
+                    field: "fullfilment_date",
+                    filterable: true
+                },
+                {
+                    title: "Customer Name",
+                    field: "customer_name",
+                    filterable: true
+                },
+                {
+                    title: "SKU ID",
+                    field: "skuid",
+                    filterable: true
+                },
                 {
                     title: "Item Name",
                     field: "item_name",
                     filterable: true
                 },
+
                 {
-                    title: "Sales Order NO",
-                    field: "sales_order_no",
-                    filterable: true
-                },
-                {
-                    title: "Qty",
-                    field: "qty",
-                    filterable: true
-                },
-                {
-                    title: "UOM",
-                    field: "uom_name",
-                    filterable: true
-                },
-                {
-                    title: "Status",
-                    field: "status_name",
-                    type: "html",
-                    filterable: true
-                },
-                {
-                    title: "Created At",
-                    field: "created_at",
+                    title: "Qty DO",
+                    field: "qty_do",
                     filterable: true
                 }
             ],

@@ -24,7 +24,7 @@ class BankAccountController extends Controller
             array('title' => 'Bank Name', 'field' => 'bank_name'),
             array('title' => 'Bank Account', 'field' => 'bank_account'),
             array('title' => 'Created At', 'field' => 'created_at_name'),
-            array('title' => 'Modified At', 'field' => 'updated_at_name'),
+            array('title' => 'Modified At', 'field' => 'updated_at_name')
         ];
 
         $config = [

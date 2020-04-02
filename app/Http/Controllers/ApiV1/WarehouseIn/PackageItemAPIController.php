@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\ApiV1\WarehouseIn;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Warehouse\PackageItemResource;
-use App\Http\Resources\Warehouse\PrintLabelResource;
 use App\Model\Marketing\SalesOrderDetail;
+use App\Model\Warehouse\DeliveryOrderDetail;
 use Symfony\Component\HttpFoundation\Request;
+use App\Http\Resources\Warehouse\PrintLabelResource;
+use App\Http\Resources\Warehouse\PackageItemResource;
 
 class PackageItemAPIController extends Controller
 {
@@ -19,7 +20,7 @@ class PackageItemAPIController extends Controller
     {
         $searchValue = $request->input('query');
         $perPage = $request->perPage;
-        $query = SalesOrderDetail::dataTableQuery($searchValue)->where('status', '>', '3');
+        $query = DeliveryOrderDetail::dataTableQuery($searchValue);
         if ($searchValue) {
             $query = $query->take(20)->paginate(20);
         } else {
@@ -37,11 +38,11 @@ class PackageItemAPIController extends Controller
     public function show(Request $request)
     {
         if (is_array($request->id)) {
-            $soDetail = SalesOrderDetail::whereIn('id', $request->id)->orderBy('created_at', 'desc')->get();
-            $print = PrintLabelResource::collection($soDetail);
+            $doDetail = DeliveryOrderDetail::whereIn('id', $request->id)->orderBy('created_at', 'desc')->get();
+            $print = PrintLabelResource::collection($doDetail);
         } else {
-            $soDetail = SalesOrderDetail::findOrFail($request->id);
-            $print = new PrintLabelResource($soDetail);
+            $doDetail = DeliveryOrderDetail::findOrFail($request->id);
+            $print = new PrintLabelResource($doDetail);
         }
 
         return response()->json($print, 200);

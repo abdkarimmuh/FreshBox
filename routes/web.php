@@ -74,6 +74,9 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         });
         Route::name('shippinglable.')->prefix('shippinglable')->group(function () {
             Route::get('/', 'ShipingLabelcontroller@index')->name('index');
+            // Route::post('/print', 'ShipingLabelcontroller@printsome')->name('printsome');
+            Route::get('/print', 'ShipingLabelcontroller@printsome')->name('printsome');
+            Route::get('/printall', 'ShipingLabelcontroller@printall')->name('printall');
             Route::get('/show/{id}', 'ShipingLabelcontroller@show')->name('show');
         });
 

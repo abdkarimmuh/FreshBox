@@ -455,10 +455,16 @@
                                     v-for="(column, index) in columns"
                                     v-bind:key="index"
                                 >
+
                                     <span
                                         v-html="item[column.field]"
                                         v-if="column.type === 'html'"
                                     ></span>
+                                    <barcode
+                                        v-else-if="column.type === 'barcode'"
+                                        v-bind:value="item[column.field]" format="CODE39">
+                                        Show this if the rendering fails.
+                                    </barcode>
                                     <p v-else-if="column.type === 'file'">
                                         <a
                                             href="#"
