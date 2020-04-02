@@ -45,8 +45,8 @@ class DeliveryOrderAPIController extends Controller
      */
     public function create()
     {
-        return CreateDeliveryOrderResource::collection(SalesOrder::where('status', '<=',  3)->orderBy('sales_order_no','desc')
-                    ->get());
+        return CreateDeliveryOrderResource::collection(SalesOrder::where('status', '<=',  3)->orderBy('sales_order_no', 'desc')
+            ->get());
     }
 
 
@@ -129,5 +129,4 @@ class DeliveryOrderAPIController extends Controller
 
         return 'DO' . ($cut_string_do + 1);
     }
-
 }
