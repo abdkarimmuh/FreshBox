@@ -12,6 +12,7 @@ class Item extends MyModel
     use SoftDeletes;
 
     protected $table = 'master_item';
+    protected $fillable = ['skuid','name_item','uom_id','origin_id','category_id','created_by'];
 
     protected $appends = [
         'created_by_name',

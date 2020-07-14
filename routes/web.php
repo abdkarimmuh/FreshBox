@@ -8,6 +8,8 @@ Route::get('home', function () {
     return redirect(route('admin.dashboard'));
 });
 
+Route::get('/bulkitem','BulkController@bulk_item')->name('bulkitem');
+
 Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
     Route::get('dashboard', 'DashboardController')->name('dashboard');
     Route::get('passport', 'DashboardController@passport')->name('passport');
