@@ -42,6 +42,11 @@ export default {
                     filterable: true
                 },
                 {
+                    title: "PO No.",
+                    field: "no_po",
+                    filterable: true
+                },
+                {
                     title: "File",
                     field: "file_url",
                     type: "file",

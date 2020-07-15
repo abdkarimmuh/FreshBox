@@ -128,7 +128,8 @@
                 header_info: [
                     {
                         title: "Sales Order Date",
-                        field: "fulfillment_date",
+                        // field: "fulfillment_date",
+                        field: "created_at",
                     },
                     {
                         page_break: true,
