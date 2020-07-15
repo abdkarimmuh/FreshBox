@@ -68,6 +68,11 @@ class InvoiceRecap extends MyModel
 
     public function getCustomerNameAttribute()
     {
-        return $this->customer->name;
+        // return $this->customer->name;
+        if (isset($this->customer->name)) {
+            return $this->customer->name;
+        } else {
+            return '';
+        }
     }
 }
