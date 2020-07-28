@@ -84,8 +84,10 @@ class DeliveryOrderAPIController extends Controller
             'pic_qc' => 'required',
         ];
         $request->validate($rules);
+        $getSO = SalesOrder::where('id',  $request->sales_order_id)->first();
+        $doNo =  str_replace("SO","DO", $getSO->sales_order_no);
         $data = [
-            'delivery_order_no' => $this->generateDeliveryOrderNo(),
+            'delivery_order_no' => $doNo,
             'sales_order_id' => $request->sales_order_id,
             'customer_id' => $request->customer_id,
             'do_date' => $request->do_date,
@@ -121,16 +123,6 @@ class DeliveryOrderAPIController extends Controller
      */
     public function generateDeliveryOrderNo()
     {
-        // $year_month = Carbon::now()->format('ym');
-        // $latest_delivery_order = DeliveryOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
-        // $get_last_do_no = isset($latest_delivery_order->delivery_order_no) ? $latest_delivery_order->delivery_order_no : 'DO' . $year_month . '00000';
-        // $cut_string_do = str_replace('DO', '', $get_last_do_no);
-
-        // $getSO = SalesOrder::where('id',  $request->sales_order_id)->first();
-        // $doNo =  str_replace("SO","DO", $getSO->sales_order_no);
-        // return $doNo;
-
-        
         $year_month = Carbon::now()->format('ym');
         $latest_delivery_order = DeliveryOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
         $get_last_do_no = isset($latest_delivery_order->delivery_order_no) ? $latest_delivery_order->delivery_order_no : 'DO' . $year_month . '00000';
