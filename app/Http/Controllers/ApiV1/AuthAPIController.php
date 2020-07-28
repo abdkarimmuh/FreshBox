@@ -77,6 +77,8 @@ class AuthAPIController extends Controller
             $user = Auth::user();
             $success = 'Success Login!';
             $token = $user->createToken($user->email)->accessToken;
+
+        //    dd(auth()->user()->is_procurement);
             if (auth()->user()->is_procurement) {
                 return response()->json(['access_token' => $token, 'message' => $success], 200);
             }
