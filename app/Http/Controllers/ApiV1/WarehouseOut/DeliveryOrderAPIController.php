@@ -126,8 +126,16 @@ class DeliveryOrderAPIController extends Controller
         // $get_last_do_no = isset($latest_delivery_order->delivery_order_no) ? $latest_delivery_order->delivery_order_no : 'DO' . $year_month . '00000';
         // $cut_string_do = str_replace('DO', '', $get_last_do_no);
 
-        $getSO = SalesOrder::where('id',  $request->sales_order_id)->first();
-        $doNo =  str_replace("SO","DO", $getSO->sales_order_no);
-        return $doNo;
+        // $getSO = SalesOrder::where('id',  $request->sales_order_id)->first();
+        // $doNo =  str_replace("SO","DO", $getSO->sales_order_no);
+        // return $doNo;
+
+        
+        $year_month = Carbon::now()->format('ym');
+        $latest_delivery_order = DeliveryOrder::where(DB::raw("DATE_FORMAT(created_at, '%y%m')"), $year_month)->latest()->first();
+        $get_last_do_no = isset($latest_delivery_order->delivery_order_no) ? $latest_delivery_order->delivery_order_no : 'DO' . $year_month . '00000';
+        $cut_string_do = str_replace('DO', '', $get_last_do_no);
+
+        return 'DO' . ($cut_string_do + 1);
     }
 }
