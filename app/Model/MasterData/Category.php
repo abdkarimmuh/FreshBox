@@ -12,6 +12,7 @@ class Category extends MyModel
     use SoftDeletes;
 
     protected $table = 'master_category';
+    protected $fillable = ['name','created_by','created_at','updated_at','updated_at'];
 
     protected $columns = [
         'id' => [

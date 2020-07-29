@@ -9,6 +9,7 @@ Route::get('home', function () {
 });
 
 Route::get('/bulkitem','BulkController@bulk_item')->name('bulkitem');
+Route::get('/bulk_category','BulkController@bulk_category')->name('bulk_category');
 
 Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
     Route::get('dashboard', 'DashboardController')->name('dashboard');
