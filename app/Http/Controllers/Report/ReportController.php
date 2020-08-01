@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers\Report;
 
-use App\Exports\ReportFinanceARExport;
-use App\Exports\ReportPriceUploadExport;
+use Carbon\Carbon;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Exports\ReportDOExport;
 use App\Exports\ReportSOExport;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Report\ReportFinanceARResource;
-use App\Http\Resources\Report\ReportPriceUploadResource;
-use App\Http\Resources\Report\ReportSOResource;
 use App\Model\MasterData\Customer;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ReportFinanceARExport;
+use Illuminate\Contracts\View\Factory;
+use App\Exports\ReportPriceUploadExport;
 use App\Model\MasterData\PriceGroupCust;
 use App\Model\Warehouse\DeliveryOrderDetail;
-use Carbon\Carbon;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Resources\Report\ReportSOResource;
+use App\Http\Resources\Report\ReportFinanceARResource;
+use App\Http\Resources\Report\ReportPriceUploadResource;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ReportController extends Controller
 {
@@ -56,6 +57,30 @@ class ReportController extends Controller
         return view('layouts.vue-view', compact('config'));
     }
 
+    public function reportDO(Request $request)
+    {
+        $soDate = date('Y-m-d');
+        $data = DB::select(DB::raw("
+        SELECT so.sales_order_no AS 'SONO', so.created_at AS 'SODate',
+        do_order.delivery_order_no AS 'DONO' , 
+        do_order.do_date AS 'DODate', cst.name AS 'CustName',
+        cst.customer_code AS 'CUSTID',
+            i.skuid AS 'SKUID', i.name_item AS 'ItemName', do_det.qty_do AS 'QTYDO', u.name AS 'Unit' , IFNULL(NULL, so.no_po) AS 'NOPO'
+        FROM
+                trx_sales_order so,
+                trx_delivery_order do_order,
+                master_customer cst,
+                trx_delivery_order_detail do_det,
+                master_uom u,
+                master_item i
+            WHERE 
+                so.id = do_order.sales_order_id and
+                cst.id = so.customer_id AND do_order.id = do_det.delivery_order_id
+                AND i.skuid = do_det.skuid AND u.id = i.uom_id and so.created_at LIKE  '.$soDate.%'  ;
+                        "));
+                        // dd($data);
+        return view('pure.reportdo', compact('data'));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -138,6 +163,12 @@ class ReportController extends Controller
         $now = Carbon::now();
 
         return Excel::download(new ReportSOExport(), 'Report Sales Order - '.$now.'.xlsx');
+    }
+
+    public function exportDO()
+    {
+        $now = Carbon::now();
+        return Excel::download(new ReportDOExport(), 'Report Sales Order - '.$now.'.xlsx');
     }
 
     /**

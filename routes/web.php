@@ -176,6 +176,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'Report\ReportController@reportSO')->name('index');
             Route::get('/export', 'Report\ReportController@exportSO')->name('export');
         });
+        Route::name('reportdo.')->prefix('report-do')->group(function () {
+            Route::get('/', 'Report\ReportController@reportDO')->name('index');
+            Route::get('/export', 'Report\ReportController@exportDO')->name('export');
+        });
         Route::name('reportFinanceAR.')->prefix('report-finance-ar')->group(function () {
             Route::get('/', 'Report\ReportController@reportFinanceAR')->name('index');
             Route::get('/export', 'Report\ReportController@exportFinanceAR')->name('export');

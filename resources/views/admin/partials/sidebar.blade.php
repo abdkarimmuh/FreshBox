@@ -183,6 +183,11 @@
                 <li class="{{ request()->route()->getName() == 'admin.report.reportso.index' ? ' active' : '' }}">
                     <a class="nav-link" href="{{route('admin.report.reportso.index')}}"><span>Report SO</span></a>
                 </li>
+
+                <li class="{{ request()->route()->getName() == 'admin.report.reportdo.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.report.reportdo.index')}}"><span>Export CSV DO</span></a>
+                </li>
+
                 <li class="{{ request()->route()->getName() == 'admin.report.reportFinanceAR.index' ? ' active' : '' }}">
                     <a class="nav-link"
                        href="{{route('admin.report.reportFinanceAR.index')}}"><span>Report Finance AR</span></a>
