@@ -29,7 +29,14 @@
     @forelse ($data as $row)
         <tr>
             <td>{{ $row->SONO }}</td>
-            <td>{{  date('Y-m-d', strtotime($row->created_at)) }}</td>
+            <td>
+                                        
+                @php
+                    $xyz = strtotime($row->created_at);
+                @endphp
+                
+                {{  date('Y-m-d', $xyz ) }}
+            </td>
             <td>{{ $row->DONO }}</td>
             <td>{{ $row->DODate }}</td>
             <td>{{ $row->CustName }}</td>
