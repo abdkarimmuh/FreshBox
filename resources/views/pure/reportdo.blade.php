@@ -25,6 +25,7 @@
                                 <th>Customer ID</th>
                                 <th>SKUID</th>
                                 <th>Item Name</th>
+                                <th>Qty DO</th>
                                 <th>Unit</th>
                                 <th>No PO</th>
                             </tr>

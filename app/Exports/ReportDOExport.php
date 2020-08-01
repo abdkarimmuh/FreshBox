@@ -34,7 +34,7 @@ class ReportDOExport implements FromView
             WHERE 
                 so.id = do_order.sales_order_id and
                 cst.id = so.customer_id AND do_order.id = do_det.delivery_order_id
-                AND i.skuid = do_det.skuid AND u.id = i.uom_id and so.created_at LIKE  '.$soDate.%'  ;
+                AND i.skuid = do_det.skuid AND u.id = i.uom_id and so.created_at LIKE '$soDate%';
                         "));
 
         return view('admin.export.export_report_do', compact('data'));
