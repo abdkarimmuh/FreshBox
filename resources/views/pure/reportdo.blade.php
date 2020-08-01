@@ -32,14 +32,14 @@
                                 @foreach ($data as $row)
                                 <tr>
                                     <td>{{ $row->SONO }}</td>
-                                    <td>{{ $row->SODate }}</td>
+                                    <td>{{ $row->SODate->format('Y-m-d') }}</td>
                                     <td>{{ $row->DONO }}</td>
                                     <td>{{ $row->DODate }}</td>
                                     <td>{{ $row->CustName }}</td>
                                     <td>{{ $row->CUSTID }}</td>
                                     <td>{{ $row->SKUID }}</td>
                                     <td>{{ $row->ItemName }}</td>
-                                    <td>{{ $row->QTYDO }}</td>
+                                    <td>{{ number_format($row->QTYDO, 2)  }}</td>
                                     <td>{{ $row->Unit }}</td>
                                     <td>{{ $row->NOPO }}</td>
                                 </tr>
