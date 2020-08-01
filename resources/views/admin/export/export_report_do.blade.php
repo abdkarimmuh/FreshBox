@@ -32,7 +32,7 @@
             <td>
                                         
                 @php
-                    $xyz = strtotime($row->created_at);
+                    $xyz = strtotime($row->SODate);
                 @endphp
                 
                 {{  date('Y-m-d', $xyz ) }}
