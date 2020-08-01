@@ -29,7 +29,7 @@
     @forelse ($data as $row)
         <tr>
             <td>{{ $row->SONO }}</td>
-            <td>{{ $row->SODate->format('Y-m-d') }}</td>
+            <td>{{  Carbon\Carbon::parse($row->created_at)->format('Y-m-d') }}</td>
             <td>{{ $row->DONO }}</td>
             <td>{{ $row->DODate }}</td>
             <td>{{ $row->CustName }}</td>
