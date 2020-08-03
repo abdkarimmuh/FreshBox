@@ -60,6 +60,19 @@ class ReportController extends Controller
     public function reportDO(Request $request)
     {
         $soDate = date('Y-m-d');
+        $dataSO = DB::select(DB::raw("
+            SELECT so.id as 'soid', so.sales_order_no AS 'SONO', 
+            do_order.delivery_order_no AS 'DONO' , cst.name AS 'CustName',
+            cst.customer_code AS 'CUSTID',  IFNULL(NULL, so.no_po) AS 'NOPO'
+        FROM
+            trx_sales_order so,Cock
+            trx_delivery_order do_order,
+            master_customer cst
+        WHERE 
+            so.id = do_order.sales_order_id and
+            cst.id = so.customer_id and so.created_at LIKE '$soDate%' ORDER BY so.id desc;
+                        "));
+
         $data = DB::select(DB::raw("
         SELECT so.sales_order_no AS 'SONO', so.created_at AS 'SODate',
         do_order.delivery_order_no AS 'DONO' , 
@@ -79,7 +92,7 @@ class ReportController extends Controller
                 AND i.skuid = do_det.skuid AND u.id = i.uom_id and so.created_at LIKE  '$soDate%'  ORDER BY so.id desc;
                         "));
                         // dd($soDate);
-        return view('pure.reportdo', compact('data'));
+        return view('pure.reportdo', compact('data','dataSO'));
     }
     /**
      * Display a listing of the resource.

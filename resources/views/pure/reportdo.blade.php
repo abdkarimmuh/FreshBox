@@ -8,10 +8,27 @@
                 <h4>Report SO {{ date('Y-m-d') }}</h4>
             </div>
             <div class="card-body">
-                <div class="float-right">
-                   <a href="{{ route('admin.report.reportdo.export') }}" class="btn btn-primary"><i class="fa fa-export"></i> CSV</a>
+                <div class="float-left">
+                   <a href="{{ route('admin.report.reportdo.export', ['soid' => request('soid')]) }}" class="btn btn-primary"><i class="fa fa-download"></i> CSV</a>
                   </div>
+                  <div class="float-right">
+                    <form method="get" action="{{ route('admin.report.reportdo.index', ['soid' => request('soid')]) }}" enctype="multipart/form-data">
+                        <div class="input-group">
 
+                            <select class="form-control select2"  name="soid">
+                                @foreach ($dataSO as $so)
+                                  <option value="{{ $so->soid }}">{{ $so->SONO }}</option>   
+                                @endforeach
+                            </select>
+
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                          </div>
+                        </div>
+                      </form>
+
+                   </div>
+ 
                 <div class="table-responsive">
                     @if (count($data)>0)
                         <table class="table table-striped table-md">

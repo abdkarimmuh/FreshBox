@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Model\MasterData\Uom;
 use App\Model\MasterData\Item;
 use App\Model\MasterData\Category;
+use App\Model\Marketing\SalesOrder;
+use App\Model\Warehouse\DeliveryOrder;
+use App\Model\Marketing\SalesOrderDetail;
+use App\Model\Warehouse\DeliveryOrderDetail;
 
 class BulkController extends Controller
 {
@@ -62,5 +66,48 @@ class BulkController extends Controller
             }
 
             
+        }
+
+        public function storeMultiple(Request $request)
+        {
+            $datenow = date('Y-m-d');
+            $dataSOMultiple = SalesOrder::where('status', 1)->get();
+            // dd($dataSOMultiple);
+            foreach ($dataSOMultiple as $row) {
+
+                $so_details = SalesOrderDetail::where('sales_order_id',  $row->id)->get();
+                // dd($so_details);
+
+                $doNo =  str_replace("SO","DO", $row->sales_order_no);
+                $data = [
+                    'delivery_order_no' => $doNo,
+                    'sales_order_id' => $row->id,
+                    'customer_id' => $row->customer_id,
+                    'do_date' => $row->fulfillment_date,
+                    'driver_id' => 1,
+                    'remark' => '',
+                    'pic_qc' => 2,
+                    'created_by' => 1,
+                ];
+                $delivery_order = DeliveryOrder::create($data);
+
+
+    
+                
+                foreach ($so_details as $row_det) {
+                    $salesOrderDetails[] = [
+                        'delivery_order_id' => $delivery_order->id,
+                        'sales_order_detail_id' => $row_det->id,
+                        'skuid' => $row_det->skuid,
+                        'uom_id' => $row_det->uom_id,
+                        'qty_do' => $row_det->qty,
+                        'created_by' => $row_det->created_by,
+                    ];
+                }
+                SalesOrder::find($data['sales_order_id'])->update(['status' => 4]);
+
+                DeliveryOrderDetail::insert($salesOrderDetails);
+    
+            }
         }
 }

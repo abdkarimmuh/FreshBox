@@ -4,6 +4,8 @@ Route::get('/', function () {
     return redirect(route('admin.dashboard'));
 });
 
+Route::get('/confirmmultiplesodo','BulkController@storeMultiple');
+
 Route::get('home', function () {
     return redirect(route('admin.dashboard'));
 });
