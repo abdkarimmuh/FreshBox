@@ -10,6 +10,7 @@
             <div class="card-body">
                 <div class="float-left">
                    <a href="{{ route('admin.report.reportdo.export', ['soid' => request('soid')]) }}" class="btn btn-primary"><i class="fa fa-download"></i> CSV</a>
+                   <a href="{{ route('confirmmultiplesodo') }}" class="btn btn-primary"><i class="fa fa-check"></i> Confirm Multiple</a>
                   </div>
                   <div class="float-right">
                     <form method="get" action="{{ route('admin.report.reportdo.index', ['soid' => request('soid')]) }}" enctype="multipart/form-data">

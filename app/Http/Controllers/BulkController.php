@@ -90,24 +90,21 @@ class BulkController extends Controller
                     'created_by' => 1,
                 ];
                 $delivery_order = DeliveryOrder::create($data);
-
-
-    
-                
+                SalesOrder::find($data['sales_order_id'])->update(['status' => 4]);
+            
                 foreach ($so_details as $row_det) {
-                    $salesOrderDetails[] = [
+                    DeliveryOrderDetail::create([
                         'delivery_order_id' => $delivery_order->id,
                         'sales_order_detail_id' => $row_det->id,
                         'skuid' => $row_det->skuid,
                         'uom_id' => $row_det->uom_id,
                         'qty_do' => $row_det->qty,
-                        'created_by' => $row_det->created_by,
-                    ];
+                        'created_by' => $row_det->created_by
+                    ]);
+                   
                 }
-                SalesOrder::find($data['sales_order_id'])->update(['status' => 4]);
-
-                DeliveryOrderDetail::insert($salesOrderDetails);
     
             }
+            return redirect()->back();
         }
 }

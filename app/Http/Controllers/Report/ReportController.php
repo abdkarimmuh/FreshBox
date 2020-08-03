@@ -65,7 +65,7 @@ class ReportController extends Controller
             do_order.delivery_order_no AS 'DONO' , cst.name AS 'CustName',
             cst.customer_code AS 'CUSTID',  IFNULL(NULL, so.no_po) AS 'NOPO'
         FROM
-            trx_sales_order so,Cock
+            trx_sales_order so,
             trx_delivery_order do_order,
             master_customer cst
         WHERE 
