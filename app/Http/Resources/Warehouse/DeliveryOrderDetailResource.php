@@ -21,6 +21,7 @@ class DeliveryOrderDetailResource extends JsonResource
             'sales_order_detail_id' => $this->sales_order_detail_id,
             'item_name' => $this->sales_order_detail->item_name,
             'amount_price' => format_price($this->sales_order_detail->amount_price),
+            'total_amount_price' => format_price($this->sales_order_detail->total_amount),
             'qty_order' => $this->sales_order_detail->qty,
             'qty_do' => $this->qty_do,
             'qty_confirm' => $this->qty_confirm,

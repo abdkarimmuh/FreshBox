@@ -40,6 +40,8 @@
                                         <th class="text-center">UOM</th>
                                         <th class="text-center">Qty Order</th>
                                         <th class="text-center">Qty Do</th>
+                                        <th class="text-center">Amount Price</th>
+                                        <th class="text-center">Total Price</th>
                                         <th class="text-center">Qty Confirm</th>
                                         <th class="text-center">Qty Minus</th>
                                         <th class="text-center">Remark Confirm</th>
@@ -53,6 +55,8 @@
                                         <td>{{ orders.uom_name }}</td>
                                         <td>{{ orders.qty_order }}</td>
                                         <td>{{ orders.qty_do }}</td>
+                                        <td>{{ orders.amount_price }}</td>
+                                        <td>{{ orders.total_amount_price }}</td>
                                         <td>
                                             <input
                                                 v-model="qty_confirm[index].qty"
