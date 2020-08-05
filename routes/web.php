@@ -107,6 +107,9 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'DashboardController')->where('any', '.*');
             Route::get('/{any}', 'DashboardController')->where('any', '.*');
         });
+        Route::name('confirm_delivery_order_new.')->prefix('confirm-delivery-order-new')->group(function () {
+            Route::get('/', 'WarehouseNewController@index')->name('index');
+        });
 
         Route::name('returned.')->prefix('returned')->group(function () {
             Route::get('/', 'Warehouse\ReturnedOrderController@index')->name('index');
@@ -182,6 +185,12 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', 'Report\ReportController@reportDO')->name('index');
             Route::get('/export', 'Report\ReportController@exportDO')->name('export');
         });
+
+        Route::name('reportb2b.')->prefix('report-b2b')->group(function () {
+            Route::get('/', 'Report\ReportController@reportb2b')->name('index');
+            Route::get('/export', 'Report\ReportController@exportb2b')->name('export');
+        });
+
         Route::name('reportFinanceAR.')->prefix('report-finance-ar')->group(function () {
             Route::get('/', 'Report\ReportController@reportFinanceAR')->name('index');
             Route::get('/export', 'Report\ReportController@exportFinanceAR')->name('export');

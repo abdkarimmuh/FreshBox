@@ -34,9 +34,9 @@ class InvoiceAPIController extends Controller
         }
 
         if ($searchValue) {
-            $query = $query->orderBy('invoice_no', 'desc')->paginate($perPage);
+            $query = $query->orderBy('created_at', 'desc')->paginate($perPage);
         } else {
-            $query = $query->orderBy('invoice_no', 'desc')->paginate($perPage);
+            $query = $query->orderBy('created_at', 'desc')->paginate($perPage);
         }
 
         return InvoiceOrderResource::collection($query);
@@ -92,7 +92,7 @@ class InvoiceAPIController extends Controller
     public function print(Request $request)
     {
         if (is_array($request->id)) {
-            $inv = InvoiceOrder::whereIn('id', $request->id)->orderBy('invoice_no', 'desc')
+            $inv = InvoiceOrder::whereIn('id', $request->id)->orderBy('created_at', 'desc')
                 ->update(['is_printed' => 1]);
         } elseif ($request->printAll == true) {
             $inv = InvoiceOrder::where('is_printed', 0)
@@ -115,10 +115,10 @@ class InvoiceAPIController extends Controller
     public function show(Request $request)
     {
         if (is_array($request->id)) {
-            $inv = InvoiceOrder::whereIn('id', $request->id)->orderBy('invoice_no', 'desc')->get();
+            $inv = InvoiceOrder::whereIn('id', $request->id)->orderBy('created_at', 'desc')->get();
             $invoice_order = InvoiceOrderResource::collection($inv);
         } elseif ($request->printAll == true) {
-            $inv = InvoiceOrder::where('is_printed', 0)->orderBy('invoice_no', 'desc')->get();
+            $inv = InvoiceOrder::where('is_printed', 0)->orderBy('created_at', 'desc')->get();
             $invoice_order = InvoiceOrderResource::collection($inv);
         } else {
             $inv = InvoiceOrder::findOrFail($request->id);

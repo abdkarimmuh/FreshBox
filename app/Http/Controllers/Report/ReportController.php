@@ -94,6 +94,74 @@ class ReportController extends Controller
                         // dd($soDate);
         return view('pure.reportdo', compact('data','dataSO'));
     }
+
+    public function reportb2b(Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
+
+        // $start = '2020-07-29';
+        // $end = '2020-07-29';
+
+        $data = null;
+        if ($start && $end) {
+            $data = DB::select(DB::raw("
+        SELECT so.sales_order_no AS 'SONO', so.created_at AS 'SODate',
+        do_order.delivery_order_no AS 'DONO' , 
+        do_order.do_date AS 'DODate', cst.name AS 'CustName',
+        cst.customer_code AS 'CUSTID',
+            i.skuid AS 'SKUID', i.name_item AS 'ItemName',so_det.qty AS 'QTYSO',  do_det.qty_do AS 'QTYDO',  so_det.amount_price AS 'Amount', so_det.total_amount as 'Total Amount', u.name AS 'Unit' , IFNULL(NULL, so.no_po) AS 'NOPO'
+        FROM
+                trx_sales_order so,
+               trx_sales_order_detail so_det,
+                trx_delivery_order do_order,
+                master_customer cst,
+                trx_delivery_order_detail do_det,
+                master_uom u,
+                master_item i
+            WHERE 
+                
+					  so.id = so_det.sales_order_id
+					 AND so.id = do_order.sales_order_id
+					 AND so.customer_id = cst.id
+					 AND do_order.id = do_det.delivery_order_id
+					 AND i.skuid = so_det.skuid
+                AND i.skuid = do_det.skuid
+					 AND u.id = i.uom_id and (so.fulfillment_date BETWEEN '$start' AND '$end')
+                "));
+
+        }
+        else{
+            $data = DB::select(DB::raw("
+            SELECT so.sales_order_no AS 'SONO', so.created_at AS 'SODate',
+            do_order.delivery_order_no AS 'DONO' , 
+            do_order.do_date AS 'DODate', cst.name AS 'CustName',
+            cst.customer_code AS 'CUSTID',
+                i.skuid AS 'SKUID', i.name_item AS 'ItemName',so_det.qty AS 'QTYSO',  do_det.qty_do AS 'QTYDO',  so_det.amount_price AS 'Amount', so_det.total_amount as 'Total Amount', u.name AS 'Unit' , IFNULL(NULL, so.no_po) AS 'NOPO'
+            FROM
+                    trx_sales_order so,
+                trx_sales_order_detail so_det,
+                    trx_delivery_order do_order,
+                    master_customer cst,
+                    trx_delivery_order_detail do_det,
+                    master_uom u,
+                    master_item i
+                WHERE 
+                    
+                        so.id = so_det.sales_order_id
+                        AND so.id = do_order.sales_order_id
+                        AND so.customer_id = cst.id
+                        AND do_order.id = do_det.delivery_order_id
+                        AND i.skuid = so_det.skuid
+                    AND i.skuid = do_det.skuid
+                        AND u.id = i.uom_id;
+                "));
+        }
+       
+
+                        return $data;
+        // return view('pure.reportdo', compact('data','dataSO'));
+    }
     /**
      * Display a listing of the resource.
      *

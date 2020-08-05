@@ -63,7 +63,7 @@
                         <li :class="[isActive && 'active']">
                             <a class="nav-link" :href="href" @click="navigate">Package Item</a>
                         </li>
-                    </router-link>
+                    </router-link>web
                 @else
                     <li class="{{ request()->segment(3) == 'packageItem' ? ' active' : '' }}">
                         <a class="nav-link"
@@ -97,6 +97,9 @@
                         <a class="nav-link" href="{{ url('admin/warehouse/confirm-delivery-order') }}"><span>Confirm Delivery Order</span></a>
                     </li>
                 @endif
+                <li class="{{ request()->route()->getName() == 'admin.warehouse.confirm_delivery_order_new' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.warehouse.confirm_delivery_order_new.index')}}"><span>Confirm Delivery New</span></a>
+                </li>
             </ul>
         </li>
         {{--Finance AP--}}
@@ -186,6 +189,10 @@
 
                 <li class="{{ request()->route()->getName() == 'admin.report.reportdo.index' ? ' active' : '' }}">
                     <a class="nav-link" href="{{route('admin.report.reportdo.index')}}"><span>Export CSV DO</span></a>
+                </li>
+
+                <li class="{{ request()->route()->getName() == 'admin.report.reportb2b.index' ? ' active' : '' }}">
+                    <a class="nav-link" href="{{route('admin.report.reportb2b.index')}}"><span>Report B2B</span></a>
                 </li>
 
                 <li class="{{ request()->route()->getName() == 'admin.report.reportFinanceAR.index' ? ' active' : '' }}">

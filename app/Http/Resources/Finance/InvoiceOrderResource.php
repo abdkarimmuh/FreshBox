@@ -31,7 +31,8 @@ class InvoiceOrderResource extends JsonResource
             'do_details' => DeliveryOrderDetailResource::collection($this->delivery_order->delivery_order_details),
             'invoice_date' => $this->invoice_date->formatLocalized('%d %B %Y'),
             'status_name' => $this->status_name,
-            'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
+            // 'created_at' => $this->created_at->formatLocalized('%d %B %Y'),
+            'created_at' => $this->created_at,
             'created_by_name' => $this->created_by_name,
 
         ];
