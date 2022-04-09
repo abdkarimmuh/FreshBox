@@ -25,7 +25,7 @@
     },
     "dependencies": {
         "laravel-vue-datatable": "^0.3.13",
-        "moment": "^2.24.0",
+        "moment": "^2.29.2",
         "sweetalert2": "^9.3.4",
         "vue-barcode": "^1.2.0",
         "vue-bootstrap-datetimepicker": "^5.0.1",
